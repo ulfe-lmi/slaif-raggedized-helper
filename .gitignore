@@ -218,3 +218,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# OAP/private runtime and corpus artifacts
+.codex/
+.oap-state/
+.oap-local/
+runtime.json
+corpus/
+models/
+model-cache/
+benchmark-private/
+eval/private/
+.env.*
+!.env.example

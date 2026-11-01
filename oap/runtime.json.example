@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo_root": "/home/janezp/codex-work/slaif-raggedized-helper",
+  "strategic_home": "/home/janezp/codex-supervision/slaif-raggedized-helper",
+  "github_repository": "ulfe-lmi/slaif-raggedized-helper",
+  "strategic_pane": "%29",
+  "coding_pane": "%30",
+  "activation_enabled": false,
+  "activation_authority_reference": "",
+  "human_stopped": false,
+  "approved_client_commands": [
+    "codex"
+  ],
+  "client_qualification_status": "PENDING",
+  "fresh_context_command": "/new",
+  "fresh_context_delay_seconds": 1.0,
+  "human_allowed_signers": null,
+  "human_signer_identity": null,
+  "agent_client_settings": "preserve existing human-selected clients; no model/provider override"
+}

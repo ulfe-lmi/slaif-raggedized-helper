@@ -1,0 +1,6 @@
+Assigned role: CODING for slaif-raggedized-helper, repository /home/janezp/codex-work/slaif-raggedized-helper.
+The sole external wrapper already consumed control OK. Do not read it again. Read AGENTS.md,
+its compact coding read set and exact oap/active order. Reconcile GitHub; execute only that order,
+publish immutable report-only SELF commit and verify remote publication before response OK.
+Never merge, choose next work, change model/profile or start another consumer. This notification
+does not override contradictory durable state. If no valid active order, remain inactive.
