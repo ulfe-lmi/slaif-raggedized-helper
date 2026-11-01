@@ -1,0 +1,671 @@
+{
+  "schema": 1,
+  "status": "INITIAL_REQUIREMENT_MATRIX_NOT_AN_AUDIT",
+  "requirements": [
+    {
+      "id": "A01",
+      "requirement": "Product and boundaries (PLAN \u00a7\u00a71,12; UPDATE \u00a7\u00a71,12)",
+      "source": "ARCHITECTURE.md#a01",
+      "planned_objectives": [
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A02",
+      "requirement": "Corrected hardware topology (UPDATE \u00a7\u00a71\u20134,6,8)",
+      "source": "ARCHITECTURE.md#a02",
+      "planned_objectives": [
+        "001",
+        "004",
+        "015",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A03",
+      "requirement": "Small service composition (PLAN \u00a7\u00a73,12; UPDATE \u00a78)",
+      "source": "ARCHITECTURE.md#a03",
+      "planned_objectives": [
+        "002",
+        "018",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A04",
+      "requirement": "Licenses and model provenance (PLAN \u00a7\u00a72\u20133; UPDATE \u00a79 LICENSE-01)",
+      "source": "ARCHITECTURE.md#a04",
+      "planned_objectives": [
+        "001",
+        "002",
+        "016",
+        "018",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A05",
+      "requirement": "Source identity, rights and inventory (PLAN \u00a7\u00a75,6.1,10)",
+      "source": "ARCHITECTURE.md#a05",
+      "planned_objectives": [
+        "005",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A06",
+      "requirement": "Structural extraction (PLAN \u00a76.2)",
+      "source": "ARCHITECTURE.md#a06",
+      "planned_objectives": [
+        "006",
+        "016",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A07",
+      "requirement": "Blocks, chunks and original evidence (PLAN \u00a75)",
+      "source": "ARCHITECTURE.md#a07",
+      "planned_objectives": [
+        "005",
+        "006",
+        "013",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A08",
+      "requirement": "Independent token accounting (PLAN \u00a74; UPDATE \u00a7\u00a73,6)",
+      "source": "ARCHITECTURE.md#a08",
+      "planned_objectives": [
+        "002",
+        "006",
+        "007",
+        "013",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A09",
+      "requirement": "Structural chunk budgets (PLAN \u00a76.3)",
+      "source": "ARCHITECTURE.md#a09",
+      "planned_objectives": [
+        "006",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A10",
+      "requirement": "Contextual retrieval algorithm (PLAN \u00a7\u00a76.4\u20136.5)",
+      "source": "ARCHITECTURE.md#a10",
+      "planned_objectives": [
+        "010",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A11",
+      "requirement": "Annotation validation (PLAN \u00a76.7)",
+      "source": "ARCHITECTURE.md#a11",
+      "planned_objectives": [
+        "010",
+        "011",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A12",
+      "requirement": "Resumable jobs and invalidation (PLAN \u00a7\u00a75,6.7; UPDATE \u00a7\u00a73,9 OPS-01)",
+      "source": "ARCHITECTURE.md#a12",
+      "planned_objectives": [
+        "005",
+        "007",
+        "010",
+        "015",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A13",
+      "requirement": "Generator boundary (UPDATE \u00a75)",
+      "source": "ARCHITECTURE.md#a13",
+      "planned_objectives": [
+        "002",
+        "003",
+        "010",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A14",
+      "requirement": "Gateway online contract (UPDATE \u00a7\u00a71,5.2; GATEWAY-01/02/03)",
+      "source": "ARCHITECTURE.md#a14",
+      "planned_objectives": [
+        "001",
+        "003",
+        "014",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A15",
+      "requirement": "Direct offline adapter and cache proof (PLAN \u00a76.6; UPDATE \u00a75.3\u20135.4)",
+      "source": "ARCHITECTURE.md#a15",
+      "planned_objectives": [
+        "001",
+        "003",
+        "004",
+        "010",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A16",
+      "requirement": "Embedding-space contract (PLAN \u00a7\u00a73,6.8; UPDATE \u00a76.1 EMBED-01/02)",
+      "source": "ARCHITECTURE.md#a16",
+      "planned_objectives": [
+        "004",
+        "007",
+        "011",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A17",
+      "requirement": "Lexical and dense retrieval (PLAN \u00a7\u00a74,6.8,7)",
+      "source": "ARCHITECTURE.md#a17",
+      "planned_objectives": [
+        "008",
+        "011",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A18",
+      "requirement": "Immutable snapshots (PLAN \u00a7\u00a75,6.8,10)",
+      "source": "ARCHITECTURE.md#a18",
+      "planned_objectives": [
+        "008",
+        "011",
+        "017",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A19",
+      "requirement": "Fusion and candidate accounting (PLAN \u00a77)",
+      "source": "ARCHITECTURE.md#a19",
+      "planned_objectives": [
+        "008",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A20",
+      "requirement": "Reranker worker (UPDATE \u00a7\u00a73,4,6.2; RERANK-01)",
+      "source": "ARCHITECTURE.md#a20",
+      "planned_objectives": [
+        "004",
+        "012",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A21",
+      "requirement": "Evidence assembly (PLAN \u00a77)",
+      "source": "ARCHITECTURE.md#a21",
+      "planned_objectives": [
+        "013",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A22",
+      "requirement": "Answering and conversation limits (PLAN \u00a77; UPDATE \u00a76.3)",
+      "source": "ARCHITECTURE.md#a22",
+      "planned_objectives": [
+        "003",
+        "013",
+        "014",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A23",
+      "requirement": "Authenticated API and source serving (PLAN \u00a7\u00a710,12; UPDATE \u00a75.2)",
+      "source": "ARCHITECTURE.md#a23",
+      "planned_objectives": [
+        "014",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A24",
+      "requirement": "Authorization and cache isolation (PLAN \u00a710)",
+      "source": "ARCHITECTURE.md#a24",
+      "planned_objectives": [
+        "005",
+        "008",
+        "013",
+        "014",
+        "017",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A25",
+      "requirement": "Extraction/model isolation (PLAN \u00a7\u00a76,10)",
+      "source": "ARCHITECTURE.md#a25",
+      "planned_objectives": [
+        "005",
+        "006",
+        "014",
+        "016",
+        "017",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A26",
+      "requirement": "Privacy and observability (PLAN \u00a710; UPDATE \u00a7\u00a75,6)",
+      "source": "ARCHITECTURE.md#a26",
+      "planned_objectives": [
+        "014",
+        "017",
+        "018",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A27",
+      "requirement": "GPU ownership and transitions (UPDATE \u00a7\u00a73,8; OPS-02)",
+      "source": "ARCHITECTURE.md#a27",
+      "planned_objectives": [
+        "004",
+        "007",
+        "015",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A28",
+      "requirement": "Readiness, admission and concurrency (UPDATE \u00a7\u00a74,6,8; ONLINE-02)",
+      "source": "ARCHITECTURE.md#a28",
+      "planned_objectives": [
+        "012",
+        "014",
+        "015",
+        "018",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A29",
+      "requirement": "Memory/latency qualification (UPDATE \u00a7\u00a74,6.4,9)",
+      "source": "ARCHITECTURE.md#a29",
+      "planned_objectives": [
+        "001",
+        "004",
+        "012",
+        "019",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A30",
+      "requirement": "Optional visual ingestion (PLAN \u00a76.2; UPDATE \u00a7\u00a75,9 GATEWAY-02)",
+      "source": "ARCHITECTURE.md#a30",
+      "planned_objectives": [
+        "016",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A31",
+      "requirement": "Visual answers (PLAN \u00a77; UPDATE \u00a710 E)",
+      "source": "ARCHITECTURE.md#a31",
+      "planned_objectives": [
+        "016",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A32",
+      "requirement": "Evaluation data and held-out discipline (PLAN \u00a7\u00a76.1,11)",
+      "source": "ARCHITECTURE.md#a32",
+      "planned_objectives": [
+        "009",
+        "019",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A33",
+      "requirement": "Retrieval and answer ablations (PLAN \u00a711; UPDATE \u00a79)",
+      "source": "ARCHITECTURE.md#a33",
+      "planned_objectives": [
+        "009",
+        "011",
+        "019",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A34",
+      "requirement": "Corpus updates, deletion and recovery (PLAN \u00a7\u00a75,10,12)",
+      "source": "ARCHITECTURE.md#a34",
+      "planned_objectives": [
+        "005",
+        "017",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A35",
+      "requirement": "Configuration and operators (PLAN \u00a712; UPDATE \u00a7\u00a77\u20138)",
+      "source": "ARCHITECTURE.md#a35",
+      "planned_objectives": [
+        "002",
+        "015",
+        "018",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A36",
+      "requirement": "Early qualification gates (UPDATE \u00a7\u00a79\u201310)",
+      "source": "ARCHITECTURE.md#a36",
+      "planned_objectives": [
+        "001",
+        "002",
+        "003",
+        "004",
+        "019",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A37",
+      "requirement": "Test and publication honesty (PLAN \u00a711; UPDATE \u00a711)",
+      "source": "ARCHITECTURE.md#a37",
+      "planned_objectives": [
+        "002",
+        "009",
+        "017",
+        "018",
+        "019",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A38",
+      "requirement": "Concentrated OAP authority and provenance",
+      "source": "ARCHITECTURE.md#a38",
+      "planned_objectives": [
+        "000",
+        "020"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A39",
+      "requirement": "Readiness, DHA and closure audit",
+      "source": "ARCHITECTURE.md#a39",
+      "planned_objectives": [
+        "000",
+        "020",
+        "021"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    },
+    {
+      "id": "A40",
+      "requirement": "Protected resources and non-delegable actions",
+      "source": "ARCHITECTURE.md#a40",
+      "planned_objectives": [
+        "000",
+        "001",
+        "020",
+        "021"
+      ],
+      "classification": "UNPROVEN",
+      "audited_revision": null,
+      "code_runtime_evidence": [],
+      "positive_tests": [],
+      "negative_tests": [],
+      "limitations": "No independent product audit or runtime qualification performed."
+    }
+  ]
+}

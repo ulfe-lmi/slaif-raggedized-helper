@@ -1,0 +1,58 @@
+# OAP scaffold CI — objective 000-a. Covers the OAP scaffold only (governance tests,
+# protocol harness, check_state); no product code, models, GPU or network services.
+# Read-only, no secrets, GitHub-hosted runners only, immutable action SHA pins.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  oap-tests:
+    name: OAP tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.12', '3.13', '3.14']
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Fail loudly if runner tooling is missing; the DHA signature tests must
+      # never be silently skipped on a runner without ssh-keygen. (Availability gate
+      # only: ssh-keygen has no portable --help; behavior is exercised by the suite.)
+      - name: Check required local tools
+        run: |
+          command -v git >/dev/null
+          command -v ssh-keygen >/dev/null
+          git --version
+
+      - name: Python syntax check
+        run: python -m compileall -q oap tests
+
+      # Synthetic fixtures only: no keys, network, GPU, tmux or model downloads.
+      - name: OAP test suite
+        run: python -m unittest discover -s tests/oap -v
+
+      # Governance/identity check against this exact checkout (active order included).
+      - name: OAP governance check
+        run: python oap/bin/check_state.py --repo-root "$GITHUB_WORKSPACE"

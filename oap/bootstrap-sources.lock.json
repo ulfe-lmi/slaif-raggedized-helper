@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "user_sources": {
+    "PLAN.md": "6cbb9cba6694ccd435435a7c9e0fdd32444c1d2520e5ffa5194b5e3db749b21b",
+    "docs/sources/IMPLEMENTATION-UPDATE-2026-11-01.md": "fd60fbae2a20b58acecef2f97f550366f7a1160abb385eed42499550a3cfb773"
+  },
+  "methodology": {
+    "url": "https://doc.slaif.si/storitve/orchestrated-agentic-programming/concentrated-oap/",
+    "retrieved_date": "2026-11-01",
+    "html_sha256": "a8459ee1eea78d0f0e482a3da9a73f073b886caab2b0cc385a9b50f99dcc3ca5",
+    "redistributed": false
+  },
+  "bootstrap_baseline": {
+    "repository": "ulfe-lmi/slaif-raggedized-helper",
+    "main": "64b2e18d9d58b3073127043937a466d9ed8f266a",
+    "observed_open_prs": 0,
+    "observed_workflows": 0,
+    "observed_rulesets": 0,
+    "claims": "Historical read-only observation; requery at activation."
+  }
+}
