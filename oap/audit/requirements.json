@@ -7,14 +7,28 @@
       "requirement": "Product and boundaries (PLAN \u00a7\u00a71,12; UPDATE \u00a7\u00a71,12)",
       "source": "ARCHITECTURE.md#a01",
       "planned_objectives": [
-        "020"
+        "002",
+        "014",
+        "019",
+        "020",
+        "021"
       ],
       "classification": "UNPROVEN",
       "audited_revision": null,
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 1,
+          "anchor": "product"
+        },
+        {
+          "number": 3,
+          "anchor": "workflows"
+        }
+      ]
     },
     {
       "id": "A02",
@@ -31,7 +45,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 2,
+          "anchor": "decisions"
+        },
+        {
+          "number": 5,
+          "anchor": "deployment"
+        },
+        {
+          "number": 19,
+          "anchor": "gpu-lifecycle"
+        }
+      ]
     },
     {
       "id": "A03",
@@ -47,7 +75,25 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 4,
+          "anchor": "context"
+        },
+        {
+          "number": 5,
+          "anchor": "deployment"
+        },
+        {
+          "number": 6,
+          "anchor": "modules"
+        },
+        {
+          "number": 20,
+          "anchor": "configuration"
+        }
+      ]
     },
     {
       "id": "A04",
@@ -65,7 +111,13 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 24,
+          "anchor": "licensing"
+        }
+      ]
     },
     {
       "id": "A05",
@@ -80,7 +132,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 3,
+          "anchor": "workflows"
+        },
+        {
+          "number": 7,
+          "anchor": "domain"
+        },
+        {
+          "number": 9,
+          "anchor": "ingestion"
+        }
+      ]
     },
     {
       "id": "A06",
@@ -96,7 +162,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 9,
+          "anchor": "ingestion"
+        },
+        {
+          "number": 18,
+          "anchor": "vision"
+        }
+      ]
     },
     {
       "id": "A07",
@@ -113,7 +189,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 7,
+          "anchor": "domain"
+        },
+        {
+          "number": 15,
+          "anchor": "answers"
+        }
+      ]
     },
     {
       "id": "A08",
@@ -131,7 +217,25 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 9,
+          "anchor": "ingestion"
+        },
+        {
+          "number": 11,
+          "anchor": "indexes"
+        },
+        {
+          "number": 14,
+          "anchor": "retrieval"
+        },
+        {
+          "number": 15,
+          "anchor": "answers"
+        }
+      ]
     },
     {
       "id": "A09",
@@ -146,7 +250,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 9,
+          "anchor": "ingestion"
+        },
+        {
+          "number": 10,
+          "anchor": "contextualization"
+        }
+      ]
     },
     {
       "id": "A10",
@@ -161,7 +275,13 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 10,
+          "anchor": "contextualization"
+        }
+      ]
     },
     {
       "id": "A11",
@@ -177,7 +297,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 7,
+          "anchor": "domain"
+        },
+        {
+          "number": 10,
+          "anchor": "contextualization"
+        },
+        {
+          "number": 13,
+          "anchor": "authorization"
+        }
+      ]
     },
     {
       "id": "A12",
@@ -195,7 +329,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 8,
+          "anchor": "storage"
+        },
+        {
+          "number": 10,
+          "anchor": "contextualization"
+        },
+        {
+          "number": 21,
+          "anchor": "recovery"
+        }
+      ]
     },
     {
       "id": "A13",
@@ -212,7 +360,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 6,
+          "anchor": "modules"
+        },
+        {
+          "number": 17,
+          "anchor": "generators"
+        }
+      ]
     },
     {
       "id": "A14",
@@ -229,7 +387,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 16,
+          "anchor": "api"
+        },
+        {
+          "number": 17,
+          "anchor": "generators"
+        },
+        {
+          "number": 23,
+          "anchor": "qualification"
+        }
+      ]
     },
     {
       "id": "A15",
@@ -247,7 +419,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 10,
+          "anchor": "contextualization"
+        },
+        {
+          "number": 17,
+          "anchor": "generators"
+        },
+        {
+          "number": 23,
+          "anchor": "qualification"
+        }
+      ]
     },
     {
       "id": "A16",
@@ -264,7 +450,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 8,
+          "anchor": "storage"
+        },
+        {
+          "number": 11,
+          "anchor": "indexes"
+        },
+        {
+          "number": 23,
+          "anchor": "qualification"
+        }
+      ]
     },
     {
       "id": "A17",
@@ -280,7 +480,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 11,
+          "anchor": "indexes"
+        },
+        {
+          "number": 14,
+          "anchor": "retrieval"
+        }
+      ]
     },
     {
       "id": "A18",
@@ -297,7 +507,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 12,
+          "anchor": "snapshots"
+        },
+        {
+          "number": 21,
+          "anchor": "recovery"
+        }
+      ]
     },
     {
       "id": "A19",
@@ -312,7 +532,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 14,
+          "anchor": "retrieval"
+        },
+        {
+          "number": 23,
+          "anchor": "qualification"
+        }
+      ]
     },
     {
       "id": "A20",
@@ -328,7 +558,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 5,
+          "anchor": "deployment"
+        },
+        {
+          "number": 14,
+          "anchor": "retrieval"
+        },
+        {
+          "number": 16,
+          "anchor": "api"
+        }
+      ]
     },
     {
       "id": "A21",
@@ -343,7 +587,13 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 15,
+          "anchor": "answers"
+        }
+      ]
     },
     {
       "id": "A22",
@@ -360,7 +610,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 15,
+          "anchor": "answers"
+        },
+        {
+          "number": 16,
+          "anchor": "api"
+        }
+      ]
     },
     {
       "id": "A23",
@@ -375,7 +635,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 13,
+          "anchor": "authorization"
+        },
+        {
+          "number": 16,
+          "anchor": "api"
+        },
+        {
+          "number": 20,
+          "anchor": "configuration"
+        }
+      ]
     },
     {
       "id": "A24",
@@ -394,7 +668,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 13,
+          "anchor": "authorization"
+        },
+        {
+          "number": 14,
+          "anchor": "retrieval"
+        },
+        {
+          "number": 22,
+          "anchor": "security"
+        }
+      ]
     },
     {
       "id": "A25",
@@ -413,7 +701,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 9,
+          "anchor": "ingestion"
+        },
+        {
+          "number": 17,
+          "anchor": "generators"
+        },
+        {
+          "number": 22,
+          "anchor": "security"
+        }
+      ]
     },
     {
       "id": "A26",
@@ -430,7 +732,13 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 22,
+          "anchor": "security"
+        }
+      ]
     },
     {
       "id": "A27",
@@ -447,7 +755,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 19,
+          "anchor": "gpu-lifecycle"
+        },
+        {
+          "number": 21,
+          "anchor": "recovery"
+        }
+      ]
     },
     {
       "id": "A28",
@@ -465,7 +783,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 14,
+          "anchor": "retrieval"
+        },
+        {
+          "number": 16,
+          "anchor": "api"
+        },
+        {
+          "number": 19,
+          "anchor": "gpu-lifecycle"
+        }
+      ]
     },
     {
       "id": "A29",
@@ -483,7 +815,13 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 23,
+          "anchor": "qualification"
+        }
+      ]
     },
     {
       "id": "A30",
@@ -498,7 +836,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 18,
+          "anchor": "vision"
+        },
+        {
+          "number": 24,
+          "anchor": "licensing"
+        }
+      ]
     },
     {
       "id": "A31",
@@ -513,7 +861,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 18,
+          "anchor": "vision"
+        },
+        {
+          "number": 23,
+          "anchor": "qualification"
+        }
+      ]
     },
     {
       "id": "A32",
@@ -529,7 +887,13 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 23,
+          "anchor": "qualification"
+        }
+      ]
     },
     {
       "id": "A33",
@@ -546,7 +910,13 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 23,
+          "anchor": "qualification"
+        }
+      ]
     },
     {
       "id": "A34",
@@ -562,7 +932,21 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 8,
+          "anchor": "storage"
+        },
+        {
+          "number": 13,
+          "anchor": "authorization"
+        },
+        {
+          "number": 21,
+          "anchor": "recovery"
+        }
+      ]
     },
     {
       "id": "A35",
@@ -579,7 +963,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 5,
+          "anchor": "deployment"
+        },
+        {
+          "number": 20,
+          "anchor": "configuration"
+        }
+      ]
     },
     {
       "id": "A36",
@@ -598,7 +992,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 23,
+          "anchor": "qualification"
+        },
+        {
+          "number": 25,
+          "anchor": "delivery"
+        }
+      ]
     },
     {
       "id": "A37",
@@ -617,7 +1021,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 23,
+          "anchor": "qualification"
+        },
+        {
+          "number": 25,
+          "anchor": "delivery"
+        }
+      ]
     },
     {
       "id": "A38",
@@ -632,7 +1046,17 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 4,
+          "anchor": "context"
+        },
+        {
+          "number": 25,
+          "anchor": "delivery"
+        }
+      ]
     },
     {
       "id": "A39",
@@ -648,7 +1072,13 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 25,
+          "anchor": "delivery"
+        }
+      ]
     },
     {
       "id": "A40",
@@ -665,7 +1095,23 @@
       "code_runtime_evidence": [],
       "positive_tests": [],
       "negative_tests": [],
-      "limitations": "No independent product audit or runtime qualification performed."
+      "limitations": "No independent product audit or runtime qualification performed.",
+      "architecture_sections": [
+        {
+          "number": 19,
+          "anchor": "gpu-lifecycle"
+        },
+        {
+          "number": 20,
+          "anchor": "configuration"
+        },
+        {
+          "number": 22,
+          "anchor": "security"
+        }
+      ]
     }
-  ]
+  ],
+  "architecture_revision": "2.0",
+  "architecture_sha256": "4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a"
 }

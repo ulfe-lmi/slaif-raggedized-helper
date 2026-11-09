@@ -21,7 +21,7 @@ mapping, access-partitioned v1 indexes, reversible tombstones and file/lock stor
 elaborate the supplied intent and remain reviewable through bounded development work.
 UNVERIFIED RUNTIME: docs/UNCERTAINTIES.md; no invented routes/ports/credentials/model hashes,
 license clearance, measured VRAM/throughput, cache effectiveness or human approval.
-AUTHORITY: current request authorizes scaffold materialization. Operational activation and
+BOOTSTRAP AUTHORITY (historical): the initial request authorized scaffold materialization. Operational activation and
 protected runtime actions are separate. Concentrated standing delegation applies once activated.
 
 ## Methodology
@@ -37,3 +37,22 @@ Full external article is not redistributed; project-specific governance states t
 rules so execution does not depend on accessing the URL. Its retrieved digest is in the source
 lock. The bootstrap was performed directly from existing workspaces using temporary staging,
 not from an invented user-approved ZIP. No archive extraction claim is made.
+
+
+## Architecture revision 2.0 — direct strategic authorship
+
+The human explicitly rejected the initial architecture and requested that the strategic agent
+inspect other local repositories and prepare the replacement itself, without the coding agent.
+The strategic agent authored the full rewrite. Agent-Site, Asset Reservation, Local Coding and
+Slovenian Repair documents supplied examples of architectural exposition, not product scope.
+Original PLAN and UPDATE bytes are unchanged; UPDATE precedence and A01–A40 meanings remain.
+
+The new document makes implementation choices explicit: application services behind API/CLI,
+private reranker IPC and single-process serving baseline; source-span/identity and fingerprint
+contracts; output-before-job-completion and atomic snapshot generation; uniform document access
+partitions with conservative restriction during rebuild; private high-entropy bearer verification;
+validated final-answer delivery with optional progress/result streaming; and owned GPU lifecycle.
+These are strategic engineering elaborations of the supplied requirements, not invented installed
+capabilities or newly attributed human preferences. Full source sections and ADRs state rationale,
+limitations and alternatives. Product code, hardware qualification and new OAP activation are outside
+this documentation task. Existing orders/reports/bootstrap receipts retain historical source hashes.

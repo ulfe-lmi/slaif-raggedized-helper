@@ -1,6 +1,6 @@
-# Executor architecture — revision 1.0
+# Executor architecture — revision 2.0
 
-Source: `ARCHITECTURE.md`; SHA-256: `48809e248ef226607a2bec27de99b995abe15cc2094dd37b819c0d2c065748fc`.
+Source: `ARCHITECTURE.md`; SHA-256: `4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a`.
 This is the operative coding projection of A01–A40. Follow the full source's authority;
 report a real gap and request a bounded source excerpt or corrected projection. Do not
 load the full architecture/roadmap/two input specifications on every coding round.
@@ -88,10 +88,10 @@ One normal answer call, user language, exact technical names, version/contradict
 honesty. No routine rewrite; unresolved follow-up allows bounded rewrite/clarification. At most
 one extra retrieval with total time/token cap. Citation-ID validity does not prove support.
 Authenticated /v1/search, /v1/answer and source/image access; exact schemas ordered before code.
-Principal→server-owned corpus/version scope; user filters narrow only. Proposed local auth is
-hashed bearer-to-scope mapping from protected operator config, no public enrollment or permissive
+Principal→server-owned corpus/version scope; user filters narrow only. Local auth is
+hashed high-entropy bearer-to-scope mapping from protected operator config, no public enrollment or permissive
 default. Gateway identity never replaces RAG-user ACL. Admin jobs/activation private CLI only.
-V1 ACL partition indexes or proved filtering before scoring; no unauthorized text reaches
+V1 uses access-partitioned indexes before scoring; no unauthorized text reaches
 reranker/generator/expansion/cache/diagnostics/source endpoints. Recheck current ACL when serving
 sources and images; rollback cannot resurrect access. Cache scope/policy+question+model+snapshot.
 Sources/queries are hostile data: no tool/shell/network authority, no prompt secrets, approved
@@ -148,3 +148,90 @@ merge; coding never merges, chooses roadmap or authors D1. Every order has H/A/E
 Protect other repos/services/GPUs/credentials/corpora; no live inference, downloads, service change,
 network exposure, destructive data, license exception, tag/deploy without scoped authority.
 Read-only contracts and disposable local tests are allowed. Preserve human agent model/profile.
+
+
+## Concrete implementation contracts from full architecture revision 2.0
+
+V2-01 (full §§4–6,19–20; A02/A03/A20/A28/A35): API/CLI are thin adapters over shared
+application services, typed domain contracts and filesystem/model/supervisor interfaces.
+Use FastAPI/Pydantic and HTTPX adapters, official Sentence Transformers/Transformers model
+configuration, model-specific tokenizer assets, NumPy/bm25s, pdfminer.six and optionally
+license-audited pypdfium2/PDFium. Pin exact compatible versions; package import/config loading
+must not fetch models, execute unpinned remote model code, infer or allocate CUDA.
+Initially one API process owns resident CPU encoding/indexes; a separate private GPU worker
+owns reranking; offline preparation is explicit. API corpus mounts are read-only. Default
+worker transport is permission-restricted Unix-domain HTTP; separate-host transport requires
+explicit authentication/encryption and qualification. Start with one admitted answer pipeline;
+CPU/BLAS threads, per-principal/global queues and GPU work are bounded. Serving does not seize
+GPU ownership or replace existing Qwen supervision. Host/GPU IDs and exact service handles
+are configured; cooperative locks do not isolate arbitrary external CUDA users.
+
+V2-02 (full §§7–8; A05/A07/A12/A16): distinguish logical document, original blob hash,
+metadata-sensitive document revision, blocks, chunks, separate annotations, vectors and
+snapshots. Spans are half-open Unicode code-point offsets into unmodified extracted block
+text; reconstruct exactly and mark inserted separators. Never conflate offsets with bytes,
+PDF coordinates or tokenizer positions. Duplicate bytes retain distinct rights/source identity.
+Fingerprint canonical versioned serialization, not Python hash(). Encoder definition
+(model/tokenizer/pooling/normalization/query policy) is distinct from representation and
+execution precision/device fingerprints. A qualified CPU/GPU pairing is recorded explicitly.
+
+V2-03 (full §§8,12,21; A12/A18/A34): publish a validated/flushed atomic output before marking
+its job complete. Reconcile stale job records from exact valid artifacts; COMPLETE without
+valid output is an error. A timed-out submitted model call can be UNKNOWN_COMPLETION; preserve
+attempt/request identity and require bounded deliberate retry, no exactly-once/cost claim.
+Snapshot core manifest hashes avoid self-reference and bind schema, source/partition membership,
+representation/model/analyzer/precision qualification and every file/row mapping. Build on one
+qualified filesystem; validate with a fresh loader; publish immutable directory; under publisher
+lock compare expected pointer generation then flush/replace current.json. Readers pin one
+snapshot through the request. Keep pinned/retained references out of GC. Current authorization
+is separate and is never rolled back with data. Cross-host transfer stages and validates locally;
+no assumed NFS/SMB or multi-host writer equivalence.
+
+V2-04 (full §§10,13,22; A11/A23/A24/A25): v1 source ACL is uniform per document revision and
+its blocks/pages. Mixed-visibility originals need explicit approved logical units; never expose
+the unsplit original through a narrower unit. All required labels must be held by the principal;
+empty labels mean public source classification, not anonymous API access. Context parent view
+must be compatible with the target before generation, regardless of offline worker filesystem
+privilege. Reject cross-boundary supports; use raw-only chunk on rejected context. Most restrictive
+support permissions can never widen. Do not trust declared support IDs as the sole leak boundary.
+Atomic current policy epoch controls principal revocation and scopes. A source withdrawal/ACL
+tightening blocks its affected snapshot partition before rebuild; selected blocked scope returns
+explicit unavailable, not stale/broader results. Recheck current permission before downstream
+model dispatch and final answer/source/image delivery. Previously authorized delivered data
+cannot be recalled. Cache identity includes principal/effective scope/policy epoch/snapshot/model.
+
+V2-05 (full §§13,16; A23/A24): generate application bearers with at least 256 bits of entropy;
+store SHA-256 verifiers in protected operator configuration, compare in constant time, deliver
+raw value once. Explicit operations search/answer/sources:read plus corpus/version/label scope;
+answer scope must include corresponding citation-source read. Gateway credentials are distinct.
+Remote use needs operator TLS; private listener and no permissive CORS default. Readers cannot
+set trusted labels, paths, model routes, system prompts or process commands. Private CLI manages
+policy/jobs/publication; no public indexing or GPU-management API.
+
+V2-06 (full §§14–17; A14/A20/A21/A22/A23/A28): candidate scoring uses authorized partitions.
+Reserve a configured query budget during reranker-passage qualification, then validate actual
+complete pairs; reject overlong questions/index-policy mismatches, never silently trim evidence.
+Worker request has server request/pair IDs, expected fingerprint and deadline; no caller-selected
+device/model path. Require exactly one finite score for each submitted ID. Missing-stage scores
+and usage are absent/null with reason, never invented zero. Explicit degradation starts disabled
+unless configured/qualified. Gateway failure cannot select direct online inference.
+Public routes: /healthz, /readyz, POST /v1/search, POST /v1/answer, authenticated
+/v1/sources/{revision}, /v1/sources/{revision}/spans/{span_id}, /v1/images/{image_id}.
+Canonical answer is validated final JSON with snapshot, outcome, source registry and bounded
+metrics. Optional public SSE sends status then one validated result/error; no blind upstream
+event or unchecked token/citation relay. Upstream streaming capability is separate. EOF without
+terminal result is failure. Measure upstream TTFT separately from user-visible final-answer time.
+API errors distinguish auth/scope, invalid/oversize input, queue overload, unavailable scope/model,
+downstream failure and deadline; never leak private source existence or raw provider bodies.
+
+V2-07 (full §§19–25; A27/A28/A29/A35/A36/A37/A39): startup/qualification smokes have explicit
+scope/budgets. Routine readiness does not generate expensive inference per poll; it checks live
+ownership/profile/compatibility and applicable qualification. Changed configuration/incarnation
+requires relevant recheck. Cancelling a GPU batch may discard its result only after a kernel
+returns; release capacity when actually available, without cancelling unrelated work. Restore
+prior known-good profile even if new index build failed. Full real qualification, source quality,
+license evidence, ICA and human deployment gates remain separate from mocked/scaffold CI.
+Full §16 supplies detailed API shapes and §§7–8/12 supply data contracts: an implementation order
+must include the needed bounded excerpts if this projection alone does not settle a detail.
+
+V2-08 (full §§7/13; A07/A08/A24): persist annotation input/output token counts with source/availability. Cache query identity preserves case, punctuation and versions; exact validated question text is the baseline.
