@@ -5,11 +5,21 @@ Covers the pinned-dialect metric mapping (including the synthetic
 case), the stop-terminal outcome matrix, the envelope builders and the
 identity fingerprint at unit level (the loopback suite covers the same
 behavior over real HTTP).
+
+003-g boundary regressions: safe finite phase-total arithmetic (both
+reported phases 1e308 ms — individually finite, each converting to
+finite seconds — must yield a finite derived total computed in seconds,
+never an OverflowError/ValidationError) and the preflight admission of
+the EXPLICIT required JSON_MODE capability (honored independently of the
+actual input shape: a constructor-validated required-capability-only
+request refuses on an untested build, and a qualified build accepts it
+without inventing an output format).
 """
 
 from __future__ import annotations
 
 import json
+import math
 
 import pytest
 
@@ -20,6 +30,7 @@ from slaif_raggedized_helper.config import (
     DirectTemplateQualification,
 )
 from slaif_raggedized_helper.model_clients.direct import (
+    DirectNativeGenerator,
     _parse_completion,
     _parse_native_timings,
     _parse_native_usage,
@@ -28,6 +39,7 @@ from slaif_raggedized_helper.model_clients.direct import (
     direct_backend_fingerprint,
 )
 from slaif_raggedized_helper.schema import (
+    Capability,
     CompletionOutcome,
     GeneratorPurpose,
     GeneratorRequest,
@@ -224,6 +236,33 @@ def test_overflow_reported_time_is_unavailable_not_an_exception():
     assert result.timings.total_seconds is None
 
 
+def test_finite_phase_sum_overflow_is_a_safe_finite_total():
+    """003-g: both reported phase times 1e308 ms are individually finite
+    and each converts to finite seconds (1e305), but the millisecond sum
+    overflows before division in unsafe arithmetic. The derived total is
+    computed in SECONDS from the individually validated phase
+    conversions: it must stay finite (2e305 s), the individually valid
+    phase values are retained, TTFT stays unavailable, and no
+    OverflowError/ValidationError may escape — at the mapping level and
+    through the full response parse."""
+    timings = _parse_native_timings({"prompt_ms": 1e308, "predicted_ms": 1e308})
+    assert timings is not None
+    assert timings.prefill_seconds == 1e305
+    assert timings.decode_seconds == 1e305
+    assert timings.total_seconds == 2e305
+    assert math.isfinite(timings.total_seconds)
+    assert timings.ttft_seconds is None
+    doc = make_doc(timings={"prompt_n": 10, "cache_n": 0, "predicted_n": 3,
+                            "prompt_ms": 1e308, "predicted_ms": 1e308})
+    result = parse(doc)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert result.timings.prefill_seconds == 1e305
+    assert result.timings.decode_seconds == 1e305
+    assert result.timings.total_seconds == 2e305
+    assert math.isfinite(result.timings.total_seconds)
+    assert result.timings.ttft_seconds is None
+
+
 def test_timings_map_only_from_reported_fields():
     timings = _parse_native_timings({"prompt_ms": 250.0, "predicted_ms": 750.0})
     assert timings.ttft_seconds is None  # never observed in this dialect
@@ -234,6 +273,47 @@ def test_timings_map_only_from_reported_fields():
     assert _parse_native_timings("nope") is None
     assert _parse_native_timings({}) is None
     assert _parse_native_timings({"prompt_ms": "fast"}) is None
+
+
+# ---------------------------------------------------------------------------
+# 003-g explicit required-capability admission (preflight, no network)
+# ---------------------------------------------------------------------------
+
+def _json_cap_request() -> GeneratorRequest:
+    # Constructor-validated: the model declares TEXT + JSON_MODE and the
+    # request EXPLICITLY requires JSON_MODE while sending no format field
+    # at all (response_format None, no json_schema).
+    model = ModelIdentity(
+        name="synthetic-qwen-native",
+        declared_capabilities=frozenset({Capability.TEXT,
+                                         Capability.JSON_MODE}))
+    return make_request(model=model,
+                        required_capabilities=frozenset({Capability.JSON_MODE}))
+
+
+def test_required_json_mode_capability_is_default_deny_in_preflight():
+    """003-g: the explicit minimum requirement is honored independently
+    of the actual input shape: the constructor-validated
+    required-capability-only request refuses locally (no transport
+    reached) on an untested build, with the fixed safe reason — a model
+    capability declaration alone cannot prove serving-build support."""
+    request = _json_cap_request()
+    assert request.response_format is None
+    assert request.json_schema is None
+    result = DirectNativeGenerator(_config()).generate(request)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "json_schema grammar support is not tested" in (result.error or "")
+    assert result.text is None
+
+
+def test_required_json_mode_capability_qualified_passes_preflight_without_format():
+    """003-g: on a qualified build (json_grammar_tested) the same explicit
+    requirement is NOT refused — and requiring the capability alone does
+    not invent an output format (no format field, no json_schema)."""
+    request = _json_cap_request()
+    qualified = DirectNativeGenerator(
+        _config(capabilities=DirectCapabilities(json_grammar_tested=True)))
+    assert qualified._preflight(request) is None
 
 
 def test_contradictory_reported_breakdown_is_withheld():

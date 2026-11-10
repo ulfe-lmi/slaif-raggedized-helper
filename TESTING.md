@@ -37,6 +37,11 @@ stop-terminal matrix, distinct-facts metric mapping and refusal zero-dispatch;
 003-f: correct metric quantities with a reported 0ms kept as a known zero,
 TTFT unavailable, safe overflow/numeric handling, default-deny unqualified
 JSON/schema admission with qualified positive controls, and contradictory
-evaluated/cache counter withholding; see docs/generator-contract.md). The
+evaluated/cache counter withholding; 003-g: safe finite native phase-total
+arithmetic (both 1e308 ms phases kept finite with the derived total
+computed in seconds, no overflow out of generate()) and explicit required
+JSON_MODE capability admission (zero dispatch while untested, qualified
+positive control without invented format, ordinary TEXT/no-format
+preserved); see docs/generator-contract.md). The
 product CI job runs them alongside
 tests/unit and product lint from a clean locked install.

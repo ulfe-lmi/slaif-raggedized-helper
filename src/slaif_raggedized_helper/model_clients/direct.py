@@ -30,15 +30,21 @@ features remain explicit refusal). This adapter is never an answer
 fallback after a gateway failure/denial.
 
 Optional-control admission (default deny): the requested JSON/schema
-controls (``response_format`` ``json_object``/``json_schema``) are
-inferred from the ACTUAL INPUT SHAPE, not only from caller-required
-capability declarations, and require the explicit
-``json_grammar_tested`` serving-build capability. A documented field is
-not tested grammar support and template qualification alone does not
-prove it: an unqualified JSON/schema request is refused locally BEFORE
-``/apply-template`` or ``/completion`` (zero dispatch), while qualified
-controls preserve the pinned request semantics (``{}`` is any JSON in
-the native reference — not a stronger object-shape guarantee).
+controls are admitted only when the serving build's
+``json_grammar_tested`` capability was actually tested. Both the ACTUAL
+INPUT SHAPE (``response_format`` ``json_object``/``json_schema``) and the
+EXPLICIT MINIMUM REQUIREMENT (``required_capabilities`` containing
+``JSON_MODE``) are honored independently: a constructor-validated
+request may require ``JSON_MODE`` while sending no format field at all.
+A documented field is not tested grammar support, a model capability
+declaration alone cannot prove serving-build support, and template
+qualification alone does not prove it: an unqualified JSON requirement
+or request is refused locally BEFORE ``/apply-template`` or
+``/completion`` (zero dispatch), while qualified controls preserve the
+pinned request semantics (``{}`` is any JSON in the native reference —
+not a stronger object-shape guarantee). A qualified ``JSON_MODE``
+requirement alone does not invent an output format: with no format
+selected the pinned minimal envelope is sent unchanged.
 
 Outcome mapping (fail-closed, pinned dialect): only ``stop: true`` +
 ``truncated: false`` + ``stop_type: "eos"`` + usable nonempty ``content``
@@ -85,16 +91,27 @@ never mixed in:
   PROCESSING duration — not TTFT);
 - ``decode_seconds`` <- ``timings.predicted_ms``/1000 (the reported
   token-generation duration);
-- ``total_seconds`` <- ``(timings.prompt_ms + timings.predicted_ms)``/1000
-  ONLY when both model phases were reported: an explicitly model-scoped
-  derived model-work total, never caller elapsed time.
+- ``total_seconds`` <- the two phase durations summed IN SECONDS
+  (``prompt_ms``/1000 + ``predicted_ms``/1000) ONLY when both model
+  phases were reported: an explicitly model-scoped derived model-work
+  total, never caller elapsed time. The safe input conversion happens
+  first (each phase is individually validated finite nonnegative
+  milliseconds), and the derived sum is then computed in seconds with a
+  finite check: individually finite extreme phases (for example both
+  ``1e308`` ms) convert to finite seconds (``1e305`` each) and the
+  derived total stays finite (``2e305`` s) instead of overflowing the
+  millisecond sum; if a derived total were ever unrepresentable it is
+  explicitly withheld (null) while the individually valid phase values
+  are retained. No ``OverflowError``/``ValidationError`` or nonfinite
+  total may escape ``generate()``; there is no arbitrary physical-time
+  cutoff and no whole-function exception blanket.
 
 A measured reported ``0ms`` is a known zero (0.0), never null; a missing
 or invalid field stays unavailable and must not discard the other
-reported phase. Numeric conversion/arithmetic checks reject bool/NaN/Inf
-and unrepresentable values safely (a reported ``prompt_ms`` of 10**400
-is unavailable data, not an ``OverflowError`` out of ``generate()``);
-the handling is narrow at the input conversion boundary, not a
+reported phase. Numeric conversion checks reject bool/NaN/Inf and
+unrepresentable values safely (a reported ``prompt_ms`` of 10**400 is
+unavailable data, not an ``OverflowError`` out of ``generate()``); the
+handling is narrow at the input conversion boundary, not a
 whole-function exception blanket.
 """
 
@@ -374,6 +391,14 @@ def _parse_native_timings(timings: object) -> TimingMetrics | None:
 
     Caller wall time is never mixed in; absent/invalid/unrepresentable
     fields stay null.
+
+    The derived total is computed in SECONDS from the two individually
+    validated phase conversions (equivalent to dividing each phase by
+    1000 before summing, so the millisecond sum never overflows first)
+    and re-checked for finiteness: an unrepresentable derived total is
+    withheld (null) while the individually valid phase values are
+    retained — never a raw OverflowError/ValidationError out of
+    generate(), never an invented cutoff.
     """
     if not isinstance(timings, dict):
         return None
@@ -381,9 +406,13 @@ def _parse_native_timings(timings: object) -> TimingMetrics | None:
     predicted_ms = _finite_nonneg_number(timings.get("predicted_ms"))
     prefill = prompt_ms / 1000.0 if prompt_ms is not None else None
     decode = predicted_ms / 1000.0 if predicted_ms is not None else None
-    total = ((prompt_ms + predicted_ms) / 1000.0
-             if prompt_ms is not None and predicted_ms is not None
-             else None)
+    total = None
+    if prefill is not None and decode is not None:
+        total = prefill + decode
+        if not math.isfinite(total):
+            # Defensively withhold an unrepresentable derived total;
+            # the individually valid phases are retained.
+            total = None
     if prefill is None and decode is None and total is None:
         return None
     return TimingMetrics(prefill_seconds=prefill, decode_seconds=decode,
@@ -569,13 +598,18 @@ class DirectNativeGenerator:
             if not direct.capabilities.cache_prompt_tested:
                 return ("prompt caching refused: native cache_prompt "
                         "capability not tested on this build")
-        # Optional JSON/schema control admission (default deny): inferred
-        # from the actual input shape, not only from caller-required
-        # capability declarations. Template qualification alone does not
-        # prove grammar support; refuse BEFORE /apply-template or
-        # /completion (zero dispatch) unless the serving build's JSON
-        # grammar capability was actually tested.
-        if request.response_format in ("json_object", "json_schema"):
+        # Optional JSON/schema control admission (default deny): honored
+        # BOTH from the actual input shape (a json_object/json_schema
+        # response_format) and from the explicit minimum requirement
+        # (JSON_MODE in required_capabilities, which a valid request may
+        # carry without any format field). Template qualification and a
+        # model capability declaration alone do not prove serving-build
+        # grammar support; refuse BEFORE /apply-template or /completion
+        # (zero dispatch) unless the serving build's JSON grammar
+        # capability was actually tested.
+        json_shape = request.response_format in ("json_object", "json_schema")
+        json_required = Capability.JSON_MODE in request.required_capabilities
+        if json_shape or json_required:
             if not direct.capabilities.json_grammar_tested:
                 return ("native JSON control refused: json_schema grammar "
                         "support is not tested on this build (default deny)")

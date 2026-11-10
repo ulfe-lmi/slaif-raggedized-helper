@@ -47,11 +47,30 @@ qualifications only, no live model/build):
   wall time and from the unobserved first-token time (TTFT stays null);
 - malformed/canary/error refusals leak no provider bytes; the declared
   identity is stable across requests and responses.
+
+003-g boundary regressions (over real owned-loopback HTTP):
+
+- safe finite phase-total arithmetic: both reported phase times 1e308
+  ms are individually finite (each converting to finite 1e305 s) while
+  the millisecond sum overflows before division in unsafe arithmetic —
+  generate() returns a typed TERMINAL result with the finite derived
+  total computed in seconds (2e305 s), the individually valid phases
+  retained, TTFT still unavailable and no raw
+  OverflowError/ValidationError escaping;
+- explicit required JSON_MODE capability admission: a
+  constructor-validated request that REQUIRES JSON_MODE (declared by
+  the model) while sending no format field at all is refused locally
+  with ZERO recorded requests on an untested build (a model declaration
+  alone cannot prove serving-build support); the qualified positive
+  control dispatches exactly once per path WITHOUT inventing an output
+  format (pinned minimal envelope), and ordinary TEXT/no-format success
+  on an untested build is preserved.
 """
 
 from __future__ import annotations
 
 import json
+import math
 import time as _real_time
 
 import pytest
@@ -383,9 +402,14 @@ def test_operator_limit_missing_refuses_before_dispatch():
         {"required_capabilities": {Capability.STREAMING}},
         {"response_format": "json_object"},
         {"response_format": "json_schema", "json_schema": {"type": "object"}},
+        # 003-g: the EXPLICIT minimum requirement, with no format field
+        # at all (the model declares the capability; the constructor
+        # validates the request).
+        {"required_capabilities": {Capability.JSON_MODE}},
     ],
     ids=["prompt-caching-untested", "cache-key-untested", "streaming",
-         "json-object-unqualified", "json-schema-unqualified"],
+         "json-object-unqualified", "json-schema-unqualified",
+         "json-capability-untested"],
 )
 def test_unsupported_controls_refused_before_any_dispatch(server, control):
     srv = server(lambda h, r: h._send_json(200, {}))
@@ -427,6 +451,57 @@ def test_qualified_json_controls_preserve_request_semantics(server,
     envelope = json.loads(srv.requests[1].body)
     assert envelope["json_schema"] == expected_grammar
     assert set(envelope) == {"prompt", "n_predict", "stream", "json_schema"}
+
+
+def test_required_json_mode_capability_refused_before_any_dispatch(server):
+    """003-g actual-HTTP regression: a constructor-validated request that
+    EXPLICITLY REQUIRES JSON_MODE (the model declares TEXT + JSON_MODE)
+    while sending NO format field at all (response_format None, no
+    json_schema) must be refused locally — the explicit minimum
+    capability is honored independently of the actual input shape, and a
+    model capability declaration alone cannot prove serving-build
+    support: typed FAILED with the fixed safe reason and exactly ZERO
+    recorded requests (no /apply-template, no /completion)."""
+    srv = server(lambda h, r: h._send_json(200, {}))
+    config = make_direct_config(srv.url)  # default DirectCapabilities: untested
+    request = make_request(required_capabilities={Capability.JSON_MODE})
+    assert request.response_format is None
+    assert request.json_schema is None
+    result = make_generator(config).generate(request)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "json_schema grammar support is not tested" in (result.error or "")
+    assert result.text is None
+    assert srv.paths == []  # exactly zero refused dispatch
+
+
+def test_required_json_mode_capability_qualified_without_invented_format(server):
+    """003-g qualified positive control: the SAME explicit requirement on
+    a qualified build (json_grammar_tested=True) dispatches exactly once
+    per path and does NOT invent an output format: with no format
+    selected the pinned minimal envelope is sent unchanged (no
+    json_schema key)."""
+    scenario = NativeScenario()
+    srv = server(scenario.scenario)
+    config = make_direct_config(
+        srv.url, capabilities=DirectCapabilities(json_grammar_tested=True))
+    result = make_generator(config).generate(
+        make_request(required_capabilities={Capability.JSON_MODE}))
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert srv.paths == [APPLY_TEMPLATE_PATH, COMPLETION_PATH]
+    assert srv.count(APPLY_TEMPLATE_PATH) == 1
+    assert srv.count(COMPLETION_PATH) == 1
+    envelope = json.loads(srv.requests[1].body)
+    assert "json_schema" not in envelope
+    assert set(envelope) == {"prompt", "n_predict", "stream"}
+
+
+def test_ordinary_text_without_format_preserved_on_untested_build(server):
+    """003-g ordinary TEXT positive control: no format, no required
+    capabilities, untested build — the capability gate must not broaden
+    the refusal; the ordinary request still succeeds with both dispatches."""
+    srv, result = run_native(server, NativeScenario())
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert srv.paths == [APPLY_TEMPLATE_PATH, COMPLETION_PATH]
 
 
 def test_output_budget_refused_before_dispatch(server):
@@ -1018,6 +1093,32 @@ def test_overflow_reported_time_is_safe_over_http(server):
     assert timings.prefill_seconds is None
     assert timings.decode_seconds == 0.06
     assert timings.total_seconds is None  # both phases required for the sum
+    assert timings.ttft_seconds is None
+
+
+def test_finite_phase_sum_overflow_is_safe_over_http(server):
+    """003-g actual-HTTP regression: both reported phase times are 1e308
+    ms — individually finite, each converting to finite seconds (1e305) —
+    but the millisecond sum overflows before division in the unsafe
+    arithmetic. generate() must return a typed TERMINAL result (no raw
+    OverflowError/ValidationError): the finite derived total is computed
+    in SECONDS from the individually validated phases (2e305 s), the
+    individually valid phase values are retained, TTFT stays unavailable,
+    and no arbitrary physical-time cutoff is applied."""
+    doc = completion_doc(timings={"prompt_n": 10, "cache_n": 0, "predicted_n": 3,
+                                  "prompt_ms": 1e308, "predicted_ms": 1e308})
+    srv, result = run_native(server, NativeScenario(completion=doc))
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert srv.count(COMPLETION_PATH) == 1
+    assert result.usage is not None
+    assert result.usage.input_tokens == 10
+    assert result.usage.output_tokens == 3
+    timings = result.timings
+    assert timings is not None
+    assert timings.prefill_seconds == 1e305
+    assert timings.decode_seconds == 1e305
+    assert timings.total_seconds == 2e305
+    assert math.isfinite(timings.total_seconds)
     assert timings.ttft_seconds is None
 
 

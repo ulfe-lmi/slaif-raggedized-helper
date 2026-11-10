@@ -220,11 +220,16 @@ serializer exists. Streaming control is refused (non-stream slice).
 Prompt caching (`prompt_cache_key` / `PROMPT_CACHING`) requires the
 tested `cache_prompt` capability; the application-level key never appears
 on the native wire (the documented native cache identity is the rendered
-prompt prefix, plus the slot). Requested JSON/schema controls
-(`response_format` `json_object`/`json_schema`) are default deny: they are
-inferred from the actual input shape and require the tested
-`json_grammar_tested` capability, refusing locally with zero dispatch
-while unqualified. The output budget uses REFUSAL semantics
+prompt prefix, plus the slot). Requested JSON/schema controls are default
+deny and require the tested `json_grammar_tested` capability, refusing
+locally with zero dispatch while unqualified. The gate honors BOTH the
+actual input shape (`response_format` `json_object`/`json_schema`) and
+the explicit minimum requirement (`JSON_MODE` in
+`required_capabilities`): a constructor-validated request may require
+the capability while sending no format field at all, and a model
+capability declaration alone cannot prove serving-build support. A
+qualified `JSON_MODE` requirement alone does not invent an output
+format. The output budget uses REFUSAL semantics
 consistent with the gateway: `request.max_output_tokens` above the
 operator limit refuses before dispatch; the accepted request's value is
 exactly the effective `n_predict` (no silent clamp).
@@ -272,14 +277,17 @@ when the `cache_prompt` capability was tested on the build, and singular
 `id_slot` ONLY when the slot capability was tested (configured slot;
 invented `slot_ids` and any untested control cannot appear). The JSON/
 schema controls are default deny: a requested `json_object`/`json_schema`
-control (inferred from the actual input shape, not only from caller-
-required capability declarations) enters the envelope only when the
-build's `json_grammar_tested` capability was actually tested — a
-documented field is not tested grammar support, and template
-qualification alone does not prove it — so an unqualified request is
-refused locally before `/apply-template` or `/completion` (zero
-dispatch). Unsupported requested behavior is refused locally before the
-envelope is built — never silently ignored.
+control (inferred from the actual input shape) or an explicit `JSON_MODE`
+minimum requirement (which a valid request may carry with no format
+field at all) is admitted only when the build's `json_grammar_tested`
+capability was actually tested — a documented field is not tested grammar
+support, a model declaration alone does not prove serving-build support,
+and template qualification alone does not prove it — so an unqualified
+request is refused locally before `/apply-template` or `/completion`
+(zero dispatch). A qualified capability requirement without a selected
+format sends the pinned minimal envelope unchanged (no invented
+`json_schema`). Unsupported requested behavior is refused locally before
+the envelope is built — never silently ignored.
 
 ### Outcome mapping (fail-closed, pinned dialect)
 
@@ -324,12 +332,20 @@ only from `timings.prompt_ms`/`timings.predicted_ms` (ms -> s) with
 correct quantities: `timings.prefill_seconds` <- `prompt_ms/1000` (the
 reported PROMPT PROCESSING duration — not TTFT) and
 `timings.decode_seconds` <- `predicted_ms/1000` (the reported
-token-generation duration); `timings.total_seconds` <-
-`(prompt_ms + predicted_ms)/1000` only when both model phases were
-reported — an explicitly model-scoped derived model-work total, never
-caller elapsed time. A measured reported 0ms is a known zero (0.0),
-never null, and a withheld phase never discards the other reported
-phase. `ttft_seconds` is NEVER set by this adapter: the pinned native
+token-generation duration); `timings.total_seconds` <- the two phase
+durations summed IN SECONDS (`prompt_ms`/1000 + `predicted_ms`/1000) only
+when both model phases were reported — an explicitly model-scoped derived
+model-work total, never caller elapsed time. Safe arithmetic follows safe
+input conversion: each phase is first individually validated as a finite
+nonnegative millisecond value, then the derived sum is computed in
+seconds with a finite check, so individually finite extreme phases (both
+`1e308` ms -> `1e305` s each) yield a finite derived total (`2e305` s)
+instead of an overflowing millisecond sum, and an unrepresentable derived
+total would be explicitly withheld (null) while the individually valid
+phases are retained (no `OverflowError`/`ValidationError` out of
+`generate()`, no arbitrary physical-time cutoff). A measured reported 0ms
+is a known zero (0.0), never null, and a withheld phase never discards
+the other reported phase. `ttft_seconds` is NEVER set by this adapter: the pinned native
 dialect reports no first-token measurement, and a lower bound is not an
 observed first-token time — TTFT stays unavailable unless a supported
 backend actually reports or measures it. Numeric conversion/arithmetic
@@ -410,6 +426,21 @@ actual input shape) with qualified positive controls preserving the
 pinned `{}` any-JSON and exact-schema semantics, and contradiction
 withholding of a contradictory reported evaluated/cache breakdown
 (100 input with 90 new + 90 cached).
+
+Proven for the 003-g native boundary closure (synthetic loopback +
+pinned-dialect fixtures; the independent eight-vector owned-HTTP
+observations): safe finite phase-total arithmetic over real loopback
+(both reported phases `1e308` ms — individually finite, converting to
+finite `1e305` s — with the derived total computed in seconds as a finite
+`2e305` s, no `OverflowError`/`ValidationError` out of `generate()`, TTFT
+still unavailable, the both-phases-zero known-zero positive control
+retained) and explicit required `JSON_MODE` capability admission (zero-
+dispatch typed refusal for the constructor-validated required-
+capability-only request on an untested build — a model declaration alone
+never proves serving-build support; qualified positive control dispatching
+once per path without inventing an output format; ordinary
+TEXT/no-format success preserved; the five original native vectors and
+their oracles unchanged).
 
 NOT RUN / pending: qualification probes and live-target evidence for the
 native dialect (the pinned reference is not the unknown deployed build),
