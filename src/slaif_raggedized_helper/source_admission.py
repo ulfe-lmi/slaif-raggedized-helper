@@ -345,7 +345,15 @@ class OriginalStore:
         """Return bytes verified against the controlled revision and blob descriptors."""
         return self._verified_original(revision_id)[1]
 
-    def _verified_original(self, revision_id: str) -> tuple[Revision, bytes]:
+    def read_verified(self, revision_id: str, *, max_bytes: int) -> tuple[Revision, bytes]:
+        """Read a revision and its verified bytes within a caller-selected cap."""
+        if type(max_bytes) is not int or not 0 <= max_bytes <= MAX_ORIGINAL:
+            raise AdmissionError("invalid read limit")
+        return self._verified_original(revision_id, max_bytes=max_bytes)
+
+    def _verified_original(
+        self, revision_id: str, *, max_bytes: int = MAX_ORIGINAL
+    ) -> tuple[Revision, bytes]:
         try:
             if not revision_id.startswith("sha256:") or not HEX.fullmatch(revision_id[7:]):
                 raise ValueError
@@ -357,7 +365,9 @@ class OriginalStore:
                 or record.blob != record.source.sha256
             ):
                 raise ValueError
-            blob = self._read("blobs", record.blob, MAX_ORIGINAL)
+            if record.source.size > max_bytes:
+                raise ValueError
+            blob = self._read("blobs", record.blob, max_bytes)
             if len(blob) != record.source.size or hashlib.sha256(blob).hexdigest() != record.blob:
                 raise ValueError
             return record, blob
