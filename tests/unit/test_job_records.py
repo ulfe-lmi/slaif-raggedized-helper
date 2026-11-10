@@ -184,3 +184,47 @@ def test_nested_rejections_and_correlation():
         transition(state("CLAIMED", "a", "owner"), state("RUNNING", "a", "other"))
     with pytest.raises(RecordError):
         state("FAILED", "a", output={"ref": D(1), "fingerprint": D(2), "availability": "verified"})
+
+
+def test_pending_cancellation_never_fabricates_attempt():
+    initial = state("PENDING")
+    cancelled = state("CANCELLED")
+    assert transition(initial, cancelled).attempt_id is None
+    assert admit(JobState, serialize(cancelled)) == cancelled
+    with pytest.raises(RecordError, match="^invalid transition$"):
+        transition(initial, state("CANCELLED", "fabricated"), attempt("CANCELLED", "fabricated"))
+    with pytest.raises(RecordError):
+        transition(initial, cancelled, attempt("CANCELLED"))
+    prior = attempt("RETRYABLE_FAILED")
+    failed = state("RETRYABLE_FAILED", "a")
+    transition(state("RUNNING", "a", "owner"), failed, prior)
+    retry = transition(failed, state("PENDING", "a"))
+    result = transition(retry, state("CANCELLED", "a"))
+    assert result.attempt_id == prior.attempt_id and prior.outcome == "RETRYABLE_FAILED"
+    for target in (state("CANCELLED"), state("CANCELLED", "other")):
+        with pytest.raises(RecordError):
+            transition(retry, target)
+    with pytest.raises(RecordError):
+        transition(retry, result, attempt("CANCELLED", "a"))
+    for status in ("CLAIMED", "RUNNING"):
+        previous = state(status, "a", "owner")
+        transition(previous, state("CANCELLED", "a"), attempt("CANCELLED"))
+        with pytest.raises(RecordError):
+            transition(previous, state("CANCELLED", "a"))
+        with pytest.raises(RecordError):
+            transition(previous, state("CANCELLED", "a"), attempt("CANCELLED", "b"))
+
+
+def test_bytes_strict_utf8_and_safe_non_ascii():
+    text = json.dumps(spec(), ensure_ascii=False)
+    expected = admit(JobSpec, text.encode("utf-8"))
+    assert admit(JobSpec, serialize(expected)) == expected
+    for encoding in ("utf-16", "utf-16-le", "utf-16-be", "utf-32", "utf-32-le", "utf-32-be"):
+        with pytest.raises(RecordError, match="^invalid job record$"):
+            admit(JobSpec, text.encode(encoding))
+    data = spec()
+    data["slovenščina😀"] = "občutljivo😀"
+    for payload in (data, json.dumps(data, ensure_ascii=False).encode("utf-8")):
+        with pytest.raises(RecordError, match="^invalid job record$") as err:
+            admit(JobSpec, payload)
+        assert "slovenščina" not in str(err.value) and "😀" not in str(err.value)

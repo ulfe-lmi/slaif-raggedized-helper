@@ -171,7 +171,10 @@ class JobState(Record):
             raise ValueError("inconsistent state")
         if self.status in ("CLAIMED", "RUNNING") and (not self.attempt_id or not self.owner_id):
             raise ValueError("inconsistent state")
-        if self.status not in ("PENDING", "CLAIMED", "RUNNING") and not self.attempt_id:
+        if (
+            self.status not in ("PENDING", "CLAIMED", "RUNNING", "CANCELLED")
+            and not self.attempt_id
+        ):
             raise ValueError("inconsistent state")
         if self.status not in ("CLAIMED", "RUNNING") and self.owner_id is not None:
             raise ValueError("inconsistent state")
@@ -233,7 +236,11 @@ def transition(
             "FAILED",
             "CANCELLED",
         )
-        if terminal:
+        pending_cancel = previous.status == "PENDING" and next_state.status == "CANCELLED"
+        if pending_cancel:
+            if attempt is not None or next_state.attempt_id != previous.attempt_id:
+                raise ValueError
+        elif terminal:
             if attempt is None:
                 raise ValueError
             attempt = admit(Attempt, _snapshot(attempt))
@@ -294,7 +301,7 @@ def admit(record_type: type[Record], data: object) -> Record:
             if len(data) > MAX_BYTES:
                 raise ValueError
             data = json.loads(
-                data,
+                data.decode("utf-8"),
                 object_pairs_hook=_unique,
                 parse_constant=lambda _: (_ for _ in ()).throw(ValueError()),
             )
