@@ -502,6 +502,13 @@ class _GatewayAccumulator:
         # Item type/identity is frozen from added through done and final:
         # only supported item types may enter the stream lifecycle, and a
         # model function_call is an unsupported action for this adapter.
+        # Guard the type before set membership: a hostile provider may
+        # send status {} or []; the same applies to item.type — an
+        # unhashable or non-string type is a structural error, never a
+        # TypeError and never a salvaged success.
+        if not isinstance(item_type, str):
+            state.fail("unsupported output item type")
+            return
         if item_type == "function_call":
             state.fail("unsupported function_call output item")
             return

@@ -1774,6 +1774,19 @@ def test_stream_disappeared_content_part_refused(server):
                        "content part coordinate missing from final content")
 
 
+@pytest.mark.parametrize("bad_type", [{}, [], 7, True, None])
+def test_stream_non_string_added_item_type_refused(server, bad_type):
+    """A hostile added item.type (unhashable object/array included) is a
+    structural error at the added boundary: guarded before set
+    membership, it fails safe — never a raw TypeError, never a salvaged
+    stream."""
+    frames = valid_stream_frames()
+    added = json.loads(frames[1].split(b"data: ", 1)[1].rstrip(b"\n"))
+    added["item"]["type"] = bad_type
+    frames[1] = sse_data_only(added)
+    _streaming_failure(server, frames, "unsupported output item type")
+
+
 def test_stream_text_event_for_non_message_item_refused(server):
     """Text events belong to supported message parts: a reasoning item
     (added type reasoning) cannot accumulate output_text deltas."""

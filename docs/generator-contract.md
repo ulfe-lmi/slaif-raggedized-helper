@@ -58,7 +58,18 @@ its own deltas, and at the item's done boundary the explicit part
 coordinates are bound to their actual ordered final part positions (an
 observed part cannot disappear because the final concatenated text happens
 to match), so the answer text preserves the final array part order
-(parts concatenated in order). The final `response.completed` `output` items
+(parts concatenated in order). Each part's own events are validated when
+present (part added with text, part done before text done, part text
+disagreeing with the deltas all fail), and the `output_item.done` boundary
+is the item's terminal transition: an explicitly declared part that never
+receives its own `output_text.done`/`content_part.done` before the item's
+done is closed by that parent done and remains valid provided the
+part-to-final-position binding (part count and per-part text) holds at the
+item boundary; the full `added -> deltas -> text done -> part done`
+sequence per part is the pinned gateway shape, not a client-side
+requirement. A non-string `output_item.added` `item.type` (object/array
+included) is a structural error at the added boundary (guarded before set
+membership, never a raw exception). The final `response.completed` `output` items
 are authoritative in **array order and do NOT carry `output_index`** (an
 index that is genuinely present must not contradict the position). A
 trailing `data: [DONE]` is tolerated but never substitutes for a terminal
@@ -195,8 +206,11 @@ numbering and part-to-final-position binding (gap/rename/disappeared-part
 refusals), item type/identity freeze at added/done/final, latched item
 completion (duplicate/late events refused), per-type terminal done status
 (reasoning nonterminal done refused; completed reasoning plus message
-streams valid with message text only), and actual-HTTP regressions for all
-six strategic structural variants.
+streams valid with message text only), non-string/unhashable added
+item types refused at the added boundary, the documented
+item-done-closes-open-parts part lifecycle, and actual-HTTP regressions
+for all six strategic structural variants plus the incremental
+review observations.
 
 NOT RUN / pending: the native direct `/completion` adapter and its
 cache/slot behavior, live gateway/model traffic, qualification probes, and
