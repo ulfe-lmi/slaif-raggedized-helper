@@ -85,7 +85,7 @@ All synthetic and offline: no external network, product services,
 real keys, GPU or model downloads. Real runtime/cache/quality
 qualification remains NOT RUN.
 
-T08. Finite qualification trial composition (objective 004-a): `uv run
+T08. Finite qualification trial composition (objective 004-a, evidence-contract correction 004-b): `uv run
 pytest tests/integration/test_qualification_composition.py -q` runs
 the INSTALLED `raggedized qualification` CLI in subprocesses with the
 real gateway/native adapters against owned 127.0.0.1 loopback servers
@@ -107,17 +107,37 @@ stays null), and the deterministic explicit synthetic route
 (`--synthetic`: owned fixture, evidence labeled MOCK /
 synthetic-owned-fixture, timing-stripped evidence identical across
 runs, configured secrets never read, a configured loopback URL never
-classified synthetic by a boolean). Unit contracts
+classified synthetic by a boolean), the bounded spec file input typed
+refusals (absent spec, owned TEMP FIFO/special file refused WITHOUT
+blocking, file past the 65536-byte bound, invalid UTF-8, JSON integer
+beyond the fixed decoder bound and deep nesting — all pre-dispatch
+with zero HTTP, fixed safe errors and no input or private-path echo),
+and the available-stage timing summaries (gateway prefill/TTFT stay
+n=0 all-null unavailable; direct per-stage quartiles hand-computed
+from the sample observations with known-zero/missing/invalid
+bookkeeping). Unit contracts
 (`tests/unit/test_qualification.py`) cover the strict spec refusals
 (unknown settings, named-prerequisite refusals for unimplemented
 context/pair/batch/precision/seed controls, bool-as-number,
-nonfinite/negative/out-of-bounds values), preflight consistency, the
-nearest-rank quantile convention and zero-sample nulls, the pure
-deterministic analysis and the complete section 23.2 gate projection
-(all 15 IDs, real trials NOT_RUN, committed
+nonfinite/negative/out-of-bounds values), the bounded spec file reader
+(descriptor/type of the actually opened fd, byte/UTF-8/JSON typed
+failures, fixed safe messages, no path echo, no process-global
+decoder-limit change), the strict sample/result evidence contracts
+(frozen extra=forbid fields, strict int/float/bool without coercion,
+envelope relations: requests are the exact leading prefix of the
+declared workload, remaining+attempted ==
+budgets.max_dispatches, status/stop_reason consistency, not_run
+implies zero dispatches, and the analysis section must equal the pure
+recomputation from the recorded samples), the stage metric summaries
+(known-zero counts, missing and invalid-observation exclusions,
+per-stage provenance), preflight consistency, the nearest-rank
+quantile convention and zero-sample nulls, the pure deterministic
+analysis and the complete section 23.2 gate projection (all 14 IDs,
+real trials NOT_RUN, committed
 docs/benchmarks/qualification-gates.json bound to the canonical
 rendering). Plan/gates/help are proven zero model/HTTP/telemetry I/O
 on a closed port. All synthetic and offline: no external network,
 product services, real keys, GPU or model downloads. Real
 target/hardware/model qualification remains NOT RUN (order 004-a live
-authorization: NONE).
+authorization: NONE; 004-b correction, live authorization also
+NONE).

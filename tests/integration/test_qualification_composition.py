@@ -266,6 +266,12 @@ def strip_wall(doc: dict) -> dict:
             out["analysis"][group]["latency_seconds"].items()
             if k not in ("min", "p50", "p95", "max")
         }
+        # the caller-wall stage summary is derived from the same
+        # per-run wall-clock observations (counts stay deterministic)
+        stage = out["analysis"][group]["stage_metrics"][
+            "caller_wall_seconds"]
+        for key in ("min", "p50", "p95", "max"):
+            stage.pop(key)
     return out
 
 
@@ -770,6 +776,150 @@ def test_configured_loopback_url_never_synthetic(server, tmp_path):
         "the runner cannot classify the configured destination")
 
 
+# ---------------------------------------------------------------------------
+# bounded spec file input: typed refusals at zero HTTP (004-b criterion 1)
+# ---------------------------------------------------------------------------
+
+def test_spec_invalid_utf8_refused_typed_zero_http(server, tmp_path):
+    srv = server(gateway_scenario([TRIAL_TEXT_1]))
+    cfg = write_file(tmp_path, gateway_config(srv.port), "gw-config.json")
+    spec = tmp_path / "spec.json"
+    spec.write_bytes(b"\xff\xfe{\n")
+    result = run_cli(qual_argv(cfg, spec), timeout=30)
+    assert result.returncode == 2, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    assert doc["error"] == "SPEC_INVALID"
+    assert doc["reason"] == "not_utf8"
+    assert "Traceback" not in result.stderr
+    assert str(spec) not in result.stdout
+    assert srv.state.requests == []  # zero HTTP
+
+
+def test_spec_oversize_integer_refused_typed_zero_http(server, tmp_path):
+    srv = server(gateway_scenario([TRIAL_TEXT_1]))
+    cfg = write_file(tmp_path, gateway_config(srv.port), "gw-config.json")
+    spec = tmp_path / "spec.json"
+    spec.write_bytes(b"{" + b'"seed":' + b"9" * 5000 + b"}")
+    result = run_cli(qual_argv(cfg, spec), timeout=30)
+    assert result.returncode == 2, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    assert doc["error"] == "SPEC_INVALID"
+    assert doc["reason"] == "integer_too_large"
+    assert "Traceback" not in result.stderr
+    assert srv.state.requests == []  # zero HTTP
+
+
+def test_spec_fifo_refused_without_blocking(server, tmp_path):
+    # An owned TEMP FIFO with NO writer must not hang the CLI: the
+    # opened descriptor is type-checked and refused within finite
+    # bounds (004-F01 reproduction, now corrected).
+    srv = server(gateway_scenario([TRIAL_TEXT_1]))
+    cfg = write_file(tmp_path, gateway_config(srv.port), "gw-config.json")
+    fifo = tmp_path / "spec-fifo.json"
+    os.mkfifo(str(fifo))
+    result = run_cli(qual_argv(cfg, fifo), timeout=30)  # finite bound
+    assert result.returncode == 2, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    assert doc["error"] == "SPEC_INVALID"
+    assert doc["reason"] == "special_file"
+    assert "Traceback" not in result.stderr
+    assert srv.state.requests == []  # zero HTTP, child reaped
+
+
+def test_spec_deep_nesting_and_malformed_json_typed(server, tmp_path):
+    srv = server(gateway_scenario([TRIAL_TEXT_1]))
+    cfg = write_file(tmp_path, gateway_config(srv.port), "gw-config.json")
+    deep = tmp_path / "deep.json"
+    deep.write_bytes(b"[" * 10_000 + b"]" * 10_000)
+    result = run_cli(qual_argv(cfg, deep), timeout=60)
+    assert result.returncode == 2, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    assert doc["error"] == "SPEC_INVALID"
+    # 3.12 trips the interpreter recursion bound (typed too_deep); 3.14
+    # parses it and the strict spec validation refuses the array —
+    # either way a fixed typed exit-2 refusal, never a crash
+    assert doc.get("reason") in (None, "too_deep")
+    malformed = tmp_path / "bad.json"
+    malformed.write_bytes(b"\n{")
+    result = run_cli(qual_argv(cfg, malformed), timeout=30)
+    assert result.returncode == 2, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    assert doc["error"] == "SPEC_INVALID"
+    assert doc["reason"] == "not_json"
+    assert "line 2" in doc["message"]  # existing typed positive preserved
+    assert "Traceback" not in result.stderr
+    assert srv.state.requests == []  # zero HTTP
+
+
+def test_spec_absent_file_stays_typed_missing(server, tmp_path):
+    srv = server(gateway_scenario([TRIAL_TEXT_1]))
+    cfg = write_file(tmp_path, gateway_config(srv.port), "gw-config.json")
+    spec = tmp_path / "absent.json"
+    result = run_cli(qual_argv(cfg, spec), timeout=30)
+    assert result.returncode == 2, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    assert doc["error"] == "SPEC_MISSING"
+    assert str(spec) not in result.stdout
+    assert srv.state.requests == []
+
+
+def test_gateway_evidence_stage_metrics_available(server, tmp_path):
+    # Gateway dialect: caller-wall measured per group; prefill and TTFT
+    # stay unavailable (n=0, all null) — never a zero.
+    srv = server(gateway_scenario([TRIAL_TEXT_1, TRIAL_TEXT_2,
+                                   TRIAL_TEXT_1]))
+    cfg = write_file(tmp_path, gateway_config(srv.port), "gw-config.json")
+    spec = write_spec(tmp_path)
+    result = run_cli(qual_argv(cfg, spec))
+    assert result.returncode == 0, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    for group in ("warmups", "measured"):
+        stage = doc["analysis"][group]["stage_metrics"]
+        assert stage["caller_wall_seconds"]["n"] == (
+            1 if group == "warmups" else 2)
+        for key in ("prefill_seconds", "ttft_seconds"):
+            assert stage[key]["n"] == 0
+            assert stage[key]["min"] is None
+            assert stage[key]["p50"] is None
+            assert stage[key]["p95"] is None
+            assert stage[key]["max"] is None
+        assert stage["decode_seconds"]["n"] == 0
+        assert stage["model_total_seconds"]["n"] == 0
+
+
+def test_direct_evidence_stage_metrics_hand_computed(server, tmp_path):
+    # Native dialect reports prompt_ms=20 / predicted_ms=40 for every
+    # completion: prefill 0.02s, decode 0.04s, model total 0.06s —
+    # constant per sample, so the hand-computed stage summaries are
+    # exact (warmup n=1, measured n=2; min == max == the constant).
+    srv = server(native_scenario([TRIAL_TEXT_1, TRIAL_TEXT_2,
+                                  TRIAL_TEXT_1]))
+    cfg = write_file(tmp_path, direct_config(srv.port), "direct-config.json")
+    spec = write_file(tmp_path, direct_spec_dict(), "direct-spec.json")
+    result = run_cli(qual_argv(cfg, spec))
+    assert result.returncode == 0, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    for group, n in (("warmups", 1), ("measured", 2)):
+        stage = doc["analysis"][group]["stage_metrics"]
+        for key, value in (("prefill_seconds", 0.02),
+                           ("decode_seconds", 0.04),
+                           ("model_total_seconds", 0.06)):
+            metric = stage[key]
+            assert metric["n"] == n
+            assert metric["min"] == value
+            assert metric["p50"] == value
+            assert metric["p95"] == value
+            assert metric["max"] == value
+            assert metric["missing"] == 0
+            assert metric["invalid_observations"] == 0
+        # native TTFT is never reported by the dialect
+        assert stage["ttft_seconds"]["n"] == 0
+        assert stage["ttft_seconds"]["max"] is None
+
+
+# ---------------------------------------------------------------------------
+# zero-I/O planning/gates/help
+# ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 # zero-I/O planning/gates/help
 # ---------------------------------------------------------------------------

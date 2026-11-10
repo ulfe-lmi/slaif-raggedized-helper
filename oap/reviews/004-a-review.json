@@ -1,0 +1,88 @@
+{
+  "round": "004-a",
+  "objective": "004",
+  "status": "FINAL",
+  "decision": "CONTINUE_SAME_PR_004_b",
+  "pr": 6,
+  "implementation": "17085c03f2ebabc5744fe1a19358e71ff4a6aedd",
+  "report_commit": "056ca40f15e172e02dd084ecf4dca92eea594c0a",
+  "report_sha256": "d583fb333ad366179542bc5caf8d20a9ce4e5bf45ffc92befd3c04018fba11ff",
+  "recorded_at": "2026-11-10T14:10:10.021851+00:00",
+  "consumed_response": {
+    "identifier": "004-a",
+    "pr": 6,
+    "implementation": "17085c03f2ebabc5744fe1a19358e71ff4a6aedd",
+    "report_commit": "056ca40f15e172e02dd084ecf4dca92eea594c0a",
+    "report_sha256": "d583fb333ad366179542bc5caf8d20a9ce4e5bf45ffc92befd3c04018fba11ff",
+    "verified_at": "2026-11-10T14:06:00.285547+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "verified_publication": "UniquePR6OPEN/original004branch/mainbase2bc320ff. Exactremote report bytes/SELF/soleimplementationparent/report-onlydiff verified. Worktreeclean afterreport; 24implementationpaths+reportwithinorder; no source-original/architecture/lock/dependency/model/profile/helper changes. Previous003strategicreview/resolution exacthashes verified committed unchanged. No externalreview/comments. No responseFIFOread/replay bystrategy.",
+  "ci": {
+    "implementation_run": 42829357444,
+    "implementation": "ALL_5_SUCCESS",
+    "report_run": 42830491668,
+    "report": "ALL_5_SUCCESS",
+    "last_report_job": "2026-11-10T14:07:42Z"
+  },
+  "coverage": "532 product independentlycollected; report238unit(171+67) and294integration(271+23), separate41unchangedOAP. StrictactualCIProduct3.12/3.14 andOAP3.12/3.13/3.14allSUCCESS. Greenchecksnotfullcontractproof.",
+  "positive_independent_final_source_evidence": {
+    "budgets": "Unchangedbudgetoracle: validbaseadmits; eachTrue/0/-1 onall3budgetfieldsrefuses. FinalspecSHA6a22c09c21ec8525e0904479d79817dae2a9e06a3583115dee86c6e73ad08a27.",
+    "http": "7realownedHTTPcases:GWcap2acrosswarm1+reps3makes2POST; nativecap3/cap5makes2/4POSTincludingtemplates, remaining1; shared0.2sdeadline returns~0.204s withterminalwarm/unknownmeasured; acceptedthenclosed1sample makes1POSTUNKNOWN/noadapterreplay/noqual; modelmismatch2/0HTTP. HTTP429caseisdefinitefailurefollowedbyplannednextsamples, NOTretryproof.",
+    "retries": "Separateactualsocket.connectinstrumentation toexclusivelyownedboundnonlisteningTCPport: cap1/retries2=1connect; cap3/retries2=3connect; cap3/retries1=3connectacross2samples. Actualconnects exactlymatchtransportledger, notadaptercyclecounts.",
+    "cancellation": "TwoownedCLIchildrenSIGINTaftermodelPOST: gateway1POST/directtemplate+completiononly; actualTCPpeerclosed, exits-2in~0.064/~0.060s,noforcedkill/nofurthercalls. Operatorinterruptcleanup only, notprogrammaticrequestcancel/queueAPIproof.",
+    "evidence": "Rawprompt/output/keys arehashed/withheld, fixederrorclass mapping, knownnull/0distinction andcachecontradiction flags preserved. Realphysical/runtime/tokenizer/quality metrics explicitlyunverified; phase vswall boundaries documented. All14namedgatespresent/NOTRUN, explicitownedHTTPsyntheticrouteMOCKcannotqualify.",
+    "regressions": "Existing003clients/transport/probes andfoundationsourceunchanged. Newwrapper usesactualtrustedBudgetedTransport withsharedabsolutedeadline andconfiguredcredential/endpoint/purposecaps; noforkedHTTPclient or directonlinefallback."
+  },
+  "findings": [
+    {
+      "id": "004-F01",
+      "severity": "CORRECTION_REQUIRED",
+      "scope": "004-a criteria1/5/7 bounded input admission",
+      "evidence": "FinalCLIsha256e94b13c27e5024c1d2690d76b43c6cf7201dfb6afe1d6e3d93ee08650402ff9a; unchangedCLIoracle: invalidUTF8 rawUnicodeDecodeError/exit1/noJSON;5000digitJSONinteger rawValueError/exit1/noJSON; ownedTEMPspecFIFOblocksPath.read_text (1sboundedharnesskills/reapsownchild). OrdinarymalformedJSONalreadytypedSPEC_INVALID2. NoHTTP intheseplanningcases.",
+      "required": "Boundactualspecfiledescriptor/type/read/bytes, safeUTF8/decoderrefusals, fixedtypederrorsbeforeinference; noOAPpipeaccess ordecoderlimitworkaround."
+    },
+    {
+      "id": "004-F02",
+      "severity": "SCOPE_INCOMPLETE",
+      "scope": "004-a criterion1 explicitstrictsample/resultcontracts",
+      "evidence": "Actualqualificationclasses areTrialSpec/TrialBudgets andSyntheticTrialServer. Samples/resultenvelopes aredict[str,Any], analyze_trial acceptslist[dict[str,Any]]; no explicitstrictbounded sample/resultvalidation/roundtripcontract located. Reportclaimscriterion1completeusingonlyspec/preflighttests; README/STATUSoverstateactualtypes.",
+      "required": "Implementstrictbounded sample/resultcontracts usedatrealconstruction/serialization/analysisboundaries; preservecompatibility/unknowns/reportedcontradictions/spentaccounting; meaningfulinvalidshape/identity/metric/bounds tests."
+    },
+    {
+      "id": "004-F03",
+      "severity": "SCOPE_INCOMPLETE",
+      "scope": "004-a criterion4 available-stage summaries",
+      "evidence": "analysis._group_stats aggregatescallerwallonly. Nativeprefill_seconds/decode_seconds/total_seconds existper-samplevia_timings_dict buthave no stage n/p50/p95/max summaries. Timing-boundarynotes arecorrect butnotstageanalysis.",
+      "required": "Warmup/measured stage summaries foractuallyknownfiniteeligiblemetrics withnull/known0/provenance/outcome distinctions; no fabricated gatewayprefill/nativeTTFT."
+    },
+    {
+      "id": "004-F04",
+      "severity": "DOCUMENTATION_CORRECTION",
+      "scope": "004-a docs/measurements",
+      "evidence": "TESTINGT08stillall15IDs vsactual14. Protocol/commit/reportclaimsampleminimumguaranteesnohalf-dispatchedsample; expiry/templatefailure/retries/cancelcanstopafterpartialwork. CONTEXT-BUDGETstill38331/TESTING5780 whilecheck_stateactual40862/TESTING8311. UNCERTAINTIESpromptSHAwasfixedbeforecommit, notremainingfailure.",
+      "required": "Correctcurrentdocs/counts/minimum-admissionguarantees/contextmeasurementstogether. Preserveimmutablehistoricalreport/order/commitbytes."
+    }
+  ],
+  "criteria": {
+    "1": "PARTIAL strictspec/budgetcorrect, requiredsample/resultcontractsmissing",
+    "2": "VERIFIED_SOFTWARE sharedtransport/time/call/outputadmissionandboundedoperatorcancelcleanup; noallphasescompletionguaranteefromminimumadmission",
+    "3": "VERIFIED_SOFTWARE safeobservations/metricavailability/countervalidity/provenance separation",
+    "4": "PARTIAL correctcallerwallnearest-rank/outcomehandling, availablestageaggregationmissing",
+    "5": "PARTIAL explicitCLI/ownedMOCK/planning/exportcompositionpositive, newinputreaderfailuresremain",
+    "6": "VERIFIED_PROJECTION all14IDs/prerequisites/NOTRUN; noactualfeasibility",
+    "7": "PARTIAL532product+41OAP/all5CIpositive, exactpromptupdated; docsmeasurementerrorsremain. Operationalnewstartupqualificationproperlypendingnextfreshhandoff"
+  },
+  "why_not_merge": "Concreteunfulfilled004-a contracts/inputfailures remain despitegreenCI, andwhole004telemetry/parity/fullgatecompositionnotimplemented. No developmentmerge now. ReportCOMPLETE isexecutionclaim, notacceptance.",
+  "strongest_counterargument": "BroadactualHTTPpositivesandallCIgreenmightjustifyacceptingthetoolingas-is. Thatwouldomitexplicitorderedstrictsample/resultandstagecontracts andleaveactualinputhang/rawexceptions, so correctionisrequired.",
+  "authority_and_gates": "StandinghumanMVPdevelopmentmandate permitsordinarysamePRsuffixcorrections. NoD1admission/CRITICALentryneeded forfixedbugs/dependencies; noD2actionauthorized. Realmodel/GPU/corpus inputsabsent, certifiMPL exceptionungranted, all019/ICA/fullA01-A40 text+visual/licensegatesremainopen. No human-owner/referral productbehavior.",
+  "coding_lifecycle": "Verifiedresponse/report; /goalclear sent; correctpane/cwd quietGoalcleared confirmed, sameQwen3.8-27B/A100Q8/xhigh/CLI0.164.0. NoEscape/reset/replay/duplicate reader. Nextfresh004-bhandoffqualifiesactualnewgoal-firstpromptwithoutmanualduplicategoal.",
+  "next": "Finalizebounded004-b correctionfromreview/currenthead, publishonceunderhelperlock thensolecontrol/responseworkers. Further004suffixesmustdelivertelemetry/parity/fullgatecompositionbeforewhole004acceptance/merge/005.",
+  "oracles": {
+    "/tmp/raggedized004-budget-admission-review.py": "985d06020848819fffaca3dd75eb8b6e4d7b37e87b0d30efae52fe6d21c6a94f",
+    "/tmp/raggedized004-cli-spec-input-review.py": "e54da22d3627d25cf24c5c7d7424fded25c02e78f4c15d07eee269b38a43299d",
+    "/tmp/raggedized004-runner-http-review.py": "a97e71a49d7379dcda94461b468985fe01b2b55136be794e63120c5087a6a3d3",
+    "/tmp/raggedized004-connect-retry-review.py": "8a700f40d491747e6efe55d919d6948db1250cc5d49d9ea85c4e186b4e4589f0",
+    "/tmp/raggedized004-sigint-cancellation-review.py": "d1de7fad0c1ef7120b25cfb7777211ae12da6293eb471dd3b8e98edf97d241ab"
+  }
+}

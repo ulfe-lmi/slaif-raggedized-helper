@@ -13,6 +13,13 @@ telemetry I/O. Importing this package performs no I/O.
 
 from .analysis import analyze_trial, quantile_nearest_rank
 from .gates import GATES_DOC_PATH, gate_projection, gate_projection_bytes
+from .contracts import (
+    TrialEvidence,
+    TrialSample,
+    UsageFacts,
+    TimingsFacts,
+    validate_trial_evidence,
+)
 from .runner import (
     EXIT_COMPLETE,
     EXIT_NOT_RUN,
@@ -30,9 +37,15 @@ from .spec import (
     TrialSpec,
     trial_workload_fingerprint,
 )
+from .specio import (
+    MAX_SPEC_FILE_BYTES,
+    SpecFileRefusal,
+    load_trial_spec_json,
+)
 from .synthetic import SYNTHETIC_API_KEY, SyntheticTrialServer
 
 __all__ = [
+    "MAX_SPEC_FILE_BYTES",
     "GATES_DOC_PATH",
     "EXIT_COMPLETE",
     "EXIT_NOT_RUN",
@@ -44,13 +57,20 @@ __all__ = [
     "SyntheticTrialServer",
     "TRIAL_SPEC_VERSION",
     "TrialBudgets",
+    "TrialEvidence",
+    "TrialSample",
+    "TimingsFacts",
     "TrialSpec",
+    "UsageFacts",
+    "SpecFileRefusal",
     "analyze_trial",
     "gate_projection",
     "gate_projection_bytes",
     "plan_trial",
     "preflight_issues",
     "quantile_nearest_rank",
+    "load_trial_spec_json",
+    "validate_trial_evidence",
     "run_trial",
     "trial_workload_fingerprint",
 ]

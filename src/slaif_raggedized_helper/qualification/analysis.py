@@ -1,27 +1,37 @@
-"""Reproducible, finite latency analysis for trial samples (OAP 004-a).
+"""Reproducible, finite latency analysis for trial samples (OAP 004-a/b).
 
 Quantile convention (documented, deterministic):
 
-- statistics are computed over the FINITE, NON-NEGATIVE caller-wall
-  seconds of samples whose outcome is ``terminal`` ONLY; failed,
-  unknown-completion, refusal, incomplete and invalid observations are
-  counted separately and never averaged into model latency;
+- statistics are computed over the FINITE, NON-NEGATIVE actually-known
+  reported values of samples whose outcome is ``terminal`` ONLY;
+  failed, unknown-completion, refusal, incomplete and invalid
+  observations are counted separately and never averaged into model
+  latency;
 - a quantile p (0 < p < 100) uses the NEAREST-RANK method: sort the
   sample ascending, take rank = ceil(p/100 * n), 1-based, clamped to
   1..n, and return the value at that rank; p50/p95 are defined this way
   and ``max`` is the last sorted value;
 - zero-sample sets (no terminal observations in a group) produce ``n=0``
   and ALL-NULL metrics — they can never produce a qualifying pass;
+- a reported KNOWN ZERO is a measurement and counts; a MISSING (null)
+  reported value is absent (counted in ``missing``), never a zero; a
+  non-finite or negative reported value is counted invalid and
+  excluded;
 - the analysis is a PURE function of the recorded sample observations:
   the same observations always produce the same summary (deterministic
   summaries; wall-clock observations are real per-run measurements and
-  are not faked).
+  are not faked);
+- the analysis boundary (004-b criterion 2) validates every sample
+  against the strict :class:`TrialSample` contract before computing:
+  a malformed sample shape is a typed ``ValidationError``, never a
+  silent partial summary.
 
 Wall-time boundary (004-a criterion 3): the per-sample ``wall_seconds``
 is CALLER wall time around one ``generate()`` call (it includes adapter
 cycles, template work and transport time). It is never model work time.
 Native template time is NOT TTFT; the gateway dialect reports no
-prefill/TTFT at all, so those stay null and missing prefill stays null.
+prefill/TTFT at all, so those stages stay unavailable (n=0, all null)
+and missing prefill stays null — never a zero.
 """
 
 from __future__ import annotations
@@ -29,11 +39,64 @@ from __future__ import annotations
 import math
 from typing import Any
 
+from .contracts import STAGE_METRIC_KEYS, TrialSample
+
 OUTCOME_TERMINAL = "terminal"
 
 # Fixed reason vocabulary for why a group cannot qualify (never a pass).
 NO_SAMPLES = "no_terminal_samples"
 UNQUALIFIED_EVIDENCE = "evidence_not_qualified"
+
+LATENCY_CONVENTION = (
+    "nearest-rank quantiles (rank = ceil(p/100*n), 1-based, "
+    "clamped) over finite non-negative caller-wall seconds of "
+    "terminal-outcome samples only; failed/unknown/refusal/"
+    "incomplete/invalid observations are counted separately "
+    "and never averaged into model latency; caller wall time "
+    "includes adapter cycles and template work and is NOT "
+    "model work time"
+)
+STAGE_CONVENTION = (
+    "nearest-rank quantiles (rank = ceil(p/100*n), 1-based, "
+    "clamped) over the actually-known finite non-negative "
+    "reported values of terminal-outcome samples only; a "
+    "reported known 0 counts as a measurement; a missing "
+    "(null) reported value is absent (counted in missing), "
+    "never a zero; a non-finite or negative reported value is "
+    "counted invalid and excluded; native reported "
+    "prefill/decode/model-total are distinct from caller "
+    "wall time and template work; the pinned gateway "
+    "dialect reports no prefill and neither dialect "
+    "reports a TTFT, so those stages stay unavailable "
+    "(n=0, all null), never 0"
+)
+
+_STAGE_SOURCES = {
+    "caller_wall_seconds": (
+        "caller wall time around one generate() call, including "
+        "adapter cycles, template work and transport; not model "
+        "work time and never TTFT"
+    ),
+    "prefill_seconds": (
+        "native-reported evaluated-prefill seconds; the pinned "
+        "gateway dialect never reports it, so it stays "
+        "unavailable (n=0, all null), never 0"
+    ),
+    "decode_seconds": (
+        "native-reported decode seconds (reported "
+        "predicted_ms/1000); distinct from caller wall time"
+    ),
+    "model_total_seconds": (
+        "native-reported model total seconds (reported "
+        "prompt_ms/1000 + predicted_ms/1000, only when both are "
+        "reported); distinct from caller wall time"
+    ),
+    "ttft_seconds": (
+        "first-token latency; never reported by the pinned "
+        "dialects, so it stays unavailable (n=0, all null), "
+        "never 0"
+    ),
+}
 
 
 def _finite_nonneg(values: list[float]) -> list[float]:
@@ -57,8 +120,40 @@ def quantile_nearest_rank(sorted_values: list[float], p: float) -> float | None:
     return sorted_values[rank - 1]
 
 
+def _stage_metric(terminal: list[dict[str, Any]], getter) -> dict[str, Any]:
+    """One reported metric's n/min/p50/p95/max over terminal samples.
+
+    ``getter`` returns the reported value (or None when the metric is
+    absent for the sample). Missing values are absent (never zero);
+    non-finite/negative values are counted invalid and excluded.
+    """
+    known: list[float] = []
+    missing = 0
+    invalid = 0
+    for sample in terminal:
+        value = getter(sample)
+        if value is None:
+            missing += 1
+            continue
+        if (isinstance(value, (int, float)) and not isinstance(value, bool)
+                and math.isfinite(value) and value >= 0):
+            known.append(float(value))
+        else:
+            invalid += 1
+    known.sort()
+    return {
+        "n": len(known),
+        "min": known[0] if known else None,
+        "p50": quantile_nearest_rank(known, 50),
+        "p95": quantile_nearest_rank(known, 95),
+        "max": known[-1] if known else None,
+        "missing": missing,
+        "invalid_observations": invalid,
+    }
+
+
 def _group_stats(samples: list[dict[str, Any]]) -> dict[str, Any]:
-    """One deterministic latency/outcome summary for one sample group."""
+    """One deterministic latency/stage summary for one sample group."""
     total = len(samples)
     terminal = [s for s in samples if s.get("outcome") == OUTCOME_TERMINAL]
     counts: dict[str, int] = {}
@@ -75,6 +170,33 @@ def _group_stats(samples: list[dict[str, Any]]) -> dict[str, Any]:
         else:
             invalid_wall += 1
     finite = _finite_nonneg(wall_values)
+
+    def _timings_field(field: str):
+        def getter(sample: dict[str, Any]):
+            timings = sample.get("timings")
+            return timings.get(field) if isinstance(timings, dict) else None
+
+        return getter
+
+    stage_metrics = {
+        "convention": STAGE_CONVENTION,
+        "caller_wall_seconds": {
+            **_stage_metric(terminal, lambda s: s.get("wall_seconds")),
+            "source": _STAGE_SOURCES["caller_wall_seconds"],
+        },
+    }
+    for key in STAGE_METRIC_KEYS:
+        if key == "caller_wall_seconds":
+            continue
+        field = "ttft_seconds" if key == "ttft_seconds" else (
+            "prefill_seconds" if key == "prefill_seconds"
+            else ("decode_seconds" if key == "decode_seconds"
+                  else "total_seconds"))
+        stage_metrics[key] = {
+            **_stage_metric(terminal, _timings_field(field)),
+            "source": _STAGE_SOURCES[key],
+        }
+
     return {
         "samples_total": total,
         "outcome_counts": dict(sorted(counts.items())),
@@ -86,16 +208,9 @@ def _group_stats(samples: list[dict[str, Any]]) -> dict[str, Any]:
             "p50": quantile_nearest_rank(finite, 50),
             "p95": quantile_nearest_rank(finite, 95),
             "max": finite[-1] if finite else None,
-            "convention": (
-                "nearest-rank quantiles (rank = ceil(p/100*n), 1-based, "
-                "clamped) over finite non-negative caller-wall seconds of "
-                "terminal-outcome samples only; failed/unknown/refusal/"
-                "incomplete/invalid observations are counted separately "
-                "and never averaged into model latency; caller wall time "
-                "includes adapter cycles and template work and is NOT "
-                "model work time"
-            ),
+            "convention": LATENCY_CONVENTION,
         },
+        "stage_metrics": stage_metrics,
     }
 
 
@@ -112,7 +227,14 @@ def analyze_trial(
     kind accounting (``model_dispatch`` / ``template_work``);
     ``evidence_class`` is the trial's MOCK/CONFIGURED_UNVERIFIED class.
     The result is a pure function of its inputs.
+
+    The analysis boundary validates every sample against the strict
+    ``TrialSample`` contract (004-b criterion 2): a malformed shape,
+    identity or numeric value raises ``pydantic.ValidationError``
+    instead of producing a partial summary.
     """
+    for sample in samples:
+        TrialSample.model_validate(sample)
     warmups = [s for s in samples if s.get("phase") == "warmup"]
     measured = [s for s in samples if s.get("phase") == "measured"]
     summary = {

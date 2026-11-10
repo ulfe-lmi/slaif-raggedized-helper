@@ -2,17 +2,18 @@
 
 ## Current state (2026-11-10)
 
-- Active objective: 004-a (trial runner and gateway/direct
-  composition), open on PR #6, branch
-  oap/004-qualification-harness; live PR/CI/merge state is queried on
-  GitHub, not asserted here.
+- Active objective: 004 (the 004-b evidence-contract correction of
+  the 004-a trial runner and gateway/direct composition), open on PR
+  #6, branch oap/004-qualification-harness; live PR/CI/merge state is
+  queried on GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
-  (merged as PR #5) plus the 004-a finite qualification trial runner,
-  strict trial spec/sample/result contracts, actual gateway/direct
-  repeated-parent composition and the machine-readable section 23.2
-  gate projection (open on PR #6, see history). Hardware/model
-  qualification: NOT RUN. ICA: NOT RUN.
+  (merged as PR #5) plus the 004-a finite qualification trial runner
+  with the 004-b strict bounded trial spec/sample/result evidence
+  contracts, bounded safe spec file input and available-stage
+  summaries, actual gateway/direct repeated-parent composition and the
+  machine-readable section 23.2 gate projection (open on PR #6, see
+  history). Hardware/model qualification: NOT RUN. ICA: NOT RUN.
 - The coding client is active on objective 004 (PR #6), not idle.
 - Current main is the 003 merge commit 2bc320f (PR #5); PR #6 builds
   from it.
@@ -249,3 +250,47 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   corpus work: NONE; all real qualification gates and LICENSE-01
   remain open (certifi MPL-2.0 exception not granted); 004-b/005+
   selection remains strategy alone.
+- 004-b (evidence-contract correction of the verified 004-a head;
+  amends the same open PR #6, branch oap/004-qualification-harness):
+  the four ordered corrections from the final 004-a review
+  (oap/reviews/004-a-review.json committed byte-unchanged, SHA-256
+  02ab0d2288191469c5c480b11777d71b509b3963b8110e0f9afeb5f7a6db0611):
+  (F01) bounded safe trial-spec file input (qualification/specio.py:
+  non-blocking open with fstat of the actually opened descriptor —
+  directories/FIFOs/sockets/devices, including a path resolving
+  through a symlink to a special file — refused without blocking;
+  65536-byte bound; strict UTF-8; typed JSON decoder/integer/depth
+  refusals; fixed safe messages with no input or private-path echo;
+  no process-global decoder-limit change); (F02) explicit strict
+  bounded sample/result evidence contracts (qualification/contracts.
+  py: frozen extra=forbid DTOs with strict int/float/bool; envelope
+  invariants — requests are the exact leading prefix of the declared
+  workload, remaining+attempted == budgets.max_dispatches,
+  status/stop_reason consistency, not_run implies zero dispatches —
+  and the analysis section must equal the pure recomputation from the
+  recorded samples; used at the construction, analysis and
+  serialization boundaries, a violating executed document is an
+  honest post-work exit-3 evidence_contract_violation, and the spent
+  ledger is preserved); (F03) reproducible available-stage
+  n/min/p50/p95/max summaries per warmup/measured group
+  (caller_wall/prefill/decode/model_total/ttft with known-zero,
+  missing and invalid-observation bookkeeping and per-stage
+  provenance; gateway prefill/TTFT stay n=0 all-null, unavailable not
+  zero); (F04) documentation corrections to the actual implementation
+  (14 section 23.2 IDs, sample-start minimums are an admission guard
+  only, context measurements refreshed from the final actual files:
+  routine governance 42158 bytes, ceiling 50000; exact model tokens
+  and client injection remain UNMEASURED). The 004-b fresh-handoff
+  /goal-first startup qualification is RECORDED FAILED by strategy
+  (upstream payload refusal before any implementation; the stalled
+  goal was cleared and the sole control OK was consumed, never
+  replayed); the previously qualified ordinary startup is restored
+  and the bounded native goal sequence is set by strategy after this
+  ordinary startup — it is NOT claimed passed, and U10 stays OPEN.
+  All 004-a transport/budget/retry/native-template/UNKNOWN/
+  credential/export positives preserved. No live target/model/GPU/
+  corpus work (live authorization NONE); all real qualification
+  gates and LICENSE-01 remain open; resource telemetry, vector/rank
+  parity and full named gate composition remain required in later
+  proof-sized 004 continuations; no merge; 004 continuations and 005
+  selection remain strategy alone.

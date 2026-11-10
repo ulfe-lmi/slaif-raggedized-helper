@@ -42,6 +42,8 @@ import time
 from collections.abc import Callable
 from typing import Any
 
+from pydantic import ValidationError
+
 from .. import __version__
 from ..config import RaggedizedConfig
 from ..model_clients.direct import (
@@ -73,6 +75,9 @@ from .analysis import analyze_trial
 from .gates import GATES_DOC_PATH, executable_gate_ids
 from .spec import TrialSpec
 from .synthetic import FIXTURE_ENDPOINT_IDENTITY, SYNTHETIC_API_KEY, SyntheticTrialServer
+from .contracts import TrialSample, validate_trial_evidence
+
+STOP_EVIDENCE_CONTRACT_VIOLATION = "evidence_contract_violation"
 
 RUNNER_NAME = "qualification-trial"
 RUNNER_VERSION = 1
@@ -276,8 +281,15 @@ def plan_trial(config: RaggedizedConfig,
 
 def _sample_record(ordinal: int, phase: str, text: str, suffix_index: int,
                    first_repetition: bool,
-                   result: Any) -> dict[str, Any]:
-    return {
+                   result: Any,
+                   wall_seconds: float) -> dict[str, Any]:
+    """Build ONE safe per-sample record through the strict contract.
+
+    The record is validated against :class:`TrialSample` at the
+    construction boundary (004-b criterion 2) and the DTO projection
+    (same values, bounded shape) is what the trial stores and renders.
+    """
+    record = {
         "ordinal": ordinal,
         "phase": phase,
         "first_repetition": first_repetition,
@@ -308,6 +320,8 @@ def _sample_record(ordinal: int, phase: str, text: str, suffix_index: int,
         "usage": _usage_dict(result),
         "timings": _timings_dict(result),
     }
+    record["wall_seconds"] = wall_seconds
+    return TrialSample.model_validate(record).model_dump()
 
 
 def _cache_input_consistency(samples: list[dict[str, Any]]) -> dict[str, int]:
@@ -527,12 +541,20 @@ def _run_trial_inner(
         wall_seconds = clock() - wall_start
         if not math.isfinite(wall_seconds) or wall_seconds < 0:
             wall_seconds = 0.0
-        record = _sample_record(
-            ordinal, phase, text, suffix_index,
-            first_repetition=(phase == "measured"
-                              and ordinal == spec.warmups),
-            result=result)
-        record["wall_seconds"] = round(wall_seconds, 9)
+        try:
+            record = _sample_record(
+                ordinal, phase, text, suffix_index,
+                first_repetition=(phase == "measured"
+                                  and ordinal == spec.warmups),
+                result=result,
+                wall_seconds=round(wall_seconds, 9))
+        except ValidationError:
+            # Defensive construction-boundary invariant: the record was
+            # not admitted by the strict contract, so it is not stored.
+            # The spent transport accounting is retained in the
+            # transport boundary of the document that follows.
+            stop_reason = STOP_EVIDENCE_CONTRACT_VIOLATION
+            break
         samples.append(record)
         # An adapter preflight refusal consumes no transport call and is
         # deterministic for every following sample: stop without extra
@@ -728,5 +750,27 @@ def _run_trial_inner(
             ),
         },
     }
+    try:
+        # Serialization-boundary invariant (004-b criterion 2): the
+        # complete envelope must satisfy the strict result contract,
+        # including the analysis == pure-recomputation check.
+        validate_trial_evidence(evidence)
+    except (ValidationError, ValueError) as exc:
+        return EXIT_NOT_RUN, {
+            **_refusal_document(
+                spec.trial_id, "EVIDENCE_CONTRACT_VIOLATION",
+                [f"internal invariant: {type(exc).__name__}"],
+                "the constructed evidence document failed the strict "
+                "sample/result contract (internal invariant); the "
+                "transport-boundary spent ledger is preserved"),
+            "transport_boundary": {
+                "attempted_calls": transport.attempted_calls,
+                "calls_by_kind": dict(transport.kind_counts),
+                "responses_received": transport.responses_received,
+                "ambiguous_dispatches": transport.ambiguous_dispatches,
+                "pre_dispatch_failures": transport.pre_dispatch_failures,
+                "remaining_dispatches": transport.remaining_dispatches,
+            },
+        }
     exit_code = EXIT_COMPLETE if status == "complete" else EXIT_NOT_RUN
     return exit_code, evidence

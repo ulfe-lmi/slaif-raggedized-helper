@@ -1,15 +1,21 @@
 # Qualification trial protocol — finite repeated-parent trials (OAP 004-a)
 
-This document describes the EXECUTED software of objective 004-a: one
-finite qualification trial runner, strict sample/specification
-contracts and actual gateway/direct repeated-parent composition. It
-records the exact 004 software replan (the D0 replan in order 004-a):
-authorized real gateway/GPU/model/corpus inputs remain absent, so this
-slice establishes usable instrumentation and exact prerequisites;
-actual A1/hardware/quality feasibility remains UNPROVEN and is
-mandatory at 019/ICA/MVP. A subsequent strategically activated 004-b
-adds resource telemetry, parity analysis and full gate composition;
-whole-004 acceptance/merge and 005 selection are not delegated here.
+This document describes the EXECUTED software of objective 004 (the
+004-a finite qualification trial runner and the 004-b evidence
+contract correction): one finite qualification trial runner, strict
+bounded trial-spec/sample/result contracts, bounded safe spec file
+input, available-stage latency summaries and actual
+gateway/direct repeated-parent composition. It records the exact 004
+software replan (the D0 replan in order 004-a): authorized real
+gateway/GPU/model/corpus inputs remain absent, so this software
+establishes usable instrumentation and exact prerequisites; actual
+A1/hardware/quality feasibility remains UNPROVEN and is mandatory at
+019/ICA/MVP. The 004-b correction (this slice) completes the evidence
+contracts and input boundaries of the verified 004-a head; resource
+telemetry, vector/rank parity and full named gate composition remain
+required in later proof-sized 004 continuations (strategic
+activation required). Whole-004 acceptance/merge and 005 selection
+are not delegated here.
 
 ## Explicit supported CLI commands
 
@@ -97,6 +103,39 @@ mismatch against the executing package and the configured backend.
 Arbitrary supplied JSON can select a workload and budgets; it can never
 carry or prove execution evidence.
 
+## Bounded spec file input (004-b)
+
+The spec file is operator-supplied untrusted input. The CLI reader
+(`slaif_raggedized_helper.qualification.specio`) enforces, in order,
+BEFORE any fingerprinting or dispatch:
+
+- descriptor/type: the file is opened NON-BLOCKING and the ACTUAL
+  OPENED descriptor is `fstat`-checked — directories, FIFOs, sockets
+  and character/block devices (including a path that resolves through
+  a symlink to a special file) are refused without ever blocking on a
+  writer-less open;
+- bytes: a finite documented read bound of 65536 bytes (the bound
+  bounds admission; the loop may read one 4096-byte chunk past the
+  bound to detect the overflow);
+- encoding: STRICT UTF-8 — invalid Unicode is refused before
+  fingerprinting/dispatch, never replaced or truncated into a new
+  workload;
+- JSON: the expected decoder failures are FIXED typed refusals —
+  `not_json` (with the decoder line number), `integer_too_large`
+  (a JSON integer beyond the interpreter's fixed digit bound) and
+  `too_deep` (nesting beyond the interpreter's recursion bound). The
+  process-global decoder limits are deliberately NOT changed to work
+  around the failures; a syntactically valid but wrong-type document
+  is refused by the strict `TrialSpec` validation instead.
+
+All refusals are pre-dispatch (exit 2, always zero HTTP) with fixed
+safe JSON evidence: `SPEC_MISSING` (absent/unreadable) or
+`SPEC_INVALID` with the fixed `reason` code and a fixed message that
+never echoes the input value or a private path; no raw traceback.
+Ordinary valid regular-file specs and the existing typed malformed-
+JSON refusal (`SPEC_INVALID`, exit 2) are preserved, as are the
+config/secret privacy rules and the exit-code distinctions.
+
 ## Budget admission and accounting semantics
 
 - ONE absolute trial deadline spans ALL warmups, repetitions, adapter
@@ -110,11 +149,19 @@ carry or prove execution evidence.
   before each `post_json`; per-call allowances can only tighten the
   absolute deadline, never extend it.
 - A native sample minimum of 2 calls (template + completion) and a
-  gateway minimum of 1 call guard sample START: a sample is never
-  started unless its minimum fits the remaining shared allowance, so
-  the boundary is exact and no sample is half-dispatched. Retries
-  inside a sample still consume the shared allowance at the transport
-  boundary.
+  gateway minimum of 1 call guard sample START ADMISSION: a sample is
+  never started unless its minimum fits the remaining shared
+  allowance, so the admission boundary is exact. This is an
+  ADMISSION GUARD ONLY — it does not guarantee a complete sample:
+  the absolute deadline can expire while a sample is in flight,
+  template work can fail or be refused, retries can consume the
+  allowance, and operator cancellation can close in-flight work. In
+  each case the work already dispatched is preserved in the
+  transport-boundary spent-attempt ledger, the recorded sample (if
+  any) keeps its honest outcome (terminal / failed /
+  unknown_completion) and the trial reports `incomplete` /
+  `not_run` with the exact `stop_reason`. Retries inside a sample
+  still consume the shared allowance at the transport boundary.
 - Output reservation: each sample reserves its deterministic even share
   (`max_output_tokens_total // sample_count`) as the request's
   `max_output_tokens` before dispatch; the summed per-sample
@@ -132,6 +179,51 @@ carry or prove execution evidence.
   the adapter's finite configured retry policy (which itself consumes
   the shared allowance).
 
+## Strict sample/result evidence contracts (004-b)
+
+The per-sample records and the trial result envelope are EXACT,
+BOUNDED, FROZEN DTOs
+(`slaif_raggedized_helper.qualification.contracts`), not loose dicts:
+
+- `TrialSample` binds the sample ordinal/phase, the fixed outcome
+  vocabulary (terminal/refusal/failed/incomplete/unknown_completion),
+  the `unknown` physical state, suffix index, bounded input
+  fingerprint, fixed safe error class (no provider raw body),
+  adapter-reported cycles (not the authoritative dispatch count),
+  label-qualified and label-independent text/content fingerprints,
+  the per-request declared backend binding (absent stays null),
+  `UsageFacts` (known-or-null reported counters — a reported known 0
+  is preserved, unknown stays null, never fabricated), `TimingsFacts`
+  (known-or-null reported model-phase timings) and the caller
+  wall-seconds observation;
+- the `TrialEvidence` envelope binds the schema/version, backend,
+  status/stop-reason, evidence/target class, the declared workload
+  section (digests, positional suffix evidence, sequence shape), the
+  budget section (including measured elapsed), the declared/observed
+  identity sections (unavailable physical identities stay the fixed
+  `unverified`/`unavailable` literals, never guessed), the credential
+  reference section (opaque env name / file digest / synthetic
+  canary), the recorded requests, the transport-boundary call
+  accounting (never dropped after work), the accounting section and
+  the analysis section;
+- malformed identity/outcome/numeric shapes and bool-as-number are
+  REFUSED; contradictory reported cache/input facts remain valid raw
+  facts (their invalidity label lives in the accounting section,
+  never in a mutation of the raw value);
+- the contracts are used at the ACTUAL boundaries: sample records are
+  validated at CONSTRUCTION (the runner stores the DTO projection),
+  the analysis boundary validates every sample before computing, and
+  the full envelope is validated at SERIALIZATION (the CLI refuses to
+  render/export a document that violates the contract — an honest
+  post-work exit-3, never a silent export);
+- `validate_trial_evidence` additionally requires the analysis
+  section to EQUAL the pure recomputation from the recorded samples
+  (the analysis is a pure function of its observations; a forged or
+  drifted analysis is a contract violation);
+- the public dict JSON compatibility is preserved through validated
+  DTO serialization (the rendered document is the DTO projection of
+  the same values).
+
 ## Quantile definition (latency analysis)
 
 `slaif_raggedized_helper.qualification.analysis` computes
@@ -144,6 +236,32 @@ invalid observations are counted separately and never averaged into
 model latency. Zero-sample sets produce `n=0` and all-null metrics.
 The analysis is a pure function of the recorded observations: the same
 observations always produce the same summary (deterministic summaries).
+
+In addition to the caller-wall `latency_seconds` summary, each phase
+group carries reproducible AVAILABLE-STAGE summaries
+(`stage_metrics`) of n/min/p50/p95/max per metric, separately for
+warmups and measured samples:
+
+- `caller_wall_seconds` — caller wall time (includes adapter cycles
+  and template work; not model work);
+- `prefill_seconds` / `decode_seconds` / `model_total_seconds` — the
+  native-reported model-phase metrics (reported `prompt_ms/1000`,
+  `predicted_ms/1000` and their reported model-total), distinct from
+  caller wall time and template work;
+- `ttft_seconds` — first-token latency, never reported by the pinned
+  dialects.
+
+A reported KNOWN ZERO counts as a measurement; a MISSING (null)
+reported value is ABSENT (counted in `missing`), never a zero; a
+non-finite or negative reported value is counted invalid and excluded.
+The gateway dialect reports no prefill, so its `prefill_seconds`
+stage stays `n=0` / all-null (unavailable, not 0); native
+`ttft_seconds` likewise stays unavailable. Metric provenance is
+carried per stage (`source`); failure/unknown counts, known zeros,
+missingness and the nearest-rank convention are all explicit. An
+invalid/empty/incomplete/synthetic/unverified evidence set cannot
+qualify, and physical cold/warm cache state or evaluated-prefill work
+is never inferred from cached/submitted token counters.
 
 Wall-time boundary: per-sample `wall_seconds` is CALLER wall time
 around one `generate()` call — it includes adapter cycles, template
@@ -194,10 +312,11 @@ null/unavailable and missing prefill is never a zero.
 - The trial executes exactly the declared sequence (warmups then
   measured, ordinal mod len(suffixes)); status is `complete` (every
   sample resolved — an execution status that may contain
-  failed/unknown samples), `incomplete` (budget stop mid-sequence with
-  the exact `stop_reason`: `budget_exhausted_deadline` /
-  `budget_exhausted_dispatches`) or `not_run` (zero dispatches, e.g.
-  deterministic adapter preflight refusal).
+  failed/unknown samples), `incomplete` (budget stop mid-sequence
+  with the exact `stop_reason`: `budget_exhausted_deadline` /
+  `budget_exhausted_dispatches`; `evidence_contract_violation` is the
+  internal construction-boundary stop) or `not_run` (zero dispatches,
+  e.g. deterministic adapter preflight refusal).
 - Unsupported workload settings (context/pair/batch/precision/
   seed-variation, concurrency above 1, visual/answer purposes) are
   refused at spec validation with their named prerequisites — they are
@@ -221,11 +340,20 @@ feasibility.
 
 ## 004 software replan and remaining prerequisites
 
-- The 004 D0 replan is explicit: this slice (004-a) delivers the
-  runner, strict contracts, composition and the machine-readable
-  prerequisite projection only. 004-b (strategic activation required)
-  adds resource telemetry, parity analysis and full named gate
-  composition; 019/ICA/MVP gates actual feasibility.
+- The 004 D0 replan is explicit: 004-a delivered the runner, strict
+  spec contracts, composition and the machine-readable prerequisite
+  projection. The 004-b correction (this slice) completes the missing
+  evidence contracts (strict bounded sample/result DTOs used at the
+  construction/serialization/analysis boundaries, analysis
+  recomputation invariant), the bounded safe spec file input
+  (descriptor/type/byte/UTF-8/JSON-decoder typed refusals at zero
+  HTTP) and the available-stage summaries, and corrects the current
+  documentation and context measurements to the actual implementation.
+  Resource telemetry, vector/rank parity and full named gate
+  composition remain required in LATER proof-sized 004 continuations
+  (strategic activation required); 019/ICA/MVP gate actual
+  feasibility. This correction does not substitute a smaller
+  objective for that scope.
 - Live target authorization: NONE. No approved actual URL/model/
   secretref/GPU ownership/corpus reply has arrived. ALL real trials
   persist NOT_RUN; no positive topology, cache, speedup, quality,
@@ -239,16 +367,29 @@ feasibility.
   repeated-parent runner entrypoints (GATEWAY-01, GATEWAY-03,
   DIRECT-01) are executable in this slice; LICENSE-01 remains open and
   the certifi (MPL-2.0) exception has not been granted.
-- The new bounded-goal `/goal`-first coding startup prompt
-  (`oap/prompts/coding-startup.txt`, order 004-a operational
-  correction) is NOT operationally validated by file hash alone;
-  strategy qualifies it during the same-objective 004-b fresh control
-  handoff, before final 004 acceptance. Do not self-trigger it.
+- Startup prompt: the `/goal`-first bounded-goal prompt introduced by
+  the 004-a operational correction is NOT operationally validated by
+  file hash alone. The 004-b fresh-handoff goal-first startup
+  qualification attempt is RECORDED FAILED by strategy (upstream
+  payload refusal before any implementation; the stalled goal was
+  cleared). The previously qualified ORDINARY startup is restored,
+  and the bounded native goal sequence is set by strategy AFTER this
+  ordinary startup. U10 stays OPEN; do not self-trigger it, do not
+  claim the goal-first qualification passed, and do not add readers
+  or replay the consumed control signal.
 
 ## Tests
 
 See TESTING.md T08 (unit contracts in `tests/unit/test_qualification.py`;
 installed-CLI owned-loopback composition in
-`tests/integration/test_qualification_composition.py`). Synthetic and
-offline only: no external network, product services, real keys, GPU or
-model downloads.
+`tests/integration/test_qualification_composition.py`). Covers the
+strict spec refusals, the bounded spec file input refusals (special
+file/FIFO without blocking, byte bound, strict UTF-8, typed JSON
+decoder/integer/depth refusals, zero HTTP, no path echo), the strict
+sample/result contract roundtrips and invalid shapes, the envelope
+relations (prefix recording, status/stop-reason/allowance invariants,
+analysis recomputation), the hand-computed stage quantiles with
+known-zero/missing/exclusion semantics, and all 004-a transport,
+global-budget, retry, native-template, UNKNOWN-outcome, credential and
+export positives. Synthetic and offline only: no external network,
+product services, real keys, GPU or model downloads.

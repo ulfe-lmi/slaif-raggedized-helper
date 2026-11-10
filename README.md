@@ -12,13 +12,17 @@ offline-diagnostic policy, server-rendered templates via `/apply-template`,
 truthful native stop/metric mapping), the bounded explicit
 `raggedized probe` qualification probe and real loopback integration tests
 ([docs/generator-contract.md](docs/generator-contract.md)); and — open on
-PR #6 (branch `oap/004-qualification-harness`, not merged) — the objective
-004-a finite qualification trial runner: strict trial spec/sample/result
-contracts, actual gateway/direct repeated-parent composition under one
-absolute trial deadline and one shared dispatch allowance at the real
-transport boundary, reproducible nearest-rank latency analysis, the
-deterministic explicit synthetic route and the machine-readable section
-23.2 prerequisite projection
+PR #6 (branch `oap/004-qualification-harness`, not merged) — the
+objective 004 finite qualification trial runner (004-a) plus the 004-b
+evidence-contract correction: strict bounded trial spec/sample/result
+contracts enforced at the construction/serialization/analysis
+boundaries, bounded safe spec file input (special-file/FIFO, byte,
+UTF-8 and JSON-decoder typed refusals at zero dispatch), actual
+gateway/direct repeated-parent composition under one absolute trial
+deadline and one shared dispatch allowance at the real transport
+boundary, reproducible nearest-rank caller-wall latency analysis with
+available-stage timing summaries, the deterministic explicit synthetic
+route and the machine-readable section 23.2 prerequisite projection
 ([docs/benchmarks/qualification-protocol.md](docs/benchmarks/qualification-protocol.md)).
 Real target/hardware/model qualification remains NOT RUN; snapshot/agent
 layers are not implemented yet.

@@ -150,3 +150,34 @@ human question.
 - No live target/model/GPU/corpus work was performed (order 004-a
   live authorization: NONE); the certifi (MPL-2.0) policy gate
   remains an open human question (LICENSE-01).
+### 2026-11-10, order 004-b (evidence contracts and input boundaries)
+
+- U01-U09 unchanged in kind: the 004-b slice completes the evidence
+  contracts and input boundaries of the verified 004-a head (strict
+  bounded spec/sample/result DTOs used at the construction/analysis/
+  serialization boundaries, typed bounded spec file input refusals,
+  available-stage summaries) and is executable synthetic-only
+  software. U01/U02 stay OPEN — declared identities are verified
+  pre-dispatch, but the deployed runtime/GGUF/tokenizer identities
+  remain unverified/unavailable and target provenance of any
+  configured destination stays `unverified`.
+- U05 unchanged: no live prefix-reuse, cache-hit or speedup
+  observation exists; reported cache/input counters stay raw facts
+  with their invalidity labels and cannot become positive evidence.
+- U03/U04/U08 unchanged: no resource telemetry, parity analysis or
+  latency promise in this slice; the available-stage summaries
+  (native prefill/decode/model-total included) are instrumentation
+  over reported values only — gateway prefill/TTFT remain
+  unavailable (n=0, all-null), not zero. Resource telemetry,
+  vector/rank parity and full named gate composition remain required
+  in later proof-sized 004 continuations.
+- Operational: the 004-b fresh-handoff /goal-first startup
+  qualification is RECORDED FAILED (upstream payload refusal before
+  any implementation; the stalled goal was cleared; the sole control
+  OK was consumed and was never replayed). The previously qualified
+  ordinary startup was restored, and the bounded native goal
+  sequence is set by strategy after that ordinary startup. U10 stays
+  OPEN — no operational validation is claimed from file hash alone.
+- No live target/model/GPU/corpus work was performed (order 004-b
+  live authorization: NONE); the certifi (MPL-2.0) policy gate
+  remains an open human question (LICENSE-01).

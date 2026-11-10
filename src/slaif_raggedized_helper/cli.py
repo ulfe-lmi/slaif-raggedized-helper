@@ -494,21 +494,19 @@ def _load_qualification_inputs(
                          indent=2, sort_keys=True))
         sys.stdout.write("\n")
         return EXIT_USAGE, None, None
-    try:
-        raw = Path(spec_path).read_text(encoding="utf-8")
-        data = json.loads(raw)
-    except OSError as exc:
+    # Bounded safe spec input (004-b criterion 1): the descriptor
+    # actually opened is type-checked (special files refuse without
+    # blocking), the read is byte-bounded, UTF-8 is strict, and the
+    # expected JSON decoder/integer/depth failures are fixed typed
+    # refusals — before fingerprinting or dispatch, at zero HTTP.
+    from .qualification.specio import load_trial_spec_json
+
+    data, refusal = load_trial_spec_json(spec_path)
+    if refusal is not None:
         print(json.dumps({"qualification": "trial", "status": "error",
-                          "error": "SPEC_MISSING",
-                          "message": "cannot read spec: "
-                                     + (exc.strerror or "I/O error")},
-                         indent=2, sort_keys=True))
-        sys.stdout.write("\n")
-        return EXIT_USAGE, None, None
-    except json.JSONDecodeError as exc:
-        print(json.dumps({"qualification": "trial", "status": "error",
-                          "error": "SPEC_INVALID",
-                          "message": f"spec is not valid JSON: line {exc.lineno}"},
+                          "error": refusal.error,
+                          "reason": refusal.reason,
+                          "message": refusal.message},
                          indent=2, sort_keys=True))
         sys.stdout.write("\n")
         return EXIT_USAGE, None, None
@@ -564,9 +562,37 @@ def run_qualification_run(config_path: str, spec_path: str,
                              indent=2, sort_keys=True))
             sys.stdout.write("\n")
             return EXIT_USAGE
-    from .qualification import run_trial
+    from .qualification import TrialEvidence, run_trial
+    from pydantic import ValidationError
 
     exit_code, document = run_trial(config, spec, synthetic=synthetic)
+    # Serialization-boundary invariant (004-b criterion 2): the full
+    # result envelope must satisfy the strict sample/result contract
+    # before it is rendered or exported. A violation is an internal
+    # post-work failure (honest exit 3), never a silent export.
+    if document.get("status") in ("complete", "incomplete", "not_run"):
+        try:
+            TrialEvidence.model_validate(document)
+        except (ValidationError, ValueError):
+            attempted = int(
+                document.get("transport_boundary", {})
+                .get("attempted_calls", 0) or 0)
+            dispatch_note = (
+                f"{attempted} transport call(s) were attempted (see the "
+                "runner transport-boundary ledger) — do not replay "
+                "blindly: ambiguous or spent work may have occurred"
+                if attempted else
+                "no transport call was attempted by this run")
+            print(json.dumps(
+                {"qualification": "trial", "status": "error",
+                 "error": "EVIDENCE_CONTRACT_VIOLATION",
+                 "stage": "post_work_evidence_contract",
+                 "message": ("the evidence document failed the strict "
+                             "sample/result contract (internal "
+                             "invariant); no evidence is claimable; "
+                             + dispatch_note)},
+                indent=2, sort_keys=True), file=sys.stderr)
+            return EXIT_EVIDENCE_EXPORT
     rendered = json.dumps(document, indent=2, sort_keys=True) + "\n"
     if output_path is not None:
         try:

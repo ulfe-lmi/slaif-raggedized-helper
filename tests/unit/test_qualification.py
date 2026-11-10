@@ -13,21 +13,41 @@ import copy
 import json
 from pathlib import Path
 
+import os
+import time
+
 import pytest
+from pydantic import ValidationError
 
 from slaif_raggedized_helper import __version__
 from slaif_raggedized_helper.qualification import (
     GATES_DOC_PATH,
+    TrialEvidence,
+    TrialSample,
     analyze_trial,
     gate_projection,
     gate_projection_bytes,
+    load_trial_spec_json,
     plan_trial,
     preflight_issues,
     quantile_nearest_rank,
     trial_workload_fingerprint,
+    validate_trial_evidence,
 )
 from slaif_raggedized_helper.qualification.spec import TrialSpec
+from slaif_raggedized_helper.qualification.specio import (
+    MAX_SPEC_FILE_BYTES,
+    REASON_ABSENT,
+    REASON_INTEGER_OVERFLOW,
+    REASON_NOT_JSON,
+    REASON_NOT_REGULAR,
+    REASON_NOT_UTF8,
+    REASON_TOO_DEEP,
+    REASON_TOO_LONG,
+    SPEC_ERROR_MISSING,
+)
 from slaif_raggedized_helper.config import RaggedizedConfig
+from slaif_raggedized_helper.schema import fingerprint
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -388,10 +408,44 @@ class TestPlan:
 # deterministic latency analysis (nearest-rank convention)
 # ---------------------------------------------------------------------------
 
-def sample(phase: str, outcome: str, wall: float | None = 0.1) -> dict:
-    return {"phase": phase, "outcome": outcome, "wall_seconds": wall,
-            "usage": {"input_tokens": None, "output_tokens": None,
-                      "prefill_tokens": None, "cache_hit_tokens": None}}
+def sample(phase: str, outcome: str, wall: float | None = 0.1,
+           ordinal: int = 0, timings: dict | None = None,
+           usage: dict | None = None, error: str | None = None,
+           suffix_index: int = 0, first_repetition: bool = False,
+           **extra) -> dict:
+    """One FULL strict-contract sample record (004-b).
+
+    ``analyze_trial`` validates every sample against the TrialSample
+    contract at the analysis boundary, so fixtures must be complete
+    sample records, not loose dicts.
+    """
+    doc = {
+        "ordinal": ordinal,
+        "phase": phase,
+        "first_repetition": first_repetition,
+        "physical_state": "unknown",
+        "suffix_index": suffix_index,
+        "input_chars": 10,
+        "input_fingerprint": fingerprint(
+            {"kind": "trial-input", "ordinal": ordinal,
+             "text": "fixture input"}),
+        "outcome": outcome,
+        "error": error,
+        "adapter_reported_cycles": 1,
+        "text_fingerprint": None,
+        "content_fingerprint": None,
+        "backend_fingerprint": "sha256:" + "0" * 64,
+        "usage": usage or {"input_tokens": None, "output_tokens": None,
+                           "prefill_tokens": None,
+                           "cache_hit_tokens": None},
+        "timings": timings or {"ttft_seconds": None,
+                               "prefill_seconds": None,
+                               "decode_seconds": None,
+                               "total_seconds": None},
+        "wall_seconds": wall,
+    }
+    doc.update(extra)
+    return doc
 
 
 class TestAnalysis:
@@ -474,6 +528,630 @@ class TestAnalysis:
         notes = first["timing_boundary_notes"]
         assert "NOT TTFT" in notes["native_template_time"]
         assert "stays null" in notes["gateway_prefill"]
+
+
+# ---------------------------------------------------------------------------
+# bounded spec file input (004-b criterion 1 / 004-F01)
+# ---------------------------------------------------------------------------
+
+class TestSpecInputReader:
+    def _write(self, tmp_path, name, data: bytes) -> str:
+        path = tmp_path / name
+        path.write_bytes(data)
+        return str(path)
+
+    def test_valid_regular_file_roundtrip(self, tmp_path):
+        data = json.dumps({"a": 1}).encode("utf-8")
+        path = self._write(tmp_path, "spec.json", data)
+        result, refusal = load_trial_spec_json(path)
+        assert refusal is None
+        assert result == {"a": 1}
+
+    def test_absent_file_is_typed_missing(self, tmp_path):
+        result, refusal = load_trial_spec_json(str(tmp_path / "nope.json"))
+        assert result is None
+        assert refusal.error == SPEC_ERROR_MISSING
+        assert refusal.reason == REASON_ABSENT
+        assert str(tmp_path) not in refusal.message  # no private-path echo
+
+    def test_fifo_refused_without_blocking(self, tmp_path):
+        fifo = tmp_path / "spec-fifo.json"
+        os.mkfifo(str(fifo))  # no writer ever opens it
+        started = time.monotonic()
+        result, refusal = load_trial_spec_json(str(fifo))
+        assert time.monotonic() - started < 5.0  # finite bound, no hang
+        assert result is None
+        assert refusal.reason == REASON_NOT_REGULAR
+
+    def test_symlink_to_fifo_refused_on_opened_descriptor(self, tmp_path):
+        fifo = tmp_path / "real-fifo"
+        os.mkfifo(str(fifo))
+        link = tmp_path / "spec-link.json"
+        link.symlink_to(fifo)
+        result, refusal = load_trial_spec_json(str(link))
+        assert result is None
+        assert refusal.reason == REASON_NOT_REGULAR
+
+    def test_symlink_to_regular_file_is_admitted(self, tmp_path):
+        real = tmp_path / "real.json"
+        real.write_text('{"ok": true}', encoding="utf-8")
+        link = tmp_path / "spec-link.json"
+        link.symlink_to(real)
+        result, refusal = load_trial_spec_json(str(link))
+        assert refusal is None
+        assert result == {"ok": True}
+
+    def test_directory_refused(self, tmp_path):
+        result, refusal = load_trial_spec_json(str(tmp_path))
+        assert result is None
+        assert refusal.reason == REASON_NOT_REGULAR
+
+    def test_oversized_file_refused_at_bound(self, tmp_path):
+        path = self._write(tmp_path, "big.json", b"{" + b" " * (MAX_SPEC_FILE_BYTES + 10))
+        result, refusal = load_trial_spec_json(path)
+        assert result is None
+        assert refusal.reason == REASON_TOO_LONG
+
+    def test_file_at_exact_bound_admitted(self, tmp_path):
+        from slaif_raggedized_helper.qualification.specio import (
+            read_spec_file)
+        payload = b"{" + b" " * (MAX_SPEC_FILE_BYTES - 2) + b"}"
+        assert len(payload) == MAX_SPEC_FILE_BYTES
+        path = self._write(tmp_path, "exact.json", payload)
+        raw, refusal = read_spec_file(path)
+        assert refusal is None
+        assert len(raw) == MAX_SPEC_FILE_BYTES
+
+    def test_invalid_utf8_refused_before_fingerprinting(self, tmp_path):
+        path = self._write(tmp_path, "bad-utf8.json", b"\xff\xfe{}")
+        result, refusal = load_trial_spec_json(path)
+        assert result is None
+        assert refusal.reason == REASON_NOT_UTF8
+        # invalid Unicode is refused, never replaced/truncated: the
+        # refusal message is fixed safe text, not a decoded fragment
+        assert "\xff" not in refusal.message
+
+    def test_malformed_json_is_typed_with_line(self, tmp_path):
+        path = self._write(tmp_path, "bad.json", b"\n{")
+        result, refusal = load_trial_spec_json(path)
+        assert result is None
+        assert refusal.reason == REASON_NOT_JSON
+        assert refusal.line == 2
+        assert "line 2" in refusal.message
+
+    def test_oversize_integer_is_typed_and_global_limit_untouched(self,
+                                                                  tmp_path):
+        import json as _json
+        limit_before = getattr(_json.decoder, "MAX_INT_DIGITS", None)
+        path = self._write(
+            tmp_path, "int.json", b"{" + b'"seed":' + b"9" * 5000 + b"}")
+        result, refusal = load_trial_spec_json(path)
+        assert result is None
+        assert refusal.reason == REASON_INTEGER_OVERFLOW
+        # no process-global decoder-limit change as a workaround: the
+        # interpreter's own decoder still enforces its fixed bound
+        assert getattr(_json.decoder, "MAX_INT_DIGITS", None) == limit_before
+        with pytest.raises(ValueError):
+            _json.loads('{"a": ' + "9" * 5000 + '}')
+
+    def test_deep_nesting_is_typed(self, tmp_path):
+        # Within the 64 KiB file bound the C decoder of current
+        # interpreters copes; the typed branch is exercised at the
+        # parse boundary where the interpreter's recursion bound trips
+        # (200k levels), and any interpreter that trips earlier on a
+        # file still gets the same typed refusal (never a crash).
+        from slaif_raggedized_helper.qualification.specio import (
+            parse_spec_json)
+        deep = "[" * 200_000 + "]" * 200_000
+        result, refusal = parse_spec_json(deep)
+        assert result is None
+        assert refusal.reason == REASON_TOO_DEEP
+
+    def test_refusal_messages_never_echo_the_path(self, tmp_path):
+        path = self._write(tmp_path, "secret-name.json", b"\xff")
+        result, refusal = load_trial_spec_json(path)
+        assert refusal is not None
+        assert "secret-name" not in refusal.message
+        assert str(tmp_path) not in refusal.message
+
+
+# ---------------------------------------------------------------------------
+# strict sample/result contracts (004-b criterion 2 / 004-F02)
+# ---------------------------------------------------------------------------
+
+def _usage(**overrides) -> dict:
+    doc = {"input_tokens": None, "output_tokens": None,
+           "prefill_tokens": None, "cache_hit_tokens": None}
+    doc.update(overrides)
+    return doc
+
+
+def _timings(**overrides) -> dict:
+    doc = {"ttft_seconds": None, "prefill_seconds": None,
+           "decode_seconds": None, "total_seconds": None}
+    doc.update(overrides)
+    return doc
+
+
+class TestSampleContracts:
+    def test_full_sample_roundtrip(self):
+        doc = sample(
+            "measured", "terminal", wall=0.125, ordinal=2,
+            usage=_usage(input_tokens=11, output_tokens=5,
+                         prefill_tokens=0, cache_hit_tokens=0),
+            timings=_timings(prefill_seconds=0.02, decode_seconds=0.04,
+                             total_seconds=0.06))
+        model = TrialSample.model_validate(doc)
+        assert model.model_dump() == doc
+        # JSON roundtrip preserves the public dict compatibility
+        assert TrialSample.model_validate(
+            json.loads(json.dumps(doc))) == model
+
+    def test_bool_as_number_refused_everywhere(self):
+        doc = sample("measured", "terminal", wall=0.1,
+                     usage=_usage(input_tokens=True),
+                     timings=_timings(prefill_seconds=False))
+        with pytest.raises(ValidationError) as excinfo:
+            TrialSample.model_validate(doc)
+        errors = {str(e["loc"][0]) + "." + str(e["loc"][1])
+                  for e in excinfo.value.errors()}
+        assert errors == {"usage.input_tokens",
+                          "timings.prefill_seconds"}
+        doc = sample("warmup", "terminal", wall=True)
+        with pytest.raises(ValidationError) as excinfo:
+            TrialSample.model_validate(doc)
+        assert {tuple(e["loc"]) for e in excinfo.value.errors()} == {
+            ("wall_seconds",)}
+
+    def test_extra_and_missing_fields_refused(self):
+        doc = sample("measured", "terminal")
+        doc["injected"] = 1
+        with pytest.raises(ValidationError):
+            TrialSample.model_validate(doc)
+        del doc["usage"]
+        with pytest.raises(ValidationError):
+            TrialSample.model_validate(doc)
+
+    def test_malformed_outcome_and_fingerprints_refused(self):
+        doc = sample("measured", "terminal")
+        doc["outcome"] = "qualified"
+        with pytest.raises(ValidationError):
+            TrialSample.model_validate(doc)
+        doc = sample("measured", "terminal")
+        doc["input_fingerprint"] = "sha256:zz"
+        with pytest.raises(ValidationError):
+            TrialSample.model_validate(doc)
+
+    def test_numeric_shapes_refused(self):
+        doc = sample("measured", "terminal",
+                     usage=_usage(input_tokens=-1))
+        with pytest.raises(ValidationError):
+            TrialSample.model_validate(doc)
+        doc = sample("measured", "terminal",
+                     timings=_timings(decode_seconds=float("inf")))
+        with pytest.raises(ValidationError):
+            TrialSample.model_validate(doc)
+        doc = sample("measured", "terminal", wall=-0.5)
+        with pytest.raises(ValidationError):
+            TrialSample.model_validate(doc)
+
+    def test_known_zero_and_all_null_preserved(self):
+        doc = sample("measured", "terminal",
+                     usage=_usage(input_tokens=0, output_tokens=0),
+                     timings=_timings(prefill_seconds=0.0,
+                                      decode_seconds=0.0))
+        model = TrialSample.model_validate(doc)
+        assert model.usage.input_tokens == 0
+        assert model.timings.prefill_seconds == 0.0
+        empty = sample("measured", "terminal",
+                       usage=_usage(), timings=_timings())
+        model = TrialSample.model_validate(empty)
+        assert model.usage.input_tokens is None
+        assert model.timings.decode_seconds is None
+
+    def test_contradictory_cache_facts_are_valid_raw_facts(self):
+        # reported cache 999 > input 5 stays a VALID raw fact; the
+        # invalidity label lives in the accounting section, never in a
+        # mutation of the sample value
+        doc = sample("measured", "terminal",
+                     usage=_usage(input_tokens=5, cache_hit_tokens=999))
+        model = TrialSample.model_validate(doc)
+        assert model.usage.cache_hit_tokens == 999
+        assert model.usage.input_tokens == 5
+
+
+def _evidence_doc(samples, *, calls_by_kind, evidence_class="MOCK",
+                  backend="gateway", max_dispatches=10,
+                  stop_reason=None, status=None,
+                  declared_warmups=None, declared_repetitions=None) -> dict:
+    """Build a strict-contract evidence envelope for tests.
+
+    ``declared_warmups``/``declared_repetitions`` default to the
+    recorded split; an incomplete/not-run envelope declares the FULL
+    sequence while recording only the executed prefix.
+    """
+    analysis = analyze_trial(samples, calls_by_kind=calls_by_kind,
+                             evidence_class=evidence_class)
+    recorded_warmups = sum(1 for s in samples if s["phase"] == "warmup")
+    recorded_repetitions = sum(
+        1 for s in samples if s["phase"] == "measured")
+    warmups = (recorded_warmups if declared_warmups is None
+               else declared_warmups)
+    repetitions = (recorded_repetitions if declared_repetitions is None
+                   else declared_repetitions)
+    attempted = sum(calls_by_kind.values())
+    if status is None:
+        if len(samples) == warmups + repetitions:
+            status = "complete"
+        elif attempted == 0:
+            status = "not_run"
+        else:
+            status = "incomplete"
+    suffixes = [" Suffix A.", " Suffix B."]
+    doc = {
+        "qualification": "trial",
+        "runner": "qualification-trial",
+        "version": 1,
+        "trial_id": "unit-evidence-trial",
+        "backend": backend,
+        "status": status,
+        "stop_reason": stop_reason,
+        "evidence_class": evidence_class,
+        "target_type": "synthetic-owned-fixture",
+        "target_type_note": "owned fixture note",
+        "qualification_status": "NOT_QUALIFIED",
+        "qualification_note": "execution status only, never qualification",
+        "workload": {
+            "kind": "repeated-parent",
+            "parent_chars": 20,
+            "parent_fingerprint": fingerprint(
+                {"kind": "trial-parent", "text": "unit parent"}),
+            "suffixes": [
+                {"index": i, "chars": len(t),
+                 "fingerprint": fingerprint(
+                     {"kind": "trial-suffix", "text": t})}
+                for i, t in enumerate(suffixes)],
+            "samples": warmups + repetitions,
+            "warmups": warmups,
+            "repetitions": repetitions,
+            "concurrency": 1,
+            "seed": 11,
+            "seed_semantics": "bound identity only",
+            "workload_fingerprint": trial_workload_fingerprint(
+                parent="unit parent", suffixes=suffixes, seed=11,
+                warmups=warmups, repetitions=repetitions),
+            "workload_fingerprint_verified_pre_dispatch": True,
+            "cache_control": "none",
+        },
+        "budgets": {
+            "deadline_seconds": 30,
+            "max_dispatches": max_dispatches,
+            "max_output_tokens_total": 30,
+            "per_sample_output_tokens": 10,
+            "elapsed_seconds": 0.1,
+            "elapsed_seconds_scope": "trial only",
+            "semantics": "one absolute deadline, one shared allowance",
+        },
+        "identities": {
+            "declared": {
+                "code_version": "0.164.0",
+                "backend": backend,
+                "model": "unit-gw-model",
+                "profile": None,
+                "purpose": "annotation",
+                "template_build_id": None,
+                "endpoint_fingerprint": fingerprint(
+                    {"kind": "trial-endpoint",
+                     "endpoint": "fixture"}),
+            },
+            "observed": {
+                "backend_fingerprint": "sha256:" + "1" * 64,
+                "runtime_identity": "unverified",
+                "model_runtime_identity": "unverified",
+                "tokenizer_identity": "unavailable",
+            },
+            "identity_note": "declared verified pre-dispatch",
+        },
+        "credentials": {
+            "api_key_ref": {"kind": "synthetic-canary"},
+            "resolved": True,
+            "note": "owned fixture canary",
+        },
+        "requests": samples,
+        "transport_boundary": {
+            "attempted_calls": attempted,
+            "calls_by_kind": dict(calls_by_kind),
+            "responses_received": attempted,
+            "ambiguous_dispatches": 0,
+            "pre_dispatch_failures": 0,
+            "remaining_dispatches": max_dispatches - attempted,
+        },
+        "accounting": {
+            "output_reservation": {
+                "total": 30,
+                "per_sample": 10,
+                "semantics": "reserved before dispatch",
+            },
+            "cache_input_consistency": {
+                "consistent_samples": 0,
+                "contradictory_samples": 0,
+                "uncheckable_samples": 0,
+                "note": "raw facts only",
+            },
+        },
+        "analysis": analysis,
+        "gates": {
+            "machine_readable_document": GATES_DOC_PATH,
+            "executable_in_this_slice": ["GATEWAY-01", "GATEWAY-03",
+                                         "DIRECT-01"],
+            "real_trials": "NOT_RUN",
+            "note": "execution status only",
+        },
+    }
+    return doc
+
+
+def _valid_evidence() -> dict:
+    samples = [
+        sample("warmup", "terminal", wall=0.5, ordinal=0, suffix_index=0,
+               first_repetition=False),
+        sample("measured", "terminal", wall=0.25, ordinal=1, suffix_index=1,
+               first_repetition=True),
+        sample("measured", "terminal", wall=0.75, ordinal=2, suffix_index=0,
+               first_repetition=False),
+    ]
+    return _evidence_doc(samples, calls_by_kind={"model_dispatch": 3})
+
+
+class TestEvidenceEnvelope:
+    def test_valid_envelope_passes_full_validation(self):
+        doc = _valid_evidence()
+        model = validate_trial_evidence(doc)
+        assert isinstance(model, TrialEvidence)
+        assert model.analysis == TrialEvidence.model_validate(doc).analysis
+
+    def test_forged_analysis_refused(self):
+        doc = _valid_evidence()
+        doc["analysis"]["measured"]["latency_seconds"]["p50"] = 99.0
+        with pytest.raises((ValidationError, ValueError),
+                           match="pure recomputation|quartile|p50"):
+            validate_trial_evidence(doc)
+
+    def test_drifted_group_count_refused(self):
+        doc = _valid_evidence()
+        doc["analysis"]["measured"]["samples_total"] = 5
+        with pytest.raises(ValidationError):
+            validate_trial_evidence(doc)
+
+    def test_tampered_identity_refused(self):
+        doc = _valid_evidence()
+        doc["identities"]["observed"]["runtime_identity"] = "verified"
+        with pytest.raises(ValidationError):
+            TrialEvidence.model_validate(doc)
+
+    def test_ordinal_and_phase_mismatch_refused(self):
+        doc = _valid_evidence()
+        doc["requests"][1]["ordinal"] = 9
+        with pytest.raises(ValidationError):
+            TrialEvidence.model_validate(doc)
+        doc = _valid_evidence()
+        doc["requests"][2]["phase"] = "warmup"
+        with pytest.raises(ValidationError):
+            TrialEvidence.model_validate(doc)
+
+    def test_status_and_accounting_relations_enforced(self):
+        doc = _valid_evidence()
+        doc["status"] = "incomplete"  # complete with no stop reason drift
+        with pytest.raises(ValidationError):
+            TrialEvidence.model_validate(doc)
+        doc = _valid_evidence()
+        doc["stop_reason"] = "budget_exhausted_deadline"
+        with pytest.raises(ValidationError):
+            TrialEvidence.model_validate(doc)
+        doc = _valid_evidence()
+        doc["transport_boundary"]["remaining_dispatches"] = 99
+        with pytest.raises(ValidationError):
+            TrialEvidence.model_validate(doc)
+
+    def test_not_run_envelope_with_zero_dispatch_is_valid(self):
+        doc = _evidence_doc([], calls_by_kind={}, max_dispatches=4,
+                            status="not_run", declared_warmups=1,
+                            declared_repetitions=2)
+        assert doc["status"] == "not_run"
+        assert doc["workload"]["samples"] == 3
+        validate_trial_evidence(doc)
+
+    def test_incomplete_prefix_envelope_is_valid(self):
+        # Declared 3 (1 warmup + 2 measured), recorded 1 after a
+        # deadline stop: requests are the exact leading prefix, the
+        # declared workload keeps the full sequence, and the analysis
+        # groups reflect the recorded split.
+        samples = [sample("warmup", "terminal", wall=0.5, ordinal=0)]
+        doc = _evidence_doc(
+            samples, calls_by_kind={"model_dispatch": 1}, max_dispatches=4,
+            status="incomplete", stop_reason="budget_exhausted_deadline",
+            declared_warmups=1, declared_repetitions=2)
+        assert doc["workload"]["samples"] == 3
+        assert len(doc["requests"]) == 1
+        assert doc["analysis"]["measured"]["samples_total"] == 0
+        validate_trial_evidence(doc)
+
+    def test_incomplete_requires_stop_reason_and_tail(self):
+        samples = [
+            sample("warmup", "terminal", wall=0.5, ordinal=0),
+            sample("measured", "terminal", wall=0.25, ordinal=1,
+                   suffix_index=1, first_repetition=True),
+            sample("measured", "terminal", wall=0.75, ordinal=2,
+                   suffix_index=0, first_repetition=False),
+        ]
+        doc = _evidence_doc(samples, calls_by_kind={"model_dispatch": 3},
+                            status="incomplete", stop_reason=None)
+        with pytest.raises(ValidationError, match="stop reason"):
+            TrialEvidence.model_validate(doc)
+        # incomplete with the FULL sequence recorded is contradictory
+        doc = _evidence_doc(samples, calls_by_kind={"model_dispatch": 3},
+                            status="incomplete",
+                            stop_reason="budget_exhausted_deadline")
+        with pytest.raises(ValidationError, match="unrecorded tail"):
+            TrialEvidence.model_validate(doc)
+
+    def test_not_run_envelope_may_carry_zero_dispatch_refusals(self):
+        # deterministic adapter preflight refusal: one recorded refusal
+        # sample, zero transport calls, honest not_run
+        samples = [sample("warmup", "refusal", wall=0.0, ordinal=0,
+                          error="FIXED_SAFE_ERROR_CLASS")]
+        doc = _evidence_doc(samples, calls_by_kind={},
+                            status="not_run", declared_warmups=1,
+                            declared_repetitions=2)
+        doc["credentials"] = {"api_key_ref": None, "resolved": None}
+        validate_trial_evidence(doc)
+
+
+# ---------------------------------------------------------------------------
+# available-stage summaries (004-b criterion 3 / 004-F03)
+# ---------------------------------------------------------------------------
+
+class TestStageSummaries:
+    def test_hand_computed_stage_quantiles(self):
+        # 15 measured terminal samples with known finite values:
+        # wall 1..15, decode 0.1*i, prefill 0.02*i
+        samples = [
+            sample("measured", "terminal", wall=float(i), ordinal=i,
+                   suffix_index=i % 2,
+                   first_repetition=(i == 0),
+                   timings=_timings(prefill_seconds=0.02 * i,
+                                    decode_seconds=0.1 * i,
+                                    total_seconds=0.125 * i))
+            for i in range(1, 16)
+        ]
+        summary = analyze_trial(samples,
+                                calls_by_kind={"model_dispatch": 15},
+                                evidence_class="MOCK")
+        stage = summary["measured"]["stage_metrics"]
+        wall = stage["caller_wall_seconds"]
+        assert wall["n"] == 15
+        assert wall["min"] == 1.0
+        # nearest rank: p50 -> ceil(0.5*15)=8 -> 8.0; p95 -> ceil(14.25)=15
+        assert wall["p50"] == 8.0
+        assert wall["p95"] == 15.0
+        assert wall["max"] == 15.0
+        assert wall["missing"] == 0
+        assert wall["invalid_observations"] == 0
+        decode = stage["decode_seconds"]
+        assert decode["n"] == 15
+        assert decode["p50"] == 0.8
+        assert decode["max"] == 1.5
+        prefill = stage["prefill_seconds"]
+        assert prefill["n"] == 15
+        assert prefill["max"] == 0.3
+        total = stage["model_total_seconds"]
+        assert total["n"] == 15
+        assert total["p95"] == 1.875
+        assert total["max"] == 1.875
+        # native TTFT is never reported: unavailable, not 0
+        ttft = stage["ttft_seconds"]
+        assert ttft["n"] == 0
+        assert ttft["min"] is None and ttft["max"] is None
+        assert ttft["missing"] == 15
+
+    def test_gateway_prefill_stays_unavailable_not_zero(self):
+        samples = [sample("measured", "terminal", wall=0.5, ordinal=0)]
+        summary = analyze_trial(samples,
+                                calls_by_kind={"model_dispatch": 1},
+                                evidence_class="CONFIGURED_UNVERIFIED")
+        stage = summary["measured"]["stage_metrics"]
+        for key in ("prefill_seconds", "ttft_seconds"):
+            assert stage[key]["n"] == 0
+            assert stage[key]["min"] is None
+            assert stage[key]["p50"] is None
+            assert stage[key]["max"] is None
+            assert stage[key]["missing"] == 1
+
+    def test_known_zero_counts_missing_is_absent(self):
+        samples = [
+            sample("measured", "terminal", wall=0.5, ordinal=0,
+                   suffix_index=0,
+                   timings=_timings(decode_seconds=0.0,
+                                    total_seconds=0.0)),
+            sample("measured", "terminal", wall=0.25, ordinal=1,
+                   suffix_index=1,
+                   timings=_timings()),  # missing: absent, not zero
+        ]
+        summary = analyze_trial(samples,
+                                calls_by_kind={"model_dispatch": 2},
+                                evidence_class="MOCK")
+        decode = summary["measured"]["stage_metrics"]["decode_seconds"]
+        assert decode["n"] == 1
+        assert decode["min"] == 0.0 and decode["max"] == 0.0
+        assert decode["missing"] == 1
+        assert decode["invalid_observations"] == 0
+
+    def test_failed_and_unknown_outcomes_excluded_from_stages(self):
+        samples = [
+            sample("measured", "terminal", wall=0.1, ordinal=0,
+                   timings=_timings(decode_seconds=0.4)),
+            sample("measured", "failed", wall=9.9, ordinal=1, suffix_index=1,
+                   timings=_timings(decode_seconds=9.0)),
+            sample("measured", "unknown_completion", wall=8.8, ordinal=2,
+                   suffix_index=0,
+                   timings=_timings(decode_seconds=8.0)),
+        ]
+        summary = analyze_trial(samples,
+                                calls_by_kind={"model_dispatch": 3},
+                                evidence_class="MOCK")
+        group = summary["measured"]
+        assert group["terminal_samples"] == 1
+        assert group["outcome_counts"] == {
+            "failed": 1, "terminal": 1, "unknown_completion": 1}
+        decode = group["stage_metrics"]["decode_seconds"]
+        assert decode["n"] == 1
+        assert decode["max"] == 0.4
+        wall = group["stage_metrics"]["caller_wall_seconds"]
+        assert wall["n"] == 1 and wall["max"] == 0.1
+
+    def test_warmup_and_measured_stages_separate(self):
+        samples = [
+            sample("warmup", "terminal", wall=1.0, ordinal=0,
+                   timings=_timings(decode_seconds=1.0)),
+            sample("measured", "terminal", wall=2.0, ordinal=1,
+                   suffix_index=1,
+                   timings=_timings(decode_seconds=2.0)),
+        ]
+        summary = analyze_trial(samples,
+                                calls_by_kind={"model_dispatch": 2},
+                                evidence_class="MOCK")
+        assert summary["warmups"]["stage_metrics"][
+            "caller_wall_seconds"]["max"] == 1.0
+        assert summary["measured"]["stage_metrics"][
+            "decode_seconds"]["max"] == 2.0
+
+    def test_stage_summaries_deterministic(self):
+        samples = [
+            sample("warmup", "terminal", wall=0.5, ordinal=0),
+            sample("measured", "terminal", wall=0.25, ordinal=1,
+                   suffix_index=1,
+                   timings=_timings(prefill_seconds=0.02,
+                                    decode_seconds=0.04,
+                                    total_seconds=0.06)),
+        ]
+        first = analyze_trial(copy.deepcopy(samples),
+                              calls_by_kind={"model_dispatch": 2},
+                              evidence_class="MOCK")
+        second = analyze_trial(copy.deepcopy(samples),
+                               calls_by_kind={"model_dispatch": 2},
+                               evidence_class="MOCK")
+        assert first == second
+
+    def test_analysis_boundary_refuses_malformed_samples(self):
+        bad = sample("measured", "terminal",
+                     usage=_usage(input_tokens="lots"))
+        with pytest.raises(ValidationError):
+            analyze_trial([bad], calls_by_kind={}, evidence_class="MOCK")
+        missing_field = sample("measured", "terminal")
+        del missing_field["usage"]
+        with pytest.raises(ValidationError):
+            analyze_trial([missing_field], calls_by_kind={},
+                          evidence_class="MOCK")
 
 
 # ---------------------------------------------------------------------------
