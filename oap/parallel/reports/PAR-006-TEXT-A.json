@@ -1,0 +1,17 @@
+{
+  "lane_id": "PAR-006-TEXT-A",
+  "result": "COMPLETE",
+  "preparation_head": "73635fdd4df6ea750ebdbef05c079046e36c8af3",
+  "implementation_head": "d56515044bb581915b20fbe661291d5a635a11d2",
+  "report_publication_commit": "SELF",
+  "summary": "Added bounded native UTF-8 text and Markdown line extraction from verified original bytes, with deterministic policy-bound provenance blocks and exact reconstruction.",
+  "API": "text_extraction.extract, ExtractionPolicy, ExtractionResult and ExtractionError; see docs/parallel/text-extraction-api.md.",
+  "tests": [
+    {"command": "uv run --offline pytest -o addopts='' -q tests/unit/test_text_extraction.py tests/integration/test_text_extraction_composition.py tests/unit/test_source_admission.py tests/unit/test_source_cli.py tests/integration/test_source_admission_composition.py tests/unit/test_provenance_records.py tests/integration/test_provenance_records_composition.py tests/unit/test_contracts.py", "result": "48 passed in 6.05s before adding an empty/plain-text focused test"},
+    {"command": "uv run --offline pytest -o addopts='' -q tests/unit/test_text_extraction.py tests/integration/test_text_extraction_composition.py", "result": "8 passed in 0.25s after the focused test was added"},
+    {"command": "uv run --offline ruff check src/slaif_raggedized_helper/text_extraction.py tests/unit/test_text_extraction.py tests/integration/test_text_extraction_composition.py", "result": "All checks passed"},
+    {"command": "git merge-tree --write-tree 32a2b84d099f2641123d2569b01afe533064ac61 3f2ec5768cc07c86c2f0ab663a4e4af23ecac406; git rev-parse 73635fdd4df6ea750ebdbef05c079046e36c8af3^{tree}", "result": "both 0fdb2da804d076cc87994822cd182d48eec37a94; merge parents exactly ordered base and pinned provenance tip"},
+    {"command": "git diff --check and cmp /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/text-extraction/order.md oap/parallel/orders/PAR-006-TEXT-A.md", "result": "passed and order identical"}
+  ],
+  "limitations": "Synthetic fixtures only; no PDF, vision, parser rendering, tokenization, model, hardware, serving or authentication. Markdown is a limited line classifier; unrecognized syntax and tables remain literal. Five-second deadline is cooperative and cannot interrupt a blocked filesystem call; OriginalStore inspect may read up to its 64 MiB limit before the adapter checks its tighter limit. Provenance candidate and this candidate remain pending canonical acceptance/integration."
+}
