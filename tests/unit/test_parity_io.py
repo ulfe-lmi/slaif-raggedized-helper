@@ -1,5 +1,6 @@
 import hashlib
 import json
+import math
 import os
 
 import pytest
@@ -92,3 +93,25 @@ def test_render_and_preflight(tmp_path):
     out = tmp_path / "out"
     assert io.run_export({}, lambda _: {"ok": True}, out) == {"ok": True}
     assert json.loads(out.read_bytes()) == {"ok": True}
+
+
+def test_float_underflow_and_representable_zero(tmp_path):
+    path = tmp_path / "numeric"
+    for token in ("1e-999", "-1e-999", "0.0001e-999"):
+        path.write_text('{"score":' + token + '}')
+        with pytest.raises(io.Refusal, match="invalid JSON number") as error:
+            io.read_document(path)
+        assert token not in str(error.value)
+    for token, expected in (("-0e-999", -0.0), ("0.0e999", 0.0),
+                            ("5e-324", 5e-324), ("-5e-324", -5e-324)):
+        path.write_text('{"score":' + token + '}')
+        actual = io.read_document(path).document["score"]
+        assert actual == expected
+        assert math.copysign(1, actual) == math.copysign(1, expected)
+
+
+def test_nul_destination_refused_before_analysis(tmp_path):
+    calls = []
+    with pytest.raises(io.Refusal, match="invalid output destination"):
+        io.run_export({}, lambda value: calls.append(value), str(tmp_path / "out") + "\x00bad")
+    assert calls == []

@@ -8,7 +8,9 @@ A CLI can map Refusal to 2, ExportError to 3, and success to 0. Analyzer errors
 remain the analyzer's responsibility. No transport or model accounting is implied.
 
 Input/output defaults are 16 MiB, maximum 64 MiB; depth 64, 2 million nodes,
-1 MiB per string and 128 characters per numeric token. Encoding is UTF-8 JSON,
+1 MiB per string and 128 characters per numeric token. Nonzero floats that
+underflow to zero are refused; representable subnormals and signed zero are kept.
+Encoding is UTF-8 JSON,
 sorted keys, compact separators, non-ASCII preserved, no trailing newline. All
 limits apply to both directions. File paths are operator choices, never JSON data.
 Final components must be regular files, never symlinks. Descriptor type and size
@@ -65,8 +67,11 @@ def _number(token: str, convert: Callable) -> Any:
     if len(token) > MAX_NUMBER:
         raise Refusal("invalid JSON number")
     value = convert(token)
-    if isinstance(value, float) and not math.isfinite(value):
-        raise Refusal("invalid JSON number")
+    if isinstance(value, float):
+        mantissa = token.lower().split("e", 1)[0]
+        if not math.isfinite(value) or (value == 0.0 and any(c in "123456789"
+                                                             for c in mantissa)):
+            raise Refusal("invalid JSON number")
     return value
 
 
@@ -197,7 +202,7 @@ def render_json(value: Any, *, max_bytes: int = DEFAULT_BYTES) -> bytes:
 def preflight_output(path: str | Path) -> None:
     try:
         p = Path(path)
-        if not p.name or not p.parent.is_dir():
+        if "\x00" in str(p) or not p.name or not p.parent.is_dir():
             raise Refusal("invalid output destination")
         if p.exists() or p.is_symlink():
             if not stat.S_ISREG(p.lstat().st_mode) or not os.access(p, os.W_OK):
