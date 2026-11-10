@@ -2,15 +2,19 @@
 
 ## Current state (2026-11-10)
 
-- Active objective: 003-i (probe evidence and credential boundaries),
-  open on PR #5, branch oap/003-generator-adapters-and-cache-probes;
-  live PR/CI/merge state is queried on GitHub, not asserted here.
+- Active objective: 004-a (trial runner and gateway/direct
+  composition), open on PR #6, branch
+  oap/004-qualification-harness; live PR/CI/merge state is queried on
+  GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
-  merged) plus the 003 gateway/transport/native slice and the bounded
-  explicit probe/CLI composition (open on PR #5, see history).
-  Hardware/model qualification: NOT RUN. ICA: NOT RUN.
-- The coding client is active on objective 003 (PR #5), not idle.
-- Current main is the 002-a merge commit 93b4317 (PR #4); PR #5 builds
+  merged), the complete 003 gateway/transport/native/probe slice
+  (merged as PR #5) plus the 004-a finite qualification trial runner,
+  strict trial spec/sample/result contracts, actual gateway/direct
+  repeated-parent composition and the machine-readable section 23.2
+  gate projection (open on PR #6, see history). Hardware/model
+  qualification: NOT RUN. ICA: NOT RUN.
+- The coding client is active on objective 004 (PR #6), not idle.
+- Current main is the 003 merge commit 2bc320f (PR #5); PR #6 builds
   from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
@@ -187,5 +191,61 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   owned-loopback HTTP; live-target evidence is NOT a 003 closure
   prerequisite — it belongs to the separate 004/019/full-MVP
   qualification gates, which remain OPEN and NOT RUN. Objective 003
-  as a whole is unresolved, not merged, not deployed; no model, GPU,
-  live route or service change.
+  was accepted and merged as PR #5 (merge commit 2bc320f,
+  2026-11-10); the strategic 003-j review and resolution records were
+  committed unchanged with 004-a.
+- 004-a (trial runner and gateway/direct composition; open on PR #6,
+  branch oap/004-qualification-harness from main 2bc320f): the first
+  proof-sized slice of objective 004 under the explicit D0 replan
+  (authorized real gateway/GPU/model/corpus inputs remain absent;
+  004 establishes usable instrumentation and exact prerequisites;
+  actual A1/hardware/quality feasibility remains UNPROVEN, mandatory
+  at 019/ICA/MVP). Delivered executable software, not a JSON approval
+  wrapper: strict finite trial spec/sample/result contracts
+  (slaif_raggedized_helper/qualification/spec.py: bounded, frozen,
+  extra-forbid; declared workload/seed fingerprints verified
+  pre-dispatch; unimplemented context/pair/batch/precision/seed
+  controls refuse with named prerequisites); a finite trial runner
+  (qualification/runner.py) that actually invokes the current
+  gateway/direct application adapters through the REAL transport with
+  ONE absolute trial deadline and ONE shared dispatch admission
+  allowance spanning all warmups, repetitions, retries, template and
+  model calls (enforced at the real transport dispatch boundary, the
+  reused 003 shared-budget seam; native template work consumes the
+  allowance; exact sample-start minimums), safe per-trial/per-phase
+  observations (fingerprints only, declared-vs-observed identities
+  with unavailable physical identities explicit, physical cold/warm
+  state unknown, reported-only usage, contradictory cache/input
+  accounting as raw facts only); reproducible nearest-rank latency
+  analysis (qualification/analysis.py: deterministic pure function,
+  terminal samples only, zero-sample nulls, no qualifying pass from
+  synthetic/configured-unverified evidence); the deterministic
+  explicit synthetic route (--synthetic: owned loopback fixture,
+  real adapters, evidence labeled MOCK / synthetic-owned-fixture,
+  configured secrets never read; a configured URL is never
+  classified synthetic by a boolean); CLI `raggedized
+  qualification gates|plan|run` (help/import/plan/gates zero
+  model/HTTP/telemetry I/O; run is explicit opt-in; exit codes 0/1/2/3
+  with the honest post-work export stage); the machine-readable
+  prerequisite projection of every architecture section 23.2 ID
+  (qualification/gates.py + docs/benchmarks/qualification-gates.json:
+  all real trials NOT_RUN, live target authorization NONE, only text
+  repeated-parent runner entrypoints executable in this slice);
+  installed-CLI owned-loopback composition tests (gateway + direct,
+  budget boundaries, deadline/cancellation, unknown-no-replay,
+  preflight zero-dispatch, metric ambiguity, deterministic synthetic
+  route, zero-I/O plan/gates) and unit contracts; docs/benchmarks/
+  qualification-protocol.md plus README/TESTING (T08)/STATUS/CI/
+  UNCERTAINTIES updates. The one ordered operational correction:
+  oap/prompts/coding-startup.txt replaced with the exact
+  /goal-first bounded-goal bytes (SHA-256
+  6d2323bb832e5f78e4cd86d6951c04c0b3975dc80730c473fc7834820965a98e)
+  with docs/AGENT-ROLE-SETUP.md, docs/OAP-RUNBOOK.md and the
+  governance manifest measurement updated; the new startup is NOT
+  operationally validated by file hash alone (strategy qualifies it
+  during the same-objective 004-b fresh control handoff). The
+  strategic 003-j review/resolution files and the unchanged 004
+  order/active are committed with this round. Live target/model/GPU/
+  corpus work: NONE; all real qualification gates and LICENSE-01
+  remain open (certifi MPL-2.0 exception not granted); 004-b/005+
+  selection remains strategy alone.

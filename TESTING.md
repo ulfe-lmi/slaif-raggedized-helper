@@ -84,3 +84,40 @@ minimum-only positive controls) extend the gateway loopback suite.
 All synthetic and offline: no external network, product services,
 real keys, GPU or model downloads. Real runtime/cache/quality
 qualification remains NOT RUN.
+
+T08. Finite qualification trial composition (objective 004-a): `uv run
+pytest tests/integration/test_qualification_composition.py -q` runs
+the INSTALLED `raggedized qualification` CLI in subprocesses with the
+real gateway/native adapters against owned 127.0.0.1 loopback servers
+(synthetic canaries only): exact total calls across warmups/repetitions
+for both dialects (native template work consumes the shared allowance:
+the budget-3/budget-4 native boundaries), multiple repetitions under
+ONE shared dispatch allowance (never reset per sample), retry
+consumption of the allowance via failed connects at the real transport
+boundary, global deadline exhaustion mid-trial (in-flight closure, no
+replay, honest elapsed bound), accepted-then-closed unknown outcome
+without replay, identity/settings preflight with ZERO dispatch
+(model mismatch, workload-fingerprint mismatch, missing route,
+unmaterialized direct, invalid spec, invalid `--output` destination),
+the honest post-work export-stage failure after actual dispatches
+(exit 3, full safe evidence on stdout with the spent-attempt ledger),
+outcome/metric ambiguity (contradictory reported cache/input counters
+stay raw facts only and cannot become positive evidence; missing usage
+stays null), and the deterministic explicit synthetic route
+(`--synthetic`: owned fixture, evidence labeled MOCK /
+synthetic-owned-fixture, timing-stripped evidence identical across
+runs, configured secrets never read, a configured loopback URL never
+classified synthetic by a boolean). Unit contracts
+(`tests/unit/test_qualification.py`) cover the strict spec refusals
+(unknown settings, named-prerequisite refusals for unimplemented
+context/pair/batch/precision/seed controls, bool-as-number,
+nonfinite/negative/out-of-bounds values), preflight consistency, the
+nearest-rank quantile convention and zero-sample nulls, the pure
+deterministic analysis and the complete section 23.2 gate projection
+(all 15 IDs, real trials NOT_RUN, committed
+docs/benchmarks/qualification-gates.json bound to the canonical
+rendering). Plan/gates/help are proven zero model/HTTP/telemetry I/O
+on a closed port. All synthetic and offline: no external network,
+product services, real keys, GPU or model downloads. Real
+target/hardware/model qualification remains NOT RUN (order 004-a live
+authorization: NONE).

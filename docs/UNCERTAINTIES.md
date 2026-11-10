@@ -116,3 +116,37 @@ human question.
   post-dispatch) export stage are documented as actually
   implemented. The certifi (MPL-2.0) policy gate remains an open
   human question.
+
+### 2026-11-10, order 004-a (trial runner and gateway/direct composition)
+
+- U02/U03-U5 unchanged in kind; the 004-a slice (finite qualification
+  trial runner, strict trial spec/sample/result contracts, actual
+  gateway/direct repeated-parent composition, deterministic synthetic
+  MOCK route, machine-readable section 23.2 gate projection) is
+  executable synthetic-only software: U01/U02 stay OPEN — the
+  runner's declared identities are verified pre-dispatch but the
+  deployed runtime/GGUF/tokenizer identities remain unverified/
+  unavailable, and target provenance of any configured destination
+  stays `unverified` (only the explicit `--synthetic` owned fixture is
+  classified `synthetic-owned-fixture` / MOCK).
+- U05 unchanged: no live prefix-reuse, cache-hit or speedup
+  observation exists; the trial records reported cache counters as
+  raw facts only (contradictory cache/input accounting cannot become
+  positive evidence), sends no cache-key/slot control (no assumed
+  slot reuse), and keeps physical cold/warm state unknown without
+  cache reset/isolation evidence.
+- U03/U04/U08 unchanged: no resource telemetry, parity analysis or
+  latency promise in this slice; nearest-rank quantiles over caller-
+  wall terminal samples are instrumentation, not a product p95
+  objective. 004-b (strategic activation required) adds resource
+  telemetry, parity analysis and full named gate composition.
+- Operational: the 004-a ordered replacement of
+  `oap/prompts/coding-startup.txt` with the `/goal`-first bounded-goal
+  prompt (SHA-256 6d2323bb832e5f78e4cd86d6951c04c0b3975dc80730c473fc7834820965a98e,
+  manifest measurement updated) is NOT operationally validated by
+  file hash alone; U10 stays OPEN — strategy qualifies the new
+  startup during the same-objective 004-b fresh control handoff,
+  before final 004 acceptance. No self-triggering.
+- No live target/model/GPU/corpus work was performed (order 004-a
+  live authorization: NONE); the certifi (MPL-2.0) policy gate
+  remains an open human question (LICENSE-01).

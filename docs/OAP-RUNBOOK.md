@@ -67,6 +67,21 @@ busy prompt requires manual reconciliation, not blind command injection. Tmux in
 startup/recovery only; durable order remains authority. Both sender and receiver use lock files;
 duplicates refuse. Notifications contain exactly OK without LF, IDs or JSON. Active ends LF.
 
+Since the 004-a operational correction, the coding startup prompt is the `/goal`-first
+bounded-goal prompt at `oap/prompts/coding-startup.txt` (SHA-256
+6d2323bb832e5f78e4cd86d6951c04c0b3975dc80730c473fc7834820965a98e; the
+governance manifest measurement was updated in the same round). It
+declares one bounded coding goal per order — execute only the exact
+FINAL order selected by `oap/active`, continue implementation/tests/
+docs/unique PR/CI through the immutable report-only SELF commit and
+remote verification, send exactly one response OK, then mark the goal
+complete and remain idle. A truthful COMPLETE/PARTIAL/BLOCKED/FAILED
+execution report ends the bounded goal; strategic acceptance, merge and
+next-order selection stay separate. The new `/goal`-first startup is
+NOT operationally validated by file hash alone: strategy qualifies it
+during the same-objective 004-b fresh control handoff, before final 004
+acceptance. Do not self-trigger it.
+
 ## Completion, review and development merge
 
 Coding commits unchanged strategic activation with implementation and creates/reuses one PR.

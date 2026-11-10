@@ -46,9 +46,10 @@ so the suite passes from an active checkout as well as a clean clone.
    discovery, so the suite cannot be falsely green.
 7. `uv run pytest tests/integration -q` runs the real controlled HTTP/SSE behavior
    tests (objective 003: 003-b transport/gateway, 003-c/d protocol validation,
-   003-e native direct adapter) against owned loopback fixtures with synthetic
-   keys (see TESTING.md T06 and docs/generator-contract.md); same clean locked
-   install.
+   003-e native direct adapter, 003-h/i/j probe composition; objective 004-a:
+   finite qualification trial composition) against owned loopback fixtures with
+   synthetic keys (see TESTING.md T06/T07/T08, docs/generator-contract.md and
+   docs/benchmarks/qualification-protocol.md); same clean locked install.
 8. The existing OAP test suite and governance check run on the same clean checkout.
 9. `uv run raggedized --help` (offline) and `raggedized doctor` on the shipped example:
    the step asserts exit code 1, `config: valid`, `readiness: not_ready` and the
@@ -79,5 +80,9 @@ checks never means product verification has passed. The product job proves the f
 package, its tests and the OAP checks install and run from a locked clean checkout; it does
 not prove live model, hardware or gateway readiness. The integration suite proves the
 bounded transport/gateway HTTP and SSE behavior described in
-docs/generator-contract.md; native direct-adapter and qualification-probe evidence
-(the remainder of objective 003) stays NOT RUN / pending.
+docs/generator-contract.md, the objective 003 bounded probe composition and the
+objective 004-a finite qualification trial composition (strict spec contracts, shared
+budget boundaries at the real transport, the deterministic synthetic MOCK route)
+described in docs/benchmarks/qualification-protocol.md; real
+target/hardware/model qualification stays NOT RUN / pending (order 004-a live
+authorization: NONE).

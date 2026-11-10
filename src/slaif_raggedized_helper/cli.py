@@ -12,6 +12,34 @@ Commands
 S --max-dispatches N --max-output-tokens-total T
 [--expected-output-a sha256:<64hex>] [--expected-output-b sha256:<64hex>]
 [--output PATH]``
+``raggedized qualification gates``
+    Print the machine-readable prerequisite projection of the
+    architecture section 23.2 mandatory experiment matrix (offline;
+    zero model/HTTP/telemetry I/O; real trials NOT_RUN).
+``raggedized qualification plan --config PATH --spec PATH``
+    Offline qualification plan for one finite repeated-parent trial
+    spec: validates the strict spec against the configured identities
+    and prints the deterministic plan (workload fingerprints, sequence
+    shape, budgets, declared identities, gate projection) with
+    execution NOT_RUN. Zero model/HTTP/telemetry I/O; a rejected plan
+    is exit 2 with exact safe reasons (zero dispatch).
+``raggedized qualification run --config PATH --spec PATH [--synthetic]
+[--output PATH]``
+    EXPLICIT OPT-IN execution of one finite repeated-parent trial
+    against the configured gateway route or materialized offline-
+    diagnostic direct destination through the real adapters and real
+    transport. One absolute trial deadline and one shared dispatch
+    admission allowance span all warmups, repetitions, retries,
+    template and model calls (enforced at the transport dispatch
+    boundary). ``--synthetic`` is the deterministic explicit synthetic
+    route: an owned loopback fixture is started by the process, the
+    evidence is labeled MOCK / synthetic-owned-fixture and configured
+    secrets are never read. Missing target/adapter prerequisites give
+    exact NOT_RUN/BLOCKED evidence, never fake runnable successes.
+    Exit codes as ``probe`` (0 complete execution status / 1
+    not-run-incomplete / 2 pre-dispatch refusal with zero dispatches /
+    3 post-work evidence export failure with the full safe evidence on
+    stdout).
     Run the bounded repeated-parent qualification probe against the
     explicitly configured gateway route or materialized offline-diagnostic
     direct destination. Explicit probe opt-in: import, ``--help``,
@@ -442,6 +470,136 @@ def run_probe(config_path: str, mode: str, deadline_seconds: float,
     return exit_code
 
 
+def run_qualification_gates() -> int:
+    """Print the machine-readable prerequisite projection (offline).
+
+    Zero model/HTTP/telemetry I/O: the projection is a pure rendering of
+    the architecture section 23.2 matrix with real trials NOT_RUN (live
+    target authorization NONE).
+    """
+    from .qualification import gate_projection_bytes
+
+    sys.stdout.buffer.write(gate_projection_bytes())
+    return EXIT_OK
+
+
+def _load_qualification_inputs(
+        config_path: str, spec_path: str) -> tuple[int, object, object]:
+    """Safe config/spec loading; (exit_code, config, spec or error doc)."""
+    try:
+        config = load_config(config_path)
+    except ConfigLoadError as exc:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": "CONFIG_INVALID", "message": str(exc)},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE, None, None
+    try:
+        raw = Path(spec_path).read_text(encoding="utf-8")
+        data = json.loads(raw)
+    except OSError as exc:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": "SPEC_MISSING",
+                          "message": "cannot read spec: "
+                                     + (exc.strerror or "I/O error")},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE, None, None
+    except json.JSONDecodeError as exc:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": "SPEC_INVALID",
+                          "message": f"spec is not valid JSON: line {exc.lineno}"},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE, None, None
+    from .qualification import TrialSpec
+    try:
+        spec = TrialSpec.model_validate(data)
+    except Exception as exc:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": "SPEC_INVALID",
+                          "message": safe_validation_errors(exc)},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE, None, None
+    return EXIT_OK, config, spec
+
+
+def run_qualification_plan(config_path: str, spec_path: str) -> int:
+    """Offline qualification plan (zero model/HTTP/telemetry I/O)."""
+    code, config, spec = _load_qualification_inputs(config_path, spec_path)
+    if code != EXIT_OK:
+        return code
+    from .qualification import plan_trial
+
+    exit_code, document = plan_trial(config, spec)
+    sys.stdout.write(json.dumps(document, indent=2, sort_keys=True) + "\n")
+    return exit_code
+
+
+def run_qualification_run(config_path: str, spec_path: str,
+                          synthetic: bool, output_path: str | None) -> int:
+    """EXPLICIT opt-in trial execution. Returns the process exit code.
+
+    Zero-dispatch guarantees: invalid/missing config or spec, a spec/
+    config consistency refusal, an unconfigured target, an absent or
+    invalid credential reference and a knowably invalid ``--output``
+    destination all refuse BEFORE any transport is constructed (exit 2,
+    always zero HTTP). A write failure that occurs AFTER the trial
+    returned is an honest post-work export-stage error (exit 3): the
+    full safe evidence document — including the transport-boundary
+    spent-attempt accounting that states whether dispatch occurred — is
+    written to stdout and blind replay is not invited.
+    """
+    code, config, spec = _load_qualification_inputs(config_path, spec_path)
+    if code != EXIT_OK:
+        return code
+    if output_path is not None:
+        refusal = _output_destination_refusal(output_path)
+        if refusal is not None:
+            print(json.dumps({"qualification": "trial", "status": "error",
+                              "error": "OUTPUT_DESTINATION_INVALID",
+                              "message": refusal + " (refused before any "
+                                         "dispatch; no HTTP was sent)"},
+                             indent=2, sort_keys=True))
+            sys.stdout.write("\n")
+            return EXIT_USAGE
+    from .qualification import run_trial
+
+    exit_code, document = run_trial(config, spec, synthetic=synthetic)
+    rendered = json.dumps(document, indent=2, sort_keys=True) + "\n"
+    if output_path is not None:
+        try:
+            Path(output_path).write_text(rendered, encoding="utf-8")
+        except OSError:
+            attempted = int(
+                document.get("transport_boundary", {})
+                .get("attempted_calls", 0) or 0)
+            if attempted:
+                dispatch_note = (
+                    f"{attempted} transport call(s) were attempted "
+                    "(see transport_boundary in the evidence) — do not "
+                    "replay blindly: ambiguous or spent work may have "
+                    "occurred")
+            else:
+                dispatch_note = (
+                    "no transport call was attempted by this run; the "
+                    "document carries the pre-dispatch refusal facts")
+            sys.stdout.write(rendered)
+            print(json.dumps(
+                {"qualification": "trial", "status": "error",
+                 "error": "EVIDENCE_EXPORT_FAILED",
+                 "stage": "post_work_evidence_export",
+                 "message": ("evidence file write failed after the trial "
+                             "returned; the full document was written to "
+                             "stdout; " + dispatch_note)},
+                indent=2, sort_keys=True), file=sys.stderr)
+            return EXIT_EVIDENCE_EXPORT
+    else:
+        sys.stdout.write(rendered)
+    return exit_code
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="raggedized",
@@ -480,6 +638,47 @@ def _build_parser() -> argparse.ArgumentParser:
                             "(digest-only exact-output check)")
     probe.add_argument("--output", default=None,
                        help="write the evidence document to this file (default: stdout)")
+    qualification = subparsers.add_parser(
+        "qualification",
+        help="finite qualification trials: offline gates/plan (zero I/O) "
+             "and explicit opt-in repeated-parent execution over the real "
+             "gateway/direct application code",
+    )
+    qualification_sub = qualification.add_subparsers(
+        dest="qualification_command", required=True)
+    qualification_sub.add_parser(
+        "gates",
+        help="print the machine-readable section 23.2 prerequisite "
+             "projection (offline; real trials NOT_RUN)",
+    )
+    qual_plan = qualification_sub.add_parser(
+        "plan",
+        help="offline trial plan for one strict spec (zero "
+             "model/HTTP/telemetry I/O; execution NOT_RUN)",
+    )
+    qual_plan.add_argument("--config", required=True,
+                           help="path to the JSON configuration file")
+    qual_plan.add_argument("--spec", required=True,
+                           help="path to the strict trial spec JSON file")
+    qual_run = qualification_sub.add_parser(
+        "run",
+        help="EXPLICIT opt-in trial execution against the configured "
+             "gateway route or offline-diagnostic direct destination "
+             "(--synthetic: owned deterministic MOCK fixture; safe "
+             "structured evidence; no live claims)",
+    )
+    qual_run.add_argument("--config", required=True,
+                          help="path to the JSON configuration file")
+    qual_run.add_argument("--spec", required=True,
+                          help="path to the strict trial spec JSON file")
+    qual_run.add_argument("--synthetic", action="store_true",
+                          help="use the deterministic explicit synthetic "
+                               "route (owned loopback fixture; evidence "
+                               "labeled MOCK; configured secrets never "
+                               "read)")
+    qual_run.add_argument("--output", default=None,
+                          help="write the evidence document to this file "
+                               "(default: stdout)")
     return parser
 
 
@@ -496,6 +695,13 @@ def main(argv: list[str] | None = None) -> int:
                          args.max_dispatches, args.max_output_tokens_total,
                          args.expected_output_a, args.expected_output_b,
                          args.output)
+    if args.command == "qualification":
+        if args.qualification_command == "gates":
+            return run_qualification_gates()
+        if args.qualification_command == "plan":
+            return run_qualification_plan(args.config, args.spec)
+        return run_qualification_run(args.config, args.spec,
+                                     args.synthetic, args.output)
     parser.error("unknown command")
     return EXIT_USAGE
 

@@ -1,0 +1,108 @@
+{
+  "gates": {
+    "DIRECT-01": {
+      "executable_in_this_slice": true,
+      "experiment": "Repeated parent with different target chunks through direct llama.cpp",
+      "pending": "materialized offline_diagnostic destination on an authorized real build + real target authorization; repeated-parent direct trial entrypoint available (cold/warm physical state stays unknown without cache reset/isolation evidence)",
+      "runner_entrypoint": "raggedized qualification run (text repeated-parent trial; explicit opt-in; --synthetic for the owned deterministic MOCK fixture)",
+      "status": "NOT_RUN"
+    },
+    "EMBED-01": {
+      "executable_in_this_slice": false,
+      "experiment": "Short-query BGE-M3 on the actual serving CPU",
+      "pending": "007 (embedding pipeline) + real serving CPU target",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "EMBED-02": {
+      "executable_in_this_slice": false,
+      "experiment": "Same checkpoint with corpus GPU FP16 versus CPU FP32",
+      "pending": "007 (embedding pipeline) + authorized real GPU",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "GATEWAY-01": {
+      "executable_in_this_slice": true,
+      "experiment": "Text request through the configured local-Qwen Responses route",
+      "pending": "real target authorization (approved URL/credential/route identity) and 004-b telemetry/parity composition; runner entrypoint available",
+      "runner_entrypoint": "raggedized qualification run (text repeated-parent trial; explicit opt-in; --synthetic for the owned deterministic MOCK fixture)",
+      "status": "NOT_RUN"
+    },
+    "GATEWAY-02": {
+      "executable_in_this_slice": false,
+      "experiment": "Authorized visual input through that route",
+      "pending": "004-b + 016 (audited vision path) + qualified gateway vision capability + real target authorization",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "GATEWAY-03": {
+      "executable_in_this_slice": true,
+      "experiment": "Equivalent repeated-parent jobs through gateway",
+      "pending": "real target authorization and 004-b composition; repeated-parent gateway trial entrypoint available (no assumed slot reuse: the trial sends no cache-key/slot control)",
+      "runner_entrypoint": "raggedized qualification run (text repeated-parent trial; explicit opt-in; --synthetic for the owned deterministic MOCK fixture)",
+      "status": "NOT_RUN"
+    },
+    "LICENSE-01": {
+      "executable_in_this_slice": false,
+      "experiment": "Exact dependency/model/renderer inventory",
+      "pending": "018 (packaging and license audit); the certifi (MPL-2.0) policy exception has not been granted",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "ONLINE-01": {
+      "executable_in_this_slice": false,
+      "experiment": "Complete authenticated query-to-cited-answer path",
+      "pending": "014 (authenticated answer API) + 004-b composition",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "ONLINE-02": {
+      "executable_in_this_slice": false,
+      "experiment": "Two or more concurrent requests under explicit limits",
+      "pending": "014 + 004-b (concurrency above 1 is unimplemented in this slice)",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "OPS-01": {
+      "executable_in_this_slice": false,
+      "experiment": "Interrupt annotation and embedding jobs; restart workers",
+      "pending": "017 (updates/recovery) + 007/010 job implementation",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "OPS-02": {
+      "executable_in_this_slice": false,
+      "experiment": "Online to offline to online transitions",
+      "pending": "015 (GPU mode operations) + real GPU ownership journal",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "RERANK-01": {
+      "executable_in_this_slice": false,
+      "experiment": "10/20/40/80 candidates at several pair lengths",
+      "pending": "012 (private reranker worker) + 004-b resource telemetry + authorized real GPU",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "V100-MEM-01": {
+      "executable_in_this_slice": false,
+      "experiment": "Q6 vision 32k alone, then FP16 reranker batches 1/2/4/8",
+      "pending": "015 (GPU ownership/mode operations) + 004-b resource telemetry + authorized real GPU",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    },
+    "V100-MEM-02": {
+      "executable_in_this_slice": false,
+      "experiment": "16k/24k and optionally 48k/64k online contexts",
+      "pending": "015 + 004-b resource telemetry + authorized real GPU",
+      "runner_entrypoint": null,
+      "status": "NOT_RUN"
+    }
+  },
+  "generated_by": "slaif_raggedized_helper.qualification.gates (004-a)",
+  "live_target_authorization": "NONE",
+  "positive_claims": "none: no topology, cache, speedup, quality, VRAM, license or readiness claim follows from this projection or from any synthetic/configured-unverified trial evidence in this slice",
+  "real_trials": "NOT_RUN",
+  "source": "ARCHITECTURE.md section 23.2 mandatory experiment matrix (SHA-256 4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a)",
+  "version": 1
+}

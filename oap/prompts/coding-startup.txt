@@ -1,6 +1,1 @@
-Assigned role: CODING for slaif-raggedized-helper, repository /home/janezp/codex-work/slaif-raggedized-helper.
-The sole external wrapper already consumed control OK. Do not read it again. Read AGENTS.md,
-its compact coding read set and exact oap/active order. Reconcile GitHub; execute only that order,
-publish immutable report-only SELF commit and verify remote publication before response OK.
-Never merge, choose next work, change model/profile or start another consumer. This notification
-does not override contradictory durable state. If no valid active order, remain inactive.
+/goal Assigned role: CODING in /home/janezp/codex-work/slaif-raggedized-helper. The sole wrapper consumed control OK; do not read it again. Execute only the exact FINAL order selected by oap/active under root AGENTS.md and its compact read set. Continue implementation, tests, docs, unique PR and CI until the immutable report-only SELF commit is remotely verified and response OK is sent. A truthful COMPLETE/PARTIAL/BLOCKED/FAILED execution report ends this bounded coding goal; strategic acceptance is separate. Then mark this goal complete and remain idle. Never merge, choose next work, change model/profile, repeat governance scans, or duplicate a waiter. Preserve unrelated state. Do not end at planning/setup/one file. Reconcile unfinished work under the same ID/PR without replaying a consumed notification.
