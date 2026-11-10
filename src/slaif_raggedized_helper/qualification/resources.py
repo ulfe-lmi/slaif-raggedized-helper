@@ -592,6 +592,7 @@ class ResourceSeries(BaseModel):
     # standalone diagnostic).
     start_offset_seconds: StrictFloat
     interval_seconds: StrictFloat
+    # Elapsed observation window, ending at the work cutoff or CPU endpoint.
     duration_seconds: StrictFloat
     samples: list[SampleObservation] = Field(
         default_factory=list, max_length=MAX_SAMPLES)
@@ -637,9 +638,10 @@ class ResourceSeries(BaseModel):
                 raise ValueError(
                     "rss sample peak is unavailable when no sample has a "
                     "known rss")
-        if self.cpu.wall_seconds != self.duration_seconds:
+        if (self.cpu.wall_seconds is not None
+                and self.cpu.wall_seconds < self.duration_seconds):
             raise ValueError(
-                "cpu wall_seconds must equal the observed series duration")
+                "cpu wall_seconds cannot precede the observed series duration")
         return self
 
 
@@ -1367,6 +1369,7 @@ class TrialResourceObserver:
             raise ValueError("trial_status must be a trial execution status")
         self.stop("finished")
         final_user = final_system = lifetime = None
+        cpu_endpoint = None
         with self._lock:
             reason = self._admission_refusal_locked()
             # Exhaustion is terminal, even if a final no-byte probe would fit.
@@ -1375,13 +1378,31 @@ class TrialResourceObserver:
             if reason is None:
                 self._collection_calls += 1
                 final_user, final_system = own_process_cpu()
-                lifetime = lifetime_max_rss_bytes()
+                cpu_endpoint = self._clock()
+                assert self._start_time is not None
+                cutoff = self._start_time + self._max_duration
+                if self._deadline is not None:
+                    cutoff = min(cutoff, self._deadline)
+                if cpu_endpoint < cutoff:
+                    lifetime = lifetime_max_rss_bytes()
             elif self._stop_reason != "resource_exhausted":
                 self._stop_reason = reason
             samples = list(self._samples)
-            duration = (
-                round(max(0.0, self._clock() - self._start_time), 9)
-                if self._start_time is not None else 0.0)
+            completed_at = self._clock()
+            if self._start_time is None:
+                duration = completion_elapsed = 0.0
+                cpu_wall = None
+            else:
+                completion_elapsed = round(max(0.0, completed_at - self._start_time), 9)
+                cutoff = self._start_time + self._max_duration
+                if self._deadline is not None:
+                    cutoff = min(cutoff, self._deadline)
+                # The work window is the intersection of the allowed interval
+                # and the observed interval, not a clamped completion time.
+                window_end = cpu_endpoint if cpu_endpoint is not None else completed_at
+                duration = round(max(0.0, min(window_end, cutoff) - self._start_time), 9)
+                cpu_wall = (round(max(0.0, cpu_endpoint - self._start_time), 9)
+                            if cpu_endpoint is not None else duration)
             collection_calls = self._collection_calls
             bytes_read = self._bytes_read
             device_queries = self._device_queries
@@ -1407,7 +1428,7 @@ class TrialResourceObserver:
                 "interval_seconds": self._interval,
                 "duration_seconds": duration,
                 "samples": samples,
-                "cpu": cpu_facts(user, system, duration),
+                "cpu": cpu_facts(user, system, cpu_wall),
                 "rss": {
                     "current_bytes": (
                         samples[-1]["rss_bytes"] if samples else None),
@@ -1422,7 +1443,7 @@ class TrialResourceObserver:
             "collector": {
                 "samples": len(samples),
                 "collection_calls": collection_calls,
-                "wall_seconds": duration,
+                "wall_seconds": completion_elapsed,
                 "bytes_read": bytes_read,
                 "device_queries": device_queries,
                 "device_query_wall_seconds": device_query_wall,
@@ -1431,8 +1452,8 @@ class TrialResourceObserver:
                 "note": (
                     "collector activity accounting; separate from model/"
                     "template dispatches (transport boundary) and from "
-                    "output allowances; sampling never extends or resets "
-                    "the trial deadline"
+                    "output allowances; wall_seconds includes cleanup/finalization; "
+                    "sampling never extends or resets the trial deadline"
                 ),
                 # Bounded collector identity / code-source binding
                 # (004-e): safe fixed tokens plus the ACTUAL executing
