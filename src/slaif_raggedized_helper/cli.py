@@ -85,30 +85,39 @@ def _output_destination_refusal(output_path: str) -> str | None:
     already dispatched is a distinct post-dispatch export failure
     (exit 3 with the full evidence on stdout), never a misleading
     zero-dispatch usage error.
+
+    A destination whose parent cannot be searched (e.g. mode 000) is
+    also knowably invalid: nothing inside it can be written. The stat
+    helpers behave differently across interpreter versions (Python 3.12
+    ``Path.exists()`` raises ``PermissionError`` there, newer
+    interpreters return ``False``), so every filesystem probe is
+    exception-safe and any unprovable destination refuses pre-dispatch.
     """
     target = Path(output_path)
     parent = target.parent
-    if not parent.exists():
-        return "evidence output parent directory does not exist"
-    if not parent.is_dir():
-        return "evidence output parent path is not a directory"
-    if target.exists():
-        if not target.is_file():
-            return "evidence output path exists and is not a regular file"
-        # A pre-existing regular file the current user cannot write is
-        # knowably invalid before any dispatch; the write would fail
-        # only after costly transport work (late export failure).
-        if not os.access(target, os.W_OK):
-            return "evidence output file exists and is not writable"
-    # Prove writability of the parent directory by creating and
-    # removing a private temp file (safe local filesystem work; no
-    # network).
     try:
+        if not parent.exists():
+            return "evidence output parent directory does not exist"
+        if not parent.is_dir():
+            return "evidence output parent path is not a directory"
+        if target.exists():
+            if not target.is_file():
+                return "evidence output path exists and is not a regular file"
+            # A pre-existing regular file the current user cannot write
+            # is knowably invalid before any dispatch; the write would
+            # fail only after costly transport work (late export
+            # failure).
+            if not os.access(target, os.W_OK):
+                return "evidence output file exists and is not writable"
+        # Prove writability of the parent directory by creating and
+        # removing a private temp file (safe local filesystem work; no
+        # network).
         fd, tmp = tempfile.mkstemp(prefix=".probe-output-precheck-",
                                    dir=str(parent))
     except OSError as exc:
-        return ("evidence output directory is not writable: "
-                + (exc.strerror or "I/O error"))
+        return ("evidence output directory is not searchable or "
+                "writable: " + (getattr(exc, "strerror", None)
+                                or "I/O error"))
     try:
         os.close(fd)
         os.unlink(tmp)
