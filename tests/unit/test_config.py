@@ -199,6 +199,17 @@ def test_direct_online_generation_refused():
 # native direct configuration (003-e: reference registry, template identity)
 # ---------------------------------------------------------------------------
 
+def test_native_json_grammar_capability_is_default_deny():
+    """The native JSON/schema grammar control is default deny: the tested
+    capability flag is False unless an operator records an actual
+    build-tested qualification."""
+    assert cfg.DirectCapabilities().json_grammar_tested is False
+    assert cfg.DirectCapabilities(json_grammar_tested=True).json_grammar_tested is True
+    # other capability fields are unaffected
+    caps = cfg.DirectCapabilities(cache_prompt_tested=True, slot_tested=True)
+    assert caps.json_grammar_tested is False
+
+
 def test_pinned_reference_registry_matches_upstream_source():
     """The reference registry is the actual pinned 3b4d6ab --chat-template
     list: versioned mistral/phi entries present, the false five-name set

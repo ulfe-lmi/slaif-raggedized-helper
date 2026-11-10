@@ -29,6 +29,17 @@ qualified native image serializer exists yet; unknown vision/native
 features remain explicit refusal). This adapter is never an answer
 fallback after a gateway failure/denial.
 
+Optional-control admission (default deny): the requested JSON/schema
+controls (``response_format`` ``json_object``/``json_schema``) are
+inferred from the ACTUAL INPUT SHAPE, not only from caller-required
+capability declarations, and require the explicit
+``json_grammar_tested`` serving-build capability. A documented field is
+not tested grammar support and template qualification alone does not
+prove it: an unqualified JSON/schema request is refused locally BEFORE
+``/apply-template`` or ``/completion`` (zero dispatch), while qualified
+controls preserve the pinned request semantics (``{}`` is any JSON in
+the native reference — not a stronger object-shape guarantee).
+
 Outcome mapping (fail-closed, pinned dialect): only ``stop: true`` +
 ``truncated: false`` + ``stop_type: "eos"`` + usable nonempty ``content``
 produces TERMINAL. ``stop_type: "limit"`` (n_predict reached),
@@ -52,15 +63,39 @@ stay null, never invented):
 - ``usage.output_tokens``     <- ``timings.predicted_n`` (``n_gen``);
 - top-level ``tokens_cached`` is the SLOT's resulting ``prompt.n_tokens()``
   (prompt + generated), NOT the cache hits of this request: it is never
-  substituted for ``timings.cache_n``.
+  substituted for ``timings.cache_n``. Counters are validated as finite
+  nonnegative numbers without accepting bool/NaN/infinity. Under the
+  supported dialect the task's total prompt tokens equal newly processed
+  plus cached (``tokens_evaluated == prompt_n + cache_n``); a
+  contradictory reported breakdown (e.g. 100 input with 90 new + 90
+  cached) cannot prove evaluated work or caching, so the evaluated/cache
+  breakdown is withheld (null) while the directly reported task total
+  keeps its own provenance.
 
-``timings`` maps only from the dialect's own reported fields (caller wall
-time stays separate): ``ttft_seconds`` <- ``timings.prompt_ms``/1000 (the
-first generated token cannot precede prompt processing) and
-``total_seconds`` <- ``(timings.prompt_ms + timings.predicted_ms)``/1000
-(model work time). Counters are validated as finite nonnegative numbers
-without accepting bool/NaN/infinity; malformed or contradictory counters
-cannot prove evaluated work.
+``timings`` maps only from the dialect's own reported fields with correct
+quantities and units (ms -> s); caller wall time stays separate and is
+never mixed in:
+
+- ``ttft_seconds`` is NEVER set by this adapter: the pinned native
+  dialect reports no first-token measurement, and the prompt-processing
+  duration is a lower bound, not an observed first-token time. TTFT
+  stays unavailable (null) unless a supported backend actually reports
+  or measures it.
+- ``prefill_seconds`` <- ``timings.prompt_ms``/1000 (the reported PROMPT
+  PROCESSING duration — not TTFT);
+- ``decode_seconds`` <- ``timings.predicted_ms``/1000 (the reported
+  token-generation duration);
+- ``total_seconds`` <- ``(timings.prompt_ms + timings.predicted_ms)``/1000
+  ONLY when both model phases were reported: an explicitly model-scoped
+  derived model-work total, never caller elapsed time.
+
+A measured reported ``0ms`` is a known zero (0.0), never null; a missing
+or invalid field stays unavailable and must not discard the other
+reported phase. Numeric conversion/arithmetic checks reject bool/NaN/Inf
+and unrepresentable values safely (a reported ``prompt_ms`` of 10**400
+is unavailable data, not an ``OverflowError`` out of ``generate()``);
+the handling is narrow at the input conversion boundary, not a
+whole-function exception blanket.
 """
 
 from __future__ import annotations
@@ -118,10 +153,19 @@ def _nonneg_int(value: object) -> int | None:
 
 
 def _finite_nonneg_number(value: object) -> float | None:
-    """Finite nonnegative number (int or float, no bool/NaN/Inf)."""
+    """Finite nonnegative number (int or float, no bool/NaN/Inf).
+
+    Unrepresentable numeric input (for example a reported ``prompt_ms``
+    of 10**400, whose ``float()`` conversion overflows) is UNAVAILABLE
+    data: the conversion check at this input boundary returns None
+    instead of letting the provider value raise out of ``generate()``.
+    """
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         return None
-    number = float(value)
+    try:
+        number = float(value)
+    except (OverflowError, ValueError):
+        return None
     if not math.isfinite(number) or number < 0:
         return None
     return number
@@ -216,11 +260,14 @@ def build_completion_envelope(
     string, explicit ``n_predict``, ``stream: false``, caller-set
     ``temperature``/``top_p``, the documented ``json_schema`` grammar
     control (``{}`` is the pinned reference's any-JSON form, mapping the
-    ``json_object`` semantic; the caller's exact schema otherwise),
-    ``cache_prompt: true`` only when the capability was tested, and
-    singular ``id_slot`` only when the slot capability was tested.
-    Unsupported requested behavior is refused by the caller before the
-    envelope is built — never silently ignored here.
+    ``json_object`` semantic — not a stronger object-shape guarantee —;
+    the caller's exact schema otherwise), ``cache_prompt: true`` only
+    when the capability was tested, and singular ``id_slot`` only when
+    the slot capability was tested. JSON/schema requests reach this
+    builder only when the build's ``json_grammar_tested`` capability was
+    checked by the preflight (default deny); unsupported requested
+    behavior is refused by the caller before the envelope is built —
+    never silently ignored here.
     """
     envelope: dict = {
         "prompt": prompt,
@@ -272,6 +319,17 @@ def _parse_native_usage(doc: dict) -> UsageMetrics | None:
     infinity counter is invalid (stays null) and cannot prove evaluated
     work. Top-level ``tokens_cached`` is deliberately ignored for
     ``cache_hit_tokens`` (it is the slot's resulting prompt token count).
+
+    Dialect consistency: the pinned reference books the task's total
+    prompt tokens as newly processed plus cached
+    (``tokens_evaluated == prompt_n + cache_n``). When all three reported
+    fields are present but contradict that relation (e.g. 100 input with
+    90 new + 90 cached), the reported breakdown cannot be cache or
+    evaluated-work proof: ``prefill_tokens``/``cache_hit_tokens`` are
+    withheld (null). The directly reported task total keeps its own
+    provenance; the raw contradictory values are not carried anywhere in
+    the result (they are diagnostic server output, not qualified
+    metrics).
     """
     input_tokens = _nonneg_int(doc.get("tokens_evaluated"))
     prompt_n = None
@@ -282,6 +340,11 @@ def _parse_native_usage(doc: dict) -> UsageMetrics | None:
         prompt_n = _nonneg_int(timings.get("prompt_n"))
         cache_n = _nonneg_int(timings.get("cache_n"))
         predicted_n = _nonneg_int(timings.get("predicted_n"))
+    if (input_tokens is not None and prompt_n is not None
+            and cache_n is not None
+            and prompt_n + cache_n != input_tokens):
+        prompt_n = None
+        cache_n = None
     if (input_tokens is None and predicted_n is None
             and prompt_n is None and cache_n is None):
         return None
@@ -294,23 +357,37 @@ def _parse_native_usage(doc: dict) -> UsageMetrics | None:
 
 
 def _parse_native_timings(timings: object) -> TimingMetrics | None:
-    """Model timings from the dialect's own reported millisecond fields.
+    """Model-phase timings from the dialect's own reported ms fields.
 
-    Caller wall time is never mixed in. A measured zero millisecond value
-    is null in the positive-only contract type (never an invented zero);
-    absent/invalid fields stay null.
+    Quantities (correct, explicit, per field — see module doc):
+
+    - ``prefill_seconds``: reported prompt-processing duration; a
+      measured reported 0ms is a known zero (0.0), never null;
+    - ``decode_seconds``: reported token-generation duration, same
+      zero/missing semantics (a withheld phase never discards the other
+      reported phase);
+    - ``total_seconds``: derived model-work total, explicitly model
+      scoped (never caller wall time), present only when BOTH model
+      phases were validly reported;
+    - ``ttft_seconds``: never set here — the pinned dialect reports no
+      first-token measurement, so TTFT stays unavailable.
+
+    Caller wall time is never mixed in; absent/invalid/unrepresentable
+    fields stay null.
     """
     if not isinstance(timings, dict):
         return None
     prompt_ms = _finite_nonneg_number(timings.get("prompt_ms"))
     predicted_ms = _finite_nonneg_number(timings.get("predicted_ms"))
-    ttft = prompt_ms / 1000.0 if prompt_ms not in (None, 0) else None
+    prefill = prompt_ms / 1000.0 if prompt_ms is not None else None
+    decode = predicted_ms / 1000.0 if predicted_ms is not None else None
     total = ((prompt_ms + predicted_ms) / 1000.0
-             if prompt_ms not in (None, 0) and predicted_ms not in (None, 0)
+             if prompt_ms is not None and predicted_ms is not None
              else None)
-    if ttft is None and total is None:
+    if prefill is None and decode is None and total is None:
         return None
-    return TimingMetrics(ttft_seconds=ttft, total_seconds=total)
+    return TimingMetrics(prefill_seconds=prefill, decode_seconds=decode,
+                         total_seconds=total)
 
 
 def _parse_apply_template(body: bytes) -> tuple[str | None, str | None]:
@@ -492,6 +569,16 @@ class DirectNativeGenerator:
             if not direct.capabilities.cache_prompt_tested:
                 return ("prompt caching refused: native cache_prompt "
                         "capability not tested on this build")
+        # Optional JSON/schema control admission (default deny): inferred
+        # from the actual input shape, not only from caller-required
+        # capability declarations. Template qualification alone does not
+        # prove grammar support; refuse BEFORE /apply-template or
+        # /completion (zero dispatch) unless the serving build's JSON
+        # grammar capability was actually tested.
+        if request.response_format in ("json_object", "json_schema"):
+            if not direct.capabilities.json_grammar_tested:
+                return ("native JSON control refused: json_schema grammar "
+                        "support is not tested on this build (default deny)")
         # Output budget: REFUSAL semantics (consistent with the gateway
         # output reserve). The caller allowance must fit the explicit
         # finite operator limit; it is never silently clamped, and the

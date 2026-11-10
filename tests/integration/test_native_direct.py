@@ -21,10 +21,12 @@ qualifications only, no live model/build):
   are safe typed failures;
 - /completion sends the bounded formatted prompt, explicit n_predict,
   stream:false and only the supported pinned-dialect controls
-  (temperature/top_p, documented json_schema grammar forms, cache_prompt
-  only with the tested capability, singular id_slot only with the tested
-  capability); unsupported requested behavior refuses locally with zero
-  inference dispatch;
+  (temperature/top_p, documented json_schema grammar forms gated by the
+  tested json_grammar_tested capability — default deny, inferred from the
+  actual input shape, cache_prompt only with the tested capability,
+  singular id_slot only with the tested capability); unqualified
+  json_object/json_schema requests and every other unsupported requested
+  behavior refuse locally with zero inference dispatch;
 - one total deadline spans template work, generation and retries and is
   never reset per attempt; an expired budget refuses before dispatch even
   after template work; positive pre-dispatch failures use the finite
@@ -34,11 +36,15 @@ qualifications only, no live model/build):
   missing/invalid terminal reason, unqualified stop-word and empty
   content never become TERMINAL; only eos with usable bounded content
   succeeds;
-- metrics map only from the pinned dialect's actual reported fields: the
-  synthetic 100-submitted (10 new / 90 cached) + 12-generated case with
-  tokens_cached=112 preserves the distinct facts; bool/NaN/infinity and
-  malformed counters cannot prove evaluated work; model timings stay
-  separate from caller wall time;
+- metrics map only from the pinned dialect's actual reported fields with
+  correct quantities: the synthetic 100-submitted (10 new / 90 cached) +
+  12-generated case with tokens_cached=112 preserves the distinct facts;
+  bool/NaN/infinity/malformed/unrepresentable (overflow) counters and
+  times cannot prove evaluated work or crash generate(); a contradictory
+  reported breakdown (100 input with 90 new + 90 cached) is withheld;
+  model-phase timings (reported prefill/decode ms, a measured 0ms kept as
+  a known zero, the model-scoped phase total) stay separate from caller
+  wall time and from the unobserved first-token time (TTFT stays null);
 - malformed/canary/error refusals leak no provider bytes; the declared
   identity is stable across requests and responses.
 """
@@ -375,8 +381,11 @@ def test_operator_limit_missing_refuses_before_dispatch():
         {"prompt_cache_key": "k1",
          "required_capabilities": {Capability.PROMPT_CACHING}},
         {"required_capabilities": {Capability.STREAMING}},
+        {"response_format": "json_object"},
+        {"response_format": "json_schema", "json_schema": {"type": "object"}},
     ],
-    ids=["prompt-caching-untested", "cache-key-untested", "streaming"],
+    ids=["prompt-caching-untested", "cache-key-untested", "streaming",
+         "json-object-unqualified", "json-schema-unqualified"],
 )
 def test_unsupported_controls_refused_before_any_dispatch(server, control):
     srv = server(lambda h, r: h._send_json(200, {}))
@@ -389,6 +398,35 @@ def test_unsupported_controls_refused_before_any_dispatch(server, control):
     assert result.outcome is CompletionOutcome.FAILED
     assert "refused" in (result.error or "")
     assert srv.paths == []
+
+
+@pytest.mark.parametrize(
+    "shape, expected_grammar",
+    [
+        ({"response_format": "json_object"}, {}),
+        ({"response_format": "json_schema", "json_schema": {"type": "object"}},
+         {"type": "object"}),
+    ],
+    ids=["json-object-qualified", "json-schema-qualified"],
+)
+def test_qualified_json_controls_preserve_request_semantics(server,
+                                                            shape,
+                                                            expected_grammar):
+    """Qualified build (json_grammar_tested): the pinned request semantics
+    are preserved — json_object maps to the reference's any-JSON grammar
+    form {} (NOT a stronger object-shape guarantee) and json_schema sends
+    the caller's exact schema; both calls happen exactly once."""
+    scenario = NativeScenario()
+    srv = server(scenario.scenario)
+    config = make_direct_config(
+        srv.url, capabilities=DirectCapabilities(json_grammar_tested=True))
+    result = make_generator(config).generate(make_request(**shape))
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert srv.paths == [APPLY_TEMPLATE_PATH, COMPLETION_PATH]
+    assert srv.count(APPLY_TEMPLATE_PATH) == 1
+    envelope = json.loads(srv.requests[1].body)
+    assert envelope["json_schema"] == expected_grammar
+    assert set(envelope) == {"prompt", "n_predict", "stream", "json_schema"}
 
 
 def test_output_budget_refused_before_dispatch(server):
@@ -460,6 +498,13 @@ def test_literal_marker_content_reaches_completion_unchanged(server):
     # exact rendered bytes: the literal sequence appears exactly once,
     # inside the user-data segment, unmodified
     assert prompt.count(_CLOSING_MARKER) == 1
+    # the exact qualified prompt (literal tool-call close AND the Markdown
+    # fence data) reaches /completion byte-for-byte unchanged
+    expected_prompt = "SYNTH-TPL::" + chr(1).join([
+        "<|system|>trusted annotation instructions",
+        "<|user|>" + MARKER_TEXT,
+    ])
+    assert prompt == expected_prompt
     assert result.text == f"annotated span [0, {len(prompt)}]"
 
 
@@ -517,11 +562,14 @@ def test_completion_envelope_exact_minimal(server):
 
 
 def test_completion_envelope_supported_sampling_and_json_controls(server):
-    srv, result = run_native(
-        server, NativeScenario(),
-        request=make_request(temperature=0.2, top_p=0.9,
-                             response_format="json_schema",
-                             json_schema={"type": "object"}))
+    srv = server(NativeScenario().scenario)
+    # qualified build: the json_schema grammar control is tested
+    config = make_direct_config(
+        srv.url, capabilities=DirectCapabilities(json_grammar_tested=True))
+    result = make_generator(config).generate(
+        make_request(temperature=0.2, top_p=0.9,
+                     response_format="json_schema",
+                     json_schema={"type": "object"}))
     assert result.outcome is CompletionOutcome.TERMINAL
     envelope = json.loads(srv.requests[1].body)
     assert envelope["temperature"] == 0.2
@@ -532,9 +580,13 @@ def test_completion_envelope_supported_sampling_and_json_controls(server):
 
 
 def test_completion_envelope_json_object_maps_to_any_json_grammar(server):
-    """Pinned reference: json_schema {} is the any-JSON grammar form."""
-    srv, result = run_native(
-        server, NativeScenario(), request=make_request(response_format="json_object"))
+    """Pinned reference: json_schema {} is the any-JSON grammar form
+    (qualified build; an unqualified request refuses before dispatch)."""
+    srv = server(NativeScenario().scenario)
+    config = make_direct_config(
+        srv.url, capabilities=DirectCapabilities(json_grammar_tested=True))
+    result = make_generator(config).generate(
+        make_request(response_format="json_object"))
     assert result.outcome is CompletionOutcome.TERMINAL
     envelope = json.loads(srv.requests[1].body)
     assert envelope["json_schema"] == {}
@@ -878,8 +930,10 @@ def test_synthetic_metric_case_preserves_distinct_facts(server):
     assert usage.output_tokens == 12      # timings.predicted_n
     timings = result.timings
     assert timings is not None
-    assert timings.ttft_seconds == 0.25
-    assert timings.total_seconds == 1.55
+    assert timings.ttft_seconds is None       # never observed in this dialect
+    assert timings.prefill_seconds == 0.25    # prompt_ms/1000 (not TTFT)
+    assert timings.decode_seconds == 1.3      # predicted_ms/1000
+    assert timings.total_seconds == 1.55      # model-scoped phase sum
 
 
 @pytest.mark.parametrize(
@@ -892,6 +946,7 @@ def test_synthetic_metric_case_preserves_distinct_facts(server):
         ("timings.cache_n", float("nan")),
         ("timings.predicted_n", float("inf")),
         ("timings.prompt_ms", float("nan")),
+        ("timings.prompt_ms", True),
         ("timings.predicted_ms", -5),
     ],
 )
@@ -913,9 +968,13 @@ def test_malformed_or_unsafe_counters_stay_null(server, field, bad_value):
     elif field == "timings.predicted_n":
         assert usage.output_tokens is None
     elif field == "timings.prompt_ms":
-        assert result.timings is None or result.timings.ttft_seconds is None
+        assert result.timings is None or (
+            result.timings.prefill_seconds is None
+            and result.timings.total_seconds is None)
     else:  # timings.predicted_ms
-        assert result.timings is None or result.timings.total_seconds is None
+        assert result.timings is None or (
+            result.timings.decode_seconds is None
+            and result.timings.total_seconds is None)
 
 
 def test_missing_metric_fields_stay_null(server):
@@ -928,13 +987,57 @@ def test_missing_metric_fields_stay_null(server):
     assert result.timings is None
 
 
-def test_zero_millisecond_timings_are_null_not_zero(server):
-    doc = completion_doc(timings={"prompt_ms": 0, "predicted_ms": 0,
+def test_reported_zero_millisecond_prefill_is_a_known_zero(server):
+    """A measured reported 0ms is a known zero, not None; preserving the
+    prefill zero must not discard the available decode."""
+    doc = completion_doc(timings={"prompt_ms": 0, "predicted_ms": 60,
                                   "prompt_n": 10, "cache_n": 0, "predicted_n": 3})
     srv, result = run_native(server, NativeScenario(completion=doc))
     assert result.outcome is CompletionOutcome.TERMINAL
-    assert result.timings is None  # positive-only contract: measured zero -> null
+    timings = result.timings
+    assert timings is not None
+    assert timings.prefill_seconds == 0.0   # known zero, not null
+    assert timings.decode_seconds == 0.06   # available decode preserved
+    assert timings.total_seconds == 0.06    # model-scoped phase sum
+    assert timings.ttft_seconds is None     # never observed in this dialect
     assert result.usage.prefill_tokens == 10
+
+
+def test_overflow_reported_time_is_safe_over_http(server):
+    """A reported prompt_ms of 10**400 is valid JSON within the byte/digit
+    bounds but unrepresentable as a float: generate() must return a safe
+    result (no raw OverflowError), the invalid phase stays unavailable and
+    the other reported phase is preserved."""
+    doc = completion_doc(timings={"prompt_ms": 10**400, "predicted_ms": 60.0,
+                                  "prompt_n": 10, "cache_n": 0, "predicted_n": 3})
+    srv, result = run_native(server, NativeScenario(completion=doc))
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert srv.count(COMPLETION_PATH) == 1
+    timings = result.timings
+    assert timings is not None
+    assert timings.prefill_seconds is None
+    assert timings.decode_seconds == 0.06
+    assert timings.total_seconds is None  # both phases required for the sum
+    assert timings.ttft_seconds is None
+
+
+def test_contradictory_reported_counters_are_withheld(server):
+    """100 input with 90 new + 90 cached contradicts the supported
+    dialect (prompt_n + cache_n must equal tokens_evaluated): the
+    evaluated/cache breakdown is withheld (never fabricated work/caching
+    proof); the directly reported task total keeps its own provenance and
+    the generated count is unaffected."""
+    doc = completion_doc(tokens_evaluated=100,
+                         timings={"prompt_n": 90, "cache_n": 90,
+                                  "predicted_n": 12,
+                                  "prompt_ms": 30.0, "predicted_ms": 60.0})
+    srv, result = run_native(server, NativeScenario(completion=doc))
+    assert result.outcome is CompletionOutcome.TERMINAL
+    usage = result.usage
+    assert usage.input_tokens == 100
+    assert usage.prefill_tokens is None
+    assert usage.cache_hit_tokens is None
+    assert usage.output_tokens == 12
 
 
 def test_model_timings_are_model_reported_not_caller_wall(server):
@@ -942,9 +1045,13 @@ def test_model_timings_are_model_reported_not_caller_wall(server):
     caller wall time (request deadline) never appears in them."""
     doc = completion_doc(timings={"prompt_ms": 1000.0, "predicted_ms": 1000.0})
     srv, result = run_native(server, NativeScenario(completion=doc))
-    assert result.timings.ttft_seconds == 1.0
+    assert result.timings.prefill_seconds == 1.0
+    assert result.timings.decode_seconds == 1.0
     assert result.timings.total_seconds == 2.0
-    assert 30.0 not in (result.timings.ttft_seconds, result.timings.total_seconds)
+    assert result.timings.ttft_seconds is None
+    values = (result.timings.prefill_seconds, result.timings.decode_seconds,
+              result.timings.total_seconds)
+    assert 30.0 not in values
 
 
 # ---------------------------------------------------------------------------

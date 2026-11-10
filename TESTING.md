@@ -34,5 +34,9 @@ parsing, bounded queue backpressure, cancellation, the pinned Responses dialect
 (003-e: exact envelopes, server-rendered template contract including literal
 untrusted content forwarded unchanged, tested-only cache/slot controls, the
 stop-terminal matrix, distinct-facts metric mapping and refusal zero-dispatch;
-see docs/generator-contract.md). The product CI job runs them alongside
+003-f: correct metric quantities with a reported 0ms kept as a known zero,
+TTFT unavailable, safe overflow/numeric handling, default-deny unqualified
+JSON/schema admission with qualified positive controls, and contradictory
+evaluated/cache counter withholding; see docs/generator-contract.md). The
+product CI job runs them alongside
 tests/unit and product lint from a clean locked install.

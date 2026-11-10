@@ -53,6 +53,11 @@
           "title": "Cache Prompt Tested",
           "type": "boolean"
         },
+        "json_grammar_tested": {
+          "default": false,
+          "title": "Json Grammar Tested",
+          "type": "boolean"
+        },
         "slot_tested": {
           "default": false,
           "title": "Slot Tested",

@@ -103,8 +103,10 @@ def test_synthetic_case_preserves_distinct_facts():
     assert result.usage.output_tokens == 12
     assert 112 not in (result.usage.input_tokens, result.usage.prefill_tokens,
                        result.usage.cache_hit_tokens, result.usage.output_tokens)
-    assert result.timings.ttft_seconds == 0.25
-    assert result.timings.total_seconds == 1.55
+    assert result.timings.ttft_seconds is None  # never observed in this dialect
+    assert result.timings.prefill_seconds == 0.25   # prompt_ms/1000
+    assert result.timings.decode_seconds == 1.3     # predicted_ms/1000
+    assert result.timings.total_seconds == 1.55     # model-scoped phase sum
 
 
 @pytest.mark.parametrize("counter", ["tokens_cached", "tokens_predicted"])
@@ -120,7 +122,9 @@ def test_top_level_slot_counters_never_map_when_dialect_fields_absent(counter):
 
 
 def test_tokens_evaluated_maps_and_slot_counter_does_not_shadow_it():
-    doc = make_doc(tokens_evaluated=5, tokens_cached=999)
+    doc = make_doc(tokens_evaluated=5, tokens_cached=999,
+                   timings={"cache_n": 0, "prompt_n": 5, "predicted_n": 3,
+                            "prompt_ms": 100.0, "predicted_ms": 300.0})
     usage = _parse_native_usage(doc)
     assert usage.input_tokens == 5
     # the slot total must not leak into cache_hit_tokens
@@ -138,7 +142,9 @@ def test_tokens_evaluated_maps_and_slot_counter_does_not_shadow_it():
         ("timings.predicted_n", float("inf")),
         ("timings.prompt_ms", float("nan")),
         ("timings.prompt_ms", -1),
+        ("timings.prompt_ms", True),
         ("timings.predicted_ms", "12.5"),
+        ("timings.predicted_ms", True),
     ],
 )
 def test_unsafe_counter_types_are_rejected(field, value):
@@ -158,10 +164,13 @@ def test_unsafe_counter_types_are_rejected(field, value):
     elif field == "timings.predicted_n":
         assert result.usage.output_tokens is None
     else:
+        assert result.timings is not None
         if field == "timings.prompt_ms":
-            assert result.timings is None or result.timings.ttft_seconds is None
+            assert result.timings.prefill_seconds is None
+            assert result.timings.total_seconds is None  # both phases required
         else:
-            assert result.timings is None or result.timings.total_seconds is None
+            assert result.timings.decode_seconds is None
+            assert result.timings.total_seconds is None  # both phases required
 
 
 def test_missing_metrics_stay_null():
@@ -174,19 +183,86 @@ def test_missing_metrics_stay_null():
     assert result.timings is None
 
 
-def test_zero_millisecond_values_are_null_in_positive_contract():
-    assert _parse_native_timings({"prompt_ms": 0, "predicted_ms": 0}) is None
-    # a measured zero prompt_ms with a positive predicted_ms: ttft null,
-    # total requires both -> null as well
-    assert _parse_native_timings({"prompt_ms": 0, "predicted_ms": 50}) is None
+def test_reported_zero_millisecond_values_are_known_zeros():
+    # A measured reported 0ms is a known zero (0.0), never null; missing
+    # fields stay null.
+    timings = _parse_native_timings({"prompt_ms": 0, "predicted_ms": 0})
+    assert timings.prefill_seconds == 0.0
+    assert timings.decode_seconds == 0.0
+    assert timings.total_seconds == 0.0
+    assert timings.ttft_seconds is None
+    # a measured zero prompt_ms with a positive predicted_ms: the known
+    # zero is preserved and the available decode is not discarded
+    timings = _parse_native_timings({"prompt_ms": 0, "predicted_ms": 50})
+    assert timings.prefill_seconds == 0.0
+    assert timings.decode_seconds == 0.05
+    assert timings.total_seconds == 0.05
+    assert timings.ttft_seconds is None
+    # a single reported phase: its zero/positive value is preserved, the
+    # model-scoped total (both phases) stays unavailable
+    timings = _parse_native_timings({"prompt_ms": 0})
+    assert timings.prefill_seconds == 0.0
+    assert timings.decode_seconds is None
+    assert timings.total_seconds is None
+
+
+def test_overflow_reported_time_is_unavailable_not_an_exception():
+    # 10**400 is valid JSON within the byte/digit bounds but unrepresentable
+    # as a float: it is unavailable data, never a raw OverflowError.
+    timings = _parse_native_timings({"prompt_ms": 10**400, "predicted_ms": 60})
+    assert timings.prefill_seconds is None
+    assert timings.decode_seconds == 0.06  # the other phase is preserved
+    assert timings.total_seconds is None   # both phases required
+    assert timings.ttft_seconds is None
+    # through the full response parse: still a safe TERMINAL result
+    doc = make_doc(timings={"prompt_ms": 10**400, "predicted_ms": 60,
+                            "prompt_n": 10, "cache_n": 0, "predicted_n": 3})
+    result = parse(doc)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert result.timings.prefill_seconds is None
+    assert result.timings.decode_seconds == 0.06
+    assert result.timings.total_seconds is None
 
 
 def test_timings_map_only_from_reported_fields():
     timings = _parse_native_timings({"prompt_ms": 250.0, "predicted_ms": 750.0})
-    assert timings.ttft_seconds == 0.25
+    assert timings.ttft_seconds is None  # never observed in this dialect
+    assert timings.prefill_seconds == 0.25
+    assert timings.decode_seconds == 0.75
     assert timings.total_seconds == 1.0
     assert _parse_native_timings(None) is None
     assert _parse_native_timings("nope") is None
+    assert _parse_native_timings({}) is None
+    assert _parse_native_timings({"prompt_ms": "fast"}) is None
+
+
+def test_contradictory_reported_breakdown_is_withheld():
+    # 100 input with 90 new + 90 cached contradicts the supported dialect
+    # (prompt_n + cache_n must equal tokens_evaluated): the evaluated/cache
+    # breakdown is withheld; the directly reported task total keeps its own
+    # provenance and the generated count is unaffected.
+    doc = make_doc(tokens_evaluated=100,
+                   timings={"cache_n": 90, "prompt_n": 90, "predicted_n": 12,
+                            "prompt_ms": 250.0, "predicted_ms": 1300.0})
+    result = parse(doc)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert result.usage.input_tokens == 100
+    assert result.usage.prefill_tokens is None
+    assert result.usage.cache_hit_tokens is None
+    assert result.usage.output_tokens == 12
+    # the consistent breakdown (10 + 90 == 100) is NOT withheld
+    doc = make_doc(tokens_evaluated=100,
+                   timings={"cache_n": 90, "prompt_n": 10, "predicted_n": 12})
+    result = parse(doc)
+    assert result.usage.prefill_tokens == 10
+    assert result.usage.cache_hit_tokens == 90
+    # a missing breakdown field disables the consistency check (nothing is
+    # inferred from the submitted count)
+    doc = make_doc(tokens_evaluated=100,
+                   timings={"prompt_n": 90, "predicted_n": 12})
+    result = parse(doc)
+    assert result.usage.prefill_tokens == 90
+    assert result.usage.cache_hit_tokens is None
 
 
 # ---------------------------------------------------------------------------
@@ -324,6 +400,8 @@ def test_fingerprint_stable_and_sensitive():
                     recorded_at="2026-11-10T00:00:00+00:00"))) != fp
     assert direct_backend_fingerprint(
         _config(capabilities=DirectCapabilities(cache_prompt_tested=True))) != fp
+    assert direct_backend_fingerprint(
+        _config(capabilities=DirectCapabilities(json_grammar_tested=True))) != fp
     assert direct_backend_fingerprint(
         _config(max_output_tokens=65)) != fp
     assert direct_backend_fingerprint(

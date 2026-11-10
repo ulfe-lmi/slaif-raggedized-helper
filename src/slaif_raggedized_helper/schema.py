@@ -37,7 +37,12 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from ._constraints import NonNegativeInt, PositiveFiniteFloat, PositiveInt
+from ._constraints import (
+    NonNegativeFiniteFloat,
+    NonNegativeInt,
+    PositiveFiniteFloat,
+    PositiveInt,
+)
 
 FINGERPRINT_VERSION = 1
 
@@ -177,12 +182,31 @@ class UsageMetrics(BaseModel):
 
 
 class TimingMetrics(BaseModel):
-    """Available timings. Missing measurements stay null/unavailable, never zero."""
+    """Available timings with explicit quantity semantics.
+
+    - ``ttft_seconds``: the OBSERVED time to the first generated token, in
+      seconds. Only a backend that actually reports/measures first-token
+      latency may set it. A lower bound (for example the prompt-processing
+      duration) is not a first-token observation and must stay null.
+    - ``prefill_seconds``: the server-reported prompt-processing duration
+      (seconds). A measured reported zero is a known zero (0.0), never
+      null; a missing or invalid field stays null.
+    - ``decode_seconds``: the server-reported token-generation duration
+      (seconds), same zero/missing semantics.
+    - ``total_seconds``: a derived MODEL-WORK total in seconds, explicitly
+      scoped to the sum of the reported model-phase durations. It is never
+      caller wall time and is not a complete request elapsed time.
+
+    Missing measurements stay null/unavailable, never invented; measured
+    zeros are legitimate values.
+    """
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     ttft_seconds: PositiveFiniteFloat | None = None
-    total_seconds: PositiveFiniteFloat | None = None
+    prefill_seconds: NonNegativeFiniteFloat | None = None
+    decode_seconds: NonNegativeFiniteFloat | None = None
+    total_seconds: NonNegativeFiniteFloat | None = None
 
 
 class GeneratorResult(BaseModel):

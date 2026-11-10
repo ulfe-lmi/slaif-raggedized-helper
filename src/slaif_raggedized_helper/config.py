@@ -256,14 +256,18 @@ PINNED_LLAMA_BUILTIN_CHAT_TEMPLATES = (
     "zephyr",
 )
 
-# The native message closing marker of the gateway-style dialect. A declared
-# TEMPLATE IDENTITY carrying this sequence is refused at config time because
-# formatter provenance must come from the qualified server template (or an
-# actually qualified local renderer), never from a hand-invented delimiter.
-# This is an identity-token rule: it does not ban the literal substring in
-# message content or in a server-rendered prompt (source content is data and
-# is preserved verbatim; template/build qualification — not substring
-# scanning of rendered text — establishes formatter provenance).
+# The gateway-dialect closing-tag sequence that the old hand-written
+# formatter invented as a system/user turn delimiter (repository history,
+# not a pinned native primary-source fact). A declared TEMPLATE IDENTITY
+# carrying this sequence is refused at config time: the declared template
+# identity is a plain operator token, and a token embedding an invented
+# markup sequence is not a legal identity. This is an identity-token rule
+# on the configured name only. Template qualification is established solely
+# by the DirectTemplateQualification record (server rendering against the
+# tested build, or pinned-upstream verification) — never by magic
+# substring/delimiter scanning of rendered text. It does not ban the
+# literal sequence in message content or in a server-rendered prompt:
+# source content is data and is preserved verbatim.
 TEMPLATE_IDENTITY_FORBIDDEN_SEQUENCE = "\x3c/tool_call\x3e"
 
 
@@ -280,6 +284,14 @@ class DirectCapabilities(BaseModel):
 
     cache_prompt_tested: bool = False
     slot_tested: bool = False
+    # Default deny: the pinned reference documents a json_schema grammar
+    # control, but documentation of a field is not build-tested grammar
+    # support (grammar-based sampling is an optional serving-build
+    # capability; template qualification alone does not prove it). A
+    # requested json_object/json_schema control enters the native wire
+    # envelope only when this capability was actually tested on the build;
+    # otherwise the request is refused locally before any dispatch.
+    json_grammar_tested: bool = False
 
 
 class DirectDestination(BaseModel):

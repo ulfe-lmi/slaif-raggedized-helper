@@ -220,7 +220,11 @@ serializer exists. Streaming control is refused (non-stream slice).
 Prompt caching (`prompt_cache_key` / `PROMPT_CACHING`) requires the
 tested `cache_prompt` capability; the application-level key never appears
 on the native wire (the documented native cache identity is the rendered
-prompt prefix, plus the slot). The output budget uses REFUSAL semantics
+prompt prefix, plus the slot). Requested JSON/schema controls
+(`response_format` `json_object`/`json_schema`) are default deny: they are
+inferred from the actual input shape and require the tested
+`json_grammar_tested` capability, refusing locally with zero dispatch
+while unqualified. The output budget uses REFUSAL semantics
 consistent with the gateway: `request.max_output_tokens` above the
 operator limit refuses before dispatch; the accepted request's value is
 exactly the effective `n_predict` (no silent clamp).
@@ -243,13 +247,18 @@ that 400 maps to the safe typed failure `template application refused
 actual built-in reference list copied from the pinned upstream source
 (including `mistral-v1/v3/v7`, `phi3`, `phi4`; the previously pinned false
 five-name set is corrected), documented for operator convenience, not a
-client-side allowlist. Formatter provenance comes from the template/build
-qualification record, not from substring scanning: literal technical
-content containing the dialect's closing-marker sequence (`&lt;/tool_call&gt;`,
-the gateway-dialect closing tag that the old hand-written formatter invented)
-as DATA passes through the rendered prompt to `/completion` byte-for-byte
-unchanged (no blanket rejection, no stripping); only the template IDENTITY
-token itself may not carry that sequence.
+client-side allowlist. Template qualification is established solely by the
+qualification record (server rendering against the tested build, or
+pinned-upstream verification) — never by magic substring/delimiter
+scanning of rendered text. The config-time rule that the declared template
+IDENTITY token must not embed the gateway-dialect closing tag the old
+hand-written formatter invented as a turn delimiter (repository history,
+not a pinned native primary-source fact) is an identity-token constraint
+on the configured name only. Literal technical content containing that
+sequence (constructed in the regression fixture as
+`chr(60)+"/tool_call"+chr(62)`), and Markdown fence data, pass through the
+rendered prompt to `/completion` byte-for-byte unchanged (no blanket
+rejection, no stripping); both remain preserved data, not delimiters.
 
 ### `/completion` envelope and supported controls
 
@@ -257,12 +266,20 @@ Exactly these keys (nothing else): `prompt` (the rendered prompt string),
 explicit `n_predict`, `stream: false`, optional caller-set
 `temperature`/`top_p`, the documented `json_schema` grammar control
 (the caller's exact schema for `json_schema`, and `{}` — the pinned
-reference's any-JSON form — for the `json_object` semantic),
-`cache_prompt: true` ONLY when the `cache_prompt` capability was tested
-on the build, and singular `id_slot` ONLY when the slot capability was
-tested (configured slot; invented `slot_ids` and any untested control
-cannot appear). Unsupported requested behavior is refused locally before
-the envelope is built — never silently ignored.
+reference's any-JSON form — for the `json_object` semantic; `{}` is any
+JSON, NOT a stronger object-shape guarantee), `cache_prompt: true` ONLY
+when the `cache_prompt` capability was tested on the build, and singular
+`id_slot` ONLY when the slot capability was tested (configured slot;
+invented `slot_ids` and any untested control cannot appear). The JSON/
+schema controls are default deny: a requested `json_object`/`json_schema`
+control (inferred from the actual input shape, not only from caller-
+required capability declarations) enters the envelope only when the
+build's `json_grammar_tested` capability was actually tested — a
+documented field is not tested grammar support, and template
+qualification alone does not prove it — so an unqualified request is
+refused locally before `/apply-template` or `/completion` (zero
+dispatch). Unsupported requested behavior is refused locally before the
+envelope is built — never silently ignored.
 
 ### Outcome mapping (fail-closed, pinned dialect)
 
@@ -295,13 +312,32 @@ of this request — and is never substituted for `timings.cache_n`; the
 synthetic 100-submitted (10 new / 90 cached) + 12-generated case with
 `tokens_cached` reporting 112 preserves all four facts distinctly
 (unit- and loopback-tested). Counters are validated as finite
-nonnegative numbers without accepting bool/NaN/infinity; a measured zero
-millisecond timing is null in the positive-only contract type. Model
-timings map only from `timings.prompt_ms`/`timings.predicted_ms` (ms ->
-s): `ttft_seconds` <- `prompt_ms/1000` (the first generated token cannot
-precede prompt processing) and `total_seconds` <-
-`(prompt_ms + predicted_ms)/1000`; caller wall time never mixes in.
-Undocumented/old-build fields stay null. The declared identity
+nonnegative numbers without accepting bool/NaN/infinity. Dialect
+consistency: under the supported dialect the task's total prompt tokens
+equal newly processed plus cached (`tokens_evaluated == prompt_n +
+cache_n`); a contradictory reported breakdown (e.g. 100 input with 90
+new + 90 cached) cannot prove evaluated work or caching, so
+`usage.prefill_tokens`/`usage.cache_hit_tokens` are withheld (null)
+while the directly reported task total keeps its own provenance; the raw
+contradictory values are not carried in the result. Model timings map
+only from `timings.prompt_ms`/`timings.predicted_ms` (ms -> s) with
+correct quantities: `timings.prefill_seconds` <- `prompt_ms/1000` (the
+reported PROMPT PROCESSING duration — not TTFT) and
+`timings.decode_seconds` <- `predicted_ms/1000` (the reported
+token-generation duration); `timings.total_seconds` <-
+`(prompt_ms + predicted_ms)/1000` only when both model phases were
+reported — an explicitly model-scoped derived model-work total, never
+caller elapsed time. A measured reported 0ms is a known zero (0.0),
+never null, and a withheld phase never discards the other reported
+phase. `ttft_seconds` is NEVER set by this adapter: the pinned native
+dialect reports no first-token measurement, and a lower bound is not an
+observed first-token time — TTFT stays unavailable unless a supported
+backend actually reports or measures it. Numeric conversion/arithmetic
+checks reject bool/NaN/Inf and unrepresentable values safely (a reported
+`prompt_ms` of 10**400 is unavailable data, not an `OverflowError` out
+of `generate()`), narrowly at the input conversion boundary. Caller wall
+time never mixes in; undocumented/old-build fields stay null. The
+declared identity
 (`direct_backend_fingerprint`) hashes adapter kind, dialect, reference
 commit, declared model, credential-free endpoint identity, declared
 template identity + build evidence, operator limits and the capability
@@ -359,6 +395,21 @@ TERMINAL; unqualified stop-word and invalid reasons FAILED), the synthetic
 distinct-facts metric case (100/10/90/12 with tokens_cached 112),
 bool/NaN/infinity and malformed-counter refusal, canary safety and
 declared-identity stability.
+
+Proven for the 003-f native corrections (synthetic loopback +
+pinned-dialect fixtures; five controlled-HTTP vector experiments):
+correct metric quantities with provenance (reported prefill/decode ms
+carried as `prefill_seconds`/`decode_seconds` with the model-scoped
+phase total, TTFT unavailable rather than prefill-aliased), a measured
+reported 0ms preserved as a known zero without discarding the other
+phase, safe unrepresentable/overflow numeric handling (10**400
+`prompt_ms` -> unavailable, no exception out of `generate()`),
+default-deny admission of the requested JSON/schema controls (zero
+dispatch for unqualified `json_object`/`json_schema`, inferred from the
+actual input shape) with qualified positive controls preserving the
+pinned `{}` any-JSON and exact-schema semantics, and contradiction
+withholding of a contradictory reported evaluated/cache breakdown
+(100 input with 90 new + 90 cached).
 
 NOT RUN / pending: qualification probes and live-target evidence for the
 native dialect (the pinned reference is not the unknown deployed build),
