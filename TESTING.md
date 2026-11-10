@@ -47,7 +47,7 @@ product CI job runs them alongside
 tests/unit and product lint from a clean locked install.
 
 
-T07. Bounded probe composition (objectives 003-h/003-i): `uv run
+T07. Bounded probe composition (objectives 003-h/003-i/003-j): `uv run
 pytest tests/integration/test_probe_composition.py -q` runs the
 INSTALLED `raggedized` CLI in subprocesses with the real
 gateway/native adapters against owned 127.0.0.1 loopback servers
@@ -58,8 +58,12 @@ invocation; ambiguous work spent, never replayed; no bypass by
 retries/template work), no implicit dispatch on
 import/help/doctor/missing opt-in, invalid config and absent or
 invalid credentials (owned FIFO, directory, invalid UTF-8,
-control-character and non-Latin-1 values — refused without a blocking
-open, no child process killed) refused before dispatch at zero HTTP, a knowably invalid `--output` destination
+control-character and non-ASCII values — including the 0x80-0xFF
+Latin-1 range that the locked HTTPX 0.28.1 ASCII string-header
+serializer cannot encode, file and env references alike — refused
+without a blocking open, no child process killed, and no raw
+UnicodeEncodeError, at zero HTTP with the fixed typed
+`value_not_ascii` reason; a knowably invalid `--output` destination
 refused before dispatch (exit 2) and a post-work evidence write
 failure after actual dispatches returning the honest exit-3
 export-stage error with the full spent-attempt evidence on stdout,

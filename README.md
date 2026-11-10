@@ -52,8 +52,10 @@ offline-diagnostic direct destination (explicit finite
 deadline/dispatch/output-token budgets, bounded safe credential
 resolution, safe structured evidence; exit 0 complete / 1
 not-run-incomplete / 2 usage-config error with zero dispatches / 3
-post-dispatch evidence export failure with the full evidence on stdout;
-import, help and doctor never dispatch a probe). Full reference, config
+post-work evidence export failure — after the probe returned, whether
+or not any dispatch occurred, as its spent-attempt ledger states —
+with the full evidence on stdout; import, help and doctor never
+dispatch a probe). Full reference, config
 schema, contracts and honest unresolved-artifact state:
 [docs/foundation.md](docs/foundation.md) and
 [docs/generator-contract.md](docs/generator-contract.md).

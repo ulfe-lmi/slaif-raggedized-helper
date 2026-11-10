@@ -374,8 +374,10 @@ text never change it.
 
 ## Bounded qualification probe (003-h, boundaries corrected in 003-i)
 
-`model_clients/probes.py` + the `raggedized probe` CLI subcommand run the
-bounded repeated-parent qualification experiment. The probe is an
+The probe module `src/slaif_raggedized_helper/probes.py`
+(`slaif_raggedized_helper.probes`) + the `raggedized probe` CLI
+subcommand run the bounded repeated-parent qualification experiment.
+The probe is an
 EXPLICIT opt-in: import, `--help`, `doctor`, readiness and default tests
 never dispatch a probe; only the probe subcommand with explicit finite
 budgets and an actually configured mode does. Neither mode may fall back
@@ -426,21 +428,32 @@ raggedized probe --config PATH --mode {gateway,direct}
   full evidence document on stdout.
 - Credentials resolve ONLY through the configured safe operator
   reference (`generator.api_key_ref` -> `secrets`, env or file kind),
-  bounded and safe BEFORE any HTTP (003-i): file references are opened
-  non-blocking and `fstat`-checked — FIFOs, sockets, devices and
-  directories are refused without a blocking open — at most 8192 bytes
-  are actually read, the content must be valid UTF-8 and a single line
-  (one optional trailing newline), and — because the value is used
-  verbatim as the Bearer credential of the `Authorization` header — it
-  must be header-usable: every code point Latin-1 representable and no
-  control character (C0 or DEL). Missing/empty/invalid input therefore
-  returns a fixed typed outcome (`CREDENTIAL_ABSENT` /
+  bounded and safe BEFORE any HTTP (003-i, value domain corrected in
+  003-j): file references are opened non-blocking and `fstat`-checked —
+  FIFOs, sockets, devices and directories are refused without a
+  blocking open — a file over the accepted 8192-BYTES credential-file
+  size cap is invalid (`file_too_long`; the bounded read uses at most
+  one 4096-byte chunk of lookahead past the cap to detect the
+  overflow, so the cap bounds admission, not the exact bytes read), the
+  content must be valid UTF-8 and a single line (one optional trailing
+  newline), and — because the value is used verbatim as the Bearer
+  credential of the `Authorization` header — it must be usable by the
+  ACTUAL transport: the transport passes the header to the locked
+  HTTPX 0.28.1 client as a Python str, whose header serializer
+  (`httpx._models._normalize_header_value`) encodes str values as
+  ASCII and the transport supplies no encoding override, so every code
+  point must be printable ASCII (0x20-0x7E). Missing/empty/invalid
+  input therefore returns a fixed typed outcome (`CREDENTIAL_ABSENT` /
   `CREDENTIAL_INVALID` with a fixed reason code), never a raw
-  exception: a non-Latin-1 value (`value_not_latin1`) or a
-  control/NUL-bearing value (`value_contains_control_character`) is
-  refused pre-dispatch instead of a raw `UnicodeEncodeError`
-  mid-dispatch or a malformed request that would consume dispatch
-  budget ambiguously. The value never appears on the command line, in reports,
+  exception: a non-ASCII value (`value_not_ascii`, including the whole
+  0x80-0xFF Latin-1 range that an abstract RFC 7230 field would allow
+  but the current serializer cannot) or a control/NUL-bearing value
+  (`value_contains_control_character`) is refused pre-dispatch instead
+  of a raw `UnicodeEncodeError` mid-dispatch or a malformed request
+  that would consume dispatch budget ambiguously. Valid UTF-8 file
+  bytes are not proof that the decoded value is header-usable; the
+  same supported-value check applies to env and file references. The
+  value never appears on the command line, in reports,
   errors or logs; a file reference appears in evidence as an opaque
   digest of the path (stable per path), never the private path itself.
   Credential/preflight setup precedes and is excluded from the measured
@@ -681,8 +694,10 @@ refused without a blocking open (no child process killed, zero HTTP),
 invalid UTF-8 / multi-line / over-8192-byte files return the fixed
 typed `CREDENTIAL_INVALID` outcome with a fixed reason code and no raw
 `UnicodeDecodeError`; values with control characters (NUL/DEL) or
-non-Latin-1 code points are refused pre-dispatch with the fixed typed
-reasons (`value_contains_control_character` / `value_not_latin1`)
+non-ASCII code points are refused pre-dispatch with the fixed typed
+reasons (`value_contains_control_character` / `value_not_ascii`, the
+latter introduced in 003-j in place of the 003-i `value_not_latin1`
+to match the actual serializer)
 instead of a raw `UnicodeEncodeError` or an ambiguous budget-consuming
 dispatch; and a valid owned file credential under a
 private canary path reaches only the `Authorization` header while the
@@ -706,12 +721,32 @@ All prior 003-h positive controls (shared deadline, budget exhaustion
 mid-pair, accepted-close no-replay, real failed TCP connects consuming
 the allowance) remain intact.
 
+Proven for the 003-j admission-domain correction (unit + installed-CLI
+subprocess composition over real loopback HTTP, synthetic owned
+fixtures only): the credential-value admission now matches the locked
+HTTPX 0.28.1 string-header serializer exactly — the transport passes
+the `Authorization` header as a Python str whose serializer encodes as
+ASCII with no encoding override, so the admitted domain is 0x20-0x7E.
+The previously missed 0x80-0xFF range is refused: an owned file
+credential and an env reference each carrying U+00E9 (valid UTF-8,
+decodable str, unserializable header) refuse pre-dispatch with exit 2
+`CREDENTIAL_INVALID` / `value_not_ascii`, zero HTTP and no raw
+`UnicodeEncodeError`, no key or path echo; an outside-Latin-1 value
+(U+211D) keeps the same fixed outcome; and the ASCII boundary
+positives (printable ASCII including the 0x7E edge, the owned file
+credential reaching only the `Authorization` header) are retained.
+
 NOT RUN / pending: live-target qualification evidence (the pinned
 reference is not the unknown deployed build), direct caching
 effectiveness on a real build, live gateway/model traffic and hardware
 evidence — the probe tooling is executable and its synthetic HTTP
-composition is proved, but every real trial remains NOT RUN. The whole
-of objective 003 remains unresolved until that scope is proved; this
-slice is not acceptance or readiness for objective 003, and the
-certifi (MPL-2.0) dependency gate recorded in THIRD_PARTY_NOTICES
-remains an open human question.
+composition is proved, but every real trial remains NOT RUN. Scope
+fidelity (order 003-a Runtime: live authorization NONE, "accept
+callable adapters/probe tooling and synthetic HTTP evidence only"):
+objective 003 software acceptance is exactly that tooling + synthetic
+HTTP evidence; live-target qualification is NOT a 003 closure
+prerequisite — it belongs to the separate 004/019/full-MVP
+qualification gates, which remain OPEN and NOT RUN. This slice is not
+acceptance or readiness for objective 003 (strategy alone accepts,
+corrects or merges), and the certifi (MPL-2.0) dependency gate
+recorded in THIRD_PARTY_NOTICES remains an open human question.

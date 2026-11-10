@@ -86,3 +86,33 @@ human question.
 - No live target/model/GPU/corpus work was performed (order 003-i
   live authorization: NONE); the certifi (MPL-2.0) policy gate
   remains an open human question.
+
+### 2026-11-10, order 003-j (credential header domain and output preflight docs)
+
+- U01/U05 unchanged in kind, corrected in the credential-value
+  boundary: the probe's admitted credential domain is now exactly
+  what the locked HTTPX 0.28.1 string-header serializer accepts
+  (the transport passes the `Authorization` header as a Python str
+  encoded as ASCII with no encoding override, i.e. code points
+  0x20-0x7E). The 003-i guard's abstract Latin-1 (RFC 7230) allowance
+  was wrong for this transport: 0x80-0xFF values (e.g. U+00E9)
+  decoded fine from valid UTF-8 file/env bytes yet raised a raw
+  `UnicodeEncodeError` at the real transport. They are now refused
+  pre-dispatch with the fixed typed `CREDENTIAL_INVALID` /
+  `value_not_ascii` outcome (exit 2, zero HTTP, no key or path echo),
+  replacing the 003-i `value_not_latin1` reason; outside-Latin-1
+  values keep the same fixed outcome. This is wire-path correctness
+  at the pinned dependency, not live compatibility proof: U01/U05
+  stay OPEN for real qualification, and no live target/model/GPU/
+  corpus work was performed (order 003-j live authorization: NONE).
+- Scope fidelity corrected in current docs (no historical report
+  edits): objective 003 software acceptance is the adapters/probe
+  tooling qualified by synthetic owned-loopback HTTP (order 003-a
+  Runtime: live authorization NONE); live-target evidence is NOT a
+  003 closure prerequisite but belongs to the separate 004/019/
+  full-MVP qualification gates, which remain OPEN and NOT RUN. The
+  8192-byte credential-file size cap (bounded lookahead), the real
+  probe module path and the post-work (not necessarily
+  post-dispatch) export stage are documented as actually
+  implemented. The certifi (MPL-2.0) policy gate remains an open
+  human question.

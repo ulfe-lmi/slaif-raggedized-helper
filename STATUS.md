@@ -102,8 +102,10 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   substitute), actual-HTTP loopback regressions, the narrow
   JSON-integer-digit-limit ValueError guard at the gateway non-stream
   parse with actual-HTTP regressions (in-process and a controlled-limit
-  isolated subprocess), regenerated JSON schema and scoped docs. Whole-003
-  probe / live qualification remains pending.
+  isolated subprocess), regenerated JSON schema and scoped docs. The 003
+  probe tooling then remained pending (delivered in 003-h); live
+  qualification is out of 003 software scope (003-a Runtime: live
+  authorization NONE) and stays with the 004/019/full-MVP gates.
 - 003-f/g: native metric-quantity and default-deny JSON/schema
   corrections, then the native boundary closure (safe finite phase-total
   arithmetic; explicit required-JSON_MODE capability admission) with
@@ -151,7 +153,39 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   003-h positive controls; docs/README/TESTING/STATUS updates. Live
   qualification, caching-effectiveness and hardware evidence remain
   NOT RUN.
-- The live-target evidence of objective 003 remains pending (separately
-  finalized continuations of the same PR). Objective 003 as a whole is
-  unresolved, not merged, not deployed; no model, GPU, live route or
-  service change.
+- 003-j (current round): credential-value admission aligned to the
+  ACTUAL locked HTTPX 0.28.1 string-header serializer: the transport
+  passes the `Authorization` header as a Python str whose serializer
+  encodes as ASCII with no encoding override, so the admitted domain
+  is exactly 0x20-0x7E. The previously missed 0x80-0xFF Latin-1 range
+  (e.g. U+00E9, valid UTF-8 file/env bytes decoding to an
+  unserializable str) is now refused pre-dispatch for env AND file
+  references with the fixed typed `CREDENTIAL_INVALID` /
+  `value_not_ascii` outcome (exit 2, zero HTTP, no raw
+  `UnicodeEncodeError`, no key or path echo), replacing the 003-i
+  `value_not_latin1` reason; ASCII positives, C0/DEL control refusal,
+  bounded regular-file/FIFO/UTF-8/size handling and the opaque
+  credential-path digest are retained. Unit and installed-CLI
+  owned-loopback regressions cover file and env U+00E9 plus an
+  outside-Latin-1 value and ASCII positives; the proved 003-i
+  output-stage fixes (owned-0400 / invalid-directory pre-dispatch
+  refusal; genuinely late post-work export failure with exit 3, full
+  safe JSON on stdout, exact spent-attempt accounting and a safe
+  post-work stderr stage) and the exception-safe Python 3.12/3.14
+  destination probes are preserved. Documentation corrected to the
+  actual scope: 003 software acceptance is adapters/probe tooling +
+  synthetic HTTP (003-a Runtime: live authorization NONE), with
+  live-target evidence a separate 004/019/full-MVP gate; the 8192
+  credential-file size cap (bounded lookahead, not an exact read
+  claim), the real probe module path and the post-work export stage
+  described accurately. Live qualification, caching-effectiveness and
+  hardware evidence remain NOT RUN.
+- Objective 003 scope fidelity (order 003-a Runtime: live
+  authorization NONE — "accept callable adapters/probe tooling and
+  synthetic HTTP evidence only"): the 003 software acceptance is the
+  adapters and bounded probe tooling qualified by synthetic
+  owned-loopback HTTP; live-target evidence is NOT a 003 closure
+  prerequisite — it belongs to the separate 004/019/full-MVP
+  qualification gates, which remain OPEN and NOT RUN. Objective 003
+  as a whole is unresolved, not merged, not deployed; no model, GPU,
+  live route or service change.

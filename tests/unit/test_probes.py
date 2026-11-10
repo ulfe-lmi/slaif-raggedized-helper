@@ -195,11 +195,15 @@ def test_resolve_secret_reference_env():
 
 def test_resolve_secret_reference_header_unusable_values(tmp_path, monkeypatch):
     # The resolved value is used verbatim as the Bearer credential of
-    # the Authorization header: control characters (NUL, DEL) and
-    # non-Latin-1 code points are refused pre-dispatch with fixed
-    # typed reasons instead of a raw UnicodeEncodeError mid-dispatch
-    # or a malformed request that would consume budget ambiguously
-    # (003-i criterion 1).
+    # the Authorization header: the transport passes it to the locked
+    # HTTPX 0.28.1 client as a Python str whose header serializer
+    # encodes str values as ASCII (no encoding override), so control
+    # characters (NUL, DEL) and every non-ASCII code point — including
+    # the 0x80-0xFF Latin-1 range that an abstract RFC 7230 field
+    # would allow — are refused pre-dispatch with fixed typed reasons
+    # instead of a raw UnicodeEncodeError mid-dispatch or a malformed
+    # request that would consume budget ambiguously (003-j criterion
+    # 1; the 003-i non-Latin-1 subset is retained).
     f = tmp_path / "cred.txt"
     f.write_bytes(b"abc\x00def")
     res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
@@ -212,7 +216,14 @@ def test_resolve_secret_reference_header_unusable_values(tmp_path, monkeypatch):
                                         "value_contains_control_character")
     f.write_text("key-" + chr(0x211D), encoding="utf-8")
     res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
-    assert (res.status, res.reason) == ("invalid", "value_not_latin1")
+    assert (res.status, res.reason) == ("invalid", "value_not_ascii")
+    # the previously missed 0x80-0xFF range: valid UTF-8 file bytes,
+    # decodable to a str the locked HTTPX ASCII serializer cannot
+    # encode — now refused with the same fixed typed reason
+    f.write_text("caf\u00e9", encoding="utf-8")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("invalid", "value_not_ascii")
+    assert res.value is None
     # POSIX os.environ cannot even store a NUL byte, so the env path is
     # exercised through a stand-in environ that only overrides the
     # referenced key (monkeypatch restores the real one).
@@ -270,18 +281,20 @@ def test_resolve_secret_reference_header_unusable_values(tmp_path, monkeypatch):
 
     ref = SecretRef(kind="env", name="PROBE_UNIT_HEADER_SECRET")
     for value, reason in (("a\x00b", "value_contains_control_character"),
-                          ("key-" + chr(0x211D), "value_not_latin1")):
+                          ("synthetic-\u00e9", "value_not_ascii"),
+                          ("key-" + chr(0x211D), "value_not_ascii")):
         fake = _OverrideEnviron(ref.name, value, real_environ)
         monkeypatch.setattr(os, "environ", fake)
         res = resolve_secret_reference(ref)
         assert (res.status, res.reason) == ("invalid", reason)
         assert res.value is None
         monkeypatch.undo()
-    # boundary positives: Latin-1 obs-text (0x80-0xFF) and printable
-    # space remain usable header values
-    f.write_text("caf\u00e9", encoding="utf-8")
+    # boundary positives: exactly the locked HTTPX string-serializer
+    # domain 0x20-0x7E stays admitted (printable space and the 0x7E
+    # boundary; 0x80 is refused above)
+    f.write_text("~", encoding="utf-8")
     res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
-    assert res.status == "resolved" and res.value == "caf\u00e9"
+    assert res.status == "resolved" and res.value == "~"
     f.write_text("a b", encoding="utf-8")
     res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
     assert res.status == "resolved" and res.value == "a b"
@@ -427,12 +440,15 @@ def test_gateway_credential_invalid_file_refuses_before_dispatch(tmp_path):
     bad.write_bytes(b"\xff\xfe\x00not-utf8")
     nul = tmp_path / "nul.txt"
     nul.write_bytes(b"abc\x00def")
-    nonlatin1 = tmp_path / "nonlatin1.txt"
-    nonlatin1.write_text("key-" + chr(0x211D), encoding="utf-8")
+    outside_latin1 = tmp_path / "outside-latin1.txt"
+    outside_latin1.write_text("key-" + chr(0x211D), encoding="utf-8")
+    latin1_range = tmp_path / "latin1-range.txt"
+    latin1_range.write_text("synthetic-key-\u00e9", encoding="utf-8")
     for path, reason in ((fifo, "file_not_regular"),
                          (bad, "file_not_utf8"),
                          (nul, "value_contains_control_character"),
-                         (nonlatin1, "value_not_latin1")):
+                         (outside_latin1, "value_not_ascii"),
+                         (latin1_range, "value_not_ascii")):
         cfg = RaggedizedConfig.model_validate({
             "schema_version": 1,
             "generator": {

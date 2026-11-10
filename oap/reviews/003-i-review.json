@@ -1,0 +1,42 @@
+{
+  "round": "003-i",
+  "objective": "003",
+  "status": "FINAL",
+  "decision": "CONTINUE",
+  "strategic_result": "MAJOR_PROBE_BOUNDARIES_VERIFIED; ACTUAL_HEADER_ENCODING_AND_SCOPE_DOCS_REMAIN",
+  "pr": 5,
+  "implementation": "0a49ab978bcedf65ab9e44c2741a9038a20c7d9f",
+  "report_commit": "693bec103b2a45472ac9477a94817d58928ddb85",
+  "report_sha256": "110cc592df602494e61627799d083f8fb08d0bf8aebeb0ebee27bc14f2751881",
+  "final_head_ci": "Firstimpl2258464 run42809336766 product3.12FAILED/other4SUCCESS; repair0a49ab9 run42809853110 all5SUCCESS; report693bec1 run42811174828 all5SUCCESS, last2026-11-10T11:56:22Z.",
+  "verified": "Unique open PR5/original003 branch/base/main93b4317. Report693bec1 sole parent0a49ab9 and report-onlydiff; remote report bytes/order/priorHreview verified. Fourteen implementation paths plus one-file CLIrepair scoped. Worktree clean before this review; no source-original/architecture/schema/dependency/role-law/CRITICAL change. External comments/reviews empty. Candidate governance TESTING5780/routine38331 and manifest48d621ab... verify.",
+  "actual_progress": "Bounded regular-file/nonblocking credential resolution with typed UTF8/size/shape failures and opaque path references works. Same/different/unknown output comparison, documented expected fingerprints, invalid/uncheckable cache-counter flags, actual backendbinding/targetunverified, early readonly/directory output refusal and honest lateexportexit3/spentaccounting are independently proved. Python3.12Path.existsPermissionError is correctly caught by0a49, and both productmatrixlegs pass. These improvements must be preserved.",
+  "independent_evidence": {
+    "environment": "Root used uv--isolated--python3.14 while coder reproduced3.12 in the sharedvenv, avoiding concurrentvenv mutation. Source clean at0a49 before/after. No live target/model/GPU/corpus.",
+    "supplementary": "probe-evidence-review at0a49 confirmsprivatepathabsent, valid/invalidcounters, paircomparisontrue/false/null, backendphasebindingsmatch,targetunverified,NUL/U+211D typed2/zeroHTTP. probe-export-review confirmsreadonlyexistingtarget2/zeroHTTP and genuinelylatefailure3/fullJSON/spent2. Originaldeadline/retry/CLI/FIFOoracles preserved and positive paths retained.",
+    "remaining_encoding_witness": "/tmp/raggedized003-credential-latin1-review.py: ASCIIfilepositive2POST/complete0; UTF8fileU+00E9 andenvU+00E9 bothrawUnicodeEncodeError/zeroHTTP. PrimarylockedHTTPX0.28.1 _models.py74\u201382: Pythonstrheader value.encode(encoding or ascii); projecttransport.py406/687 passes Pythonf-string and no encoding override. Guardadmits0x80\u20130xFFperabstractLatin1, so entire admittedvalue domain mismatchesactualserializer.",
+    "coverage": "440product=171unit+269integration(129gateway+83native+33transport+24probe), separate41OAP. Existingunitboundarypositives0x80\u20130xFFarewrong for this transport; actualwiretestcounterexample overrides the self-consistent unit expectation."
+  },
+  "blocking_acceptance_defects": [
+    "Credential admission still allows Latin1-range nonASCII values that HTTPX cannot serialize as currentPythonstrheaders. Bothfile/env U+00E9 raise rawUnicodeEncodeError beforeHTTP; originalIcriterion1 remains unmet. Reject unsupported values beforetransport, preserveASCII/control/FIFO/UTF8/size/privacy positives, no broaderbinary/Unicodeheader feature.",
+    "Iexplicitdocumentation requirement to keep003software acceptance separate from realqualification remains unmet: STATUS/gencontracttail and report still make live-target evidence part of003/samePRclosure. Original003-aRuntimeallowssoftware+syntheticHTTP/liveNONE; actual004/019/fullMVPgates remainOPEN.",
+    "Minor currentdoc inaccuracies require correction with the focused change: acceptedfilecap8192 vs claimedexactactualread(implementationhasboundedlookahead), wrongmodulepathmodel_clients/probes.py, READMEpost-dispatchvsactualpost-workstagepossibly0calls. No historicalreport edits."
+  ],
+  "reported_result": "COMPLETE",
+  "report_accuracy": "Report counts440/171/269 are correct, but its increment sentence is arithmeticerror:419\u2192440 is+21total, +12unit(159\u2192171) and+9integration(260\u2192269), not+21unit/+9. ClaimsLatin1boundaryvaluesusable/no rawexception are contradicted by realHTTPXpath. OriginaloraclesonlysampledoutsideLatin1 pluscontrols; they did not prove the whole admittedrange. Retainreportimmutable and correctfacts in this review/nextreport.",
+  "scope_matrix": "Original003-a criteria2/3 and transport-bound portions of4 are software-verified within declared dialect; metrics/evidence improvements nowverified. Criteria1/5/6 remainpartial on unsupportedcredentialencoding and missingregression; currentdocscopefidelityalso incomplete. No full003software acceptance yet.",
+  "strongest_reason_not_to_merge": "A supposedly admitted credential can still crash the public probeAPI/CLI with rawUnicodeEncodeError. Allgreen tests explicitly admit the wrong encodingdomain instead of exercising actualserialization. Scope docs also silently add an unauthorized003live prerequisite. One small domain correction and accurate docs are required.",
+  "next": "003-j focused ASCII/currentHTTPX admissiondomain + residualIdocaccuracy, samePR5. No reimplementation of verifiedIoutput fixes or numericadvance before full003softwareproof.",
+  "scope_fidelity": "Fullarchitecture2/A01-A40 text+visualMVP preserved. No human-owner/referral behavior, newstrictCodexprofile, actualruntime/hardware/cachequality/license clearance or release/deploy. Certifi and exactapprovedtarget inputs remainpending; no exceptioninferred. No D1/CRITICAL admission needed.",
+  "consumed_response": {
+    "identifier": "003-i",
+    "pr": 5,
+    "implementation": "0a49ab978bcedf65ab9e44c2741a9038a20c7d9f",
+    "report_commit": "693bec103b2a45472ac9477a94817d58928ddb85",
+    "report_sha256": "110cc592df602494e61627799d083f8fb08d0bf8aebeb0ebee27bc14f2751881",
+    "verified_at": "2026-11-10T11:54:25.058878+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "recorded_at": "2026-11-10T12:00:26.686934+00:00",
+  "coding_goal_lifecycle": "Afterverifiedreport/response, /goalclear sent throughqualifiedwake; quiescence toconfirm before freshJstartup. SelectedQwenA100Q8xhigh preserved, noEscape/reset/FIFOreplay."
+}

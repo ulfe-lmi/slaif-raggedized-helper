@@ -1,7 +1,7 @@
 """Real probe composition: installed CLI + real adapters over owned loopback.
 
 Acceptance coverage (oap/orders/003-h criteria 1, 2, 3, 5, 6; 003-i
-criteria 1, 2, 3, 4, 6, 7): the
+criteria 1, 2, 3, 4, 6, 7; 003-j criterion 1): the
 INSTALLED ``raggedized`` CLI runs in a subprocess; the real
 GatewayGenerator/DirectNativeGenerator adapters speak to owned
 127.0.0.1 loopback servers that record exact paths/order/bodies. We
@@ -17,9 +17,13 @@ same/different output comparison, installed-CLI expected-output
 positive, reported-vs-validated cache counter conclusions
 (valid-present, contradictory, absent), pre-dispatch refusal of a
 knowably invalid --output destination and the honest post-work
-export-stage failure after actual dispatches. All fixtures are
-synthetic; no live model, real key, GPU or corpus (orders live
-authorization: NONE).
+export-stage failure after actual dispatches; and the 003-j
+credential admission boundary: non-ASCII values in the 0x80-0xFF
+Latin-1 range (file and env) and an outside-Latin-1 value are refused
+pre-dispatch with the fixed typed reason while the actual HTTPX
+string-header serializer domain (0x20-0x7E) stays admitted. All
+fixtures are synthetic; no live model, real key, GPU or corpus
+(orders live authorization: NONE).
 """
 
 from __future__ import annotations
@@ -446,6 +450,63 @@ def test_gateway_probe_credential_invalid_utf8_refused_before_dispatch(
     assert srv.state.requests == []  # zero HTTP
     # a raw UnicodeDecodeError never escapes to the operator
     assert "UnicodeDecodeError" not in result.stderr
+
+
+def test_gateway_probe_credential_non_ascii_file_refused_before_dispatch(
+        server, tmp_path):
+    # 003-j criterion 1: the previously missed 0x80-0xFF range — valid
+    # UTF-8 file bytes decoding to a str the locked HTTPX 0.28.1
+    # string-header serializer (ASCII, no encoding override) cannot
+    # encode — is refused pre-dispatch with the fixed typed reason,
+    # zero HTTP and no raw UnicodeEncodeError; the outside-Latin-1
+    # value (003-i subset) keeps the same fixed outcome.
+    latin1_file = tmp_path / "latin1-range.key"
+    latin1_file.write_text("synthetic-key-\u00e9\n", encoding="utf-8")
+    outside_file = tmp_path / "outside-latin1.key"
+    outside_file.write_text("synthetic-key-" + chr(0x211D) + "\n",
+                            encoding="utf-8")
+    srv = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_B))
+    doc = gateway_config(srv.port)
+    doc["generator"]["api_key_ref"] = "probe_nonascii_key"
+    for key_file in (latin1_file, outside_file):
+        doc["secrets"] = {"probe_nonascii_key": {"kind": "file",
+                                                 "name": str(key_file)}}
+        cfg = write_config(tmp_path, doc,
+                           name="probe-config-" + key_file.name)
+        result = run_cli(probe_argv(cfg, "gateway"))
+        assert result.returncode == 2, result.stdout + result.stderr
+        err = json.loads(result.stdout)
+        assert err["error"] == "CREDENTIAL_INVALID"
+        assert err["reason"] == "value_not_ascii"
+        assert srv.state.requests == []  # zero HTTP, refused pre-dispatch
+        # no raw UnicodeEncodeError and no value echo to the operator
+        assert "UnicodeEncodeError" not in result.stderr
+        assert "\u00e9" not in result.stderr
+        assert "synthetic-key" not in result.stderr
+
+
+def test_gateway_probe_credential_non_ascii_env_refused_before_dispatch(
+        server, tmp_path):
+    # 003-j criterion 1: the same supported-value check applies to env
+    # references — a U+00E9 value in the 0x80-0xFF range refuses
+    # pre-dispatch (exit 2, CREDENTIAL_INVALID, value_not_ascii, zero
+    # HTTP) instead of a raw UnicodeEncodeError mid-dispatch.
+    env_var = "PROBE_003J_NON_ASCII_KEY"
+    srv = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_B))
+    doc = gateway_config(srv.port, api_key_ref="probe_env_nonascii_key")
+    doc["secrets"] = {"probe_env_nonascii_key": {"kind": "env",
+                                                 "name": env_var}}
+    cfg = write_config(tmp_path, doc)
+    env = dict(os.environ)
+    env[env_var] = "synthetic-key-\u00e9"
+    result = run_cli(probe_argv(cfg, "gateway"), env=env)
+    assert result.returncode == 2, result.stdout + result.stderr
+    err = json.loads(result.stdout)
+    assert err["error"] == "CREDENTIAL_INVALID"
+    assert err["reason"] == "value_not_ascii"
+    assert srv.state.requests == []  # zero HTTP, refused pre-dispatch
+    assert "UnicodeEncodeError" not in result.stderr
+    assert "\u00e9" not in result.stderr
 
 
 # ---------------------------------------------------------------------------

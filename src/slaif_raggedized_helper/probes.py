@@ -152,12 +152,18 @@ SECRET_REASON_FILE_NOT_UTF8 = "file_not_utf8"
 SECRET_REASON_FILE_NOT_SINGLE_LINE = "file_not_single_line"
 SECRET_REASON_FILE_EMPTY = "file_empty"
 # The resolved value is used verbatim as the Bearer credential of the
-# HTTP Authorization header by every adapter. HTTP field values are
-# Latin-1 (RFC 7230) and must not contain control characters; values
-# outside that shape would raise a raw UnicodeEncodeError mid-dispatch
-# or produce a malformed request whose ambiguity consumes budget.
+# HTTP Authorization header by every adapter. The transport builds
+# that header as a Python str and passes it to the locked HTTPX 0.28.1
+# client, whose header serializer (_models._normalize_header_value)
+# encodes str values as ASCII (encoding or "ascii") and the transport
+# supplies no encoding override. So the admitted value domain is
+# exactly the code points 0x20-0x7E: a C0/DEL control character would
+# make a malformed request, and any code point at or above 0x80
+# (including the whole 0x80-0xFF Latin-1 range) would raise a raw
+# UnicodeEncodeError mid-dispatch — either ambiguity must consume
+# dispatch budget (003-j criterion 1).
 SECRET_REASON_VALUE_CONTROL = "value_contains_control_character"
-SECRET_REASON_VALUE_NOT_LATIN1 = "value_not_latin1"
+SECRET_REASON_VALUE_NOT_ASCII = "value_not_ascii"
 
 class ProbeBudgets(BaseModel):
     """Explicit finite probe budgets (validated before any dispatch).
@@ -207,15 +213,16 @@ class SecretResolution:
 def _header_value_unsafe_reason(value: str) -> str | None:
     """Fixed reason when a resolved value cannot be a Bearer credential.
 
-    See the ``Authorization`` header-usability rule in
-    :func:`resolve_secret_reference` (003-i criterion 1).
+    The admitted domain is exactly what the current HTTPX string
+    header path serializes: every code point in 0x20-0x7E. See
+    :func:`resolve_secret_reference` (003-i/003-j criterion 1).
     """
     for ch in value:
         cp = ord(ch)
         if cp < 0x20 or cp == 0x7F:
             return SECRET_REASON_VALUE_CONTROL
-    if any(ord(ch) > 0xFF for ch in value):
-        return SECRET_REASON_VALUE_NOT_LATIN1
+    if any(ord(ch) >= 0x80 for ch in value):
+        return SECRET_REASON_VALUE_NOT_ASCII
     return None
 
 
@@ -230,7 +237,10 @@ def resolve_secret_reference(ref: SecretRef) -> SecretResolution:
       is ``fstat``-checked: FIFOs, sockets and character/block devices
       are refused (``file_not_regular``) without ever blocking on an
       open that needs a writer; a directory is refused the same way;
-    - at most ``MAX_CREDENTIAL_FILE_BYTES`` bytes are actually read;
+    - a file larger than ``MAX_CREDENTIAL_FILE_BYTES`` BYTES is invalid
+      (``file_too_long``); the cap bounds admission, not the exact
+      bytes read — the bounded loop may read one 4096-byte chunk past
+      the cap to detect the overflow;
     - the content must be valid UTF-8 and a single line (one optional
       trailing newline, no other line breaks or CR);
     - missing/empty references and malformed content return a fixed
@@ -239,13 +249,17 @@ def resolve_secret_reference(ref: SecretRef) -> SecretResolution:
       logs or evidence;
     - because the resolved value is used verbatim as the Bearer
       credential of the HTTP ``Authorization`` header, it must be
-      header-usable: every code point must be Latin-1 representable and
-      no control character (C0 or DEL) may occur. A non-Latin-1 value
-      (``value_not_latin1``) or a control/NUL-bearing value
-      (``value_contains_control_character``) is refused pre-dispatch as
-      a fixed typed invalid outcome instead of a raw
+      header-usable on the CURRENT transport: the transport passes the
+      header to the locked HTTPX 0.28.1 client as a Python str whose
+      serializer encodes str header values as ASCII (no encoding
+      override is supplied). Every code point must therefore be
+      printable ASCII (0x20-0x7E). A non-ASCII value (``value_not_ascii``)
+      including the whole 0x80-0xFF Latin-1 range, or a control/NUL-
+      bearing value (``value_contains_control_character``), is refused
+      pre-dispatch as a fixed typed invalid outcome instead of a raw
       ``UnicodeEncodeError`` or a malformed request that would consume
-      dispatch budget ambiguously.
+      dispatch budget ambiguously. Valid UTF-8 file bytes are NOT
+      proof that the decoded value is header-usable.
 
     The resolved value is for direct adapter injection (the
     ``Authorization`` header) only.
