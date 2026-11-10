@@ -234,3 +234,32 @@ case reports the actual call count with the replay warning, the
 genuine pre-dispatch refusal keeps its true zero claim, and a
 missing/invalid ledger stays an explicit unknown, never an assumed
 zero). Real target/model/GPU qualification remains NOT RUN.
+
+T10. Supplied-value parity and gate projection (objective 004-f): the
+four parity unit suites (embedding, rerank, shared safe file I/O,
+CLI/gates) cover the pure supplied-value analyzers (digest/identity
+binding; declared CPU-FP32 vs GPU-FP16 execution with identical
+definition fingerprints; paired cosine/L2 deviation versus raw dot
+ranking with deterministic ties; requested/effective k, gold
+denominators, unavailable nulls; signed relative deltas; work limits;
+input-free refusals), the shared bounded safe I/O layer (exact-byte
+SHA-256/size; bounded UTF-8 JSON; underflow refusal keeping
+representable subnormals/signed zero; NUL/symlink/non-regular and
+changed-during-read refusals; advisory preflight; post-work ExportError
+retaining evidence) and the canonical fourteen-gate projection
+(committed docs/benchmarks/qualification-gates.json byte-equal to the
+exact rendering; available analysis and partial instrumentation
+distinct from full experiments; every real status NOT_RUN).
+Integration suites run the INSTALLED `raggedized parity
+embedding|rerank --input FILE --output FILE` (delegating to `python
+-m slaif_raggedized_helper.qualification.parity_cli`) in subprocesses
+on owned disposable files: exit 0 with input provenance plus
+SUPPLIED_UNVERIFIED/NOT_RUN evidence, exit 2 pre-work refusals
+(absent/invalid/oversize input, bad arguments, bad output
+destination), exit 3 post-analysis export failure with bounded
+computed evidence on stdout, help/import at zero work, zero
+model/network/telemetry I/O, no redundant approval flag. All synthetic
+and offline: no external network, product services, real keys, GPU or
+model downloads. Supplied-value analysis is not execution; real
+model/hardware/quality/vision/license qualification remains NOT RUN
+(live authorization: NONE).
