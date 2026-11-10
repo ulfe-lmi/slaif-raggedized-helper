@@ -1,4 +1,5 @@
-"""Bounded explicit generator qualification probes (OAP objective 003-h).
+"""Bounded explicit generator qualification probes (OAP objective 003,
+rounds 003-h/003-i).
 
 The probe is an EXPLICIT opt-in composition command, not a readiness poll
 and not part of import, ``--help``, ``doctor`` or default test paths:
@@ -17,32 +18,59 @@ and not part of import, ``--help``, ``doctor`` or default test paths:
   dispatched work is conservatively counted as spent and is never
   replayed; a finite budget cannot be bypassed by retries or template
   requests;
+- credential references resolve through a bounded, safe file read that
+  happens BEFORE any HTTP: regular files only (FIFOs/sockets/devices are
+  refused via ``fstat`` of a non-blocking open, never a blocking one),
+  bounded bytes actually read, single-line UTF-8 shape validation and a
+  fixed typed missing/invalid outcome (no raw exception, no value or
+  private path echo);
 - the repeated-parent experiment deliberately constructs one constant
   bounded synthetic parent plus explicit deterministic child suffixes
   (phases labeled first-call/second-call — cold state is unknown because
   no cache reset/isolation control is authorized or verified), and
   records fingerprints/lengths, never the raw material;
+- response text is recorded twice: the label-qualified phase-identity
+  fingerprint and a label-independent content fingerprint, so
+  same/different output evidence is comparable without raw output; equal
+  outputs never establish truth, caching or quality;
+- cache conclusions are preceded by validation of the supported
+  accounting relation (reported ``cache_hit_tokens`` must not exceed
+  reported ``input_tokens`` when both are present): contradictory
+  counters are preserved as raw facts only and yield an unqualified
+  ``metrics_invalid`` conclusion; the gateway dialect's reported
+  ``input_tokens_details.cached_tokens`` (mapped to
+  ``cache_hit_tokens``) is a DISTINCT reported fact from the absent
+  evaluated-prefill metrics, which stay null/unavailable;
+- evidence binds the declared backend identity: the per-request
+  ``GeneratorResult.fingerprint`` (adapter dialect, pinned contract,
+  declared model, credential-free endpoint, timeout, capability and,
+  for direct, template/limit/slot snapshots) is exported per request and
+  in ``identities``; the destination is ``target_type: unverified``
+  because the runner cannot classify owned fixture vs live target;
 - the evidence document is safe structured JSON: declared (unverified)
   identities, exact dialect, budgets, boundary-level call accounting,
   reported metrics with their measurement boundaries and digest-only
   response checks. It never carries an endpoint URL, authorization
   header or secret value, configured instructions, rendered prompts,
   source items, image material, raw response text or provider error
-  bodies. Missing measurements stay null and yield unqualified
-  conclusions — never a synthetic zero or a claimed cache success.
+  bodies, and no private credential file path (file references are
+  recorded as an opaque digest). Missing measurements stay null and
+  yield unqualified conclusions — never a synthetic zero or a claimed
+  cache success.
 
 The probe proves executable bounded tooling and synthetic HTTP
 composition; real target/hardware/cache/quality qualification remains
-NOT RUN (order 003-h live authorization: NONE).
+NOT RUN (orders 003-h/003-i live authorization: NONE).
 """
 
 from __future__ import annotations
 
 import math
 import os
+import stat as _stat
 import time
 from collections.abc import Callable
-from pathlib import Path
+from dataclasses import dataclass
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -57,9 +85,11 @@ from .config import (
 from .model_clients.direct import (
     APPLY_TEMPLATE_PATH,
     DirectNativeGenerator,
+    direct_backend_fingerprint,
     NATIVE_REFERENCE_COMMIT,
 )
 from .model_clients.gateway import (
+    gateway_backend_fingerprint,
     GATEWAY_CONTRACT_COMMIT,
     GatewayGenerator,
 )
@@ -106,6 +136,28 @@ EXIT_COMPLETE = 0
 EXIT_NOT_RUN = 1
 EXIT_USAGE = 2
 
+# A supported credential file is one bounded single line; the file must
+# not exceed this many BYTES (including one optional trailing newline).
+# More is invalid input, never a credential to read unboundedly (003-i
+# criterion 1).
+MAX_CREDENTIAL_FILE_BYTES = 8192
+
+# Fixed reason vocabulary for typed credential resolution outcomes.
+SECRET_REASON_ENV_ABSENT = "env_absent_or_empty"
+SECRET_REASON_FILE_ABSENT = "file_absent_or_unreadable"
+SECRET_REASON_FILE_NOT_REGULAR = "file_not_regular"
+SECRET_REASON_FILE_UNREADABLE = "file_unreadable"
+SECRET_REASON_FILE_TOO_LONG = "file_too_long"
+SECRET_REASON_FILE_NOT_UTF8 = "file_not_utf8"
+SECRET_REASON_FILE_NOT_SINGLE_LINE = "file_not_single_line"
+SECRET_REASON_FILE_EMPTY = "file_empty"
+# The resolved value is used verbatim as the Bearer credential of the
+# HTTP Authorization header by every adapter. HTTP field values are
+# Latin-1 (RFC 7230) and must not contain control characters; values
+# outside that shape would raise a raw UnicodeEncodeError mid-dispatch
+# or produce a malformed request whose ambiguity consumes budget.
+SECRET_REASON_VALUE_CONTROL = "value_contains_control_character"
+SECRET_REASON_VALUE_NOT_LATIN1 = "value_not_latin1"
 
 class ProbeBudgets(BaseModel):
     """Explicit finite probe budgets (validated before any dispatch).
@@ -132,28 +184,132 @@ class ProbeBudgets(BaseModel):
         return self.max_output_tokens_total // 2
 
 
-def resolve_secret_value(ref: SecretRef) -> str | None:
-    """Resolve one deliberate safe operator reference to its value.
+@dataclass(frozen=True)
+class SecretResolution:
+    """Fixed typed outcome of one secret reference resolution (003-i).
+
+    ``status`` is ``resolved``/``missing``/``invalid``; ``reason`` is a
+    fixed vocabulary code when not ``resolved``. The raw value is held
+    only when resolved, for direct adapter injection, and must never be
+    written to evidence, logs, errors or command lines. The repr never
+    echoes the value.
+    """
+
+    status: Literal["resolved", "missing", "invalid"]
+    reason: str | None
+    value: str | None
+
+    def __repr__(self) -> str:
+        return (f"SecretResolution(status={self.status!r}, "
+                f"reason={self.reason!r})")
+
+
+def _header_value_unsafe_reason(value: str) -> str | None:
+    """Fixed reason when a resolved value cannot be a Bearer credential.
+
+    See the ``Authorization`` header-usability rule in
+    :func:`resolve_secret_reference` (003-i criterion 1).
+    """
+    for ch in value:
+        cp = ord(ch)
+        if cp < 0x20 or cp == 0x7F:
+            return SECRET_REASON_VALUE_CONTROL
+    if any(ord(ch) > 0xFF for ch in value):
+        return SECRET_REASON_VALUE_NOT_LATIN1
+    return None
+
+
+def resolve_secret_reference(ref: SecretRef) -> SecretResolution:
+    """Resolve one deliberate safe operator reference, bounded and safe.
 
     Only ``env`` (environment variable) and ``file`` (single-line secret
     file) references are resolved, matching the configured reference
-    kinds. The value is returned for direct adapter injection (the
-    ``Authorization`` header) and must never be written to evidence, logs
-    or errors. An absent/empty reference resolves to ``None``.
+    kinds (003-i criterion 1):
+
+    - file references are opened NON-BLOCKING and the opened descriptor
+      is ``fstat``-checked: FIFOs, sockets and character/block devices
+      are refused (``file_not_regular``) without ever blocking on an
+      open that needs a writer; a directory is refused the same way;
+    - at most ``MAX_CREDENTIAL_FILE_BYTES`` bytes are actually read;
+    - the content must be valid UTF-8 and a single line (one optional
+      trailing newline, no other line breaks or CR);
+    - missing/empty references and malformed content return a fixed
+      typed outcome (``missing``/``invalid`` with a fixed reason) —
+      never a raw exception — and the value never appears in errors,
+      logs or evidence;
+    - because the resolved value is used verbatim as the Bearer
+      credential of the HTTP ``Authorization`` header, it must be
+      header-usable: every code point must be Latin-1 representable and
+      no control character (C0 or DEL) may occur. A non-Latin-1 value
+      (``value_not_latin1``) or a control/NUL-bearing value
+      (``value_contains_control_character``) is refused pre-dispatch as
+      a fixed typed invalid outcome instead of a raw
+      ``UnicodeEncodeError`` or a malformed request that would consume
+      dispatch budget ambiguously.
+
+    The resolved value is for direct adapter injection (the
+    ``Authorization`` header) only.
     """
     if ref.kind == "env":
         value = os.environ.get(ref.name)
         if value is None or value == "":
-            return None
-        return value
+            return SecretResolution("missing", SECRET_REASON_ENV_ABSENT, None)
+        unsafe = _header_value_unsafe_reason(value)
+        if unsafe is not None:
+            return SecretResolution("invalid", unsafe, None)
+        return SecretResolution("resolved", None, value)
     if ref.kind == "file":
+        flags = os.O_RDONLY | getattr(os, "O_NONBLOCK", 0)
         try:
-            raw = Path(ref.name).read_text(encoding="utf-8")
+            fd = os.open(ref.name, flags)
+        except IsADirectoryError:
+            return SecretResolution("invalid", SECRET_REASON_FILE_NOT_REGULAR,
+                                    None)
         except OSError:
-            return None
-        value = raw[:-1] if raw.endswith("\n") else raw
-        return value or None
-    return None  # pragma: no cover - pydantic Literal forbids other kinds
+            return SecretResolution("missing", SECRET_REASON_FILE_ABSENT, None)
+        try:
+            mode = os.fstat(fd).st_mode
+            if not _stat.S_ISREG(mode):
+                # A non-blocking open of a FIFO succeeds even without a
+                # writer, so the fstat of the actual opened descriptor
+                # is the authoritative special-file check.
+                return SecretResolution("invalid",
+                                        SECRET_REASON_FILE_NOT_REGULAR, None)
+            chunks: list[bytes] = []
+            total = 0
+            while total <= MAX_CREDENTIAL_FILE_BYTES:
+                chunk = os.read(fd, 4096)
+                if not chunk:
+                    break
+                chunks.append(chunk)
+                total += len(chunk)
+            raw = b"".join(chunks)
+        except OSError:
+            return SecretResolution("invalid", SECRET_REASON_FILE_UNREADABLE,
+                                    None)
+        finally:
+            os.close(fd)
+        if len(raw) > MAX_CREDENTIAL_FILE_BYTES:
+            return SecretResolution("invalid", SECRET_REASON_FILE_TOO_LONG,
+                                    None)
+        try:
+            text = raw.decode("utf-8")
+        except UnicodeDecodeError:
+            return SecretResolution("invalid", SECRET_REASON_FILE_NOT_UTF8,
+                                    None)
+        if text.endswith("\n"):
+            text = text[:-1]
+        if "\n" in text or "\r" in text:
+            return SecretResolution("invalid",
+                                    SECRET_REASON_FILE_NOT_SINGLE_LINE, None)
+        if text == "":
+            return SecretResolution("missing", SECRET_REASON_FILE_EMPTY, None)
+        unsafe = _header_value_unsafe_reason(text)
+        if unsafe is not None:
+            return SecretResolution("invalid", unsafe, None)
+        return SecretResolution("resolved", None, text)
+    # pragma: no cover - pydantic Literal forbids other kinds
+    return SecretResolution("invalid", "unsupported_reference_kind", None)
 
 
 class _BudgetExhausted(TransportConfigError):
@@ -270,7 +426,24 @@ def _request_fingerprint(text: str) -> tuple[int, str]:
 
 
 def _response_text_fingerprint(label: str, text: str) -> str:
+    """Label-qualified response fingerprint: the PHASE IDENTITY digest.
+
+    The label is part of the payload on purpose: it keeps phase
+    identities separate (003-i criterion 2). The same text under a
+    different label produces a different fingerprint here; use
+    :func:`_content_fingerprint` for label-independent comparison.
+    """
     return fingerprint({"kind": "probe-response-text", "label": label, "text": text})
+
+
+def _content_fingerprint(text: str) -> str:
+    """Label-independent response content fingerprint (003-i criterion 2).
+
+    Identical terminal text in different phases produces the same
+    fingerprint, so same/different output evidence is comparable without
+    raw output. It is not a semantic, truth or quality claim.
+    """
+    return fingerprint({"kind": "probe-response-content", "text": text})
 
 
 def _expected_check(label: str, text: str | None,
@@ -380,7 +553,20 @@ def _cache_evidence(
     control_used: bool,
     records: dict[str, dict[str, Any] | None],
 ) -> dict[str, Any]:
-    """Reported-metric-only cache conclusion (never wall-time proof)."""
+    """Reported-metric-only cache conclusion (never wall-time proof).
+
+    Before any qualification conclusion the supported accounting
+    relation is validated for each phase (003-i criterion 3): the pinned
+    gateway (f2df0e82) validates ``cached + cache_write <= input_tokens``
+    on its own reported usage; the probe observes only the cached
+    counter, so the checkable supported relation is
+    ``cache_hit_tokens <= input_tokens`` when both are reported.
+    Contradictory reported counters are preserved as RAW FACTS only and
+    yield the unqualified ``metrics_invalid`` conclusion; a counter
+    whose relation cannot be checked (input missing) stays explicitly
+    unqualified (``metrics_unvalidated``). Missing counters stay
+    null/unavailable (``metrics_unavailable``).
+    """
     rec_a = records.get("a")
     rec_b = records.get("b")
     reported = {
@@ -401,21 +587,52 @@ def _cache_evidence(
             "b": rec_b["wall_seconds"] if rec_b else None,
         },
     }
+
+    def _validity(label: str) -> str:
+        rec = records.get(label)
+        if rec is None:
+            return "not_run"
+        cache_hit = rec["usage"]["cache_hit_tokens"]
+        input_tokens = rec["usage"]["input_tokens"]
+        if cache_hit is None:
+            return "unreported"
+        if input_tokens is None:
+            return "uncheckable:input_tokens_missing"
+        if cache_hit > input_tokens:
+            return "invalid:cache_hit_exceeds_input"
+        return "valid"
+
+    validity = {"a": _validity("a"), "b": _validity("b")}
     if not control_used:
         conclusion = "no_cache_control"
     elif rec_b is None:
         conclusion = "not_run"
+    elif validity["b"].startswith("invalid"):
+        # A contradictory reported counter is a raw fact only; it can
+        # never qualify cache or work reduction.
+        conclusion = "metrics_invalid"
     elif rec_b["usage"]["cache_hit_tokens"] is None:
         # Missing/invalid measurements yield an unqualified conclusion;
         # submitted input tokens or faster wall time cannot substitute
         # for reported evaluated work.
         conclusion = "metrics_unavailable"
+    elif validity["b"].startswith("uncheckable"):
+        # The supported relation cannot be validated with the reported
+        # counters: the measurement stays explicitly unqualified.
+        conclusion = "metrics_unvalidated"
     elif rec_b["usage"]["cache_hit_tokens"] == 0:
         conclusion = "no_cache_hit_reported"
     else:
         conclusion = "cache_hit_reported"
     return {
         **reported,
+        "accounting_relation": (
+            "cache_hit_tokens <= input_tokens when both are reported "
+            "(the pinned gateway f2df0e82 validates cached + cache_write "
+            "<= input_tokens on its own reported usage; the probe "
+            "observes only the cached counter)"
+        ),
+        "accounting_validity": validity,
         "wall_note": (
             "probe-level wall time around each request; it is caller time, "
             "not evaluated model work and never cache proof"
@@ -439,7 +656,8 @@ def run_repeated_parent_probe(
     Exit codes: ``0`` complete (both paired requests resolved), ``1``
     not-run/incomplete (finite budget or adapter preflight stop), ``2``
     usage/config error (invalid config, mode not actually configured,
-    credential reference absent) — always with zero dispatches.
+    credential reference absent or invalid) — always with zero
+    dispatches.
 
     ``inner_transport`` is a test seam only: production (the CLI) always
     passes ``None`` and the real transport is built from the configured
@@ -461,19 +679,47 @@ def run_repeated_parent_probe(
             return _mode_not_configured(
                 mode, "generator.route is not configured (no gateway route)")
         api_key: str | None = None
-        api_key_ref: dict[str, str] | None = None
+        credential_ref_evidence: dict[str, str] | None = None
         if generator.api_key_ref is not None:
             ref = config.secrets[generator.api_key_ref]
-            api_key_ref = {"kind": ref.kind, "name": ref.name}
-            api_key = resolve_secret_value(ref)
-            if api_key is None:
+            # Evidence retains the configured reference without
+            # exporting the value or a private file path (003-i
+            # criterion 1): env names are plain tokens and stay as-is;
+            # file references are recorded as an opaque digest of the
+            # path (stable per path, never the path itself).
+            if ref.kind == "env":
+                credential_ref_evidence = {"kind": "env", "name": ref.name}
+            else:
+                credential_ref_evidence = {
+                    "kind": "file",
+                    "name_digest": fingerprint(
+                        {"kind": "probe-credential-file-ref",
+                         "name": ref.name}),
+                }
+            resolution = resolve_secret_reference(ref)
+            if resolution.status == "missing":
                 return EXIT_USAGE, {
-                    "probe": PROBE_NAME, "version": PROBE_VERSION, "mode": mode,
+                    "probe": PROBE_NAME, "version": PROBE_VERSION,
+                    "mode": mode,
                     "status": "error", "error": "CREDENTIAL_ABSENT",
+                    "reason": resolution.reason,
                     "message": ("credential reference is not present on this "
                                 "host; provision it out-of-band (values never "
                                 "in config, command line or evidence)"),
                 }
+            if resolution.status == "invalid":
+                return EXIT_USAGE, {
+                    "probe": PROBE_NAME, "version": PROBE_VERSION,
+                    "mode": mode,
+                    "status": "error", "error": "CREDENTIAL_INVALID",
+                    "reason": resolution.reason,
+                    "message": ("credential reference is not a supported "
+                                "single-line credential file reference "
+                                "(" + (resolution.reason or "invalid")
+                                + "); values never in config, command line "
+                                "or evidence"),
+                }
+            api_key = resolution.value
         model_name = route.model
         min_calls = _MIN_CALLS_GW
         dialect = f"v1-responses@{GATEWAY_CONTRACT_COMMIT}"
@@ -561,6 +807,13 @@ def run_repeated_parent_probe(
             "adapter_reported_cycles": result.attempts,
             "text_fingerprint": (_response_text_fingerprint(label, result.text)
                                  if result.text is not None else None),
+            # Label-independent content fingerprint: comparable across
+            # phases without raw output (003-i criterion 2).
+            "content_fingerprint": (_content_fingerprint(result.text)
+                                    if result.text is not None else None),
+            # Exported GeneratorResult.fingerprint: the declared backend
+            # binding for this response (003-i criterion 4).
+            "backend_fingerprint": result.fingerprint,
             "expected_output_check": _expected_check(
                 label, result.text, expected_output_digests),
             "usage": _usage_dict(result),
@@ -588,6 +841,11 @@ def run_repeated_parent_probe(
     if not math.isfinite(elapsed) or elapsed < 0:
         elapsed = 0.0
 
+    if mode == "gateway":
+        declared_backend_fingerprint = gateway_backend_fingerprint(route)
+    else:
+        declared_backend_fingerprint = direct_backend_fingerprint(direct)
+
     identities: dict[str, Any] = {
         "dialect": dialect,
         "declared_model": model_name,
@@ -595,6 +853,12 @@ def run_repeated_parent_probe(
         # without disclosing the URL (003-h criterion 5).
         "endpoint_fingerprint": fingerprint(
             {"kind": "probe-endpoint", "endpoint": base_url.rstrip("/")}),
+        # Full declared backend binding (dialect, pinned contract,
+        # declared model, credential-free endpoint, timeout, capability
+        # and, for direct, template/limit/slot snapshots) — an endpoint
+        # hash alone does not bind all backend controls (003-i
+        # criterion 4). The deployed runtime identity is unverified.
+        "backend_fingerprint": declared_backend_fingerprint,
         "runtime_identity": "unverified",
     }
     if mode == "gateway":
@@ -605,10 +869,11 @@ def run_repeated_parent_probe(
         identities["native_capabilities"] = None
         identities["slot_control"] = None
         identities["credentials"] = {
-            "api_key_ref": api_key_ref,
+            "api_key_ref": credential_ref_evidence,
             # resolved: the reference was present and resolved for adapter
             # injection; null when no reference is declared (keyless route).
-            "resolved": (api_key_ref is not None and api_key is not None),
+            "resolved": (credential_ref_evidence is not None
+                         and api_key is not None),
         }
     else:
         qual = direct.template_qualification
@@ -630,7 +895,19 @@ def run_repeated_parent_probe(
         "mode": mode,
         "status": status,
         "stop_reason": stop_reason,
-        "live": False,
+        # The runner cannot classify the configured destination as an
+        # owned synthetic fixture or a live target; a localhost address
+        # or an order live allowance does not establish target type
+        # (003-i criterion 4). Explicit synthetic provenance is valid
+        # only for owned fixtures under test.
+        "target_type": "unverified",
+        "target_type_note": (
+            "the runner cannot classify the configured destination as an "
+            "owned synthetic fixture or a live target; a localhost "
+            "address or an order live allowance does not establish "
+            "target type; explicit synthetic provenance is valid only "
+            "for owned fixtures under test"
+        ),
         "model_quality": "not_assessed",
         "budgets": {
             "deadline_seconds": budgets.deadline_seconds,
@@ -638,6 +915,13 @@ def run_repeated_parent_probe(
             "max_output_tokens_total": budgets.max_output_tokens_total,
             "per_request_output_tokens": per_request,
             "elapsed_seconds": elapsed,
+            # Honest time boundary (003-i criterion 1): credential
+            # resolution and mode preflight happen BEFORE the measured
+            # experiment and are excluded from elapsed_seconds.
+            "elapsed_seconds_scope": (
+                "experiment only: measured after credential resolution "
+                "and mode preflight, before the first dispatch"
+            ),
         },
         "identities": identities,
         "experiment": {
@@ -666,6 +950,28 @@ def run_repeated_parent_probe(
             },
         },
         "requests": records,
+        # Label-independent same/different output evidence (003-i
+        # criterion 2): computed from the per-phase content
+        # fingerprints, independent of phase labels and of any semantic
+        # claim. Equal outputs never establish truth, caching or
+        # quality; a non-terminal or missing phase keeps the comparison
+        # unknown (null), never a forced verdict.
+        "pair_comparison": {
+            "same_output": (
+                (records["a"]["content_fingerprint"]
+                 == records["b"]["content_fingerprint"])
+                if (records["a"] is not None and records["b"] is not None
+                    and records["a"]["content_fingerprint"] is not None
+                    and records["b"]["content_fingerprint"] is not None)
+                else None
+            ),
+            "note": (
+                "label-independent content fingerprints; equal outputs "
+                "never establish truth, caching or model quality; a "
+                "non-terminal or missing phase keeps the comparison "
+                "unknown (null)"
+            ),
+        },
         "transport_boundary": {
             "attempted_calls": transport.attempted_calls,
             "calls_by_kind": dict(transport.kind_counts),

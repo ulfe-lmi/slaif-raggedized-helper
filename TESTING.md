@@ -47,22 +47,36 @@ product CI job runs them alongside
 tests/unit and product lint from a clean locked install.
 
 
-T07. Bounded probe composition (objective 003-h): `uv run pytest
-tests/integration/test_probe_composition.py -q` runs the INSTALLED
-`raggedized` CLI in subprocesses with the real gateway/native adapters
-against owned 127.0.0.1 loopback servers (synthetic canaries only):
-exact request count/order/control payloads, finite aggregate budgets
-across the pair and retries (single experiment deadline; call allowance
-reserved before every transport invocation; ambiguous work spent, never
-replayed; no bypass by retries/template work), no implicit dispatch on
-import/help/doctor/missing opt-in, invalid config and absent
-credentials refused before dispatch, missing-metric nulls, digest-only
-expected-output match/mismatch, unknown-completion no-replay, and
-evidence safety (no endpoint URL, credential, raw prompt/response text
-or provider error). The probe budget/boundary unit regressions live in
-tests/unit/test_probes.py; the gateway explicit-minimum capability
-admission regressions (zero-HTTP refusal of required JSON_MODE/
-PROMPT_CACHING on an unqualified route plus qualified minimum-only
-positive controls) extend the gateway loopback suite. All synthetic and
-offline: no external network, product services, real keys, GPU or model
-downloads. Real runtime/cache/quality qualification remains NOT RUN.
+T07. Bounded probe composition (objectives 003-h/003-i): `uv run
+pytest tests/integration/test_probe_composition.py -q` runs the
+INSTALLED `raggedized` CLI in subprocesses with the real
+gateway/native adapters against owned 127.0.0.1 loopback servers
+(synthetic canaries only): exact request count/order/control payloads,
+finite aggregate budgets across the pair and retries (single
+experiment deadline; call allowance reserved before every transport
+invocation; ambiguous work spent, never replayed; no bypass by
+retries/template work), no implicit dispatch on
+import/help/doctor/missing opt-in, invalid config and absent or
+invalid credentials (owned FIFO, directory, invalid UTF-8,
+control-character and non-Latin-1 values — refused without a blocking
+open, no child process killed) refused before dispatch at zero HTTP, a knowably invalid `--output` destination
+refused before dispatch (exit 2) and a post-work evidence write
+failure after actual dispatches returning the honest exit-3
+export-stage error with the full spent-attempt evidence on stdout,
+missing-metric nulls, label-independent same/different output
+evidence with the installed-CLI expected-output positive and mismatch
+(documented namespaced fingerprint digests, not plain-text
+sha256sums), reported-vs-validated cache counters (valid present
+qualifies; contradictory cached/input is `metrics_invalid` with raw
+facts preserved; uncheckable is `metrics_unvalidated`; absent stays
+`metrics_unavailable`), the exported declared backend fingerprint with
+`target_type: unverified`, no private credential file path or value in
+evidence, and no endpoint URL, credential, raw prompt/response text or
+provider error. The probe budget/boundary/credential unit regressions
+live in tests/unit/test_probes.py; the gateway explicit-minimum
+capability admission regressions (zero-HTTP refusal of required
+JSON_MODE/PROMPT_CACHING on an unqualified route plus qualified
+minimum-only positive controls) extend the gateway loopback suite.
+All synthetic and offline: no external network, product services,
+real keys, GPU or model downloads. Real runtime/cache/quality
+qualification remains NOT RUN.

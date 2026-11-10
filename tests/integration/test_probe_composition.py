@@ -1,6 +1,7 @@
 """Real probe composition: installed CLI + real adapters over owned loopback.
 
-Acceptance coverage (oap/orders/003-h criteria 1, 2, 3, 5, 6): the
+Acceptance coverage (oap/orders/003-h criteria 1, 2, 3, 5, 6; 003-i
+criteria 1, 2, 3, 4, 6, 7): the
 INSTALLED ``raggedized`` CLI runs in a subprocess; the real
 GatewayGenerator/DirectNativeGenerator adapters speak to owned
 127.0.0.1 loopback servers that record exact paths/order/bodies. We
@@ -9,8 +10,16 @@ aggregate budgets (deadline + call allowance) across the pair and
 retries, no implicit dispatch (import/help/doctor/missing opt-in),
 missing-metric nulls, mismatched outputs, unknown-completion no-replay,
 secret/provider canary safety and invalid-config refusals before
-dispatch. All fixtures are synthetic; no live model, real key, GPU or
-corpus (order live authorization: NONE).
+dispatch; and the 003-i boundaries: bounded credential resolution
+(owned file credential positive; owned FIFO and invalid-UTF-8 refusals
+at zero HTTP; private file path never in evidence), label-independent
+same/different output comparison, installed-CLI expected-output
+positive, reported-vs-validated cache counter conclusions
+(valid-present, contradictory, absent), pre-dispatch refusal of a
+knowably invalid --output destination and the honest post-work
+export-stage failure after actual dispatches. All fixtures are
+synthetic; no live model, real key, GPU or corpus (orders live
+authorization: NONE).
 """
 
 from __future__ import annotations
@@ -37,6 +46,8 @@ from slaif_raggedized_helper.schema import fingerprint
 
 # Unique synthetic canaries for this suite (never real credentials/data).
 PROBE_KEY_CANARY = "sk-probe-canary-003h-DO-NOT-LEAK"
+PROBE_FILE_KEY_CANARY = "sk-probe-file-canary-003i-DO-NOT-LEAK"
+PROBE_PATH_CANARY = "PRIVATE_SECRET_REF_CANARY_003i"
 PROBE_PROVIDER_CANARY = "PROVIDER-ERROR-CANARY-003h"
 PROBE_TEXT_A = "synthetic probe answer A"
 PROBE_TEXT_B = "synthetic probe answer B"
@@ -63,8 +74,9 @@ def run_cli(argv: list[str], *, env: dict[str, str] | None = None,
                           text=True, timeout=timeout, env=env)
 
 
-def write_config(tmp_path: Path, doc: dict) -> Path:
-    path = tmp_path / "probe-config.json"
+def write_config(tmp_path: Path, doc: dict,
+                 name: str = "probe-config.json") -> Path:
+    path = tmp_path / name
     path.write_text(json.dumps(doc), encoding="utf-8")
     return path
 
@@ -209,7 +221,10 @@ def test_gateway_probe_happy_path_with_credential_reference(
     # evidence: complete, safe, truthful
     assert doc["status"] == "complete"
     assert doc["mode"] == "gateway"
-    assert doc["live"] is False
+    # 003-i criterion 4: no unsupported hard-coded fixture/live
+    # classification; the destination stays unverified
+    assert doc["target_type"] == "unverified"
+    assert "live" not in doc
     assert doc["requests"]["a"]["outcome"] == "terminal"
     assert doc["requests"]["b"]["outcome"] == "terminal"
     assert doc["requests"]["a"]["usage"] == {
@@ -261,7 +276,10 @@ def test_gateway_probe_qualified_cache_control_is_stable_but_unqualified(
         ["key_fingerprint"]}
     assert doc["experiment"]["cache_control"]["key_fingerprint"].startswith(
         "sha256:")
-    # the gateway dialect never reports prefill/cache metrics
+    # this fixture reports no cached counter: the gateway dialect CAN
+    # report input_tokens_details.cached_tokens (pinned f2df0e82) but
+    # not evaluated-prefill; absent reported counters keep the
+    # conclusion unqualified
     assert doc["cache_evidence"]["conclusion"] == "metrics_unavailable"
     assert doc["cache_evidence"]["reported_prefill_tokens"] == \
         {"a": None, "b": None}
@@ -345,6 +363,188 @@ def test_gateway_probe_unknown_completion_is_never_replayed(server, tmp_path):
     assert srv.paths == ["/v1/responses", "/v1/responses"]  # no duplicate
     assert doc["transport_boundary"]["ambiguous_dispatches"] == 1
     assert doc["transport_boundary"]["responses_received"] == 1
+
+
+# ---------------------------------------------------------------------------
+# 003-i: bounded credential resolution (owned fixtures; OAP FIFOs are
+# never touched and no child process needs to be killed)
+# ---------------------------------------------------------------------------
+
+def test_gateway_probe_credential_file_reference_positive(
+        server, tmp_path):
+    # Owned file credential with a canary value, stored under an owned
+    # private path with a canary marker: the value reaches ONLY the
+    # Authorization header; the evidence carries an opaque name digest,
+    # never the value or the private file path (003-i criterion 1).
+    secret_dir = tmp_path / PROBE_PATH_CANARY
+    secret_dir.mkdir()
+    key_file = secret_dir / "gateway.key"
+    key_file.write_text(PROBE_FILE_KEY_CANARY + "\n", encoding="utf-8")
+    srv = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_B))
+    doc = gateway_config(srv.port)
+    doc["secrets"] = {"probe_file_key": {"kind": "file",
+                                         "name": str(key_file)}}
+    doc["generator"]["api_key_ref"] = "probe_file_key"
+    cfg = write_config(tmp_path, doc)
+    result = run_cli(probe_argv(cfg, "gateway"))
+    assert result.returncode == 0, result.stdout + result.stderr
+    # the credential value reaches the wire only in the header
+    for record in srv.state.requests:
+        assert record.headers.get("authorization") == \
+            f"Bearer {PROBE_FILE_KEY_CANARY}"
+    blob = result.stdout
+    assert PROBE_FILE_KEY_CANARY not in blob  # no credential value
+    assert PROBE_PATH_CANARY not in blob      # no private file path
+    doc_out = json.loads(result.stdout)
+    ref = doc_out["identities"]["credentials"]["api_key_ref"]
+    assert ref["kind"] == "file"
+    assert "name" not in ref
+    assert ref["name_digest"].startswith("sha256:")
+    assert doc_out["identities"]["credentials"]["resolved"] is True
+
+
+def test_gateway_probe_credential_fifo_refused_before_dispatch(
+        server, tmp_path):
+    # Owned FIFO in an owned temp dir: the refusal is a typed
+    # CREDENTIAL_INVALID (exit 2, structured JSON) with zero HTTP and
+    # no blocking on a writer (003-i criterion 1).
+    fifo = tmp_path / "cred.fifo"
+    os.mkfifo(str(fifo))
+    srv = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_B))
+    doc = gateway_config(srv.port)
+    doc["secrets"] = {"probe_fifo_key": {"kind": "file",
+                                         "name": str(fifo)}}
+    doc["generator"]["api_key_ref"] = "probe_fifo_key"
+    cfg = write_config(tmp_path, doc)
+    start = time.monotonic()
+    result = run_cli(probe_argv(cfg, "gateway"), timeout=30)
+    elapsed = time.monotonic() - start
+    assert result.returncode == 2, result.stdout + result.stderr
+    err = json.loads(result.stdout)
+    assert err["error"] == "CREDENTIAL_INVALID"
+    assert err["reason"] == "file_not_regular"
+    assert srv.state.requests == []  # zero HTTP
+    assert elapsed < 10.0  # no blocking open, no killed child needed
+    assert "Traceback" not in result.stderr
+
+
+def test_gateway_probe_credential_invalid_utf8_refused_before_dispatch(
+        server, tmp_path):
+    key_file = tmp_path / "bad.key"
+    key_file.write_bytes(b"\xff\xfe\x00not-utf8")
+    srv = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_B))
+    doc = gateway_config(srv.port)
+    doc["secrets"] = {"probe_bad_key": {"kind": "file",
+                                        "name": str(key_file)}}
+    doc["generator"]["api_key_ref"] = "probe_bad_key"
+    cfg = write_config(tmp_path, doc)
+    result = run_cli(probe_argv(cfg, "gateway"))
+    assert result.returncode == 2, result.stdout + result.stderr
+    err = json.loads(result.stdout)
+    assert err["error"] == "CREDENTIAL_INVALID"
+    assert err["reason"] == "file_not_utf8"
+    assert srv.state.requests == []  # zero HTTP
+    # a raw UnicodeDecodeError never escapes to the operator
+    assert "UnicodeDecodeError" not in result.stderr
+
+
+# ---------------------------------------------------------------------------
+# 003-i: output comparison, expected-output positive, cache counters
+# ---------------------------------------------------------------------------
+
+def test_gateway_probe_pair_comparison_same_and_different(
+        server, tmp_path):
+    # Identical A/B terminal text -> same_output True; distinct text ->
+    # False: label-independent content comparison without raw output
+    # (003-i criterion 2).
+    srv_same = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_A))
+    cfg = write_config(tmp_path, gateway_config(srv_same.port))
+    result = run_cli(probe_argv(cfg, "gateway"))
+    assert result.returncode == 0, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    assert doc["pair_comparison"]["same_output"] is True
+    assert doc["requests"]["a"]["content_fingerprint"] == \
+        doc["requests"]["b"]["content_fingerprint"]
+
+    srv_diff = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_B))
+    cfg2 = write_config(tmp_path, gateway_config(srv_diff.port),
+                        name="probe-config-b.json")
+    result2 = run_cli(probe_argv(cfg2, "gateway"))
+    assert result2.returncode == 0, result2.stdout + result2.stderr
+    doc2 = json.loads(result2.stdout)
+    assert doc2["pair_comparison"]["same_output"] is False
+
+
+def test_gateway_probe_expected_output_positive_installed_cli(
+        server, tmp_path):
+    # The installed CLI expected-output flags use the documented
+    # namespaced structured fingerprint (not an unexplained plain-text
+    # sha256sum): both correct digests -> match/match (003-i
+    # criterion 2). Equal digests still do not establish truth.
+    srv = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_B))
+    cfg = write_config(tmp_path, gateway_config(srv.port))
+    digest_a = fingerprint({"kind": "probe-response-text", "label": "a",
+                            "text": PROBE_TEXT_A})
+    digest_b = fingerprint({"kind": "probe-response-text", "label": "b",
+                            "text": PROBE_TEXT_B})
+    result = run_cli(probe_argv(cfg, "gateway", extra=[
+        "--expected-output-a", digest_a, "--expected-output-b", digest_b,
+    ]))
+    assert result.returncode == 0, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    assert doc["requests"]["a"]["expected_output_check"] == "match"
+    assert doc["requests"]["b"]["expected_output_check"] == "match"
+
+
+def _gateway_cached_scenario(text: str, input_tokens: int | None,
+                             cached_tokens: int | None):
+    usage = {"output_tokens": 5}
+    if input_tokens is not None:
+        usage["input_tokens"] = input_tokens
+    if cached_tokens is not None:
+        usage["input_tokens_details"] = {"cached_tokens": cached_tokens}
+
+    def scenario(h, r):
+        h._send_json(200, completed_json([message_item("m0", text)],
+                                         usage=usage))
+
+    return scenario
+
+
+def test_gateway_probe_valid_cache_counter_qualifies(server, tmp_path):
+    # Valid-present: the reported cached counter is within input and
+    # the supported relation is validated before the conclusion
+    # (003-i criterion 3).
+    srv = server(_gateway_cached_scenario("x", 11, 4))
+    cfg = write_config(tmp_path, gateway_config(
+        srv.port, caps=RouteCapabilities(prompt_caching=True)))
+    result = run_cli(probe_argv(cfg, "gateway"))
+    assert result.returncode == 0, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    ce = doc["cache_evidence"]
+    assert ce["conclusion"] == "cache_hit_reported"
+    assert ce["accounting_validity"] == {"a": "valid", "b": "valid"}
+    assert ce["reported_cache_hit_tokens"] == {"a": 4, "b": 4}
+    assert ce["reported_input_tokens"] == {"a": 11, "b": 11}
+
+
+def test_gateway_probe_contradictory_cache_counter_is_unqualified(
+        server, tmp_path):
+    # The demonstrated impossible counter (cached 999 / input 5): raw
+    # facts are preserved as such only; the conclusion is explicitly
+    # unqualified, never cache_hit_reported (003-i criterion 3).
+    srv = server(_gateway_cached_scenario("x", 5, 999))
+    cfg = write_config(tmp_path, gateway_config(
+        srv.port, caps=RouteCapabilities(prompt_caching=True)))
+    result = run_cli(probe_argv(cfg, "gateway"))
+    assert result.returncode == 0, result.stdout + result.stderr
+    doc = json.loads(result.stdout)
+    ce = doc["cache_evidence"]
+    assert ce["conclusion"] == "metrics_invalid"
+    assert (ce["accounting_validity"]["b"]
+            == "invalid:cache_hit_exceeds_input")
+    assert ce["reported_cache_hit_tokens"]["b"] == 999  # raw fact kept
+    assert ce["reported_input_tokens"]["b"] == 5        # raw fact kept
 
 
 # ---------------------------------------------------------------------------
@@ -522,6 +722,71 @@ def test_direct_mode_refused_when_gateway_only_config(server, tmp_path):
     assert result.returncode == 2
     assert json.loads(result.stdout)["error"] == "MODE_NOT_CONFIGURED"
     assert srv.state.requests == []
+
+
+# ---------------------------------------------------------------------------
+# 003-i: pre-dispatch output-destination refusal and the honest
+# post-work export-stage failure
+# ---------------------------------------------------------------------------
+
+def test_gateway_probe_invalid_output_dir_refuses_before_dispatch(
+        server, tmp_path):
+    # A knowably invalid --output destination is refused BEFORE the
+    # costly calls: exit 2 keeps its zero-dispatch promise, zero HTTP
+    # (003-i criterion 6).
+    srv = server(gateway_scenario(PROBE_TEXT_A, PROBE_TEXT_B))
+    cfg = write_config(tmp_path, gateway_config(srv.port))
+    result = run_cli(probe_argv(cfg, "gateway", extra=[
+        "--output", str(tmp_path / "missing-dir" / "evidence.json")]))
+    assert result.returncode == 2, result.stdout + result.stderr
+    err = json.loads(result.stdout)
+    assert err["error"] == "OUTPUT_DESTINATION_INVALID"
+    assert "refused before any dispatch" in err["message"]
+    assert srv.state.requests == []  # zero HTTP
+
+
+def test_gateway_probe_late_output_write_failure_is_honest_post_work_stage(
+        server, tmp_path):
+    # The pre-dispatch destination check passes (the directory exists
+    # and is writable); BOTH actual POSTs happen; then the evidence
+    # directory is removed before the write. The CLI must return the
+    # honest export-stage error (exit 3, NOT a zero-dispatch usage 2)
+    # and preserve the full evidence — including the spent-attempt
+    # accounting — on stdout (003-i criterion 6).
+    import shutil
+    out_dir = tmp_path / "evidence-dir"
+    out_dir.mkdir()
+    out_file = out_dir / "evidence.json"
+    state = {"n": 0}
+
+    def scenario(h, r):
+        state["n"] += 1
+        if state["n"] == 2:
+            # Remove after the last request, before its response is
+            # observed by the client: the race is owned and
+            # deterministic.
+            shutil.rmtree(out_dir)
+        text = PROBE_TEXT_A if state["n"] == 1 else PROBE_TEXT_B
+        h._send_json(200, completed_json([message_item("m0", text)]))
+
+    srv = server(scenario)
+    cfg = write_config(tmp_path, gateway_config(srv.port))
+    result = run_cli(probe_argv(cfg, "gateway",
+                                extra=["--output", str(out_file)]))
+    assert result.returncode == 3, result.stdout + result.stderr
+    # full safe evidence preserved on stdout with spent-attempt
+    # accounting: work actually occurred
+    doc = json.loads(result.stdout)
+    assert doc["status"] == "complete"
+    assert doc["transport_boundary"]["attempted_calls"] == 2
+    assert doc["transport_boundary"]["responses_received"] == 2
+    assert srv.count("/v1/responses") == 2
+    # honest stage/error on stderr: post-work export, not no-dispatch
+    err = json.loads(result.stderr)
+    assert err["error"] == "EVIDENCE_EXPORT_FAILED"
+    assert err["stage"] == "post_work_evidence_export"
+    assert "do not replay blindly" in err["message"]
+    assert not out_file.exists()
 
 
 def test_provider_error_canary_never_reaches_evidence(server, tmp_path):

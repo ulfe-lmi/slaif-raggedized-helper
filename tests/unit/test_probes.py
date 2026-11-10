@@ -1,4 +1,5 @@
-"""Bounded probe logic (003-h): budgets, boundary accounting, evidence safety.
+"""Bounded probe logic (003-h/003-i): budgets, boundary accounting,
+credential boundaries, evidence safety.
 
 Unit-level: synthetic fixtures and an injected fake inner transport
 (NO network, NO keys, NO model). Real composition over owned loopback
@@ -9,6 +10,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 
 import pytest
 from pydantic import ValidationError
@@ -22,8 +24,13 @@ from slaif_raggedized_helper.probes import (
     BudgetedTransport,
     ProbeBudgets,
     _BudgetExhausted,
-    resolve_secret_value,
+    MAX_CREDENTIAL_FILE_BYTES,
+    SecretResolution,
+    resolve_secret_reference,
     run_repeated_parent_probe,
+)
+from slaif_raggedized_helper.model_clients.gateway import (
+    gateway_backend_fingerprint,
 )
 from slaif_raggedized_helper.model_clients.transport import (
     TransportConnectError,
@@ -161,23 +168,194 @@ def test_budgets_split_the_pair_evenly_and_never_exceed_the_total():
 # secret references
 # ---------------------------------------------------------------------------
 
-def test_resolve_secret_env_and_file(tmp_path):
+def test_resolve_secret_reference_env():
     ref = SecretRef(kind="env", name="PROBE_UNIT_ENV_SECRET")
-    assert resolve_secret_value(ref) is None
+    res = resolve_secret_reference(ref)
+    assert (res.status, res.reason) == ("missing", "env_absent_or_empty")
+    assert res.value is None
+    # the repr never echoes the value
+    assert CANARY_KEY not in repr(res)
     os.environ["PROBE_UNIT_ENV_SECRET"] = CANARY_KEY
     try:
-        assert resolve_secret_value(ref) == CANARY_KEY
+        res = resolve_secret_reference(ref)
+        assert res.status == "resolved" and res.reason is None
+        assert res.value == CANARY_KEY
+        assert CANARY_KEY not in repr(res)
+        assert isinstance(res, SecretResolution)
     finally:
         del os.environ["PROBE_UNIT_ENV_SECRET"]
+    os.environ["PROBE_UNIT_ENV_SECRET"] = ""
+    try:
+        assert (resolve_secret_reference(ref).status,
+                resolve_secret_reference(ref).reason) == (
+                    "missing", "env_absent_or_empty")
+    finally:
+        del os.environ["PROBE_UNIT_ENV_SECRET"]
+
+
+def test_resolve_secret_reference_header_unusable_values(tmp_path, monkeypatch):
+    # The resolved value is used verbatim as the Bearer credential of
+    # the Authorization header: control characters (NUL, DEL) and
+    # non-Latin-1 code points are refused pre-dispatch with fixed
+    # typed reasons instead of a raw UnicodeEncodeError mid-dispatch
+    # or a malformed request that would consume budget ambiguously
+    # (003-i criterion 1).
+    f = tmp_path / "cred.txt"
+    f.write_bytes(b"abc\x00def")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("invalid",
+                                        "value_contains_control_character")
+    assert res.value is None
+    f.write_bytes(b"abc\x7fdef")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("invalid",
+                                        "value_contains_control_character")
+    f.write_text("key-" + chr(0x211D), encoding="utf-8")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("invalid", "value_not_latin1")
+    # POSIX os.environ cannot even store a NUL byte, so the env path is
+    # exercised through a stand-in environ that only overrides the
+    # referenced key (monkeypatch restores the real one).
+    # POSIX os.environ cannot even store a NUL byte, so the env path is
+    # exercised through a stand-in environ that only overrides the
+    # referenced key (monkeypatch restores the real one).
+    real_environ = os.environ
+    class _OverrideEnviron:
+        def __init__(self, key, value, real):
+            self._key = key
+            self._value = value
+            self._real = real
+
+        def _resolve(self, name):
+            if name == self._key:
+                return self._value
+            return self._real.get(name)
+
+        def get(self, name, default=None):
+            got = self._resolve(name)
+            return default if got is None else got
+
+        def __getitem__(self, name):
+            got = self._resolve(name)
+            if got is None:
+                raise KeyError(name)
+            return got
+
+        def __contains__(self, name):
+            if name == self._key:
+                return True
+            return name in self._real
+
+        def __iter__(self):
+            seen = [self._key]
+            for k in self._real:
+                if k not in seen:
+                    seen.append(k)
+            return iter(seen)
+
+        def __setitem__(self, name, value):
+            if name == self._key:
+                self._value = value
+            else:
+                self._real[name] = value
+
+        def __delitem__(self, name):
+            if name == self._key:
+                self._value = None
+            else:
+                del self._real[name]
+
+        def keys(self):
+            return list(self)
+
+    ref = SecretRef(kind="env", name="PROBE_UNIT_HEADER_SECRET")
+    for value, reason in (("a\x00b", "value_contains_control_character"),
+                          ("key-" + chr(0x211D), "value_not_latin1")):
+        fake = _OverrideEnviron(ref.name, value, real_environ)
+        monkeypatch.setattr(os, "environ", fake)
+        res = resolve_secret_reference(ref)
+        assert (res.status, res.reason) == ("invalid", reason)
+        assert res.value is None
+        monkeypatch.undo()
+    # boundary positives: Latin-1 obs-text (0x80-0xFF) and printable
+    # space remain usable header values
+    f.write_text("caf\u00e9", encoding="utf-8")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert res.status == "resolved" and res.value == "caf\u00e9"
+    f.write_text("a b", encoding="utf-8")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert res.status == "resolved" and res.value == "a b"
+
+
+def test_resolve_secret_reference_file_positive(tmp_path):
     f = tmp_path / "secret.txt"
     f.write_text("file-secret-value\n", encoding="utf-8")
     fref = SecretRef(kind="file", name=str(f))
-    assert resolve_secret_value(fref) == "file-secret-value"
+    res = resolve_secret_reference(fref)
+    assert res.status == "resolved" and res.value == "file-secret-value"
     f.write_text("file-secret-no-newline", encoding="utf-8")
-    assert resolve_secret_value(fref) == "file-secret-no-newline"
+    assert resolve_secret_reference(fref).value == "file-secret-no-newline"
+    # the byte bound is inclusive of one trailing newline
+    f.write_bytes(b"a" * (MAX_CREDENTIAL_FILE_BYTES - 1) + b"\n")
+    assert resolve_secret_reference(fref).status == "resolved"
+    f.write_bytes(b"a" * MAX_CREDENTIAL_FILE_BYTES + b"\n")
+    res = resolve_secret_reference(fref)
+    assert (res.status, res.reason) == ("invalid", "file_too_long")
+
+
+def test_resolve_secret_reference_file_missing_and_empty(tmp_path):
+    res = resolve_secret_reference(
+        SecretRef(kind="file", name=str(tmp_path / "missing")))
+    assert (res.status, res.reason) == ("missing",
+                                        "file_absent_or_unreadable")
+    f = tmp_path / "empty.txt"
     f.write_text("\n", encoding="utf-8")
-    assert resolve_secret_value(fref) is None
-    assert resolve_secret_value(SecretRef(kind="file", name=str(tmp_path / "missing"))) is None
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("missing", "file_empty")
+    f.write_text("", encoding="utf-8")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("missing", "file_empty")
+
+
+def test_resolve_secret_reference_fifo_refused_without_blocking(tmp_path):
+    # Owned FIFO in an owned temp dir; no child process is needed or
+    # killed: the non-blocking open + fstat refuses special files.
+    fifo = tmp_path / "cred.fifo"
+    os.mkfifo(str(fifo))
+    start = time.monotonic()
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(fifo)))
+    elapsed = time.monotonic() - start
+    assert (res.status, res.reason) == ("invalid", "file_not_regular")
+    assert res.value is None
+    assert elapsed < 1.0  # no blocking open, no reader/writer needed
+    # a symlink to the FIFO is refused the same way
+    link = tmp_path / "cred-link"
+    os.symlink(str(fifo), str(link))
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(link)))
+    assert (res.status, res.reason) == ("invalid", "file_not_regular")
+
+
+def test_resolve_secret_reference_special_files_and_shapes(tmp_path):
+    # directory
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(tmp_path)))
+    assert (res.status, res.reason) == ("invalid", "file_not_regular")
+    f = tmp_path / "bad.txt"
+    # invalid UTF-8: fixed typed outcome, never a raw exception
+    f.write_bytes(b"\xff\xfe\x00not-utf8")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("invalid", "file_not_utf8")
+    # multi-line
+    f.write_bytes(b"line1\nline2\n")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("invalid", "file_not_single_line")
+    # CR is not a supported single-line shape
+    f.write_bytes(b"value\r\n")
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("invalid", "file_not_single_line")
+    # over the byte bound
+    f.write_bytes(b"a" * (MAX_CREDENTIAL_FILE_BYTES + 1))
+    res = resolve_secret_reference(SecretRef(kind="file", name=str(f)))
+    assert (res.status, res.reason) == ("invalid", "file_too_long")
 
 
 # ---------------------------------------------------------------------------
@@ -233,8 +411,52 @@ def test_gateway_credential_reference_absent_refuses_before_dispatch():
                                           inner_transport=fake)
     assert code == 2
     assert doc["error"] == "CREDENTIAL_ABSENT"
+    assert doc["reason"] == "env_absent_or_empty"
+    assert doc["status"] == "error"
     assert CANARY_KEY not in json.dumps(doc)
     assert fake.calls == []
+
+
+def test_gateway_credential_invalid_file_refuses_before_dispatch(tmp_path):
+    # Owned FIFO and invalid-UTF-8 file: fixed typed CREDENTIAL_INVALID
+    # outcome (exit 2, structured JSON, zero transport calls, no raw
+    # exception escaping the probe).
+    fifo = tmp_path / "cred.fifo"
+    os.mkfifo(str(fifo))
+    bad = tmp_path / "bad.txt"
+    bad.write_bytes(b"\xff\xfe\x00not-utf8")
+    nul = tmp_path / "nul.txt"
+    nul.write_bytes(b"abc\x00def")
+    nonlatin1 = tmp_path / "nonlatin1.txt"
+    nonlatin1.write_text("key-" + chr(0x211D), encoding="utf-8")
+    for path, reason in ((fifo, "file_not_regular"),
+                         (bad, "file_not_utf8"),
+                         (nul, "value_contains_control_character"),
+                         (nonlatin1, "value_not_latin1")):
+        cfg = RaggedizedConfig.model_validate({
+            "schema_version": 1,
+            "generator": {
+                "route": {"base_url": "http://127.0.0.1:1/v1",
+                          "model": "synthetic-gw", "api": "v1-responses",
+                          "timeout_seconds": 5},
+                "context_expected_tokens": 1024,
+                "output_reserve_tokens": 64,
+                "deadline_seconds": 30, "api_key_ref": "gw_key",
+            },
+            "secrets": {"gw_key": {"kind": "file", "name": str(path)}},
+        })
+        fake = FakeInner()
+        code, doc = run_repeated_parent_probe(cfg, "gateway", _budgets(),
+                                              inner_transport=fake)
+        assert code == 2
+        assert doc["error"] == "CREDENTIAL_INVALID"
+        assert doc["reason"] == reason
+        assert doc["status"] == "error"
+        # structured JSON document; no private path anywhere in it
+        blob = json.dumps(doc)
+        json.loads(blob)
+        assert str(tmp_path) not in blob
+        assert fake.calls == []
 
 
 # ---------------------------------------------------------------------------
@@ -476,11 +698,25 @@ def test_evidence_carries_no_url_secret_prompt_or_response_text():
     assert doc["identities"]["endpoint_fingerprint"].startswith("sha256:")
     assert doc["identities"]["endpoint_fingerprint"] == fingerprint(
         {"kind": "probe-endpoint", "endpoint": "http://127.0.0.1:43211/v1"})
+    # declared backend binding (003-i criterion 4): endpoint hash alone
+    # does not bind all backend controls; the exported GeneratorResult
+    # fingerprint carries dialect/contract/model/endpoint/timeout/caps.
+    declared_fp = gateway_backend_fingerprint(cfg.generator.route)
+    assert doc["identities"]["backend_fingerprint"] == declared_fp
+    assert doc["requests"]["a"]["backend_fingerprint"] == declared_fp
+    assert doc["requests"]["b"]["backend_fingerprint"] == declared_fp
     assert doc["identities"]["runtime_identity"] == "unverified"
-    assert doc["live"] is False
+    # the runner cannot classify fixture vs live (003-i criterion 4):
+    # no unsupported hard-coded classification, honest unverified state
+    assert doc["target_type"] == "unverified"
+    assert "live" not in doc
     assert doc["model_quality"] == "not_assessed"
     assert doc["experiment"]["cold_state"] == "unknown"
     assert doc["experiment"]["phase_labels"] == ["first-call", "second-call"]
+    # credential/preflight setup is excluded from measured experiment
+    # time and documented as such (003-i criterion 1)
+    assert doc["budgets"]["elapsed_seconds_scope"].startswith(
+        "experiment only")
 
 
 PROBE_PARENT_TEXT_MARKER = "Synthetic repeated-parent probe fixture"
@@ -525,6 +761,81 @@ def test_expected_output_check_match_mismatch_not_provided():
     assert doc3["requests"]["a"]["expected_output_check"] is None
 
 
+def test_private_file_credential_path_never_reaches_evidence(tmp_path):
+    # A valid owned credential path containing a canary marker must NOT
+    # appear in the evidence (003-i criterion 1): the file reference is
+    # recorded as an opaque digest, stable per path.
+    secret_dir = tmp_path / "PRIVATE_SECRET_REF_CANARY"
+    secret_dir.mkdir()
+    key_file = secret_dir / "gateway.key"
+    key_file.write_text("canary-file-credential-003i\n", encoding="utf-8")
+    cfg = RaggedizedConfig.model_validate({
+        "schema_version": 1,
+        "generator": {
+            "route": {"base_url": "http://127.0.0.1:1/v1",
+                      "model": "synthetic-gw", "api": "v1-responses",
+                      "timeout_seconds": 5},
+            "context_expected_tokens": 1024, "output_reserve_tokens": 64,
+            "deadline_seconds": 30, "api_key_ref": "gw_key",
+        },
+        "secrets": {"gw_key": {"kind": "file", "name": str(key_file)}},
+    })
+    fake = FakeInner(script=[
+        lambda p, b: gateway_terminal_body("unit-a"),
+        lambda p, b: gateway_terminal_body("unit-b"),
+    ])
+    code, doc = run_repeated_parent_probe(cfg, "gateway", _budgets(),
+                                          inner_transport=fake)
+    assert code == 0
+    blob = json.dumps(doc)
+    assert "PRIVATE_SECRET_REF_CANARY" not in blob   # private file path
+    assert "canary-file-credential-003i" not in blob  # credential value
+    ref = doc["identities"]["credentials"]["api_key_ref"]
+    assert ref["kind"] == "file"
+    assert "name" not in ref
+    assert ref["name_digest"] == fingerprint(
+        {"kind": "probe-credential-file-ref", "name": str(key_file)})
+    assert doc["identities"]["credentials"]["resolved"] is True
+
+
+def test_pair_comparison_same_different_and_unknown():
+    # Label-independent same/different output evidence (003-i
+    # criterion 2): identical text compares equal across phases while
+    # phase-identity fingerprints stay separate; non-terminal text
+    # stays unknown (null), never a forced verdict.
+    cfg = _gateway_config()
+    fake = FakeInner(script=[
+        lambda p, b: gateway_terminal_body("same-text"),
+        lambda p, b: gateway_terminal_body("same-text"),
+    ])
+    _, doc = run_repeated_parent_probe(cfg, "gateway", _budgets(),
+                                       inner_transport=fake)
+    assert doc["pair_comparison"]["same_output"] is True
+    assert (doc["requests"]["a"]["content_fingerprint"]
+            == doc["requests"]["b"]["content_fingerprint"])
+    assert (doc["requests"]["a"]["text_fingerprint"]
+            != doc["requests"]["b"]["text_fingerprint"])  # labels kept
+
+    fake2 = FakeInner(script=[
+        lambda p, b: gateway_terminal_body("x"),
+        lambda p, b: gateway_terminal_body("y"),
+    ])
+    _, doc2 = run_repeated_parent_probe(cfg, "gateway", _budgets(),
+                                        inner_transport=fake2)
+    assert doc2["pair_comparison"]["same_output"] is False
+    assert (doc2["requests"]["a"]["content_fingerprint"]
+            != doc2["requests"]["b"]["content_fingerprint"])
+
+    fake3 = FakeInner(script=[
+        lambda p, b: (500, b'{"error": "boom"}'),
+        lambda p, b: gateway_terminal_body("y"),
+    ])
+    _, doc3 = run_repeated_parent_probe(cfg, "gateway", _budgets(),
+                                        inner_transport=fake3)
+    assert doc3["pair_comparison"]["same_output"] is None
+    assert doc3["requests"]["a"]["content_fingerprint"] is None
+
+
 # ---------------------------------------------------------------------------
 # cache evidence conclusions
 # ---------------------------------------------------------------------------
@@ -544,6 +855,26 @@ def test_cache_evidence_no_control_by_default():
         assert b"prompt_cache_key" not in body
 
 
+def gateway_cached_body(text, input_tokens, cached_tokens):
+    usage = {"output_tokens": 4}
+    if input_tokens is not None:
+        usage["input_tokens"] = input_tokens
+    if cached_tokens is not None:
+        usage["input_tokens_details"] = {"cached_tokens": cached_tokens}
+    return (200, json.dumps({
+        "id": "r1", "object": "response", "created_at": 1,
+        "status": "completed", "model": "synthetic",
+        "output": [{
+            "id": "m1", "type": "message", "status": "completed",
+            "role": "assistant",
+            "content": [{"type": "output_text", "text": text,
+                         "annotations": [], "logprobs": None}],
+            "phase": None,
+        }],
+        "usage": usage,
+    }).encode())
+
+
 def test_gateway_qualified_cache_control_sends_key_but_stays_unqualified():
     cfg = _gateway_config(caps=RouteCapabilities(prompt_caching=True))
     fake = FakeInner(script=[
@@ -557,11 +888,71 @@ def test_gateway_qualified_cache_control_sends_key_but_stays_unqualified():
     keys = [json.loads(b)["prompt_cache_key"] for _, b in fake.calls]
     assert len(set(keys)) == 1  # stable parent-derived key for both phases
     assert len(keys[0]) <= 128
-    # the gateway dialect never reports prefill/cache metrics:
+    # this fixture reports no cached counter: the gateway dialect CAN
+    # report input_tokens_details.cached_tokens (pinned f2df0e82) but
+    # does not report evaluated-prefill metrics; absent reported
+    # counters stay null and the conclusion stays unqualified:
     assert doc["cache_evidence"]["conclusion"] == "metrics_unavailable"
+    assert doc["cache_evidence"]["accounting_validity"] == {
+        "a": "unreported", "b": "unreported"}
     assert doc["cache_evidence"]["reported_prefill_tokens"] == {
         "a": None, "b": None}
     assert doc["identities"]["credentials"]["api_key_ref"] is None
+
+
+def test_cache_evidence_valid_present_counter_qualifies():
+    cfg = _gateway_config(caps=RouteCapabilities(prompt_caching=True))
+    fake = FakeInner(script=[
+        lambda p, b: gateway_cached_body("a", 11, 4),
+        lambda p, b: gateway_cached_body("b", 11, 4),
+    ])
+    _, doc = run_repeated_parent_probe(cfg, "gateway", _budgets(),
+                                       inner_transport=fake)
+    ce = doc["cache_evidence"]
+    # valid-present: the reported cached counter is preserved AND the
+    # supported relation is validated before the conclusion
+    assert ce["conclusion"] == "cache_hit_reported"
+    assert ce["accounting_validity"] == {"a": "valid", "b": "valid"}
+    assert ce["reported_cache_hit_tokens"] == {"a": 4, "b": 4}
+    assert ce["reported_input_tokens"] == {"a": 11, "b": 11}
+    assert ce["accounting_relation"].startswith("cache_hit_tokens <=")
+
+
+def test_cache_evidence_contradictory_counter_is_invalid_not_reported():
+    # The demonstrated impossible case: cached 999 with input 5. Raw
+    # facts are preserved as such only; the conclusion is explicitly
+    # unqualified, never cache_hit_reported (003-i criterion 3).
+    cfg = _gateway_config(caps=RouteCapabilities(prompt_caching=True))
+    fake = FakeInner(script=[
+        lambda p, b: gateway_cached_body("a", 11, 4),
+        lambda p, b: gateway_cached_body("b", 5, 999),
+    ])
+    _, doc = run_repeated_parent_probe(cfg, "gateway", _budgets(),
+                                       inner_transport=fake)
+    ce = doc["cache_evidence"]
+    assert ce["conclusion"] == "metrics_invalid"
+    assert (ce["accounting_validity"]["b"]
+            == "invalid:cache_hit_exceeds_input")
+    assert ce["reported_cache_hit_tokens"]["b"] == 999  # raw fact kept
+    assert ce["reported_input_tokens"]["b"] == 5        # raw fact kept
+
+
+def test_cache_evidence_uncheckable_relation_is_unvalidated():
+    # cached counter present but input_tokens missing: the supported
+    # relation cannot be checked, so the measurement stays explicitly
+    # unqualified (never a quiet cache_hit_reported).
+    cfg = _gateway_config(caps=RouteCapabilities(prompt_caching=True))
+    fake = FakeInner(script=[
+        lambda p, b: gateway_cached_body("a", 11, None),
+        lambda p, b: gateway_cached_body("b", None, 3),
+    ])
+    _, doc = run_repeated_parent_probe(cfg, "gateway", _budgets(),
+                                       inner_transport=fake)
+    ce = doc["cache_evidence"]
+    assert ce["conclusion"] == "metrics_unvalidated"
+    assert (ce["accounting_validity"]["b"]
+            == "uncheckable:input_tokens_missing")
+    assert ce["reported_cache_hit_tokens"]["b"] == 3
 
 
 def _native_cache_metrics_conclusion(cache_n_b, conclusion):
@@ -653,6 +1044,60 @@ def test_cli_probe_writes_evidence_file_and_exit_codes(tmp_path):
     assert doc["status"] == "incomplete"
     assert doc["transport_boundary"]["pre_dispatch_failures"] == 1
     assert "127.0.0.1" not in out_path.read_text(encoding="utf-8")
+
+
+def test_cli_probe_invalid_output_destination_refuses_before_dispatch(
+        tmp_path, capsys):
+    # A knowably invalid --output destination is refused with exit 2
+    # (zero-dispatch promise) BEFORE the probe runs (003-i criterion 6).
+    from slaif_raggedized_helper import cli
+    cfg_path = tmp_path / "cfg.json"
+    cfg_path.write_text(json.dumps(_gateway_config().model_dump()),
+                        encoding="utf-8")
+    base = ["probe", "--config", str(cfg_path), "--mode", "gateway",
+            "--deadline-seconds", "1", "--max-dispatches", "1",
+            "--max-output-tokens-total", "2"]
+    # parent directory does not exist
+    code = cli.main(base + ["--output",
+                            str(tmp_path / "missing-dir" / "evidence.json")])
+    assert code == 2
+    err = json.loads(capsys.readouterr().out)
+    assert err["error"] == "OUTPUT_DESTINATION_INVALID"
+    assert "refused before any dispatch" in err["message"]
+    # destination path exists but is a directory
+    as_dir = tmp_path / "as-dir"
+    as_dir.mkdir()
+    code = cli.main(base + ["--output", str(as_dir)])
+    assert code == 2
+    err = json.loads(capsys.readouterr().out)
+    assert err["error"] == "OUTPUT_DESTINATION_INVALID"
+    assert "not a regular file" in err["message"]
+    # non-writable parent directory (owned fixture: chmod 000)
+    locked = tmp_path / "locked"
+    locked.mkdir()
+    locked.chmod(0o000)
+    try:
+        code = cli.main(base + ["--output", str(locked / "evidence.json")])
+        assert code == 2
+        err = json.loads(capsys.readouterr().out)
+        assert err["error"] == "OUTPUT_DESTINATION_INVALID"
+    finally:
+        locked.chmod(0o755)
+    # pre-existing read-only regular file (owned fixture: chmod 0400) is
+    # knowably invalid before dispatch; skipped when the current user
+    # (e.g. root) can write mode-0400 files anyway
+    readonly = tmp_path / "readonly-evidence.json"
+    readonly.write_text("owned old evidence", encoding="utf-8")
+    readonly.chmod(0o400)
+    try:
+        if not os.access(readonly, os.W_OK):
+            code = cli.main(base + ["--output", str(readonly)])
+            assert code == 2
+            err = json.loads(capsys.readouterr().out)
+            assert err["error"] == "OUTPUT_DESTINATION_INVALID"
+            assert "not writable" in err["message"]
+    finally:
+        readonly.chmod(0o600)
 
 
 def _closed_port():

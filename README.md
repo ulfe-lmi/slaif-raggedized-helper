@@ -49,10 +49,12 @@ inference/download/network; machine-readable JSON; exit 0 ok / 1 issues /
 2 usage error). `probe` is the explicit opt-in bounded repeated-parent
 qualification probe against the configured gateway route or
 offline-diagnostic direct destination (explicit finite
-deadline/dispatch/output-token budgets, safe structured evidence; exit 0
-complete / 1 not-run-incomplete / 2 usage-config error; import, help and
-doctor never dispatch a probe). Full reference, config schema,
-contracts and honest unresolved-artifact state:
+deadline/dispatch/output-token budgets, bounded safe credential
+resolution, safe structured evidence; exit 0 complete / 1
+not-run-incomplete / 2 usage-config error with zero dispatches / 3
+post-dispatch evidence export failure with the full evidence on stdout;
+import, help and doctor never dispatch a probe). Full reference, config
+schema, contracts and honest unresolved-artifact state:
 [docs/foundation.md](docs/foundation.md) and
 [docs/generator-contract.md](docs/generator-contract.md).
 

@@ -19,8 +19,13 @@ S --max-dispatches N --max-output-tokens-total T
     Requires explicit finite budgets (overall wall time, call/attempt
     allowance, total output-token allowance) and actually configured mode
     state; credentials resolve only through deliberate safe operator
-    references (never the command line). Emits one safe structured
-    evidence document (see docs/generator-contract.md).
+    references (bounded, regular-file-only, single-line reads; never the
+    command line) BEFORE any HTTP. Emits one safe structured evidence
+    document (see docs/generator-contract.md). A knowably invalid
+    ``--output`` destination is refused before dispatch; a write failure
+    that occurs after the probe returned is an honest post-work
+    export-stage error (exit 3) with the full evidence document on
+    stdout.
 
 Doctor guarantees
 -----------------
@@ -34,8 +39,14 @@ Doctor guarantees
 Exit codes: ``0`` ok (probe: complete), ``1`` validation/
             prerequisite issues (probe: explicit not-run/incomplete
             with published evidence), ``2`` usage error (probe:
-            invalid budgets, mode not configured, config or
-            credential errors) with zero dispatches.
+            invalid budgets, mode not configured, invalid config,
+            absent or invalid credential reference, invalid evidence
+            output destination) — always with zero dispatches — and
+            ``3`` probe evidence export failure AFTER the probe
+            returned (the full evidence document, including the
+            transport-boundary spent-attempt accounting that states
+            whether dispatch occurred, is written to stdout; blind
+            replay is not safe).
 """
 
 from __future__ import annotations
@@ -46,6 +57,7 @@ import math
 import os
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 from . import __version__
@@ -57,9 +69,52 @@ _SHA256_DIGEST_RE = re.compile(r"sha256:[0-9a-f]{64}\Z")
 EXIT_OK = 0
 EXIT_ISSUES = 1
 EXIT_USAGE = 2
+EXIT_EVIDENCE_EXPORT = 3
 
 # Every online/offline serving role must be covered by a model lock/manifest.
 REQUIRED_ROLES = ("generator", "embedding", "reranker")
+
+
+def _output_destination_refusal(output_path: str) -> str | None:
+    """Pre-dispatch validation of the evidence ``--output`` destination.
+
+    Returns a safe refusal reason when the destination is KNOWABLY
+    invalid before any dispatch (so the CLI refuses with exit 2 and
+    zero HTTP), or ``None`` when it is structurally writable (003-i
+    criterion 6). A write that fails only after the experiment has
+    already dispatched is a distinct post-dispatch export failure
+    (exit 3 with the full evidence on stdout), never a misleading
+    zero-dispatch usage error.
+    """
+    target = Path(output_path)
+    parent = target.parent
+    if not parent.exists():
+        return "evidence output parent directory does not exist"
+    if not parent.is_dir():
+        return "evidence output parent path is not a directory"
+    if target.exists():
+        if not target.is_file():
+            return "evidence output path exists and is not a regular file"
+        # A pre-existing regular file the current user cannot write is
+        # knowably invalid before any dispatch; the write would fail
+        # only after costly transport work (late export failure).
+        if not os.access(target, os.W_OK):
+            return "evidence output file exists and is not writable"
+    # Prove writability of the parent directory by creating and
+    # removing a private temp file (safe local filesystem work; no
+    # network).
+    try:
+        fd, tmp = tempfile.mkstemp(prefix=".probe-output-precheck-",
+                                   dir=str(parent))
+    except OSError as exc:
+        return ("evidence output directory is not writable: "
+                + (exc.strerror or "I/O error"))
+    try:
+        os.close(fd)
+        os.unlink(tmp)
+    except OSError:
+        pass
+    return None
 
 
 def _secret_status(ref: SecretRef) -> dict[str, object]:
@@ -282,8 +337,15 @@ def run_probe(config_path: str, mode: str, deadline_seconds: float,
     """Run the bounded repeated-parent probe. Returns the process exit code.
 
     Zero-dispatch guarantees: invalid/missing configuration, an
-    unconfigured mode, absent credential references and invalid budget
-    arguments all refuse BEFORE any transport is constructed (exit 2).
+    unconfigured mode, an absent or invalid credential reference,
+    invalid budget arguments and a knowably invalid ``--output``
+    destination all refuse BEFORE any transport is constructed (exit 2,
+    always zero HTTP). A write failure that occurs AFTER the probe has
+    returned is an honest post-dispatch export-stage error (exit 3):
+    the full safe evidence document — including the transport-boundary
+    spent-attempt accounting that states whether dispatch occurred — is
+    written to stdout and blind replay is not invited.
+
     The evidence document is safe structured JSON (see probes.py); it is
     written to ``--output`` or stdout.
     """
@@ -315,6 +377,18 @@ def run_probe(config_path: str, mode: str, deadline_seconds: float,
                          indent=2, sort_keys=True))
         sys.stdout.write("\n")
         return EXIT_USAGE
+    if output_path is not None:
+        # Reject a knowably invalid destination BEFORE the costly calls
+        # (003-i criterion 6): exit 2 keeps its zero-dispatch promise.
+        refusal = _output_destination_refusal(output_path)
+        if refusal is not None:
+            print(json.dumps({"probe": "repeated-parent", "status": "error",
+                              "error": "OUTPUT_DESTINATION_INVALID",
+                              "message": refusal + " (refused before any "
+                                         "dispatch; no HTTP was sent)"},
+                              indent=2, sort_keys=True))
+            sys.stdout.write("\n")
+            return EXIT_USAGE
     expected: dict[str, str] = {}
     if expected_output_a is not None:
         expected["a"] = expected_output_a
@@ -326,15 +400,34 @@ def run_probe(config_path: str, mode: str, deadline_seconds: float,
     if output_path is not None:
         try:
             Path(output_path).write_text(rendered, encoding="utf-8")
-        except OSError as exc:
+        except OSError:
+            # Late write failure after the probe returned: an honest
+            # export-stage outcome, not a usage error. The full safe
+            # document is preserved on stdout and the stage states
+            # honestly whether any transport call occurred.
+            attempted = int(
+                document.get("transport_boundary", {})
+                .get("attempted_calls", 0) or 0)
+            if attempted:
+                dispatch_note = (
+                    f"{attempted} transport call(s) were attempted "
+                    "(see transport_boundary in the evidence) — do not "
+                    "replay blindly: ambiguous or spent work may have "
+                    "occurred")
+            else:
+                dispatch_note = (
+                    "no transport call was attempted by this run; the "
+                    "document carries the pre-dispatch refusal facts")
+            sys.stdout.write(rendered)
             print(json.dumps(
                 {"probe": "repeated-parent", "status": "error",
-                 "error": "OUTPUT_WRITE_FAILED",
-                 "message": ("cannot write evidence file: "
-                            + (exc.strerror or "I/O error"))},
-                indent=2, sort_keys=True))
-            sys.stdout.write("\n")
-            return EXIT_USAGE
+                 "error": "EVIDENCE_EXPORT_FAILED",
+                 "stage": "post_work_evidence_export",
+                 "message": ("evidence file write failed after the probe "
+                             "returned; the full document was written to "
+                             "stdout; " + dispatch_note)},
+                indent=2, sort_keys=True), file=sys.stderr)
+            return EXIT_EVIDENCE_EXPORT
     else:
         sys.stdout.write(rendered)
     return exit_code

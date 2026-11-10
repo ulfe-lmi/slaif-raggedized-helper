@@ -2,9 +2,9 @@
 
 ## Current state (2026-11-10)
 
-- Active objective: 003-h (bounded probes and objective closure), open
-  on PR #5, branch oap/003-generator-adapters-and-cache-probes; live
-  PR/CI/merge state is queried on GitHub, not asserted here.
+- Active objective: 003-i (probe evidence and credential boundaries),
+  open on PR #5, branch oap/003-generator-adapters-and-cache-probes;
+  live PR/CI/merge state is queried on GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged) plus the 003 gateway/transport/native slice and the bounded
   explicit probe/CLI composition (open on PR #5, see history).
@@ -110,7 +110,7 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   actual-HTTP regressions; round reports
   oap/reports/003-f-native-contract-corrections.md and
   oap/reports/003-g-native-boundary-closure.md.
-- 003-h (current round): the bounded explicit generator qualification
+- 003-h: the bounded explicit generator qualification
   probe (`src/slaif_raggedized_helper/probes.py` + `raggedized probe`
   CLI): explicit opt-in repeated-parent experiment with one overall
   experiment deadline, finite call/attempt and total output-token
@@ -127,6 +127,30 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   qualified minimum-only and ordinary TEXT positive controls retained),
   and docs/README/TESTING/STATUS updates. Live qualification,
   caching-effectiveness and hardware evidence remain NOT RUN.
+- 003-i (current round): probe evidence and credential boundary
+  corrections over the same probe/CLI, scoped to the demonstrated
+  gaps: bounded, non-blocking, regular-file-only single-line
+  credential resolution with fixed typed missing/invalid outcomes
+  (no raw UnicodeDecodeError; owned FIFO refused without a blocking
+  open and no killed child) and file references recorded in evidence
+  as opaque digests (no private path, no value); label-independent
+  same/different output evidence with phase-identity fingerprints kept
+  separate and the documented namespaced expected-digest format;
+  reported-vs-validated cache counters (supported accounting relation
+  checked before any qualification conclusion; contradictory
+  counters are raw facts only and unqualified; the pinned gateway
+  dialect's reported cached_tokens corrected as distinct from its
+  absent evaluated-prefill metrics); exported declared backend
+  fingerprint per request and in identities with `target_type:
+  unverified` replacing the unsupported hard-coded fixture/live
+  classification; knowably invalid `--output` destinations refused
+  before dispatch (exit 2, zero HTTP) and post-work write failures
+  returning the honest exit-3 export-stage error with the full
+  spent-attempt evidence on stdout. Unit and installed-CLI owned-
+  loopback regressions for every corrected case plus the retained
+  003-h positive controls; docs/README/TESTING/STATUS updates. Live
+  qualification, caching-effectiveness and hardware evidence remain
+  NOT RUN.
 - The live-target evidence of objective 003 remains pending (separately
   finalized continuations of the same PR). Objective 003 as a whole is
   unresolved, not merged, not deployed; no model, GPU, live route or

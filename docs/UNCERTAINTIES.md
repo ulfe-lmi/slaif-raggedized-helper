@@ -56,3 +56,33 @@ distinguish failed tests from environment access blockers. No placeholders count
 No live target/model/GPU/corpus work was performed (order 003-h live
 authorization: NONE); the certifi (MPL-2.0) policy gate remains an open
 human question.
+
+### 2026-11-10, order 003-i (probe evidence and credential boundaries)
+
+- U05 CORRECTION of the 003-h observation (superseded wording
+  preserved above): the pinned gateway dialect (f2df0e82,
+  responses_gateway.py usage handling) DOES report
+  `usage.input_tokens_details.cached_tokens` — the 003-h wording that
+  the gateway "never reports prefill/cache metrics" was wrong for the
+  cache half. It remains true that the pinned dialect does NOT report
+  evaluated-prefill metrics (prefill stays null/unavailable). The
+  probe now validates the supported accounting relation
+  (`cache_hit_tokens <= input_tokens` when both are reported; the
+  pinned gateway validates `cached + cache_write <= input_tokens`)
+  before any qualification conclusion: a valid present cached counter
+  qualifies (`cache_hit_reported`), the demonstrated contradictory
+  cached-999/input-5 case is `metrics_invalid` with the raw facts
+  preserved as such only, an uncheckable relation is
+  `metrics_unvalidated`, and absent counters stay
+  `metrics_unavailable`. No live prefix-reuse, cache-hit or speedup
+  observation exists; U05 stays OPEN for real qualification.
+- U05 also narrowed on tooling: the probe now records
+  label-independent same/different output evidence (equal outputs
+  never establish truth, caching or quality), exports the declared
+  backend fingerprint (the endpoint hash alone does not bind all
+  backend controls), and classifies the destination as
+  `target_type: unverified` (a localhost address or order live
+  allowance cannot establish target type).
+- No live target/model/GPU/corpus work was performed (order 003-i
+  live authorization: NONE); the certifi (MPL-2.0) policy gate
+  remains an open human question.

@@ -372,7 +372,7 @@ template identity + build evidence, operator limits and the capability
 snapshot, plus `runtime_identity: "unverified"`; request IDs and response
 text never change it.
 
-## Bounded qualification probe (003-h)
+## Bounded qualification probe (003-h, boundaries corrected in 003-i)
 
 `model_clients/probes.py` + the `raggedized probe` CLI subcommand run the
 bounded repeated-parent qualification experiment. The probe is an
@@ -410,18 +410,52 @@ raggedized probe --config PATH --mode {gateway,direct}
   (`total // 2`), so the pair's summed allowance never exceeds the total.
 - `--expected-output-a/b`: operator-supplied `sha256:` digests for an
   available EXACT expected-output check (digest equality only; an equal
-  digest does not establish truth).
-- `--output`: write the evidence document to a file (default stdout).
+  digest does not establish truth). The accepted digest is the
+  namespaced structured fingerprint of the phase-qualified payload, NOT
+  a plain-text `sha256sum`: compute it with
+  `slaif_raggedized_helper.schema.fingerprint({"kind":
+  "probe-response-text", "label": <"a"|"b">, "text": <exact terminal
+  text of that phase>})` (canonical versioned serialization digest:
+  `"sha256:" + SHA-256("slaif-fingerprint-v1\n" + canonical-JSON)`).
+- `--output`: write the evidence document to a file (default stdout). A
+  knowably invalid destination (missing/non-directory/non-writable
+  parent, a non-regular-file target, or a pre-existing non-writable
+  target file) is refused BEFORE dispatch with
+  exit 2 (zero HTTP). A write failure that occurs after the probe
+  returned is an honest post-work export-stage error (exit 3) with the
+  full evidence document on stdout.
 - Credentials resolve ONLY through the configured safe operator
-  reference (`generator.api_key_ref` -> `secrets`, env or file kind).
-  The command line, reports, errors and logs never carry the value; an
-  absent reference refuses before dispatch (exit 2).
+  reference (`generator.api_key_ref` -> `secrets`, env or file kind),
+  bounded and safe BEFORE any HTTP (003-i): file references are opened
+  non-blocking and `fstat`-checked — FIFOs, sockets, devices and
+  directories are refused without a blocking open — at most 8192 bytes
+  are actually read, the content must be valid UTF-8 and a single line
+  (one optional trailing newline), and — because the value is used
+  verbatim as the Bearer credential of the `Authorization` header — it
+  must be header-usable: every code point Latin-1 representable and no
+  control character (C0 or DEL). Missing/empty/invalid input therefore
+  returns a fixed typed outcome (`CREDENTIAL_ABSENT` /
+  `CREDENTIAL_INVALID` with a fixed reason code), never a raw
+  exception: a non-Latin-1 value (`value_not_latin1`) or a
+  control/NUL-bearing value (`value_contains_control_character`) is
+  refused pre-dispatch instead of a raw `UnicodeEncodeError`
+  mid-dispatch or a malformed request that would consume dispatch
+  budget ambiguously. The value never appears on the command line, in reports,
+  errors or logs; a file reference appears in evidence as an opaque
+  digest of the path (stable per path), never the private path itself.
+  Credential/preflight setup precedes and is excluded from the measured
+  experiment time (`budgets.elapsed_seconds_scope`).
 
 Exit codes: `0` complete (both paired requests resolved), `1` explicit
 not-run/incomplete with published evidence (finite budget or adapter
 preflight stop), `2` usage/config error (invalid budgets, mode not
-configured, invalid config, absent credential reference) — always zero
-dispatches.
+configured, invalid config, absent or invalid credential reference,
+invalid evidence output destination) — always zero dispatches — and `3`
+evidence export failure AFTER the probe returned: the full safe evidence
+document, including the transport-boundary spent-attempt accounting that
+states whether dispatch occurred, is written to stdout and blind replay
+is not safe (a late I/O failure cannot always be prevented; the stage
+and the spent-attempt facts are preserved instead).
 
 Safe synthetic example (owned loopback gateway fixture, synthetic env
 credential reference):
@@ -442,17 +476,38 @@ raggedized probe --config probe-config.json --mode gateway \
   performs a reset, and never asserts cache isolation from a client key
   alone.
 - Exact identities are recorded: dialect with pinned commit, declared
-  (unverified) model, an opaque endpoint DIGEST (never the URL), template
-  identity/build/method and capability snapshots (direct), slot control
-  state, and the cache-control kind with a fingerprinted parent-derived
-  key.
+  (unverified) model, the declared backend fingerprint (the exported
+  `GeneratorResult.fingerprint`: adapter dialect, pinned contract,
+  declared model, credential-free endpoint, timeout, capability and —
+  for direct — template/limit/slot snapshots; an endpoint hash alone
+  does not bind all backend controls), an opaque endpoint DIGEST
+  (never the URL), template identity/build/method and capability
+  snapshots (direct), slot control state, and the cache-control kind
+  with a fingerprinted parent-derived key. The destination itself is
+  `target_type: unverified`: the runner cannot classify the configured
+  destination as an owned synthetic fixture or a live target — a
+  localhost address or an order live allowance does not establish
+  target type; explicit synthetic provenance is valid only for owned
+  fixtures under test. Runtime/artifact identity stays `unverified`
+  until actually established.
 - Native cache/slot controls are used only where qualified
   (`cache_prompt_tested` / `slot_tested`); the gateway sends
   `prompt_cache_key` only on a route that advertises prompt caching.
 - Input material enters evidence only as fingerprints and lengths, never
   raw text; arbitrary response text never enters evidence — only a
-  response-text digest, the terminal outcome, the available exact
-  expected-output check result, and the adapter's safe reason.
+  label-qualified phase-identity response-text digest, a
+  label-independent content fingerprint, the terminal outcome, the
+  available exact expected-output check result, and the adapter's safe
+  reason.
+- Output comparison without raw output (003-i): each phase carries BOTH
+  the label-qualified `text_fingerprint` (phase identity; the same text
+  under a different label differs) and the label-independent
+  `content_fingerprint`; the top-level `pair_comparison.same_output`
+  records same/different output evidence from the content
+  fingerprints (`true`/`false`), and stays `null` (unknown) whenever
+  either phase has no terminal text. Equal outputs never establish
+  truth, caching or quality, and deliberately different child inputs
+  are never required to produce equal answers.
 - Output correctness is explicitly limited: terminal validity and
   available exact expected-output checks are recorded separately from
   semantic model quality (`model_quality: not_assessed`). Equal answers
@@ -461,29 +516,60 @@ raggedized probe --config probe-config.json --mode gateway \
 ### Evidence and budget accounting
 
 The safe structured document (`probe: repeated-parent, version: 1`)
-carries: budgets + measured probe-level elapsed time; identities;
-experiment fingerprints/lengths/phase labels; per-phase records
-(outcome, safe error, `adapter_reported_cycles` — the adapter's own
-cycle count, NOT an authoritative dispatch count —, response-text digest,
-expected-output check, reported usage/timings with missing values null,
-probe-level wall time); the transport-boundary accounting
-(`attempted_calls`, `calls_by_kind` separating model dispatches from
-non-inference template work, `responses_received`,
-`ambiguous_dispatches`, `pre_dispatch_failures`,
-`remaining_dispatches`); and the cache evidence. The cache conclusion is
-driven ONLY by reported evaluated metrics of the second phase
-(`cache_hit_tokens` measured zero -> `no_cache_hit_reported`, > 0 ->
-`cache_hit_reported`, absent/invalid -> `metrics_unavailable`, no
-qualified control -> `no_cache_control`, second phase not run ->
-`not_run`); submitted input tokens or faster wall time cannot substitute
-for evaluated work, and the gateway's absent prefill metrics stay
-unavailable. No endpoint URL, authorization header, secret reference
-value, configured instructions, rendered prompt, source item, image
-material, raw response text or provider error body ever appears.
+carries: budgets + measured probe-level elapsed time with its explicit
+scope (credential resolution and mode preflight happen BEFORE the
+measured experiment and are excluded); `target_type: unverified`;
+identities (including the declared `backend_fingerprint` and the
+credential reference as env name or opaque file-path digest); experiment
+fingerprints/lengths/phase labels; per-phase records (outcome, safe
+error, `adapter_reported_cycles` — the adapter's own cycle count, NOT an
+authoritative dispatch count —, label-qualified response-text digest,
+label-independent content fingerprint, exported
+`backend_fingerprint`, expected-output check, reported
+usage/timings with missing values null, probe-level wall time); the
+label-independent `pair_comparison` block; the transport-boundary
+accounting (`attempted_calls`, `calls_by_kind` separating model
+dispatches from non-inference template work, `responses_received`,
+`ambiguous_dispatches`, `pre_dispatch_failures`, `remaining_dispatches`);
+and the cache evidence.
+
+The cache conclusion is driven ONLY by reported evaluated metrics of the
+second phase, and ONLY after the supported accounting relation is
+validated for each phase (003-i): the pinned gateway (f2df0e82)
+validates `cached + cache_write <= input_tokens` on its own reported
+usage, so the probe checks `cache_hit_tokens <= input_tokens` whenever
+both counters are reported —
+
+- contradictory reported counters (e.g. cached 999 with input 5) are
+  preserved as RAW FACTS only and yield `metrics_invalid` (explicitly
+  unqualified);
+- a cached counter whose relation cannot be checked (input tokens
+  missing) yields `metrics_unvalidated` (explicitly unqualified);
+- measured zero -> `no_cache_hit_reported`; valid positive ->
+  `cache_hit_reported`; absent -> `metrics_unavailable`; no qualified
+  control -> `no_cache_control`; second phase not run -> `not_run`.
+
+Reported counter vs evaluated work: the gateway dialect CAN report
+`usage.input_tokens_details.cached_tokens` (mapped to
+`cache_hit_tokens`; corrected 003-h wording that the gateway "never
+reports prefill/cache metrics") — a legitimately reported cache counter
+is preserved, never erased. That reported cached counter is a DISTINCT
+fact from the evaluated-prefill metrics, which the pinned gateway
+dialect does not report (`prefill_tokens` stays null/unavailable); no
+evaluated prefill is invented from a cached counter. A positive reported
+cache counter alone is not a complete work-reduction qualification.
+The native adapter already withholds a contradictory
+evaluated/cache breakdown at the adapter boundary (003-f); the probe's
+relation check applies to whatever reported counters reach the evidence.
+Submitted input tokens or faster wall time cannot substitute for
+evaluated work. No endpoint URL, authorization header, secret reference
+value, PRIVATE CREDENTIAL FILE PATH, configured instructions, rendered
+prompt, source item, image material, raw response text or provider error
+body ever appears.
 
 The probe proves executable bounded tooling and synthetic HTTP
 composition; real target/hardware/cache/quality qualification remains
-NOT RUN (order 003-h live authorization: NONE).
+NOT RUN (orders 003-h/003-i live authorization: NONE).
 
 
 ## Exact test commands (offline, synthetic)
@@ -587,6 +673,38 @@ gateway explicit-minimum capability admission (zero-HTTP refusal of
 required JSON_MODE/PROMPT_CACHING on an unqualified route, qualified
 minimum-only positive controls without invented format/key, ordinary
 TEXT preserved).
+
+Proven for the 003-i boundary corrections (installed-CLI subprocess
+composition over real loopback HTTP, synthetic owned fixtures only):
+bounded credential resolution — an owned FIFO and a directory are
+refused without a blocking open (no child process killed, zero HTTP),
+invalid UTF-8 / multi-line / over-8192-byte files return the fixed
+typed `CREDENTIAL_INVALID` outcome with a fixed reason code and no raw
+`UnicodeDecodeError`; values with control characters (NUL/DEL) or
+non-Latin-1 code points are refused pre-dispatch with the fixed typed
+reasons (`value_contains_control_character` / `value_not_latin1`)
+instead of a raw `UnicodeEncodeError` or an ambiguous budget-consuming
+dispatch; and a valid owned file credential under a
+private canary path reaches only the `Authorization` header while the
+evidence carries an opaque path digest (never the path or the value);
+label-independent same/different output evidence (identical A/B text ->
+`same_output: true`, distinct text -> `false`, non-terminal -> null)
+with phase-identity fingerprints kept separate and the installed-CLI
+expected-output positive (match/match) plus mismatch; reported-vs-
+validated cache counters — a valid present cached counter qualifies
+(`cache_hit_reported`, relation validated), the impossible cached-999/
+input-5 case is `metrics_invalid` with the raw facts preserved, an
+uncheckable relation is `metrics_unvalidated`, and absent counters stay
+`metrics_unavailable`; the exported declared `GeneratorResult`
+backend fingerprint binding (per request and in `identities`) with
+`target_type: unverified` replacing the unsupported hard-coded
+fixture/live classification; a knowably invalid `--output` destination
+refused before dispatch at zero HTTP (exit 2), and a post-work write
+failure after two actual POSTs returning the honest exit-3
+export-stage error with the full spent-attempt evidence on stdout.
+All prior 003-h positive controls (shared deadline, budget exhaustion
+mid-pair, accepted-close no-replay, real failed TCP connects consuming
+the allowance) remain intact.
 
 NOT RUN / pending: live-target qualification evidence (the pinned
 reference is not the unknown deployed build), direct caching
