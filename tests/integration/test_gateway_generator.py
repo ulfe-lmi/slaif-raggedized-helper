@@ -1248,12 +1248,40 @@ def test_non_stream_malformed_final_status_refused(server, status):
     assert "contradictory terminal message item status" in (result.error or ""), status
 
 
+def _nesting_probe(max_depth: int) -> tuple[int | None, int]:
+    """Probe the C scanner's nesting capacity of the running interpreter.
+
+    The depth at which ``json.loads`` raises ``RecursionError`` depends on
+    the interpreter build and its C stack size (fixed at interpreter
+    startup, not on the Python recursion limit), so the trigger depth
+    cannot be hardcoded. Returns ``(trigger_depth, deepest_safe_depth)``:
+    the smallest probed depth that raises ``RecursionError`` (None if the
+    capacity exceeds the bound) and the deepest probed depth that parsed
+    cleanly (a wire payload at that depth is guaranteed to parse in this
+    interpreter)."""
+    depth = 256
+    last_safe = 256
+    while depth <= max_depth:
+        payload = b'{"j": ' + b"[" * depth + b"]" * depth + b"}"
+        try:
+            json.loads(payload)
+        except RecursionError:
+            return depth, last_safe
+        last_safe = depth
+        depth *= 2
+    return None, last_safe
+
+
 def test_non_stream_excessive_json_nesting_refused(server):
-    """Nesting beyond the interpreter recursion limit inside the byte
-    bounds is a safe JSON failure, never a raw RecursionError. 100_000
-    levels exceeds the C scanner's recursion capacity on the CI Pythons
-    (3.12/3.14) while staying inside the 2,000,000-byte body bound."""
-    body = b'{"output": ' + b"[" * 100_000 + b"]" * 100_000 + b"}"
+    """JSON nesting beyond the interpreter's C-scanner capacity inside the
+    byte bounds is a safe JSON failure, never a raw RecursionError. The
+    trigger depth is probed per interpreter; when the capacity exceeds
+    the byte-bound parseable depth, the deepest proven-parseable nesting
+    must still yield a safe typed result (no raw exception)."""
+    max_depth = 900_000  # 2*900_000 + 7 bytes < 2,000,000 body bound
+    trigger, safe_depth = _nesting_probe(max_depth)
+    depth = trigger or safe_depth
+    body = b'{"j": ' + b"[" * depth + b"]" * depth + b"}"
 
     def scenario(h, r):
         h._send_raw(200, body, "application/json")
@@ -1261,13 +1289,26 @@ def test_non_stream_excessive_json_nesting_refused(server):
     srv = server(scenario)
     result = make_generator(make_config(f"{srv.url}/v1")).generate(make_request())
     assert result.outcome is CompletionOutcome.FAILED
-    assert "not valid JSON" in (result.error or "")
+    if trigger is not None:
+        assert "not valid JSON" in (result.error or "")
+    else:
+        # Parsed cleanly: a document without a recognized terminal status.
+        assert "unexpected provider terminal status" in (result.error or "")
 
 
 def test_stream_excessive_json_nesting_refused(server):
-    """Same bound at the SSE frame boundary: malformed event payload.
-    100_000 levels stays inside the 262,144-byte event bound."""
-    deep = b'{"junk": ' + b"[" * 100_000 + b"]" * 100_000 + b"}"
+    """Same bound at the SSE frame boundary: a deeply nested event JSON
+    that exceeds the C scanner's capacity is a malformed event payload
+    (safe typed failure, never a raw RecursionError); when the
+    interpreter's capacity exceeds the 262,144-byte event bound, the
+    deepest proven-parseable nesting stays an inert non-terminal event
+    and the clean EOF maps to INCOMPLETE — in both cases a safe typed
+    result, no raw exception. The trigger depth is probed per
+    interpreter (capacity is build/C-stack dependent)."""
+    max_depth = 120_000  # 2*120_000 + 13 bytes < 262,144 event bound
+    trigger, safe_depth = _nesting_probe(max_depth)
+    depth = trigger or safe_depth
+    deep = b'{"j": ' + b"[" * depth + b"]" * depth + b"}"
     frames = [
         sse_data_only({"type": "response.created",
                        "response": {"id": "r1", "status": "in_progress"}}),
@@ -1275,8 +1316,12 @@ def test_stream_excessive_json_nesting_refused(server):
     ]
     srv = server(stream_scenario(frames))
     result = _streaming_result(srv, frames)
-    assert result.outcome is CompletionOutcome.FAILED
-    assert "malformed event payload" in (result.error or "")
+    if trigger is not None:
+        assert result.outcome is CompletionOutcome.FAILED
+        assert "malformed event payload" in (result.error or "")
+    else:
+        assert result.outcome is CompletionOutcome.INCOMPLETE
+        assert result.error
 
 
 def test_stream_valid_multiple_content_parts_succeeds(server):
