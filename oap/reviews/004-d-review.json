@@ -1,0 +1,117 @@
+{
+  "recorded_at": "2026-11-10T18:59:26.035411+00:00",
+  "identifier": "004-d",
+  "stage": "FINAL_IMPLEMENTATION_AND_REPORT_REVIEW",
+  "implementation": "a4f15333de8dfbde0508357d113e123a7f6775f5",
+  "prior_head": "305d12056db6e388cddf2277c97efad55b031992",
+  "source_equals_committed": {
+    "src/slaif_raggedized_helper/qualification/resources.py": "a281dca58607dc620cf3f1751d8df74f7e86a70ee9c6ce14beb61745bd5dfa4f",
+    "src/slaif_raggedized_helper/qualification/runner.py": "9d2e35fddd0477acec9ecd492f80db8c73c117dae590495cf9f9744c19687a03",
+    "src/slaif_raggedized_helper/cli.py": "8590edb905b6745c9ae3139e8d95cfc2e606d396a431aba8d25caf17c3d71cba"
+  },
+  "commands": [
+    "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-process-review.py",
+    "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-integration-review.py",
+    "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-read-accounting-review.py",
+    "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-source-binding-review.py"
+  ],
+  "oracles": {
+    "/tmp/raggedized004-resource-process-review.py": "35547c398696645199d97c1440116a09e3e5560560009db790ad7db0602708d2",
+    "/tmp/raggedized004-resource-integration-review.py": "5a681ca4d7ac65a8a154fe9ebb496e635e0b016411a6470180293f438fea8511",
+    "/tmp/raggedized004-resource-read-accounting-review.py": "4d53344f8105b5c3ffd9f6061b93d077c807310e5760f47a320d98c81bf7a91d",
+    "/tmp/raggedized004-resource-source-binding-review.py": "acfced271d777a1877e6b7914ff89ca118fdacd839dd3e93e9d2b2ece9f2deb6"
+  },
+  "positive_proof": [
+    "Owned fixed CSV exact MiB100/25/75; stdout flood without EOF is detected/refused promptly (~0.024s); silent child timeout0.08 returns~0.081s. IMPORTANT: reported129 bytes forcap128 does NOT prove actual read bound; supplemental actual-read witness below disproves it.",
+    "Actual owned HTTP wrapper positive: exit0, two POSTs, valid inner ledger attempted2/responses2. Controlled resource version999 post-work: exit3 with valid actual inner attempted2 ledger extracted; no false-zero claim."
+  ],
+  "findings": {
+    "004D-F01": {
+      "requirement": "Acceptance6 shared absolute deadline",
+      "actual": "Bound deadline0.08s; owned GPU fixture sleeps0.25s with per-query timeout0.6. Returned0.275766s, recorded late firstsample0.274762169, GPUavailable and stopreasonfinished. Initial query timeout not clipped and post-query sample admitted beyond deadline."
+    },
+    "004D-F02": {
+      "requirement": "Acceptance1/3 aggregate time/call/byte caps and truthful accounting",
+      "actual": "Synthetic CPU/RSS probe seams,1100 admitted samples charge9011200 bytes >8388608 MAX_COLLECTOR_BYTES, stopreason samples_reached, final section validationfalse. bytes_read counts per-read cap8192 rather than observed bytes; no aggregate admission stop. No >64 real CPU diagnosis performed.",
+      "pipe_read_supplement": "Owned child emits8192bytes then waits. Independent os.read length observer: configuredcap128, actualrequested4096/actualread4096, but exportedstdout_bytes129. Actual read can exceed declaredcap by a chunk and reported count conceals real bytes. Admit only remaining allowance plus explicit bounded lookahead and report actual observed counts honestly."
+    },
+    "004D-F03": {
+      "requirement": "Acceptance6/8 cancellation and finite cleanup",
+      "actual": "After one real owned HTTP response, trusted transport raises KeyboardInterrupt; caller catches and remainsalive. Observer state running, sampler alive, samples2->6 after0.04s. Reviewer explicitly stopped own observer afterward. Outer run_trial finally only fixture cleanup; observer stop is normal-loop-only."
+    },
+    "004D-F04": {
+      "requirement": "Acceptance6 spent ledger preserved and honest post-work error",
+      "actual": "Owned output parent removed by rename after two actual POSTs. Exit3/full safe wrapper stdout inner ledger2, but stderr falsely says no transport call was attempted and pre-dispatch refusal. Late export reads flat envelope ledger, misses wrapped trial."
+    },
+    "004D-F05": {
+      "requirement": "Acceptance1 source binding and strict finite versioned observations; report draft claims code_version + collector provenance",
+      "actual": "Actual ResourceDiagnostic/ResourceSection valid baselines admit version=True. Source schemas/accounting/provenance have no collector identity or code/package source-version fields, despite draft claim. Fixed scope notes describe subject, not collector/code source. Explicit package/collector metadata with honest unavailable revision is required, no invented source attestation.",
+      "witness": "/tmp/raggedized004-resource-source-binding-review.py",
+      "scope": "Both schemas tested; 0.02s/1 own-process sample, no GPU/model query or raw private identity output."
+    }
+  },
+  "counts": {
+    "unit": 452,
+    "integration": 316,
+    "product": 768,
+    "proof": "Independent collection-only runs each exit0 on implementation. Separate directories match documented CI; no broad suite rerun for counts.",
+    "oap": 41,
+    "validation": "Actual implementation and report CI product3.12/3.14 and OAP3.12/3.13/3.14 SUCCESS; independent localcollection452+316=768. Green automated suites do not cover the independently demonstrated failures."
+  },
+  "governance": {
+    "check_state_exit": 0,
+    "manifest_sha256": "dd7f3a7bd62888edef5a5cb1678a80d26b1a7af28bd85659ce5da2634755c8f4",
+    "routine_bytes": 46759,
+    "ceiling": 50000,
+    "candidate_diff_from_activation": "Expected authorized docs/context update; immutable activation source hash preserved.",
+    "identities": "Exact orderD SHA d7da62dbca433c1dce31291b72584f530b0280562f9449080514e2bb0e3d7c02 and priorCreviewSHA a183aa6b9f8909f65e1169034c068d3d7db8b224ca180491119459664861fed6. ArchitectureSHA4b419053...unchanged. Startup582bytesSHA41afe88a..., RoleDocs4102bytesSHA7078a1e9..., Runbook9448bytesSHA9d5be6bf... unchanged."
+  },
+  "ci": {
+    "implementation_run": 42878145680,
+    "implementation_head": "a4f15333de8dfbde0508357d113e123a7f6775f5",
+    "implementation_result": "ALL_5_SUCCESS",
+    "implementation_last_job": "2026-11-10T18:47:12Z",
+    "report_run": 42879646566,
+    "report_head": "57426f5ce76a27601c20512532723e5187895456",
+    "report_result": "ALL_5_SUCCESS",
+    "report_last_job": "2026-11-10T18:57:38Z",
+    "events": "Both automatic pull_request runs; no additional dispatch, missing/skipped jobs, or bypass."
+  },
+  "next": "Activate FINAL004-e bounded resource lifecycle/accounting/contracts correction after this exact review is copied unchanged and current state rechecked; use single control/response wrappers and qualified ordinary-first then one post-start goal. No consumed FIFO reread/replay.",
+  "authority": "Standing human MVP/OAP authorization covers bounded correction suffix, ordinary publication/CI and eventual qualifying development merge. These are ordinary implementation defects, DHA NONE; no invented CRITICAL or new D2/license/service/target authority. No root product patch. Existing target/corpus/license questions unanswered.",
+  "read_accounting_supplement_at": "2026-11-10T18:50:23.020583+00:00",
+  "witness_scope_correction": "First supplemental provenance-contract-review.py mistakenly counted generic collector accounting field as a source-version field. Its boolean-version observation was correct, but that source-presence boolean is NOT used. Distinct retained source-binding-review.py uses explicit identity/version key set and prints actual schema/accounting fields, showing none. Earlier file preserved; no weakening app/test or oracle.",
+  "additional_contract_review_at": "2026-11-10T18:53:32.840798+00:00",
+  "round": "004-d",
+  "objective": "004",
+  "status": "FINAL",
+  "decision": "CHANGES_REQUIRED_CONTINUE_SAME_PR_004_e",
+  "pr": 6,
+  "report_commit": "57426f5ce76a27601c20512532723e5187895456",
+  "report_sha256": "d5de17d065dec659b63d9f6e6395552cc1db1178ce02b4d19b3ead4872bbf28f",
+  "consumed_response": {
+    "identifier": "004-d",
+    "pr": 6,
+    "implementation": "a4f15333de8dfbde0508357d113e123a7f6775f5",
+    "report_commit": "57426f5ce76a27601c20512532723e5187895456",
+    "report_sha256": "d5de17d065dec659b63d9f6e6395552cc1db1178ce02b4d19b3ead4872bbf28f",
+    "verified_at": "2026-11-10T18:53:50.426508+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "publication": "Independently verified remote exact report bytes, SELF declaration, sole literal implementation parent a4f15333de8dfbde0508357d113e123a7f6775f5, report-only addition472lines, local/remote current head57426f5c and uniqueOPENPR6/originalbranch/base-main2bc320ff. No auto_merge. App/source/tests/docs unchanged from frozen independent witnesses. Worktree clean before this strategic review.",
+  "source_review": "Read changed resource module in full, narrow runner/CLI integration, gate projection changes, new test lifecycle/HTTP/byte-bound coverage, source docs/context/manifest and full472-line report. New baseline duplicate test basename is avoided by documented per-directory CI; reported accurately, not used as a broad test success claim. No dependency/architecture/gateway/helper/client/profile/model/auth/global change.",
+  "criterion_status": {
+    "1": "PARTIAL: valid own-process/unit/availability shapes exist; aggregate bounds and strict version/source binding fail F02/F05.",
+    "2": "Present: actual own CPU interval deltas, current RSS versus lifetime HWM versus observed sample peak, Linux unit provenance and disclosed utilization ratio; never remote model resource proof.",
+    "3": "PARTIAL: fixed argv/owned child timeout/oversize detection exist; actual pipe read accounting and aggregate admission fail F02 and initial shared deadline F01.",
+    "4": "Present bounded devicewide metadata/units/ranges and scope limitations; allocator/worker/resource qualification remains unavailable.",
+    "5": "Phase declaration/observed peak/lifecycle limitations present. Actual model startup, physical warm state and hardware headroom unproven; no real gate pass.",
+    "6": "FAIL: initial query deadline, surviving-caller cancellation and late-export accounting F01/F03/F04.",
+    "7": "Explicit opt-in paths/default-no-telemetry design present, all actual gates NOT_RUN; no target access granted.",
+    "8": "PARTIAL: automated768product+41OAP pass, but independent negative cases show required budgets/cleanup/contract guarantees unproved or false."
+  },
+  "documentation_disposition": "Report COMPLETE is execution claim, not strategic acceptance. Report/docs overstate actual pipe bounds, aggregate admission, cancellation and collector/code metadata. Keep immutable report unchanged; correction must explicitly supersede those claims. Coding-authored witness accurately disclaims independent strategic status in final report; accepted attribution correction. Preserve narrow successful ordinary-first/post-start-goal startup evidence and failed goal-FIRST history.",
+  "coding_goal_boundary": "Observed actual native Goal achieved2h11m, final result and Worked for, quiet composer/no ongoing tool before one /goal clear. Confirmed Goal cleared/footer clear. No post-response CI poll/reader, no reset/newcontext/profilechange. Private audit/004-d-coding-goal-boundary.json records this. Root MVP goal active.",
+  "strongest_reason_not_to_merge": "Independent actual owned-process/HTTP evidence contradicts safety/correctness guarantees: sampler continues after cancellation, startup collector runs past deadline, aggregate output can become invalid and counters hide actual reads, post-work diagnostics falsely say zero calls, and required strict/source contracts are incomplete. Whole004 also lacks parity and final14gate composition. Green CI cannot justify merging this state.",
+  "scope_fidelity": "No acceptance/merge/005. Correct resource slice on samePR6, then required vector/rank parity and full fourteen gate executable/prerequisite composition. Actual target/model/GPU/corpus/domain/vision/license qualification,019,independentICA and fullMVP remain unearned."
+}

@@ -58,6 +58,7 @@ from test_qualification import (
     _evidence_doc,
     make_config,
     make_spec,
+    make_spec_dict,
     sample,
 )
 
@@ -117,6 +118,10 @@ def _valid_collector(samples: int = 3, queries: int = 0,
         "device_query_bytes_read": 0 if queries == 0 else 42,
         "stop_reason": stop_reason,
         "note": "collector accounting note",
+        "collector_id": resources.COLLECTOR_ID,
+        "collector_source": resources.COLLECTOR_SOURCE,
+        "code_version": resources.PACKAGE_VERSION,
+        "source_revision": resources.SOURCE_REVISION_UNAVAILABLE,
     }
 
 
@@ -1174,3 +1179,414 @@ class TestZeroTelemetryOnNonOptInPaths:
         assert after == before
         assert not any(name == "trial-resource-observer"
                        for name in after)
+
+
+# ---------------------------------------------------------------------------
+# 004-e corrections: strict version/source binding (F05)
+# ---------------------------------------------------------------------------
+
+class TestStrictVersionAndSourceBinding:
+    @pytest.mark.parametrize("value", [True, 1.0, "1", 2])
+    def test_wrong_version_types_refused(self, value):
+        code, document = run_resource_diagnostic(
+            duration_seconds=0.02, samples=1, gpu_query=False)
+        changed = json.loads(json.dumps(document))
+        changed["version"] = value
+        with pytest.raises(ValidationError):
+            ResourceDiagnostic.model_validate(changed)
+        section = {
+            "kind": "resource-telemetry", "version": value,
+            "trial_status": "not_run", "series": document["series"],
+            "gpu": document["gpu"], "collector": document["collector"],
+            "provenance": document["notes"], "phase_events": [],
+        }
+        with pytest.raises(ValidationError):
+            ResourceSection.model_validate(section)
+
+    def test_boolean_version_refused_on_valid_baseline(self):
+        code, document = run_resource_diagnostic(
+            duration_seconds=0.02, samples=1, gpu_query=False)
+        changed = json.loads(json.dumps(document))
+        changed["version"] = True
+        with pytest.raises(ValidationError):
+            ResourceDiagnostic.model_validate(changed)
+
+    def test_collector_source_fields_bound_to_executing_package(self):
+        from slaif_raggedized_helper import __version__
+
+        code, document = run_resource_diagnostic(
+            duration_seconds=0.02, samples=1, gpu_query=False)
+        collector = document["collector"]
+        assert collector["collector_id"] == resources.COLLECTOR_ID
+        assert collector["collector_source"] == resources.COLLECTOR_SOURCE
+        assert collector["code_version"] == __version__
+        assert collector["source_revision"] == "unavailable"
+        # the binding is disclosed in the notes (no invented revision)
+        assert any("code_version" in note for note in document["notes"])
+
+    def test_collector_source_fields_refused_invalid(self):
+        for overrides in (
+            {"collector_id": "has space"},
+            {"collector_id": "ümlaut"},
+            {"collector_source": ""},
+            {"code_version": " "},
+        ):
+            collector = _valid_collector()
+            collector.update(overrides)
+            with pytest.raises(ValidationError):
+                CollectorAccounting.model_validate(collector)
+        collector = _valid_collector()
+        del collector["code_version"]
+        with pytest.raises(ValidationError):
+            CollectorAccounting.model_validate(collector)
+
+
+# ---------------------------------------------------------------------------
+# 004-e corrections: startup deadline admission (F01)
+# ---------------------------------------------------------------------------
+
+def _gpu_observer(tmp_path: Path, executable: str,
+                  deadline: float | None) -> TrialResourceObserver:
+    return TrialResourceObserver(
+        interval_seconds=0.01, max_duration_seconds=1.0, max_samples=4,
+        gpu_query=True, gpu_timeout_seconds=0.6,
+        gpu_stdout_bytes=1024, gpu_stderr_bytes=128,
+        gpu_executable=executable)
+
+
+class TestStartupDeadlineAdmission:
+    def test_deadline_already_passed_no_query_no_samples(self, tmp_path):
+        slow = _write_executable(
+            tmp_path / "slow",
+            "#!/bin/sh\nsleep 0.3\n"
+            "printf '0,SYNTHETIC-FAKE-GPU,81920,1024,80000\\n'\n")
+        observer = _gpu_observer(tmp_path, str(slow), None)
+        observer.start(time.monotonic() - 0.01)  # already exhausted
+        section = observer.finish("not_run")
+        assert observer._state == "stopped"
+        assert observer._thread is None
+        assert observer._stop_reason == "deadline_reached"
+        assert section["series"]["samples"] == []
+        assert section["collector"]["device_queries"] == 0
+        assert section["collector"]["samples"] == 0
+        assert section["collector"]["stop_reason"] == "deadline_reached"
+        ResourceSection.model_validate(section)
+
+    def test_slow_startup_query_clipped_no_late_sample(self, tmp_path):
+        slow = _write_executable(
+            tmp_path / "slow",
+            "#!/bin/sh\nsleep 0.3\n"
+            "printf '0,SYNTHETIC-FAKE-GPU,81920,1024,80000\\n'\n")
+        observer = _gpu_observer(tmp_path, str(slow), None)
+        started = time.monotonic()
+        observer.start(started + 0.08)
+        section = observer.finish("not_run")
+        elapsed = time.monotonic() - started
+        # the startup query allowance is clipped to the remaining 0.08 s
+        # (NOT the configured 0.6 s query timeout) and no work follows
+        # expiry: no late first sample, no sampler thread, exact reason
+        assert elapsed < 0.3
+        assert observer._thread is None
+        assert section["series"]["samples"] == []
+        assert section["collector"]["stop_reason"] == "deadline_reached"
+        assert section["collector"]["device_queries"] == 1
+        assert section["gpu"]["status"] == "error"
+        assert section["gpu"]["reason"] == "timeout"
+        # the clipped query is accounted with its actual wall time
+        assert section["gpu"]["query_wall_seconds"] is not None
+        assert section["collector"]["device_query_wall_seconds"] > 0
+        ResourceSection.model_validate(section)
+
+    def test_fast_startup_query_within_deadline_admits_sample(self, tmp_path):
+        fast = _write_executable(
+            tmp_path / "fast",
+            "#!/bin/sh\nprintf '0,SYNTHETIC-FAKE-GPU,81920,1024,80000\\n'\n")
+        observer = _gpu_observer(tmp_path, str(fast), None)
+        observer.start(time.monotonic() + 0.5)
+        section = observer.finish("not_run")
+        assert section["gpu"]["status"] == "available"
+        assert len(section["series"]["samples"]) >= 1
+        assert section["collector"]["stop_reason"] in ("stopped", "finished")
+        ResourceSection.model_validate(section)
+
+
+# ---------------------------------------------------------------------------
+# 004-e corrections: aggregate admission and honest byte accounting (F02)
+# ---------------------------------------------------------------------------
+
+class TestAggregateAdmissionAccounting:
+    def test_actual_observed_bytes_charged_not_cap(self, monkeypatch):
+        captured: dict = {}
+        real_read = resources.read_proc_self_status
+
+        def spy(limit: int = resources._PROC_STATUS_READ_BYTES) -> bytes | None:
+            data = real_read(limit)
+            captured["data"] = data
+            return data
+
+        monkeypatch.setattr(resources, "read_proc_self_status", spy)
+        observer = TrialResourceObserver(
+            interval_seconds=10.0, max_duration_seconds=20.0, max_samples=10)
+        observer.start(None)
+        observer.stop("stopped")
+        section = observer.finish("not_run")
+        assert captured["data"] is not None
+        actual = len(captured["data"])
+        assert 0 < actual < resources._PROC_STATUS_READ_BYTES
+        assert section["collector"]["bytes_read"] == actual
+        ResourceSection.model_validate(section)
+
+    def test_byte_cap_reserved_before_work_yields_valid_partial(self,
+                                                                monkeypatch):
+        # Reserving the (patched) full cap for the next admitted sample
+        # means the SECOND sample must be refused before any read; the
+        # exported record stays a valid honest partial at exhaustion.
+        monkeypatch.setattr(
+            resources, "_PROC_STATUS_READ_BYTES", resources.MAX_COLLECTOR_BYTES)
+        observer = TrialResourceObserver(
+            interval_seconds=0.001, max_duration_seconds=1.0,
+            max_samples=100)
+        observer.start(None)
+        observer.observe_for(0.1)
+        section = observer.finish("not_run")
+        assert len(section["series"]["samples"]) == 1
+        assert section["collector"]["samples"] == 1
+        assert 0 < section["collector"]["bytes_read"] < resources.MAX_COLLECTOR_BYTES
+        assert section["collector"]["stop_reason"] == "resource_exhausted"
+        # valid honest partial record at resource exhaustion
+        ResourceSection.model_validate(section)
+
+    def test_synthetic_probes_without_real_reads_charge_zero(self,
+                                                             monkeypatch):
+        # Witness-style seams: no real read happens, so bytes_read
+        # stays 0 (never the cap) and a large admitted workload still
+        # exports a VALID section.
+        import types
+
+        monkeypatch.setattr(
+            resources, "getrusage_self",
+            lambda: types.SimpleNamespace(ru_utime=1.0, ru_stime=1.0,
+                                          ru_maxrss=256))
+        monkeypatch.setattr(resources, "own_process_rss_bytes",
+                            lambda: 1024)
+        observer = TrialResourceObserver(
+            interval_seconds=0.0001, max_duration_seconds=1.0,
+            max_samples=200)
+        observer.start(None)
+        observer.observe_for(0.05)
+        section = observer.finish("not_run")
+        assert section["collector"]["bytes_read"] == 0
+        assert len(section["series"]["samples"]) == 200
+        assert section["collector"]["stop_reason"] == "samples_reached"
+        # collection calls cover the samples plus the final observation
+        assert section["collector"]["collection_calls"] == 201
+        ResourceSection.model_validate(section)
+
+    def test_pipe_read_enforces_remaining_allowance(self, tmp_path):
+        child = _write_executable(
+            tmp_path / "flood",
+            "#!/bin/sh\nprintf 'x%.0s' $(seq 1 1000)\n")
+        actual_read = resources.os.read
+        reads: list[tuple[int, int]] = []
+
+        def tracked_read(fd: int, size: int) -> bytes:
+            data = actual_read(fd, size)
+            reads.append((size, len(data)))
+            return data
+
+        monkeypatch_read = resources.os
+        monkeypatch_read.read = tracked_read
+        try:
+            result = run_gpu_metadata_query(
+                timeout_seconds=0.8, stdout_bytes=128, stderr_bytes=128,
+                executable=str(child))
+        finally:
+            resources.os.read = actual_read
+        assert result["reason"] == "stdout_oversize"
+        # the ACTUAL observed bytes are reported (cap + the one
+        # lookahead byte), never an assumed cap+1
+        assert result["stdout_bytes"] == 129
+        assert sum(actual for _, actual in reads) == 129
+        # every read request honored the remaining allowance: at most
+        # the cap, and exactly the bounded one-byte lookahead AT the cap
+        for requested, _ in reads:
+            assert requested <= 128
+        assert reads[-1][0] == 1
+
+    def test_pipe_stream_ending_at_exact_cap_not_oversize(self, tmp_path):
+        child = _write_executable(
+            tmp_path / "exact",
+            "#!/bin/sh\nprintf 'x%.0s' $(seq 1 128)\n")
+        actual_read = resources.os.read
+        reads: list[tuple[int, int]] = []
+
+        def tracked_read(fd: int, size: int) -> bytes:
+            data = actual_read(fd, size)
+            reads.append((size, len(data)))
+            return data
+
+        resources.os.read = tracked_read
+        try:
+            result = run_gpu_metadata_query(
+                timeout_seconds=0.8, stdout_bytes=128, stderr_bytes=128,
+                executable=str(child))
+        finally:
+            resources.os.read = actual_read
+        # exact fit: the bounded one-byte lookahead observes EOF, so
+        # NOT oversize; the invalid CSV is refused as malformed with
+        # the actual count
+        assert result["reason"] == "malformed_output"
+        assert result["stdout_bytes"] == 128
+        assert (1, 0) in reads  # the bounded EOF lookahead on the stream
+        assert all(requested <= 128 for requested, _ in reads)
+
+
+# ---------------------------------------------------------------------------
+# 004-e corrections: late-export spent-accounting from the canonical
+# inner trial ledger (F04)
+# ---------------------------------------------------------------------------
+
+CLI_CONFIG_DOC = {
+    "schema_version": 1,
+    "generator": {
+        "route": {"base_url": "http://127.0.0.1:1/v1",
+                  "model": "unit-gw-model",
+                  "api": "v1-responses",
+                  "timeout_seconds": 5},
+        "context_expected_tokens": 1024,
+        "output_reserve_tokens": 64,
+        "deadline_seconds": 30,
+    },
+}
+
+
+def _run_cli_run_with_fake_trial(tmp_path: Path, monkeypatch,
+                                 fake_run_trial, resources: bool):
+    import slaif_raggedized_helper.qualification as q
+    from slaif_raggedized_helper.cli import run_qualification_run
+
+    out_dir = tmp_path / "evidence-dir"
+    out_dir.mkdir()
+    target = out_dir / "evidence.json"
+    cfg_path = tmp_path / "config.json"
+    cfg_path.write_text(json.dumps(CLI_CONFIG_DOC), encoding="utf-8")
+    spec_path = tmp_path / "spec.json"
+    spec_path.write_text(json.dumps(make_spec_dict()), encoding="utf-8")
+    monkeypatch.setattr(q, "run_trial", fake_run_trial)
+    import io
+    from contextlib import redirect_stderr, redirect_stdout
+
+    stdout, stderr = io.StringIO(), io.StringIO()
+    with redirect_stdout(stdout), redirect_stderr(stderr):
+        exit_code = run_qualification_run(
+            str(cfg_path), str(spec_path), False, str(target),
+            resources=resources, resource_gpu=False)
+    return exit_code, stdout.getvalue(), stderr.getvalue()
+
+
+class TestLateExportSpentAccounting:
+    def test_late_export_wrapper_reports_actual_calls(self, tmp_path,
+                                                      monkeypatch):
+        def fake_run_trial(config, spec, **kwargs):
+            # The actual work happened (the fake stands in for the real
+            # trial with its spent ledger); the export parent is then
+            # removed, so the write fails AFTER actual work.
+            import shutil
+
+            shutil.rmtree(tmp_path / "evidence-dir")
+            return 0, wrap_trial_with_resources(
+                _valid_trial_doc(), _valid_section("complete"))
+
+        exit_code, out, err = _run_cli_run_with_fake_trial(
+            tmp_path, monkeypatch, fake_run_trial, resources=True)
+        assert exit_code == 3
+        doc = json.loads(out)
+        assert doc["resource_wrapper"] == 1
+        # the full safe wrapper (with the canonical inner ledger) stays
+        # on stdout
+        assert doc["trial"]["transport_boundary"]["attempted_calls"] == 3
+        error_doc = json.loads(err)
+        assert error_doc["error"] == "EVIDENCE_EXPORT_FAILED"
+        assert error_doc["stage"] == "post_work_evidence_export"
+        message = error_doc["message"]
+        assert "3 transport call(s) were attempted" in message
+        assert "do not replay blindly" in message
+        # never the false zero/pre-dispatch claim after real work
+        assert "no transport call was attempted" not in err
+
+    def test_late_export_plain_run_reports_actual_calls(self, tmp_path,
+                                                        monkeypatch):
+        def fake_run_trial(config, spec, **kwargs):
+            import shutil
+
+            shutil.rmtree(tmp_path / "evidence-dir")
+            return 0, _valid_trial_doc()
+
+        exit_code, out, err = _run_cli_run_with_fake_trial(
+            tmp_path, monkeypatch, fake_run_trial, resources=False)
+        assert exit_code == 3
+        error_doc = json.loads(err)
+        assert error_doc["error"] == "EVIDENCE_EXPORT_FAILED"
+        assert "3 transport call(s) were attempted" in error_doc["message"]
+        assert "do not replay blindly" in error_doc["message"]
+
+    def test_late_export_genuine_refusal_keeps_true_zero(self, tmp_path,
+                                                         monkeypatch):
+        refusal = {
+            "qualification": "trial", "runner": "qualification-trial",
+            "version": 1, "trial_id": "unit-trial-1", "status": "error",
+            "error": "TRIAL_PREFLIGHT_REFUSED",
+            "reasons": ["declared model mismatch"],
+            "message": "refused before dispatch",
+        }
+
+        def fake_run_trial(config, spec, **kwargs):
+            import shutil
+
+            shutil.rmtree(tmp_path / "evidence-dir")
+            return 2, refusal
+
+        exit_code, out, err = _run_cli_run_with_fake_trial(
+            tmp_path, monkeypatch, fake_run_trial, resources=False)
+        assert exit_code == 3
+        # the genuine pre-dispatch refusal keeps its TRUE zero-dispatch
+        # wording (no work occurred by construction)
+        error_doc = json.loads(err)
+        assert error_doc["error"] == "EVIDENCE_EXPORT_FAILED"
+        assert "no transport call was attempted by this run" in \
+            error_doc["message"]
+        assert "pre-dispatch refusal" in error_doc["message"]
+
+    def test_spent_ledger_facts_missing_ledger_is_unknown(self):
+        from slaif_raggedized_helper.cli import _spent_ledger_facts
+
+        ledger, attempted = _spent_ledger_facts(
+            {"qualification": "trial", "status": "complete"})
+        assert ledger is None and attempted is None
+        ledger, attempted = _spent_ledger_facts({
+            "qualification": "trial", "status": "complete",
+            "transport_boundary": {"attempted_calls": "three"}})
+        assert ledger is None and attempted is None
+
+    def test_post_work_contract_error_wrapper_ledger_valid(self):
+        from slaif_raggedized_helper.cli import _post_work_contract_error
+
+        document = wrap_trial_with_resources(
+            _valid_trial_doc(), _valid_section("complete"))
+        document["resources"]["version"] = 999  # strict section refuses
+        error_doc = _post_work_contract_error(document,
+                                              scope="resource_wrapper")
+        assert error_doc["error"] == "EVIDENCE_CONTRACT_VIOLATION"
+        assert error_doc["ledger_availability"] == "valid"
+        assert error_doc["transport_boundary"]["attempted_calls"] == 3
+        assert "resource wrapper failed the strict versioned contract" \
+            in error_doc["message"]
+
+    def test_post_work_contract_error_missing_ledger_unknown(self):
+        from slaif_raggedized_helper.cli import _post_work_contract_error
+
+        error_doc = _post_work_contract_error(
+            {"qualification": "trial", "status": "incomplete"})
+        assert error_doc["ledger_availability"] == "unavailable"
+        assert error_doc["transport_boundary"] is None
+        assert "never assumed zero" in error_doc["ledger_note"]

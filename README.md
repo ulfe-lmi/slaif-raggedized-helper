@@ -41,7 +41,11 @@ nvidia-smi fixed-argv metadata query with `--gpu`) and
 returns the plain v1 trial evidence INTACT inside an explicit
 versioned wrapper carrying the strict versioned own-process
 observation (peaks are observed sample peaks; phase events are
-declarations; GPU absence is an exact unavailable, never a zero).
+declarations; GPU absence is an exact unavailable, never a zero; the
+004-e correction enforces the shared-deadline startup admission,
+honest observed-byte aggregate accounting, every-exit-path owned
+observer stop and canonical inner-trial-ledger late-export
+accounting that the telemetry semantics require).
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.

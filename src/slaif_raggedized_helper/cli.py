@@ -568,26 +568,20 @@ def run_qualification_plan(config_path: str, spec_path: str) -> int:
     return exit_code
 
 
-def _post_work_contract_error(document: object) -> dict[str, object]:
-    """Fixed safe post-work evidence-contract error (004-c criterion 8).
+def _spent_ledger_facts(document: object) -> tuple[dict[str, object] | None,
+                                                   int | None]:
+    """The canonical inner-trial spent-attempt ledger of a document.
 
-    The invalid document is never re-exported as a valid result. The
-    ACTUAL transport-boundary spent-attempt ledger is preserved when it
-    validates against the strict ledger contract; when it is missing or
-    malformed its availability is marked unknown — the attempted-call
-    count is never assumed zero and formatting never crashes.
+    For the opt-in resource wrapper the canonical ledger lives in the
+    WRAPPED trial member (004-e F04); for a plain v1 document it is
+    the document itself. Returns ``(validated ledger dict | None,
+    attempted calls | None)``: a missing/invalid ledger is an explicit
+    UNKNOWN (``None``), never an assumed zero.
     """
     from pydantic import ValidationError
 
     from .qualification.contracts import TransportBoundarySection
 
-    ledger: dict[str, object] | None = None
-    availability = "unavailable"
-    note = (
-        "the spent-attempt ledger is missing or malformed in the "
-        "constructed document; availability is marked unknown and the "
-        "attempted call count is never assumed zero"
-    )
     trial_document = document
     if (isinstance(document, dict)
             and document.get("resource_wrapper") == 1
@@ -595,31 +589,84 @@ def _post_work_contract_error(document: object) -> dict[str, object]:
         trial_document = document["trial"]
     raw = (trial_document.get("transport_boundary")
            if isinstance(trial_document, dict) else None)
-    if isinstance(raw, dict):
-        try:
-            ledger = TransportBoundarySection.model_validate(raw).model_dump()
-            availability = "valid"
-            note = (
-                "the transport-boundary spent-attempt ledger validated "
-                "against the strict contract and is preserved exactly "
-                "as recorded (do not replay blindly: ambiguous or "
-                "spent work may have occurred)"
-            )
-        except (ValidationError, ValueError):
-            pass
-    return {
-        "qualification": "trial",
-        "status": "error",
-        "error": "EVIDENCE_CONTRACT_VIOLATION",
-        "stage": "post_work_evidence_contract",
-        "message": (
+    if not isinstance(raw, dict):
+        return None, None
+    try:
+        ledger = TransportBoundarySection.model_validate(raw).model_dump()
+    except (ValidationError, ValueError):
+        return None, None
+    return ledger, int(ledger["attempted_calls"])
+
+
+def _is_pre_dispatch_refusal(document: object) -> bool:
+    """True only for the runner's pre-dispatch refusal documents.
+
+    Those carry ``status: error`` and by construction no dispatch
+    occurred (the transport was never built); they are the ONLY
+    documents where a zero-dispatch claim is true by definition.
+    """
+    trial_document = document
+    if (isinstance(document, dict)
+            and document.get("resource_wrapper") == 1
+            and isinstance(document.get("trial"), dict)):
+        trial_document = document["trial"]
+    return (isinstance(trial_document, dict)
+            and trial_document.get("status") == "error")
+
+
+def _post_work_contract_error(document: object,
+                              scope: str = "trial") -> dict[str, object]:
+    """Fixed safe post-work evidence-contract error (004-c criterion 8).
+
+    The invalid document is never re-exported as a valid result. The
+    ACTUAL transport-boundary spent-attempt ledger (canonical inner
+    trial, wrapper-aware) is preserved when it validates against the
+    strict ledger contract; when it is missing or malformed its
+    availability is marked unknown — the attempted-call count is never
+    assumed zero and formatting never crashes.
+    """
+    ledger, _ = _spent_ledger_facts(document)
+    if ledger is not None:
+        availability = "valid"
+        note = (
+            "the transport-boundary spent-attempt ledger validated "
+            "against the strict contract and is preserved exactly "
+            "as recorded (do not replay blindly: ambiguous or "
+            "spent work may have occurred)"
+        )
+    else:
+        availability = "unavailable"
+        note = (
+            "the spent-attempt ledger is missing or malformed in the "
+            "constructed document; availability is marked unknown and "
+            "the attempted call count is never assumed zero"
+        )
+    if scope == "resource_wrapper":
+        message = (
+            "the resource wrapper failed the strict versioned "
+            "contract after actual work (the trial member must satisfy "
+            "the canonical full strict sample/result contract, "
+            "including the analysis pure-recomputation from the "
+            "recorded samples against the actual transport-boundary "
+            "ledger, and the resources member the strict versioned "
+            "section); the invalid record is not exported as a valid "
+            "result and blind replay is not safe"
+        )
+    else:
+        message = (
             "the evidence document failed the canonical full strict "
             "sample/result contract (including the analysis "
             "pure-recomputation from the recorded samples against the "
             "actual transport-boundary ledger) after actual work; the "
             "invalid record is not exported as a valid result and "
             "blind replay is not safe"
-        ),
+        )
+    return {
+        "qualification": "trial",
+        "status": "error",
+        "error": "EVIDENCE_CONTRACT_VIOLATION",
+        "stage": "post_work_evidence_contract",
+        "message": message,
         "transport_boundary": ledger,
         "ledger_availability": availability,
         "ledger_note": note,
@@ -705,7 +752,8 @@ def run_qualification_run(config_path: str, spec_path: str,
         try:
             validate_resource_wrapper(document)
         except (ValidationError, ValueError):
-            error_doc = _post_work_contract_error(document)
+            error_doc = _post_work_contract_error(
+                document, scope="resource_wrapper")
             rendered = json.dumps(error_doc, indent=2, sort_keys=True)
             sys.stdout.write(rendered + "\n")
             sys.stderr.write(rendered + "\n")
@@ -724,19 +772,34 @@ def run_qualification_run(config_path: str, spec_path: str,
         try:
             Path(output_path).write_text(rendered, encoding="utf-8")
         except OSError:
-            attempted = int(
-                document.get("transport_boundary", {})
-                .get("attempted_calls", 0) or 0)
-            if attempted:
-                dispatch_note = (
-                    f"{attempted} transport call(s) were attempted "
-                    "(see transport_boundary in the evidence) — do not "
-                    "replay blindly: ambiguous or spent work may have "
-                    "occurred")
-            else:
+            # The canonical ledger is the WRAPPED trial's
+            # transport_boundary for the opt-in wrapper (004-e F04);
+            # a missing/invalid ledger is an explicit unknown, never
+            # an assumed zero, and only the genuine pre-dispatch
+            # refusal documents carry a true zero-dispatch claim.
+            ledger, attempted = _spent_ledger_facts(document)
+            if ledger is not None and attempted is not None:
+                if attempted > 0:
+                    dispatch_note = (
+                        f"{attempted} transport call(s) were attempted "
+                        "(see the transport_boundary ledger in the "
+                        "evidence) — do not replay blindly: ambiguous "
+                        "or spent work may have occurred")
+                else:
+                    dispatch_note = (
+                        "the spent ledger records 0 attempted transport "
+                        "calls (no dispatch was sent by this run); the "
+                        "full document is preserved on stdout")
+            elif _is_pre_dispatch_refusal(document):
                 dispatch_note = (
                     "no transport call was attempted by this run; the "
                     "document carries the pre-dispatch refusal facts")
+            else:
+                dispatch_note = (
+                    "the transport-boundary spent-attempt ledger is "
+                    "missing or invalid in the constructed document; "
+                    "the attempted call count is unknown and is never "
+                    "assumed zero — do not replay blindly")
             sys.stdout.write(rendered)
             print(json.dumps(
                 {"qualification": "trial", "status": "error",

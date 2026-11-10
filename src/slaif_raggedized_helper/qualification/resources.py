@@ -17,11 +17,14 @@ objective 004. Everything here is read-only, owned and bounded:
 - the optional ``nvidia-smi`` metadata query uses a FIXED whitelisted
   argv with ``shell=False``, a finite subprocess timeout and actual
   stdout/stderr byte bounds enforced at the pipe boundary (enforced
-  WHILE the child produces data, never after unbounded capture); only
-  the exact owned collector child is ever stopped/killed; missing
-  tool, no GPU, permission failure, malformed output, timeout or
-  oversize produce exact unavailable/error evidence — never 0
-  used/full/free, and raw stderr/command output is never dumped;
+  WHILE the child produces data, never after unbounded capture); each
+  read is bounded by the REMAINING declared allowance plus an explicit
+  bounded one-byte lookahead at the cap, and reported byte counts are
+  the ACTUAL observed bytes, never the configured cap; only the exact
+  owned collector child is ever stopped/killed; missing tool, no GPU,
+  permission failure, malformed output, timeout or oversize produce
+  exact unavailable/error evidence — never 0 used/full/free, and raw
+  stderr/command output is never dumped;
 - device-WIDE memory is recorded when queried; per-process/CUDA
   allocated/reserved/worker peaks remain unavailable until actually
   instrumented by an owned worker (supplied worker measurements are
@@ -35,12 +38,43 @@ objective 004. Everything here is read-only, owned and bounded:
   starts only when the ACTUAL single trial deadline is bound;
 - the trial's ONE absolute deadline still spans all warmups,
   repetitions, retries, template/model calls AND sampling (no
-  extension/reset); on finish/failure/cancellation the observer stops
-  new samples and joins within an explicit finite cleanup bound —
-  never a detached sampler;
+  extension/reset); the single startup metadata query is clipped to
+  the remaining trial AND observer duration, and admission is
+  rechecked after the startup query and before EVERY sample/query, so
+  no sample is admitted late (and none is labelled t=0 when it is not
+  admitted at the series start); on finish/failure/cancellation — on
+  EVERY execution exit path, including in-process
+  ``KeyboardInterrupt``/``BaseException`` with a surviving caller —
+  the observer stops new work and joins within an explicit finite
+  cleanup bound; never a detached sampler;
 - the existing plain qualification run v1 evidence stays INTACT: the
   opt-in resource shape is an explicit versioned WRAPPER whose
   ``trial`` member is the unchanged v1 document.
+
+Deadline and admission semantics (004-e): if the trial deadline is
+already reached at startup, nothing is queried, sampled or started;
+explicit bounded cleanup may follow expiry but never authorizes
+further collection or model dispatch. The trial runner stops and
+finitely joins the owned observer on every execution exit path and
+preserves the original exception.
+
+Aggregate accounting semantics (004-e): collection calls, observed
+bytes and observed time are enforced BEFORE work, across the whole
+observer lifetime (never reset per phase). ``bytes_read`` is the sum
+of ACTUAL observed read bytes (honest), while the bounded read cap is
+RESERVED for each admitted sample so the aggregate can never exceed
+the finite cap and the exported record stays valid at exhaustion
+(stop reason ``resource_exhausted``). Startup (t=0) and final
+observations and device work are included in their documented
+applicable allowances; known 0 stays 0 and unavailable stays null;
+collector work never consumes or invents model attempts.
+
+Source binding (004-e): the collector record binds the bounded
+collector identity, the code source module and the ACTUAL executing
+package version; the Git source revision is explicitly unavailable
+(no attestation/signing system, no Git subprocess on import or
+default commands). Schema versions refuse booleans and wrong numeric
+types.
 
 Library MAX values are finite implementation bounds, NOT production
 hard limits and NOT the order's small local execution allowance; the
@@ -72,6 +106,7 @@ from pydantic import (
     model_validator,
 )
 
+from .. import __version__ as PACKAGE_VERSION
 from .spec import (
     MAX_DEADLINE_SECONDS,
     MAX_DISPATCHES,
@@ -102,6 +137,20 @@ MAX_CLEANUP_BOUND_SECONDS = 5.0
 MAX_PHASE_EVENTS = MAX_WARMUPS + MAX_REPETITIONS
 MAX_NOTE_CHARS = 1024
 MAX_PROVENANCE_ENTRIES = 8
+# Bounded read chunk for the pipe-boundary collector loop (a READ
+# SIZE, not a byte allowance; the remaining declared allowance plus
+# one lookahead byte always applies on top of it).
+_PIPE_READ_CHUNK_BYTES = 4096
+
+# Bounded collector identity / code-source binding (004-e): fixed,
+# safe, non-unique-identifying values; no host identity, no Git
+# subprocess, no attestation or signing.
+MAX_COLLECTOR_ID_CHARS = 64
+MAX_COLLECTOR_SOURCE_CHARS = 128
+MAX_CODE_VERSION_CHARS = 32
+COLLECTOR_ID = "slaif-raggedized-helper-resource-collector"
+COLLECTOR_SOURCE = "slaif_raggedized_helper.qualification.resources"
+SOURCE_REVISION_UNAVAILABLE = "unavailable"
 
 # ---------------------------------------------------------------------------
 # D0 bounded local observational allowance for the installed CLI
@@ -178,11 +227,17 @@ PROVENANCE_NOTES = (
     GPU_NOTE,
     "the ~2 GiB architecture margin is a DECLARED criterion, not a "
     "measured default or a passing gate",
+    "collector identity and code source are bound on the collector "
+    "record (collector_id, collector_source, code_version = the "
+    "executing package version); the Git source revision is "
+    "explicitly unavailable (no attestation, signing or Git "
+    "subprocess on import or default commands)",
 )
 
 STOP_REASON_VALUES = (
     "not_started", "finished", "stopped", "duration_reached",
     "samples_reached", "deadline_reached", "cleanup_timed_out",
+    "resource_exhausted",
 )
 
 
@@ -464,11 +519,28 @@ class CollectorAccounting(BaseModel):
     device_query_bytes_read: StrictInt = Field(ge=0)
     stop_reason: str
     note: str = Field(min_length=1, max_length=MAX_NOTE_CHARS)
+    # Bounded collector identity / code-source binding (004-e). The
+    # values are safe fixed tokens plus the ACTUAL executing package
+    # version; the Git source revision is explicitly unavailable.
+    collector_id: str = Field(min_length=1, max_length=MAX_COLLECTOR_ID_CHARS)
+    collector_source: str = Field(
+        min_length=1, max_length=MAX_COLLECTOR_SOURCE_CHARS)
+    code_version: str = Field(min_length=1, max_length=MAX_CODE_VERSION_CHARS)
+    source_revision: Literal["unavailable"]
 
     @field_validator("wall_seconds", "device_query_wall_seconds")
     @classmethod
     def _finite(cls, value: float, info: Any) -> float:
         return _finite_nonneg_float(value, info.field_name)
+
+    @field_validator("collector_id", "collector_source", "code_version")
+    @classmethod
+    def _source_tokens(cls, value: str, info: Any) -> str:
+        if not value.isascii() or any(ch.isspace() for ch in value):
+            raise ValueError(
+                f"{info.field_name} must be a bounded non-space ASCII "
+                "token")
+        return value
 
     @field_validator("stop_reason")
     @classmethod
@@ -584,6 +656,16 @@ class ResourceSection(BaseModel):
     phase_events: list[PhaseEvent] = Field(
         default_factory=list, max_length=MAX_PHASE_EVENTS)
 
+    @field_validator("version", mode="before")
+    @classmethod
+    def _strict_version(cls, value: Any) -> int:
+        if (isinstance(value, bool) or not isinstance(value, int)
+                or value != RESOURCE_TELEMETRY_VERSION):
+            raise ValueError(
+                "version must be the exact integer 1 (booleans and "
+                "other numeric types are refused)")
+        return value
+
     @field_validator("provenance")
     @classmethod
     def _check_provenance(cls, value: list[str]) -> list[str]:
@@ -617,6 +699,16 @@ class ResourceDiagnostic(BaseModel):
     collector: CollectorAccounting
     notes: list[str] = Field(min_length=1, max_length=MAX_PROVENANCE_ENTRIES)
 
+    @field_validator("version", mode="before")
+    @classmethod
+    def _strict_version(cls, value: Any) -> int:
+        if (isinstance(value, bool) or not isinstance(value, int)
+                or value != RESOURCE_TELEMETRY_VERSION):
+            raise ValueError(
+                "version must be the exact integer 1 (booleans and "
+                "other numeric types are refused)")
+        return value
+
     @field_validator("notes")
     @classmethod
     def _check_notes(cls, value: list[str]) -> list[str]:
@@ -640,6 +732,13 @@ class ResourceDiagnostic(BaseModel):
 # read-only own-process probes (module-level seams for owned tests)
 # ---------------------------------------------------------------------------
 
+# Thread-local observed-byte counter for the CURRENT bounded read. The
+# owning observer installs it around its own sample; the ACTUAL
+# observed byte count (never the read cap) is what gets charged to the
+# aggregate accounting.
+_read_accounting = threading.local()
+
+
 def getrusage_self() -> Any:
     """ru_rusage of the OWN process (the only process inspected)."""
     return _resource_module.getrusage(_resource_module.RUSAGE_SELF)
@@ -649,9 +748,13 @@ def read_proc_self_status(limit: int = _PROC_STATUS_READ_BYTES) -> bytes | None:
     """Bounded read of /proc/self/status (own process only); None on any failure."""
     try:
         with open("/proc/self/status", "rb") as handle:
-            return handle.read(limit)
+            data = handle.read(limit)
     except OSError:
         return None
+    counter = getattr(_read_accounting, "count", None)
+    if counter is not None:
+        counter[0] += len(data)
+    return data
 
 
 def own_process_cpu() -> tuple[float | None, float | None]:
@@ -819,18 +922,28 @@ def run_gpu_metadata_query(
                                       (process.stderr, stderr_done)):
                 if stream not in readable:
                     continue
+                is_stdout = stream is process.stdout
+                acc = len(stdout_data) if is_stdout else len(stderr_data)
+                cap = stdout_bytes if is_stdout else stderr_bytes
+                remaining = cap - acc
+                # Enforce the REMAINING declared allowance: never read
+                # past the cap; AT the cap take the explicit bounded
+                # one-byte lookahead that distinguishes exact fit from
+                # overflow. Reported counts are the actual observed
+                # bytes, never the configured cap.
+                read_size = min(_PIPE_READ_CHUNK_BYTES, max(1, remaining))
                 try:
-                    chunk = os.read(stream.fileno(), 4096)
+                    chunk = os.read(stream.fileno(), read_size)
                 except OSError:
                     status = "query_failed"
                     break
                 if not chunk:
-                    if stream is process.stdout:
+                    if is_stdout:
                         stdout_done = True
                     else:
                         stderr_done = True
                     continue
-                if stream is process.stdout:
+                if is_stdout:
                     stdout_data += chunk
                     if len(stdout_data) > stdout_bytes:
                         status = "stdout_oversize"
@@ -873,10 +986,10 @@ def run_gpu_metadata_query(
                           stdout=len(stdout_data), stderr=len(stderr_data))
     if status == "stdout_oversize":
         return _gpu_error("stdout_oversize", wall=wall,
-                          stdout=stdout_bytes + 1, stderr=len(stderr_data))
+                          stdout=len(stdout_data), stderr=len(stderr_data))
     if status == "stderr_oversize":
         return _gpu_error("stderr_oversize", wall=wall,
-                          stdout=len(stdout_data), stderr=stderr_bytes + 1)
+                          stdout=len(stdout_data), stderr=len(stderr_data))
     if status == "query_failed":
         return _gpu_error("query_failed", wall=wall,
                           stdout=len(stdout_data), stderr=len(stderr_data))
@@ -1034,12 +1147,42 @@ class TrialResourceObserver:
         self._thread_stop_reason: str | None = None
 
     # -- lifecycle ----------------------------------------------------------
+    def _stop_locked(self, reason: str) -> None:
+        """Terminal stop WITHOUT a sampler thread (caller holds the lock)."""
+        self._state = "stopped"
+        if self._stop_reason == "not_started":
+            self._stop_reason = reason
+
+    def _admission_refusal_locked(self) -> str | None:
+        """Aggregate admission check BEFORE any collection work.
+
+        The bounded read cap is RESERVED for the next admitted sample
+        so the aggregate can never exceed the finite cap (the exported
+        record stays valid at exhaustion); actual observed bytes are
+        charged after the read. The caller holds the lock and must set
+        the stop reason when this returns a reason.
+        """
+        if self._collection_calls >= MAX_COLLECTION_CALLS:
+            return "resource_exhausted"
+        if self._bytes_read + _PROC_STATUS_READ_BYTES > MAX_COLLECTOR_BYTES:
+            return "resource_exhausted"
+        return None
+
     def start(self, deadline: float | None = None) -> None:
         """Begin bounded sampling (idempotent refusal after start).
 
         ``deadline`` is the ACTUAL single trial deadline (monotonic
         absolute) when bound to a trial, or None for the standalone
         duration-bound diagnostic. Work starts here — never earlier.
+
+        When bound to a trial deadline, the single startup metadata
+        query (when opted in) is clipped to the remaining trial AND
+        observer duration; if the deadline is already reached nothing
+        is queried, sampled or started; admission is rechecked after
+        the query, so a slow startup query can never admit a late
+        first sample or start a sampler past expiry. The standalone
+        diagnostic (no deadline) keeps the query's own documented
+        finite bound (D0: timeout <= 1 s).
         """
         with self._lock:
             if self._state != "constructed":
@@ -1051,20 +1194,42 @@ class TrialResourceObserver:
                         or not math.isfinite(float(deadline))):
                     raise ValueError("deadline must be a finite number")
                 deadline = float(deadline)
-                if deadline <= now:
-                    # The trial deadline is already exhausted: nothing
-                    # is sampled, nothing is fabricated.
-                    self._state = "stopped"
-                    self._stop_reason = "deadline_reached"
-                    self._start_time = now
-                    return
+            if deadline is not None and deadline <= now:
+                # The trial deadline is already exhausted: nothing is
+                # queried, sampled or started, nothing is fabricated.
+                self._start_time = now
+                self._stop_locked("deadline_reached")
+                return
             self._deadline = deadline
             self._start_time = now
             self._baseline_user, self._baseline_system = own_process_cpu()
             # A metadata query (at most one) happens BEFORE the sampler
-            # thread starts: finite, bounded, owned child only.
+            # thread starts: finite, bounded, owned child only, with
+            # the allowance clipped to the remaining trial AND observer
+            # duration (expiry never authorizes further collection).
             if self._gpu_query:
-                self._gpu_observation = self._run_one_gpu_query()
+                query_timeout = self._gpu_timeout
+                if deadline is not None:
+                    # The startup query allowance is clipped to the
+                    # remaining trial AND observer duration; expiry
+                    # never authorizes the query or work after it.
+                    allowance = min(self._max_duration, deadline - now)
+                    if allowance <= 0:
+                        self._stop_locked("deadline_reached")
+                        return
+                    query_timeout = min(query_timeout, allowance)
+                self._gpu_observation = self._run_one_gpu_query(
+                    timeout_seconds=query_timeout)
+                # Recheck admission AFTER the startup query: no late
+                # first sample, no sampler started past expiry.
+                if deadline is not None and self._clock() >= deadline:
+                    self._stop_locked("deadline_reached")
+                    return
+            # t=0 sample admission: aggregate bounds checked before work.
+            reason = self._admission_refusal_locked()
+            if reason is not None:
+                self._stop_locked(reason)
+                return
             self._record_sample_locked()  # the t=0 sample (>=1 sample)
             self._state = "running"
             self._stop_event.clear()
@@ -1074,11 +1239,11 @@ class TrialResourceObserver:
             self._thread = thread
             thread.start()
 
-    def _run_one_gpu_query(self) -> dict[str, Any]:
+    def _run_one_gpu_query(self, timeout_seconds: float) -> dict[str, Any]:
         self._device_queries += 1
         start = self._clock()
         observation = run_gpu_metadata_query(
-            timeout_seconds=self._gpu_timeout,
+            timeout_seconds=timeout_seconds,
             stdout_bytes=self._gpu_stdout_bytes,
             stderr_bytes=self._gpu_stderr_bytes,
             executable=self._gpu_executable,
@@ -1097,10 +1262,16 @@ class TrialResourceObserver:
         """One bounded own-process sample (caller holds the lock)."""
         now = self._clock()
         assert self._start_time is not None
-        user, system = own_process_cpu()
-        rss = own_process_rss_bytes()
+        _read_accounting.count = [0]
+        try:
+            user, system = own_process_cpu()
+            rss = own_process_rss_bytes()
+        finally:
+            observed_bytes = _read_accounting.count[0]
+            _read_accounting.count = None
         self._collection_calls += 1
-        self._bytes_read += _PROC_STATUS_READ_BYTES  # bounded read cap
+        # Actual OBSERVED read bytes (honest), never the read cap.
+        self._bytes_read += observed_bytes
         if len(self._samples) >= self._max_samples:
             return
         self._samples.append({
@@ -1125,6 +1296,10 @@ class TrialResourceObserver:
                     return
                 if len(self._samples) >= self._max_samples:
                     self._thread_stop_reason = "samples_reached"
+                    return
+                reason = self._admission_refusal_locked()
+                if reason is not None:
+                    self._thread_stop_reason = reason
                     return
                 self._record_sample_locked()
 
@@ -1178,11 +1353,19 @@ class TrialResourceObserver:
                     self._stop_reason = self._thread_stop_reason
 
     def finish(self, trial_status: str) -> dict[str, Any]:
-        """The validated versioned resource section (idempotent stop)."""
+        """The validated versioned resource section (idempotent stop).
+
+        The single FINAL own-process observation (CPU interval end +
+        lifetime high-water read) is collector work: it counts once
+        against the documented collection-call allowance; the recorded
+        sample count stays the observed series length.
+        """
         if trial_status not in ("complete", "incomplete", "not_run"):
             raise ValueError("trial_status must be a trial execution status")
         self.stop("finished")
+        final_user, final_system = own_process_cpu()
         with self._lock:
+            self._collection_calls += 1
             samples = list(self._samples)
             duration = (
                 round(max(0.0, self._clock() - self._start_time), 9)
@@ -1194,7 +1377,6 @@ class TrialResourceObserver:
             device_query_bytes = self._device_query_bytes
             gpu_observation = self._gpu_observation
             stop_reason = self._stop_reason
-        final_user, final_system = own_process_cpu()
         if (self._baseline_user is not None and self._baseline_system
                 is not None and final_user is not None
                 and final_system is not None):
@@ -1241,6 +1423,15 @@ class TrialResourceObserver:
                     "output allowances; sampling never extends or resets "
                     "the trial deadline"
                 ),
+                # Bounded collector identity / code-source binding
+                # (004-e): safe fixed tokens plus the ACTUAL executing
+                # package version; the Git source revision is explicit
+                # unavailable (no attestation, signing or Git
+                # subprocess on import or default commands).
+                "collector_id": COLLECTOR_ID,
+                "collector_source": COLLECTOR_SOURCE,
+                "code_version": PACKAGE_VERSION,
+                "source_revision": SOURCE_REVISION_UNAVAILABLE,
             },
             "provenance": list(PROVENANCE_NOTES),
             "phase_events": list(self._phase_events),

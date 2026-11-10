@@ -268,3 +268,44 @@ human question.
   allowance applied, with real unique host/device metadata kept out
   of Git/public reports); the certifi (MPL-2.0) policy gate remains
   an open human question (LICENSE-01).
+
+### 2026-11-10, order 004-e (resource lifecycle and budget corrections)
+
+- The final 004-d review independently reproduced five resource
+  lifecycle/accounting/contract failures (F01-F05), and the
+  published 004-d report's corresponding guarantees were OVERSTATED:
+  the pipe-bound byte bound was claimed from a cap+1 count while a
+  4096-byte read could actually occur; the aggregate byte/call
+  admission was not enforced (an over-limit invalid document could
+  be produced); the owned sampler survived an in-process
+  KeyboardInterrupt with a surviving caller; late export failures
+  mislabelled real spent calls as zero/pre-dispatch for the wrapper
+  document; and the resource schemas admitted boolean versions and
+  carried no collector/code source binding. The 004-e correction
+  closes these on the same PR: shared-deadline startup admission
+  with the query allowance clipped and admission rechecked after the
+  startup query and before every sample; remaining-allowance pipe
+  reads with a bounded one-byte lookahead and ACTUAL observed byte
+  counts; aggregate calls/bytes/time enforced before work across the
+  whole observer lifetime with a valid honest partial record at
+  resource_exhausted (known 0 stays 0, unavailable stays null);
+  every-exit-path stop/finite join of the owned observer with the
+  original exception preserved; canonical inner-trial-ledger
+  late-export accounting (actual known calls with a replay warning,
+  explicit unknown when the ledger is missing/invalid, true zero
+  only for genuine pre-dispatch refusals); and strict integer-1
+  versions plus the bounded collector identity/code-source binding
+  (code_version = actual executing package version; Git source
+  revision explicitly unavailable; no attestation/signing, no Git
+  subprocess on import or default commands). The retained
+  independent 004-d witnesses were rerun unchanged and now
+  demonstrate the corrected behaviors.
+- What this does NOT resolve: the telemetry remains OWN-PROCESS
+  devhost evidence only — no remote inference host, worker or
+  model-process measurement, no true worst-case peaks, no allocator
+  or worker instrumentation; vector/rank parity, the full named
+  gate composition and all real gates/trials stay NOT_RUN; the
+  ~2 GiB margin remains a declared criterion; LICENSE-01 (certifi
+  MPL-2.0) remains an open human question. The immutable 004-d
+  report is not rewritten; this correction supersedes its over-
+  claimed statements.

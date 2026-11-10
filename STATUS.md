@@ -5,7 +5,8 @@
 - Active objective: 004 (the 004-b/004-c evidence-contract corrections
   of
   the 004-a trial runner and gateway/direct composition, and the
-  004-d bounded read-only local resource telemetry slice), open on PR
+  004-d bounded read-only local resource telemetry slice with the
+  004-e resource lifecycle/accounting/contract corrections), open on PR
   #6, branch oap/004-qualification-harness; live PR/CI/merge state is
   queried on GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
@@ -21,7 +22,12 @@
   CPU/RSS diagnostic and `qualification run --resources` wrapper with
   the plain v1 trial evidence intact; at most one bounded nvidia-smi
   metadata query; no remote/worker/model-process measurement), open on
-  PR #6, see history. Hardware/model qualification: NOT RUN. ICA:
+  PR #6, see history, with the 004-e corrections of its resource
+  lifecycle (shared-deadline startup admission, every-exit-path
+  observer stop), honest aggregate byte accounting at the pipe and
+  sample boundaries, late-export spent-ledger handling and strict
+  versioned collector/code-source binding. Hardware/model
+  qualification: NOT RUN. ICA:
   NOT RUN.
 - The coding client is active on objective 004 (PR #6), not idle.
 - Current main is the 003 merge commit 2bc320f (PR #5); PR #6 builds
@@ -360,3 +366,47 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   telemetry, vector/rank parity and full named gate composition
   remain required in later proof-sized 004 continuations; no merge;
   004 continuations and 005 selection remain strategy alone.
+- 004-e (resource lifecycle and budget correction of the verified
+  004-d head; amends the same open PR #6, branch
+  oap/004-qualification-harness): the five ordered corrections from
+  the final 004-d review (oap/reviews/004-d-review.json committed
+  byte-unchanged, SHA-256
+  5a8d4dff6a259dc689cf056071091960501ba1ae321a0b3285b611230bf19e10):
+  (F01) the startup nvidia-smi metadata query is clipped to the
+  remaining trial AND observer duration and admission is rechecked
+  after the query and before every sample — an already-passed
+  deadline queries nothing and samples nothing, and no late first
+  sample is admitted past expiry (the 0.08 s deadline case that
+  previously admitted a ~0.276 s late query/sample); (F02) pipe
+  reads enforce the remaining declared allowance plus a bounded
+  one-byte lookahead and report the ACTUAL observed bytes (a cap-128
+  overflow reports the observed 129 instead of requesting 4096 and
+  claiming cap+1), and aggregate collection calls/bytes/time are
+  enforced before work across the whole observer lifetime —
+  bytes_read is actual observed bytes (never the read cap) with the
+  cap reserved per admitted sample, so a finite workload terminates
+  with a valid honest partial record at resource_exhausted instead
+  of an over-limit invalid document; (F03) the runner stops and
+  finitely joins the owned observer on EVERY execution exit path,
+  including in-process KeyboardInterrupt with a surviving caller
+  (no detached sampler, no continued samples, original exception
+  preserved); (F04) late --output failures use the canonical inner
+  trial ledger (wrapper-aware): after real work the error reports
+  the actual known call count with a replay warning, a
+  missing/invalid ledger stays an explicit unknown, and only genuine
+  pre-dispatch refusals keep the true zero-dispatch claim; (F05)
+  resource schema versions refuse booleans and wrong numeric types,
+  and the collector record binds the bounded collector identity,
+  code source and actual executing package version with the Git
+  source revision explicitly unavailable (no attestation/signing, no
+  Git subprocess on import or default commands). The published
+  004-d report is immutable; its over-claimed pipe bound, aggregate
+  admission, cancellation and collector/code metadata statements are
+  superseded by this correction. The retained independent 004-d
+  witnesses now demonstrate the corrected behaviors; the plain trial
+  v1 contract, the 004-a/b/c positives and the D0 bounded allowance
+  are preserved. No live target/model/GPU/corpus work (live
+  authorization NONE); all real qualification gates, vector/rank
+  parity and the full named gate composition, 019/ICA/MVP and
+  LICENSE-01 remain open; no merge; 004 continuations and 005
+  selection remain strategy alone.

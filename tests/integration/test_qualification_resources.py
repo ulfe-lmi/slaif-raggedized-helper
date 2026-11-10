@@ -53,7 +53,10 @@ from test_qualification_composition import (
     write_file,
     write_spec,
 )
+import pytest
+
 from slaif_raggedized_helper.qualification import (
+    TrialResourceObserver,
     validate_resource_wrapper,
     validate_trial_evidence,
 )
@@ -399,3 +402,88 @@ class TestZeroTelemetryOnNonOptInCommands:
         assert result.returncode in (0, 1)
         assert '"resource-diagnostic"' not in result.stdout
         assert '"resource-telemetry"' not in result.stdout
+
+
+class TestCancellationAndLateExport:
+    """004-e F03/F04: owned observer work stops on every exit path and
+    late export failures report the canonical inner trial ledger."""
+
+    def test_keyboard_interrupt_stops_observer_surviving_caller(
+            self, server, tmp_path):
+        # In-process: one REAL owned loopback POST, then a trusted
+        # transport raises KeyboardInterrupt; the caller survives. The
+        # owned observer must be stopped and finitely joined (no
+        # detached sampler), with the original exception preserved.
+        from slaif_raggedized_helper.config import RaggedizedConfig
+        from slaif_raggedized_helper.model_clients.transport import (
+            GatewayTransport,
+        )
+        from slaif_raggedized_helper.qualification import (
+            TrialSpec,
+            run_trial,
+        )
+        from test_qualification_composition import spec_dict
+
+        srv = server(lambda h, r: h._send_json(
+            200, completed_json([message_item("m0", "ok")])))
+        config = RaggedizedConfig.model_validate(gateway_config(srv.port))
+        trial = TrialSpec.model_validate(spec_dict())
+        transport = GatewayTransport(srv.url, timeout_seconds=5)
+
+        class InterruptAfterReply:
+            def post_json(self, path, body, *, deadline=None):
+                transport.post_json(path, body, deadline=deadline)
+                raise KeyboardInterrupt()
+
+        observer = TrialResourceObserver(
+            interval_seconds=0.01, max_duration_seconds=1.0, max_samples=64)
+        with pytest.raises(KeyboardInterrupt):
+            run_trial(config, trial,
+                      inner_transport=InterruptAfterReply(),
+                      resources_observer=observer)
+        before = len(observer._samples)
+        thread = observer._thread
+        time.sleep(0.04)
+        after = len(observer._samples)
+        assert after == before  # no continued samples
+        assert thread is not None and not thread.is_alive()
+        assert observer._state == "stopped"
+        assert srv.count("/v1/responses") == 1  # one real POST, no replay
+
+    def test_late_export_wrapper_reports_actual_calls(self, server,
+                                                      tmp_path):
+        # The pre-dispatch destination check passes; actual POSTs
+        # happen; then the evidence directory is removed before the
+        # write. For the opt-in wrapper the stderr error must report
+        # the ACTUAL known calls from the canonical INNER trial ledger
+        # (never the false zero/pre-dispatch claim).
+        import shutil
+
+        out_dir = tmp_path / "evidence-dir"
+        out_dir.mkdir()
+        out_file = out_dir / "evidence.json"
+        state = {"n": 0}
+
+        def scenario(h, r):
+            state["n"] += 1
+            if state["n"] == 3:
+                shutil.rmtree(out_dir)
+            h._send_json(200, completed_json([message_item("m0", "ok")]))
+
+        srv = server(scenario)
+        cfg = write_file(tmp_path, gateway_config(srv.port), "gw-config.json")
+        spec = write_spec(tmp_path)
+        result = run_cli(qual_argv(cfg, spec, extra=[
+            "--resources", "--output", str(out_file)]))
+        assert result.returncode == 3, result.stdout + result.stderr
+        doc = json.loads(result.stdout)
+        assert doc["resource_wrapper"] == 1
+        assert doc["trial"]["transport_boundary"]["attempted_calls"] == 3
+        assert srv.count("/v1/responses") == 3
+        err = json.loads(result.stderr)
+        assert err["error"] == "EVIDENCE_EXPORT_FAILED"
+        assert err["stage"] == "post_work_evidence_export"
+        assert "3 transport call(s) were attempted" in err["message"]
+        assert "do not replay blindly" in err["message"]
+        assert "no transport call was attempted" not in result.stderr
+        assert not out_file.exists()

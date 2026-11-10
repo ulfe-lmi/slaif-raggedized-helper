@@ -210,4 +210,27 @@ zero-telemetry import/help/gates/plan/doctor negative. All synthetic
 and owned: no external network, product services, real keys, physical
 GPU requirement, model downloads or sensitive corpus (order 004-d live
 authorization: NONE; the D0 local observational allowance applies).
-Real target/model/GPU qualification remains NOT RUN.
+
+The 004-e correction regressions extend T09: unit — strict version
+binding on both schemas (boolean, float, string and non-1 versions
+refused) with the collector identity/code-source/package-version
+bound and the explicitly unavailable Git revision; startup deadline
+admission (an already-passed deadline queries nothing and samples
+nothing; a slow owned startup fixture under a 0.08 s shared deadline
+is clipped to the remaining allowance, records the exact
+deadline-reached stop with zero samples and a valid section, and a
+fast startup within the deadline admits samples); aggregate
+admission and honest byte accounting (actual observed read bytes
+charged, never the read cap; the reserved cap yields a valid honest
+partial record at resource_exhausted; probes without real reads
+charge zero bytes; pipe reads honor the remaining allowance with
+the bounded one-byte EOF lookahead, including exact fit at the cap);
+integration — the every-exit-path observer stop (in-process
+KeyboardInterrupt after one real owned POST: the original exception
+propagates, the caller survives, the owned sampler is stopped and
+finitely joined with no continued samples) and the late-export
+spent accounting over the canonical inner trial ledger (the wrapper
+case reports the actual call count with the replay warning, the
+genuine pre-dispatch refusal keeps its true zero claim, and a
+missing/invalid ledger stays an explicit unknown, never an assumed
+zero). Real target/model/GPU qualification remains NOT RUN.

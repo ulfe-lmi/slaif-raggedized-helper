@@ -387,14 +387,20 @@ def run_trial(
     transport regardless of its origin.
 
     ``resources_observer`` is the narrow trusted resource-telemetry
-    seam (004-d, explicit opt-in only): the observer is CONSTRUCTED by
-    the caller and starts NO work here until the ACTUAL single trial
-    deadline is bound; it then receives only phase/ordinal/ledger
-    facts, stops and joins within a finite cleanup bound on
-    finish/failure/cancellation, and the returned document is the
-    explicit versioned WRAPPER whose ``trial`` member is the unchanged
-    plain v1 evidence. ``None`` (the default) keeps the plain v1
-    document exactly as before.
+    seam (004-d, corrected 004-e, explicit opt-in only): the observer
+    is CONSTRUCTED by the caller and starts NO work here until the
+    ACTUAL single trial deadline is bound (the startup metadata query,
+    when opted in, is clipped to the remaining trial AND observer
+    duration and admission is rechecked afterwards); it then receives
+    only phase/ordinal/ledger facts, and on EVERY execution exit path
+    — normal finish, failure, or in-process KeyboardInterrupt/any
+    BaseException with a surviving caller — the owned observer work is
+    stopped and finitely joined (idempotent, bounded; the original
+    exception and the trial's model/template deadline/call/output
+    semantics are preserved, no detached sampler survives). The
+    returned document is the explicit versioned WRAPPER whose
+    ``trial`` member is the unchanged plain v1 evidence. ``None`` (the
+    default) keeps the plain v1 document exactly as before.
     """
     _clock = clock if clock is not None else time.monotonic
     issues = preflight_issues(config, spec)
@@ -419,6 +425,15 @@ def run_trial(
             resources_observer=resources_observer,
         )
     finally:
+        # EVERY execution exit path — normal return, pre-dispatch
+        # refusal, post-work contract failure, or in-process
+        # KeyboardInterrupt/any other BaseException with a surviving
+        # caller — stops the owned observer work with the finite
+        # bounded join (idempotent after the normal path's stop; the
+        # original exception/return is preserved). No detached sampler
+        # may survive the trial (004-e F03).
+        if resources_observer is not None:
+            resources_observer.stop("stopped")
         if fixture is not None:
             fixture.shutdown()
 
