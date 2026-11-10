@@ -17,6 +17,18 @@ incomplete and failed terminals, duplicate/malformed or out-of-order item
 IDs, and EOF without terminal success never appear as COMPLETE. Provider
 error bodies are never echoed; only safe status classes and bounded
 provider codes are reported.
+
+Structural invariants of the streaming dialect (fail-closed): supplied
+envelope coordinates are validated by one shared decoder where key absence
+and present-null are distinct (absent optional coordinates keep the
+implicit forms; present-null or non-integer coordinates are malformed);
+item type/identity is frozen from ``output_item.added`` through
+``output_item.done`` and the final ``output`` array; explicit content-part
+coordinates are bounded, sequential and bound to the actual ordered final
+part positions; item completion is latched (duplicate or contradictory
+post-done events are refused); and every supported item type has a
+validated terminal done status (message: ``completed``/``refusal``;
+reasoning: ``completed``). No internal reasoning becomes answer text.
 """
 
 from __future__ import annotations
@@ -142,9 +154,50 @@ def _parse_usage(usage: object) -> UsageMetrics | None:
 # reasoning/function_call items carry no answer text; any other item or
 # part type, or a contradictory item status, is a structural error.
 _MESSAGE_STATUSES = frozenset({"completed", "refusal"})
+# Item types with a supported stream lifecycle in this bounded adapter:
+# message items carry the answer text; reasoning items are supported
+# non-text items. Any other added type (function_call included) is an
+# unsupported action, refused at the stream boundary.
+_SUPPORTED_ITEM_TYPES = frozenset({"message", "reasoning"})
 # Bounded image material size (data URL or URL string) before JSON
 # serialization; the resolver protocol alone does not bound bytes.
 _MAX_IMAGE_MATERIAL_BYTES = 4 * 1024 * 1024
+
+
+def _validate_message_parts(
+    content: object, status: str
+) -> tuple[list[str], str | None, str | None]:
+    """Strict message-content part rules shared by the final ``output``
+    array and the ``output_item.done`` boundary (one consistent private
+    validation path, V2-06/A14).
+
+    Returns ``(part_texts, refusal_reason, structural_error)`` in array
+    order, preserving per-part positions. ``output_text`` parts must carry
+    string text; a ``refusal`` part is meaningful only on a ``refusal``
+    item and its reason is allowlisted; any other part type, shape or
+    missing text is a structural error, never silently skipped to salvage
+    success.
+    """
+    if not isinstance(content, list):
+        return [], None, "message item without content parts"
+    part_texts: list[str] = []
+    refusal: str | None = None
+    for part in content:
+        if not isinstance(part, dict):
+            return [], None, "malformed content part"
+        part_type = part.get("type")
+        if part_type == "output_text":
+            text = part.get("text")
+            if not isinstance(text, str):
+                return [], None, "malformed output_text part"
+            part_texts.append(text)
+        elif part_type == "refusal" and status == "refusal":
+            reason = _allowlisted(part.get("refusal"), _REFUSAL_REASONS)
+            if reason is not None and refusal is None:
+                refusal = reason
+        else:
+            return [], None, "unsupported content part type"
+    return part_texts, refusal, None
 
 
 def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
@@ -173,9 +226,15 @@ def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
             return [], None, "duplicate output item ID"
         seen_ids.add(item_id)
         # Array order is authoritative for final items; an index that is
-        # genuinely present must not contradict the position.
-        if "output_index" in item and _nonneg_int(item.get("output_index")) != position:
-            return [], None, "out-of-order output item"
+        # genuinely present must not contradict the position. A present
+        # null (or non-integer) final index is malformed, distinct from
+        # absence.
+        if "output_index" in item:
+            supplied_index = item.get("output_index")
+            if _nonneg_int(supplied_index) is None:
+                return [], None, "malformed output item index"
+            if supplied_index != position:
+                return [], None, "out-of-order output item"
         item_type = item.get("type")
         status = item.get("status")
         if item_type == "message":
@@ -184,36 +243,20 @@ def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
             # TypeError and never a salvaged success.
             if not isinstance(status, str) or status not in _MESSAGE_STATUSES:
                 return [], None, "contradictory terminal message item status"
-            content = item.get("content")
-            if not isinstance(content, list):
-                return [], None, "message item without content parts"
-            message_text: list[str] = []
-            for part in content:
-                if not isinstance(part, dict):
-                    return [], None, "malformed content part"
-                part_type = part.get("type")
-                if part_type == "output_text":
-                    text = part.get("text")
-                    if not isinstance(text, str):
-                        return [], None, "malformed output_text part"
-                    if text:
-                        message_text.append(text)
-                elif part_type == "refusal" and status == "refusal":
-                    # An allowlisted reason from the part wins; the generic
-                    # fallback below must never shadow it.
-                    reason = _allowlisted(part.get("refusal"), _REFUSAL_REASONS)
-                    if reason is not None and refusal is None:
-                        refusal = reason
-                else:
-                    return [], None, "unsupported content part type"
+            part_texts, part_refusal, structural = _validate_message_parts(
+                item.get("content"), status)
+            if structural:
+                return [], None, structural
             if status == "refusal" and refusal is None:
-                refusal = "refusal"
-            if message_text and status == "refusal":
+                # An allowlisted reason from the part wins; the generic
+                # fallback must never shadow it.
+                refusal = part_refusal or "refusal"
+            if any(part_texts) and status == "refusal":
                 return [], None, "contradictory refusal item with output text"
-            if status == "completed" and not message_text:
+            if status == "completed" and not any(part_texts):
                 return [], None, "message item without usable output_text content"
-            if message_text:
-                texts.append("".join(message_text))
+            if any(part_texts):
+                texts.append("".join(part_texts))
         elif item_type == "reasoning":
             # Supported non-text item: it never contributes answer text, but
             # its terminal state is validated like any other item. A
@@ -356,6 +399,7 @@ class _StreamState:
         self.item_parts_done: dict[str, set[int]] = {}
         self.item_final_text: dict[str, str] = {}
         self.item_refusal: dict[str, str | None] = {}
+        self.item_done: set[str] = set()
         self.completed_payload: dict | None = None
 
     def note_response_id(self, response_id: object) -> None:
@@ -454,9 +498,19 @@ class _GatewayAccumulator:
         if _nonneg_int(payload.get("output_index")) != len(state.item_order):
             state.fail("out-of-order output item")
             return
+        item_type = item.get("type")
+        # Item type/identity is frozen from added through done and final:
+        # only supported item types may enter the stream lifecycle, and a
+        # model function_call is an unsupported action for this adapter.
+        if item_type == "function_call":
+            state.fail("unsupported function_call output item")
+            return
+        if item_type not in _SUPPORTED_ITEM_TYPES:
+            state.fail("unsupported output item type")
+            return
         state.item_ids.add(item_id)
         state.item_order.append(item_id)
-        state.item_types[item_id] = item.get("type")
+        state.item_types[item_id] = item_type
         state.item_buffers[item_id] = {}
         state.item_text_done[item_id] = set()
         state.item_parts_added[item_id] = set()
@@ -464,41 +518,53 @@ class _GatewayAccumulator:
         state.item_final_text[item_id] = ""
         state.item_refusal[item_id] = None
 
-    def _coordinates(self, payload: dict, item_id: str, *,
-                     require_added: bool,
-                     require_explicit: bool) -> int | None:
-        """Validate the supplied envelope coordinates for a known item.
+    def _coordinates(
+        self, payload: dict, item_id: str, *,
+        require_added: bool,
+        require_explicit_content: bool = False,
+        require_explicit_output: bool = False,
+        allow_content_index: bool = True,
+    ) -> int | None:
+        """Shared envelope-coordinate decoder for every recognized event.
 
-        Returns the content-part index (0 when the event carries no
-        ``content_index``) or None after latching a protocol error. A
-        supplied ``output_index`` must equal the item's observed
-        position; a supplied ``content_index`` must be a bounded
-        non-negative integer and, for delta/done events, must name a part
-        already added to the item.
+        One consistent private validation path: presence and value are
+        distinct. An ABSENT optional coordinate keeps the supported
+        implicit form (the item's observed position / content part 0), or
+        fails when the event form requires the coordinate. A PRESENT
+        coordinate that is null or any non-integer is malformed and fails
+        closed before any state is read or mutated — a supplied null is
+        never absence. A supplied ``output_index`` must equal the item's
+        observed position; a supplied ``content_index`` must name a bounded
+        part already added (for events that require it). Returns the
+        content-part index (0 for the implicit part) or None after latching
+        a protocol error.
         """
         state = self.state
-        output_index = payload.get("output_index")
-        if output_index is not None:
-            if _nonneg_int(output_index) is None:
+        if "output_index" in payload:
+            output_index = _nonneg_int(payload["output_index"])
+            if output_index is None:
                 state.fail("malformed event index")
                 return None
             if output_index != state.item_order.index(item_id):
                 state.fail("output_index mismatch")
                 return None
-        content_index = payload.get("content_index")
-        if content_index is None:
-            if require_explicit:
+        elif require_explicit_output:
+            state.fail("malformed event index")
+            return None
+        if allow_content_index and "content_index" in payload:
+            part_index = _nonneg_int(payload["content_index"])
+            if part_index is None:
                 state.fail("malformed content part index")
                 return None
-            return 0
-        part_index = _nonneg_int(content_index)
-        if part_index is None:
+            if require_added and part_index not in state.item_parts_added[item_id]:
+                state.fail("unknown content part")
+                return None
+            return part_index
+        if "content_index" in payload or require_explicit_content:
+            # present-but-not-allowed (item boundary) or required-but-absent
             state.fail("malformed content part index")
             return None
-        if require_added and part_index not in state.item_parts_added[item_id]:
-            state.fail("unknown content part")
-            return None
-        return part_index
+        return 0
 
     def _handle_text_delta(self, payload: dict) -> None:
         state = self.state
@@ -506,8 +572,16 @@ class _GatewayAccumulator:
         if not isinstance(item_id, str) or item_id not in state.item_buffers:
             state.fail("delta for unknown output item")
             return
+        if state.item_types.get(item_id) != "message":
+            # Text events belong to supported message parts: reasoning (or
+            # any non-message) item cannot accumulate answer text.
+            state.fail("text event for non-message item")
+            return
+        if item_id in state.item_done:
+            state.fail("text event after item done")
+            return
         part_index = self._coordinates(payload, item_id, require_added=True,
-                                       require_explicit=False)
+                                       require_explicit_content=False)
         if part_index is None:
             return
         delta = payload.get("delta")
@@ -529,8 +603,14 @@ class _GatewayAccumulator:
         if not isinstance(item_id, str) or item_id not in state.item_buffers:
             state.fail("done for unknown output item")
             return
+        if state.item_types.get(item_id) != "message":
+            state.fail("text event for non-message item")
+            return
+        if item_id in state.item_done:
+            state.fail("text event after item done")
+            return
         part_index = self._coordinates(payload, item_id, require_added=True,
-                                       require_explicit=False)
+                                       require_explicit_content=False)
         if part_index is None:
             return
         cumulative = payload.get("text")
@@ -556,10 +636,13 @@ class _GatewayAccumulator:
         if state.item_types.get(item_id) != "message":
             state.fail("content part for non-message item")
             return
+        if item_id in state.item_done:
+            state.fail("content part event after item done")
+            return
         part_index = self._coordinates(
             payload, item_id,
             require_added=kind == "done",
-            require_explicit=True,
+            require_explicit_content=True,
         )
         if part_index is None:
             return
@@ -571,6 +654,13 @@ class _GatewayAccumulator:
         if kind == "added":
             if part_index in state.item_parts_added[item_id]:
                 state.fail("duplicate content part added")
+                return
+            # Known bounded part membership/order: explicit parts are
+            # numbered 0,1,2,... in the order they are added. A gap,
+            # rename or out-of-order coordinate cannot be sorted into a
+            # later final part position.
+            if part_index != len(state.item_parts_added[item_id]):
+                state.fail("out-of-order content part")
                 return
             if part.get("text"):
                 state.fail("content part added with text")
@@ -599,34 +689,70 @@ class _GatewayAccumulator:
         if not isinstance(item_id, str) or item_id not in state.item_buffers:
             state.fail("done for unknown output item")
             return
-        if _nonneg_int(payload.get("output_index")) != state.item_order.index(item_id):
-            state.fail("out-of-order output item")
+        # Shared coordinate decoder at the item boundary: output_index is
+        # required; a part-scoped content_index has no meaning here and is
+        # malformed whenever present (null included).
+        if self._coordinates(payload, item_id, require_added=False,
+                             require_explicit_content=False,
+                             require_explicit_output=True,
+                             allow_content_index=False) is None:
             return
-        if item.get("type") == "message":
+        if item_id in state.item_done:
+            # Latch item completion: a duplicate done (or any contradictory
+            # re-completion) is refused, never tolerated.
+            state.fail("duplicate output_item.done")
+            return
+        observed_type = state.item_types.get(item_id)
+        if item.get("type") != observed_type:
+            # Type/identity is frozen from added: a reasoning item cannot
+            # become a message with the same ID (or vice versa).
+            state.fail("item type changed at done")
+            return
+        status = item.get("status")
+        if observed_type == "message":
             # The done boundary is the item's terminal transition: a
             # nonterminal or untyped status followed by a completed final
             # message is contradictory and fails, never tolerated.
-            status = item.get("status")
             if not isinstance(status, str) or status not in _MESSAGE_STATUSES:
                 state.fail("nonterminal item done status")
                 return
+            part_texts, part_refusal, structural = _validate_message_parts(
+                item.get("content"), status)
+            if structural:
+                state.fail(structural)
+                return
             if status == "refusal":
-                state.item_refusal[item_id] = "refusal"
-            content = item.get("content")
-            if isinstance(content, list):
-                for part in content:
-                    if isinstance(part, dict) and part.get("type") == "refusal":
-                        state.item_refusal[item_id] = (
-                            _allowlisted(part.get("refusal"), _REFUSAL_REASONS) or "refusal"
-                        )
-                parts_text = [
-                    part.get("text")
-                    for part in content
-                    if isinstance(part, dict) and part.get("type") == "output_text"
-                    and isinstance(part.get("text"), str)
-                ]
-                if parts_text:
-                    state.item_final_text[item_id] = "".join(parts_text)
+                state.item_refusal[item_id] = part_refusal or "refusal"
+            if any(part_texts) and status == "refusal":
+                state.fail("contradictory refusal item with output text")
+                return
+            if status == "completed" and not any(part_texts):
+                state.fail("message item without usable output_text content")
+                return
+            # Explicit content-part coordinates bind to their actual
+            # ordered final part positions: an observed part cannot
+            # disappear solely because the final concatenated text happens
+            # to match, and each observed part's accumulated text must
+            # equal the final part text at its position.
+            tracked = sorted(state.item_parts_added[item_id])
+            if tracked:
+                if len(part_texts) != max(tracked) + 1:
+                    state.fail("content part coordinate missing from final content")
+                    return
+                for index in tracked:
+                    if part_texts[index] != "".join(
+                            state.item_buffers[item_id].get(index, [])):
+                        state.fail("content part text mismatch")
+                        return
+            state.item_final_text[item_id] = "".join(part_texts)
+        elif observed_type == "reasoning":
+            # Terminal done status for every supported type: a reasoning
+            # item done in a nonterminal state is a contradictory state,
+            # even when the final output later shows it completed.
+            if not isinstance(status, str) or status != "completed":
+                state.fail("contradictory terminal reasoning item status")
+                return
+        state.item_done.add(item_id)
         streamed = state.streamed_text(item_id)
         if streamed and state.item_final_text[item_id] != streamed:
             state.fail("item text mismatch between delta stream and done item")
@@ -775,6 +901,20 @@ def _finish_stream(acc: _GatewayAccumulator, request: GeneratorRequest,
                     backend_fingerprint=backend_fingerprint,
                     error="completed output does not match observed item order", usage=usage,
                 )
+            # Type/identity is frozen from added through final: the final
+            # array must carry the same type for every observed ID, or a
+            # reasoning item could become a message (or vice versa) to
+            # salvage text that never streamed.
+            final_output = response.get("output")
+            if isinstance(final_output, list):
+                for observed_id, final_item in zip(observed, final_output):
+                    if isinstance(final_item, dict) \
+                            and final_item.get("id") == observed_id \
+                            and final_item.get("type") != state.item_types.get(observed_id):
+                        return _terminal_result(
+                            request, CompletionOutcome.FAILED,
+                            backend_fingerprint=backend_fingerprint,
+                            error="item type changed in final output", usage=usage)
         streamed_text = acc.stream_text()
         completed_text = "\n".join(texts)
         if streamed_text is not None and completed_text != streamed_text:

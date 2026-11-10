@@ -1617,3 +1617,317 @@ def test_backend_identity_stable_across_requests_and_responses(server):
     # A declared model change also changes it.
     other_route = config.route.model_copy(update={"model": "other-model"})
     assert gateway_backend_fingerprint(other_route) != first.fingerprint
+
+
+# ---------------------------------------------------------------------------
+# 003-d: structural validation closure — supplied-null coordinates, part
+# coordinate binding, item type/identity freeze, done latch, per-type
+# terminal done status (actual HTTP, owned loopback)
+# ---------------------------------------------------------------------------
+
+def _mutate_frame(frames, index, **changes):
+    """Return frames with the JSON payload of one data-only frame updated."""
+    payload = json.loads(frames[index].split(b"data: ", 1)[1].rstrip(b"\n"))
+    payload.update(changes)
+    frames[index] = sse_data_only(payload)
+    return frames
+
+
+def _streaming_failure(server, frames, needle, *, path="/v1/responses"):
+    """Shared actual-HTTP assertion for a structurally malformed stream:
+    safe FAILED outcome, exact error vocabulary, no salvaged answer, one
+    request on the exact wire path."""
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert needle in (result.error or "")
+    assert result.text is None  # no salvaged answer
+    assert result.attempts == 1
+    assert srv.paths == [path]
+    assert srv.count(path) == 1
+    return result
+
+
+def test_stream_null_delta_output_index_refused(server):
+    """A PRESENT null output_index on a delta is malformed, distinct from
+    absence: the implicit position form applies only to an absent key."""
+    frames = valid_stream_frames()
+    frames[2] = sse_data_only({"type": "response.output_text.delta",
+                               "item_id": "msg_1", "output_index": None,
+                               "delta": "Hello"})
+    _streaming_failure(server, frames, "malformed event index")
+
+
+def test_stream_null_delta_content_index_refused(server):
+    """A present null content_index on a delta is malformed, not the
+    implicit part-0 form."""
+    frames = valid_stream_frames()
+    frames[2] = sse_data_only({"type": "response.output_text.delta",
+                               "item_id": "msg_1", "output_index": 0,
+                               "content_index": None, "delta": "Hello"})
+    _streaming_failure(server, frames, "malformed content part index")
+
+
+def test_stream_null_text_done_content_index_refused(server):
+    frames = valid_stream_frames()
+    frames[4] = sse_data_only({"type": "response.output_text.done",
+                               "item_id": "msg_1", "output_index": 0,
+                               "content_index": None, "text": "Hello world"})
+    _streaming_failure(server, frames, "malformed content part index")
+
+
+def test_stream_null_content_part_index_refused(server):
+    frames = multipart_stream_frames(["first", "second"])
+    added = json.loads(frames[2].split(b"data: ", 1)[1].rstrip(b"\n"))
+    added["content_index"] = None
+    frames[2] = sse_data_only(added)
+    _streaming_failure(server, frames, "malformed content part index")
+
+
+def test_stream_null_item_done_output_index_refused(server):
+    frames = valid_stream_frames()
+    done = json.loads(frames[5].split(b"data: ", 1)[1].rstrip(b"\n"))
+    done["output_index"] = None
+    frames[5] = sse_data_only(done)
+    _streaming_failure(server, frames, "malformed event index")
+
+
+def test_stream_item_done_content_index_refused(server):
+    """content_index has no meaning at the item boundary: present on
+    output_item.done it is malformed (null included), never ignored."""
+    frames = valid_stream_frames()
+    done = json.loads(frames[5].split(b"data: ", 1)[1].rstrip(b"\n"))
+    done["content_index"] = 0
+    frames[5] = sse_data_only(done)
+    _streaming_failure(server, frames, "malformed content part index")
+
+
+def test_final_item_null_output_index_refused(server):
+    """Presence and value are distinct in the final array too: a supplied
+    null final output_index is malformed, absence stays the pinned form."""
+    item = message_item("m0", "a", output_index=None)
+    srv = server(lambda h, r: h._send_json(200, completed_json([item])))
+    result = make_generator(make_config(f"{srv.url}/v1")).generate(make_request())
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "malformed output item index" in (result.error or "")
+    assert result.text is None
+
+
+def test_stream_missing_optional_coordinates_succeeds(server):
+    """Positive boundary: ABSENT optional coordinates keep the supported
+    implicit forms (observed item position / part 0) and the stream
+    succeeds with exact text."""
+    frames = valid_stream_frames()
+    for index in (2, 3, 4):  # both deltas and the text done
+        payload = json.loads(frames[index].split(b"data: ", 1)[1].rstrip(b"\n"))
+        payload.pop("output_index", None)
+        payload.pop("content_index", None)
+        frames[index] = sse_data_only(payload)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert result.text == "Hello world"
+    assert srv.paths == ["/v1/responses"]
+    assert srv.count("/v1/responses") == 1
+
+
+def test_stream_gap_content_part_coordinate_refused(server):
+    """Explicit multipart coordinate gap: the second part is renamed 1 to
+    7 throughout the events while the final content has only two parts.
+    The bounded sequential part numbering refuses the gap instead of
+    sorting it into apparent valid text."""
+    frames = multipart_stream_frames(["first", "second"])
+    for index, frame in enumerate(frames):
+        payload = json.loads(frame.split(b"data: ", 1)[1].rstrip(b"\n"))
+        if "content_index" in payload and payload["content_index"] == 1:
+            payload["content_index"] = 7
+            frames[index] = sse_data_only(payload)
+    _streaming_failure(server, frames, "out-of-order content part")
+
+
+def test_stream_out_of_order_content_part_added_refused(server):
+    """Explicit parts are numbered 0,1,2,... in added order: adding part 1
+    before part 0 is an out-of-order bounded-coordinate violation."""
+    frames = multipart_stream_frames(["first", "second"])
+    added_zero = json.loads(frames[2].split(b"data: ", 1)[1].rstrip(b"\n"))
+    added_one = json.loads(frames[6].split(b"data: ", 1)[1].rstrip(b"\n"))
+    frames[2] = sse_data_only(added_one)
+    frames[6] = sse_data_only(added_zero)
+    _streaming_failure(server, frames, "out-of-order content part")
+
+
+def test_stream_disappeared_content_part_refused(server):
+    """An observed part cannot disappear solely because the final
+    concatenated text happens to match: the full lifecycle of two parts
+    with a final content carrying one concatenated part fails."""
+    frames = multipart_stream_frames(["first", "second"])
+    single = {"type": "output_text", "text": "firstsecond",
+              "annotations": [], "logprobs": None}
+    done = json.loads(frames[-2].split(b"data: ", 1)[1].rstrip(b"\n"))
+    done["item"]["content"] = [json.loads(json.dumps(single))]
+    frames[-2] = sse_data_only(done)
+    completed = json.loads(frames[-1].split(b"data: ", 1)[1].rstrip(b"\n"))
+    completed["response"]["output"][0]["content"] = [
+        json.loads(json.dumps(single))]
+    frames[-1] = sse_data_only(completed)
+    _streaming_failure(server, frames,
+                       "content part coordinate missing from final content")
+
+
+def test_stream_text_event_for_non_message_item_refused(server):
+    """Text events belong to supported message parts: a reasoning item
+    (added type reasoning) cannot accumulate output_text deltas."""
+    frames = valid_stream_frames()
+    added = json.loads(frames[1].split(b"data: ", 1)[1].rstrip(b"\n"))
+    added["item"]["type"] = "reasoning"
+    frames[1] = sse_data_only(added)
+    _streaming_failure(server, frames, "text event for non-message item")
+
+
+def test_stream_item_type_changed_at_done_refused(server):
+    """Item type/identity is frozen from added through done: a reasoning
+    item that appears as a message at its done boundary with the same ID
+    is refused (no text events in this variant)."""
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": reasoning_item("m1", status="in_progress")}),
+        sse_data_only({"type": "response.output_item.done", "output_index": 0,
+                       "item": message_item("m1", "answer")}),
+        sse_data_only({"type": "response.completed",
+                       "response": {"id": "r1", "object": "response",
+                                    "created_at": 1, "status": "completed",
+                                    "model": "synthetic-qwen",
+                                    "output": [message_item("m1", "answer")],
+                                    "usage": {"input_tokens": 1,
+                                              "output_tokens": 1}}}),
+    ]
+    _streaming_failure(server, frames, "item type changed at done")
+
+
+def test_stream_final_item_type_changed_refused(server):
+    """The freeze extends to the final array: a reasoning item observed in
+    the stream cannot become a message with the same ID in the final
+    output to salvage text that never streamed."""
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": reasoning_item("m1", status="in_progress")}),
+        sse_data_only({"type": "response.output_item.done", "output_index": 0,
+                       "item": reasoning_item("m1", status="completed")}),
+        sse_data_only({"type": "response.completed",
+                       "response": {"id": "r1", "object": "response",
+                                    "created_at": 1, "status": "completed",
+                                    "model": "synthetic-qwen",
+                                    "output": [message_item("m1", "answer")],
+                                    "usage": {"input_tokens": 1,
+                                              "output_tokens": 1}}}),
+    ]
+    _streaming_failure(server, frames, "item type changed in final output")
+
+
+def test_stream_duplicate_item_done_refused(server):
+    """Item completion is latched: a duplicate output_item.done for the
+    same item is refused, never re-accepted."""
+    frames = valid_stream_frames()
+    frames.insert(6, frames[5])
+    _streaming_failure(server, frames, "duplicate output_item.done")
+
+
+def test_stream_text_event_after_item_done_refused(server):
+    """Contradictory state after latched completion is refused: a delta
+    after the item's done event cannot extend the answer."""
+    frames = valid_stream_frames()
+    frames.insert(6, sse_data_only({"type": "response.output_text.delta",
+                                    "item_id": "msg_1", "output_index": 0,
+                                    "delta": " extra"}))
+    _streaming_failure(server, frames, "text event after item done")
+
+
+def test_stream_content_part_event_after_item_done_refused(server):
+    frames = multipart_stream_frames(["first"])
+    part_added = json.loads(frames[2].split(b"data: ", 1)[1].rstrip(b"\n"))
+    # position 7: after the item done (position 6), before the terminal
+    frames.insert(7, sse_data_only(part_added))
+    _streaming_failure(server, frames, "content part event after item done")
+
+
+def test_stream_nonterminal_reasoning_done_refused(server):
+    """Terminal done status for every supported type: a reasoning item
+    done with status in_progress is contradictory even when the final
+    output later shows it completed (actual HTTP reproduction of the
+    strategic 003-d variant)."""
+    text = "answer"
+    reasoning_final = reasoning_item("rs1", status="completed")
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": reasoning_item("rs1", status="in_progress")}),
+        sse_data_only({"type": "response.output_item.done", "output_index": 0,
+                       "item": reasoning_item("rs1", status="in_progress")}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 1,
+                       "item": {"type": "message", "id": "m1",
+                                "status": "in_progress", "role": "assistant",
+                                "content": [], "phase": None}}),
+        sse_data_only({"type": "response.output_text.delta", "item_id": "m1",
+                       "output_index": 1, "delta": text}),
+        sse_data_only({"type": "response.output_text.done", "item_id": "m1",
+                       "output_index": 1, "text": text}),
+        sse_data_only({"type": "response.output_item.done", "output_index": 1,
+                       "item": message_item("m1", text)}),
+        sse_data_only({"type": "response.completed",
+                       "response": {"id": "r1", "object": "response",
+                                    "created_at": 1, "status": "completed",
+                                    "model": "synthetic-qwen",
+                                    "output": [reasoning_final,
+                                               message_item("m1", text)],
+                                    "usage": {"input_tokens": 2,
+                                              "output_tokens": 3}}}),
+    ]
+    result = _streaming_failure(server, frames,
+                                "contradictory terminal reasoning item status")
+    # No internal reasoning content or canary bytes may leak into the
+    # safe error text.
+    assert "canary" not in (result.error or "")
+
+
+def test_stream_reasoning_plus_message_valid_succeeds(server):
+    """Valid counterexample: a completed reasoning item followed by a
+    completed message item is a supported stream; the answer text is the
+    message text only (no internal reasoning becomes answer text)."""
+    text = "t1"
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": reasoning_item("rs0", status="in_progress")}),
+        sse_data_only({"type": "response.output_item.done", "output_index": 0,
+                       "item": reasoning_item("rs0", status="completed")}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 1,
+                       "item": {"type": "message", "id": "m1",
+                                "status": "in_progress", "role": "assistant",
+                                "content": [], "phase": None}}),
+        sse_data_only({"type": "response.output_text.delta", "item_id": "m1",
+                       "output_index": 1, "delta": text}),
+        sse_data_only({"type": "response.output_text.done", "item_id": "m1",
+                       "output_index": 1, "text": text}),
+        sse_data_only({"type": "response.output_item.done", "output_index": 1,
+                       "item": message_item("m1", text)}),
+        sse_data_only({"type": "response.completed",
+                       "response": {"id": "r1", "object": "response",
+                                    "created_at": 1, "status": "completed",
+                                    "model": "synthetic-qwen",
+                                    "output": [reasoning_item("rs0"),
+                                               message_item("m1", text)],
+                                    "usage": {"input_tokens": 2,
+                                              "output_tokens": 2}}}),
+    ]
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert result.text == text
+    assert srv.paths == ["/v1/responses"]
+    assert srv.count("/v1/responses") == 1

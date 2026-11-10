@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-10)
 
-- Active objective: 003-c (gateway protocol validation), open on PR #5,
+- Active objective: 003-d (structural validation closure), open on PR #5,
   branch oap/003-generator-adapters-and-cache-probes; live PR/CI/merge
   state is queried on GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
@@ -69,10 +69,21 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   CONTINUE/NOT_ACCEPTED at the 003-b report candidate (actual malformed
   wire successes/raw exception and valid multipart rejection contradicted
   criterion 6).
-- 003-c (current round): gateway protocol validation repair of the
+- 003-c: gateway protocol validation repair of the
   remaining structural gaps (malformed type/ID/coordinate/status
   handling, valid multipart streams, deterministic zero-dispatch deadline
-  boundary, scoped docs).
+  boundary, scoped docs); round report
+  oap/reports/003-c-gateway-protocol-validation.md; strategic review
+  CONTINUE/NOT_ACCEPTED at the 003-c report candidate (six supplied-null /
+  part-coordinate / item-type / done-latch / reasoning-status variants
+  still produced TERMINAL).
+- 003-d (current round): structural validation closure of the shared
+  coordinate and item-lifecycle invariants behind those six variants
+  (supplied-null vs absent coordinates, bounded sequential content-part
+  numbering bound to final part positions, item type/identity freeze
+  added through done/final, latched item completion, per-type terminal
+  done status), actual-HTTP regressions, scoped docs; whole-003 native /
+  probe / live qualification remains pending.
 - The native direct `/completion` adapter and qualification probes of
   objective 003 remain pending (separately finalized continuations of the
   same PR). Objective 003 as a whole is unresolved, not merged, not

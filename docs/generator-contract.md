@@ -3,7 +3,8 @@
 This document describes the ACTUAL behavior of `model_clients/transport.py` and
 `model_clients/gateway.py` as implemented and tested in objective 003
 (branch `oap/003-generator-adapters-and-cache-probes`, PR 5; the 003-b
-transport/gateway slice plus the 003-c protocol-validation repair). It is a
+transport/gateway slice, the 003-c protocol-validation repair and the
+003-d structural validation closure). It is a
 contract excerpt, not the full architecture. The native direct `/completion`
 adapter and the qualification probes of objective 003 are NOT RUN here and
 remain pending for separately finalized continuations of objective 003;
@@ -44,9 +45,19 @@ events (required, must equal the observed position); on `output_text.delta`,
 `output_text.done` and `content_part.*` events a supplied `output_index` must
 likewise equal the item's observed position, and a supplied `content_index`
 must name a part already added to the item (the implicit part is 0 when the
-field is absent). A message may carry **multiple bounded `output_text`
-parts**; each part's cumulative text is reconciled independently against its
-own deltas, and the answer text preserves the final array part order
+field is absent). All event coordinates pass one shared decoder where key
+**absence and present-null are distinct**: an absent optional coordinate
+keeps the implicit form, a present `null` (or any non-integer)
+`output_index`/`content_index` is malformed and fails the stream, and
+`content_index` has no meaning at the `output_item.done` boundary, where it
+is malformed whenever present. A message may carry **multiple bounded
+`output_text` parts**; explicit parts are numbered `0,1,2,...` in the order
+they are `content_part.added` (a gap, rename or out-of-order coordinate is
+refused), each part's cumulative text is reconciled independently against
+its own deltas, and at the item's done boundary the explicit part
+coordinates are bound to their actual ordered final part positions (an
+observed part cannot disappear because the final concatenated text happens
+to match), so the answer text preserves the final array part order
 (parts concatenated in order). The final `response.completed` `output` items
 are authoritative in **array order and do NOT carry `output_index`** (an
 index that is genuinely present must not contradict the position). A
@@ -56,10 +67,20 @@ event.
 Terminal and event validation (fail-closed): terminal events
 (`response.completed`/`response.failed`/`response.incomplete`) must carry a
 valid nonempty response ID consistent with the observed events; a missing or
-malformed terminal ID fails closed instead of being ignored. A `message`
+malformed terminal ID fails closed instead of being ignored. Item type/identity is **frozen from `output_item.added` through
+`output_item.done` and the final `output` array**: only `message` and
+`reasoning` items enter the stream lifecycle (an added `function_call` or
+any other type is an unsupported action, refused at the added boundary), a
+reasoning item cannot become a message with the same ID (or vice versa) at
+the done or final boundary, and text events belong to supported message
+parts only. A `message`
 `output_item.done` must carry a terminal status (`completed` or `refusal`): a
 nonterminal status followed by a completed final message is contradictory,
-never success. A `delta` must be a string and a cumulative `text` a string;
+never success; a `reasoning` `output_item.done` must be `completed` (a
+nonterminal done status is contradictory even when the final output later
+shows it completed). Item completion is **latched**: a duplicate
+`output_item.done`, or any delta/text-done/content-part event after the
+item's done, is refused. A `delta` must be a string and a cumulative `text` a string;
 an array delta followed by empty done/item data and an authoritative terminal
 text is a malformed stream, never a salvaged successful answer, and a later
 valid final payload cannot erase an observed protocol error. A non-string
@@ -126,12 +147,13 @@ codes, messages, refusal fields or auth exceptions are asserted absent.
   `Location` is never contacted); ambient HTTP proxy environment is never
   inherited (`trust_env=False`) — asserted with a proxy sink that must stay
   empty; no cookie jar, no cross-call connection reuse.
-- Response bodies are byte-bounded (2 MiB default), SSE events 256 KiB and
-  streams 16,000,000 bytes (decimal) by default; oversize lines/events/
-  streams, invalid UTF-8 and truncated frames fail with safe fixed messages.
-  The defaults are the decimal literals 2,000,000 and 16,000,000
-  (`DEFAULT_MAX_RESPONSE_BYTES`, `DEFAULT_MAX_STREAM_BYTES`), not 2/16 MiB;
-  the SSE event bound is exactly 262,144 bytes (256 KiB).
+- Response bodies are byte-bounded by default to 2,000,000 bytes (decimal,
+  `DEFAULT_MAX_RESPONSE_BYTES`), SSE events to exactly 262,144 bytes (256
+  KiB) and streams to 16,000,000 bytes (decimal,
+  `DEFAULT_MAX_STREAM_BYTES`); oversize lines/events/streams, invalid
+  UTF-8 and truncated frames fail with safe fixed messages. The response
+  and stream defaults are the decimal literals 2,000,000 and 16,000,000,
+  not 2/16 MiB.
 
 ## Declared backend identity
 
@@ -167,7 +189,14 @@ completed/refusal/error dialects, malformed type/ID/coordinate/status
 refusals with canary-safe fixed reasons, valid single-part, multi-part
 (exact per-part text) and multi-message streams, part lifecycle
 violations, excessive-JSON-nesting refusals, the deterministic zero-dispatch
-deadline boundary, canary safety, identity stability.
+deadline boundary, canary safety, identity stability; 003-d: supplied-null
+versus absent coordinate handling, bounded sequential content-part
+numbering and part-to-final-position binding (gap/rename/disappeared-part
+refusals), item type/identity freeze at added/done/final, latched item
+completion (duplicate/late events refused), per-type terminal done status
+(reasoning nonterminal done refused; completed reasoning plus message
+streams valid with message text only), and actual-HTTP regressions for all
+six strategic structural variants.
 
 NOT RUN / pending: the native direct `/completion` adapter and its
 cache/slot behavior, live gateway/model traffic, qualification probes, and
