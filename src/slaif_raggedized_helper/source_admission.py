@@ -43,7 +43,7 @@ class Source(StrictRecord):
     relative_path: str = Field(min_length=1, max_length=1024)
     display_uri: str = Field(min_length=1, max_length=1024)
     corpus: str = Field(min_length=1, max_length=256)
-    access_labels: list[str] = Field(max_length=64)
+    access_labels: tuple[str, ...] = Field(max_length=64)
     processing_approved: StrictBool
     redistribution_rights: Literal["allowed", "prohibited", "unknown"]
     media_type: Literal["text/plain", "text/markdown", "application/pdf"]
@@ -74,12 +74,17 @@ class Source(StrictRecord):
             raise ValueError("invalid relative path")
         return value
 
+    @field_validator("access_labels", mode="before")
+    @classmethod
+    def labels_tuple(cls, value: object) -> object:
+        return tuple(value) if type(value) is list else value
+
     @field_validator("access_labels")
     @classmethod
-    def labels_valid(cls, value: list[str]) -> list[str]:
+    def labels_valid(cls, value: tuple[str, ...]) -> tuple[str, ...]:
         if any(not label or len(label) > 256 for label in value) or len(set(value)) != len(value):
             raise ValueError("invalid labels")
-        return sorted(value)
+        return tuple(sorted(value))
 
 
 class Manifest(StrictRecord):
@@ -134,6 +139,11 @@ def _identity(source: Source) -> str:
 def _open_source(
     root_fd: int, path: str, hook: Callable[[str], None]
 ) -> tuple[int, list[int], list[tuple[int, str, int]]]:
+    # Independently enforce the boundary even if a caller bypasses model validation.
+    try:
+        Source.path_valid(path)
+    except (ValueError, AttributeError, TypeError):
+        raise AdmissionError("invalid source") from None
     dirs = [os.dup(root_fd)]
     links: list[tuple[int, str, int]] = []
     try:
@@ -163,6 +173,14 @@ def _check_links(links: list[tuple[int, str, int]]) -> None:
             opened.st_ino,
         ):
             raise AdmissionError("source changed")
+
+
+def _changed(before: os.stat_result, after: os.stat_result) -> bool:
+    # Reading may update atime; identity, mode, size and nanosecond change times matter.
+    return any(
+        getattr(before, field) != getattr(after, field)
+        for field in ("st_dev", "st_ino", "st_mode", "st_size", "st_mtime_ns", "st_ctime_ns")
+    )
 
 
 class OriginalStore:
@@ -205,7 +223,7 @@ class OriginalStore:
                     if not chunk:
                         break
                     result.extend(chunk)
-                if len(result) > limit or len(result) != st.st_size or os.fstat(fd) != st:
+                if len(result) > limit or len(result) != st.st_size or _changed(st, os.fstat(fd)):
                     raise AdmissionError("invalid stored object")
                 return bytes(result)
             finally:
@@ -241,6 +259,13 @@ class OriginalStore:
 
     def admit(self, approved_root: Path, source: Source) -> Revision:
         try:
+            # Pydantic model_copy/model_construct can bypass validators. Bind a fresh,
+            # validated primitive snapshot before opening even the approved root.
+            if type(source) is not Source:
+                raise AdmissionError("invalid source")
+            source = Source.model_validate(
+                {name: getattr(source, name) for name in Source.model_fields}
+            )
             if not source.processing_approved:
                 raise AdmissionError("processing not approved")
             root = os.open(approved_root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
@@ -260,7 +285,7 @@ class OriginalStore:
                     _check_links(links)
                     after = os.fstat(fd)
                     if (
-                        before != after
+                        _changed(before, after)
                         or len(data) != source.size
                         or hashlib.sha256(data).hexdigest() != source.sha256
                     ):
@@ -285,7 +310,7 @@ class OriginalStore:
             return self.inspect(revision.revision_id)
         except AdmissionError:
             raise
-        except (OSError, ValueError, ValidationError):
+        except (OSError, ValueError, TypeError, AttributeError, ValidationError):
             raise AdmissionError("admission failed") from None
 
     def inspect(self, revision_id: str) -> Revision:

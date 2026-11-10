@@ -116,3 +116,53 @@ def test_corruption_conflict_and_retry(tmp_path):
     with pytest.raises(AdmissionError):
         store.admit(root, source())
     store.close()
+
+
+def test_unvalidated_copy_cannot_escape_or_publish(tmp_path):
+    root = tmp_path / "input"
+    root.mkdir()
+    (tmp_path / "outside").write_bytes(b"hello")
+    store = OriginalStore(tmp_path / "store")
+    forged = source().model_copy(update={"relative_path": "../outside"})
+    with pytest.raises(AdmissionError):
+        store.admit(root, forged)
+    assert not list((tmp_path / "store" / "blobs").iterdir())
+    assert not list((tmp_path / "store" / "revisions").iterdir())
+    store.close()
+
+
+def test_acl_immutable_and_explicit_revision(tmp_path):
+    root = tmp_path / "input"
+    root.mkdir()
+    (root / "file").write_bytes(b"hello")
+    private = source(access_labels=["private"])
+    with pytest.raises(AttributeError):
+        private.access_labels.clear()
+    store = OriginalStore(tmp_path / "store")
+    first = store.admit(root, private)
+    public = source(access_labels=[])
+    second = store.admit(root, public)
+    assert first.source.access_labels == ("private",)
+    assert second.source.access_labels == ()
+    assert first.revision_id != second.revision_id
+    assert store.inspect(first.revision_id).source.access_labels == ("private",)
+    store.close()
+
+
+def test_old_atime_on_source_and_stored_objects(tmp_path):
+    root = tmp_path / "input"
+    root.mkdir()
+    original = root / "file"
+    original.write_bytes(b"hello")
+    st = original.stat()
+    os.utime(original, ns=(1_000_000_000, st.st_mtime_ns))
+    store = OriginalStore(tmp_path / "store")
+    revision = store.admit(root, source())
+    blob = tmp_path / "store" / "blobs" / revision.blob
+    record = tmp_path / "store" / "revisions" / revision.revision_id[7:]
+    for artifact in (blob, record):
+        st = artifact.stat()
+        os.utime(artifact, ns=(1_000_000_000, st.st_mtime_ns))
+    assert store.inspect(revision.revision_id) == revision
+    assert store.admit(root, source()) == revision
+    store.close()

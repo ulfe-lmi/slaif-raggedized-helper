@@ -41,6 +41,6 @@ def test_public_journey(tmp_path):
     assert len(list((tmp_path / "store" / "blobs").iterdir())) == 1
     assert store.inspect(first.revision_id) == first
     assert store.admit(root, manifest.sources[1]) == second
-    assert store.inspect(second.revision_id).source.access_labels == ["private"]
+    assert store.inspect(second.revision_id).source.access_labels == ("private",)
     assert third.source.redistribution_rights == "allowed"
     store.close()
