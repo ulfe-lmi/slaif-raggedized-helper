@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "lock": {
+    "schema_version": 1,
+    "role": "reranker",
+    "model_name": "bge-reranker-v2-m3 (placeholder example)",
+    "revision": "unresolved-pending-human-provisioning",
+    "artifact_sha256": null,
+    "license_name": null,
+    "license_status": "unknown",
+    "tokenizer_revision": null,
+    "pooling": null,
+    "gguf": null,
+    "projector": null,
+    "runtime": null
+  },
+  "qualification": null
+}

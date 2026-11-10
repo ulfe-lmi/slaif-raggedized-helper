@@ -1,0 +1,52 @@
+# slaif-raggedized-helper — foundation (OAP objective 002-a)
+#
+# Installable minimal application foundation: strict configuration, typed
+# generator/embedding/reranker contracts, model lock/qualification schemas and
+# an offline `raggedized doctor` command.
+#
+# Dependencies are intentionally minimal and lightweight (no Torch /
+# Transformers / SentenceTransformers in this slice). Exact artifacts and
+# hashes are pinned in uv.lock; heavy model dependencies belong to later
+# explicit optional groups.
+[build-system]
+requires = ["hatchling>=1.25,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "slaif-raggedized-helper"
+version = "0.1.0"
+description = "Local contextual retrieval foundation: strict config, typed generator/embedding/reranker contracts, honest offline doctor."
+license = "Apache-2.0"
+requires-python = ">=3.12"
+authors = [{ name = "ulfe-lmi" }]
+keywords = ["rag", "retrieval", "configuration", "contracts"]
+dependencies = [
+  "pydantic>=2.11,<3",
+]
+
+[project.scripts]
+raggedized = "slaif_raggedized_helper.cli:main"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4,<9",
+  "ruff>=0.9,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/slaif_raggedized_helper"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+# Product lint scope: foundation code and product tests only. The OAP scaffold
+# (tests/oap, oap/bin) is governance-owned compact style, not product lint.
+extend-exclude = ["tests/oap", "oap"]
+
+[tool.ruff.lint]
+# pyflakes + pycodestyle errors/warnings; keep the foundation lint surface small.
+select = ["E", "F", "W"]

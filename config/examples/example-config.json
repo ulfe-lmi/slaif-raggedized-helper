@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "generator": {
+    "route": {
+      "base_url": "http://gateway.invalid/v1",
+      "model": "Qwen3.8-27B-Q6",
+      "api": "v1-responses",
+      "timeout_seconds": 60
+    },
+    "context_expected_tokens": 32768,
+    "output_reserve_tokens": 1536,
+    "deadline_seconds": 120,
+    "max_inflight": 1
+  },
+  "profiles": [
+    {
+      "name": "query-embed-cpu",
+      "purpose": "online_query_embedding",
+      "device": "cpu",
+      "dtype": "fp32"
+    },
+    {
+      "name": "rerank-gpu",
+      "purpose": "online_rerank",
+      "device": "gpu",
+      "dtype": "fp16"
+    },
+    {
+      "name": "offline-embed-gpu",
+      "purpose": "offline_embed",
+      "device": "gpu",
+      "dtype": "fp16"
+    }
+  ],
+  "embedding": {
+    "exclusive_offline_gpu": true,
+    "store_dtype": "fp32"
+  },
+  "direct_generation": {
+    "enabled": false
+  },
+  "secrets": {
+    "gateway_key": {
+      "kind": "env",
+      "name": "SLAIF_GATEWAY_KEY"
+    }
+  },
+  "model_locks": [
+    {
+      "role": "generator",
+      "path": "model-locks/example-generator-unqualified.json"
+    },
+    {
+      "role": "embedding",
+      "path": "model-locks/example-embedding-unqualified.json"
+    },
+    {
+      "role": "reranker",
+      "path": "model-locks/example-reranker-unqualified.json"
+    }
+  ]
+}

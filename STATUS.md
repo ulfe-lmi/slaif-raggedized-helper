@@ -23,3 +23,15 @@ separate from unmeasured target configurations; unknown deployed facts and exact
 prerequisites), persists docs/MVP-EXECUTION-PLAN.md unchanged, and commits the 000
 strategic resolution unchanged. Not merged, not deployed. Product/runtime
 qualification remains NOT RUN/UNKNOWN; no live service was changed.
+002-a (foundation and qualification harness): implemented on branch
+oap/002-foundation-and-qualification-harness in a new objective PR from verified
+main 3178650b241c249b80b8e1e2a9427356996ecacc; live PR/CI/merge state is queried
+on GitHub, not asserted here. Adds the installable src package
+(slaif_raggedized_helper: strict config, typed generator/embedding/reranker
+contracts, model lock/qualification schemas, offline `raggedized doctor`),
+locked lightweight environment (uv.lock; pydantic runtime; pytest/ruff dev),
+focused product tests (tests/unit) plus an OAP fixture source-copy boundary
+fix, a separate product CI job, docs/foundation.md, JSON schemas and
+THIRD_PARTY_NOTICES. Foundation code and mocked contract composition only:
+product runtime qualification remains NOT RUN/UNKNOWN; no model, GPU, live
+route or service change; not merged, not deployed.

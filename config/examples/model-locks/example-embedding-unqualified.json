@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "lock": {
+    "schema_version": 1,
+    "role": "embedding",
+    "model_name": "BGE-M3 (placeholder example)",
+    "revision": "unresolved-pending-human-provisioning",
+    "artifact_sha256": null,
+    "license_name": null,
+    "license_status": "unknown",
+    "tokenizer_revision": null,
+    "pooling": "cls",
+    "gguf": null,
+    "projector": null,
+    "runtime": null
+  },
+  "qualification": null
+}

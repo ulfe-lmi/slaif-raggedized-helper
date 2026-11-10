@@ -1,0 +1,317 @@
+{
+  "$defs": {
+    "GGUFMetadata": {
+      "additionalProperties": false,
+      "description": "Qwen GGUF serving metadata (generator role).",
+      "properties": {
+        "artifact_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 71,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Artifact Sha256"
+        },
+        "quantization": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Quantization",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quantization"
+      ],
+      "title": "GGUFMetadata",
+      "type": "object"
+    },
+    "LicenseStatus": {
+      "enum": [
+        "approved",
+        "unknown"
+      ],
+      "title": "LicenseStatus",
+      "type": "string"
+    },
+    "ModelLock": {
+      "additionalProperties": false,
+      "description": "Exact immutable model revision/artifact and license record.\n\nUnknown values are explicit nulls/``unknown`` \u2014 an unqualified lock is not\nproof that a model was downloaded, pinned or license-approved.",
+      "properties": {
+        "artifact_sha256": {
+          "anyOf": [
+            {
+              "maxLength": 71,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Artifact Sha256"
+        },
+        "gguf": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GGUFMetadata"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "license_name": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "License Name"
+        },
+        "license_status": {
+          "$ref": "#/$defs/LicenseStatus",
+          "default": "unknown"
+        },
+        "model_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Model Name",
+          "type": "string"
+        },
+        "pooling": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pooling"
+        },
+        "projector": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Projector"
+        },
+        "revision": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Revision",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "generator",
+            "embedding",
+            "reranker"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "runtime": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RuntimeMetadata"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "tokenizer_revision": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tokenizer Revision"
+        }
+      },
+      "required": [
+        "role",
+        "model_name",
+        "revision"
+      ],
+      "title": "ModelLock",
+      "type": "object"
+    },
+    "QualificationRecord": {
+      "additionalProperties": false,
+      "description": "Named test evidence for one model at one code/model/runtime scope.",
+      "properties": {
+        "code_scope": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Code Scope",
+          "type": "string"
+        },
+        "metrics": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "number"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metrics"
+        },
+        "mode": {
+          "enum": [
+            "mock",
+            "live"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "model_scope": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Model Scope",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "runtime_scope": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Runtime Scope",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "pass",
+            "fail",
+            "not_run",
+            "blocked"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "test_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Test Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "test_name",
+        "recorded_at",
+        "code_scope",
+        "model_scope",
+        "runtime_scope",
+        "mode",
+        "status"
+      ],
+      "title": "QualificationRecord",
+      "type": "object"
+    },
+    "RuntimeMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "RuntimeMetadata",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Model lock plus qualification evidence (objective 002-a). Unqualified by default: an unqualified manifest is not proof of a downloaded, pinned or license-approved model.",
+  "properties": {
+    "lock": {
+      "$ref": "#/$defs/ModelLock"
+    },
+    "qualification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/QualificationRecord"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "lock"
+  ],
+  "title": "ModelManifest",
+  "type": "object"
+}

@@ -33,6 +33,35 @@ def live_transcript(root):
         parts[directory]={p.name:p.read_bytes() for p in (root/'oap'/directory).iterdir() if p.is_file()}
     return parts
 
+# Entries omitted from fixture copies: git-ignored, private or heavy locations
+# (virtualenvs, caches, corpora, model artifacts, build output, private env and
+# runtime files). Only owned source/code/governance is copied into disposable
+# fixtures, so a new .venv or later corpus/model cache can never be copied into
+# every fixture or accidentally committed in a temporary test repository
+# (objective 002-a). No real private data is written or deleted by tests.
+COPY_IGNORE_DIRS=('__pycache__','.git','.oap-state','.oap-local','.codex',
+                  '.venv','venv','env','ENV',
+                  '.cache','.pytest_cache','.mypy_cache','.ruff_cache','.hypothesis',
+                  'corpus','models','model-cache','benchmark-private',
+                  'build','dist','wheels')
+COPY_IGNORE_FILES=('.env','runtime.json')
+ENV_FILE_PREFIX='.env.'
+
+def _fixture_ignore(source,names):
+    ignored=set()
+    for name in names:
+        if name in COPY_IGNORE_DIRS or name in COPY_IGNORE_FILES:
+            ignored.add(name); continue
+        if name.startswith(ENV_FILE_PREFIX):
+            ignored.add(name); continue
+        if name=='private' and Path(source).name=='eval':
+            ignored.add(name); continue
+    return ignored
+
+def copy_owned_source(src,dst):
+    """Copy owned source into a fixture, omitting ignored/private/heavy entries."""
+    shutil.copytree(src,dst,ignore=_fixture_ignore)
+
 def run(repo,*args):
     return subprocess.check_output(['git','-C',str(repo),*args],stderr=subprocess.DEVNULL).decode().strip()
 
@@ -45,7 +74,7 @@ class Harness(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory(prefix='oap-fixture-')
         self.base=Path(self.temp.name)
         self.repo=self.base/'répo with spaces'; self.home=self.base/'strategy'
-        shutil.copytree(SOURCE,self.repo,ignore=shutil.ignore_patterns('__pycache__','.git','.oap-state'))
+        copy_owned_source(SOURCE,self.repo)
         # Deterministic synthetic empty OAP transcript/register/state: the fixture
         # must not inherit the live activation, orders, reports or CRITICAL entries
         # (T01). Only this temporary copy is reset; the live worktree stays intact.
@@ -352,6 +381,42 @@ class Harness(unittest.TestCase):
             self.assertEqual(state['human_disposition'],decision); self.assertEqual(state['blocking'],decision!='ACCEPTED')
         self.assertTrue(oap.critical_state(self.repo,self.config)['CRIT-0001']['blocking'])
 
+    def test_source_copy_excludes_ignored_heavy_directories(self):
+        # Boundary: canary ignored content planted in the owned-source fixture
+        # (heavy directories and private files) must not survive the fixture
+        # copy and must never reach the temporary test repository's committed
+        # tree (objective 002-a). Only fixture-owned canary content is written.
+        # The canary is assembled at runtime so its full byte string never
+        # appears in this owned source file (the copy must contain none of it).
+        canary=b'OAP-002-BOUNDARY-CAN' + b'ARY'
+        heavy=[('.venv','pyvenv.cfg'),('corpus','data.bin'),('model-cache','weights.bin'),
+               ('.cache','tmp.bin'),('env','config.toml'),('models','cache.bin'),
+               ('eval/private','secret.txt')]
+        for *parents,name in heavy:
+            path=self.repo.joinpath(*parents,name); path.parent.mkdir(parents=True,exist_ok=True)
+            path.write_bytes(canary)
+        for name in ('.env','.env.local','runtime.json'):
+            (self.repo/name).write_bytes(canary)
+        destination=self.base/'recopy'
+        copy_owned_source(self.repo,destination)
+        for root,dirs,files in os.walk(destination):
+            for directory in dirs:
+                self.assertNotIn(directory,COPY_IGNORE_DIRS,f'ignored directory copied: {directory}')
+            for name in files:
+                self.assertNotIn(canary,(Path(root)/name).read_bytes())
+        for name in ('.env','.env.local','runtime.json'):
+            self.assertFalse((destination/name).exists(),f'private file copied: {name}')
+        self.assertFalse((destination/'eval'/'private').exists(),'eval/private copied into fixture')
+        # Owned source still survives the narrowed copy.
+        for owned in ('oap/README.md','oap/governance/MANIFEST.json',
+                      'src/slaif_raggedized_helper/__init__.py','pyproject.toml',
+                      'uv.lock','.github/workflows/oap.yml','ARCHITECTURE.md',
+                      'tests/oap/test_harness.py'):
+            self.assertTrue((destination/owned).is_file(),f'missing owned path: {owned}')
+        # The fixture's own committed tree contains no canary bytes either.
+        grep=subprocess.run(['git','-C',str(self.repo),'grep','-I','-l',canary.decode()],
+                            capture_output=True,text=True)
+        self.assertEqual(grep.stdout.strip(),'')
 
 class PipeTests(unittest.TestCase):
     def setUp(self):
