@@ -227,12 +227,44 @@ class GeneratorConfig(BaseModel):
         return self
 
 
-# Pinned llama.cpp built-in chat template names (server reference commit
-# 3b4d6ab3f79651935fba1dd93732f29022a7f5f5, `--chat-template` registry). A
-# name in this registry is NOT qualification: offline_diagnostic mode also
-# requires a DirectTemplateQualification record binding the template to a
-# tested build (README /apply-template or pinned-upstream verification).
-PINNED_LLAMA_CHAT_TEMPLATES = ("chatml", "llava", "mistral", "phi-2", "zephyr")
+# Built-in chat template names of the pinned llama.cpp server reference
+# (ggml-org/llama.cpp commit 3b4d6ab3f79651935fba1dd93732f29022a7f5f5,
+# ``--chat-template`` registry). This is a REFERENCE registry copied from the
+# pinned upstream source, not a hard client-side allowlist: a qualified
+# server-rendered identity is the model-metadata default template (Jinja
+# enabled by default on that reference) or an operator-declared Jinja
+# template, and it is rendered by the server through ``/apply-template`` —
+# the client never guesses special tokens or enforces an arbitrary local
+# name list (unknown template names are refused by the server itself, and
+# that refusal is mapped to a safe typed failure). A name in this registry
+# is still NOT qualification: offline_diagnostic mode requires a
+# DirectTemplateQualification record binding the declared template identity
+# to a tested build (README /apply-template or pinned-upstream verification).
+# The reference revision is not the unknown deployed build.
+PINNED_LLAMA_BUILTIN_CHAT_TEMPLATES = (
+    "bailing", "bailing-think", "bailing2", "chatglm3", "chatglm4",
+    "chatml", "command-r", "deepseek", "deepseek-ocr", "deepseek2",
+    "deepseek3", "exaone-moe", "exaone3", "exaone4", "falcon3", "gemma",
+    "gigachat", "glmedge", "gpt-oss", "granite", "granite-4.0",
+    "granite-4.1", "grok-2", "hunyuan-dense", "hunyuan-moe",
+    "hunyuan-vl", "kimi-k2", "llama2", "llama2-sys", "llama2-sys-bos",
+    "llama2-sys-strip", "llama3", "llama4", "megrez", "minicpm",
+    "mistral-v1", "mistral-v3", "mistral-v3-tekken", "mistral-v7",
+    "mistral-v7-tekken", "monarch", "openchat", "orion",
+    "pangu-embedded", "phi3", "phi4", "rwkv-world", "seed_oss",
+    "smolvlm", "solar-open", "vicuna", "vicuna-orca", "yandex",
+    "zephyr",
+)
+
+# The native message closing marker of the gateway-style dialect. A declared
+# TEMPLATE IDENTITY carrying this sequence is refused at config time because
+# formatter provenance must come from the qualified server template (or an
+# actually qualified local renderer), never from a hand-invented delimiter.
+# This is an identity-token rule: it does not ban the literal substring in
+# message content or in a server-rendered prompt (source content is data and
+# is preserved verbatim; template/build qualification — not substring
+# scanning of rendered text — establishes formatter provenance).
+TEMPLATE_IDENTITY_FORBIDDEN_SEQUENCE = "\x3c/tool_call\x3e"
 
 
 
@@ -308,7 +340,10 @@ class DirectTemplateQualification(BaseModel):
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
-    template: str = Field(min_length=1, max_length=64)
+    # The qualified template identity: a declared template name, or None for
+    # the server's model-metadata default template (Jinja enabled on the
+    # pinned reference). None must match a config chat_template of None.
+    template: str | None = Field(default=None, min_length=1, max_length=64)
     build_id: str = Field(min_length=1, max_length=128)
     method: Literal["apply-template", "pinned-upstream"]
     recorded_at: datetime
@@ -338,9 +373,23 @@ class DirectGenerationConfig(BaseModel):
     destination: DirectDestination | None = None
     trusted_policy: Literal["private_trusted"] | None = None
     capabilities: DirectCapabilities = Field(default_factory=DirectCapabilities)
+    # Declared model identity (the operator-declared model/alias of the
+    # private build). Distinct from response text/IDs; the deployed
+    # runtime/GGUF identity stays explicitly unverified. Required for
+    # offline_diagnostic mode; absent means the identity is unknown, not
+    # guessed.
+    model: str | None = Field(default=None, min_length=1, max_length=256)
+    # Declared template identity: a template name (pinned built-in or
+    # operator Jinja template) or None for the server's model-metadata
+    # default template. Rendered by the server via /apply-template; the
+    # client performs no local template rendering (unimplemented local
+    # modes are refused, never claimed qualified).
     chat_template: str | None = Field(default=None, max_length=64)
     template_qualification: DirectTemplateQualification | None = None
     slot_id: int | None = Field(default=None, ge=0)
+    # Explicit finite operator limits for the materialized offline mode:
+    # None is not permission to use an uncapped caller allowance; missing
+    # operator limits refuse before template/generation dispatch.
     max_output_tokens: PositiveInt | None = None
     deadline_seconds: PositiveFiniteFloat | None = None
     max_retries: int = Field(default=0, ge=0, le=3)
@@ -358,10 +407,24 @@ class DirectGenerationConfig(BaseModel):
     @field_validator("chat_template")
     @classmethod
     def _check_template(cls, value: str | None) -> str | None:
-        if value is not None and value not in PINNED_LLAMA_CHAT_TEMPLATES:
+        # None = the server's model-metadata default template (Jinja enabled
+        # on the pinned reference); a name = a declared template identity
+        # (pinned built-in or operator Jinja template). No arbitrary local
+        # name allowlist: the server renders via /apply-template and refuses
+        # unknown templates itself. Only the template IDENTITY token is
+        # constrained here (plain token; the forbidden closing-marker
+        # sequence is not a legal identity because formatter provenance must
+        # come from the qualified server template).
+        if value is None:
+            return None
+        if any(ch.isspace() or ord(ch) < 0x20 or ord(ch) == 0x7F for ch in value):
+            raise ValueError("chat_template must be a plain non-empty token")
+        if "/" in value or value.startswith("."):
+            raise ValueError("chat_template is a template identity, not a path")
+        if TEMPLATE_IDENTITY_FORBIDDEN_SEQUENCE in value:
             raise ValueError(
-                f"chat_template must be a pinned llama.cpp built-in: "
-                f"{sorted(PINNED_LLAMA_CHAT_TEMPLATES)}"
+                "chat_template identity must not carry the native closing "
+                "marker sequence"
             )
         return value
 
@@ -374,15 +437,28 @@ class DirectGenerationConfig(BaseModel):
                 raise ValueError(
                     "offline_diagnostic mode requires the explicit private_trusted policy"
                 )
-            if self.chat_template is None:
-                raise ValueError("offline_diagnostic mode requires a qualified chat_template")
+            if self.model is None:
+                raise ValueError(
+                    "offline_diagnostic mode requires the declared model identity"
+                )
             if self.template_qualification is None:
                 raise ValueError(
                     "offline_diagnostic mode requires a template qualification record"
                 )
             if self.template_qualification.template != self.chat_template:
                 raise ValueError(
-                    "template qualification record does not match the declared chat_template"
+                    "template qualification record does not match the declared "
+                    "chat_template (None is the model-metadata default)"
+                )
+            if self.max_output_tokens is None:
+                raise ValueError(
+                    "offline_diagnostic mode requires the explicit finite operator "
+                    "max_output_tokens (a None limit is not an uncapped allowance)"
+                )
+            if self.deadline_seconds is None:
+                raise ValueError(
+                    "offline_diagnostic mode requires the explicit finite operator "
+                    "deadline_seconds (a None limit is not an uncapped allowance)"
                 )
             if self.slot_id is not None and not self.capabilities.slot_tested:
                 raise ValueError("slot_id requires the tested slot capability")

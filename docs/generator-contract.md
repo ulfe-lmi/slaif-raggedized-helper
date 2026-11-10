@@ -1,14 +1,16 @@
-# Generator transport/gateway contract (003 slice)
+# Generator transport/gateway/native contract (003 slice)
 
-This document describes the ACTUAL behavior of `model_clients/transport.py` and
-`model_clients/gateway.py` as implemented and tested in objective 003
-(branch `oap/003-generator-adapters-and-cache-probes`, PR 5; the 003-b
-transport/gateway slice, the 003-c protocol-validation repair and the
-003-d structural validation closure). It is a
-contract excerpt, not the full architecture. The native direct `/completion`
-adapter and the qualification probes of objective 003 are NOT RUN here and
-remain pending for separately finalized continuations of objective 003;
-nothing in this file claims them.
+This document describes the ACTUAL behavior of `model_clients/transport.py`,
+`model_clients/gateway.py` and `model_clients/direct.py` as implemented and
+tested in objective 003 (branch
+`oap/003-generator-adapters-and-cache-probes`, PR 5; the 003-b
+transport/gateway slice, the 003-c protocol-validation repair, the
+003-d structural validation closure and the 003-e private native
+`/completion` adapter). It is a
+contract excerpt, not the full architecture. The qualification probes and
+live-target evidence of objective 003 are NOT RUN here and remain pending
+for separately finalized continuations of objective 003; nothing in this
+file claims them.
 
 ## Pinned wire dialect
 
@@ -176,12 +178,142 @@ just the hostname), timeout and capability snapshot, plus the explicit
 change it; endpoint port/scheme/model changes do. The deployed runtime/GGUF
 identity remains explicitly unverified in this slice.
 
+## Native direct `/completion` adapter (003-e)
+
+`model_clients/direct.py` (`DirectNativeGenerator`) speaks the pinned
+**non-OAI-compatible** native dialect of `ggml-org/llama.cpp` server
+reference commit `3b4d6ab3f79651935fba1dd93732f29022a7f5f5`
+(`tools/server/README.md` plus the pinned `server-task.cpp` /
+`server-context.cpp` / `server-common.cpp` excerpts). The reference
+revision is a dialect reference, **not** the unknown deployed build; this
+slice pins implementation semantics without live claims. The adapter
+reuses the 003-b bounded transport (same deadline, privacy, redirect,
+retry and cleanup behavior) with the pinned native endpoint resolution
+(`/apply-template`, `/completion` at the configured server base path;
+any reverse-proxy prefix preserved; no other native path resolvable —
+no arbitrary-destination/path proxy).
+
+### Materialization policy (refusal before any network work)
+
+The client materializes only when ALL of the following hold, rechecked at
+call time (a refusal performs zero requests):
+
+- `direct_generation.mode == "offline_diagnostic"` with the explicit
+  `private_trusted` policy declaration;
+- a private/loopback `destination.base_url` (config-validated: private IP
+  / localhost only, no credentials, no query/fragment);
+- the declared `model` identity (the operator-declared model/alias of the
+  private build; absent = unknown, never guessed);
+- a `template_qualification` record matching the declared `chat_template`
+  identity (see below);
+- the explicit finite operator `max_output_tokens` and
+  `deadline_seconds` (a `None` limit is not permission for an uncapped
+  caller allowance; config validation enforces this for the materialized
+  mode and the client rechecks it).
+
+Purpose/shape gates (architecture A22, SECURITY S03): ONLY the
+`annotation` purpose is supported — `answer` is refused (this adapter is
+never an answer fallback after a gateway failure/denial), and every
+visual/image request (purpose, `images` or the `VISION` capability) is
+refused locally before dispatch until a qualified native image
+serializer exists. Streaming control is refused (non-stream slice).
+Prompt caching (`prompt_cache_key` / `PROMPT_CACHING`) requires the
+tested `cache_prompt` capability; the application-level key never appears
+on the native wire (the documented native cache identity is the rendered
+prompt prefix, plus the slot). The output budget uses REFUSAL semantics
+consistent with the gateway: `request.max_output_tokens` above the
+operator limit refuses before dispatch; the accepted request's value is
+exactly the effective `n_predict` (no silent clamp).
+
+### Template rendering: server-rendered, no local rendering
+
+`POST /apply-template` sends exactly `{"messages": [...]}` (no inference,
+no other keys): the trusted `instructions` become the single leading
+`system` message and each ordered `TextItem` (untrusted reference data)
+becomes its own `user` message, preserving item boundaries and order. The
+server renders with its loaded template (model-metadata default with
+Jinja enabled on the pinned reference, or an operator-declared template)
+and returns `{"prompt": str}`. The client performs NO local template
+rendering, never guesses special tokens, and enforces no arbitrary local
+name allowlist: the declared `chat_template` identity is `None` (the
+model-metadata default) or a plain token (pinned built-in or operator
+Jinja template); unknown templates are refused by the SERVER itself and
+that 400 maps to the safe typed failure `template application refused
+(HTTP 400)`. The config `PINNED_LLAMA_BUILTIN_CHAT_TEMPLATES` tuple is the
+actual built-in reference list copied from the pinned upstream source
+(including `mistral-v1/v3/v7`, `phi3`, `phi4`; the previously pinned false
+five-name set is corrected), documented for operator convenience, not a
+client-side allowlist. Formatter provenance comes from the template/build
+qualification record, not from substring scanning: literal technical
+content containing the dialect's closing-marker sequence (`&lt;/tool_call&gt;`,
+the gateway-dialect closing tag that the old hand-written formatter invented)
+as DATA passes through the rendered prompt to `/completion` byte-for-byte
+unchanged (no blanket rejection, no stripping); only the template IDENTITY
+token itself may not carry that sequence.
+
+### `/completion` envelope and supported controls
+
+Exactly these keys (nothing else): `prompt` (the rendered prompt string),
+explicit `n_predict`, `stream: false`, optional caller-set
+`temperature`/`top_p`, the documented `json_schema` grammar control
+(the caller's exact schema for `json_schema`, and `{}` — the pinned
+reference's any-JSON form — for the `json_object` semantic),
+`cache_prompt: true` ONLY when the `cache_prompt` capability was tested
+on the build, and singular `id_slot` ONLY when the slot capability was
+tested (configured slot; invented `slot_ids` and any untested control
+cannot appear). Unsupported requested behavior is refused locally before
+the envelope is built — never silently ignored.
+
+### Outcome mapping (fail-closed, pinned dialect)
+
+Only `stop: true` + `truncated: false` + `stop_type: "eos"` + usable
+nonempty `content` produces TERMINAL. Everything else is a non-success:
+`stop_type: "limit"` (n_predict reached), `truncated: true` (context
+exceeded), `stop_type: "none"` (still generating) and `stop != true` map
+to INCOMPLETE; a missing/invalid terminal reason (null/non-string/unknown
+`stop_type`), a non-string `content`, an explicit server `error` object,
+and an UNQUALIFIED `stop_type: "word"` terminal (this adapter sends no
+stop strings) map to FAILED. Invalid UTF-8/JSON (including the
+interpreter integer digit-limit rejection of oversized JSON integers,
+which the native parse guards with the same narrow
+`ValueError`/`RecursionError` boundary as the gateway non-stream parse)
+and HTTP 4xx/5xx produce safe typed failures. Provider bodies, messages
+and exception text are never echoed (canary-tested).
+
+### Metric mapping (pinned source; unknowns stay null)
+
+Mapped only from the dialect's actual reported fields:
+`usage.input_tokens` <- top-level `tokens_evaluated`
+(`slot.task->n_tokens()`, the task's total prompt tokens);
+`usage.prefill_tokens` <- `timings.prompt_n` (`n_prompt_processed`,
+prompt tokens actually evaluated for this request — never substituted
+with the total/submitted count); `usage.cache_hit_tokens` <-
+`timings.cache_n` (`n_prompt_cached`); `usage.output_tokens` <-
+`timings.predicted_n` (`n_gen`). Top-level `tokens_cached` is the SLOT's
+resulting `prompt.n_tokens()` (prompt + generated) — NOT the cache hits
+of this request — and is never substituted for `timings.cache_n`; the
+synthetic 100-submitted (10 new / 90 cached) + 12-generated case with
+`tokens_cached` reporting 112 preserves all four facts distinctly
+(unit- and loopback-tested). Counters are validated as finite
+nonnegative numbers without accepting bool/NaN/infinity; a measured zero
+millisecond timing is null in the positive-only contract type. Model
+timings map only from `timings.prompt_ms`/`timings.predicted_ms` (ms ->
+s): `ttft_seconds` <- `prompt_ms/1000` (the first generated token cannot
+precede prompt processing) and `total_seconds` <-
+`(prompt_ms + predicted_ms)/1000`; caller wall time never mixes in.
+Undocumented/old-build fields stay null. The declared identity
+(`direct_backend_fingerprint`) hashes adapter kind, dialect, reference
+commit, declared model, credential-free endpoint identity, declared
+template identity + build evidence, operator limits and the capability
+snapshot, plus `runtime_identity: "unverified"`; request IDs and response
+text never change it.
+
 ## Exact test commands (offline, synthetic)
 
 ```sh
 uv sync --locked
-uv run pytest tests/integration -q     # transport + gateway loopback suites
-uv run pytest tests/unit -q            # foundation regressions
+uv run pytest tests/integration -q     # transport + gateway + native loopback suites
+uv run pytest tests/unit -q            # foundation + native mapping regressions
 python3 -m unittest discover -s tests/oap -v
 python3 oap/bin/check_state.py --repo-root .
 uv run ruff check src tests/unit tests/integration
@@ -212,9 +344,26 @@ item-done-closes-open-parts part lifecycle, and actual-HTTP regressions
 for all six strategic structural variants plus the incremental
 review observations.
 
-NOT RUN / pending: the native direct `/completion` adapter and its
-cache/slot behavior, live gateway/model traffic, qualification probes, and
-hardware evidence. The whole of objective 003 remains unresolved until that
-scope is proved; this slice is not acceptance or readiness for objective
-003, and the certifi (MPL-2.0) dependency gate recorded in
+Proven for the 003-e native slice (synthetic loopback + pinned-dialect
+fixtures): materialization/purpose/shape refusals with zero dispatch,
+exact `/apply-template` message serialization (trusted system / ordered
+user data), literal-marker content forwarded unchanged to `/completion`
+(no substring scanning), exact minimal and controlled `/completion`
+envelopes (json_schema grammar forms, tested-only cache_prompt/id_slot,
+invented controls impossible), refusal-vs-clamp output budget, one total
+deadline spanning template work + generation + retries (pre-inference
+expiry refuses the dispatch), finite pre-dispatch-only retry, unknown
+completion non-retryable, the full stop-terminal matrix
+(limit/truncated/still-generating/not-stopped/empty-content never
+TERMINAL; unqualified stop-word and invalid reasons FAILED), the synthetic
+distinct-facts metric case (100/10/90/12 with tokens_cached 112),
+bool/NaN/infinity and malformed-counter refusal, canary safety and
+declared-identity stability.
+
+NOT RUN / pending: qualification probes and live-target evidence for the
+native dialect (the pinned reference is not the unknown deployed build),
+direct caching effectiveness on a real build, live gateway/model traffic,
+and hardware evidence. The whole of objective 003 remains unresolved until
+that scope is proved; this slice is not acceptance or readiness for
+objective 003, and the certifi (MPL-2.0) dependency gate recorded in
 THIRD_PARTY_NOTICES remains an open human question.

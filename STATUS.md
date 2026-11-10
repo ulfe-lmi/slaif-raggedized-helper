@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-10)
 
-- Active objective: 003-d (structural validation closure), open on PR #5,
+- Active objective: 003-e (private native generator), open on PR #5,
   branch oap/003-generator-adapters-and-cache-probes; live PR/CI/merge
   state is queried on GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
@@ -77,14 +77,33 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   CONTINUE/NOT_ACCEPTED at the 003-c report candidate (six supplied-null /
   part-coordinate / item-type / done-latch / reasoning-status variants
   still produced TERMINAL).
-- 003-d (current round): structural validation closure of the shared
-  coordinate and item-lifecycle invariants behind those six variants
-  (supplied-null vs absent coordinates, bounded sequential content-part
-  numbering bound to final part positions, item type/identity freeze
-  added through done/final, latched item completion, per-type terminal
-  done status), actual-HTTP regressions, scoped docs; whole-003 native /
+- 003-d: structural validation closure of the shared coordinate and
+  item-lifecycle invariants behind those six variants (supplied-null vs
+  absent coordinates, bounded sequential content-part numbering bound to
+  final part positions, item type/identity freeze added through done/
+  final, latched item completion, per-type terminal done status),
+  actual-HTTP regressions, scoped docs.
+- 003-e (current round): the private trusted OFFLINE native llama.cpp
+  `/completion` adapter (model_clients/direct.py): explicit
+  offline_diagnostic materialization policy (private/loopback destination,
+  private_trusted, declared model identity, template qualification,
+  explicit finite operator limits), annotation-only purpose with visual/
+  image and answer refusals before any network work, server-rendered
+  templates through the pinned `/apply-template` contract (no local
+  rendering, no local name allowlist; corrected pinned reference
+  template registry), exact bounded `/completion` envelopes with
+  tested-only cache_prompt/id_slot, one total deadline spanning template
+  work + generation + retries (pre-inference expiry refuses), finite
+  pre-dispatch-only retry, the fail-closed stop-terminal matrix (stop=true
+  is stopped, not successful; only eos with usable content succeeds),
+  metric mapping from the pinned dialect's actual reported fields
+  (tokens_cached is the slot prompt total, never a cache-hit
+  substitute), actual-HTTP loopback regressions, the narrow
+  JSON-integer-digit-limit ValueError guard at the gateway non-stream
+  parse with actual-HTTP regressions (in-process and a controlled-limit
+  isolated subprocess), regenerated JSON schema and scoped docs. Whole-003
   probe / live qualification remains pending.
-- The native direct `/completion` adapter and qualification probes of
-  objective 003 remain pending (separately finalized continuations of the
-  same PR). Objective 003 as a whole is unresolved, not merged, not
-  deployed; no model, GPU, live route or service change.
+- The qualification probes and live-target evidence of objective 003
+  remain pending (separately finalized continuations of the same PR).
+  Objective 003 as a whole is unresolved, not merged, not deployed; no
+  model, GPU, live route or service change.

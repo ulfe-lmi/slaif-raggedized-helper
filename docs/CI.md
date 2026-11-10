@@ -45,8 +45,10 @@ so the suite passes from an active checkout as well as a clean clone.
 6. `uv run pytest tests/unit -q` runs the real product tests; pytest exits 5 on empty
    discovery, so the suite cannot be falsely green.
 7. `uv run pytest tests/integration -q` runs the real controlled HTTP/SSE behavior
-   tests (objective 003-b) against owned loopback fixtures with synthetic keys
-   (see TESTING.md T06 and docs/generator-contract.md); same clean locked install.
+   tests (objective 003: 003-b transport/gateway, 003-c/d protocol validation,
+   003-e native direct adapter) against owned loopback fixtures with synthetic
+   keys (see TESTING.md T06 and docs/generator-contract.md); same clean locked
+   install.
 8. The existing OAP test suite and governance check run on the same clean checkout.
 9. `uv run raggedized --help` (offline) and `raggedized doctor` on the shipped example:
    the step asserts exit code 1, `config: valid`, `readiness: not_ready` and the

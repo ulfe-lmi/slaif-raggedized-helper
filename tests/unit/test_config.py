@@ -195,6 +195,119 @@ def test_direct_online_generation_refused():
         cfg.RaggedizedConfig.model_validate(data)
 
 
+# ---------------------------------------------------------------------------
+# native direct configuration (003-e: reference registry, template identity)
+# ---------------------------------------------------------------------------
+
+def test_pinned_reference_registry_matches_upstream_source():
+    """The reference registry is the actual pinned 3b4d6ab --chat-template
+    list: versioned mistral/phi entries present, the false five-name set
+    (llava / bare mistral / phi-2) absent."""
+    names = cfg.PINNED_LLAMA_BUILTIN_CHAT_TEMPLATES
+    for name in ("mistral-v1", "mistral-v3", "mistral-v7", "phi3", "phi4",
+                 "chatml", "zephyr", "llama3"):
+        assert name in names
+    for name in ("llava", "mistral", "phi-2"):
+        assert name not in names
+    assert len(names) == len(set(names))
+
+
+def _direct_offline(**overrides):
+    from datetime import datetime, timezone
+
+    direct = {
+        "mode": "offline_diagnostic",
+        "destination": {"base_url": "http://127.0.0.1:8080"},
+        "trusted_policy": "private_trusted",
+        "model": "synthetic-qwen",
+        "chat_template": None,
+        "template_qualification": {
+            "template": None,
+            "build_id": "b1",
+            "method": "apply-template",
+            "recorded_at": datetime.now(timezone.utc).isoformat(),
+        },
+        "max_output_tokens": 64,
+        "deadline_seconds": 30.0,
+    }
+    direct.update(overrides)
+    return cfg.DirectGenerationConfig.model_validate(direct)
+
+
+def test_model_metadata_default_template_is_supported():
+    """chat_template None = the server's model-metadata default template
+    (Jinja enabled on the pinned reference); the qualification record must
+    carry the matching None identity."""
+    config = _direct_offline()
+    assert config.chat_template is None
+    assert config.template_qualification.template is None
+
+
+def test_operator_jinja_template_name_is_not_allowlisted():
+    """No arbitrary local-name allowlist: a declared operator Jinja
+    template identity outside the reference registry is valid config; the
+    server renders it via /apply-template and refuses unknown templates
+    itself (the name is an identity, not a local renderer claim)."""
+    config = _direct_offline(
+        chat_template="my-project-jinja-template",
+        template_qualification={"template": "my-project-jinja-template",
+                                "build_id": "b1", "method": "apply-template",
+                                "recorded_at": "2026-11-10T00:00:00+00:00"},
+    )
+    assert config.chat_template == "my-project-jinja-template"
+    # a pinned reference built-in remains a valid declared identity too
+    config = _direct_offline(
+        chat_template="mistral-v3",
+        template_qualification={"template": "mistral-v3",
+                                "build_id": "b1", "method": "apply-template",
+                                "recorded_at": "2026-11-10T00:00:00+00:00"},
+    )
+    assert config.chat_template == "mistral-v3"
+
+
+@pytest.mark.parametrize(
+    "bad_template",
+    [
+        "has space",
+        "with\ttab",
+        "path/to/template",
+        "./relative",
+        "close" + chr(60) + "/tool_call" + chr(62) + "marker",  # the native closing-marker sequence
+    ],
+)
+def test_template_identity_token_rules(bad_template):
+    with pytest.raises(ValidationError):
+        _direct_offline(
+            chat_template=bad_template,
+            template_qualification={"template": bad_template, "build_id": "b1",
+                                    "method": "apply-template",
+                                    "recorded_at": "2026-11-10T00:00:00+00:00"},
+        )
+
+
+def test_qualification_must_match_declared_template_identity():
+    with pytest.raises(ValidationError, match="does not match"):
+        _direct_offline(
+            chat_template="mistral-v3",
+            template_qualification={"template": "zephyr", "build_id": "b1",
+                                    "method": "apply-template",
+                                    "recorded_at": "2026-11-10T00:00:00+00:00"},
+        )
+    # a named declaration must not be qualified by the model-default record
+    with pytest.raises(ValidationError, match="does not match"):
+        _direct_offline(
+            chat_template="mistral-v3",
+            template_qualification={"template": None, "build_id": "b1",
+                                    "method": "apply-template",
+                                    "recorded_at": "2026-11-10T00:00:00+00:00"},
+        )
+
+
+def test_offline_diagnostic_requires_declared_model_identity():
+    with pytest.raises(ValidationError, match="model identity"):
+        _direct_offline(model=None)
+
+
 def test_implicit_degradation_rejected():
     data = base_config()
     data["generator"]["fallback"] = "smaller-context"

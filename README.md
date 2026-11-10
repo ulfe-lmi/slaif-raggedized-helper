@@ -7,10 +7,13 @@ architecture, a tested concentrated OAP scaffold, the foundation package
 contracts, model lock/qualification schemas and an offline `raggedized doctor`
 command, and — open on PR #5 (branch `oap/003-generator-adapters-and-cache-probes`,
 not merged) — the gateway `POST /v1/responses` generator adapter with bounded
-HTTP/SSE transport and real loopback integration tests
-([docs/generator-contract.md](docs/generator-contract.md)). The native direct
-adapter and qualification probes of objective 003 remain pending; snapshot/agent
-layers and hardware qualification are not implemented yet.
+HTTP/SSE transport, the private offline native llama.cpp `/completion` adapter
+(explicit offline-diagnostic policy, server-rendered templates via
+`/apply-template`, truthful native stop/metric mapping) and real loopback
+integration tests ([docs/generator-contract.md](docs/generator-contract.md)).
+The qualification probes and live-target evidence of objective 003 remain
+pending; snapshot/agent layers and hardware qualification are not implemented
+yet.
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.

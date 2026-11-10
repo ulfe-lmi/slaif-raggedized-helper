@@ -44,6 +44,8 @@ validation, all at generator level over real loopback HTTP):
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import time
 
 import pytest
@@ -1944,3 +1946,150 @@ def test_stream_reasoning_plus_message_valid_succeeds(server):
     assert result.text == text
     assert srv.paths == ["/v1/responses"]
     assert srv.count("/v1/responses") == 1
+
+
+# ---------------------------------------------------------------------------
+# expected JSON decoder failures (003-e prerequisite: oversized integer)
+# ---------------------------------------------------------------------------
+
+def _big_integer_completed_body(digits: int) -> bytes:
+    """A completed top-level response whose usage input_tokens is a
+    ``digits``-digit JSON integer (well inside the transport byte bounds)."""
+    doc = {
+        "id": "r1", "status": "completed",
+        "output": [{"id": "m1", "type": "message", "role": "assistant",
+                    "status": "completed",
+                    "content": [{"type": "output_text", "text": "answer"}]}],
+    }
+    body = json.dumps(doc).encode()[:-1]
+    return body + b',"usage":{"input_tokens":' + b"9" * digits + b'}}'
+
+
+def test_non_stream_excessive_integer_digits_safe_refusal(server):
+    """A 5000-digit usage integer exceeds the observed interpreter digit
+    limit (4300): json.loads raises a plain ValueError (not a
+    JSONDecodeError). The narrow guard at the non-stream parse call maps
+    it to a safe typed failure — never a raw exception escaping the
+    generator boundary, exactly one POST, no salvage. On an interpreter
+    whose limit accepts the digits, the same wire bytes parse validly and
+    must produce the normal validated terminal (still one POST)."""
+    body = _big_integer_completed_body(5000)
+
+    def scenario(h, r):
+        h._send_raw(200, body, "application/json")
+
+    srv = server(scenario)
+    result = make_generator(make_config(srv.url)).generate(make_request())
+    assert srv.count("/v1/responses") == 1
+    limit = sys.get_int_max_str_digits()
+    if limit is not None and 5000 > limit:
+        assert result.outcome is CompletionOutcome.FAILED
+        assert "not valid JSON" in (result.error or "")
+        assert result.text is None
+    else:  # interpreter limit accepts the digits: validated terminal
+        assert result.outcome is CompletionOutcome.TERMINAL
+        assert result.text == "answer"
+        assert result.usage is not None and result.usage.input_tokens == int(b"9" * 5000)
+
+
+def _json_accepts(body: bytes) -> bool:
+    try:
+        json.loads(body)
+        return True
+    except (ValueError, RecursionError):
+        return False
+
+
+# Isolated subprocess: a controlled SUPPORTED digit limit (640, the CPython
+# minimum) makes the rejection deterministic regardless of the host
+# interpreter's default; the production/global interpreter limit is never
+# changed in the main test process.
+_DECIDER_SUBPROCESS = r"""
+import json
+import sys
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+sys.set_int_max_str_digits(640)
+
+from slaif_raggedized_helper.config import GeneratorConfig, RouteConfig
+from slaif_raggedized_helper.model_clients.gateway import GatewayGenerator
+from slaif_raggedized_helper.schema import (
+    GeneratorPurpose, GeneratorRequest, ModelIdentity, TextItem,
+)
+
+assert sys.get_int_max_str_digits() == 640
+
+raw = (json.dumps({"id": "r1", "status": "completed", "output": [{
+    "id": "m1", "type": "message", "role": "assistant", "status": "completed",
+    "content": [{"type": "output_text", "text": "answer"}]}]})[:-1]
+    + ',"usage":{"input_tokens":' + "9" * 1000 + "}}").encode()
+
+seen = []
+
+class Handler(BaseHTTPRequestHandler):
+    protocol_version = "HTTP/1.1"
+
+    def log_message(self, *args):
+        pass
+
+    def do_POST(self):
+        self.rfile.read(int(self.headers.get("content-length") or 0))
+        seen.append(self.path)
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(raw)))
+        self.send_header("Connection", "close")
+        self.end_headers()
+        self.wfile.write(raw)
+
+httpd = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+httpd.daemon_threads = True
+threading.Thread(target=httpd.serve_forever, daemon=True).start()
+
+# the 1000-digit literal must be rejected by the controlled limit
+try:
+    json.loads(raw)
+    rejected = False
+except ValueError:
+    rejected = True
+assert rejected, "controlled limit did not reject the 1000-digit integer"
+
+config = GeneratorConfig(route=RouteConfig(
+    base_url="http://127.0.0.1:%d" % httpd.server_address[1],
+    model="synthetic", timeout_seconds=2),
+    context_expected_tokens=1000, output_reserve_tokens=64,
+    deadline_seconds=5, max_retries=0)
+request = GeneratorRequest(request_id="review", purpose=GeneratorPurpose.ANSWER,
+    items=[TextItem(text="synthetic")], model=ModelIdentity(name="synthetic"),
+    max_output_tokens=8, deadline_seconds=3)
+try:
+    result = GatewayGenerator(config).generate(request)
+    observation = {"outcome": result.outcome.value, "error": result.error,
+                   "text": result.text}
+except Exception as exc:  # a raw escape is the failure this test prevents
+    observation = {"raw_exception": type(exc).__name__}
+observation["posts"] = list(seen)
+print(json.dumps(observation))
+httpd.shutdown()
+httpd.server_close()
+"""
+
+
+def test_non_stream_decoder_digit_limit_controlled_subprocess():
+    """Isolated subprocess with the controlled supported digit limit (640):
+    a 1000-digit usage integer is an EXPECTED decoder failure. The narrow
+    ValueError guard at the non-stream parse call maps it to a safe typed
+    failure (exactly one POST, no raw exception) on any host interpreter,
+    without changing the production/global interpreter limit here."""
+    completed = subprocess.run(
+        [sys.executable, "-c", _DECIDER_SUBPROCESS],
+        capture_output=True, text=True, timeout=60,
+    )
+    assert completed.returncode == 0, completed.stderr
+    observation = json.loads(completed.stdout.strip().splitlines()[-1])
+    assert "raw_exception" not in observation
+    assert observation["posts"] == ["/v1/responses"]
+    assert observation["outcome"] == "failed"
+    assert "not valid JSON" in (observation["error"] or "")
+    assert observation["text"] is None

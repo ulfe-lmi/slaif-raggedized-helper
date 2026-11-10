@@ -1,0 +1,36 @@
+{
+  "round": "003-d",
+  "objective": "003",
+  "status": "FINAL",
+  "decision": "CONTINUE",
+  "strategic_result": "STRUCTURAL_SCOPE_VERIFIED; EXISTING_JSON_REPAIR_REQUIRED_FOR003",
+  "pr": 5,
+  "implementation": "8e96b0cd50d186ef11e159906d376117488a90ac",
+  "report_commit": "af87bcc16dfb252d71f8f909c0a770c5058de853",
+  "report_sha256": "02f8bb5a9d06ee9eb18595019da20be0f27c8d870389fb83070274397feedf1a",
+  "final_head_ci": "Implementation8e96b0c run42764635506 all5SUCCESS; reportaf87bcc run42765057169 all5SUCCESS (last05:56:19Z)",
+  "actual_progress": "Shared coordinate presence/type checks, sequential explicit part binding, supported type/identity freeze at added/done/final, done latch and supported-type terminal status now work. Unchanged13actualHTTPcases allcorrect; independentfullgateway118PASS; currentimplall5CIgreen. Byte-unit documentation corrected. Additional8e96b0ctypeguardfix independentlyverified: malformedaddedtypes{}[]nowFAILED; full16POSToutputhasnorawTypeError. Parentclosedpartsemanticsdocumentedexplicitlyandconsistentwithreview; no unsupportedstrictCodexgate.",
+  "blocking_acceptance_defects": [
+    "Nonstream within-size JSON with5000-digit usage integer leaks plainValueError from json.loads; expected payload decoder error is not covered by its JSONDecodeError-only ValueError subtype guard"
+  ],
+  "independent_reproduction": "16POSTat8e96b0c fixesbothunhashableaddedtypevalues andoriginal13. New1POSTJSONnumberoracle ataf87bcc, limit4300/5000digits, decoder_rejects=true, rawValueError; expectedinputerrorguardrequired. Alloraclesareownedloopback, no live models/services.",
+  "next": "003-e private native adapter, with mandatory existingnonstreamValueError guard+actualHTTP regression before native implementation. Added-type guard already proved fixed and must not be reimplemented. SamePR/full003gate; no numericadvance/merge.",
+  "strongest_reason_not_to_merge": "Original003native/probe scope remains pending and independently reproduced plainJSONdecoderValueError still escapes the safe GeneratorClient boundary. Requirednarrowrepair carried intoE before native work, not waived.",
+  "review_sources": [
+    "audit/003-d-incremental-review.md",
+    "drafts/003-e-private-native-generator.md"
+  ],
+  "scope_fidelity": "Original architecture2/A01-A40 and fullMVP remain in scope. No D1/CRITICAL waiver, license exception, runtime qualification or deployment claim. Earlier reports stay immutable.",
+  "reported_result": "COMPLETE",
+  "consumed_response": {
+    "identifier": "003-d",
+    "pr": 5,
+    "implementation": "8e96b0cd50d186ef11e159906d376117488a90ac",
+    "report_commit": "af87bcc16dfb252d71f8f909c0a770c5058de853",
+    "report_sha256": "02f8bb5a9d06ee9eb18595019da20be0f27c8d870389fb83070274397feedf1a",
+    "verified_at": "2026-11-10T05:56:19.346685+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "recorded_at": "2026-11-10T06:01:28.066159+00:00",
+  "verified": "UniqueopenPR5/currentaf87bcc/base93b4317; report-onlySELFsoleparent8e96b0c/remoteexactbyteshash verified; all5finalchecks. Original13HTTPcasescorrect;16POSTextendedunhashabletypesnowFAILED; declaredparentclosuresemanticsdocumented, no false strictprofilegate. Reportcounts236product=156integration+80unit+separate41OAP nowcorrect."
+}

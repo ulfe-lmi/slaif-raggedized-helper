@@ -156,6 +156,20 @@
           "title": "Mode",
           "type": "string"
         },
+        "model": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
         "slot_id": {
           "anyOf": [
             {
@@ -221,14 +235,21 @@
           "type": "string"
         },
         "template": {
-          "maxLength": 64,
-          "minLength": 1,
-          "title": "Template",
-          "type": "string"
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template"
         }
       },
       "required": [
-        "template",
         "build_id",
         "method",
         "recorded_at"

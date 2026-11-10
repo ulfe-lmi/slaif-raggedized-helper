@@ -174,6 +174,10 @@ class RecordingServer:
     def paths(self) -> list[str]:
         return self.state.paths
 
+    @property
+    def requests(self) -> list[RecordedRequest]:
+        return self.state.requests
+
     def count(self, path: str) -> int:
         return self.state.count(path)
 

@@ -819,9 +819,15 @@ def _parse_non_stream(body: bytes, request: GeneratorRequest,
                                 error="provider response is not valid UTF-8")
     try:
         doc = json.loads(text)
-    except (json.JSONDecodeError, RecursionError):
-        # RecursionError: nesting beyond the interpreter limit inside the
-        # transport byte bounds is malformed input, never a crash.
+    except (ValueError, RecursionError):
+        # json.JSONDecodeError is a ValueError subtype, and the interpreter
+        # integer digit limit (sys.get_int_max_str_digits; 4300 on the
+        # observed interpreters) rejects oversized JSON integers with a
+        # plain ValueError. The expected decoder failure class is therefore
+        # ValueError; the guard is scoped to this parse call only, so
+        # programming errors elsewhere still propagate. RecursionError:
+        # nesting beyond the interpreter limit inside the transport byte
+        # bounds is malformed input, never a crash.
         return _terminal_result(request, CompletionOutcome.FAILED,
                                 backend_fingerprint=backend_fingerprint,
                                 error="provider response is not valid JSON")

@@ -137,6 +137,30 @@ def _origin(base_url: str) -> str:
     return urlunsplit((parts.scheme, parts.netloc, "", "", ""))
 
 
+# Pinned native llama.cpp server endpoints (reference commit 3b4d6ab
+# tools/server/README.md). They are served by the server at its base path;
+# no other native path is resolvable by this transport (no arbitrary
+# destination/path proxy).
+NATIVE_PINNED_PATHS = ("/apply-template", "/completion")
+
+
+def resolve_native_endpoint_url(base_url: str, path: str) -> str:
+    """Resolve the absolute request URL for one pinned native server path.
+
+    The pinned native dialect serves ``/apply-template`` and ``/completion``
+    at the server's base path. Any configured reverse-proxy prefix is
+    preserved by simple deterministic concatenation (``origin + base_path
+    + path``); there is no version segment to resolve, and any other path
+    is refused rather than guessed. httpx base-URL path joining is
+    deliberately not relied on (same rule as the gateway contract).
+    """
+    if path not in NATIVE_PINNED_PATHS:
+        raise TransportConfigError("unsupported native endpoint path")
+    parts = urlsplit(base_url)
+    base_path = parts.path.rstrip("/")
+    return _origin(base_url) + base_path + path
+
+
 def resolve_endpoint_url(base_url: str, path: str) -> str:
     """Resolve the absolute request URL for one gateway ``path``.
 
@@ -607,20 +631,33 @@ class GatewayTransport:
         max_response_bytes: int = DEFAULT_MAX_RESPONSE_BYTES,
         max_sse_event_bytes: int = DEFAULT_MAX_SSE_EVENT_BYTES,
         max_stream_bytes: int = DEFAULT_MAX_STREAM_BYTES,
+        endpoint_contract: str = "v1-responses",
     ) -> None:
+        if endpoint_contract not in ("v1-responses", "native"):
+            raise TransportConfigError("unknown endpoint contract")
         if not math.isfinite(timeout_seconds) or timeout_seconds <= 0:
             raise TransportConfigError("timeout_seconds must be finite and positive")
         if max_response_bytes <= 0 or max_sse_event_bytes <= 0 or max_stream_bytes <= 0:
             raise TransportConfigError("response/stream byte bounds must be positive")
         self.base_url = validate_destination_url(base_url.rstrip("/"))
-        # Fail closed on a base path this pinned contract cannot interpret
-        # (root or .../v1); see resolve_endpoint_url.
-        resolve_endpoint_url(self.base_url, "/v1/responses")
+        self.endpoint_contract = endpoint_contract
+        if endpoint_contract == "v1-responses":
+            # Fail closed on a base path this pinned contract cannot
+            # interpret (root or .../v1); see resolve_endpoint_url.
+            resolve_endpoint_url(self.base_url, "/v1/responses")
+        else:
+            for path in NATIVE_PINNED_PATHS:
+                resolve_native_endpoint_url(self.base_url, path)
         self.timeout_seconds = float(timeout_seconds)
         self.api_key = api_key
         self.max_response_bytes = int(max_response_bytes)
         self.max_sse_event_bytes = int(max_sse_event_bytes)
         self.max_stream_bytes = int(max_stream_bytes)
+
+    def _resolve(self, path: str) -> str:
+        if self.endpoint_contract == "v1-responses":
+            return resolve_endpoint_url(self.base_url, path)
+        return resolve_native_endpoint_url(self.base_url, path)
 
     # -- non-streaming ------------------------------------------------------
     def post_json(
@@ -643,7 +680,7 @@ class GatewayTransport:
         if deadline is not None and time.monotonic() >= deadline:
             raise TransportTimeoutError("deadline already expired before dispatch",
                                         dispatched=False)
-        endpoint = resolve_endpoint_url(self.base_url, path)
+        endpoint = self._resolve(path)
         state = {"sent": False}
         headers = {"accept": "application/json"}
         if self.api_key:
@@ -708,7 +745,7 @@ class GatewayTransport:
         Pre-dispatch failures (and an already-expired deadline) raise here;
         header/body failures surface while iterating the frames.
         """
-        endpoint = resolve_endpoint_url(self.base_url, path)
+        endpoint = self._resolve(path)
         handle = _AsyncStreamHandle(
             endpoint,
             body,

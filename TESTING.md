@@ -23,11 +23,16 @@ workflow `CI` (.github/workflows/oap.yml, see docs/CI.md) runs the OAP-scaffold 
 OAP checks and lint from a clean checkout (Python 3.12/3.14). Required final-head checks are
 read from live policy; zero checks never means product verification has passed.
 
-T06. Real controlled HTTP/SSE behavior tests (objective 003-b): `uv run pytest
-tests/integration -q` runs the transport and gateway suites against owned 127.0.0.1 loopback
-servers that record exact path/headers/body; unique synthetic API-key canaries only. Still
-synthetic and offline: no external network, product services, real keys, GPU or model
-downloads. They prove wire-path resolution, total-deadline/retry/UNKNOWN_COMPLETION semantics,
-literal SSE byte parsing, bounded queue backpressure, cancellation and the pinned Responses
-dialect (see docs/generator-contract.md). The product CI job runs them alongside tests/unit
-and product lint from a clean locked install.
+T06. Real controlled HTTP/SSE behavior tests (objective 003): `uv run pytest
+tests/integration -q` runs the transport, gateway and native direct suites against
+owned 127.0.0.1 loopback servers that record exact path/headers/body; unique
+synthetic API-key canaries only. Still synthetic and offline: no external network,
+product services, real keys, GPU or model downloads. They prove wire-path
+resolution, total-deadline/retry/UNKNOWN_COMPLETION semantics, literal SSE byte
+parsing, bounded queue backpressure, cancellation, the pinned Responses dialect
+(003-b/c/d) and the pinned native `/apply-template` + `/completion` dialect
+(003-e: exact envelopes, server-rendered template contract including literal
+untrusted content forwarded unchanged, tested-only cache/slot controls, the
+stop-terminal matrix, distinct-facts metric mapping and refusal zero-dispatch;
+see docs/generator-contract.md). The product CI job runs them alongside
+tests/unit and product lint from a clean locked install.
