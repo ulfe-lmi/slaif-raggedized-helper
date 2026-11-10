@@ -169,3 +169,72 @@ def test_cancellation_and_safe_error():
     with pytest.raises(ParityError) as exc:
         analyze(r)
     assert "private" not in str(exc.value)
+
+
+def test_output_binds_rows_vectors_criteria_and_declared_space():
+    original = request()
+    result = analyze(original)
+    fingerprint = result["input_fingerprint"]
+    assert len(fingerprint) == 64
+    assert result["queries"][0]["input_digest"] == D
+    assert result["queries"][0]["representation_digest"] == D
+    assert result["paired_vectors"][0]["input_digest"] == D
+    assert result["paired_vectors"][0]["representation_digest"] == D
+
+    for change in (
+        lambda r: r["queries"][0]["vector"].__setitem__(0, 2),
+        lambda r: r["reference_corpus"][0]["vector"].__setitem__(0, 2),
+        lambda r: r["candidate_corpus"][0]["vector"].__setitem__(0, 2),
+        lambda r: r["queries"][0].update(input_digest="b" * 64),
+        lambda r: r["queries"][0].update(representation_digest="b" * 64),
+        lambda r: r["queries"][0].update(relevant_ids=["b"]),
+        lambda r: r.update(k=2),
+        lambda r: r.update(cosine_tolerance=0.02),
+        lambda r: r.update(score_tolerance=0.2),
+    ):
+        modified = copy.deepcopy(original)
+        change(modified)
+        assert analyze(modified)["input_fingerprint"] != fingerprint
+    modified = copy.deepcopy(original)
+    for corpus in ("reference_corpus", "candidate_corpus"):
+        next(x for x in modified[corpus] if x["id"] == "a")["input_digest"] = "b" * 64
+    assert analyze(modified)["input_fingerprint"] != fingerprint
+    modified = copy.deepcopy(original)
+    for key in ("reference", "candidate"):
+        modified[key]["definition"]["checkpoint_revision"] = "r2"
+    assert analyze(modified)["input_fingerprint"] != fingerprint
+
+
+def test_fingerprint_permutations_and_storage_provenance():
+    r = request()
+    r["queries"].append(row("q2", [-1, 1], relevant_ids=["b", "a"]))
+    expected = analyze(r)
+    r["queries"].reverse()
+    r["queries"][0]["relevant_ids"].reverse()
+    r["reference_corpus"].reverse()
+    r["candidate_corpus"].reverse()
+    assert analyze(r) == expected
+    assert expected["candidate_storage"] == {
+        "required_target_dtype": "fp32",
+        "supplied_dtype": None,
+        "observed_dtype": None,
+        "provenance": "unavailable",
+    }
+    assert "candidate_storage_dtype" not in expected
+    assert expected["evidence"] == "SUPPLIED_UNVERIFIED"
+    assert expected["qualification"] == "NOT_QUALIFIED"
+    r["candidate_storage_dtype"] = "fp32"
+    with pytest.raises(ParityError, match="invalid_shape"):
+        analyze(r)
+
+
+def test_extreme_vectors_do_not_claim_fp32_storage():
+    r = request()
+    r["queries"][0]["vector"] = [1e-200, 0]
+    for corpus in ("reference_corpus", "candidate_corpus"):
+        for item in r[corpus]:
+            item["vector"] = [1e200, 0]
+    result = analyze(r)
+    assert result["queries"][0]["scores"][0]["candidate_score"] == pytest.approx(1)
+    assert result["candidate_storage"]["supplied_dtype"] is None
+    assert result["candidate_storage"]["observed_dtype"] is None

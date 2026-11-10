@@ -6,7 +6,8 @@ reference_corpus, candidate_corpus, k, cosine_tolerance and score_tolerance.
 Each row is {id, input_digest, representation_digest, vector}; digests are lowercase
 SHA-256 hex and bind the encoded input and representation. Query rows may also have
 ``relevant_ids`` (nonempty unique corpus IDs); absent or empty means recall unavailable.
-Reference is declared CPU/FP32 and candidate GPU/FP16, stored FP32. Queries are
+Reference is declared CPU/FP32 and candidate GPU/FP16; FP32 storage is a target,
+not an observation or supplied declaration. Queries are
 always the same CPU/FP32 vectors for both rankings. Definitions and execution
 fingerprints are declarations, not proof. Missing artifact/tokenizer identity yields
 an unverified space, even when the fingerprints match. Declared query_prefix=None
@@ -17,10 +18,23 @@ query*passage*dimension <=4M, query*passage <=32768, k <=2048. Scores are raw
 stored-vector dot products; ranks sort descending score then ascending durable ID.
 Gold recall denominator is the number of explicitly supplied relevant IDs. Tolerances
 are comparison criteria only. Refusals use a fixed safe reason and never echo inputs.
+
+The input fingerprint is SHA-256 over length-framed canonical JSON records. Each
+record is UTF-8 JSON with sorted keys, ASCII escaping, and compact separators, preceded
+by its byte length as an unsigned 8-byte big-endian integer. The first record contains
+schema version, full validated execution declarations, requested k and tolerances as
+Python float.hex strings. Subsequent records are sorted by section (queries, reference,
+candidate, in that order) then durable ID; each includes section, ID, both digests,
+the admitted float.hex vector, and sorted relevant IDs for queries. This binds the
+normalized admitted input, including signed zero, and does not retain raw vectors.
+No digest proves that the supplied values or declared executions were actually produced
+by a model. Storage provenance is unavailable for these generic supplied vectors.
 """
 
 from __future__ import annotations
 
+import hashlib
+import json
 import math
 import re
 from collections.abc import Mapping
@@ -176,6 +190,42 @@ def _dot(a: tuple, b: tuple) -> float:
     return out
 
 
+def _input_fingerprint(ref, cand, k, ct, st, queries, reference, candidate) -> str:
+    digest = hashlib.sha256()
+
+    def add(record: dict) -> None:
+        data = json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode(
+            "ascii"
+        )
+        digest.update(len(data).to_bytes(8, "big"))
+        digest.update(data)
+
+    add(
+        {
+            "format": "embedding-parity-input-v1",
+            "reference": ref.model_dump(mode="json"),
+            "candidate": cand.model_dump(mode="json"),
+            "k": k,
+            "cosine_tolerance": ct.hex(),
+            "score_tolerance": st.hex(),
+        }
+    )
+    for section, rows in (("queries", queries), ("reference", reference), ("candidate", candidate)):
+        for ident in sorted(rows):
+            row = rows[ident]
+            record = {
+                "section": section,
+                "id": ident,
+                "input_digest": row[0],
+                "representation_digest": row[1],
+                "vector": [value.hex() for value in row[2]],
+            }
+            if section == "queries":
+                record["relevant_ids"] = sorted(row[4])
+            add(record)
+    return digest.hexdigest()
+
+
 def analyze(request: Mapping) -> dict:
     """Analyze bounded caller-supplied vectors; return SUPPLIED_UNVERIFIED evidence."""
     req = _keys(
@@ -230,6 +280,8 @@ def analyze(request: Mapping) -> dict:
         paired.append(
             {
                 "id": ident,
+                "input_digest": a[0],
+                "representation_digest": a[1],
                 "cosine": cos,
                 "cosine_within_tolerance": 1 - cos <= ct,
                 "reference_norm": a[3],
@@ -271,6 +323,8 @@ def analyze(request: Mapping) -> dict:
         results.append(
             {
                 "id": ident,
+                "input_digest": row[0],
+                "representation_digest": row[1],
                 "sample_count": 1,
                 "query_norm": row[3],
                 "query_l2_deviation": abs(row[3] - 1),
@@ -302,7 +356,15 @@ def analyze(request: Mapping) -> dict:
         "space_fingerprint": definition.fingerprint(),
         "reference_execution_fingerprint": ref.fingerprint(),
         "candidate_execution_fingerprint": cand.fingerprint(),
-        "candidate_storage_dtype": "fp32_declared",
+        "input_fingerprint": _input_fingerprint(
+            ref, cand, k, ct, st, queries, reference, candidate
+        ),
+        "candidate_storage": {
+            "required_target_dtype": "fp32",
+            "supplied_dtype": None,
+            "observed_dtype": None,
+            "provenance": "unavailable",
+        },
         "cosine_tolerance": ct,
         "score_tolerance": st,
         "paired_vectors": paired,

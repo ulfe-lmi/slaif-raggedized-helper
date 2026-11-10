@@ -39,3 +39,7 @@ def test_schema_execution_composition_1024():
     assert result["candidate_execution_fingerprint"] == candidate.fingerprint()
     assert result["queries"][0]["candidate_gold_recall_at_k"] == 1
     assert result["evidence"] == "SUPPLIED_UNVERIFIED"
+    assert result["queries"][0]["input_digest"] == "b" * 64
+    assert result["paired_vectors"][0]["representation_digest"] == "c" * 64
+    assert len(result["input_fingerprint"]) == 64
+    assert result["candidate_storage"]["observed_dtype"] is None
