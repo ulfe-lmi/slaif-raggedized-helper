@@ -1,0 +1,15 @@
+{
+  "lane_id": "PAR-005-PROVENANCE-B",
+  "result": "COMPLETE",
+  "implementation_head": "4c0b3519ebf242edac9462bf24ee5fccd87ce7b5",
+  "report_publication_commit": "SELF",
+  "summary": "Added bounded input-free admission for untrusted provenance record mappings and JSON, and separately validated explicit compatible chunk neighbor relations while preserving chunk identities.",
+  "API": "admit_record(kind, value), Neighbors and Registry.bind_neighbors(chunks, links); see docs/parallel/provenance-records-api.md for bounds, DTO trust boundary, null semantics and relation compatibility.",
+  "tests": [
+    {"command": "uv run --offline pytest -o addopts='' -q tests/unit/test_provenance_records.py tests/integration/test_provenance_records_composition.py tests/unit/test_source_admission.py tests/integration/test_source_admission_composition.py tests/unit/test_contracts.py tests/unit/test_model_lock.py tests/unit/test_qualification.py", "result": "190 passed"},
+    {"command": "uv run --offline ruff check src/slaif_raggedized_helper/provenance_records.py tests/unit/test_provenance_records.py tests/integration/test_provenance_records_composition.py", "result": "passed"},
+    {"command": "uv run --offline ruff format --check src/slaif_raggedized_helper/provenance_records.py tests/unit/test_provenance_records.py tests/integration/test_provenance_records_composition.py", "result": "passed"},
+    {"command": "git diff --check", "result": "passed"}
+  ],
+  "limitations": "Untrusted data must use admit_record; direct Pydantic developer interfaces may expose validation locations. Neighbor relations are supplied declarations, not inferred adjacency; absent or null relations mean unknown. Synthetic input is not proof of extractor or tokenizer execution, model qualification, authentication, or live retrieval authorization. Jobs, attempts and canonical 005 composition remain outside the candidate. No push, PR, merge or hardware qualification was performed."
+}
