@@ -1,0 +1,19 @@
+{
+  "objective": "002",
+  "rounds": [
+    "002-a"
+  ],
+  "decision": "MERGED",
+  "pr": 4,
+  "accepted_head": "c31bb25f6ca1f1b3c9399e0abbfd8223bff1f24f",
+  "implementation": "6878f83417c31d9fde9349830556388c82efc9b8",
+  "merge_commit": "93b43177f4dcd0b28ef2c5ed33a049f83217f152",
+  "created_at": "2026-11-10T01:13:00Z",
+  "merged_at": "2026-11-10T01:16:51Z",
+  "verified_at": "2026-11-10T01:17:50.054671+00:00",
+  "pr_ci_run": 42734541790,
+  "main_ci_run": 42734653881,
+  "status": "FINAL_VERIFIED_COMPLETE",
+  "scope": "Installable typed foundation and offline diagnostic CLI; 80 product tests +41 OAP; no live model/route/GPU proof.",
+  "review": "Report-only SELF parent/remote identity and allowed34+report paths verified. Independent product80/OAP41/Ruff/governance plus concrete negative probes passed. Found redaction/budget/metric/missing-manifest and fixture regressions corrected before publication. Source inputs/architecture/register/order unchanged. No D1 or protected service action. Strongest limitation: recorded model evidence cannot independently prove target compatibility; diagnostics/docs state foundation-only qualification limits. Build backend range disclosed honestly."
+}

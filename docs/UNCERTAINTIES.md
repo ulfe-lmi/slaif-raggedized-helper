@@ -36,3 +36,83 @@ distinguish failed tests from environment access blockers. No placeholders count
   processes; it is a CPU-only development host. Target GPU hosts, Qwen/GGUF/projector/
   KV/MTP/runtime/startup fingerprints remain unknown. No deployment profile mutation.
 - U03-U11 unchanged by this round; their resolving work stands.
+
+### 2026-11-10, order 003-h (bounded probes and objective closure)
+
+- The bounded explicit probe/CLI composition is now executable
+  (`raggedized probe`, objective 003 criterion 5 tooling) with synthetic
+  owned-loopback evidence only: U05 (gateway/direct prefix reuse)
+  remains OPEN — no live prefix-reuse, cache-hit or speedup observation
+  exists; the probe's cache conclusion is driven solely by reported
+  evaluated metrics of the second phase and stays unqualified whenever
+  they are absent (the gateway dialect never reports prefill/cache
+  metrics).
+- U01 narrowed further: the gateway adapter's explicit-minimum
+  capability admission (required JSON_MODE/PROMPT_CACHING independent of
+  the format/cache-key fields) is now enforced and regression-tested
+  over real loopback HTTP; this is wire-level admission behavior at the
+  pinned contract revision, not live compatibility proof.
+- U02-U4, U06-U11 unchanged by this round; their resolving work stands.
+No live target/model/GPU/corpus work was performed (order 003-h live
+authorization: NONE); the certifi (MPL-2.0) policy gate remains an open
+human question.
+
+### 2026-11-10, order 003-i (probe evidence and credential boundaries)
+
+- U05 CORRECTION of the 003-h observation (superseded wording
+  preserved above): the pinned gateway dialect (f2df0e82,
+  responses_gateway.py usage handling) DOES report
+  `usage.input_tokens_details.cached_tokens` — the 003-h wording that
+  the gateway "never reports prefill/cache metrics" was wrong for the
+  cache half. It remains true that the pinned dialect does NOT report
+  evaluated-prefill metrics (prefill stays null/unavailable). The
+  probe now validates the supported accounting relation
+  (`cache_hit_tokens <= input_tokens` when both are reported; the
+  pinned gateway validates `cached + cache_write <= input_tokens`)
+  before any qualification conclusion: a valid present cached counter
+  qualifies (`cache_hit_reported`), the demonstrated contradictory
+  cached-999/input-5 case is `metrics_invalid` with the raw facts
+  preserved as such only, an uncheckable relation is
+  `metrics_unvalidated`, and absent counters stay
+  `metrics_unavailable`. No live prefix-reuse, cache-hit or speedup
+  observation exists; U05 stays OPEN for real qualification.
+- U05 also narrowed on tooling: the probe now records
+  label-independent same/different output evidence (equal outputs
+  never establish truth, caching or quality), exports the declared
+  backend fingerprint (the endpoint hash alone does not bind all
+  backend controls), and classifies the destination as
+  `target_type: unverified` (a localhost address or order live
+  allowance cannot establish target type).
+- No live target/model/GPU/corpus work was performed (order 003-i
+  live authorization: NONE); the certifi (MPL-2.0) policy gate
+  remains an open human question.
+
+### 2026-11-10, order 003-j (credential header domain and output preflight docs)
+
+- U01/U05 unchanged in kind, corrected in the credential-value
+  boundary: the probe's admitted credential domain is now exactly
+  what the locked HTTPX 0.28.1 string-header serializer accepts
+  (the transport passes the `Authorization` header as a Python str
+  encoded as ASCII with no encoding override, i.e. code points
+  0x20-0x7E). The 003-i guard's abstract Latin-1 (RFC 7230) allowance
+  was wrong for this transport: 0x80-0xFF values (e.g. U+00E9)
+  decoded fine from valid UTF-8 file/env bytes yet raised a raw
+  `UnicodeEncodeError` at the real transport. They are now refused
+  pre-dispatch with the fixed typed `CREDENTIAL_INVALID` /
+  `value_not_ascii` outcome (exit 2, zero HTTP, no key or path echo),
+  replacing the 003-i `value_not_latin1` reason; outside-Latin-1
+  values keep the same fixed outcome. This is wire-path correctness
+  at the pinned dependency, not live compatibility proof: U01/U05
+  stay OPEN for real qualification, and no live target/model/GPU/
+  corpus work was performed (order 003-j live authorization: NONE).
+- Scope fidelity corrected in current docs (no historical report
+  edits): objective 003 software acceptance is the adapters/probe
+  tooling qualified by synthetic owned-loopback HTTP (order 003-a
+  Runtime: live authorization NONE); live-target evidence is NOT a
+  003 closure prerequisite but belongs to the separate 004/019/
+  full-MVP qualification gates, which remain OPEN and NOT RUN. The
+  8192-byte credential-file size cap (bounded lookahead), the real
+  probe module path and the post-work (not necessarily
+  post-dispatch) export stage are documented as actually
+  implemented. The certifi (MPL-2.0) policy gate remains an open
+  human question.

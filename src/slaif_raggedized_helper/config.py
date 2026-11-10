@@ -18,10 +18,12 @@ Rules enforced here (architecture A01/A13/A16/A19/A20, V2-01/V2-06, SECURITY S03
 
 from __future__ import annotations
 
+import ipaddress
 import json
 import re
 from enum import Enum
 from pathlib import Path
+from datetime import datetime
 from typing import Literal
 from urllib.parse import urlsplit
 
@@ -99,6 +101,25 @@ class SecretRef(BaseModel):
         return self
 
 
+class RouteCapabilities(BaseModel):
+    """Explicit transport capabilities advertised by the configured route.
+
+    Everything is default-deny: an optional control (streaming, vision,
+    structured output, prompt caching) is usable only when its route
+    capability is explicitly declared here (architecture A13/A18: no JSON/
+    stream/vision/cache support is guessed).
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    streaming: bool = False
+    vision: bool = False
+    json_mode: bool = False
+    structured_outputs: bool = False
+    prompt_caching: bool = False
+    stored_responses: bool = False
+
+
 class RouteConfig(BaseModel):
     """Explicit gateway route contract reference (never guessed)."""
 
@@ -108,6 +129,7 @@ class RouteConfig(BaseModel):
     model: str = Field(min_length=1, max_length=256)
     api: Literal["v1-responses"] = "v1-responses"
     timeout_seconds: PositiveFiniteFloat
+    capabilities: RouteCapabilities = Field(default_factory=RouteCapabilities)
 
     @field_validator("base_url")
     @classmethod
@@ -124,6 +146,14 @@ class RouteConfig(BaseModel):
             )
         if not parts.hostname:
             raise ValueError("route base_url must contain a hostname")
+        # Pinned v1-responses contract: the base is the gateway root (any
+        # reverse-proxy prefix preserved) or that root plus the /v1 API
+        # segment. Anything else cannot be interpreted without guessing.
+        if parts.path not in ("", "/") and not parts.path.endswith("/v1"):
+            raise ValueError(
+                "route base_url path must be the gateway root or end with "
+                "the /v1 API segment"
+            )
         return value
 
     @property
@@ -170,6 +200,8 @@ class GeneratorConfig(BaseModel):
     max_inflight: PositiveInt = 1
     degradation: DegradationPolicy = Field(default_factory=DegradationPolicy)
     fallback: str | None = Field(default=None, max_length=128)
+    api_key_ref: str | None = Field(default=None, max_length=256)
+    max_retries: int = Field(default=1, ge=0, le=5)
 
     @model_validator(mode="after")
     def _check_degradation_explicitness(self) -> GeneratorConfig:
@@ -195,13 +227,184 @@ class GeneratorConfig(BaseModel):
         return self
 
 
+# Built-in chat template names of the pinned llama.cpp server reference
+# (ggml-org/llama.cpp commit 3b4d6ab3f79651935fba1dd93732f29022a7f5f5,
+# ``--chat-template`` registry). This is a REFERENCE registry copied from the
+# pinned upstream source, not a hard client-side allowlist: a qualified
+# server-rendered identity is the model-metadata default template (Jinja
+# enabled by default on that reference) or an operator-declared Jinja
+# template, and it is rendered by the server through ``/apply-template`` —
+# the client never guesses special tokens or enforces an arbitrary local
+# name list (unknown template names are refused by the server itself, and
+# that refusal is mapped to a safe typed failure). A name in this registry
+# is still NOT qualification: offline_diagnostic mode requires a
+# DirectTemplateQualification record binding the declared template identity
+# to a tested build (README /apply-template or pinned-upstream verification).
+# The reference revision is not the unknown deployed build.
+PINNED_LLAMA_BUILTIN_CHAT_TEMPLATES = (
+    "bailing", "bailing-think", "bailing2", "chatglm3", "chatglm4",
+    "chatml", "command-r", "deepseek", "deepseek-ocr", "deepseek2",
+    "deepseek3", "exaone-moe", "exaone3", "exaone4", "falcon3", "gemma",
+    "gigachat", "glmedge", "gpt-oss", "granite", "granite-4.0",
+    "granite-4.1", "grok-2", "hunyuan-dense", "hunyuan-moe",
+    "hunyuan-vl", "kimi-k2", "llama2", "llama2-sys", "llama2-sys-bos",
+    "llama2-sys-strip", "llama3", "llama4", "megrez", "minicpm",
+    "mistral-v1", "mistral-v3", "mistral-v3-tekken", "mistral-v7",
+    "mistral-v7-tekken", "monarch", "openchat", "orion",
+    "pangu-embedded", "phi3", "phi4", "rwkv-world", "seed_oss",
+    "smolvlm", "solar-open", "vicuna", "vicuna-orca", "yandex",
+    "zephyr",
+)
+
+# The gateway-dialect closing-tag sequence that the old hand-written
+# formatter invented as a system/user turn delimiter (repository history,
+# not a pinned native primary-source fact). A declared TEMPLATE IDENTITY
+# carrying this sequence is refused at config time: the declared template
+# identity is a plain operator token, and a token embedding an invented
+# markup sequence is not a legal identity. This is an identity-token rule
+# on the configured name only. Template qualification is established solely
+# by the DirectTemplateQualification record (server rendering against the
+# tested build, or pinned-upstream verification) — never by magic
+# substring/delimiter scanning of rendered text. It does not ban the
+# literal sequence in message content or in a server-rendered prompt:
+# source content is data and is preserved verbatim.
+TEMPLATE_IDENTITY_FORBIDDEN_SEQUENCE = "\x3c/tool_call\x3e"
+
+
+
+class DirectCapabilities(BaseModel):
+    """Tested native /completion capabilities of the private llama build.
+
+    ``cache_prompt``/slot selection enter the wire envelope only when the
+    capability was actually tested on that build (architecture A13: native
+    cache_prompt/id_slot only on tested builds).
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    cache_prompt_tested: bool = False
+    slot_tested: bool = False
+    # Default deny: the pinned reference documents a json_schema grammar
+    # control, but documentation of a field is not build-tested grammar
+    # support (grammar-based sampling is an optional serving-build
+    # capability; template qualification alone does not prove it). A
+    # requested json_object/json_schema control enters the native wire
+    # envelope only when this capability was actually tested on the build;
+    # otherwise the request is refused locally before any dispatch.
+    json_grammar_tested: bool = False
+
+
+class DirectDestination(BaseModel):
+    """Private trusted /completion destination (never a public caller choice).
+
+    Private IP/localhost alone is not access-control proof: enabling direct
+    mode additionally requires the explicit ``private_trusted`` policy
+    declaration on :class:`DirectGenerationConfig`.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    base_url: str = Field(min_length=1, max_length=1024)
+
+    @field_validator("base_url")
+    @classmethod
+    def _check_private_url(cls, value: str) -> str:
+        parts = urlsplit(value)
+        if parts.scheme not in ("http", "https"):
+            raise ValueError("direct destination must use http or https")
+        if parts.username is not None or parts.password is not None:
+            raise ValueError("credentials in the direct destination URL are forbidden")
+        if parts.query or parts.fragment:
+            raise ValueError("query/fragment strings in the direct destination URL are forbidden")
+        hostname = parts.hostname
+        if not hostname:
+            raise ValueError("direct destination must contain a hostname")
+        if not _is_private_destination_host(hostname):
+            raise ValueError(
+                "direct destination must be a private/loopback host "
+                "(private IP alone is not access-control proof; declare the "
+                "trusted policy explicitly)"
+            )
+        return value
+
+
+def _is_private_destination_host(hostname: str) -> bool:
+    host = hostname.strip("[]").lower()
+    if host == "localhost" or host.endswith(".localhost"):
+        return True
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    if address.is_unspecified:
+        return False
+    return address.is_private or address.is_loopback or address.is_link_local
+
+
+class DirectTemplateQualification(BaseModel):
+    """Explicit qualification record binding a chat template to a build.
+
+    The template name alone never proves qualification: offline direct
+    mode requires this record, produced by ``POST /apply-template`` against
+    the tested build or by pinned-upstream verification of the exact
+    built-in template rendering.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    # The qualified template identity: a declared template name, or None for
+    # the server's model-metadata default template (Jinja enabled on the
+    # pinned reference). None must match a config chat_template of None.
+    template: str | None = Field(default=None, min_length=1, max_length=64)
+    build_id: str = Field(min_length=1, max_length=128)
+    method: Literal["apply-template", "pinned-upstream"]
+    recorded_at: datetime
+
+    @field_validator("recorded_at")
+    @classmethod
+    def _check_aware(cls, value: datetime) -> datetime:
+        if value.tzinfo is None:
+            raise ValueError("recorded_at must carry an explicit UTC offset")
+        return value
+
+
 class DirectGenerationConfig(BaseModel):
-    """Direct (non-gateway) generation. Online direct generation is refused;
-    a private trusted offline opt-in is a later explicit slice."""
+    """Direct (non-gateway) generation.
+
+    Online direct generation is unconditionally refused: the ``enabled``
+    guard from the foundation slice is retained and no online direct mode
+    exists. ``mode: offline_diagnostic`` is the narrow explicit offline
+    opt-in for context-annotation/visual-extraction diagnostics against a
+    private trusted destination; it is never an answer fallback.
+    """
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     enabled: bool = False
+    mode: Literal["disabled", "offline_diagnostic"] = "disabled"
+    destination: DirectDestination | None = None
+    trusted_policy: Literal["private_trusted"] | None = None
+    capabilities: DirectCapabilities = Field(default_factory=DirectCapabilities)
+    # Declared model identity (the operator-declared model/alias of the
+    # private build). Distinct from response text/IDs; the deployed
+    # runtime/GGUF identity stays explicitly unverified. Required for
+    # offline_diagnostic mode; absent means the identity is unknown, not
+    # guessed.
+    model: str | None = Field(default=None, min_length=1, max_length=256)
+    # Declared template identity: a template name (pinned built-in or
+    # operator Jinja template) or None for the server's model-metadata
+    # default template. Rendered by the server via /apply-template; the
+    # client performs no local template rendering (unimplemented local
+    # modes are refused, never claimed qualified).
+    chat_template: str | None = Field(default=None, max_length=64)
+    template_qualification: DirectTemplateQualification | None = None
+    slot_id: int | None = Field(default=None, ge=0)
+    # Explicit finite operator limits for the materialized offline mode:
+    # None is not permission to use an uncapped caller allowance; missing
+    # operator limits refuse before template/generation dispatch.
+    max_output_tokens: PositiveInt | None = None
+    deadline_seconds: PositiveFiniteFloat | None = None
+    max_retries: int = Field(default=0, ge=0, le=3)
 
     @field_validator("enabled")
     @classmethod
@@ -212,6 +415,71 @@ class DirectGenerationConfig(BaseModel):
                 "must use the gateway route (no direct online fallback)"
             )
         return value
+
+    @field_validator("chat_template")
+    @classmethod
+    def _check_template(cls, value: str | None) -> str | None:
+        # None = the server's model-metadata default template (Jinja enabled
+        # on the pinned reference); a name = a declared template identity
+        # (pinned built-in or operator Jinja template). No arbitrary local
+        # name allowlist: the server renders via /apply-template and refuses
+        # unknown templates itself. Only the template IDENTITY token is
+        # constrained here (plain token; the forbidden closing-marker
+        # sequence is not a legal identity because formatter provenance must
+        # come from the qualified server template).
+        if value is None:
+            return None
+        if any(ch.isspace() or ord(ch) < 0x20 or ord(ch) == 0x7F for ch in value):
+            raise ValueError("chat_template must be a plain non-empty token")
+        if "/" in value or value.startswith("."):
+            raise ValueError("chat_template is a template identity, not a path")
+        if TEMPLATE_IDENTITY_FORBIDDEN_SEQUENCE in value:
+            raise ValueError(
+                "chat_template identity must not carry the native closing "
+                "marker sequence"
+            )
+        return value
+
+    @model_validator(mode="after")
+    def _check_offline_opt_in(self) -> DirectGenerationConfig:
+        if self.mode == "offline_diagnostic":
+            if self.destination is None:
+                raise ValueError("offline_diagnostic mode requires a private destination")
+            if self.trusted_policy != "private_trusted":
+                raise ValueError(
+                    "offline_diagnostic mode requires the explicit private_trusted policy"
+                )
+            if self.model is None:
+                raise ValueError(
+                    "offline_diagnostic mode requires the declared model identity"
+                )
+            if self.template_qualification is None:
+                raise ValueError(
+                    "offline_diagnostic mode requires a template qualification record"
+                )
+            if self.template_qualification.template != self.chat_template:
+                raise ValueError(
+                    "template qualification record does not match the declared "
+                    "chat_template (None is the model-metadata default)"
+                )
+            if self.max_output_tokens is None:
+                raise ValueError(
+                    "offline_diagnostic mode requires the explicit finite operator "
+                    "max_output_tokens (a None limit is not an uncapped allowance)"
+                )
+            if self.deadline_seconds is None:
+                raise ValueError(
+                    "offline_diagnostic mode requires the explicit finite operator "
+                    "deadline_seconds (a None limit is not an uncapped allowance)"
+                )
+            if self.slot_id is not None and not self.capabilities.slot_tested:
+                raise ValueError("slot_id requires the tested slot capability")
+        else:
+            if self.destination is not None or self.trusted_policy is not None:
+                raise ValueError(
+                    "disabled direct mode must not carry a destination or trusted policy"
+                )
+        return self
 
 
 class ProfileConfig(BaseModel):
@@ -290,6 +558,15 @@ class RaggedizedConfig(BaseModel):
         names = [profile.name for profile in self.profiles]
         if len(set(names)) != len(names):
             raise ValueError("profile names must be unique")
+        return self
+
+    @model_validator(mode="after")
+    def _check_api_key_ref(self) -> RaggedizedConfig:
+        ref = self.generator.api_key_ref
+        if ref is not None and ref not in self.secrets:
+            raise ValueError(
+                f"generator.api_key_ref {ref!r} does not name a declared secret reference"
+            )
         return self
 
 

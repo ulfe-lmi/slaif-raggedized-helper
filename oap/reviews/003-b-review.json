@@ -1,0 +1,45 @@
+{
+  "round": "003-b",
+  "objective": "003",
+  "status": "FINAL",
+  "decision": "CONTINUE",
+  "reported_result": "COMPLETE (bounded slice only)",
+  "strategic_result": "NOT_ACCEPTED",
+  "pr": 5,
+  "implementation": "51dc499a5b08f67901cdfb87436f9026a96c5c48",
+  "report_commit": "e20ad7d855d847aba34c1a1ae960fa5e86f1cc74",
+  "report_sha256": "d87fef52f8ee7caa180f612f21dd02aee45df3834fe713bb7c61d80011632bcf",
+  "verified": "Unique open PR5 on original003 branch/base main; report-only SELF sole first parent51dc499; remote report bytes/hash verified; exact strategic order bytes unchanged. Implementation CI42754483667 all5SUCCESS, including actual integration execution in product3.12/3.14.",
+  "final_head_ci": "Run42755267413 all5SUCCESS at exact e20ad7d855d847aba34c1a1ae960fa5e86f1cc74; lastcompletion2026-11-10T04:21:43Z",
+  "actual_progress": "Transport33 current tests independently PASS; gateway fixtures upgraded to pinned data-only JSON-type dialect and final items without output_index. Total deadline0.201657s for0.2s budget, owned late-start zero-dispatch, ambiguity/no replay, exact queue saturation, capability/output/image guards, endpoint fingerprint, integration CI wiring and generated schema identity proved. Known certifi license gate honestly disclosed.",
+  "blocking_acceptance_defects": [
+    "Exact-head real HTTP reproduction accepts malformed delta array as TERMINAL after final-payload salvage",
+    "Missing terminal response ID silently accepted as TERMINAL",
+    "Wrong delta output_index silently accepted as TERMINAL",
+    "Nonterminal output_item.done status followed by completed final item silently accepted as TERMINAL",
+    "Message status object/array raises raw TypeError instead of safe failure",
+    "Valid two-content-part stream rejected with delta/cumulative mismatch; one text buffer per item confuses per-part done text",
+    "Controlled context table/map stale after TESTING T06: actual2718/35269 vs2043/34594 and T01-T05; STATUS current-state header contains stale bootstrap facts",
+    "Full003 native adapter and qualification probes still absent/pending; no full-objective merge",
+    "Certifi MPL2 exception remains unapproved; distribution/license qualification stays gated"
+  ],
+  "test_fidelity": "New deadline test uses1microsecond relative budget plus measured overhead premise; passing repeated runs is not deterministic boundary proof. Prefer generator-local controlled clock while retaining real HTTP absolute-deadline regressions. Green tests do not cover the independent malformed/multipart cases above.",
+  "independent_reproduction": "/tmp/raggedized003-protocol-review.py: seven actual loopback POSTs through GatewayGenerator; positive single-part stream succeeds, four malformed variants wrongly succeed, status object throws, valid multipart wrongly fails. No live service/model/corpus used.",
+  "review_sources": [
+    "audit/003-b-gateway-dialect-review.md",
+    "drafts/003-next-gateway-protocol-validation.md"
+  ],
+  "next": "Focused same-PR protocol validation continuation, then native/probes in separately finalized later suffixes. Do not merge or advance numeric objective.",
+  "scope_fidelity": "Original003 and full accepted architecture2/A01-A40 MVP remain intact. Ordinary correctness fixes are D0, not CRITICAL judgment waivers. No license exception, hardware qualification or distribution/release authority is inferred. Earlier reports remain immutable.",
+  "recorded_at": "2026-11-10T04:23:39.550123+00:00",
+  "consumed_response": {
+    "identifier": "003-b",
+    "pr": 5,
+    "implementation": "51dc499a5b08f67901cdfb87436f9026a96c5c48",
+    "report_commit": "e20ad7d855d847aba34c1a1ae960fa5e86f1cc74",
+    "report_sha256": "d87fef52f8ee7caa180f612f21dd02aee45df3834fe713bb7c61d80011632bcf",
+    "verified_at": "2026-11-10T04:22:31.748915+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "strongest_reason_not_to_merge": "Green fixture coverage misses actual malformed-stream successes/raw exception and rejects valid multipart output; original native/probe scope is absent. Development acceptance is not justified yet."
+}

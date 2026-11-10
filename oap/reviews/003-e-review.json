@@ -1,0 +1,51 @@
+{
+  "round": "003-e",
+  "objective": "003",
+  "status": "FINAL",
+  "decision": "CONTINUE",
+  "strategic_result": "NATIVE_CONTRACT_CORRECTIONS_REQUIRED",
+  "pr": 5,
+  "implementation": "ef1251597bace2a8b8155845de2d8d8c219c5b63",
+  "report_commit": "893081f1e93b1c6282e685de91bb4684fa9bb1e7",
+  "report_sha256": "e4dd0fa2f966f36fd388f8ef2f4f12e233736195a187d291514f88b338c2f69b",
+  "final_head_ci": "Implementation42774495647 all5SUCCESS; report42775398612 all5SUCCESS",
+  "actual_progress": "Private offline native adapter with server apply-template/completion, fixed native paths, explicit operator model/time/output limits, EOS/limit/truncation mapping, actual reported100/12/10/90 token fields, stable declared identity, literal prompt preserved. Mandatory JSON-digit ValueError fix independentlyPASS; transport33PASS; native71PASS; reference54-template tuple matches pinnedREADME. Appconfig schema regenerated.",
+  "blocking_acceptance_defects": [
+    "Native prompt_ms is prefill, not measured TTFT; current code labels30ms as ttft_seconds0.03 without a first-token observation",
+    "Known prompt_ms0 with predicted_ms60 yields timingsNone, losing knownzero and availabledecode; focused semantic extension is allowed",
+    "Valid within-bound timings.prompt_ms=10**400 causes rawOverflowError at float(value), before finite validation",
+    "Unqualified json_object request dispatches bothnativecalls/sendsjson_schema{} despite no testednativeJSONcapability; requestedcontrolsneeddefault-deny qualification orlocalrefusal",
+    "Static context table remainsTESTING2718/routine35269 while currentactual3035/35586; refreshaffectedmeasurement/map/manifest"
+  ],
+  "metric_scope_note": "The generic total_seconds field has no global documented boundary; derived model-phase sum must be explicitly scoped and not presented as callerwall time. Reportedprefill/decode need separate correct quantities/units; actualTTFT remainsunknown. Contradictory90new+90cached with100input cannot be qualificationproof even if raw reportedvalues retained.",
+  "independent_reproduction": "/tmp/raggedized003-native-review.py at exactcleanef12515: fiveexperiments/tenactualownedloopbackPOSTs reproduce timingalias/zero-loss/OverflowError/unqualifiedJSONdispatch. Baselineactualfields and exact literaltool-call+Markdownprompt preservationPASS. No live model/service/data or productpatchbystrategy.",
+  "test_counts": {
+    "gateway": 125,
+    "transport": 33,
+    "native": 71,
+    "integration": 229,
+    "unit": 127,
+    "product": 356,
+    "oap_separate": 41
+  },
+  "strongest_reason_not_to_merge": "Green self-consistent fixtures encode wrong physical timing semantics and miss expectednumericfailure/default-denycontrol gates; original003probetooling and real qualificationremainpending.",
+  "review_sources": [
+    "audit/003-e-incremental-review.md",
+    "drafts/003-next-native-contract-corrections.md"
+  ],
+  "next": "003-f focusednativecontractcorrections before boundedprobes (renameinertprobe003-g afterhandoff). No whole003merge/numericadvance/licenseorreadinesswaiver.",
+  "scope_fidelity": "Architecture2/A01-A40 fullMVP preserved. Report counts/manifests/greenCI are evidence only with actualcoverage; no hardware/cachequality/distribution/deployment claim. Previous reports immutable.",
+  "reported_result": "COMPLETE",
+  "consumed_response": {
+    "identifier": "003-e",
+    "pr": 5,
+    "implementation": "ef1251597bace2a8b8155845de2d8d8c219c5b63",
+    "report_commit": "893081f1e93b1c6282e685de91bb4684fa9bb1e7",
+    "report_sha256": "e4dd0fa2f966f36fd388f8ef2f4f12e233736195a187d291514f88b338c2f69b",
+    "verified_at": "2026-11-10T07:27:36.962447+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "recorded_at": "2026-11-10T07:32:48.623043+00:00",
+  "verified": "UniqueopenPR5/base93b4317/originalbranch; report893081f soleparentef12515 andonlyreportdiff; remoteexactbytes/hash/orderverified. All5finalchecks independentlyobserved. Native5experiment10POSTvectoratreportcode confirms requiredmetric/control/numericcorrections.",
+  "report_accuracy": "Report says49referencebuiltins; independentprimaryREADMEtuplecomparison proves54actualentries. Projectliteralmarkerfixtureusesbackticks/functionexample; independentHTTPprobeprovesrealtool-call+Markdownliteralpreservation; projectregressionmustuseactualchr60/62string. Reportsimmutable, correctedfactsinreview/nextreport."
+}

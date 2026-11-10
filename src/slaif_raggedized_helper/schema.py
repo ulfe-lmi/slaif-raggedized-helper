@@ -31,11 +31,18 @@ import json
 import math
 from datetime import datetime
 from enum import Enum
-from typing import Literal
+
+
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from ._constraints import NonNegativeInt, PositiveFiniteFloat, PositiveInt
+from ._constraints import (
+    NonNegativeFiniteFloat,
+    NonNegativeInt,
+    PositiveFiniteFloat,
+    PositiveInt,
+)
 
 FINGERPRINT_VERSION = 1
 
@@ -57,6 +64,7 @@ class Capability(str, Enum):
     VISION = "vision"
     JSON_MODE = "json_mode"
     STREAMING = "streaming"
+    PROMPT_CACHING = "prompt_caching"
 
 
 class ModelIdentity(BaseModel):
@@ -87,6 +95,8 @@ class CompletionOutcome(str, Enum):
 MAX_INPUT_ITEMS = 64
 MAX_INPUT_CHARS = 200_000
 MAX_IMAGES = 16
+MAX_INSTRUCTIONS = 16_000
+MAX_JSON_SCHEMA_BYTES = 32_768
 
 
 class TextItem(BaseModel):
@@ -119,6 +129,22 @@ class GeneratorRequest(BaseModel):
     required_capabilities: frozenset[Capability] = frozenset()
     max_output_tokens: PositiveInt
     deadline_seconds: PositiveFiniteFloat
+    instructions: str | None = Field(default=None, max_length=MAX_INSTRUCTIONS)
+    temperature: float | None = Field(default=None, ge=0.0, le=2.0)
+    top_p: float | None = Field(default=None, gt=0.0, le=1.0)
+    response_format: Literal["text", "json_object", "json_schema"] | None = None
+    json_schema: dict[str, Any] | None = None
+    prompt_cache_key: str | None = Field(default=None, min_length=1, max_length=128)
+
+    @field_validator("json_schema")
+    @classmethod
+    def _check_json_schema_bound(cls, value: dict[str, Any] | None) -> dict[str, Any] | None:
+        if value is None:
+            return None
+        payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+        if len(payload.encode("utf-8")) > MAX_JSON_SCHEMA_BYTES:
+            raise ValueError("json_schema exceeds the bounded wire size")
+        return value
 
     @model_validator(mode="after")
     def _check_purpose_and_capabilities(self) -> GeneratorRequest:
@@ -130,6 +156,13 @@ class GeneratorRequest(BaseModel):
                 "request requires capabilities the model does not declare: "
                 + ", ".join(sorted(c.value for c in missing))
             )
+        if self.response_format == "json_schema" and self.json_schema is None:
+            raise ValueError("response_format json_schema requires a bounded json_schema payload")
+        if self.json_schema is not None and self.response_format != "json_schema":
+            raise ValueError("json_schema payload requires response_format json_schema")
+        if self.prompt_cache_key is not None:
+            if Capability.PROMPT_CACHING not in self.required_capabilities:
+                raise ValueError("prompt_cache_key requires the prompt_caching capability")
         return self
 
 
@@ -149,12 +182,31 @@ class UsageMetrics(BaseModel):
 
 
 class TimingMetrics(BaseModel):
-    """Available timings. Missing measurements stay null/unavailable, never zero."""
+    """Available timings with explicit quantity semantics.
+
+    - ``ttft_seconds``: the OBSERVED time to the first generated token, in
+      seconds. Only a backend that actually reports/measures first-token
+      latency may set it. A lower bound (for example the prompt-processing
+      duration) is not a first-token observation and must stay null.
+    - ``prefill_seconds``: the server-reported prompt-processing duration
+      (seconds). A measured reported zero is a known zero (0.0), never
+      null; a missing or invalid field stays null.
+    - ``decode_seconds``: the server-reported token-generation duration
+      (seconds), same zero/missing semantics.
+    - ``total_seconds``: a derived MODEL-WORK total in seconds, explicitly
+      scoped to the sum of the reported model-phase durations. It is never
+      caller wall time and is not a complete request elapsed time.
+
+    Missing measurements stay null/unavailable, never invented; measured
+    zeros are legitimate values.
+    """
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     ttft_seconds: PositiveFiniteFloat | None = None
-    total_seconds: PositiveFiniteFloat | None = None
+    prefill_seconds: NonNegativeFiniteFloat | None = None
+    decode_seconds: NonNegativeFiniteFloat | None = None
+    total_seconds: NonNegativeFiniteFloat | None = None
 
 
 class GeneratorResult(BaseModel):
@@ -169,6 +221,7 @@ class GeneratorResult(BaseModel):
     timings: TimingMetrics | None = None
     fingerprint: str | None = None
     error: str | None = Field(default=None, max_length=1024)
+    attempts: NonNegativeInt | None = None
 
     @model_validator(mode="after")
     def _check_outcome_consistency(self) -> GeneratorResult:

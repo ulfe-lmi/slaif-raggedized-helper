@@ -1,0 +1,49 @@
+{
+  "round": "003-h",
+  "objective": "003",
+  "status": "FINAL",
+  "decision": "CONTINUE",
+  "strategic_result": "PROBE_EXECUTION_IMPLEMENTED; CREDENTIAL_AND_EVIDENCE_BOUNDARIES_REQUIRE_CORRECTION",
+  "pr": 5,
+  "implementation": "e91e737592deccbbb4dfdcd6ab411a21aae0a776",
+  "report_commit": "24d27a0a404ebc2a9ae4a98935984ef6c4bfbb64",
+  "report_sha256": "3573b798eb8410723ee3aa3c61c3e6bdce208f65157e3c4ac037d403a3a32936",
+  "final_head_ci": "Implementatione91e737 run42795740359 all5SUCCESS; report24d27a0 run42798362156 all5SUCCESS, last2026-11-10T10:23:23Z.",
+  "verified": "Unique open PR5/original003 branch, main/base93b4317. Report24d27a0 sole parent e91e737, only its report changes; remote exact report bytes and transcript identities verified. All16 implementation paths scoped; no dependency/schema/architecture/source-original/role-law/CRITICAL change. Order/priorGreview byte-identical. Current code hashes equal independently tested e91 proof. Worktree clean before this strategic review; external comments/reviews empty.",
+  "actual_progress": "Callable bounded probeAPI and installed gateway/native CLI, aggregate transport deadline/call allowances/output allowances, actual call-kind accounting, expected digest checks and gateway explicit JSON/CACHE minimum admission implemented. Independent local159unit/Ruff/15composition/8focusedgateway checks passed; coding-owned260integration complete artifact independently observed. Current419product=159unit+260integration(129gateway+83native+33transport+15probe), separate41OAP. CI covers all tests on both implementation and report heads. These are software/fixture facts, not qualification.",
+  "independent_exact_head_evidence": "Four unchanged owned-only scripts rerun at e91: API7cases/14POST, CLI7cases/10POST, deadline/retry4cases/7POST+2refusedownedTCPconnects, credentialFIFO0HTTP. Shared0.2s deadline observed0.202/0.203s, native4calls andbudget3\u2192A2calls/Bnotrun, accepted-closeAunknown not replayed, expectedCLIflags match. Source/oracle hashes and detailed positives/negatives: audit/003-h-exact-head-e91-review.json.",
+  "blocking_acceptance_defects": [
+    "Credential file loading is unbounded/special-file unchecked before the experiment timer. OwnedFIFO blocked beyond0.1s budget (~0.392s after probe start); only its disposable child was killed, zeroHTTP. InvalidUTF8 raises rawUnicodeDecodeError; installedCLIexit1/nonJSON/zeroHTTP.",
+    "Exported credential ref.name contains the owned private file path (PRIVATE_SECRET_REF_CANARY); actual key value was not observed. Keep only safe non-path reference metadata.",
+    "Invalid output directory produces OUTPUT_WRITE_FAILED/usage2 AFTER two actual model POSTs, contradicting allusage2zeroHTTP documentation and omitting spent-call evidence from the error.",
+    "Impossible reported cached999/input5 yields cache_hit_reported with no invalid/unqualified flag. Pinned gatewayf2df0e82 responses_gateway.py710\u2013729 supports cache-token details and validates their sum against input; missing evaluatedprefill is distinct from absentcached metrics.",
+    "Phase-salted text fingerprints prevent comparing identical response text and no pair-disagreement field exists. Preserve per-phase expected checks and add honest comparable output evidence without asserting equal answers imply truth.",
+    "Probe hardcodes liveFalse for any configured target and omits actualGeneratorResult.fingerprint; no evidence proves equivalent complete backend/config binding. Preserve declared/unverified runtime and accurate target classification without a live trial.",
+    "New docs/report incorrectly tie003softwareclosure to live-target evidence, and say gateway cachemetrics never appear. Original003-a Runtime explicitly accepts tooling+syntheticHTTP/liveNONE; actual004/019/MVP qualification gates stay open. Correct current docs and record corrections separately from immutable reports."
+  ],
+  "original_scope_matrix": {
+    "artifact": "audit/003-original-software-scope-review.md",
+    "criterion1": "PARTIAL: credential boundary failures",
+    "criterion2": "VERIFIED within supported bounded dialect; earlier parsing/cleanup evidence retained",
+    "criterion3": "VERIFIED software private offline slice, real qualification NOTRUN",
+    "criterion4": "PARTIAL: transport bounds/retries proved, invalid measured counter evidence not qualified safely",
+    "criterion5": "PARTIAL: executable probe/CLI, evidence/privacy/export/identity gaps",
+    "criterion6": "PARTIAL coverage: existing419 tests green but confirmed negative cases omitted"
+  },
+  "reported_result": "COMPLETE",
+  "report_accuracy": "Counts, parent/SELF topology and bounded software progress are substantiated. Report table marking every original criterion met is contradicted by independent negatives; native valid0/6 fixtures cannot prove invalid-counter handling. Executioncomplete/exit0 with explicit failed phase outcomes can be distinct from qualification and is not rejected merely for that status. Report/live-cache assertions corrected here, never edited historically.",
+  "strongest_reason_not_to_merge": "A documented finite safe probe can block on credential input, leak a private reference path or raise a raw input exception; spent model work is mislabeled as a zero-dispatch usage failure; invalid metrics and unverified provenance are represented misleadingly. CI does not cover these cases. Full003 software remains open.",
+  "next": "003-i focused credential/evidence/export corrections and source-faithful docs/coverage. Same PR5, no numeric advance/merge until whole original003 software is independently proved.",
+  "scope_fidelity": "Full architecture2/A01-A40 text+visual MVP remains. No human-owner/referral behavior, new strictCodex profile, live target/model/GPU/corpus action, license exception or distribution/deployment/release claim. Known certifi question and approved-runtime inputs remain pending; no D1/CRITICAL admission required.",
+  "consumed_response": {
+    "identifier": "003-h",
+    "pr": 5,
+    "implementation": "e91e737592deccbbb4dfdcd6ab411a21aae0a776",
+    "report_commit": "24d27a0a404ebc2a9ae4a98935984ef6c4bfbb64",
+    "report_sha256": "3573b798eb8410723ee3aa3c61c3e6bdce208f65157e3c4ac037d403a3a32936",
+    "verified_at": "2026-11-10T10:21:34.118005+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "recorded_at": "2026-11-10T10:27:30.662715+00:00",
+  "coding_goal_lifecycle": "After verified report/response, /goal clear sent via qualified wake. Goalcleared and quiet prompt confirmed, selectedQwenA100Q8xhigh preserved. No Escape/reset/replay/FIFO reread."
+}

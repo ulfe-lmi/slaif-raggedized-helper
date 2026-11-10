@@ -44,17 +44,222 @@
       "title": "Device",
       "type": "string"
     },
+    "DirectCapabilities": {
+      "additionalProperties": false,
+      "description": "Tested native /completion capabilities of the private llama build.\n\n``cache_prompt``/slot selection enter the wire envelope only when the\ncapability was actually tested on that build (architecture A13: native\ncache_prompt/id_slot only on tested builds).",
+      "properties": {
+        "cache_prompt_tested": {
+          "default": false,
+          "title": "Cache Prompt Tested",
+          "type": "boolean"
+        },
+        "json_grammar_tested": {
+          "default": false,
+          "title": "Json Grammar Tested",
+          "type": "boolean"
+        },
+        "slot_tested": {
+          "default": false,
+          "title": "Slot Tested",
+          "type": "boolean"
+        }
+      },
+      "title": "DirectCapabilities",
+      "type": "object"
+    },
+    "DirectDestination": {
+      "additionalProperties": false,
+      "description": "Private trusted /completion destination (never a public caller choice).\n\nPrivate IP/localhost alone is not access-control proof: enabling direct\nmode additionally requires the explicit ``private_trusted`` policy\ndeclaration on :class:`DirectGenerationConfig`.",
+      "properties": {
+        "base_url": {
+          "maxLength": 1024,
+          "minLength": 1,
+          "title": "Base Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "base_url"
+      ],
+      "title": "DirectDestination",
+      "type": "object"
+    },
     "DirectGenerationConfig": {
       "additionalProperties": false,
-      "description": "Direct (non-gateway) generation. Online direct generation is refused;\na private trusted offline opt-in is a later explicit slice.",
+      "description": "Direct (non-gateway) generation.\n\nOnline direct generation is unconditionally refused: the ``enabled``\nguard from the foundation slice is retained and no online direct mode\nexists. ``mode: offline_diagnostic`` is the narrow explicit offline\nopt-in for context-annotation/visual-extraction diagnostics against a\nprivate trusted destination; it is never an answer fallback.",
       "properties": {
+        "capabilities": {
+          "$ref": "#/$defs/DirectCapabilities"
+        },
+        "chat_template": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chat Template"
+        },
+        "deadline_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Deadline Seconds"
+        },
+        "destination": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DirectDestination"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "enabled": {
           "default": false,
           "title": "Enabled",
           "type": "boolean"
+        },
+        "max_output_tokens": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Output Tokens"
+        },
+        "max_retries": {
+          "default": 0,
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Max Retries",
+          "type": "integer"
+        },
+        "mode": {
+          "default": "disabled",
+          "enum": [
+            "disabled",
+            "offline_diagnostic"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "slot_id": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Slot Id"
+        },
+        "template_qualification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DirectTemplateQualification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "trusted_policy": {
+          "anyOf": [
+            {
+              "const": "private_trusted",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trusted Policy"
         }
       },
       "title": "DirectGenerationConfig",
+      "type": "object"
+    },
+    "DirectTemplateQualification": {
+      "additionalProperties": false,
+      "description": "Explicit qualification record binding a chat template to a build.\n\nThe template name alone never proves qualification: offline direct\nmode requires this record, produced by ``POST /apply-template`` against\nthe tested build or by pinned-upstream verification of the exact\nbuilt-in template rendering.",
+      "properties": {
+        "build_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Build Id",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "apply-template",
+            "pinned-upstream"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "recorded_at": {
+          "format": "date-time",
+          "title": "Recorded At",
+          "type": "string"
+        },
+        "template": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template"
+        }
+      },
+      "required": [
+        "build_id",
+        "method",
+        "recorded_at"
+      ],
+      "title": "DirectTemplateQualification",
       "type": "object"
     },
     "Dtype": {
@@ -86,6 +291,19 @@
       "additionalProperties": false,
       "description": "Online generation through the configured gateway route only.",
       "properties": {
+        "api_key_ref": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Api Key Ref"
+        },
         "context_expected_tokens": {
           "exclusiveMinimum": 0,
           "title": "Context Expected Tokens",
@@ -115,6 +333,13 @@
           "default": 1,
           "exclusiveMinimum": 0,
           "title": "Max Inflight",
+          "type": "integer"
+        },
+        "max_retries": {
+          "default": 1,
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Max Retries",
           "type": "integer"
         },
         "output_reserve_tokens": {
@@ -208,6 +433,44 @@
       "title": "ProfilePurpose",
       "type": "string"
     },
+    "RouteCapabilities": {
+      "additionalProperties": false,
+      "description": "Explicit transport capabilities advertised by the configured route.\n\nEverything is default-deny: an optional control (streaming, vision,\nstructured output, prompt caching) is usable only when its route\ncapability is explicitly declared here (architecture A13/A18: no JSON/\nstream/vision/cache support is guessed).",
+      "properties": {
+        "json_mode": {
+          "default": false,
+          "title": "Json Mode",
+          "type": "boolean"
+        },
+        "prompt_caching": {
+          "default": false,
+          "title": "Prompt Caching",
+          "type": "boolean"
+        },
+        "stored_responses": {
+          "default": false,
+          "title": "Stored Responses",
+          "type": "boolean"
+        },
+        "streaming": {
+          "default": false,
+          "title": "Streaming",
+          "type": "boolean"
+        },
+        "structured_outputs": {
+          "default": false,
+          "title": "Structured Outputs",
+          "type": "boolean"
+        },
+        "vision": {
+          "default": false,
+          "title": "Vision",
+          "type": "boolean"
+        }
+      },
+      "title": "RouteCapabilities",
+      "type": "object"
+    },
     "RouteConfig": {
       "additionalProperties": false,
       "description": "Explicit gateway route contract reference (never guessed).",
@@ -223,6 +486,9 @@
           "minLength": 1,
           "title": "Base Url",
           "type": "string"
+        },
+        "capabilities": {
+          "$ref": "#/$defs/RouteCapabilities"
         },
         "model": {
           "maxLength": 256,
@@ -270,9 +536,8 @@
       "type": "object"
     }
   },
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
-  "description": "Strict deployment configuration for slaif-raggedized-helper (objective 002-a). Unknown fields are rejected at every level; budgets are finite and positive; secrets appear only as env/file references; no credentials in route URLs.",
+  "description": "Top-level strict configuration loaded by ``raggedized doctor``.",
   "properties": {
     "direct_generation": {
       "$ref": "#/$defs/DirectGenerationConfig"

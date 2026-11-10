@@ -1,0 +1,45 @@
+{
+  "round": "003-c",
+  "objective": "003",
+  "status": "FINAL",
+  "decision": "CONTINUE",
+  "strategic_result": "NOT_ACCEPTED",
+  "pr": 5,
+  "implementation": "5bfca450ffd7a3a7e0a512b2ef66cb40ff5b715a",
+  "report_commit": "ae05438c037da94bb344046ed8610c5d65514930",
+  "report_sha256": "d7791f5c820b70697ac6fa5bb0a911fc5b09b15a2d526710ca4b8c08259e0566",
+  "final_head_ci": "Reporthead42760691508 all5SUCCESS; impl5bfca45 run42760298472 all5SUCCESS. Initial1f2c111 redCI history retained.",
+  "verified": "UniqueopenPR5/originalbranch/base93b4317; remoteSELFae05438 soleparent5bfca45 andonlyreportdiff; exactbytes/hash/orderverified; all5reportheadCIpassed. Independent13POSTreproduction atreport-equivalentappsource stillfinds6wrongTERMINALresults.",
+  "actual_progress": "Original seven actualHTTP cases now correct: five malformed variants FAILED, single/multipart positives TERMINAL with exact answer/firstsecond. Per-part text accumulation, status type guards, terminal response ID, nonterminal message-done rejection, generator-local deterministic clock. Controlled context measurements2718/35269 and T06 map synchronized; STATUS separates current/history. New99gateway cases reviewed;97 initially passed plus two corrected100000-depth fixtures independently passed locally.",
+  "blocking_acceptance_defects": [
+    "Supplied null delta.output_index treated as absence and returns TERMINAL",
+    "Supplied null delta.content_index treated as absence and returns TERMINAL",
+    "Explicit multipart coordinate gap0,7 with only two final parts is sorted into successful text",
+    "Item type reasoning at added changes to message at done/final and returns TERMINAL",
+    "Duplicate item.done is not latched/refused and returns TERMINAL",
+    "Reasoning item.done.status=in_progress followed by completed reasoning in final output is accepted as TERMINAL"
+  ],
+  "independent_reproduction": "/tmp/raggedized003-structural-variants-review.py: thirteen actual owned-loopback POSTs at exact implementation1f2c111; original7cases correct, six malformed variants wronglyTERMINAL. No real service/model/data or product patch by strategy.",
+  "code_causes": "Shared coordinate decoder uses get() and conflates absence/null; explicit part indices are not reconciled with final ordered part positions; completion has no type freeze/done latch/non-message terminal-state validation. These are003-c criteria2-4, not new feature scope.",
+  "documentation_limits": "Corrected context/map/status progression is real. Preserve unknown live/native/probe/license gates. Generator contract still contains a leading2MiB default alongside decimal2,000,000 clarification; complete that small accuracy fix with structural claims.",
+  "strongest_reason_not_to_merge": "Positive examples and growing fixture coverage do not prove all supplied-coordinate/lifecycle invariants; real malformed streams still produce successful answers and original003 native/probe scope remains pending.",
+  "review_sources": [
+    "audit/003-c-incremental-review.md",
+    "drafts/003-next-structural-validation-closure.md"
+  ],
+  "next": "Focused structural validation closure continuation on same003 PR before native/probes, preserving full architecture/MVP scope; no merge or numeric advance. Finalize from actual report/current GitHub/CI/handoff, not this draft.",
+  "scope_fidelity": "Ordinary D0 correctness repairs, no CRITICAL waiver, no distribution/license exception, no deployment or fullMVP claim. Prior immutable reports remain untouched.",
+  "implementation_repair_history": "Initial1f2c111 CI42759512729 Product3.14FAIL duefixed100000nestpremise; repair5bfca45 changesonlytests toprobeCscanneravailablecapacity andassertactualsafeoutcomes. Applicationcodeunchanged.",
+  "reported_result": "COMPLETE",
+  "consumed_response": {
+    "identifier": "003-c",
+    "pr": 5,
+    "implementation": "5bfca450ffd7a3a7e0a512b2ef66cb40ff5b715a",
+    "report_commit": "ae05438c037da94bb344046ed8610c5d65514930",
+    "report_sha256": "d7791f5c820b70697ac6fa5bb0a911fc5b09b15a2d526710ca4b8c08259e0566",
+    "verified_at": "2026-11-10T05:13:10.426510+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "recorded_at": "2026-11-10T05:15:41.501528+00:00",
+  "report_accuracy": "Report wrongly states136pytest=95integration+41unit. Actualcollection atreporthead:99gateway+33transport=132integration;80unit;212producttotal. OAP41 is a separate unittest suite. Do not edit the immutable report; use corrected evidence in later reports."
+}

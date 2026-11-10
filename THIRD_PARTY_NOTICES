@@ -1,8 +1,9 @@
 # Third-party notices — slaif-raggedized-helper
 
-Foundation slice (OAP objective 002-a), 2026-11-10. The original code in this
-repository is Apache-2.0 (see LICENSE). The lightweight locked environment
-(`uv.lock`) contains exactly the packages below; no heavy ML stack
+Foundation slice (OAP objective 002-a) and transport slice (objectives
+003-a/003-b), 2026-11-10. The original code in this repository is
+Apache-2.0 (see LICENSE). The lightweight locked environment (`uv.lock`)
+contains exactly the packages below; no heavy ML stack
 (Torch/Transformers/SentenceTransformers) is a dependency of this slice.
 
 ## Locked runtime dependencies
@@ -14,6 +15,32 @@ repository is Apache-2.0 (see LICENSE). The lightweight locked environment
 | annotated-types | 0.8.0 | MIT |
 | typing-extensions | 4.16.0 | PSF-2.0 |
 | typing-inspection | 0.4.5 | MIT |
+| httpx | 0.28.1 | BSD-3-Clause |
+| httpcore | 1.0.9 | BSD-3-Clause |
+| certifi | 2026.10.23 | MPL-2.0 |
+| anyio | 4.16.0 | MIT |
+| h11 | 0.16.0 | MIT |
+| idna | 3.20 | BSD-3-Clause |
+
+Locked versions and artifact hashes are from `uv.lock` (verified
+2026-11-10); the httpx chain was added by the 003-a transport slice
+(`httpx>=0.28,<1`, declared in `pyproject.toml`).
+
+## Dependency license gate — certifi (UNRESOLVED, human question pending)
+
+`certifi` 2026.10.23 is a locked runtime dependency of `httpx` (CA
+certificate bundle). Its official license is **MPL-2.0**, which is outside
+the current MIT/BSD/Apache-2.0 allowlist used by this repository's
+dependency policy. Consequences, recorded exactly and without overclaim:
+
+- This is **unapproved** under the current whitelist unless a later
+  explicit human exception is supplied; the policy question is pending.
+- It is **not** a Python/NVIDIA platform waiver and **not** a license-audit
+  pass; no legal interpretation or automatic allowlist expansion is made.
+- The transport code path does not require modifying or redistributing the
+  bundle in this repository (it is consumed from the locked environment);
+  final 003/018 license gates must resolve the actual policy before any
+  distribution.
 
 ## Locked development dependencies
 

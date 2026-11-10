@@ -1,0 +1,40 @@
+{
+  "round": "003-f",
+  "objective": "003",
+  "status": "FINAL",
+  "decision": "CONTINUE",
+  "strategic_result": "NATIVE_ORIGINAL_FIVE_VECTORS_FIXED; TWO_BOUNDARY_DEFECTS_REMAIN",
+  "pr": 5,
+  "implementation": "db7443fd64b3207a208348ea178c1600e6ff90f4",
+  "report_commit": "5960ea188b3493ff4964ba584ca13ee3a1f49142",
+  "report_sha256": "53076b74b2b9f744e4415d4eef53fd4c746ceee013a1580dbda10dc39f226f7d",
+  "final_head_ci": "Implementation db7443f run42781488186 all5SUCCESS; report5960ea1 run42782276864 all5SUCCESS, last2026-11-10T08:25:44Z",
+  "verified": "UniqueopenPR5/originalbranch/mainbase93b4317; report5960ea1 soleparentdb7443f andonlyreportdiff; remoteexactreport/order/priorreviewbytes verified. Workingtree clean; reviews/comments empty. All15implementationpaths in scope; no dependency/source/architecture/rolelaw/CRITICAL change. Candidategovrefresh permitted and measured35847bytes.",
+  "actual_progress": "Correctprefill/decode quantities/zero retention/TTFTunknown, safeint400conversion, actualformatdefaultdenyJSONbuildgate, contradictorywork/cachebreakdownwithheld, literaltool-call+Markdownpreserved, schema/docs/govrefreshed. Alloriginal5HTTPvectors nowcorrect; bothphasezero positive also correct.",
+  "blocking_acceptance_defects": [
+    "Native prompt_ms=predicted_ms=1e308 individuallyfinite but millisecondadditionoverflows before division; _parse_native_timings passesInf toTimingMetrics and rawValidationError escapesgenerate(). ExistingFcriterion2 explicitly requires safe arithmetic.",
+    "Validconstructorrequest with declaredTEXT+JSON_MODE and requiredJSON_MODE, response_format=None, untestedjson_grammar build stilldispatches /apply-template and /completion. Explicitminimumcapability must be honored independently ofactualformatgate; defaultdeny servingbuild cannot be inferred frommodeldeclaration."
+  ],
+  "independent_evidence": {
+    "owned_http_script": "/tmp/raggedized003-native-boundaries-review.py",
+    "observations": "Eightcases/14POST: original5 correct, bothzero correct, finitephasesum rawValidationError, explicitrequiredJSON-only incorrectlyTERMINAL/2POST. Finalreport-onlydiff leaves exacttestedsourceunchanged. No realtarget.",
+    "local_checks": "119nativeHTTP+mappingtests PASS(session24136,78+41); separatefull132unit PASS;41OAP PASS;Ruffclean;generatedRaggedizedConfigschema byteequal;check_statePASS. Initialschemareviewcommands used systemPython/mistakenAppConfigsymbol and were corrected to lockeduv/RaggedizedConfig before verifiedbytecomparison.",
+    "ci_product_coverage": "368product=236integration(125gateway+33transport+78native)+132unit; separate41OAP. Fullmatrixgreen is fixtureevidence, notacceptanceofremainingboundarycontracts."
+  },
+  "reported_result": "COMPLETE",
+  "report_accuracy": "Originalfive-vector rerun now makes8actualPOST because unqualifiedJSONcorrectlydispatches0, not10asreportstates; correctionhere, no historicalreportedit. Registry54 andtestcountsnowaccurate.",
+  "next": "003-g focusednativeboundaryclosure, then finalize003-h boundedprobes/CLI/full003composition. SamePR, no merge/numericadvanceuntilentire003softwareproved.",
+  "strongest_reason_not_to_merge": "A provider numeric response still escapes the safeGeneratorClientboundary, an explicitminimum servingcapability isignored, and original003probes/CLI remain absent. ReportCOMPLETE/greenCI cannotwaive these.",
+  "scope_fidelity": "Architecture2/A01-A40 fullMVP preserved; no humanowner/referralfeature, newstrictCodexprofile, performance/hardware/cachequalification, licenseexception/distributionclearance, release/deploymentclaim. Pendingactualtarget/licensequestions unchanged; noDHAneeded.",
+  "consumed_response": {
+    "identifier": "003-f",
+    "pr": 5,
+    "implementation": "db7443fd64b3207a208348ea178c1600e6ff90f4",
+    "report_commit": "5960ea188b3493ff4964ba584ca13ee3a1f49142",
+    "report_sha256": "53076b74b2b9f744e4415d4eef53fd4c746ceee013a1580dbda10dc39f226f7d",
+    "verified_at": "2026-11-10T08:24:18.414082+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "recorded_at": "2026-11-10T08:26:36.960999+00:00",
+  "coding_goal_lifecycle": "Afterverifiedreport/response, /goal clear sent viaqualifiedwake. PaneconfirmedGoalcleared/quiescent, selectedQwenprofile unchanged; noEscape/reset/FIFOreread."
+}

@@ -39,13 +39,18 @@ so the suite passes from an active checkout as well as a clean clone.
 2. Overwrite `.python-version` with the matrix version (the committed file is the
    development default) and install `uv==0.12.5` from the standard registry.
 3. `uv sync --locked` installs the locked lightweight environment (no heavy ML stack).
-4. `uv run ruff check src tests/unit` lints the product scope (the OAP scaffold is
-   governance-owned compact style, out of product lint scope).
+4. `uv run ruff check src tests/unit tests/integration` lints the product scope (the
+   OAP scaffold is governance-owned compact style, out of product lint scope).
 5. `python -m compileall -q oap tests` syntax check.
 6. `uv run pytest tests/unit -q` runs the real product tests; pytest exits 5 on empty
    discovery, so the suite cannot be falsely green.
-7. The existing OAP test suite and governance check run on the same clean checkout.
-8. `uv run raggedized --help` (offline) and `raggedized doctor` on the shipped example:
+7. `uv run pytest tests/integration -q` runs the real controlled HTTP/SSE behavior
+   tests (objective 003: 003-b transport/gateway, 003-c/d protocol validation,
+   003-e native direct adapter) against owned loopback fixtures with synthetic
+   keys (see TESTING.md T06 and docs/generator-contract.md); same clean locked
+   install.
+8. The existing OAP test suite and governance check run on the same clean checkout.
+9. `uv run raggedized --help` (offline) and `raggedized doctor` on the shipped example:
    the step asserts exit code 1, `config: valid`, `readiness: not_ready` and the
    `MODEL_UNQUALIFIED` code in the machine-readable output (honest unqualified examples).
 
@@ -59,8 +64,9 @@ python3 oap/bin/check_state.py --repo-root .
 
 # product foundation (002-a)
 uv sync --locked
-uv run ruff check src tests/unit
+uv run ruff check src tests/unit tests/integration
 uv run pytest tests/unit -q
+uv run pytest tests/integration -q
 uv run raggedized doctor --config config/examples/example-config.json
 ```
 
@@ -71,4 +77,7 @@ implementation-head run is recorded in the round report; strategy separately obs
 final report-head run, so the report never certifies its own future checks. Zero passing
 checks never means product verification has passed. The product job proves the foundation
 package, its tests and the OAP checks install and run from a locked clean checkout; it does
-not prove live model, hardware or gateway readiness.
+not prove live model, hardware or gateway readiness. The integration suite proves the
+bounded transport/gateway HTTP and SSE behavior described in
+docs/generator-contract.md; native direct-adapter and qualification-probe evidence
+(the remainder of objective 003) stays NOT RUN / pending.
