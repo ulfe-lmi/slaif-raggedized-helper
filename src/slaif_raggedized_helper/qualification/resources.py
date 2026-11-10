@@ -61,10 +61,11 @@ preserves the original exception.
 Aggregate accounting semantics (004-e): collection calls, observed
 bytes and observed time are enforced BEFORE work, across the whole
 observer lifetime (never reset per phase). ``bytes_read`` is the sum
-of ACTUAL observed read bytes (honest), while the bounded read cap is
-RESERVED for each admitted sample so the aggregate can never exceed
+of ACTUAL own-process read bytes; ``device_query_bytes_read`` is a
+non-overlapping device-pipe count. Their sum is the total. The bounded
+read cap is RESERVED for each admitted sample so the aggregate can never exceed
 the finite cap and the exported record stays valid at exhaustion
-(stop reason ``resource_exhausted``). Startup (t=0) and final
+(stop reason ``resource_exhausted``). Baseline, sample and final
 observations and device work are included in their documented
 applicable allowances; known 0 stays 0 and unavailable stays null;
 collector work never consumes or invents model attempts.
@@ -553,6 +554,8 @@ class CollectorAccounting(BaseModel):
     def _check_counts(self) -> "CollectorAccounting":
         if self.samples > self.collection_calls:
             raise ValueError("samples cannot exceed collection calls")
+        if self.bytes_read + self.device_query_bytes_read > MAX_COLLECTOR_BYTES:
+            raise ValueError("total observed collector bytes exceed the limit")
         return self
 
 
@@ -981,14 +984,14 @@ def run_gpu_metadata_query(
             except OSError:
                 pass
             try:
-                process.wait(timeout=1.0)
+                process.wait(timeout=0.5)
             except subprocess.TimeoutExpired:
                 try:
                     process.kill()
                 except OSError:
                     pass
                 try:
-                    process.wait(timeout=1.0)
+                    process.wait(timeout=0.5)
                 except subprocess.TimeoutExpired:
                     pass
         wall = max(0.0, clock() - start)
@@ -1165,84 +1168,60 @@ class TrialResourceObserver:
         if self._stop_reason == "not_started":
             self._stop_reason = reason
 
-    def _admission_refusal_locked(self) -> str | None:
-        """Aggregate admission check BEFORE any collection work.
-
-        The bounded read cap is RESERVED for the next admitted sample
-        so the aggregate can never exceed the finite cap (the exported
-        record stays valid at exhaustion); actual observed bytes are
-        charged after the read. The caller holds the lock and must set
-        the stop reason when this returns a reason.
-        """
-        if self._collection_calls >= MAX_COLLECTION_CALLS:
-            return "resource_exhausted"
-        if self._bytes_read + _PROC_STATUS_READ_BYTES > MAX_COLLECTOR_BYTES:
+    def _admission_refusal_locked(self, byte_reservation: int = 0) -> str | None:
+        """Check the shared deadline, calls and total read allowance before work."""
+        now = self._clock()
+        if self._deadline is not None and now >= self._deadline:
+            return "deadline_reached"
+        if self._start_time is None or now - self._start_time >= self._max_duration:
+            return "duration_reached"
+        if (self._collection_calls >= MAX_COLLECTION_CALLS
+                or self._bytes_read + self._device_query_bytes + byte_reservation
+                > MAX_COLLECTOR_BYTES):
             return "resource_exhausted"
         return None
 
     def start(self, deadline: float | None = None) -> None:
-        """Begin bounded sampling (idempotent refusal after start).
-
-        ``deadline`` is the ACTUAL single trial deadline (monotonic
-        absolute) when bound to a trial, or None for the standalone
-        duration-bound diagnostic. Work starts here — never earlier.
-
-        When bound to a trial deadline, the single startup metadata
-        query (when opted in) is clipped to the remaining trial AND
-        observer duration; if the deadline is already reached nothing
-        is queried, sampled or started; admission is rechecked after
-        the query, so a slow startup query can never admit a late
-        first sample or start a sampler past expiry. The standalone
-        diagnostic (no deadline) keeps the query's own documented
-        finite bound (D0: timeout <= 1 s).
-        """
+        """Bind the shared deadline and start only admitted collector work."""
         with self._lock:
             if self._state != "constructed":
                 raise ValueError("observer can be started exactly once")
             now = self._clock()
             if deadline is not None:
-                if (isinstance(deadline, bool) or not isinstance(
-                        deadline, (int, float))
+                if (isinstance(deadline, bool) or not isinstance(deadline, (int, float))
                         or not math.isfinite(float(deadline))):
                     raise ValueError("deadline must be a finite number")
                 deadline = float(deadline)
-            if deadline is not None and deadline <= now:
-                # The trial deadline is already exhausted: nothing is
-                # queried, sampled or started, nothing is fabricated.
-                self._start_time = now
-                self._stop_locked("deadline_reached")
-                return
             self._deadline = deadline
             self._start_time = now
-            self._baseline_user, self._baseline_system = own_process_cpu()
-            # A metadata query (at most one) happens BEFORE the sampler
-            # thread starts: finite, bounded, owned child only, with
-            # the allowance clipped to the remaining trial AND observer
-            # duration (expiry never authorizes further collection).
-            if self._gpu_query:
-                query_timeout = self._gpu_timeout
-                if deadline is not None:
-                    # The startup query allowance is clipped to the
-                    # remaining trial AND observer duration; expiry
-                    # never authorizes the query or work after it.
-                    allowance = min(self._max_duration, deadline - now)
-                    if allowance <= 0:
-                        self._stop_locked("deadline_reached")
-                        return
-                    query_timeout = min(query_timeout, allowance)
-                self._gpu_observation = self._run_one_gpu_query(
-                    timeout_seconds=query_timeout)
-                # Recheck admission AFTER the startup query: no late
-                # first sample, no sampler started past expiry.
-                if deadline is not None and self._clock() >= deadline:
-                    self._stop_locked("deadline_reached")
-                    return
-            # t=0 sample admission: aggregate bounds checked before work.
             reason = self._admission_refusal_locked()
             if reason is not None:
                 self._stop_locked(reason)
                 return
-            self._record_sample_locked()  # the t=0 sample (>=1 sample)
+            self._collection_calls += 1  # baseline CPU observation
+            self._baseline_user, self._baseline_system = own_process_cpu()
+            if self._gpu_query:
+                # Both pipes can consume their caps plus bounded lookahead.
+                reservation = self._gpu_stdout_bytes + self._gpu_stderr_bytes + 2
+                reason = self._admission_refusal_locked(reservation)
+                if reason is not None:
+                    self._stop_locked(reason)
+                    return
+                now = self._clock()
+                remaining = self._start_time + self._max_duration - now
+                if deadline is not None:
+                    remaining = min(remaining, deadline - now)
+                if remaining <= 0:
+                    self._stop_locked(self._admission_refusal_locked() or "duration_reached")
+                    return
+                self._collection_calls += 1
+                self._gpu_observation = self._run_one_gpu_query(
+                    timeout_seconds=min(self._gpu_timeout, remaining))
+            reason = self._admission_refusal_locked(_PROC_STATUS_READ_BYTES)
+            if reason is not None:
+                self._stop_locked(reason)
+                return
+            self._record_sample_locked()
             self._state = "running"
             self._stop_event.clear()
             thread = threading.Thread(
@@ -1250,6 +1229,9 @@ class TrialResourceObserver:
                 daemon=True)
             self._thread = thread
             thread.start()
+            if len(self._samples) >= self._max_samples:
+                self._thread_stop_reason = "samples_reached"
+                self._stop_event.set()
 
     def _run_one_gpu_query(self, timeout_seconds: float) -> dict[str, Any]:
         self._device_queries += 1
@@ -1309,11 +1291,15 @@ class TrialResourceObserver:
                 if len(self._samples) >= self._max_samples:
                     self._thread_stop_reason = "samples_reached"
                     return
-                reason = self._admission_refusal_locked()
+                reason = self._admission_refusal_locked(_PROC_STATUS_READ_BYTES)
                 if reason is not None:
                     self._thread_stop_reason = reason
                     return
                 self._record_sample_locked()
+                if len(self._samples) >= self._max_samples:
+                    self._thread_stop_reason = "samples_reached"
+                    self._stop_event.set()
+                    return
 
     def observe_for(self, seconds: float) -> None:
         """Standalone diagnostic: observe for up to ``seconds``.
@@ -1324,7 +1310,12 @@ class TrialResourceObserver:
         if (isinstance(seconds, bool) or not isinstance(seconds, (int, float))
                 or not math.isfinite(float(seconds)) or float(seconds) <= 0):
             raise ValueError("seconds must be a finite positive number")
-        self._stop_event.wait(float(seconds))
+        if self._start_time is None:
+            return
+        remaining = max(0.0, self._start_time + self._max_duration - self._clock())
+        if self._deadline is not None:
+            remaining = min(remaining, max(0.0, self._deadline - self._clock()))
+        self._stop_event.wait(min(float(seconds), remaining))
 
     def record_phase(self, event: PhaseEvent) -> None:
         """Bind one trusted loop fact (validated; dropped after stop)."""
@@ -1355,7 +1346,7 @@ class TrialResourceObserver:
                 self._stop_reason = reason
             self._stop_event.set()
             thread = self._thread
-        if thread is not None:
+        if thread is not None and thread.ident is not None:
             thread.join(timeout=self._cleanup_bound)
             with self._lock:
                 if thread.is_alive():
@@ -1375,9 +1366,18 @@ class TrialResourceObserver:
         if trial_status not in ("complete", "incomplete", "not_run"):
             raise ValueError("trial_status must be a trial execution status")
         self.stop("finished")
-        final_user, final_system = own_process_cpu()
+        final_user = final_system = lifetime = None
         with self._lock:
-            self._collection_calls += 1
+            reason = self._admission_refusal_locked()
+            # Exhaustion is terminal, even if a final no-byte probe would fit.
+            if self._stop_reason == "resource_exhausted":
+                reason = "resource_exhausted"
+            if reason is None:
+                self._collection_calls += 1
+                final_user, final_system = own_process_cpu()
+                lifetime = lifetime_max_rss_bytes()
+            elif self._stop_reason != "resource_exhausted":
+                self._stop_reason = reason
             samples = list(self._samples)
             duration = (
                 round(max(0.0, self._clock() - self._start_time), 9)
@@ -1397,7 +1397,6 @@ class TrialResourceObserver:
         else:
             user = None
             system = None
-        lifetime = lifetime_max_rss_bytes()
         return {
             "kind": "resource-telemetry",
             "version": RESOURCE_TELEMETRY_VERSION,
@@ -1537,11 +1536,12 @@ def run_resource_diagnostic(
         gpu_env=gpu_env,
         clock=clock,
     )
-    observer.start(None)
-    observer.observe_for(duration)
-    # finish() performs the idempotent stop (finite cleanup bound) and
-    # builds the validated section; the diagnostic document projects it.
-    resource_section = observer.finish("not_run")
+    try:
+        observer.start(None)
+        observer.observe_for(duration)
+        resource_section = observer.finish("not_run")
+    finally:
+        observer.stop("stopped")
     ResourceSection.model_validate(resource_section)
     document = {
         "qualification": "resource",

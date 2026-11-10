@@ -225,7 +225,8 @@ class TestFixedArgvGpuQueryViaCli:
         gpu = doc["gpu"]
         assert gpu["status"] == "error"
         assert gpu["reason"] == "timeout"
-        assert 0.9 <= elapsed < 15.0  # bounded; owned child stopped
+        assert elapsed < 2.0  # startup query is clipped to the 0.2 s duration
+        assert gpu["query_wall_seconds"] < 0.5
         assert gpu["devices"] == []
 
 
