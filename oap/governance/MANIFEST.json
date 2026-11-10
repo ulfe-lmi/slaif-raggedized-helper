@@ -24,7 +24,7 @@
     "PLAN.md": "6cbb9cba6694ccd435435a7c9e0fdd32444c1d2520e5ffa5194b5e3db749b21b",
     "SECURITY.md": "79de73841e8f7e5a2dec0ed5dd22bc6876607fa4ba7fcb40de0b194a478ac7b9",
     "SOURCE-MAP.md": "dfba5a5bb6542f0346a58d85391afa96ed0240ca2e2627b557cd549e535867c4",
-    "TESTING.md": "b5c40fe2ff1a3af71727630997488330cb12c9a0a5cc34a69fe4d1493d9bf869",
+    "TESTING.md": "ab17fc24eebf54828a62b6c15362637aed822331e6a1f086a9cfb3c3ff01decb",
     "docs/DECISION-POLICY.md": "8915f2e78c5ac64a66c3b5901795e42de57a3fa840fd51e137f76b9ff997f274",
     "docs/READINESS.md": "eeceb97751a45e6f4980a76587db3d3db449c17f1a814be4fce85675ac0542c1",
     "docs/RUNTIME-CONSTRAINTS.md": "e9742b16396a7156ef6c1a4ee6db02d68099feaf383f6a0d47bba04718a94805",
@@ -49,7 +49,7 @@
     "oap/bin/verify_report.py": "fcfe6a755e7cd1b3f6f19c6f02aa1a33335705567f824d2742e1b80662fa8b08",
     "oap/bootstrap-sources.lock.json": "1998590c77b84c7ca5f231abc870ba26767a698038316f69044f5f4e4198dee7",
     "oap/coding-instructions/AGENTS.md": "6ee5dae3ea689384a3ccca5c3c6342418a1368449c32ac5f48ec301eddc74636",
-    "oap/governance/CONTEXT-BUDGET.md": "05664945cce9bcfce1b3ce15559a9d091919eb997f79d9505e830e95fb51047a",
+    "oap/governance/CONTEXT-BUDGET.md": "9a2f09245da0ec0c0d50eaa0fe07a5782f87cf1619db942be1189c269c00aca4",
     "oap/governance/DISTILLATION-MAP.md": "41864cb9846d2f307f746519999e41a6db53d5e00e67228ef6ded87155ee9981",
     "oap/prompts/coding-startup.txt": "41afe88aa473905c6496b8179aa3e2b87a04a8b0c88662b3214481634d3f8464",
     "oap/prompts/strategic-startup.txt": "37d551ca8be7cbb679236f4aa9eac456110bd97f0b6b592bc2a4c5a61eed5676",
@@ -85,7 +85,7 @@
     "oap/templates/order.md": "4d55f18dae128a75136d498db2bbd25c7d0f2c1dad30785364eebd29618010f2",
     "oap/templates/report.md": "e1065ec9af381a94132a07e077af0c81d323e9221c0050a253944e7260101f84",
     "oap/templates/review.md": "df87efe8fec918821c0a75072dbcf176605318fe68698aaf2340ea14204e2e7d",
-    "tests/oap/test_harness.py": "20ebc6595a8adc640746dcb38a8017536f43c9e6a743ddef51f88d642434e5f4"
+    "tests/oap/test_harness.py": "69de0d002b9f994ff114f0de85de8fbbbaf8522947cf2e31f7c3dfb1d8406e20"
   },
   "schema": 1
 }

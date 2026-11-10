@@ -1,0 +1,319 @@
+{
+  "$defs": {
+    "DegradationPolicy": {
+      "additionalProperties": false,
+      "description": "Explicit degradation: disabled by default; when enabled it must name the\nallowed fallback steps. Implicit degradation is a configuration error.",
+      "properties": {
+        "allow": {
+          "items": {
+            "$ref": "#/$defs/DegradationStep"
+          },
+          "title": "Allow",
+          "type": "array"
+        },
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        }
+      },
+      "title": "DegradationPolicy",
+      "type": "object"
+    },
+    "DegradationStep": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "DegradationStep",
+      "type": "object"
+    },
+    "Device": {
+      "enum": [
+        "cpu",
+        "gpu"
+      ],
+      "title": "Device",
+      "type": "string"
+    },
+    "DirectGenerationConfig": {
+      "additionalProperties": false,
+      "description": "Direct (non-gateway) generation. Online direct generation is refused;\na private trusted offline opt-in is a later explicit slice.",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        }
+      },
+      "title": "DirectGenerationConfig",
+      "type": "object"
+    },
+    "Dtype": {
+      "enum": [
+        "fp32",
+        "fp16"
+      ],
+      "title": "Dtype",
+      "type": "string"
+    },
+    "EmbeddingPolicy": {
+      "additionalProperties": false,
+      "description": "Exclusive offline embedding policy: offline embedding runs on an\nexclusive GPU (FP16 or qualified FP32 compute) and stores normalized FP32\nvectors (architecture A16: stored vectors are always FP32).",
+      "properties": {
+        "exclusive_offline_gpu": {
+          "default": true,
+          "title": "Exclusive Offline Gpu",
+          "type": "boolean"
+        },
+        "store_dtype": {
+          "$ref": "#/$defs/Dtype",
+          "default": "fp32"
+        }
+      },
+      "title": "EmbeddingPolicy",
+      "type": "object"
+    },
+    "GeneratorConfig": {
+      "additionalProperties": false,
+      "description": "Online generation through the configured gateway route only.",
+      "properties": {
+        "context_expected_tokens": {
+          "exclusiveMinimum": 0,
+          "title": "Context Expected Tokens",
+          "type": "integer"
+        },
+        "deadline_seconds": {
+          "title": "Deadline Seconds",
+          "type": "number"
+        },
+        "degradation": {
+          "$ref": "#/$defs/DegradationPolicy"
+        },
+        "fallback": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fallback"
+        },
+        "max_inflight": {
+          "default": 1,
+          "exclusiveMinimum": 0,
+          "title": "Max Inflight",
+          "type": "integer"
+        },
+        "output_reserve_tokens": {
+          "exclusiveMinimum": 0,
+          "title": "Output Reserve Tokens",
+          "type": "integer"
+        },
+        "route": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RouteConfig"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "context_expected_tokens",
+        "output_reserve_tokens",
+        "deadline_seconds"
+      ],
+      "title": "GeneratorConfig",
+      "type": "object"
+    },
+    "ModelLockRef": {
+      "additionalProperties": false,
+      "description": "Reference to a model lock/manifest file inspected by ``doctor``.",
+      "properties": {
+        "path": {
+          "maxLength": 1024,
+          "minLength": 1,
+          "title": "Path",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "generator",
+            "embedding",
+            "reranker"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "path"
+      ],
+      "title": "ModelLockRef",
+      "type": "object"
+    },
+    "ProfileConfig": {
+      "additionalProperties": false,
+      "description": "One named serving profile with an explicit purpose/device/dtype shape.",
+      "properties": {
+        "device": {
+          "$ref": "#/$defs/Device"
+        },
+        "dtype": {
+          "$ref": "#/$defs/Dtype"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "purpose": {
+          "$ref": "#/$defs/ProfilePurpose"
+        }
+      },
+      "required": [
+        "name",
+        "purpose",
+        "device",
+        "dtype"
+      ],
+      "title": "ProfileConfig",
+      "type": "object"
+    },
+    "ProfilePurpose": {
+      "enum": [
+        "online_query_embedding",
+        "online_rerank",
+        "offline_embed",
+        "offline_context"
+      ],
+      "title": "ProfilePurpose",
+      "type": "string"
+    },
+    "RouteConfig": {
+      "additionalProperties": false,
+      "description": "Explicit gateway route contract reference (never guessed).",
+      "properties": {
+        "api": {
+          "const": "v1-responses",
+          "default": "v1-responses",
+          "title": "Api",
+          "type": "string"
+        },
+        "base_url": {
+          "maxLength": 1024,
+          "minLength": 1,
+          "title": "Base Url",
+          "type": "string"
+        },
+        "model": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "timeout_seconds": {
+          "title": "Timeout Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "base_url",
+        "model",
+        "timeout_seconds"
+      ],
+      "title": "RouteConfig",
+      "type": "object"
+    },
+    "SecretRef": {
+      "additionalProperties": false,
+      "description": "A secret *name* or secret-file reference. Never a raw secret value.",
+      "properties": {
+        "kind": {
+          "enum": [
+            "env",
+            "file"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "name"
+      ],
+      "title": "SecretRef",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Strict deployment configuration for slaif-raggedized-helper (objective 002-a). Unknown fields are rejected at every level; budgets are finite and positive; secrets appear only as env/file references; no credentials in route URLs.",
+  "properties": {
+    "direct_generation": {
+      "$ref": "#/$defs/DirectGenerationConfig"
+    },
+    "embedding": {
+      "$ref": "#/$defs/EmbeddingPolicy"
+    },
+    "generator": {
+      "$ref": "#/$defs/GeneratorConfig"
+    },
+    "model_locks": {
+      "items": {
+        "$ref": "#/$defs/ModelLockRef"
+      },
+      "title": "Model Locks",
+      "type": "array"
+    },
+    "profiles": {
+      "items": {
+        "$ref": "#/$defs/ProfileConfig"
+      },
+      "title": "Profiles",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "secrets": {
+      "additionalProperties": {
+        "$ref": "#/$defs/SecretRef"
+      },
+      "title": "Secrets",
+      "type": "object"
+    }
+  },
+  "required": [
+    "generator"
+  ],
+  "title": "RaggedizedConfig",
+  "type": "object"
+}

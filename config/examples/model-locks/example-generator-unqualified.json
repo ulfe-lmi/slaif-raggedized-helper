@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "lock": {
+    "schema_version": 1,
+    "role": "generator",
+    "model_name": "Qwen3.8-27B (Q6 reference, placeholder example)",
+    "revision": "unresolved-pending-human-provisioning",
+    "artifact_sha256": null,
+    "license_name": null,
+    "license_status": "unknown",
+    "tokenizer_revision": null,
+    "pooling": null,
+    "gguf": {
+      "quantization": "Q6_K",
+      "artifact_sha256": null
+    },
+    "projector": null,
+    "runtime": null
+  },
+  "qualification": null
+}

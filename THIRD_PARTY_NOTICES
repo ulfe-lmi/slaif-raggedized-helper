@@ -1,0 +1,45 @@
+# Third-party notices — slaif-raggedized-helper
+
+Foundation slice (OAP objective 002-a), 2026-11-10. The original code in this
+repository is Apache-2.0 (see LICENSE). The lightweight locked environment
+(`uv.lock`) contains exactly the packages below; no heavy ML stack
+(Torch/Transformers/SentenceTransformers) is a dependency of this slice.
+
+## Locked runtime dependencies
+
+| Package | Locked version | License (official PyPI metadata, 2026-11-10) |
+|---|---|---|
+| pydantic | 2.14.3 | MIT |
+| pydantic-core | 2.50.4 | MIT |
+| annotated-types | 0.8.0 | MIT |
+| typing-extensions | 4.16.0 | PSF-2.0 |
+| typing-inspection | 0.4.5 | MIT |
+
+## Locked development dependencies
+
+| Package | Locked version | License (official PyPI metadata, 2026-11-10) |
+|---|---|---|
+| pytest | 8.4.2 | MIT |
+| ruff | 0.17.4 | MIT |
+| pluggy | 1.7.0 | MIT |
+| iniconfig | 2.3.1 | MIT |
+| packaging | 26.3 | Apache-2.0 OR BSD-2-Clause |
+| colorama | 0.4.6 | BSD (PyPI classifier: OSI-approved BSD) |
+| Pygments | 2.21.0 | BSD-2-Clause |
+
+Build backend: hatchling — declared as the build-system requirement
+`hatchling>=1.25,<2` in pyproject.toml. Build backends are not locked by
+`uv.lock`, so no exact build-backend artifact is pinned by this repository;
+license MIT (official PyPI metadata, 2026-11-10).
+
+## Model, tokenizer and runtime licenses — UNRESOLVED
+
+No model, tokenizer, GGUF artifact, projector or inference runtime is
+downloaded, pinned or included in this repository. The example model locks in
+`config/examples/model-locks/` carry explicit unknowns (`license_status:
+"unknown"`, null artifact hashes) and are **not** license clearance or
+approval of any model or artifact. Exact transitive license/SBOM/notice
+audits for the real models and runtimes (Qwen GGUF, BGE-M3, bge-reranker-v2-m3
+and their tokenizers/runtimes) remain open work for later licensed
+objectives; PSF and NVIDIA platform terms are separate disclosures per the
+architecture. No legal clearance is claimed by this repository.
