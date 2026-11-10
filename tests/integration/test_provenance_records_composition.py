@@ -106,7 +106,34 @@ def test_real_store_to_provenance(tmp_path):
             text_sha256=hashlib.sha256(reconstructed.encode()).hexdigest(),
         )
         chunk = chunk.model_copy(update={"chunk_id": p.chunk_id(chunk)})
+        chunk = p.admit_record("Chunk", chunk.model_dump_json().encode())
         assert registry.bind_chunk(chunk) == scopes[0]
+        tail_fragment = p.SourceFragment(
+            schema_version=1,
+            kind="source",
+            block_id="b0",
+            start=5,
+            end=len(text),
+            copied_text=text[5:],
+        )
+        tail = chunk.model_copy(
+            update={
+                "fragments": (tail_fragment,),
+                "text": text[5:],
+                "text_sha256": hashlib.sha256(text[5:].encode()).hexdigest(),
+            }
+        )
+        tail = tail.model_copy(update={"chunk_id": p.chunk_id(tail)})
+        links = p.admit_record(
+            "Neighbors",
+            {
+                "schema_version": 1,
+                "chunk_id": chunk.chunk_id,
+                "previous_chunk_id": None,
+                "next_chunk_id": tail.chunk_id,
+            },
+        )
+        assert registry.bind_neighbors((chunk, tail), (links,)) == (links,)
         grant = p.Grants(schema_version=1, corpora=("public",), versions=("1",), labels=())
         assert p.reader_allows(scopes[0], grant) and not p.reader_allows(scopes[1], grant)
         derived = p.Derived(

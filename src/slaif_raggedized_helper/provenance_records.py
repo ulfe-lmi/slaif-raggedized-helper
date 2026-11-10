@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import hashlib
+import json
+import math
 import re
 from typing import Literal
 
@@ -98,6 +100,14 @@ class Chunk(Record):
     counts: tuple[TokenCount, ...] = Field(default=(), max_length=16)
 
 
+class Neighbors(Record):
+    """Separate, supplied relations; null means unknown, not a document boundary."""
+
+    chunk_id: str = Field(min_length=1, max_length=71)
+    previous_chunk_id: str | None
+    next_chunk_id: str | None
+
+
 class Derived(Record):
     artifact_id: str = Field(min_length=1, max_length=256)
     origin: Literal["interpretation", "context"]
@@ -118,6 +128,101 @@ class Grants(Record):
 class Restrictions(Record):
     corpora: tuple[str, ...] | None = Field(default=None, max_length=128)
     versions: tuple[str, ...] | None = Field(default=None, max_length=128)
+
+
+_ADMISSION_TYPES = {
+    cls.__name__: cls
+    for cls in (
+        Scope,
+        Dependency,
+        Block,
+        SourceFragment,
+        Separator,
+        TokenCount,
+        Chunk,
+        Neighbors,
+        Derived,
+        Grants,
+        Restrictions,
+    )
+}
+MAX_ADMISSION_BYTES = 1_048_576
+
+
+def _unique_pairs(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError
+        result[key] = value
+    return result
+
+
+def admit_record(kind: str, value: dict | bytes) -> Record:
+    """Safely admit bounded untrusted JSON bytes or primitive mapping as a DTO."""
+    try:
+        if type(kind) is not str or kind not in _ADMISSION_TYPES:
+            raise ValueError
+        if type(value) is bytes:
+            if len(value) > MAX_ADMISSION_BYTES:
+                raise ValueError
+            value = json.loads(
+                value.decode("utf-8"),
+                object_pairs_hook=_unique_pairs,
+                parse_constant=lambda _: (_ for _ in ()).throw(ValueError()),
+            )
+        if type(value) is not dict:
+            raise ValueError
+        stack = [(value, 0)]
+        nodes = 0
+        chars = 0
+        while stack:
+            item, depth = stack.pop()
+            nodes += 1
+            if nodes > 20000 or depth > 32:
+                raise ValueError
+            if type(item) is str:
+                chars += len(item)
+                if chars > MAX_ADMISSION_BYTES:
+                    raise ValueError
+                item.encode("utf-8")
+            elif item is None or type(item) in (bool, int):
+                if type(item) is int and item.bit_length() > 430:
+                    raise ValueError
+            elif type(item) is float:
+                if not math.isfinite(item):
+                    raise ValueError
+            elif type(item) in (list, tuple):
+                if len(item) > 20000:
+                    raise ValueError
+                stack.extend((v, depth + 1) for v in item)
+            elif type(item) is dict:
+                if len(item) > 20000 or any(type(k) is not str for k in item):
+                    raise ValueError
+                stack.extend((v, depth + 1) for pair in item.items() for v in pair)
+            else:
+                raise ValueError
+        raw = json.dumps(value, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode(
+            "utf-8"
+        )
+        if len(raw) > MAX_ADMISSION_BYTES:
+            raise ValueError
+        # Strict Python models require tuples; JSON arrays map only to declared tuple fields.
+        tuple_fields = {
+            "Scope": ("labels",),
+            "Block": ("geometry",),
+            "Chunk": ("fragments", "heading_path", "counts"),
+            "Derived": ("support_blocks",),
+            "Grants": ("corpora", "versions", "labels"),
+            "Restrictions": ("corpora", "versions"),
+        }
+        value = dict(value)
+        for field in tuple_fields.get(kind, ()):
+            if type(value.get(field)) is list:
+                value[field] = tuple(value[field])
+        return _ADMISSION_TYPES[kind].model_validate(value)
+    except (ValueError, TypeError, AttributeError, UnicodeError, RecursionError, ValidationError):
+        raise ProvenanceError("invalid record") from None
 
 
 def _snapshot(obj, cls):
@@ -309,6 +414,58 @@ class Registry:
             ProvenanceError,
         ):
             raise ProvenanceError("invalid chunk binding") from None
+
+    def bind_neighbors(
+        self, chunks: tuple[Chunk, ...], links: tuple[Neighbors, ...]
+    ) -> tuple[Neighbors, ...]:
+        """Resolve explicitly supplied neighbors within a compatible chunk set."""
+        try:
+            if (
+                type(chunks) is not tuple
+                or not 1 <= len(chunks) <= 4096
+                or type(links) is not tuple
+                or len(links) > len(chunks)
+            ):
+                raise ValueError
+            known = {}
+            for raw in chunks:
+                chunk = _snapshot(raw, Chunk)
+                self.bind_chunk(chunk)
+                if chunk.chunk_id in known:
+                    raise ValueError
+                known[chunk.chunk_id] = chunk
+            bound = {}
+            for raw in links:
+                relation = _snapshot(raw, Neighbors)
+                target = known[relation.chunk_id]
+                if relation.chunk_id in bound:
+                    raise ValueError
+                adjacent = (relation.previous_chunk_id, relation.next_chunk_id)
+                if adjacent[0] is not None and adjacent[0] == adjacent[1]:
+                    raise ValueError
+                for neighbor_id in adjacent:
+                    if neighbor_id is None:
+                        continue
+                    neighbor = known[neighbor_id]
+                    if neighbor_id == relation.chunk_id or (
+                        neighbor.revision_id,
+                        neighbor.extraction_id,
+                        neighbor.policy_id,
+                    ) != (target.revision_id, target.extraction_id, target.policy_id):
+                        raise ValueError
+                bound[relation.chunk_id] = relation
+            for relation in bound.values():
+                for neighbor_id, opposite in (
+                    (relation.previous_chunk_id, "next_chunk_id"),
+                    (relation.next_chunk_id, "previous_chunk_id"),
+                ):
+                    if neighbor_id in bound:
+                        other = getattr(bound[neighbor_id], opposite)
+                        if other is not None and other != relation.chunk_id:
+                            raise ValueError
+            return tuple(bound.values())
+        except (ValueError, TypeError, AttributeError, KeyError, ValidationError, ProvenanceError):
+            raise ProvenanceError("invalid neighbor binding") from None
 
     def bind_derived(self, raw: Derived) -> Scope:
         try:

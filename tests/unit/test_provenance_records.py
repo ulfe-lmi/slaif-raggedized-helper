@@ -166,3 +166,131 @@ def test_reader_intersection():
     assert not p.reader_allows(scope, grant.model_copy(update={"labels": ()}))
     assert not p.reader_allows(scope, grant, p.Restrictions(schema_version=1, corpora=("other",)))
     assert not p.reader_allows(scope, grant.model_copy(update={"versions": ()}))
+
+
+def test_safe_record_admission_and_roundtrip():
+    import json
+
+    _, _, _, registry, chunk = fixture()
+    raw = chunk.model_dump(mode="json")
+    parsed = p.admit_record("Chunk", raw)
+    assert parsed == chunk and registry.bind_chunk(parsed).labels == ("private",)
+    assert p.admit_record("Chunk", json.dumps(raw, ensure_ascii=False).encode()) == chunk
+    canary = "PRIVATE_FIELD_CANARY"
+    bad_values = [
+        dict(raw, **{canary: "secret"}),
+        dict(raw, fragments=[dict(raw["fragments"][0], **{canary: "secret"})]),
+        b'{"schema_version":1,"schema_version":1}',
+        b'{"schema_version":1,"text":"\\ud800"}',
+        b"{" + b" " * p.MAX_ADMISSION_BYTES + b"}",
+        {"schema_version": 1, "x": float("nan")},
+    ]
+    for value in bad_values:
+        with pytest.raises(p.ProvenanceError) as caught:
+            p.admit_record("Chunk", value)
+        assert str(caught.value) == "invalid record"
+        assert canary not in str(caught.value)
+        assert caught.value.__cause__ is None and caught.value.__suppress_context__
+    with pytest.raises(p.ProvenanceError, match="^invalid record$"):
+        p.admit_record(canary, {})
+    cyclic = {}
+    cyclic["x"] = cyclic
+    with pytest.raises(p.ProvenanceError, match="^invalid record$"):
+        p.admit_record("Chunk", cyclic)
+
+
+def second_chunk(chunk, **updates):
+    fragment = p.SourceFragment(
+        schema_version=1, kind="source", block_id="b", start=0, end=1, copied_text="H"
+    )
+    values = dict(fragments=(fragment,), text="H", text_sha256=digest("H"))
+    values.update(updates)
+    result = chunk.model_copy(update=values)
+    return result.model_copy(update={"chunk_id": p.chunk_id(result)})
+
+
+def test_neighbor_binding_and_unknown_relations():
+    _, _, _, registry, first = fixture()
+    second = second_chunk(first)
+    left = p.admit_record(
+        "Neighbors",
+        dict(
+            schema_version=1,
+            chunk_id=first.chunk_id,
+            previous_chunk_id=None,
+            next_chunk_id=second.chunk_id,
+        ),
+    )
+    right = p.admit_record(
+        "Neighbors",
+        dict(
+            schema_version=1,
+            chunk_id=second.chunk_id,
+            previous_chunk_id=first.chunk_id,
+            next_chunk_id=None,
+        ),
+    )
+    assert registry.bind_neighbors((first, second), (left, right)) == (left, right)
+    assert registry.bind_neighbors((first, second), (left,)) == (left,)
+    assert registry.bind_neighbors((first,), ()) == ()
+    for bad in (
+        left.model_copy(update={"next_chunk_id": "unknown"}),
+        left.model_copy(update={"next_chunk_id": first.chunk_id}),
+        left.model_copy(update={"previous_chunk_id": second.chunk_id}),
+    ):
+        with pytest.raises(p.ProvenanceError, match="^invalid neighbor binding$"):
+            registry.bind_neighbors((first, second), (bad,))
+    with pytest.raises(p.ProvenanceError):
+        registry.bind_neighbors((first, first), (left,))
+    with pytest.raises(p.ProvenanceError):
+        registry.bind_neighbors((first, second), (left, left))
+    incompatible = second_chunk(first, policy_id=p.policy_id("other"))
+    bad = left.model_copy(update={"next_chunk_id": incompatible.chunk_id})
+    with pytest.raises(p.ProvenanceError):
+        registry.bind_neighbors((first, incompatible), (bad,))
+
+
+def test_neighbor_cross_revision_and_conflicting_reciprocal():
+    rev, dep, block, _, first = fixture()
+    other_rev = revision(title="metadata change")
+    other_dep = p.Dependency(
+        schema_version=1,
+        revision_id=other_rev.revision_id,
+        extraction_id=dep.extraction_id,
+        definition=dep.definition,
+    )
+    other_block = block.model_copy(
+        update={"block_id": "other", "revision_id": other_rev.revision_id}
+    )
+    registry = p.Registry((rev, other_rev), (dep, other_dep), (block, other_block))
+    fragment = p.SourceFragment(
+        schema_version=1, kind="source", block_id="other", start=0, end=1, copied_text="H"
+    )
+    other = first.model_copy(
+        update={
+            "revision_id": other_rev.revision_id,
+            "fragments": (fragment,),
+            "text": "H",
+            "text_sha256": digest("H"),
+        }
+    )
+    other = other.model_copy(update={"chunk_id": p.chunk_id(other)})
+    link = p.Neighbors(
+        schema_version=1,
+        chunk_id=first.chunk_id,
+        previous_chunk_id=None,
+        next_chunk_id=other.chunk_id,
+    )
+    with pytest.raises(p.ProvenanceError):
+        registry.bind_neighbors((first, other), (link,))
+    second = second_chunk(first)
+    third = second_chunk(first, heading_path=("another",))
+    left = link.model_copy(update={"next_chunk_id": second.chunk_id})
+    conflicting = p.Neighbors(
+        schema_version=1,
+        chunk_id=second.chunk_id,
+        previous_chunk_id=third.chunk_id,
+        next_chunk_id=None,
+    )
+    with pytest.raises(p.ProvenanceError):
+        registry.bind_neighbors((first, second, third), (left, conflicting))
