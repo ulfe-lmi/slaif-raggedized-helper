@@ -1,0 +1,35 @@
+{
+  "lane_id": "PAR-006-STRUCTURE-A",
+  "result": "COMPLETE",
+  "implementation_head": "2951eeee9a617bfe6a938adf7fb55fcf68b7f080",
+  "report_publication_commit": "SELF",
+  "summary": "Added a separate bounded native structural text/Markdown adapter over verified approved originals and provenance contracts. It groups paragraphs, headings, procedure items, fenced code and a documented pipe-table subset while preserving exact Unicode source coverage and distinct source scopes.",
+  "API": "structured_text.extract(store, revision_id, StructurePolicy|None) returns StructureResult with revision, scope, policy-bound dependency, ordered native blocks, exact half-open Unicode code-point coverage and bounded-subset uncertainty. Input-free StructureError on failure; no PDF/model/tokenizer execution.",
+  "tests": [
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -o addopts='' -q tests/unit/test_structured_text.py tests/integration/test_structured_text_composition.py tests/unit/test_text_extraction.py tests/integration/test_text_extraction_composition.py tests/unit/test_source_admission.py tests/unit/test_source_cli.py tests/integration/test_source_admission_composition.py tests/unit/test_provenance_records.py tests/integration/test_provenance_records_composition.py",
+      "result": "48 passed in 6.03s."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.12 pytest -o addopts='' -q tests/unit/test_structured_text.py tests/integration/test_structured_text_composition.py",
+      "result": "13 passed in 0.47s."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 ruff check src/slaif_raggedized_helper/structured_text.py tests/unit/test_structured_text.py tests/integration/test_structured_text_composition.py",
+      "result": "PASS."
+    },
+    {
+      "command": "git diff --check and cmp copied order to lane order",
+      "result": "PASS."
+    }
+  ],
+  "evidence": [
+    "Owned OriginalStore -> extraction -> Registry composes metadata revisions and distinct ACL/corpus/rights for shared bytes; exact CRLF, astral, combining, blank, warnings, procedure continuations, code, repeated table headers/rows and injection/link text reconstruct via every coverage range. Cross-revision binding refused.",
+    "Determinism and policy changes affect extraction/block identities; byte, character, line, block and unit-size limits, invalid/forged policies, invalid UTF-8/PDF, corruption, descriptor-read mutation and cooperative deadline all refuse without partial results. The byte-cap witness observes zero blob reads when source size exceeds the policy."
+  ],
+  "limitations": [
+    "Local candidate only; no canonical integration, acceptance, PR, merge or CI certification.",
+    "Limited structural subset is not full CommonMark, semantic validation, token-aware chunking or proof of quality on real corpus. Empty originals explicitly produce zero blocks. Five-second deadline is cooperative and cannot interrupt blocking filesystem calls.",
+    "No PDF import or backend invocation, new dependency, license exception, vision, model, GPU or service qualification. Full 006, ICA and MVP remain open."
+  ]
+}
