@@ -1,0 +1,14 @@
+{
+  "lane_id": "PAR-004-PARITY-IO-A",
+  "result": "COMPLETE",
+  "implementation_head": "2405c4c95ea432f2f8ae4a62396d908e5c88dd2e",
+  "report_publication_commit": "SELF",
+  "summary": "Bounded local JSON admission and safe export for pure parity analyzers, with raw byte provenance and synthetic rerank composition.",
+  "API": "read_document returns document, sha256 and byte_count; render_json returns bounded deterministic UTF-8 JSON; preflight_output refuses known invalid destinations; run_export calls a trusted analyzer after preflight and raises ExportError carrying evidence on post-work export failure. Refusal maps to 2, ExportError to 3, success to 0 in a future CLI.",
+  "tests": [
+    {"command": "uv run pytest tests/unit/test_parity_io.py tests/integration/test_parity_io_composition.py tests/unit/test_rerank_parity.py tests/integration/test_rerank_parity_composition.py -q", "result": "PASSED (41 tests)"},
+    {"command": "uv run pytest tests/unit/test_contracts.py -q", "result": "PASSED (14 tests)"},
+    {"command": "uv run ruff check src/slaif_raggedized_helper/qualification/parity_io.py tests/unit/test_parity_io.py tests/integration/test_parity_io_composition.py", "result": "PASSED"}
+  ],
+  "limitations": "Synthetic owned fixtures only; no real model or hardware qualification. Parent directories and hard links are trusted operator choices; concurrent in-place modifications restoring metadata cannot be detected. Preflight is advisory and export is not atomic or durable. CLI routing and embedding composition are deferred to integration. No push, PR, merge, deployment or real service access."
+}

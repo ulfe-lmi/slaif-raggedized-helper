@@ -71,20 +71,17 @@ _PLAIN_TOKEN_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}\Z")
 # them is refused with its named prerequisite instead of being silently
 # treated as applied (004-a criterion 1).
 UNSUPPORTED_CONTROLS: dict[str, str] = {
-    "context": ("context controls are not implemented in this slice; "
-                "prerequisite 004-b (full gate composition)"),
-    "pair": ("pair workloads are not implemented in this slice; "
-             "prerequisite 004-b"),
-    "batch": ("batch workloads are not implemented in this slice; "
-              "prerequisite 004-b"),
-    "precision": ("precision controls are not implemented in this slice; "
-                  "prerequisite 004-b"),
-    "seed_variation": ("seed-driven content variation is not implemented; "
-                       "the seed is a bound identity only "
-                       "(prerequisite 004-b)"),
-    "concurrency_policy": ("concurrency policy is not implemented; only "
-                           "concurrency=1 is supported (prerequisite 004-b "
-                           "/ ONLINE-02)"),
+    "context": "context controls are not implemented; prerequisite: context-control implementation",
+    "pair": ("pair workloads are not implemented; prerequisite: 012 private reranker "
+             "worker and pair controls"),
+    "batch": ("batch workloads are not implemented; prerequisite: 007/012 pipelines "
+              "and batch controls"),
+    "precision": ("precision controls are not implemented; prerequisite: 007/012 "
+                  "pipelines and precision controls"),
+    "seed_variation": ("seed-driven content variation is not implemented; the seed is a bound "
+                       "identity only; prerequisite: seed-variation implementation"),
+    "concurrency_policy": ("concurrency policy is not implemented; only concurrency=1 is "
+                           "supported; prerequisite: concurrency implementation for ONLINE-02"),
 }
 
 
@@ -242,12 +239,12 @@ class TrialSpec(BaseModel):
     parent: str
     suffixes: list[str]
     # Bound identity only: bound into the workload fingerprint; no
-    # seed-driven variation is implemented (prerequisite 004-b).
+    # seed-driven variation is implemented (prerequisite: seed-variation implementation).
     seed: int
     warmups: int
     repetitions: int
     # Only 1 is supported in this slice; any other value refuses with the
-    # named prerequisite (004-b / ONLINE-02), never a silent claim.
+    # named concurrency implementation prerequisite for ONLINE-02, never a silent claim.
     concurrency: int
     # Declared identities (verified pre-dispatch against the executing
     # package and the configured backend).
@@ -293,7 +290,8 @@ class TrialSpec(BaseModel):
             raise ValueError(
                 f"workload must be {SUPPORTED_WORKLOAD!r} in this slice; "
                 "other workloads (context/pair/batch/precision) are "
-                "unimplemented (prerequisite 004-b)")
+                "unimplemented (prerequisite: context controls and 007/012 pipeline "
+                "pair, batch and precision controls)")
         return value
 
     @field_validator("purpose")
@@ -361,7 +359,7 @@ class TrialSpec(BaseModel):
         if value != 1:
             raise ValueError(
                 "concurrency must be 1 in this slice; concurrency above 1 is "
-                "unimplemented (prerequisite 004-b / ONLINE-02)")
+                "unimplemented (prerequisite: concurrency implementation for ONLINE-02)")
         return value
 
     @field_validator("code_version")

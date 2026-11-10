@@ -1,0 +1,23 @@
+{
+  "lane_id": "PAR-004-EMBED-B",
+  "result": "COMPLETE",
+  "implementation_head": "a62bde3ce852d39f2a1e35d4ce5b685febb031da",
+  "report_publication_commit": "SELF",
+  "summary": "Bounded supplied-vector CPU query versus CPU and GPU-produced corpus parity, schema fingerprints, ID and digest alignment, cosine/norm diagnostics, raw dot ranking, overlap, score/rank drift and explicit gold recall.",
+  "API": "qualification.embedding_parity.analyze(mapping): version 1; reference/candidate EmbeddingExecution declarations, query/reference_corpus/candidate_corpus rows with id, input_digest, representation_digest and vector; optional query relevant_ids; k, cosine_tolerance, score_tolerance. Returns structured SUPPLIED_UNVERIFIED evidence; invalid input raises ParityError. Exact bounds and semantics in module docstring.",
+  "tests": [
+    {
+      "command": "uv run pytest tests/unit/test_embedding_parity.py tests/integration/test_embedding_parity_composition.py tests/unit/test_contracts.py -q",
+      "result": "PASSED: 35 tests"
+    },
+    {
+      "command": "uv run ruff check src/slaif_raggedized_helper/qualification/embedding_parity.py tests/unit/test_embedding_parity.py tests/integration/test_embedding_parity_composition.py",
+      "result": "PASSED"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "PASSED"
+    }
+  ],
+  "limitations": "Synthetic supplied vectors only; declarations do not prove model execution or hardware qualification. No actual CPU/GPU model, service, network, held-out evaluation or qualification performed. No file loader or CLI included."
+}

@@ -1,0 +1,28 @@
+{
+  "lane_id": "PAR-004-CLI-GATES-A",
+  "result": "COMPLETE",
+  "preparation_head": "cfc4d6206351711a5dc24efa87a673599416d20d",
+  "implementation_head": "cfd16287992038c812d9c0ef37eddf3c602616b8",
+  "report_publication_commit": "SELF",
+  "summary": "Added bounded supplied parity module CLI and fourteen-gate prerequisite projection; real trials remain NOT_RUN. Decision NONE.",
+  "API": "python -m slaif_raggedized_helper.qualification.parity_cli {embedding,rerank} --input INPUT --output OUTPUT --allow-supplied-input; uses parity_io and accepted analyzers.",
+  "tests": [
+    {
+      "command": "uv run pytest tests/integration/test_parity_module_cli.py tests/unit/test_parity_cli_gates.py tests/unit/test_embedding_parity.py tests/unit/test_rerank_parity.py tests/unit/test_parity_io.py tests/unit/test_qualification.py tests/integration/test_embedding_parity_composition.py -q --tb=short",
+      "result": "PASSED before final independent import/help guard was added"
+    },
+    {
+      "command": "uv run pytest tests/integration/test_parity_module_cli.py -q",
+      "result": "PASSED (13 tests, including final import/help guard)"
+    },
+    {
+      "command": "uv run ruff check src/slaif_raggedized_helper/qualification/parity_cli.py src/slaif_raggedized_helper/qualification/gates.py tests/unit/test_parity_cli_gates.py tests/integration/test_parity_module_cli.py",
+      "result": "PASSED"
+    },
+    {
+      "command": "git diff --cached --check; git diff --cached --name-only",
+      "result": "PASSED; implementation paths within order"
+    }
+  ],
+  "limitations": "Synthetic supplied values only; real model, GPU, corpus, vision, license, 019, ICA and MVP remain unqualified. Parent directories and hard links are trusted; export is non-atomic. No push, PR, canonical merge, service or GPU work."
+}

@@ -897,6 +897,8 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--version", action="version", version=f"raggedized {__version__}")
     subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers.add_parser(
+        "parity", help="analyze supplied embedding vectors or reranker scores")
     doctor = subparsers.add_parser(
         "doctor",
         help="validate configuration and inspect model manifests offline "
@@ -1016,8 +1018,14 @@ def _build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    arguments = sys.argv[1:] if argv is None else argv
+    if arguments and arguments[0] == "parity":
+        # Delegate parsing and all work to the existing parity entrypoint.
+        from .qualification.parity_cli import main as parity_main
+
+        return parity_main(arguments[1:])
     parser = _build_parser()
-    args = parser.parse_args(argv)
+    args = parser.parse_args(arguments)
     if args.command == "doctor":
         exit_code, report = run_doctor(args.config)
         json.dump(report, sys.stdout, indent=2, sort_keys=True)

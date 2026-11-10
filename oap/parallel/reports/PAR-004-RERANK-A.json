@@ -1,0 +1,14 @@
+{
+  "lane_id": "PAR-004-RERANK-A",
+  "result": "COMPLETE",
+  "implementation_head": "6542ed40738bf7c25497574f39227a08807bc33d",
+  "report_publication_commit": "SELF",
+  "summary": "Versioned bounded supplied-score parity with exact pair and input identity binding, deterministic per-query ranks and declared tolerance criteria. Decision NONE; no live operations.",
+  "API": "qualification.rerank_parity.analyze_rerank_parity(mapping_or_ParityInput); module docstring defines fields, limits, rank ties and provenance. Raises input-free ParityError on invalid evidence. Shared RerankPair, RerankRequest, RerankResult and bind_rerank_scores are composed internally.",
+  "tests": [
+    {"command": "uv run --locked --offline pytest tests/unit/test_rerank_parity.py tests/integration/test_rerank_parity_composition.py tests/unit/test_contracts.py -q", "result": "PASSED: 37 tests before two additional boundary tests"},
+    {"command": "uv run --locked --offline pytest tests/unit/test_rerank_parity.py tests/integration/test_rerank_parity_composition.py -q", "result": "PASSED: 25 tests including added maximum-size and mutated DTO boundaries"},
+    {"command": "uv run --locked --offline ruff check src/slaif_raggedized_helper/qualification/rerank_parity.py tests/unit/test_rerank_parity.py tests/integration/test_rerank_parity_composition.py", "result": "PASSED"}
+  ],
+  "limitations": "Synthetic supplied values only, SUPPLIED_UNVERIFIED; no model, CPU/GPU execution, hardware qualification, gold recall, service, download, CLI or file loader. Equal declared identities do not verify artifacts. Local candidate only; no push, PR or merge."
+}
