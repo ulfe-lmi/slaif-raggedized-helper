@@ -1,6 +1,7 @@
 """Full GatewayGenerator behavior tests against owned loopback HTTP (003-b).
 
-Acceptance coverage (oap/orders/003-b, criteria 5-7 at generator level):
+Acceptance coverage (oap/orders/003-b criteria 5-7, 003-c protocol
+validation, all at generator level over real loopback HTTP):
 
 - the pinned bounded Responses envelope is the only wire content (native
   cache_prompt/id_slot/slot_ids impossible; secret only in the header);
@@ -25,6 +26,16 @@ Acceptance coverage (oap/orders/003-b, criteria 5-7 at generator level):
   skipped); unsupported function_call actions are refused, never salvaged;
   terminal/EOF outcome mapping; refusals/incomplete/failed never become
   success; completed responses without usable text are failures;
+  003-c: non-string delta/done types, missing/malformed/conflicting
+  terminal response IDs, wrong delta/part output_index, nonterminal
+  item.done status, malformed final status objects ({} and []), and
+  excessive JSON nesting all fail safe (typed failure, no raw
+  exception, no salvaged answer); valid streams with multiple bounded
+  content parts and multiple message items succeed with exact text and
+  part lifecycle violations fail closed; refusal/incomplete/failed
+  terminals keep their distinctions and canary safety; the zero-dispatch
+  deadline boundary is a deterministic generator-local clock, not a
+  measured machine overhead;
 - canaries in provider error/refusal fields never leak into results;
 - stable declared backend identity independent of request ID/answer text,
   sensitive to endpoint (port/scheme) and model changes.
@@ -234,20 +245,21 @@ class _BudgetConsumingFakeTransport:
         raise TransportConnectError("fake pre-dispatch connect failure")
 
 
-class _DeadlineProbeTransport:
-    """Fast fake transport that records (deadline, call time) for every
-    dispatch attempt, used to measure the generator's own pre-dispatch
-    overhead on the current machine/run."""
+class _SteppingClock:
+    """Deterministic generator-local clock: call n returns n*step.
 
-    def __init__(self) -> None:
-        self.observations: list[tuple[float, float]] = []
+    Injected into GatewayGenerator (whose default remains the real
+    monotonic clock) so the deadline boundary is exact and
+    machine-independent, without patching the global time module."""
 
-    def _fail(self, path, body, *, deadline=None):
-        self.observations.append((deadline, time.monotonic()))
-        raise TransportConnectError("fake pre-dispatch connect failure")
+    def __init__(self, step: float) -> None:
+        self.step = step
+        self.calls = 0
 
-    post_json = _fail
-    open_stream = _fail
+    def __call__(self) -> float:
+        value = self.step * self.calls
+        self.calls += 1
+        return value
 
 
 def make_fake_generator(config: GeneratorConfig, stream: bool = False) -> tuple[
@@ -498,10 +510,10 @@ def test_already_expired_deadline_refused_before_any_dispatch(server, stream):
     """A deadline already expired when generate() runs refuses with zero
     attempts and zero transport calls (both normal and streaming).
 
-    The request deadline is relative (computed inside generate()); a 1µs
-    budget is shorter than the generator's own pre-dispatch overhead
-    (verified below on the current machine), so the entry check
-    deterministically observes an already-expired budget. The consuming
+    The boundary is deterministic: a generator-local clock returns 0.0
+    when the deadline is computed (deadline = 0.0 + 1.0 = 1.0) and 1.0
+    at the loop-top guard, already past the deadline — no measured
+    machine overhead and no global time-module patching. The consuming
     fake guards the retry path: if the entry check were ever bypassed,
     the whole budget would burn and the loop-top guard would still
     refuse, making the anomaly visible as a test failure."""
@@ -510,18 +522,10 @@ def test_already_expired_deadline_refused_before_any_dispatch(server, stream):
     caps = RouteCapabilities(streaming=stream)
     config = make_config(f"{srv.url}/v1", caps)
 
-    probe = _DeadlineProbeTransport()
-    GatewayGenerator(config, api_key=SYNTHETIC_API_KEY, transport=probe).generate(
-        make_request(stream=stream, deadline=1.0))
-    assert probe.observations
-    deadline, call_t = probe.observations[0]
-    window = call_t - (deadline - 1.0)  # deadline was set to now + 1.0
-    # Premise: the first dispatch attempt starts well after the deadline is
-    # computed, so a 1µs budget is already expired at the entry check.
-    assert window > 2e-6
-
-    gen, fake = make_fake_generator(config)
-    result = gen.generate(make_request(stream=stream, deadline=1e-6))
+    fake = _BudgetConsumingFakeTransport()
+    gen = GatewayGenerator(config, api_key=SYNTHETIC_API_KEY, transport=fake,
+                           clock=_SteppingClock(1.0))
+    result = gen.generate(make_request(stream=stream, deadline=1.0))
     assert result.outcome is CompletionOutcome.FAILED
     assert "deadline exhausted before dispatch" in (result.error or "")
     assert result.attempts == 0
@@ -979,6 +983,524 @@ def test_stream_completed_output_mismatch_refused(server):
         make_request(stream=True))
     assert result.outcome is CompletionOutcome.FAILED
     assert "does not match observed item order" in (result.error or "")
+
+
+# ---------------------------------------------------------------------------
+# 003-c: protocol validation — types, IDs, coordinates, statuses, parts
+# ---------------------------------------------------------------------------
+
+def _streaming_result(srv, frames):
+    """Send frames through the real GatewayGenerator on an owned loopback."""
+    caps = RouteCapabilities(streaming=True)
+    return make_generator(make_config(f"{srv.url}/v1", caps)).generate(
+        make_request(stream=True))
+
+
+def multipart_stream_frames(part_texts, response_id="resp_mp"):
+    """Valid pinned-dialect stream: one message item with N bounded
+    output_text parts, each with complete part-added/delta/text-done/
+    part-done events and consistent item/final data (the actual gateway
+    shape observed at the pinned revision)."""
+    parts = [
+        {"type": "output_text", "text": text, "annotations": [],
+         "logprobs": None}
+        for text in part_texts
+    ]
+    completed_response = {
+        "id": response_id,
+        "object": "response",
+        "created_at": 123,
+        "status": "completed",
+        "model": "synthetic-qwen",
+        "output": [{
+            "id": "msg_1", "type": "message", "status": "completed",
+            "role": "assistant", "content": parts, "phase": None,
+        }],
+        "usage": {"input_tokens": 10, "output_tokens": 2 * len(part_texts)},
+    }
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": response_id, "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": {"type": "message", "id": "msg_1",
+                                "status": "in_progress", "role": "assistant",
+                                "content": [], "phase": None}}),
+    ]
+    for content_index, text in enumerate(part_texts):
+        common = {"item_id": "msg_1", "output_index": 0,
+                  "content_index": content_index}
+        frames.append(sse_data_only({"type": "response.content_part.added",
+                                     **common,
+                                     "part": {"type": "output_text",
+                                              "text": "", "annotations": [],
+                                              "logprobs": []}}))
+        frames.append(sse_data_only({"type": "response.output_text.delta",
+                                     **common, "delta": text, "logprobs": []}))
+        frames.append(sse_data_only({"type": "response.output_text.done",
+                                     **common, "text": text, "logprobs": []}))
+        frames.append(sse_data_only({"type": "response.content_part.done",
+                                     **common,
+                                     "part": {"type": "output_text",
+                                              "text": text, "annotations": [],
+                                              "logprobs": None}}))
+    frames.append(sse_data_only({"type": "response.output_item.done",
+                                 "output_index": 0,
+                                 "item": completed_response["output"][0]}))
+    frames.append(sse_data_only({"type": "response.completed",
+                                 "response": completed_response}))
+    return frames
+
+
+def two_message_stream_frames():
+    """Two message items in order, each fully delta-streamed."""
+    completed_response = {
+        "id": "r1", "object": "response", "created_at": 1,
+        "status": "completed", "model": "synthetic-qwen",
+        "output": [message_item("m0", "alpha"), message_item("m1", "beta")],
+        "usage": {"input_tokens": 4, "output_tokens": 2},
+    }
+    frames = [sse_data_only({"type": "response.created",
+                             "response": {"id": "r1", "status": "in_progress"}})]
+    for index, (item_id, text) in enumerate([("m0", "alpha"), ("m1", "beta")]):
+        frames.append(sse_data_only({
+            "type": "response.output_item.added", "output_index": index,
+            "item": {"type": "message", "id": item_id, "status": "in_progress",
+                     "role": "assistant", "content": [], "phase": None}}))
+        frames.append(sse_data_only({"type": "response.output_text.delta",
+                                     "item_id": item_id, "output_index": index,
+                                     "delta": text}))
+        frames.append(sse_data_only({"type": "response.output_text.done",
+                                     "item_id": item_id, "output_index": index,
+                                     "text": text}))
+        frames.append(sse_data_only({"type": "response.output_item.done",
+                                     "output_index": index,
+                                     "item": message_item(item_id, text)}))
+    frames.append(sse_data_only({"type": "response.completed",
+                                 "response": completed_response}))
+    return frames
+
+
+def test_stream_array_delta_refused_not_salvaged(server):
+    """003-b reproduction: an array delta followed by an empty done text
+    and empty item data must fail safely; the authoritative terminal text
+    must never be salvaged into a successful answer."""
+    frames = valid_stream_frames(text="answer", response_id="r1")
+    frames[2] = sse_data_only({"type": "response.output_text.delta",
+                               "item_id": "msg_1", "output_index": 0,
+                               "delta": []})
+    frames[3] = sse_data_only({"type": "response.output_text.done",
+                               "item_id": "msg_1", "output_index": 0,
+                               "text": ""})
+    frames[4] = sse_data_only({"type": "response.output_item.done",
+                               "output_index": 0,
+                               "item": {"type": "message", "id": "msg_1",
+                                        "status": "completed",
+                                        "role": "assistant",
+                                        "content": [], "phase": None}})
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "malformed delta type" in (result.error or "")
+    assert result.text is None  # no salvaged answer
+    assert srv.paths == ["/v1/responses"]
+
+
+@pytest.mark.parametrize("delta", [[], 7, True, None, {}])
+def test_stream_non_string_delta_refused(server, delta):
+    frames = valid_stream_frames()
+    frames[2] = sse_data_only({"type": "response.output_text.delta",
+                               "item_id": "msg_1", "output_index": 0,
+                               "delta": delta})
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED, delta
+    assert "malformed delta type" in (result.error or ""), delta
+    assert result.text is None
+
+
+@pytest.mark.parametrize("text", [7, [], None, {}])
+def test_stream_non_string_done_text_refused(server, text):
+    frames = valid_stream_frames()
+    frames[4] = sse_data_only({"type": "response.output_text.done",
+                               "item_id": "msg_1", "output_index": 0,
+                               "text": text})
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED, text
+    assert "malformed output_text.done" in (result.error or ""), text
+    assert result.text is None
+
+
+def test_stream_missing_terminal_response_id_refused(server):
+    """A completed event without a valid nonempty response ID fails; the
+    ID cannot be ignored."""
+    frames = valid_stream_frames()
+    completed = json.loads(frames[6].split(b"data: ", 1)[1].rstrip(b"\n"))
+    del completed["response"]["id"]
+    frames[6] = sse_data_only(completed)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "malformed terminal response ID" in (result.error or "")
+    assert result.text is None
+
+
+@pytest.mark.parametrize("bad_id", [{}, [], 7])
+def test_stream_malformed_terminal_response_id_refused(server, bad_id):
+    frames = valid_stream_frames()
+    completed = json.loads(frames[6].split(b"data: ", 1)[1].rstrip(b"\n"))
+    completed["response"]["id"] = bad_id
+    frames[6] = sse_data_only(completed)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED, bad_id
+    assert "malformed terminal response ID" in (result.error or ""), bad_id
+    assert result.text is None
+
+
+def test_stream_conflicting_terminal_response_id_refused(server):
+    frames = valid_stream_frames(response_id="r1")
+    completed = json.loads(frames[6].split(b"data: ", 1)[1].rstrip(b"\n"))
+    completed["response"]["id"] = "other"
+    frames[6] = sse_data_only(completed)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "conflicting response IDs" in (result.error or "")
+
+
+def test_stream_wrong_delta_output_index_refused(server):
+    """A wrong delta.output_index is refused even when item_id names a
+    known item."""
+    frames = valid_stream_frames()
+    frames[2] = sse_data_only({"type": "response.output_text.delta",
+                               "item_id": "msg_1", "output_index": 9,
+                               "delta": "Hello"})
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "output_index mismatch" in (result.error or "")
+    assert result.text is None
+
+
+def test_stream_delta_other_item_output_index_refused(server):
+    frames = two_message_stream_frames()
+    # The delta for item m0 (observed position 0) claims position 1.
+    frames[3] = sse_data_only({"type": "response.output_text.delta",
+                               "item_id": "m0", "output_index": 1,
+                               "delta": "alpha"})
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "output_index mismatch" in (result.error or "")
+
+
+@pytest.mark.parametrize("status", ["in_progress", "incomplete", "failed",
+                                    {}, [], None])
+def test_stream_nonterminal_item_done_status_refused(server, status):
+    """A nonterminal item.done status followed by a completed final message
+    is contradictory, never success."""
+    frames = valid_stream_frames()
+    item_done = json.loads(frames[5].split(b"data: ", 1)[1].rstrip(b"\n"))
+    item_done["item"]["status"] = status
+    frames[5] = sse_data_only(item_done)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED, status
+    assert "nonterminal item done status" in (result.error or ""), status
+    assert result.text is None
+
+
+def test_stream_nonterminal_item_done_status_canary_not_leaked(server):
+    frames = valid_stream_frames()
+    item_done = json.loads(frames[5].split(b"data: ", 1)[1].rstrip(b"\n"))
+    item_done["item"]["status"] = "canary_status_003c"
+    frames[5] = sse_data_only(item_done)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "nonterminal item done status" in (result.error or "")
+    assert "canary" not in (result.error or "")
+
+
+@pytest.mark.parametrize("status", [{}, []])
+def test_stream_malformed_final_status_object_refused(server, status):
+    """message.status {} or [] must be guarded before set membership: a
+    safe typed failure, never a raw TypeError."""
+    frames = valid_stream_frames()
+    completed = json.loads(frames[6].split(b"data: ", 1)[1].rstrip(b"\n"))
+    completed["response"]["output"][0]["status"] = status
+    frames[6] = sse_data_only(completed)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED, status
+    assert "contradictory terminal message item status" in (result.error or ""), status
+    assert result.text is None
+
+
+@pytest.mark.parametrize("status", [{}, []])
+def test_non_stream_malformed_final_status_refused(server, status):
+    item = message_item("m0", "a")
+    item["status"] = status
+    srv = server(lambda h, r: h._send_json(200, completed_json([item])))
+    result = make_generator(make_config(f"{srv.url}/v1")).generate(make_request())
+    assert result.outcome is CompletionOutcome.FAILED, status
+    assert "contradictory terminal message item status" in (result.error or ""), status
+
+
+def test_non_stream_excessive_json_nesting_refused(server):
+    """Nesting beyond the interpreter recursion limit inside the byte
+    bounds is a safe JSON failure, never a raw RecursionError. 100_000
+    levels exceeds the C scanner's recursion capacity on the CI Pythons
+    (3.12/3.14) while staying inside the 2,000,000-byte body bound."""
+    body = b'{"output": ' + b"[" * 100_000 + b"]" * 100_000 + b"}"
+
+    def scenario(h, r):
+        h._send_raw(200, body, "application/json")
+
+    srv = server(scenario)
+    result = make_generator(make_config(f"{srv.url}/v1")).generate(make_request())
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "not valid JSON" in (result.error or "")
+
+
+def test_stream_excessive_json_nesting_refused(server):
+    """Same bound at the SSE frame boundary: malformed event payload.
+    100_000 levels stays inside the 262,144-byte event bound."""
+    deep = b'{"junk": ' + b"[" * 100_000 + b"]" * 100_000 + b"}"
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        b"data: " + deep + b"\n\n",
+    ]
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "malformed event payload" in (result.error or "")
+
+
+def test_stream_valid_multiple_content_parts_succeeds(server):
+    """A message with two output_text parts and complete part lifecycle
+    events is a valid supported stream: exact part-concatenated text,
+    one request, no refusal of multipart streams."""
+    frames = multipart_stream_frames(["first", "second"])
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert result.text == "firstsecond"
+    assert srv.paths == ["/v1/responses"]
+    assert srv.count("/v1/responses") == 1
+
+
+def test_stream_multiple_messages_in_order_succeeds(server):
+    frames = two_message_stream_frames()
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert result.text == "alpha\nbeta"
+    assert srv.paths == ["/v1/responses"]
+
+
+def test_stream_delta_after_text_done_refused(server):
+    """A delta after the part's text done is a lifecycle violation."""
+    frames = multipart_stream_frames(["first", "second"])
+    frames.insert(5, sse_data_only({"type": "response.output_text.delta",
+                                    "item_id": "msg_1", "output_index": 0,
+                                    "content_index": 0, "delta": "extra"}))
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "delta after content part done" in (result.error or "")
+
+
+def test_stream_duplicate_text_done_refused(server):
+    frames = multipart_stream_frames(["first", "second"])
+    frames.insert(5, frames[4])
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "duplicate output_text.done" in (result.error or "")
+
+
+def test_stream_unknown_content_part_refused(server):
+    """An explicit content_index naming a never-added part cannot be
+    silently accepted or merged."""
+    frames = valid_stream_frames()
+    frames.insert(3, sse_data_only({"type": "response.output_text.delta",
+                                    "item_id": "msg_1", "output_index": 0,
+                                    "content_index": 5, "delta": "x"}))
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "unknown content part" in (result.error or "")
+
+
+def test_stream_part_done_before_text_done_refused(server):
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": {"type": "message", "id": "msg_1",
+                                "status": "in_progress", "role": "assistant",
+                                "content": [], "phase": None}}),
+        sse_data_only({"type": "response.content_part.added", "item_id": "msg_1",
+                       "output_index": 0, "content_index": 0,
+                       "part": {"type": "output_text", "text": "",
+                                "annotations": [], "logprobs": []}}),
+        sse_data_only({"type": "response.content_part.done", "item_id": "msg_1",
+                       "output_index": 0, "content_index": 0,
+                       "part": {"type": "output_text", "text": "",
+                                "annotations": [], "logprobs": None}}),
+    ]
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "content part done before text done" in (result.error or "")
+
+
+def test_stream_part_added_with_text_refused(server):
+    frames = multipart_stream_frames(["first"])
+    added = json.loads(frames[2].split(b"data: ", 1)[1].rstrip(b"\n"))
+    added["part"]["text"] = "pre"
+    frames[2] = sse_data_only(added)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "content part added with text" in (result.error or "")
+
+
+def test_stream_part_done_text_mismatch_refused(server):
+    frames = multipart_stream_frames(["first"])
+    done = json.loads(frames[5].split(b"data: ", 1)[1].rstrip(b"\n"))
+    done["part"]["text"] = "wrong"
+    frames[5] = sse_data_only(done)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "content part text mismatch" in (result.error or "")
+
+
+def test_stream_part_event_wrong_output_index_refused(server):
+    frames = multipart_stream_frames(["first"])
+    added = json.loads(frames[2].split(b"data: ", 1)[1].rstrip(b"\n"))
+    added["output_index"] = 9
+    frames[2] = sse_data_only(added)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "output_index mismatch" in (result.error or "")
+
+
+def test_stream_part_event_unknown_item_refused(server):
+    frames = multipart_stream_frames(["first"])
+    added = json.loads(frames[2].split(b"data: ", 1)[1].rstrip(b"\n"))
+    added["item_id"] = "stranger"
+    frames[2] = sse_data_only(added)
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "content part for unknown output item" in (result.error or "")
+
+
+def test_stream_part_event_non_message_item_refused(server):
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": reasoning_item("rs0", status="in_progress")}),
+        sse_data_only({"type": "response.content_part.added", "item_id": "rs0",
+                       "output_index": 0, "content_index": 0,
+                       "part": {"type": "output_text", "text": "",
+                                "annotations": [], "logprobs": []}}),
+    ]
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert "content part for non-message item" in (result.error or "")
+
+
+def _refusal_stream_frames(reason):
+    item = {
+        "id": "m0", "type": "message", "status": "refusal",
+        "role": "assistant",
+        "content": [{"type": "refusal", "refusal": reason}],
+        "phase": None,
+    }
+    return [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": {"type": "message", "id": "m0",
+                                "status": "in_progress", "role": "assistant",
+                                "content": [], "phase": None}}),
+        sse_data_only({"type": "response.output_item.done", "output_index": 0,
+                       "item": item}),
+        sse_data_only({"type": "response.completed",
+                       "response": {"id": "r1", "object": "response",
+                                    "created_at": 1, "status": "completed",
+                                    "model": "synthetic-qwen",
+                                    "output": [item],
+                                    "usage": {"input_tokens": 1,
+                                              "output_tokens": 1}}}),
+    ]
+
+
+def test_stream_valid_refusal_terminal(server):
+    srv = server(stream_scenario(_refusal_stream_frames("content_filter")))
+    result = _streaming_result(srv, _refusal_stream_frames("content_filter"))
+    assert result.outcome is CompletionOutcome.REFUSAL
+    assert result.error == "refusal: content_filter"
+    assert result.text is None
+    assert srv.paths == ["/v1/responses"]
+
+
+def test_stream_refusal_canary_reason_is_fixed(server):
+    frames = _refusal_stream_frames("canary_refusal_003c")
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.REFUSAL
+    assert result.error == "refusal: refusal"
+    assert "canary" not in (result.error or "")
+
+
+def test_stream_incomplete_terminal_preserved(server):
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.output_item.added", "output_index": 0,
+                       "item": {"type": "message", "id": "m0",
+                                "status": "in_progress", "role": "assistant",
+                                "content": [], "phase": None}}),
+        sse_data_only({"type": "response.output_text.delta", "item_id": "m0",
+                       "output_index": 0, "delta": "partial"}),
+        sse_data_only({"type": "response.incomplete",
+                       "response": {"id": "r1", "object": "response",
+                                    "created_at": 1, "status": "incomplete",
+                                    "incomplete_details": {
+                                        "reason": "max_output_tokens"}}}),
+    ]
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.INCOMPLETE
+    assert result.error == "incomplete: max_output_tokens"
+    assert result.text == "partial"
+
+
+def test_stream_failed_terminal_canary_not_leaked(server):
+    frames = [
+        sse_data_only({"type": "response.created",
+                       "response": {"id": "r1", "status": "in_progress"}}),
+        sse_data_only({"type": "response.failed",
+                       "response": {"id": "r1", "object": "response",
+                                    "created_at": 1, "status": "failed",
+                                    "error": {"code": "canary_code_003c",
+                                              "message": "canary_message_003c"}}}),
+    ]
+    srv = server(stream_scenario(frames))
+    result = _streaming_result(srv, frames)
+    assert result.outcome is CompletionOutcome.FAILED
+    assert result.error == "provider failure"
+    assert "canary" not in (result.error or "")
 
 
 # ---------------------------------------------------------------------------

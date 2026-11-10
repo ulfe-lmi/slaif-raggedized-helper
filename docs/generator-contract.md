@@ -1,11 +1,13 @@
-# Generator transport/gateway contract (003-b bounded slice)
+# Generator transport/gateway contract (003 slice)
 
 This document describes the ACTUAL behavior of `model_clients/transport.py` and
-`model_clients/gateway.py` as implemented and tested in objective 003-b
-(branch `oap/003-generator-adapters-and-cache-probes`, PR 5). It is a contract
-excerpt, not the full architecture. The native direct `/completion` adapter and
-the qualification probes of objective 003 are NOT RUN here and remain pending
-(later 003-c continuation); nothing in this file claims them.
+`model_clients/gateway.py` as implemented and tested in objective 003
+(branch `oap/003-generator-adapters-and-cache-probes`, PR 5; the 003-b
+transport/gateway slice plus the 003-c protocol-validation repair). It is a
+contract excerpt, not the full architecture. The native direct `/completion`
+adapter and the qualification probes of objective 003 are NOT RUN here and
+remain pending for separately finalized continuations of objective 003;
+nothing in this file claims them.
 
 ## Pinned wire dialect
 
@@ -38,13 +40,33 @@ is the JSON `type` field (`response.created`, `response.output_item.added`,
 `response.incomplete`, `error`, ...). If an explicit SSE event name IS
 present it must agree with the JSON `type`; disagreement fails the stream
 closed. `output_index` is an **event-envelope** field on `output_item`
-events (required, must equal the observed position). The final
-`response.completed` `output` items are authoritative in **array order and do
-NOT carry `output_index`** (an index that is genuinely present must not
-contradict the position). A trailing `data: [DONE]` is tolerated but never
-substitutes for a terminal event.
+events (required, must equal the observed position); on `output_text.delta`,
+`output_text.done` and `content_part.*` events a supplied `output_index` must
+likewise equal the item's observed position, and a supplied `content_index`
+must name a part already added to the item (the implicit part is 0 when the
+field is absent). A message may carry **multiple bounded `output_text`
+parts**; each part's cumulative text is reconciled independently against its
+own deltas, and the answer text preserves the final array part order
+(parts concatenated in order). The final `response.completed` `output` items
+are authoritative in **array order and do NOT carry `output_index`** (an
+index that is genuinely present must not contradict the position). A
+trailing `data: [DONE]` is tolerated but never substitutes for a terminal
+event.
 
-Terminal item validation (fail-closed): final `message` items must be
+Terminal and event validation (fail-closed): terminal events
+(`response.completed`/`response.failed`/`response.incomplete`) must carry a
+valid nonempty response ID consistent with the observed events; a missing or
+malformed terminal ID fails closed instead of being ignored. A `message`
+`output_item.done` must carry a terminal status (`completed` or `refusal`): a
+nonterminal status followed by a completed final message is contradictory,
+never success. A `delta` must be a string and a cumulative `text` a string;
+an array delta followed by empty done/item data and an authoritative terminal
+text is a malformed stream, never a salvaged successful answer, and a later
+valid final payload cannot erase an observed protocol error. A non-string
+final `message.status` (e.g. `{}` or `[]`) is guarded before set membership:
+a structural error, never a `TypeError`. Event JSON with excessive nesting
+(beyond the interpreter recursion limit inside the transport byte bounds)
+fails as a malformed event payload. Final `message` items must be
 `completed` (assistant `output_text` parts, 1..N, or a `refusal` item whose
 reason is allowlisted to `content_filter`/`unknown`, otherwise a fixed safe
 `refusal` reason) — `in_progress`/`incomplete`/`failed` and unknown part
@@ -55,7 +77,10 @@ contradictory state and fails the response (never silently skipped).
 envelope never declares tools) and refuse the whole response, including when
 valid text is also present. Duplicate/foreign/out-of-order item IDs,
 delta/cumulative mismatches, completed output that disagrees with the
-observed stream, and duplicate terminals all fail.
+observed stream, duplicate terminals, duplicate/late part lifecycle events
+(part added with text, part done before text done, part text disagreeing
+with the deltas, delta after part done, unknown content part), and part
+events targeting unknown or non-message items all fail.
 
 Outcome mapping: only a validated `completed` terminal with usable output
 produces `TERMINAL`. `REFUSAL`/`INCOMPLETE`/`FAILED` terminals, EOF without
@@ -102,8 +127,11 @@ codes, messages, refusal fields or auth exceptions are asserted absent.
   inherited (`trust_env=False`) — asserted with a proxy sink that must stay
   empty; no cookie jar, no cross-call connection reuse.
 - Response bodies are byte-bounded (2 MiB default), SSE events 256 KiB and
-  streams 16 MiB by default; oversize lines/events/streams, invalid UTF-8
-  and truncated frames fail with safe fixed messages.
+  streams 16,000,000 bytes (decimal) by default; oversize lines/events/
+  streams, invalid UTF-8 and truncated frames fail with safe fixed messages.
+  The defaults are the decimal literals 2,000,000 and 16,000,000
+  (`DEFAULT_MAX_RESPONSE_BYTES`, `DEFAULT_MAX_STREAM_BYTES`), not 2/16 MiB;
+  the SSE event bound is exactly 262,144 bytes (256 KiB).
 
 ## Declared backend identity
 
@@ -130,12 +158,16 @@ The product CI job (`.github/workflows/oap.yml`, Python 3.12/3.14) runs the
 integration suite from a clean locked install alongside unit tests and
 lint (see docs/CI.md).
 
-## Supported/proven vs NOT RUN / pending (003-c)
+## Supported/proven vs NOT RUN / pending
 
 Proven in this slice (synthetic loopback + pinned-dialect fixtures): wire
 path resolution, envelope allowlist, deadline/retry/UNKNOWN semantics, SSE
 byte-level parsing, bounded backpressure and cancellation, pinned
-completed/refusal/error dialects, canary safety, identity stability.
+completed/refusal/error dialects, malformed type/ID/coordinate/status
+refusals with canary-safe fixed reasons, valid single-part, multi-part
+(exact per-part text) and multi-message streams, part lifecycle
+violations, excessive-JSON-nesting refusals, the deterministic zero-dispatch
+deadline boundary, canary safety, identity stability.
 
 NOT RUN / pending: the native direct `/completion` adapter and its
 cache/slot behavior, live gateway/model traffic, qualification probes, and

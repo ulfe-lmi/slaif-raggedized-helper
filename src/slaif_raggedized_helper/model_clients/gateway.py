@@ -24,6 +24,7 @@ from __future__ import annotations
 import json
 import re
 import time
+from collections.abc import Callable
 from typing import Protocol, runtime_checkable
 
 from ..config import GeneratorConfig
@@ -178,7 +179,10 @@ def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
         item_type = item.get("type")
         status = item.get("status")
         if item_type == "message":
-            if status not in _MESSAGE_STATUSES:
+            # Guard the type before set membership: a hostile provider may
+            # send status {} or []; that is a structural error, never a
+            # TypeError and never a salvaged success.
+            if not isinstance(status, str) or status not in _MESSAGE_STATUSES:
                 return [], None, "contradictory terminal message item status"
             content = item.get("content")
             if not isinstance(content, list):
@@ -213,10 +217,10 @@ def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
         elif item_type == "reasoning":
             # Supported non-text item: it never contributes answer text, but
             # its terminal state is validated like any other item. A
-            # reasoning item that is not completed inside the final output
-            # of a completed response is a contradictory state, never
-            # silently skipped.
-            if status != "completed":
+            # reasoning item whose status is not a completed string inside
+            # the final output of a completed response is a contradictory
+            # state, never silently skipped.
+            if not isinstance(status, str) or status != "completed":
                 return [], None, "contradictory terminal reasoning item status"
         elif item_type == "function_call":
             # Explicit unsupported-action handling: this bounded adapter
@@ -327,7 +331,14 @@ def build_responses_envelope(
 
 
 class _StreamState:
-    """Frame-by-frame accumulator with fail-closed structural validation."""
+    """Frame-by-frame accumulator with fail-closed structural validation.
+
+    Text is buffered per output item AND per content part (part 0 is the
+    implicit default when an event carries no ``content_index``), so a
+    message with several bounded ``output_text`` parts reconciles each
+    part's cumulative text independently instead of one buffer per item
+    confusing a later part's cumulative text with the prior parts.
+    """
 
     def __init__(self) -> None:
         self.response_id: str | None = None
@@ -338,7 +349,11 @@ class _StreamState:
         self.saw_done = False
         self.item_ids: set[str] = set()
         self.item_order: list[str] = []
-        self.item_buffers: dict[str, list[str]] = {}
+        self.item_types: dict[str, object] = {}
+        self.item_buffers: dict[str, dict[int, list[str]]] = {}
+        self.item_text_done: dict[str, set[int]] = {}
+        self.item_parts_added: dict[str, set[int]] = {}
+        self.item_parts_done: dict[str, set[int]] = {}
         self.item_final_text: dict[str, str] = {}
         self.item_refusal: dict[str, str | None] = {}
         self.completed_payload: dict | None = None
@@ -355,6 +370,11 @@ class _StreamState:
         if self.error is None:
             self.error = reason
 
+    def streamed_text(self, item_id: str) -> str:
+        """Delta text observed for one item, parts in content order."""
+        buffers = self.item_buffers.get(item_id, {})
+        return "".join("".join(buffers[i]) for i in sorted(buffers))
+
 
 class _GatewayAccumulator:
     def __init__(self) -> None:
@@ -364,7 +384,10 @@ class _GatewayAccumulator:
         state = self.state
         try:
             payload = json.loads(frame.data) if frame.data else {}
-        except json.JSONDecodeError:
+        except (ValueError, RecursionError):
+            # JSONDecodeError is a ValueError; excessive nesting raises
+            # RecursionError. Both are malformed event payloads inside the
+            # transport's byte bounds, never raw crashes.
             state.fail("malformed event payload")
             return
         if not isinstance(payload, dict):
@@ -393,10 +416,14 @@ class _GatewayAccumulator:
                 state.note_response_id(response.get("id"))
         elif event == "response.output_item.added":
             self._handle_item_added(payload)
+        elif event == "response.content_part.added":
+            self._handle_content_part("added", payload)
         elif event == "response.output_text.delta":
             self._handle_text_delta(payload)
         elif event == "response.output_text.done":
             self._handle_text_done(payload)
+        elif event == "response.content_part.done":
+            self._handle_content_part("done", payload)
         elif event == "response.output_item.done":
             self._handle_item_done(payload)
         elif event == "response.completed":
@@ -429,9 +456,49 @@ class _GatewayAccumulator:
             return
         state.item_ids.add(item_id)
         state.item_order.append(item_id)
-        state.item_buffers[item_id] = []
+        state.item_types[item_id] = item.get("type")
+        state.item_buffers[item_id] = {}
+        state.item_text_done[item_id] = set()
+        state.item_parts_added[item_id] = set()
+        state.item_parts_done[item_id] = set()
         state.item_final_text[item_id] = ""
         state.item_refusal[item_id] = None
+
+    def _coordinates(self, payload: dict, item_id: str, *,
+                     require_added: bool,
+                     require_explicit: bool) -> int | None:
+        """Validate the supplied envelope coordinates for a known item.
+
+        Returns the content-part index (0 when the event carries no
+        ``content_index``) or None after latching a protocol error. A
+        supplied ``output_index`` must equal the item's observed
+        position; a supplied ``content_index`` must be a bounded
+        non-negative integer and, for delta/done events, must name a part
+        already added to the item.
+        """
+        state = self.state
+        output_index = payload.get("output_index")
+        if output_index is not None:
+            if _nonneg_int(output_index) is None:
+                state.fail("malformed event index")
+                return None
+            if output_index != state.item_order.index(item_id):
+                state.fail("output_index mismatch")
+                return None
+        content_index = payload.get("content_index")
+        if content_index is None:
+            if require_explicit:
+                state.fail("malformed content part index")
+                return None
+            return 0
+        part_index = _nonneg_int(content_index)
+        if part_index is None:
+            state.fail("malformed content part index")
+            return None
+        if require_added and part_index not in state.item_parts_added[item_id]:
+            state.fail("unknown content part")
+            return None
+        return part_index
 
     def _handle_text_delta(self, payload: dict) -> None:
         state = self.state
@@ -439,9 +506,22 @@ class _GatewayAccumulator:
         if not isinstance(item_id, str) or item_id not in state.item_buffers:
             state.fail("delta for unknown output item")
             return
+        part_index = self._coordinates(payload, item_id, require_added=True,
+                                       require_explicit=False)
+        if part_index is None:
+            return
         delta = payload.get("delta")
-        if isinstance(delta, str):
-            state.item_buffers[item_id].append(delta)
+        if not isinstance(delta, str):
+            # Any non-string delta (array, number, bool, null, object) is a
+            # malformed stream; it is never silently dropped and the later
+            # authoritative text cannot be salvaged around it.
+            state.fail("malformed delta type")
+            return
+        if (part_index in state.item_text_done[item_id]
+                or part_index in state.item_parts_done[item_id]):
+            state.fail("delta after content part done")
+            return
+        state.item_buffers[item_id].setdefault(part_index, []).append(delta)
 
     def _handle_text_done(self, payload: dict) -> None:
         state = self.state
@@ -449,14 +529,65 @@ class _GatewayAccumulator:
         if not isinstance(item_id, str) or item_id not in state.item_buffers:
             state.fail("done for unknown output item")
             return
+        part_index = self._coordinates(payload, item_id, require_added=True,
+                                       require_explicit=False)
+        if part_index is None:
+            return
         cumulative = payload.get("text")
         if not isinstance(cumulative, str):
             state.fail("malformed output_text.done")
             return
-        if "".join(state.item_buffers[item_id]) != cumulative:
+        if part_index in state.item_text_done[item_id]:
+            state.fail("duplicate output_text.done")
+            return
+        buffers = state.item_buffers[item_id]
+        if "".join(buffers.get(part_index, [])) != cumulative:
             state.fail("delta/cumulative text mismatch")
             return
-        state.item_buffers[item_id] = [cumulative]
+        buffers[part_index] = [cumulative]
+        state.item_text_done[item_id].add(part_index)
+
+    def _handle_content_part(self, kind: str, payload: dict) -> None:
+        state = self.state
+        item_id = payload.get("item_id")
+        if not isinstance(item_id, str) or item_id not in state.item_buffers:
+            state.fail("content part for unknown output item")
+            return
+        if state.item_types.get(item_id) != "message":
+            state.fail("content part for non-message item")
+            return
+        part_index = self._coordinates(
+            payload, item_id,
+            require_added=kind == "done",
+            require_explicit=True,
+        )
+        if part_index is None:
+            return
+        part = payload.get("part")
+        if (not isinstance(part, dict) or part.get("type") != "output_text"
+                or not isinstance(part.get("text"), str)):
+            state.fail("malformed content part")
+            return
+        if kind == "added":
+            if part_index in state.item_parts_added[item_id]:
+                state.fail("duplicate content part added")
+                return
+            if part.get("text"):
+                state.fail("content part added with text")
+                return
+            state.item_parts_added[item_id].add(part_index)
+        else:
+            if part_index in state.item_parts_done[item_id]:
+                state.fail("duplicate content part done")
+                return
+            if part_index not in state.item_text_done[item_id]:
+                state.fail("content part done before text done")
+                return
+            if (part.get("text") != "".join(
+                    state.item_buffers[item_id].get(part_index, []))):
+                state.fail("content part text mismatch")
+                return
+            state.item_parts_done[item_id].add(part_index)
 
     def _handle_item_done(self, payload: dict) -> None:
         state = self.state
@@ -472,7 +603,14 @@ class _GatewayAccumulator:
             state.fail("out-of-order output item")
             return
         if item.get("type") == "message":
-            if item.get("status") == "refusal":
+            # The done boundary is the item's terminal transition: a
+            # nonterminal or untyped status followed by a completed final
+            # message is contradictory and fails, never tolerated.
+            status = item.get("status")
+            if not isinstance(status, str) or status not in _MESSAGE_STATUSES:
+                state.fail("nonterminal item done status")
+                return
+            if status == "refusal":
                 state.item_refusal[item_id] = "refusal"
             content = item.get("content")
             if isinstance(content, list):
@@ -489,7 +627,7 @@ class _GatewayAccumulator:
                 ]
                 if parts_text:
                     state.item_final_text[item_id] = "".join(parts_text)
-        streamed = "".join(state.item_buffers[item_id])
+        streamed = state.streamed_text(item_id)
         if streamed and state.item_final_text[item_id] != streamed:
             state.fail("item text mismatch between delta stream and done item")
 
@@ -502,7 +640,14 @@ class _GatewayAccumulator:
         if not isinstance(response, dict):
             state.fail("malformed terminal payload")
             return
-        state.note_response_id(response.get("id"))
+        # A terminal must carry a valid nonempty response ID consistent
+        # with the observed events; a missing or malformed ID fails
+        # closed instead of being ignored.
+        response_id = response.get("id")
+        if not isinstance(response_id, str) or not response_id:
+            state.fail("malformed terminal response ID")
+            return
+        state.note_response_id(response_id)
         if kind == "completed":
             state.completed_payload = response
         elif kind == "failed":
@@ -518,9 +663,8 @@ class _GatewayAccumulator:
         """Ordered partial/full text across output items, or None if none."""
         ordered: list[str] = []
         for item_id in self.state.item_order:
-            text = self.state.item_final_text.get(item_id) or "".join(
-                self.state.item_buffers.get(item_id, [])
-            )
+            text = self.state.item_final_text.get(item_id) or \
+                self.state.streamed_text(item_id)
             if text:
                 ordered.append(text)
         return "\n".join(ordered) if ordered else None
@@ -542,7 +686,9 @@ def _parse_non_stream(body: bytes, request: GeneratorRequest,
                                 error="provider response is not valid UTF-8")
     try:
         doc = json.loads(text)
-    except json.JSONDecodeError:
+    except (json.JSONDecodeError, RecursionError):
+        # RecursionError: nesting beyond the interpreter limit inside the
+        # transport byte bounds is malformed input, never a crash.
         return _terminal_result(request, CompletionOutcome.FAILED,
                                 backend_fingerprint=backend_fingerprint,
                                 error="provider response is not valid JSON")
@@ -663,11 +809,16 @@ class GatewayGenerator:
         api_key: str | None = None,
         transport: GatewayTransport | None = None,
         image_resolver: ImageResolver | None = None,
+        clock: Callable[[], float] | None = None,
     ) -> None:
         self._config = config
         self._api_key = api_key
         self._transport = transport
         self._image_resolver = image_resolver
+        # Generator-local monotonic clock: the real monotonic clock by
+        # default; an injected deterministic clock makes deadline boundary
+        # tests exact without patching the global time module.
+        self._clock = clock if clock is not None else time.monotonic
 
     @property
     def identity(self) -> ModelIdentity | None:
@@ -762,7 +913,8 @@ class GatewayGenerator:
             return _terminal_result(request, CompletionOutcome.FAILED,
                                     backend_fingerprint=backend_fingerprint, error=str(exc))
         stream = Capability.STREAMING in request.required_capabilities
-        deadline = time.monotonic() + min(request.deadline_seconds, self._config.deadline_seconds)
+        deadline = self._clock() + min(request.deadline_seconds,
+                                       self._config.deadline_seconds)
         payload = json.dumps(envelope, sort_keys=True, separators=(",", ":"),
                              ensure_ascii=True).encode("utf-8")
         max_attempts = 1 + self._config.max_retries
@@ -770,7 +922,7 @@ class GatewayGenerator:
         while True:
             # One total budget for the whole call, including retries: once
             # it is exhausted no further attempt may be dispatched.
-            if time.monotonic() >= deadline:
+            if self._clock() >= deadline:
                 return _terminal_result(request, CompletionOutcome.FAILED,
                                         backend_fingerprint=backend_fingerprint,
                                         error="deadline exhausted before dispatch",

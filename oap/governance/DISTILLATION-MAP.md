@@ -59,7 +59,7 @@ both original requirement groups and concrete implementation contracts V2-01–V
 | Strategic S08 | C07/communication recovery without replay, competing readers or human-quit resurrection |
 | Strategic S09 | C04/C07 honest scope/readiness; independent milestone assessment remains outside coding acceptance authority |
 | SECURITY S01–S06 | Always-loaded security boundaries plus compact product enforcement points |
-| TESTING T01–T05 | Always-loaded synthetic/live distinction, negative behavior and exact evidence rules |
+| TESTING T01–T06 | Always-loaded synthetic/live distinction, negative behavior, exact evidence rules, and the controlled loopback HTTP/SSE real-route test boundary |
 
 ## Semantic self-review and limits
 
