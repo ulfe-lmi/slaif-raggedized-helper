@@ -284,9 +284,8 @@
       "type": "object"
     }
   },
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
-  "description": "Model lock plus qualification evidence (objective 002-a). Unqualified by default: an unqualified manifest is not proof of a downloaded, pinned or license-approved model.",
+  "description": "A model lock plus its qualification evidence; unqualified by default.",
   "properties": {
     "lock": {
       "$ref": "#/$defs/ModelLock"

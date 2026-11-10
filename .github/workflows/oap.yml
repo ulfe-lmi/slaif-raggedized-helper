@@ -95,7 +95,7 @@ jobs:
         run: uv sync --locked --no-progress
 
       - name: Lint (product scope)
-        run: uv run ruff check src tests/unit
+        run: uv run ruff check src tests/unit tests/integration
 
       - name: Python syntax check
         run: python -m compileall -q oap tests
@@ -105,6 +105,12 @@ jobs:
       # discovery, so the suite cannot be falsely green.
       - name: Product test suite
         run: uv run pytest tests/unit -q
+
+      # Real controlled HTTP/SSE behavior tests (003-b): owned 127.0.0.1
+      # fixtures with unique synthetic keys; no external network, product
+      # services, keys, GPU or model downloads.
+      - name: Integration test suite (owned loopback HTTP/SSE)
+        run: uv run pytest tests/integration -q
 
       # Existing OAP scaffold checks on the same clean checkout.
       - name: OAP test suite

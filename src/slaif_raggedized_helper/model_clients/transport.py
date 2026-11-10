@@ -12,6 +12,16 @@ Safety rules enforced here (architecture A13/A18/A20, V2-06, SECURITY S03/S04):
 - ambient HTTP proxy environment is never inherited (``trust_env=False``);
 - error messages carry status classes and safe type names only; provider
   response bodies are never echoed through exceptions or results.
+
+Dispatch/retry classification (V2-03, A13):
+
+- only positively pre-dispatch failures (connect timeout / connect failure
+  while the connection is being established) are retryable;
+- once the dispatch attempt has entered the send phase, any timeout or
+  network failure leaves completion UNKNOWN and maps to a non-retryable
+  outcome: the server may have accepted and run the request even though no
+  response headers arrived;
+- an already-expired total deadline refuses before dispatch.
 """
 
 from __future__ import annotations
@@ -25,7 +35,7 @@ import threading
 import time
 from dataclasses import dataclass
 from typing import Iterator
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlunsplit
 
 import httpx
 
@@ -34,12 +44,30 @@ DEFAULT_MAX_SSE_EVENT_BYTES = 262_144
 DEFAULT_MAX_STREAM_BYTES = 16_000_000
 _WORKER_JOIN_TIMEOUT = 2.0
 _QUEUE_PUT_TIMEOUT = 0.2
+_SIGNAL_YIELD_SECONDS = 0.01
+# Line delimiter constants via chr(): immune to patch-escape corruption of
+# the backslash escapes (003-a audit: nested patches produced empty-string
+# delimiters that silently stripped the final character of every LF line).
+LF = chr(10)  # line feed
+CR = chr(13)  # carriage return
 
 
 class TransportError(Exception):
-    """Safe transport failure; the message never contains provider body bytes."""
+    """Safe transport failure; the message never contains provider body bytes.
+
+    ``dispatched`` records whether the request may already have reached the
+    provider. Post-dispatch network failures leave completion unknown
+    (V2-03): the generator maps them to UNKNOWN_COMPLETION, never to a
+    positive failure of the generation itself.
+    """
 
     retryable = False
+    dispatched = False
+
+    def __init__(self, message: str, *, dispatched: bool | None = None) -> None:
+        super().__init__(message)
+        if dispatched is not None:
+            self.dispatched = bool(dispatched)
 
 
 class TransportConfigError(TransportError):
@@ -47,7 +75,13 @@ class TransportConfigError(TransportError):
 
 
 class TransportRefusedError(TransportError):
-    """The destination refused the request (HTTP 4xx, redirect, malformed wire)."""
+    """The destination refused the request (HTTP 4xx, redirect, malformed wire).
+
+    Response headers were read, so the request was dispatched; the refusal
+    itself is definitive (safe failure, not ambiguous completion).
+    """
+
+    dispatched = True
 
 
 class TransportConnectError(TransportError):
@@ -60,12 +94,17 @@ class TransportTimeoutError(TransportError):
     """A finite deadline or timeout expired; pre-dispatch timeouts are retryable."""
 
     def __init__(self, message: str, *, dispatched: bool) -> None:
-        super().__init__(message)
+        super().__init__(message, dispatched=dispatched)
         self.retryable = not dispatched
 
 
 class TransportTruncatedError(TransportError):
-    """A bounded size limit was exceeded (response body or single SSE event)."""
+    """A bounded size limit was exceeded (response body or single SSE event).
+
+    Response bytes were already flowing, so the request was dispatched.
+    """
+
+    dispatched = True
 
 
 class TransportProtocolError(TransportError):
@@ -74,6 +113,8 @@ class TransportProtocolError(TransportError):
     The stream is not a valid success; it is never retried and never
     treated as an ambiguous completion.
     """
+
+    dispatched = True
 
 
 def validate_destination_url(base_url: str) -> str:
@@ -90,6 +131,36 @@ def validate_destination_url(base_url: str) -> str:
     return base_url
 
 
+def _origin(base_url: str) -> str:
+    """The ``scheme://netloc`` origin of a validated base URL (no path)."""
+    parts = urlsplit(base_url)
+    return urlunsplit((parts.scheme, parts.netloc, "", "", ""))
+
+
+def resolve_endpoint_url(base_url: str, path: str) -> str:
+    """Resolve the absolute request URL for one gateway ``path``.
+
+    ``base_url`` is the gateway root (any reverse-proxy prefix is preserved)
+    or that root ending in the pinned ``/v1`` API family segment. The final
+    path always carries exactly one ``/v1/responses`` suffix: a versioned
+    base already supplies the ``/v1`` segment, a root base has the full
+    pinned path appended. Any other base path is refused rather than
+    guessed (pinned v1-responses contract; httpx base-URL path joining is
+    deliberately not relied on).
+    """
+    parts = urlsplit(base_url)
+    base_path = parts.path
+    if base_path in ("", "/"):
+        final_path = path
+    elif base_path.endswith("/v1"):
+        final_path = base_path[: -len("/v1")] + path
+    else:
+        raise TransportConfigError(
+            "base_url path must be the gateway root or end with the /v1 API segment"
+        )
+    return _origin(base_url) + final_path
+
+
 def _map_httpx(exc: httpx.HTTPError, *, dispatched: bool) -> TransportError:
     if isinstance(exc, httpx.ConnectTimeout):
         return TransportTimeoutError("connect timeout before dispatch", dispatched=False)
@@ -97,7 +168,28 @@ def _map_httpx(exc: httpx.HTTPError, *, dispatched: bool) -> TransportError:
         return TransportConnectError("connection failed before dispatch")
     if isinstance(exc, httpx.TimeoutException):
         return TransportTimeoutError("deadline timeout", dispatched=dispatched)
-    return TransportError(f"transport failure: {type(exc).__name__}")
+    # Body-phase network failure: response bytes had already started, so the
+    # request was dispatched and completion is unknown, not positively failed.
+    return TransportError(f"transport failure: {type(exc).__name__}", dispatched=dispatched)
+
+
+def _classify_send_error(exc: httpx.HTTPError) -> TransportError:
+    """Classify a failure raised while the request is being dispatched.
+
+    Only failures that positively prove nothing was sent (connect timeout /
+    connect failure) are retryable. Any other send-phase outcome — write
+    timeout, header-read timeout, network error after connect — leaves
+    completion unknown, so it is non-retryable (V2-03: never blindly repeat
+    an ambiguously completed costly call).
+    """
+    if isinstance(exc, httpx.ConnectTimeout):
+        return TransportTimeoutError("connect timeout before dispatch", dispatched=False)
+    if isinstance(exc, httpx.ConnectError):
+        return TransportConnectError("connection failed before dispatch")
+    if isinstance(exc, httpx.TimeoutException):
+        return TransportTimeoutError("timeout after dispatch attempt", dispatched=True)
+    return TransportError(
+        f"network failure after dispatch attempt: {type(exc).__name__}", dispatched=True)
 
 
 @dataclass(frozen=True)
@@ -176,9 +268,9 @@ class SSEStream:
                 if stream_bytes > self._max_stream_bytes:
                     raise TransportTruncatedError("SSE stream exceeds aggregate byte bound")
             line_buffer += text
-            while "\n" in line_buffer:
-                line, line_buffer = line_buffer.split("\n", 1)
-                if line.endswith("\"):
+            while LF in line_buffer:
+                line, line_buffer = line_buffer.split(LF, 1)
+                if line.endswith(CR):
                     line = line[:-1]
                 if len(line.encode("utf-8")) > max_line_bytes:
                     raise TransportTruncatedError("SSE line exceeds byte bound")
@@ -186,7 +278,7 @@ class SSEStream:
                     if pending_data:
                         yield SSEFrame(
                             event=pending_event or "message",
-                            data="\n".join(pending_data),
+                            data=LF.join(pending_data),
                         )
                     pending_event = None
                     pending_data = []
@@ -234,8 +326,7 @@ class _AsyncStreamHandle:
 
     def __init__(
         self,
-        base_url: str,
-        path: str,
+        endpoint: str,
         body: bytes,
         *,
         timeout_seconds: float,
@@ -244,8 +335,9 @@ class _AsyncStreamHandle:
         max_stream_bytes: int,
         deadline: float | None,
     ) -> None:
-        self._base_url = base_url
-        self._path = path
+        # Absolute endpoint URL (see resolve_endpoint_url): no httpx
+        # base-URL path joining.
+        self._endpoint = endpoint
         self._body = body
         self._timeout_seconds = timeout_seconds
         self._api_key = api_key
@@ -255,6 +347,11 @@ class _AsyncStreamHandle:
         self._queue: "queue.Queue[tuple[str, object]]" = queue.Queue(maxsize=32)
         self._cancel = threading.Event()
         self._lock = threading.Lock()
+        # Dispatch phases (V2-03): _sent means the send was attempted (the
+        # request may already be on the wire); _dispatched means response
+        # headers were received. Deadline expiry at or after _sent is
+        # ambiguous completion and must not be retried.
+        self._sent = False
         self._dispatched = False
         self._thread: threading.Thread | None = None
         self._loop: asyncio.AbstractEventLoop | None = None
@@ -277,30 +374,49 @@ class _AsyncStreamHandle:
             with contextlib.suppress(BaseException):
                 loop.run_until_complete(loop.shutdown_asyncgens())
             loop.close()
-            self._put(("closed", None))
+            self._put_signal(("closed", None))
 
     async def _exchange(self) -> None:
         headers = {"accept": "text/event-stream"}
         if self._api_key:
             headers["authorization"] = f"Bearer {self._api_key}"
         try:
+            # The connect phase cannot outrun the remaining total budget:
+            # once the budget is nearly exhausted a long connect must fail
+            # (pre-dispatch) instead of completing after the deadline.
+            connect_timeout = self._timeout_seconds
+            remaining = _deadline_remaining(self._deadline)
+            if remaining is not None:
+                connect_timeout = max(min(self._timeout_seconds, remaining), 0.001)
             async with httpx.AsyncClient(
-                base_url=self._base_url,
-                timeout=httpx.Timeout(self._timeout_seconds, connect=self._timeout_seconds),
+                base_url=_origin(self._endpoint),
+                timeout=httpx.Timeout(self._timeout_seconds, connect=connect_timeout),
                 follow_redirects=False,
                 limits=httpx.Limits(max_connections=2, max_keepalive_connections=0),
                 trust_env=False,
             ) as client:
                 request = client.build_request(
                     "POST",
-                    self._path,
+                    self._endpoint,
                     content=self._body,
                     headers={"content-type": "application/json", **headers},
                 )
+                # Dispatch boundary: the absolute deadline and cancellation
+                # are rechecked right before the send is attempted. A
+                # cancelled request or an exhausted budget never dispatches
+                # a late request, even if the caller has already returned.
+                if self._cancel.is_set():
+                    return
+                if self._deadline is not None and time.monotonic() >= self._deadline:
+                    self._put_signal(("error", TransportTimeoutError(
+                        "deadline exhausted before dispatch", dispatched=False)))
+                    return
+                with self._lock:
+                    self._sent = True
                 try:
                     response = await client.send(request, stream=True)
                 except httpx.HTTPError as exc:
-                    self._put(("error", self._map(exc, dispatched=False)))
+                    self._put_signal(("error", _classify_send_error(exc)))
                     return
                 with self._lock:
                     self._dispatched = True
@@ -309,18 +425,18 @@ class _AsyncStreamHandle:
                     if 300 <= status < 400:
                         with contextlib.suppress(BaseException):
                             await response.aclose()
-                        self._put(("error", TransportRefusedError(
+                        self._put_signal(("error", TransportRefusedError(
                             f"redirect refused (HTTP {status})")))
                         return
                     if status >= 400:
                         # No raw error body is needed for a safe status class.
                         with contextlib.suppress(BaseException):
                             await response.aclose()
-                        self._put(("error", TransportRefusedError(
+                        self._put_signal(("error", TransportRefusedError(
                             f"request refused (HTTP {status})")))
                         return
                     self.status_code = status
-                    self._put(("started", status))
+                    self._put_signal(("started", status))
                     raw = response.aiter_raw()
                     while True:
                         try:
@@ -332,29 +448,37 @@ class _AsyncStreamHandle:
                                                         dispatched=True)
                         self._put_bounded(("chunk", chunk))
                 except httpx.HTTPError as exc:
-                    self._put(("error", self._map(exc, dispatched=True)))
+                    self._put_signal(("error", _map_httpx(exc, dispatched=True)))
                     return
                 except TransportError as exc:
-                    self._put(("error", exc))
+                    self._put_signal(("error", exc))
                     return
                 finally:
                     with contextlib.suppress(BaseException):
                         await response.aclose()
-                self._put(("eof", None))
+                self._put_signal(("eof", None))
         except TransportError as exc:
-            self._put(("error", exc))
+            self._put_signal(("error", exc))
         except httpx.HTTPError as exc:
-            self._put(("error", self._map(exc, dispatched=True)))
+            self._put_signal(("error", _map_httpx(exc, dispatched=True)))
         except Exception as exc:  # defensive: never crash the worker silently
-            self._put(("error", TransportError(f"stream transport failure: {type(exc).__name__}")))
+            self._put_signal(
+                ("error", TransportError(f"stream transport failure: {type(exc).__name__}")))
 
-    @staticmethod
-    def _map(exc: httpx.HTTPError, *, dispatched: bool) -> TransportError:
-        return _map_httpx(exc, dispatched=dispatched)
-
-    def _put(self, item: tuple[str, object]) -> None:
-        with contextlib.suppress(queue.Full):
-            self._queue.put_nowait(item)
+    def _put_signal(self, item: tuple[str, object]) -> None:
+        # Terminal signals (started/error/eof/closed) must never be silently
+        # discarded: when the bounded data queue is full, the worker blocks
+        # (cancellation-aware) until the consumer drains it or the request
+        # is cancelled, so a slow consumer always observes the real terminal
+        # result instead of losing it behind queued chunks.
+        while True:
+            if self._cancel.is_set():
+                return
+            try:
+                self._queue.put_nowait(item)
+                return
+            except queue.Full:
+                time.sleep(_SIGNAL_YIELD_SECONDS)
 
     def _put_bounded(self, item: tuple[str, object]) -> None:
         # Backpressure with cancellation awareness: a stalled consumer must
@@ -376,14 +500,29 @@ class _AsyncStreamHandle:
         self._thread = threading.Thread(target=self._worker, daemon=True)
         self._thread.start()
         remaining = _deadline_remaining(self._deadline)
+        if remaining is not None and remaining <= 0:
+            # The budget expired between the pre-start check and worker
+            # startup. Refuse now: exhausted remaining time must never be
+            # converted into an unbounded queue wait, which would permit a
+            # fresh POST after the total deadline.
+            self._cancel_worker()
+            with self._lock:
+                dispatched = self._sent or self._dispatched
+            raise TransportTimeoutError(
+                "overall deadline exhausted while waiting for response headers",
+                dispatched=dispatched,
+            ) from None
         try:
             kind, value = self._queue.get(
-                timeout=remaining if remaining is not None and remaining > 0 else None
+                timeout=remaining if remaining is not None else None
             )
         except queue.Empty:
             self._cancel_worker()
             with self._lock:
-                dispatched = self._dispatched
+                # No headers means nothing more than "no response yet": if
+                # the send was attempted the request may have been accepted
+                # and must be reported as ambiguous (non-retryable).
+                dispatched = self._sent or self._dispatched
             raise TransportTimeoutError(
                 "overall deadline exhausted while waiting for response headers",
                 dispatched=dispatched,
@@ -474,6 +613,9 @@ class GatewayTransport:
         if max_response_bytes <= 0 or max_sse_event_bytes <= 0 or max_stream_bytes <= 0:
             raise TransportConfigError("response/stream byte bounds must be positive")
         self.base_url = validate_destination_url(base_url.rstrip("/"))
+        # Fail closed on a base path this pinned contract cannot interpret
+        # (root or .../v1); see resolve_endpoint_url.
+        resolve_endpoint_url(self.base_url, "/v1/responses")
         self.timeout_seconds = float(timeout_seconds)
         self.api_key = api_key
         self.max_response_bytes = int(max_response_bytes)
@@ -491,29 +633,48 @@ class GatewayTransport:
         headers and every body read (enforced by an async cancellation
         scope); an already-expired deadline refuses before dispatch. The
         provider body is never included in an error message.
+
+        Failure classification (V2-03): only connect timeout/connect
+        failure are pre-dispatch and retryable; every other send-phase
+        timeout or network failure, and every total-deadline expiry, is
+        reported non-retryable because the server may have accepted the
+        request. No raw httpx/network exception ever escapes.
         """
         if deadline is not None and time.monotonic() >= deadline:
             raise TransportTimeoutError("deadline already expired before dispatch",
                                         dispatched=False)
-        state = {"dispatched": False}
+        endpoint = resolve_endpoint_url(self.base_url, path)
+        state = {"sent": False}
         headers = {"accept": "application/json"}
         if self.api_key:
             headers["authorization"] = f"Bearer {self.api_key}"
 
         async def _exchange() -> tuple[int, bytes]:
             async with httpx.AsyncClient(
-                base_url=self.base_url,
+                base_url=_origin(self.base_url),
                 timeout=httpx.Timeout(self.timeout_seconds, connect=self.timeout_seconds),
                 follow_redirects=False,
-                headers=headers,
                 limits=httpx.Limits(max_connections=2, max_keepalive_connections=0),
                 trust_env=False,
             ) as client:
-                async with client.stream(
-                    "POST", path, content=body,
-                    headers={"content-type": "application/json"},
-                ) as response:
-                    state["dispatched"] = True
+                # Absolute endpoint URL: no httpx base-URL path joining.
+                request = client.build_request(
+                    "POST", endpoint, content=body,
+                    headers={"content-type": "application/json", **headers},
+                )
+                # Dispatch boundary recheck (see the streaming worker):
+                # loop/client setup must not allow a late send past budget.
+                if deadline is not None and time.monotonic() >= deadline:
+                    raise TransportTimeoutError(
+                        "deadline exhausted before dispatch", dispatched=False)
+                # Once the send is attempted the request may be on the wire:
+                # completion ambiguity begins at this point (V2-03).
+                state["sent"] = True
+                try:
+                    response = await client.send(request, stream=True)
+                except httpx.HTTPError as exc:
+                    raise _classify_send_error(exc) from exc
+                try:
                     status = response.status_code
                     if 300 <= status < 400:
                         raise TransportRefusedError(f"redirect refused (HTTP {status})")
@@ -523,12 +684,20 @@ class GatewayTransport:
                         if len(payload) > self.max_response_bytes:
                             raise TransportTruncatedError("response exceeds byte bound")
                     return status, bytes(payload)
+                finally:
+                    with contextlib.suppress(BaseException):
+                        await response.aclose()
 
         try:
             return _run_async(_exchange(), _deadline_remaining(deadline))
         except asyncio.TimeoutError:
             raise TransportTimeoutError("overall deadline exhausted",
-                                        dispatched=state["dispatched"]) from None
+                                        dispatched=state["sent"]) from None
+        except httpx.HTTPError as exc:
+            # Defensive: the exchange maps every send-phase httpx failure;
+            # any unmapped network exception gets the same conservative
+            # classification instead of escaping raw.
+            raise _classify_send_error(exc) from exc
 
     # -- streaming ----------------------------------------------------------
     def open_stream(
@@ -539,9 +708,9 @@ class GatewayTransport:
         Pre-dispatch failures (and an already-expired deadline) raise here;
         header/body failures surface while iterating the frames.
         """
+        endpoint = resolve_endpoint_url(self.base_url, path)
         handle = _AsyncStreamHandle(
-            self.base_url,
-            path,
+            endpoint,
             body,
             timeout_seconds=self.timeout_seconds,
             api_key=self.api_key,

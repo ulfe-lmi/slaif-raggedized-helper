@@ -134,16 +134,28 @@ def _parse_usage(usage: object) -> UsageMetrics | None:
     )
 
 
+# Pinned dialect (f2df0e82, app/slaif_gateway/providers/streaming.py
+# validators): final output items are array-ordered and do NOT carry
+# output_index (that coordinate is an SSE event-envelope field); message
+# items are completed assistant text whose content parts are output_text;
+# reasoning/function_call items carry no answer text; any other item or
+# part type, or a contradictory item status, is a structural error.
+_MESSAGE_STATUSES = frozenset({"completed", "refusal"})
+# Bounded image material size (data URL or URL string) before JSON
+# serialization; the resolver protocol alone does not bound bytes.
+_MAX_IMAGE_MATERIAL_BYTES = 4 * 1024 * 1024
+
+
 def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
     """Collect ordered output-text and refusals from a Responses ``output``.
 
-    Returns ``(message_texts, refusal_reason, structural_error)``. The pinned
-    dialect requires each output item to carry a unique ID and an
-    ``output_index`` in order; a ``message`` item must carry content parts.
-    Only ``output_text`` content parts contribute answer text; text in
-    arbitrary untrusted fields is never accepted. Malformed or unusable
-    message items are structural errors, never skipped to salvage success;
-    a completed response without usable output text is an error.
+    Returns ``(message_texts, refusal_reason, structural_error)``. Final
+    items are authoritative in array order; a ``message`` item must be
+    ``completed`` (or a refusal item) and may only contain ``output_text``
+    parts. Text in any other field, part or item type is never accepted;
+    malformed, unknown or contradictory items are structural errors, never
+    skipped to salvage success. A completed response without usable output
+    text is an error.
     """
     if not isinstance(output, list) or not output:
         return [], None, "malformed output (expected non-empty item list)"
@@ -159,37 +171,63 @@ def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
         if item_id in seen_ids:
             return [], None, "duplicate output item ID"
         seen_ids.add(item_id)
-        if _nonneg_int(item.get("output_index")) != position:
+        # Array order is authoritative for final items; an index that is
+        # genuinely present must not contradict the position.
+        if "output_index" in item and _nonneg_int(item.get("output_index")) != position:
             return [], None, "out-of-order output item"
-        if item.get("type") != "message":
-            continue  # reasoning/function/etc. items carry no answer text
-        if item.get("status") == "refusal":
-            refusal = refusal or "refusal"
-        content = item.get("content")
-        if not isinstance(content, list) or not content:
-            return [], None, "message item without content parts"
-        message_text: list[str] = []
-        saw_refusal_part = False
-        for part in content:
-            if not isinstance(part, dict):
-                return [], None, "malformed content part"
-            part_type = part.get("type")
-            if part_type == "output_text":
-                text = part.get("text")
-                if not isinstance(text, str):
-                    return [], None, "malformed output_text part"
-                message_text.append(text)
-            elif part_type == "refusal":
-                saw_refusal_part = True
-                refusal = (
-                    refusal
-                    or _allowlisted(part.get("refusal"), _REFUSAL_REASONS)
-                    or "refusal"
-                )
-        if not message_text and not saw_refusal_part:
-            return [], None, "message item without usable output_text content"
-        if message_text:
-            texts.append("".join(message_text))
+        item_type = item.get("type")
+        status = item.get("status")
+        if item_type == "message":
+            if status not in _MESSAGE_STATUSES:
+                return [], None, "contradictory terminal message item status"
+            content = item.get("content")
+            if not isinstance(content, list):
+                return [], None, "message item without content parts"
+            message_text: list[str] = []
+            for part in content:
+                if not isinstance(part, dict):
+                    return [], None, "malformed content part"
+                part_type = part.get("type")
+                if part_type == "output_text":
+                    text = part.get("text")
+                    if not isinstance(text, str):
+                        return [], None, "malformed output_text part"
+                    if text:
+                        message_text.append(text)
+                elif part_type == "refusal" and status == "refusal":
+                    # An allowlisted reason from the part wins; the generic
+                    # fallback below must never shadow it.
+                    reason = _allowlisted(part.get("refusal"), _REFUSAL_REASONS)
+                    if reason is not None and refusal is None:
+                        refusal = reason
+                else:
+                    return [], None, "unsupported content part type"
+            if status == "refusal" and refusal is None:
+                refusal = "refusal"
+            if message_text and status == "refusal":
+                return [], None, "contradictory refusal item with output text"
+            if status == "completed" and not message_text:
+                return [], None, "message item without usable output_text content"
+            if message_text:
+                texts.append("".join(message_text))
+        elif item_type == "reasoning":
+            # Supported non-text item: it never contributes answer text, but
+            # its terminal state is validated like any other item. A
+            # reasoning item that is not completed inside the final output
+            # of a completed response is a contradictory state, never
+            # silently skipped.
+            if status != "completed":
+                return [], None, "contradictory terminal reasoning item status"
+        elif item_type == "function_call":
+            # Explicit unsupported-action handling: this bounded adapter
+            # never declares tools in the wire envelope, so a model
+            # function_call is an unsupported action. The whole response is
+            # refused instead of salvaging text around the action.
+            return [], None, "unsupported function_call output item"
+        else:
+            return [], None, "unsupported output item type"
+    if texts and refusal is not None:
+        return [], None, "contradictory terminal (refusal with output text)"
     if not texts and refusal is None:
         return [], None, "no usable output text in completed response"
     return texts, refusal, None
@@ -199,10 +237,12 @@ def gateway_backend_fingerprint(route: object) -> str:
     """Stable declared backend identity (A13 provenance).
 
     Identifies the adapter dialect, pinned contract, declared model, route
-    and capability snapshot. Changing the request ID or response text must
-    not change it; a declared model revision or route/capability change
-    must. The deployed runtime/GGUF identity is explicitly unverified in
-    this slice and recorded as such.
+    endpoint and capability snapshot. Changing the request ID or response
+    text must not change it; a declared model revision or route/endpoint/
+    capability change must. The credential-free configured endpoint
+    identity (scheme, host, port, API segment) distinguishes deployments
+    that a bare hostname would collapse. The deployed runtime/GGUF identity
+    is explicitly unverified in this slice and recorded as such.
     """
     return fingerprint(
         {
@@ -210,7 +250,7 @@ def gateway_backend_fingerprint(route: object) -> str:
             "dialect": "v1-responses",
             "contract_commit": GATEWAY_CONTRACT_COMMIT,
             "model": route.model,  # type: ignore[attr-defined]
-            "host": route.host,  # type: ignore[attr-defined]
+            "endpoint": str(route.base_url).rstrip("/"),  # type: ignore[attr-defined]
             "timeout_seconds": route.timeout_seconds,  # type: ignore[attr-defined]
             "capabilities": dict(sorted(route.capabilities.model_dump().items())),  # type: ignore[attr-defined]
             "runtime_identity": "unverified",
@@ -330,8 +370,21 @@ class _GatewayAccumulator:
         if not isinstance(payload, dict):
             state.fail("malformed event payload")
             return
-        event = frame.event
-        if event not in _KNOWN_EVENTS:
+        # The pinned dialect emits data-only SSE frames: the JSON "type"
+        # field is the event discriminator (the gateway never sends
+        # "event:" lines). An explicit SSE event name, when present, must
+        # agree with the JSON discriminator; disagreement is a protocol
+        # violation that fails closed instead of being treated as an
+        # unknown, inert family.
+        json_type = payload.get("type")
+        if frame.event != "message":
+            if not isinstance(json_type, str):
+                return  # no JSON discriminator: not a dialect event; inert
+            if json_type != frame.event:
+                state.fail("event name and payload type disagree")
+                return
+        event = json_type
+        if not isinstance(event, str) or event not in _KNOWN_EVENTS:
             return  # unknown events are inert; never terminals
         state.public_events += 1
         if event == "response.created" or event == "response.in_progress":
@@ -369,11 +422,11 @@ class _GatewayAccumulator:
         if item_id in state.item_ids:
             state.fail("duplicate output item ID")
             return
-        output_index = payload.get("output_index")
-        if output_index is not None:
-            if _nonneg_int(output_index) != len(state.item_order):
-                state.fail("out-of-order output item")
-                return
+        # Envelope output_index is required in the pinned dialect and must
+        # equal the position this item takes in the observed order.
+        if _nonneg_int(payload.get("output_index")) != len(state.item_order):
+            state.fail("out-of-order output item")
+            return
         state.item_ids.add(item_id)
         state.item_order.append(item_id)
         state.item_buffers[item_id] = []
@@ -414,6 +467,9 @@ class _GatewayAccumulator:
         item_id = item.get("id")
         if not isinstance(item_id, str) or item_id not in state.item_buffers:
             state.fail("done for unknown output item")
+            return
+        if _nonneg_int(payload.get("output_index")) != state.item_order.index(item_id):
+            state.fail("out-of-order output item")
             return
         if item.get("type") == "message":
             if item.get("status") == "refusal":
@@ -645,17 +701,26 @@ class GatewayGenerator:
         required = request.required_capabilities
         if Capability.STREAMING in required and not caps.streaming:
             return "streaming control refused: route does not advertise Responses streaming"
-        # Actual image input requires route/model vision permission even when
-        # the caller omits the capability from required_capabilities: the
-        # semantic input shape, not caller declarations, gates transport.
-        if (request.images or Capability.VISION in required) and not caps.vision:
-            return "vision control refused: route does not advertise vision input"
+        # Vision is gated by route AND model, even when the caller omits the
+        # capability from required_capabilities: the semantic input shape,
+        # not caller declarations, gates transport, and required
+        # capabilities cannot widen the model's declared capabilities.
+        if request.images or Capability.VISION in required:
+            if not caps.vision:
+                return "vision control refused: route does not advertise vision input"
+            if request.images and Capability.VISION not in request.model.declared_capabilities:
+                return "vision control refused: model does not declare vision input"
         if request.response_format == "json_object" and not caps.json_mode:
             return "structured output refused: route does not advertise json_mode"
         if request.response_format == "json_schema" and not caps.structured_outputs:
             return "structured output refused: route does not advertise structured_outputs"
         if request.prompt_cache_key and not caps.prompt_caching:
             return "prompt caching refused: route does not advertise prompt_caching"
+        # The request output budget must fit the configured output reserve;
+        # exceeding it is refused before dispatch, never silently clipped.
+        if request.max_output_tokens > self._config.output_reserve_tokens:
+            return ("output budget refused: max_output_tokens exceeds "
+                    "configured output reserve")
         materials: list[str] = []
         if request.images:
             if self._image_resolver is None:
@@ -671,6 +736,8 @@ class GatewayGenerator:
                          or _SAFE_IMAGE_URL_RE.fullmatch(material))
                 ):
                     return "image material is not bounded safe URL/data form"
+                if len(material.encode("utf-8")) > _MAX_IMAGE_MATERIAL_BYTES:
+                    return "image material exceeds bounded size"
                 materials.append(material)
         stream = Capability.STREAMING in required
         try:
@@ -701,6 +768,13 @@ class GatewayGenerator:
         max_attempts = 1 + self._config.max_retries
         attempts = 0
         while True:
+            # One total budget for the whole call, including retries: once
+            # it is exhausted no further attempt may be dispatched.
+            if time.monotonic() >= deadline:
+                return _terminal_result(request, CompletionOutcome.FAILED,
+                                        backend_fingerprint=backend_fingerprint,
+                                        error="deadline exhausted before dispatch",
+                                        attempts=attempts)
             attempts += 1
             try:
                 if stream:
@@ -743,7 +817,13 @@ class GatewayGenerator:
                                         backend_fingerprint=backend_fingerprint,
                                         error=str(exc), attempts=attempts)
             except TransportError as exc:
-                return _terminal_result(request, CompletionOutcome.FAILED,
+                # Post-dispatch network failure (e.g. the provider closed the
+                # connection after accepting the request) leaves completion
+                # unknown (V2-03); only a positively pre-dispatch failure is a
+                # safe definite failure.
+                outcome = (CompletionOutcome.UNKNOWN_COMPLETION
+                           if exc.dispatched else CompletionOutcome.FAILED)
+                return _terminal_result(request, outcome,
                                         backend_fingerprint=backend_fingerprint,
                                         error=str(exc), attempts=attempts)
 
@@ -761,13 +841,23 @@ class GatewayGenerator:
                     acc.handle(frame)
                 return _finish_stream(acc, request, eof_incomplete=frames.incomplete_trailing,
                                       backend_fingerprint=backend_fingerprint)
-        except TransportTimeoutError:
+        except TransportConnectError:
+            raise  # positively pre-dispatch: the outer retry policy decides
+        except TransportTimeoutError as exc:
+            if exc.retryable:
+                raise  # pre-dispatch timeout: the outer retry policy decides
             text = acc.stream_text()
             return _terminal_result(
                 request, CompletionOutcome.UNKNOWN_COMPLETION,
                 backend_fingerprint=backend_fingerprint,
                 text=text, error="deadline exhausted mid-stream",
             )
+        except TransportRefusedError as exc:
+            # A definitive provider response (redirect/4xx/5xx headers were
+            # read): a safe failure, never an ambiguous completion.
+            return _terminal_result(request, CompletionOutcome.FAILED,
+                                    backend_fingerprint=backend_fingerprint,
+                                    error=str(exc))
         except (TransportProtocolError, TransportTruncatedError) as exc:
             return _terminal_result(
                 request, CompletionOutcome.FAILED,

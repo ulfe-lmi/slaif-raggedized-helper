@@ -35,3 +35,17 @@ fix, a separate product CI job, docs/foundation.md, JSON schemas and
 THIRD_PARTY_NOTICES. Foundation code and mocked contract composition only:
 product runtime qualification remains NOT RUN/UNKNOWN; no model, GPU, live
 route or service change; not merged, not deployed.
+003 slice (generator adapters + transport/gateway correctness; objectives
+003-a PARTIAL checkpoint and 003-b bounded repair): open on PR #5, branch
+oap/003-generator-adapters-and-cache-probes from verified main 93b4317;
+live PR/CI/merge state is queried on GitHub, not asserted here. Adds the
+gateway `POST /v1/responses` adapter and bounded HTTP/SSE transport with
+one total deadline, pre-dispatch-only retry, UNKNOWN_COMPLETION ambiguity
+semantics, bounded queue backpressure and cancellation, plus real loopback
+HTTP/SSE integration tests (tests/integration) wired into the product CI
+job; actual behavior and contract: docs/generator-contract.md. The 003-a
+round report (oap/reports/003-a-generator-adapters-and-cache-probes.md)
+records the PARTIAL checkpoint. The native direct `/completion` adapter and
+qualification probes of objective 003 remain pending (later 003-c
+continuation); objective 003 as a whole is unresolved, not merged, not
+deployed; no model, GPU, live route or service change.

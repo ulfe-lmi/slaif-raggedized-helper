@@ -2,11 +2,15 @@
 
 A local documentation assistant using contextual retrieval, authorized source evidence,
 and Qwen through SLAIF API Gateway (English/Slovenian). This checkout contains the
-architecture, a tested concentrated OAP scaffold, and the foundation package
+architecture, a tested concentrated OAP scaffold, the foundation package
 (objective 002-a): strict configuration, typed generator/embedding/reranker
 contracts, model lock/qualification schemas and an offline `raggedized doctor`
-command. Adapters, snapshot/agent layers and hardware qualification are not
-implemented yet.
+command, and — open on PR #5 (branch `oap/003-generator-adapters-and-cache-probes`,
+not merged) — the gateway `POST /v1/responses` generator adapter with bounded
+HTTP/SSE transport and real loopback integration tests
+([docs/generator-contract.md](docs/generator-contract.md)). The native direct
+adapter and qualification probes of objective 003 remain pending; snapshot/agent
+layers and hardware qualification are not implemented yet.
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.
@@ -34,6 +38,7 @@ uv sync --locked
 uv run raggedized --help
 uv run raggedized doctor --config config/examples/example-config.json
 uv run pytest tests/unit -q
+uv run pytest tests/integration -q   # 003-b: owned loopback HTTP/SSE, synthetic keys
 ```
 
 `doctor` validates configuration and inspects model manifests offline (zero
@@ -43,7 +48,8 @@ unresolved-artifact state: [docs/foundation.md](docs/foundation.md).
 
 The `CI` GitHub Actions workflow runs the OAP scaffold checks (Python 3.12-3.14)
 plus a separate product job (locked lightweight environment, real product
-tests, OAP checks, lint; Python 3.12/3.14; triggers, permissions and results
+tests, owned-loopback integration tests, OAP checks, lint; Python 3.12/3.14;
+triggers, permissions and results
 in [docs/CI.md](docs/CI.md)). CI produces no hardware evidence; live model and
 gateway qualification remains NOT RUN. Product CLI/API commands beyond
 `raggedized doctor`/`--help`/`--version` remain proposed, not available.

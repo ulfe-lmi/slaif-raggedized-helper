@@ -146,6 +146,14 @@ class RouteConfig(BaseModel):
             )
         if not parts.hostname:
             raise ValueError("route base_url must contain a hostname")
+        # Pinned v1-responses contract: the base is the gateway root (any
+        # reverse-proxy prefix preserved) or that root plus the /v1 API
+        # segment. Anything else cannot be interpreted without guessing.
+        if parts.path not in ("", "/") and not parts.path.endswith("/v1"):
+            raise ValueError(
+                "route base_url path must be the gateway root or end with "
+                "the /v1 API segment"
+            )
         return value
 
     @property
