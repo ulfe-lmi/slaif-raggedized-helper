@@ -125,3 +125,58 @@ def test_mutated_dto_is_revalidated():
     dto.candidate.pairs.clear()
     with pytest.raises(ParityError):
         analyze_rerank_parity(dto)
+
+
+def test_self_contained_binding_and_requested_k():
+    import json
+
+    from slaif_raggedized_helper.schema import fingerprint
+
+    data = fixture()
+    data["criteria"]["top_k"] = 5
+    data["candidate"]["pairs"][0]["score"] = -0.5
+    output = json.loads(json.dumps(analyze_rerank_parity(data)))
+    assert output["definition"] == data["reference"]["definition"]
+    assert output["criteria"] == data["criteria"]
+    assert [(q["requested_top_k"], q["effective_top_k"]) for q in output["queries"]] == [
+        (5, 3), (5, 1)]
+    row = output["pairs"][0]
+    assert (row["pair_id"], row["passage_id"], row["query_digest"], row["passage_digest"],
+            row["reference_score"], row["candidate_score"], row["signed_delta"]) == (
+                "a", "a", "a" * 64, "1" * 64, -1, -0.5, 0.5)
+    keys = ("pair_id", "query_id", "passage_id", "query_digest", "passage_digest",
+            "reference_score", "candidate_score")
+    payload = {"version": 1, "kind": "rerank-parity-supplied-input",
+               "definition": output["definition"], "criteria": output["criteria"],
+               "reference_execution": output["reference_execution"],
+               "candidate_execution": output["candidate_execution"],
+               "pairs": sorted(({k: row[k] for k in keys} for row in output["pairs"]),
+                               key=lambda row: row["pair_id"])}
+    assert fingerprint(payload) == output["input_binding"]
+    assert output["provenance"] == "SUPPLIED_UNVERIFIED"
+    assert output["gold_recall"] is None
+
+
+def test_binding_permutation_and_changes():
+    data = fixture()
+    original = analyze_rerank_parity(data)
+    data["reference"]["pairs"].reverse()
+    data["candidate"]["pairs"] = data["candidate"]["pairs"][1:] + data["candidate"]["pairs"][:1]
+    assert analyze_rerank_parity(data) == original
+    for change in ("score", "digest", "criteria", "definition", "execution"):
+        changed = copy.deepcopy(data)
+        if change == "score":
+            changed["candidate"]["pairs"][0]["score"] = 0.25
+        elif change == "digest":
+            for side in ("reference", "candidate"):
+                for pair in changed[side]["pairs"]:
+                    if pair["pair_id"] == "d":
+                        pair["passage_digest"] = "f" * 64
+        elif change == "criteria":
+            changed["criteria"]["top_k"] = 5
+        elif change == "definition":
+            for side in ("reference", "candidate"):
+                changed[side]["definition"]["model"] = "other"
+        else:
+            changed["candidate"]["execution"]["precision"] = "fp16"
+        assert analyze_rerank_parity(changed)["input_binding"] != original["input_binding"]

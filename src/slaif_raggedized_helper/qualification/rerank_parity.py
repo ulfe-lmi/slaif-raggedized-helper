@@ -15,7 +15,14 @@ Criteria declare max_absolute_delta, min_top_k_overlap and top_k. Ranks descend 
 score, ties ordered by ascending pair_id. Per-query overlap uses min(top_k, count)
 as denominator; it is reference agreement, never gold recall. The result includes
 paired signed (candidate minus reference) and absolute deltas, ranks, query overlap,
-counts and whether all declared criteria passed. Missing gold is unavailable.
+counts and whether all declared criteria passed. The result retains definition,
+criteria, execution declarations and per-pair identities/digests and actual scores.
+Each query reports requested_top_k and effective_top_k separately. input_binding is
+schema.fingerprint over the versioned normalized input: definition, criteria,
+executions and pairs sorted by pair_id, with each pair's identities, input digests
+and reference/candidate float scores. This digest binds supplied declarations only;
+it does not attest execution, model artifacts or source authenticity. Missing gold
+is unavailable.
 Limits: 512 pairs, 128 queries, 512 candidates/query, 1024 score values,
 262144 estimated sort-work units and 512 output pairs. Scores/thresholds are
 finite and bounded by 1e100 to keep arithmetic finite. Errors never echo inputs.
@@ -28,7 +35,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
-from ..schema import RerankPair, RerankRequest, RerankResult, bind_rerank_scores
+from ..schema import RerankPair, RerankRequest, RerankResult, bind_rerank_scores, fingerprint
 
 
 class ParityError(ValueError):
@@ -163,6 +170,25 @@ def analyze_rerank_parity(data: dict | ParityInput) -> dict:
         # A conservative quadratic bound also covers the actual sort and output work.
         if sum(len(ids) ** 2 for ids in groups.values()) > 262144:
             raise ParityError("work limit exceeded")
+        binding_pairs = [
+            {"pair_id": pair_id, "query_id": ref[pair_id].query_id,
+             "passage_id": ref[pair_id].passage_id,
+             "query_digest": ref[pair_id].query_digest,
+             "passage_digest": ref[pair_id].passage_digest,
+             "reference_score": ref[pair_id].score,
+             "candidate_score": candidate[pair_id].score}
+            for pair_id in sorted(ref)
+        ]
+        definition = value.reference.definition.model_dump()
+        criteria = value.criteria.model_dump()
+        reference_execution = value.reference.execution.model_dump()
+        candidate_execution = value.candidate.execution.model_dump()
+        input_binding = fingerprint({
+            "version": 1, "kind": "rerank-parity-supplied-input",
+            "definition": definition, "criteria": criteria,
+            "reference_execution": reference_execution,
+            "candidate_execution": candidate_execution, "pairs": binding_pairs,
+        })
         rows = []
         queries = []
         passed = True
@@ -176,18 +202,25 @@ def analyze_rerank_parity(data: dict | ParityInput) -> dict:
             overlap = len(set(a[:k]) & set(b[:k])) / k
             passed &= overlap >= value.criteria.min_top_k_overlap
             queries.append({"query_id": query_id, "sample_count": len(ids), "top_k": k,
+                            "requested_top_k": value.criteria.top_k, "effective_top_k": k,
                             "top_k_overlap": overlap, "rank_agreement": a == b})
             for pair_id in sorted(ids):
                 delta = candidate[pair_id].score - ref[pair_id].score
                 passed &= abs(delta) <= value.criteria.max_absolute_delta
                 rows.append({"pair_id": pair_id, "query_id": query_id,
+                             "passage_id": ref[pair_id].passage_id,
+                             "query_digest": ref[pair_id].query_digest,
+                             "passage_digest": ref[pair_id].passage_digest,
+                             "reference_score": ref[pair_id].score,
+                             "candidate_score": candidate[pair_id].score,
                              "signed_delta": delta, "absolute_delta": abs(delta),
                              "reference_rank": rank_a[pair_id], "candidate_rank": rank_b[pair_id]})
         return {"version": 1, "provenance": "SUPPLIED_UNVERIFIED", "criteria_passed": passed,
                 "pair_count": len(rows), "query_count": len(queries), "pairs": rows,
-                "queries": queries, "gold_recall": None,
-                "reference_execution": value.reference.execution.model_dump(),
-                "candidate_execution": value.candidate.execution.model_dump()}
+                "queries": queries, "gold_recall": None, "definition": definition,
+                "criteria": criteria, "input_binding": input_binding,
+                "reference_execution": reference_execution,
+                "candidate_execution": candidate_execution}
     except ParityError:
         raise
     except (ValidationError, ValueError, TypeError, OverflowError):
