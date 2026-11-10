@@ -45,3 +45,24 @@ positive control without invented format, ordinary TEXT/no-format
 preserved); see docs/generator-contract.md). The
 product CI job runs them alongside
 tests/unit and product lint from a clean locked install.
+
+
+T07. Bounded probe composition (objective 003-h): `uv run pytest
+tests/integration/test_probe_composition.py -q` runs the INSTALLED
+`raggedized` CLI in subprocesses with the real gateway/native adapters
+against owned 127.0.0.1 loopback servers (synthetic canaries only):
+exact request count/order/control payloads, finite aggregate budgets
+across the pair and retries (single experiment deadline; call allowance
+reserved before every transport invocation; ambiguous work spent, never
+replayed; no bypass by retries/template work), no implicit dispatch on
+import/help/doctor/missing opt-in, invalid config and absent
+credentials refused before dispatch, missing-metric nulls, digest-only
+expected-output match/mismatch, unknown-completion no-replay, and
+evidence safety (no endpoint URL, credential, raw prompt/response text
+or provider error). The probe budget/boundary unit regressions live in
+tests/unit/test_probes.py; the gateway explicit-minimum capability
+admission regressions (zero-HTTP refusal of required JSON_MODE/
+PROMPT_CACHING on an unqualified route plus qualified minimum-only
+positive controls) extend the gateway loopback suite. All synthetic and
+offline: no external network, product services, real keys, GPU or model
+downloads. Real runtime/cache/quality qualification remains NOT RUN.

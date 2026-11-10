@@ -550,6 +550,21 @@ def test_already_expired_deadline_refused_before_any_dispatch(server, stream):
                               declared_capabilities=frozenset({Capability.TEXT,
                                                                Capability.PROMPT_CACHING}))
           ), RouteCapabilities()),
+    # 003-h: explicit MINIMUM requirements honored independently of the
+    # actual format/cache-key fields — a constructor-validated request may
+    # require the capability while sending no format/key at all; the
+    # unqualified requirement refuses with zero HTTP (strategic audit
+    # 003-gateway-capability-admission-review).
+    (dict(required_capabilities=frozenset({Capability.JSON_MODE}),
+          model=ModelIdentity(name="synthetic-qwen",
+                              declared_capabilities=frozenset({Capability.TEXT,
+                                                               Capability.JSON_MODE}))
+          ), RouteCapabilities()),
+    (dict(required_capabilities=frozenset({Capability.PROMPT_CACHING}),
+          model=ModelIdentity(name="synthetic-qwen",
+                              declared_capabilities=frozenset({Capability.TEXT,
+                                                               Capability.PROMPT_CACHING}))
+          ), RouteCapabilities()),
 ])
 def test_unsupported_controls_refused_before_dispatch(server, request_kwargs, caps):
     srv = server(stream_scenario(valid_stream_frames()))
@@ -560,6 +575,47 @@ def test_unsupported_controls_refused_before_dispatch(server, request_kwargs, ca
     assert "refused" in (result.error or "")
     assert result.attempts is None or result.attempts == 0
     assert srv.state.requests == []  # nothing reached the provider
+
+
+def test_required_json_mode_qualified_dispatches_without_invented_format(server):
+    """Qualified minimum-only JSON_MODE: exactly one POST, and the wire
+    carries NO invented text.format (the requirement does not invent an
+    output format)."""
+    srv = server(lambda h, r: h._send_json(
+        200, completed_json([message_item("m0", "synthetic answer")])))
+    gen = make_generator(make_config(f"{srv.url}/v1",
+                                     RouteCapabilities(json_mode=True)))
+    request = make_request(
+        required_capabilities=frozenset({Capability.JSON_MODE}),
+        model=ModelIdentity(name="synthetic-qwen",
+                            declared_capabilities=frozenset({Capability.TEXT,
+                                                             Capability.JSON_MODE})))
+    result = gen.generate(request)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert len(srv.state.requests) == 1
+    payload = json.loads(srv.state.requests[0].body)
+    assert "text" not in payload  # no invented format
+    assert "prompt_cache_key" not in payload
+
+
+def test_required_prompt_caching_qualified_dispatches_without_invented_key(
+        server):
+    """Qualified minimum-only PROMPT_CACHING: exactly one POST, and the
+    wire carries NO invented prompt_cache_key."""
+    srv = server(lambda h, r: h._send_json(
+        200, completed_json([message_item("m0", "synthetic answer")])))
+    gen = make_generator(make_config(f"{srv.url}/v1",
+                                     RouteCapabilities(prompt_caching=True)))
+    request = make_request(
+        required_capabilities=frozenset({Capability.PROMPT_CACHING}),
+        model=ModelIdentity(name="synthetic-qwen",
+                            declared_capabilities=frozenset({Capability.TEXT,
+                                                             Capability.PROMPT_CACHING})))
+    result = gen.generate(request)
+    assert result.outcome is CompletionOutcome.TERMINAL
+    assert len(srv.state.requests) == 1
+    payload = json.loads(srv.state.requests[0].body)
+    assert "prompt_cache_key" not in payload  # no invented key
 
 
 def test_image_requires_vision_and_resolver_even_if_omitted(server):

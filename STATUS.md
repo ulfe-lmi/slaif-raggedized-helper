@@ -2,12 +2,13 @@
 
 ## Current state (2026-11-10)
 
-- Active objective: 003-e (private native generator), open on PR #5,
-  branch oap/003-generator-adapters-and-cache-probes; live PR/CI/merge
-  state is queried on GitHub, not asserted here.
+- Active objective: 003-h (bounded probes and objective closure), open
+  on PR #5, branch oap/003-generator-adapters-and-cache-probes; live
+  PR/CI/merge state is queried on GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
-  merged) plus the 003 gateway/transport slice (open on PR #5, see
-  history). Hardware/model qualification: NOT RUN. ICA: NOT RUN.
+  merged) plus the 003 gateway/transport/native slice and the bounded
+  explicit probe/CLI composition (open on PR #5, see history).
+  Hardware/model qualification: NOT RUN. ICA: NOT RUN.
 - The coding client is active on objective 003 (PR #5), not idle.
 - Current main is the 002-a merge commit 93b4317 (PR #4); PR #5 builds
   from it.
@@ -83,7 +84,7 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   final part positions, item type/identity freeze added through done/
   final, latched item completion, per-type terminal done status),
   actual-HTTP regressions, scoped docs.
-- 003-e (current round): the private trusted OFFLINE native llama.cpp
+- 003-e: the private trusted OFFLINE native llama.cpp
   `/completion` adapter (model_clients/direct.py): explicit
   offline_diagnostic materialization policy (private/loopback destination,
   private_trusted, declared model identity, template qualification,
@@ -103,7 +104,30 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   parse with actual-HTTP regressions (in-process and a controlled-limit
   isolated subprocess), regenerated JSON schema and scoped docs. Whole-003
   probe / live qualification remains pending.
-- The qualification probes and live-target evidence of objective 003
-  remain pending (separately finalized continuations of the same PR).
-  Objective 003 as a whole is unresolved, not merged, not deployed; no
-  model, GPU, live route or service change.
+- 003-f/g: native metric-quantity and default-deny JSON/schema
+  corrections, then the native boundary closure (safe finite phase-total
+  arithmetic; explicit required-JSON_MODE capability admission) with
+  actual-HTTP regressions; round reports
+  oap/reports/003-f-native-contract-corrections.md and
+  oap/reports/003-g-native-boundary-closure.md.
+- 003-h (current round): the bounded explicit generator qualification
+  probe (`src/slaif_raggedized_helper/probes.py` + `raggedized probe`
+  CLI): explicit opt-in repeated-parent experiment with one overall
+  experiment deadline, finite call/attempt and total output-token
+  budgets enforced at the real transport boundary (call allowance
+  reserved before every transport invocation; ambiguous dispatched
+  work spent and never replayed; retries/template work cannot bypass
+  the budget), safe structured evidence (declared unverified
+  identities, opaque endpoint digest, fingerprinted inputs,
+  digest-only output checks, reported-metric-only cache conclusions),
+  installed-CLI subprocess composition over owned loopback HTTP, the
+  documented gateway minimum-capability admission repair (explicit
+  required JSON_MODE/PROMPT_CACHING honored independently of the
+  format/cache-key fields; unqualified minimums refuse at zero HTTP;
+  qualified minimum-only and ordinary TEXT positive controls retained),
+  and docs/README/TESTING/STATUS updates. Live qualification,
+  caching-effectiveness and hardware evidence remain NOT RUN.
+- The live-target evidence of objective 003 remains pending (separately
+  finalized continuations of the same PR). Objective 003 as a whole is
+  unresolved, not merged, not deployed; no model, GPU, live route or
+  service change.

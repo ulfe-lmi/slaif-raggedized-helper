@@ -1005,6 +1005,17 @@ class GatewayGenerator:
         required = request.required_capabilities
         if Capability.STREAMING in required and not caps.streaming:
             return "streaming control refused: route does not advertise Responses streaming"
+        # Explicit minimum requirements are honored independently of the
+        # actual format/cache-key fields: a constructor-validated request
+        # may REQUIRE json_mode or prompt_caching while sending no
+        # response_format or prompt_cache_key at all. A model declaration
+        # alone is not route support (A13): unqualified minimums refuse
+        # locally with zero HTTP; a qualified requirement alone does not
+        # invent an output format or cache key.
+        if Capability.JSON_MODE in required and not caps.json_mode:
+            return "structured output refused: route does not advertise json_mode"
+        if Capability.PROMPT_CACHING in required and not caps.prompt_caching:
+            return "prompt caching refused: route does not advertise prompt_caching"
         # Vision is gated by route AND model, even when the caller omits the
         # capability from required_capabilities: the semantic input shape,
         # not caller declarations, gates transport, and required

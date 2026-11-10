@@ -28,6 +28,18 @@ advertises Responses streaming. Native llama fields (`cache_prompt`,
 `id_slot`, `slot_ids`) cannot appear: the envelope is built from an allowlist
 and the integration tests assert their absence on recorded wire bytes.
 
+Capability gates (default deny, A13): optional controls are usable only
+when the configured route explicitly advertises the capability —
+streaming, vision (route AND declared model), `text.format` structured
+output and `prompt_cache_key`. The gates honor BOTH the actual input
+shape and the explicit minimum requirement: a constructor-validated
+request may carry `JSON_MODE` or `PROMPT_CACHING` in
+`required_capabilities` while sending no `response_format` or
+`prompt_cache_key` at all (003-h). An unqualified requirement refuses
+locally with zero HTTP — a model capability declaration alone is not
+route support; a qualified requirement alone does not invent an output
+format or cache key (the pinned minimal envelope is sent unchanged).
+
 Base URL contract: `route.base_url` is the gateway root (any reverse-proxy
 prefix preserved) or that root ending in `/v1`. The final request path is
 always exactly one `/v1/responses` suffix, resolved to an ABSOLUTE URL, so
@@ -360,12 +372,126 @@ template identity + build evidence, operator limits and the capability
 snapshot, plus `runtime_identity: "unverified"`; request IDs and response
 text never change it.
 
+## Bounded qualification probe (003-h)
+
+`model_clients/probes.py` + the `raggedized probe` CLI subcommand run the
+bounded repeated-parent qualification experiment. The probe is an
+EXPLICIT opt-in: import, `--help`, `doctor`, readiness and default tests
+never dispatch a probe; only the probe subcommand with explicit finite
+budgets and an actually configured mode does. Neither mode may fall back
+to the other after a denial (the gateway path and the private
+offline-diagnostic direct path are independent).
+
+### Public CLI contract
+
+```
+raggedized probe --config PATH --mode {gateway,direct}
+    --deadline-seconds S --max-dispatches N --max-output-tokens-total T
+    [--expected-output-a sha256:<64hex>] [--expected-output-b sha256:<64hex>]
+    [--output PATH]
+```
+
+- `--config`: the strict deployment configuration. `--mode gateway`
+  requires `generator.route`; `--mode direct` requires a fully
+  materialized `direct_generation` offline-diagnostic policy (private
+  destination + `private_trusted` + declared model + template
+  qualification + explicit finite operator limits).
+- `--deadline-seconds`: ONE overall wall-time budget spanning the whole
+  experiment — both paired requests, native template work and every
+  adapter retry. A per-call allowance never resets it; the transport
+  boundary rechecks it before every invocation.
+- `--max-dispatches`: the total call/attempt allowance. One allowance is
+  reserved BEFORE every transport invocation (model dispatch, template
+  work, failed connects). Ambiguous dispatched work is conservatively
+  counted as spent and never replayed; retries and template requests
+  cannot bypass it.
+- `--max-output-tokens-total`: the total output-token allowance across
+  the pair (>= 2). Each request receives the deterministic even half
+  (`total // 2`), so the pair's summed allowance never exceeds the total.
+- `--expected-output-a/b`: operator-supplied `sha256:` digests for an
+  available EXACT expected-output check (digest equality only; an equal
+  digest does not establish truth).
+- `--output`: write the evidence document to a file (default stdout).
+- Credentials resolve ONLY through the configured safe operator
+  reference (`generator.api_key_ref` -> `secrets`, env or file kind).
+  The command line, reports, errors and logs never carry the value; an
+  absent reference refuses before dispatch (exit 2).
+
+Exit codes: `0` complete (both paired requests resolved), `1` explicit
+not-run/incomplete with published evidence (finite budget or adapter
+preflight stop), `2` usage/config error (invalid budgets, mode not
+configured, invalid config, absent credential reference) — always zero
+dispatches.
+
+Safe synthetic example (owned loopback gateway fixture, synthetic env
+credential reference):
+
+```sh
+raggedized probe --config probe-config.json --mode gateway \
+    --deadline-seconds 30 --max-dispatches 8 --max-output-tokens-total 32 \
+    --output probe-evidence.json
+```
+
+### Experiment semantics (repeated parent)
+
+- One constant bounded synthetic parent plus explicit deterministic
+  child suffixes form two phases (annotation purpose, plain text).
+  Phases are labeled `first-call` / `second-call`; `cold_state` is
+  `unknown` because no cache reset/isolation control is authorized or
+  verified — the probe never calls the first call physically cold, never
+  performs a reset, and never asserts cache isolation from a client key
+  alone.
+- Exact identities are recorded: dialect with pinned commit, declared
+  (unverified) model, an opaque endpoint DIGEST (never the URL), template
+  identity/build/method and capability snapshots (direct), slot control
+  state, and the cache-control kind with a fingerprinted parent-derived
+  key.
+- Native cache/slot controls are used only where qualified
+  (`cache_prompt_tested` / `slot_tested`); the gateway sends
+  `prompt_cache_key` only on a route that advertises prompt caching.
+- Input material enters evidence only as fingerprints and lengths, never
+  raw text; arbitrary response text never enters evidence — only a
+  response-text digest, the terminal outcome, the available exact
+  expected-output check result, and the adapter's safe reason.
+- Output correctness is explicitly limited: terminal validity and
+  available exact expected-output checks are recorded separately from
+  semantic model quality (`model_quality: not_assessed`). Equal answers
+  do not establish truth and speed does not establish caching.
+
+### Evidence and budget accounting
+
+The safe structured document (`probe: repeated-parent, version: 1`)
+carries: budgets + measured probe-level elapsed time; identities;
+experiment fingerprints/lengths/phase labels; per-phase records
+(outcome, safe error, `adapter_reported_cycles` — the adapter's own
+cycle count, NOT an authoritative dispatch count —, response-text digest,
+expected-output check, reported usage/timings with missing values null,
+probe-level wall time); the transport-boundary accounting
+(`attempted_calls`, `calls_by_kind` separating model dispatches from
+non-inference template work, `responses_received`,
+`ambiguous_dispatches`, `pre_dispatch_failures`,
+`remaining_dispatches`); and the cache evidence. The cache conclusion is
+driven ONLY by reported evaluated metrics of the second phase
+(`cache_hit_tokens` measured zero -> `no_cache_hit_reported`, > 0 ->
+`cache_hit_reported`, absent/invalid -> `metrics_unavailable`, no
+qualified control -> `no_cache_control`, second phase not run ->
+`not_run`); submitted input tokens or faster wall time cannot substitute
+for evaluated work, and the gateway's absent prefill metrics stay
+unavailable. No endpoint URL, authorization header, secret reference
+value, configured instructions, rendered prompt, source item, image
+material, raw response text or provider error body ever appears.
+
+The probe proves executable bounded tooling and synthetic HTTP
+composition; real target/hardware/cache/quality qualification remains
+NOT RUN (order 003-h live authorization: NONE).
+
+
 ## Exact test commands (offline, synthetic)
 
 ```sh
 uv sync --locked
-uv run pytest tests/integration -q     # transport + gateway + native loopback suites
-uv run pytest tests/unit -q            # foundation + native mapping regressions
+uv run pytest tests/integration -q     # transport + gateway + native + probe composition loopback suites
+uv run pytest tests/unit -q            # foundation + native mapping + probe budget regressions
 python3 -m unittest discover -s tests/oap -v
 python3 oap/bin/check_state.py --repo-root .
 uv run ruff check src tests/unit tests/integration
@@ -442,10 +568,32 @@ once per path without inventing an output format; ordinary
 TEXT/no-format success preserved; the five original native vectors and
 their oracles unchanged).
 
-NOT RUN / pending: qualification probes and live-target evidence for the
-native dialect (the pinned reference is not the unknown deployed build),
-direct caching effectiveness on a real build, live gateway/model traffic,
-and hardware evidence. The whole of objective 003 remains unresolved until
-that scope is proved; this slice is not acceptance or readiness for
-objective 003, and the certifi (MPL-2.0) dependency gate recorded in
-THIRD_PARTY_NOTICES remains an open human question.
+Proven for the 003-h bounded probe closure (installed-CLI subprocess
+composition over real loopback HTTP, synthetic fixtures only): explicit
+opt-in with finite overall deadline, call/attempt and total output-token
+budgets; the single experiment deadline spanning both paired requests,
+template work and retries (per-call allowances never reset it); call
+allowance reserved before every transport invocation with ambiguous
+dispatched work spent and never replayed and finite retries unable to
+bypass the budget; exact request counts/order/control payloads on the
+wire (stable parent-derived cache key, tested-only native
+cache_prompt); preflight refusals and invalid config/credential
+absences at zero dispatch; missing metrics null (no synthetic zero);
+digest-only expected-output match/mismatch; unknown-completion
+no-replay; no implicit dispatch on import/help/doctor/missing opt-in;
+and safe structured evidence carrying no endpoint URL, credential, raw
+prompt or response text or provider error. Also proven this round: the
+gateway explicit-minimum capability admission (zero-HTTP refusal of
+required JSON_MODE/PROMPT_CACHING on an unqualified route, qualified
+minimum-only positive controls without invented format/key, ordinary
+TEXT preserved).
+
+NOT RUN / pending: live-target qualification evidence (the pinned
+reference is not the unknown deployed build), direct caching
+effectiveness on a real build, live gateway/model traffic and hardware
+evidence — the probe tooling is executable and its synthetic HTTP
+composition is proved, but every real trial remains NOT RUN. The whole
+of objective 003 remains unresolved until that scope is proved; this
+slice is not acceptance or readiness for objective 003, and the
+certifi (MPL-2.0) dependency gate recorded in THIRD_PARTY_NOTICES
+remains an open human question.

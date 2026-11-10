@@ -1,0 +1,42 @@
+{
+  "round": "003-g",
+  "objective": "003",
+  "status": "FINAL",
+  "decision": "CONTINUE",
+  "strategic_result": "NATIVE_BOUNDARY_SCOPE_VERIFIED; ORIGINAL_PROBES_AND_GATEWAY_MINIMUMS_PENDING",
+  "pr": 5,
+  "implementation": "29fb8b9686fc0be9f920e7c05fbe72dd86e5f2d3",
+  "report_commit": "883f1cb0587d242a9c675f94e7a5891833342f79",
+  "report_sha256": "f4b88214556e714a802e9a747592c444a996f3f25f13e07489268489b9147cba",
+  "final_head_ci": "Implementation29fb8b9 run42785261938 all5SUCCESS; report883f1cb run42785852083 all5SUCCESS, last2026-11-10T08:53:14Z.",
+  "verified": "Unique open PR5 on the original003 branch, base/main93b4317. Report883f1cb has sole parent29fb8b9 and changes only its report. Remote report identity/bytes and immutable activation verified. All10 implementation paths in scope; strategic prior review/order byte-identical. Working tree clean, no external review comments. No dependency, architecture, source original, role-law or CRITICAL change.",
+  "actual_progress": "Native timing sums individually validated seconds and checks the derived finite result; no arbitrary cutoff or whole-function catch. Explicit JSON_MODE minimum and actual format shape both require the tested native serving capability. OrdinaryTEXT/noformat and qualified minimum/noformat preserve the minimal envelope. Docs describe actual semantics, measured read set36177 and TESTING3626 with synchronized manifest hashes.",
+  "independent_evidence": {
+    "http": "Eight unchanged owned-HTTP vectors now conform over12POST. Both1e308ms phases yield1e305s each/2e305s model total without escaping exception; explicit requiredJSON-only untested build yields safeFAILED/zeroHTTP; original5 vectors and bothphasezero preserved. Tested direct.py SHA256891b797946b3b6023820f68b17cd1cf137cbd7e51d85980650237f75c3e2f5aa matches committed source.",
+    "regressions": "Independent complete nativeHTTP suite83PASS and mapping/preflight44PASS; inspected actual new HTTP assertions for zero dispatch, qualified/noformat and ordinaryTEXT positives. Ruff and check_statePASS; affected docs/governance reviewed. Collection at final report head independently376product=241integration+135unit; exact CI executes full product and separate41OAP.",
+    "notes": [
+      "audit/003-g-incremental-review.md",
+      "audit/003-gateway-capability-admission-review.md"
+    ]
+  },
+  "remaining_objective_defects": [
+    "Bounded explicit qualification probes, public CLI and full003 composition/documentation evidence remain absent.",
+    "Independent gateway7-vector/5POST experiment shows explicit requiredJSON_MODE/noformat and requiredPROMPT_CACHING/nokey ignore defaultfalse route capabilities. Actualshape gates already refuse and qualifiedminimum/ordinaryTEXT positives succeed. Honor minimums alongside shapes without inventing formats/keys; this is existing003-a criterion1."
+  ],
+  "reported_result": "COMPLETE",
+  "report_accuracy": "Native8vectors/12POST, test counts and registry history are accurately bounded. ReportCOMPLETE describes this suffix, not whole003 acceptance or real qualification.",
+  "next": "003-h same PR: bounded explicit probe/CLI composition plus demonstrated gateway minimum-admission repair. No numeric advance or merge before full original003 software scope is independently proved.",
+  "strongest_reason_not_to_merge": "The native correction is substantiated, but original003 probe/CLI scope is missing and gateway route capability minimums are ignored. Green fixture CI does not establish live cache, runtime, hardware or quality qualification.",
+  "scope_fidelity": "Architecture2/A01-A40 and full visual/text MVP remain intact. No human-owner/referral behavior, invented strictCodex gate, runtime access, license exception, distribution clearance, release or deployment. Pending approved target inputs and certifi license question remain unresolved; no D1/CRITICAL admission required.",
+  "consumed_response": {
+    "identifier": "003-g",
+    "pr": 5,
+    "implementation": "29fb8b9686fc0be9f920e7c05fbe72dd86e5f2d3",
+    "report_commit": "883f1cb0587d242a9c675f94e7a5891833342f79",
+    "report_sha256": "f4b88214556e714a802e9a747592c444a996f3f25f13e07489268489b9147cba",
+    "verified_at": "2026-11-10T08:51:17.886551+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "recorded_at": "2026-11-10T08:54:35.799660+00:00",
+  "coding_goal_lifecycle": "Report/response verified, /goal clear sent through qualified wake, quiet prompt and preserved selected Qwen profile confirmed; no Escape/reset, replay or FIFO reread."
+}

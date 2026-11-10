@@ -41,19 +41,28 @@ uv sync --locked
 uv run raggedized --help
 uv run raggedized doctor --config config/examples/example-config.json
 uv run pytest tests/unit -q
-uv run pytest tests/integration -q   # 003-b: owned loopback HTTP/SSE, synthetic keys
+uv run pytest tests/integration -q   # 003-b/h: owned loopback HTTP/SSE + probe composition, synthetic keys
 ```
 
 `doctor` validates configuration and inspects model manifests offline (zero
 inference/download/network; machine-readable JSON; exit 0 ok / 1 issues /
-2 usage error). Full reference, config schema, contracts and honest
-unresolved-artifact state: [docs/foundation.md](docs/foundation.md).
+2 usage error). `probe` is the explicit opt-in bounded repeated-parent
+qualification probe against the configured gateway route or
+offline-diagnostic direct destination (explicit finite
+deadline/dispatch/output-token budgets, safe structured evidence; exit 0
+complete / 1 not-run-incomplete / 2 usage-config error; import, help and
+doctor never dispatch a probe). Full reference, config schema,
+contracts and honest unresolved-artifact state:
+[docs/foundation.md](docs/foundation.md) and
+[docs/generator-contract.md](docs/generator-contract.md).
 
 The `CI` GitHub Actions workflow runs the OAP scaffold checks (Python 3.12-3.14)
 plus a separate product job (locked lightweight environment, real product
 tests, owned-loopback integration tests, OAP checks, lint; Python 3.12/3.14;
 triggers, permissions and results
 in [docs/CI.md](docs/CI.md)). CI produces no hardware evidence; live model and
-gateway qualification remains NOT RUN. Product CLI/API commands beyond
-`raggedized doctor`/`--help`/`--version` remain proposed, not available.
+gateway qualification remains NOT RUN. The public product CLI currently
+provides `raggedized doctor`, `probe` (explicit opt-in qualification
+probe) and `--help`/`--version`; further API commands remain proposed,
+not available.
 Apache-2.0; retain LICENSE and [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).

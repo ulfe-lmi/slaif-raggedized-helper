@@ -36,3 +36,23 @@ distinguish failed tests from environment access blockers. No placeholders count
   processes; it is a CPU-only development host. Target GPU hosts, Qwen/GGUF/projector/
   KV/MTP/runtime/startup fingerprints remain unknown. No deployment profile mutation.
 - U03-U11 unchanged by this round; their resolving work stands.
+
+### 2026-11-10, order 003-h (bounded probes and objective closure)
+
+- The bounded explicit probe/CLI composition is now executable
+  (`raggedized probe`, objective 003 criterion 5 tooling) with synthetic
+  owned-loopback evidence only: U05 (gateway/direct prefix reuse)
+  remains OPEN — no live prefix-reuse, cache-hit or speedup observation
+  exists; the probe's cache conclusion is driven solely by reported
+  evaluated metrics of the second phase and stays unqualified whenever
+  they are absent (the gateway dialect never reports prefill/cache
+  metrics).
+- U01 narrowed further: the gateway adapter's explicit-minimum
+  capability admission (required JSON_MODE/PROMPT_CACHING independent of
+  the format/cache-key fields) is now enforced and regression-tested
+  over real loopback HTTP; this is wire-level admission behavior at the
+  pinned contract revision, not live compatibility proof.
+- U02-U4, U06-U11 unchanged by this round; their resolving work stands.
+No live target/model/GPU/corpus work was performed (order 003-h live
+authorization: NONE); the certifi (MPL-2.0) policy gate remains an open
+human question.
