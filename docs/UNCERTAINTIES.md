@@ -18,3 +18,21 @@ These are qualification work, not D1 judgment debt. All start NOT RUN/UNKNOWN.
 
 Record observations with date and exact revision. Preserve superseded interpretations and
 distinguish failed tests from environment access blockers. No placeholders count as evidence.
+
+## Observations
+
+### 2026-11-10, order 001-a (environment inventory)
+
+- U01 narrowed: the gateway repository contract is pinned to ulfe-lmi/slaif-api-gateway
+  commit f2df0e82df8766740d9ac169ea56ffd7a3cb1f1e (version 0.1.0rc2) with its bounded
+  endpoint families and Responses contract documented in
+  docs/environment-inventory.md. Still unknown: the deployed gateway commit, the
+  local-Qwen route identity/capabilities and a successful accepted payload; the
+  repository's "Qwen3.8-27B text / Codex 0.148 candidate" is explicitly
+  `mocked-conformant, unregistered, live target absent`. No live Responses
+  compatibility claim.
+- U02 narrowed: the coding development host (Ubuntu 26.04.1, 40 logical CPU, 121 GiB RAM)
+  has no NVIDIA device, tool or CUDA install, no model caches and no local model
+  processes; it is a CPU-only development host. Target GPU hosts, Qwen/GGUF/projector/
+  KV/MTP/runtime/startup fingerprints remain unknown. No deployment profile mutation.
+- U03-U11 unchanged by this round; their resolving work stands.

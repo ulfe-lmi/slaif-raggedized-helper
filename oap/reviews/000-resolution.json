@@ -1,0 +1,28 @@
+{
+  "objective": "000",
+  "rounds": [
+    "000-a"
+  ],
+  "decision": "MERGED",
+  "pr": 1,
+  "pr_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/pull/1",
+  "accepted_head": "eb40fc170a12a3f40f57decac600daef0c33ab40",
+  "implementation": "5afd2a239b50c07f5359e749bfcc6e8681c20b9a",
+  "merge_commit": "08b21dbc80c3a01db56f3bcf5a22e30a11e40f78",
+  "accepted_and_merged_tree": "0e6ce652b54781cf2c4dc4b121ab28bb08835903",
+  "activated_at": "2026-11-01T18:47:30.169787+00:00",
+  "created_at": "2026-11-01T19:02:23Z",
+  "merged_at": "2026-11-01T19:07:55Z",
+  "verified_at": "2026-11-01T19:10:45.099773+00:00",
+  "status": "FINAL_VERIFIED_COMPLETE",
+  "pr_final_ci_run": 41339956568,
+  "main_ci_run": 41340153635,
+  "main_ci_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/41340153635",
+  "checks": [
+    "OAP tests (Python 3.12)",
+    "OAP tests (Python 3.13)",
+    "OAP tests (Python 3.14)"
+  ],
+  "product_qualification": "NOT RUN; CI is scaffold-only",
+  "mandate": "CI enablement completed; no objective 001 authorization"
+}
