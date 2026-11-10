@@ -15,6 +15,14 @@ are explicitly pending 004-b or the named later objectives.
 The committed machine-readable document is
 ``docs/benchmarks/qualification-gates.json`` (exact rendering of
 :func:`gate_projection`); a unit test binds the two together.
+
+Bounded local resource telemetry IS implemented in objective 004-d
+(own-process CPU/RSS on this devhost, plus at most one bounded
+nvidia-smi metadata query; explicit opt-in only). It is read-only
+devhost observation, NOT remote/worker/model-process measurement:
+every gate above still stays NOT_RUN (live target authorization NONE),
+and the gates that named resource telemetry as a prerequisite now
+reference the 004-d bounded local scope only.
 """
 
 from __future__ import annotations
@@ -63,20 +71,23 @@ _GATE_ROWS: list[tuple[str, str, bool, str]] = [
         "V100-MEM-01",
         "Q6 vision 32k alone, then FP16 reranker batches 1/2/4/8",
         False,
-        "015 (GPU ownership/mode operations) + 004-b resource telemetry + "
+        "015 (GPU ownership/mode operations) + 004-d bounded local "
+        "resource telemetry (own-process/devhost scope only) + "
         "authorized real GPU",
     ),
     (
         "V100-MEM-02",
         "16k/24k and optionally 48k/64k online contexts",
         False,
-        "015 + 004-b resource telemetry + authorized real GPU",
+        "015 + 004-d bounded local resource telemetry (own-process/devhost "
+        "scope only) + authorized real GPU",
     ),
     (
         "RERANK-01",
         "10/20/40/80 candidates at several pair lengths",
         False,
-        "012 (private reranker worker) + 004-b resource telemetry + "
+        "012 (private reranker worker) + 004-d bounded local "
+        "resource telemetry (own-process/devhost scope only) + "
         "authorized real GPU",
     ),
     (

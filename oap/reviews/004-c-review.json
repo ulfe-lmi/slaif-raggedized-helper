@@ -1,0 +1,58 @@
+{
+  "round": "004-c",
+  "objective": "004",
+  "status": "FINAL",
+  "decision": "ACCEPT_CORRECTION_CONTINUE_SAME_PR_004_d",
+  "pr": 6,
+  "implementation": "b35e82026343725d441708d57a9d5863373d8508",
+  "report_commit": "305d12056db6e388cddf2277c97efad55b031992",
+  "report_sha256": "12e0cdb6d34ce2bb9eaaf06058184f59cab73b0d86dbd77213aad4c9841a8cb4",
+  "recorded_at": "2026-11-10T16:36:17.378482+00:00",
+  "consumed_response": {
+    "identifier": "004-c",
+    "pr": 6,
+    "implementation": "b35e82026343725d441708d57a9d5863373d8508",
+    "report_commit": "305d12056db6e388cddf2277c97efad55b031992",
+    "report_sha256": "12e0cdb6d34ce2bb9eaaf06058184f59cab73b0d86dbd77213aad4c9841a8cb4",
+    "verified_at": "2026-11-10T16:27:53.948023+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "publication": "UniquePR6OPEN/originalbranch/mainbase2bc320ff9e66c874f07da061218f2ff52e3420a9. Remoteexactreportbytes/SELF/soleimplementationparent/report-onlydiff verified.18implementationpathsallowedscope,code/appdiffreviewed. Threeexactrootauthoredstartupfilesand004-breview/order/activecommittedunchanged. No architecture/sourceoriginal/dependency/helper/globalclient/model/profile/auth change. Worktreecleanbeforethisreview.",
+  "ci": {
+    "implementation_run": 42853699111,
+    "implementation_head": "b35e82026343725d441708d57a9d5863373d8508",
+    "implementation_result": "ALL_5_SUCCESS",
+    "implementation_event": "workflow_dispatch",
+    "implementation_last_job": "2026-11-10T16:24:26Z",
+    "dispatch_provenance": "StrategyONCEdispatchedexistingreadonlyworkflowafteractual0runs/checksuiteandnoskipmarker; no workflow/source/settingschange. audit/004-c-ci-dispatch.json. Originalautomaticimpltriggercauseunproven.",
+    "report_run": 42854924886,
+    "report_head": "305d12056db6e388cddf2277c97efad55b031992",
+    "report_result": "ALL_5_SUCCESS",
+    "report_event": "pull_request",
+    "report_last_job": "2026-11-10T16:31:49Z",
+    "report_dispatch": "AutomaticreportCIappearedduringpreflight; strategyREUSEDexistingrun/noextradispatch. audit/004-c-report-ci-dispatch.json."
+  },
+  "counts": "615product independentlycollected;314unit(275+39) +301unchangedintegration;41OAP. AllactualProduct3.12/3.14 andOAP3.12/3.13/3.14 jobsSUCCESS. Scopeacceptancebasedsource+negativewitnesses, notchecks alone.",
+  "findings_resolution": {
+    "004B-F01": "RESOLVED: canonicalanalysisrecomputedusingactualtransport_boundary.calls_by_kind; all6retainedcontradictionsREFUSE (calls/backend/reqbackendfp/reservation/provenance/cachelabels) whileactual1POSTunalteredresultadmits. Sharedpurecachederivationpreservesrawfacts, unknowns/known0, incompleteprefix/floorreservation andadaptercycle-vs-attempt distinction.",
+    "004B-F02": "RESOLVED: n0allnull,n>0everyquartilepresent/finite/nonnegative/ordered. PreviouslyadmittedpartialminREFUSES; strictbool/nonfinitecontrols andknown0/null positiveshold.",
+    "004B-F03": "RESOLVED: parent/suffixvalidationrejectsdecodedunpairedsurrogatesbeforeFP/requestconstructor, fixedtypedSPEC_INVALID2. Correctmatched-FPownHTTPwitness: invalidplan+run2/0POST/noTraceback; validastral/Sloveniancontrol0/1POST. SupplementalprivacycanaryABSENTbothstdout/stderr. Earlierstale-FPUnicodewitnessscopeexplicitlycorrected/preserved, notusedasUnicodeproof. No globalencoding/fingerprintversionchange.",
+    "004B-F04": "RESOLVED: CLIusescanonicalfullvalidator; actual2POSTvalidcontrolcomplete0/fullledger. Version/within-rangewrongp50fault3/fixedsafeJSONstdout+validattempt2ledger. AllNone/missing/bad/unknown/negative/boolledgerfaults3/safeJSON/unavailable/NOrawexception/NO falsezero. Invalidfullrecordnotexportedasvalid, warningagainstblindreplay. Latewriteexportbehaviorunchanged."
+  },
+  "additional_positive_proof": "Original7actualHTTP/trialcasesconformonnewcode: GWsharedcallbudget,warm/measuredseparation,nativetemplatecap3/5exactcounts,global0.2sdeadline,acceptedthenclosedUNKNOWNnoreplay,wrongmodelpreflight0HTTP. Handcomputedstageanalysis known0/missing/p50/p95/max/warmup/failureexclusion/empty/determinismPASS. Existingclients/transport/probesunchanged. All14realgatesNOTRUN; internalconsistencyneverexecutionattestation.",
+  "governance": "Manifestae133ab0f90317bc4477a91bff926618e1bc19e04776a6078fb5f4310291c638 validated; routine43569bytes/TESTING11018/ceiling50000, tokensandinjectionUNMEASURED. Rootprompt582SHA41afe88a..., RoleDocs7078a1e9..., Runbook9d5be6bf...exactcommittedbytesverified. Controlledordinary-firstthenpost-startnativegoalactual004-cwrapper/role/order/tools+GoalACTIVE+subsequenttoolsQUALIFIED; failedgoal-FIRSThistoryremainsFAILED, no reclassification. Startupdocs/manifest sourceauthoringbystrategyonly; appcodingrightpane.",
+  "coding_goal_boundary": "Observedrightpane%30 correctcwd/Qwen3.8-27BA100Q8xhigh/CLI0.164.0; boundedgoalactuallymarkedcomplete, footerGoalachieved, quiet/noongoingterminal beforegoalclear. Postresponseauditreadonlypublication/receiptverification, noCIpolls ormutations. NoEscape/reset/readers/replay. RootMVPgoalremainsACTIVE.",
+  "scope_fidelity": "AcceptONLY004-ccorrections(andearliercoreguardbacklognowresolved), notwhole004/MVP. Resource collector/integration, CPU/GPU vector/rank parity andallnamedgateexactentrypoint/prereqcompositionstillrequiredonPR6beforedevelopmentmerge/005. RealA1/model/GPU/context/cache/vision/quality/license/019/ICAunearned.",
+  "strongest_reason_not_to_merge": "Whole004softwaretoolsstilllackresource/parity/finalgatescope andallrealqualificationinputsabsent;knowncertifiMPLexceptionungranted. A green corecorrectionisnotwholeobjectiveclosure. ThereforecontinueDwithoutmerge, notnarrowacceptance.",
+  "authority_and_remaining": "StandinghumanMVP/OAPdevelopmentauthority coversordinarycontinuation/read-onlyboundeddiagnostics/GitHubCI. NoD1/CRITICALentryforroutinebugs; no D2/license/data/service/GPU/model changeauthorized. Actualtarget/corpusquestionsunanswered; devhostCPUonly. Distribution/readinesspolicygatesopen. Human-owner/referralproductbehaviorremains excluded.",
+  "next": "Finalizebounded004-dresource telemetryorderfromactualC APIs/currenthead/gov. Committhisreviewunchanged; solecontrol/responsehandoffwithordinarysource, thenoneboundednativegoalafteractualfirsttools. Parity/fullgatecompositionsubsequentslice; expectedheadprotectedmerge+mainCI+terminal004resolutiononlywhenwhole004scopeproved.",
+  "oracles": {
+    "/tmp/raggedized004-evidence-binding-review.py": "2790f8b30ff2b7bf82fc0b2f9f74a9b822f0f8328fc752c88605f8da991929d5",
+    "/tmp/raggedized004-evidence-contract-review.py": "1a2176ccaa6b59edc33278695a34decae7a612eaba0a58183ef3cbdd7f79df6d",
+    "/tmp/raggedized004-stage-analysis-review.py": "752c26a38a73256771fa4f6bd83687a906c0c3acbcce577282c05cadc198b7ed",
+    "/tmp/raggedized004-cli-ledger-availability-review.py": "9e1c224aee8259f61e4d9bb0288f15b7dceaeb77f0c462ca657a0569880f20c2",
+    "/tmp/raggedized004-unicode-matched-fingerprint-review.py": "bb61c6a86cc5906a85cf68201cbc5921e4db65778d8b2beb71041463310f8bc0",
+    "/tmp/raggedized004-unicode-output-privacy-review.py": "04fac50c9cf3c02999833253dd1c3cb2a2ed01822c504c8e8696782398da20fc",
+    "/tmp/raggedized004-runner-http-review.py": "a97e71a49d7379dcda94461b468985fe01b2b55136be794e63120c5087a6a3d3"
+  }
+}

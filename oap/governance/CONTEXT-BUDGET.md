@@ -12,9 +12,9 @@ applicable subtree law add task-specific context and must be measured for their 
 | ARCHITECTURE-for-agents.md | 19814 | 20000 |
 | OAP-COMMUNICATION-coding-agent.md | 4949 | 10000 |
 | SECURITY.md | 1436 | within aggregate |
-| TESTING.md | 11018 | within aggregate |
+| TESTING.md | 14208 | within aggregate |
 
-Declared routine project governance: **43569 UTF-8 bytes**, ceiling 50,000.
+Declared routine project governance: **46759 UTF-8 bytes**, ceiling 50,000.
 Exact model tokens: **UNMEASURED**; no identified target tokenizer measurement was performed.
 Global/developer/tool/client injection and repeated copies: **UNMEASURED**. This number is not
 complete provider input size and does not assume client deduplication. The full human-facing

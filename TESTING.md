@@ -162,3 +162,52 @@ product services, real keys, GPU or model downloads. Real
 target/hardware/model qualification remains NOT RUN (order 004-a live
 authorization: NONE; 004-b/004-c corrections, live authorization also
 NONE).
+
+T09. Bounded local resource telemetry (objective 004-d): `uv run
+pytest tests/unit/test_qualification_resources.py -q` covers the strict
+versioned observation DTOs (boolean-as-number, nonfinite, negative,
+out-of-range and contradictory values refused; unknown fields
+forbidden; absent stays null, known 0 kept; CPU interval deltas from
+the baseline with disclosed utilization normalization, unavailable not
+fabricated when the wall interval is missing/zero; RSS current vs
+ru_maxrss lifetime high-water mark (Linux KiB unit documented) vs
+observed interval sample peak; device-wide memory range checks; exact
+unavailable/error reason vocabulary; phase events structurally
+text-free; the series monotonic/peak/duration bindings; the wrapper
+contract with the INTACT plain v1 trial inside), the own-process
+probes through owned seams (getrusage//proc/self/status failures stay
+unavailable, never zero; own PID scope), the bounded fixed-argv
+nvidia-smi query against owned deterministic collector executables
+(fixed argv, shell=False, exact MiB units, tool_absent vs
+spawn_failed, no_devices, malformed, contradictory, nonzero-exit
+query_failed with raw stderr canaries never kept, timeout with owned
+child stopped, stdout/stderr byte exhaustion at the pipe boundary with
+the byte cap + 1 recorded, invalid budget refusals) and the narrow
+trusted observer (no work before the deadline bind, double-start
+refusal, already-passed deadline samples nothing, phase facts
+recorded then dropped after stop, CPU interval deltas, unavailable
+probes stay null, sample cap and trial-deadline stop reasons, finite
+idempotent cleanup, at most one bounded gpu query, construction-bound
+refusals) plus the zero-telemetry negative (plan/gates/import never
+touch the telemetry seams and create no sampler thread). `uv run
+pytest tests/integration/test_qualification_resources.py -q` runs the
+INSTALLED `raggedized` CLI in subprocesses: `resource diagnose`
+(real own-process measurement on this Linux devhost, D0 bounded
+allowance enforced before work, GPU absence as an exact honest
+unavailable, output destination handling) and the owned deterministic
+`nvidia-smi` executables on PATH (available exact units/values,
+stdout byte exhaustion, actual child timeout without hang, raw output
+never in the evidence), the `qualification run --resources`
+composition over the real gateway/direct application code (plain v1
+trial evidence byte-intact inside the explicit versioned wrapper;
+phase/ordinal/ledger facts exactly with no text; collector accounting
+separate from transport-boundary dispatches; --resource-gpu alone
+refused pre-dispatch; preflight refusal binds no telemetry; slow
+loopback HTTP under ONE shared short deadline with sampling stopped at
+the deadline, finite cleanup and no replay; gpu observation composed
+into the wrapper once, unavailable stays valid) and the
+zero-telemetry import/help/gates/plan/doctor negative. All synthetic
+and owned: no external network, product services, real keys, physical
+GPU requirement, model downloads or sensitive corpus (order 004-d live
+authorization: NONE; the D0 local observational allowance applies).
+Real target/model/GPU qualification remains NOT RUN.

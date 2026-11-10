@@ -387,6 +387,145 @@ unqualified: it proves executable bounded composition, wire behavior
 and accounting, never real target, hardware, model, cache or quality
 feasibility.
 
+## Bounded local resource telemetry (004-d)
+
+Read-only, bounded, OWN-PROCESS telemetry on THIS devhost, composed
+with the actual finite repeated-parent trials. It is explicit opt-in
+only: import, `--help`, `doctor`, `gates` and `plan` perform zero
+telemetry/model/network work. It does not change any plain trial
+behavior: without the opt-in flags the CLI renders exactly the same
+plain v1 trial evidence as before.
+
+### Explicit opt-in commands
+
+```console
+# One bounded standalone diagnostic (explicit opt-in): own-process
+# CPU/RSS observation window on THIS devhost. Default and MAXIMUM
+# 5 s / 64 samples (the bounded local observational allowance).
+# --gpu adds at most ONE nvidia-smi fixed-argv metadata query
+# (only if installed; timeout <= 1 s, stdout <= 16 KiB,
+# stderr <= 4 KiB). Zero model/network work; no config required.
+raggedized resource diagnose [--duration-seconds S] [--samples N]
+    [--gpu] [--output PATH]
+
+# EXPLICIT opt-in resource telemetry on one trial: the returned
+# document is the explicit versioned WRAPPER whose `trial` member is
+# the INTACT plain v1 trial evidence; `resources` is the strict
+# versioned own-process observation. --resource-gpu (with
+# --resources) adds at most ONE bounded nvidia-smi metadata query.
+raggedized qualification run --config PATH --spec PATH [--synthetic]
+    [--resources] [--resource-gpu] [--output PATH]
+```
+
+`--resource-gpu` without `--resources` is a pre-dispatch usage refusal
+(exit 2, zero HTTP). Diagnostic flags above the bounded allowance
+(> 5 s, > 64 samples) refuse before any work (exit 2).
+
+### Contracts and versioning
+
+- Wrapper document (v1): exactly `resource_wrapper: 1` + `trial`
+  (the unchanged plain v1 trial evidence document, still validated by
+  the canonical full strict result contract) + `resources` (the
+  strict versioned section). The wrapper is validated at the
+  serialization boundary exactly like the plain document; a
+  post-work contract failure is the same honest exit-3 path with the
+  actual spent ledger, and the invalid record is never exported.
+- Resource section (v1): `kind: resource-telemetry`,
+  `trial_status` bound to the trial's own status, `series` (scope,
+  monotonic point samples, interval CPU/RSS facts), `gpu` (one bounded
+  query observation or null), `collector` (activity accounting),
+  fixed `provenance` notes, and `phase_events` (facts only).
+- Diagnostic document (v1): `qualification: resource`,
+  `kind: resource-diagnostic`, the same series/gpu/collector core.
+- All scalars are STRICT: boolean-as-number, nonfinite, negative and
+  contradictory values are refused; unknown fields are forbidden.
+  Absent stays unavailable/null; a known 0 remains a known 0.
+
+### Budgets, units and availability
+
+- Own-process CPU: `ru_utime`/`ru_stime` of the OWN process only
+  (no unknown PID inspection, no allocator attribution). Per-sample
+  values are the cumulative readings at sample time; the series'
+  final CPU facts are INTERVAL deltas from the baseline taken at
+  series start (pre-series CPU is never attributed to the interval).
+  `utilization = (user + system) / wall_seconds` is disclosed as a
+  ratio: it may exceed 1.0 on multi-core CPUs and is unavailable
+  (null), never fabricated, when the interval wall time is missing or
+  zero.
+- RSS: current sampled value from `/proc/self/status` VmRSS (kB
+  converted to bytes; unavailable off-Linux, never a zero);
+  `lifetime_max_bytes` is the process-lifetime high-water mark
+  (`ru_maxrss`, documented KIBOBYTES on Linux, converted to bytes;
+  unavailable where the unit is not the documented Linux one) —
+  distinct from both the current sample and `sample_peak_bytes`, the
+  PEAK OF THE RECORDED INTERVAL SAMPLES. All three are explicitly
+  labeled in the document.
+- nvidia-smi: FIXED whitelisted argv
+  (`--query-gpu=index,name,memory.total,memory.used,memory.free
+  --format=csv,noheader,nounits`), `shell=False`; no argument or
+  command is selectable by config/spec/caller. The finite timeout and
+  the stdout/stderr byte bounds are enforced AT THE PIPE BOUNDARY
+  while the child produces data (never after unbounded capture); only
+  the exact owned collector child is terminated/killed. Memory values
+  are MiB (the `--format=nounits` unit), range-checked
+  (`used <= total`, `free <= total`). Missing tool, no GPU,
+  permission/exit failure, malformed output, timeout or oversize
+  produce the EXACT `unavailable`/`error` reason
+  (`tool_absent`, `no_devices`, `spawn_failed`, `query_failed`,
+  `timeout`, `stdout_oversize`, `stderr_oversize`,
+  `malformed_output`, `contradictory_values`) with byte counts only —
+  never 0 used/full/free, and raw stderr/command output is never
+  dumped into the evidence.
+- Library MAX bounds are finite implementation choices (duration up
+  to the 86400 s trial-deadline bound, sample/call/byte/query/query-
+  wall caps, cleanup bound <= 5 s); the installed CLI diagnostic is
+  additionally capped at the bounded local allowance above. The
+  order's small execution allowance is not a production hard limit.
+
+### Sampler scope and trial composition
+
+- The observer is a NARROW trusted loop seam: it receives only
+  `PhaseEvent` facts (phase/ordinal/transport-boundary
+  attempted-calls/elapsed — structurally no text, no callbacks),
+  never raw prompts/outputs/credentials. Constructing the observer
+  starts NO work; work starts only when it is bound to the ACTUAL
+  single trial deadline, which STILL spans all warmups/repetitions/
+  retries/template/model calls AND sampling (no extension/reset).
+- On finish/failure/cancellation the observer stops new
+  samples/queries and joins the owned sampler within an explicit
+  finite cleanup bound; no detached sampler survives. The collector
+  activity accounting (samples/calls/wall/bytes/device queries) is
+  separate from the transport-boundary model/template dispatches and
+  from output allowances. A pre-dispatch refusal binds no telemetry
+  at all (the refusal document is unchanged).
+- Real local CPU/RSS observations are measurements of THIS caller
+  process on THIS devhost — NOT embedding/reranker resource evidence
+  and not evidence about a remote inference host or an assigned
+  production device/process/model. A standalone trial client is not
+  the remote model process. Synthetic (MOCK) and
+  configured-unverified trials carry the same scope label; GPU
+  absence is an honest unavailable, never a V100 feasibility pass.
+
+### Peaks, phases and lifecycle provenance
+
+- Reported peaks are OBSERVED SAMPLE PEAKS over the finite sampled
+  interval, never true process/device worst-case peaks; a transient
+  peak between samples is not claimed to have been observed.
+- Device-WIDE memory is distinct from per-process/CUDA
+  allocated/reserved and worker peaks, which stay UNAVAILABLE until
+  actually instrumented by an owned worker; supplied worker
+  measurements are supplied-unverified. Sampling does not prove
+  ownership/exclusivity, real model load, absence of contention/OOM.
+- Phase events are caller stage DECLARATIONS: beginning a trial
+  against an already running service is not cold model startup, and
+  physical cold/warm state stays unknown until tied to owned
+  lifecycle evidence (prerequisite 015). The ~2 GiB architecture
+  margin is a DECLARED criterion, not a measured default or a
+  passing gate. No Torch import, no invented allocator zero, no
+  cache-reset/cold-state fiction, no promotion to a qualified
+  topology; all real gates stay NOT_RUN and all real gate statuses
+  stay NOT RUN.
+
 ## 004 software replan and remaining prerequisites
 
 - The 004 D0 replan is explicit: 004-a delivered the runner, strict
@@ -447,7 +586,10 @@ feasibility.
 
 See TESTING.md T08 (unit contracts in `tests/unit/test_qualification.py`;
 installed-CLI owned-loopback composition in
-`tests/integration/test_qualification_composition.py`). Covers the
+`tests/integration/test_qualification_composition.py`) and T09
+(bounded local resource telemetry: unit contracts in
+`tests/unit/test_qualification_resources.py`, installed-CLI
+composition in `tests/integration/test_qualification_resources.py`). Covers the
 strict spec refusals, the bounded spec file input refusals (special
 file/FIFO without blocking, byte bound, strict UTF-8, typed JSON
 decoder/integer/depth refusals, zero HTTP, no path echo), the decoded

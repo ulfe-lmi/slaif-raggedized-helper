@@ -4,7 +4,8 @@
 
 - Active objective: 004 (the 004-b/004-c evidence-contract corrections
   of
-  the 004-a trial runner and gateway/direct composition), open on PR
+  the 004-a trial runner and gateway/direct composition, and the
+  004-d bounded read-only local resource telemetry slice), open on PR
   #6, branch oap/004-qualification-harness; live PR/CI/merge state is
   queried on GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
@@ -15,8 +16,13 @@
   quartile-complete stage summaries, bounded safe spec file input with
   decoded-Unicode admission and available-stage summaries, actual
   gateway/direct repeated-parent composition and the machine-readable
-  section 23.2 gate projection (open on PR #6, see
-  history). Hardware/model qualification: NOT RUN. ICA: NOT RUN.
+  section 23.2 gate projection, plus the 004-d bounded read-only local
+  resource telemetry (explicit opt-in `resource diagnose` own-process
+  CPU/RSS diagnostic and `qualification run --resources` wrapper with
+  the plain v1 trial evidence intact; at most one bounded nvidia-smi
+  metadata query; no remote/worker/model-process measurement), open on
+  PR #6, see history. Hardware/model qualification: NOT RUN. ICA:
+  NOT RUN.
 - The coding client is active on objective 004 (PR #6), not idle.
 - Current main is the 003 merge commit 2bc320f (PR #5); PR #6 builds
   from it.

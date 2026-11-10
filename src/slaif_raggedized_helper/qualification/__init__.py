@@ -13,6 +13,14 @@ telemetry I/O. Importing this package performs no I/O.
 
 from .analysis import analyze_trial, quantile_nearest_rank
 from .gates import GATES_DOC_PATH, gate_projection, gate_projection_bytes
+from .resources import (
+    PhaseEvent,
+    TrialResourceObserver,
+    run_resource_diagnostic,
+    run_gpu_metadata_query,
+    validate_resource_wrapper,
+    wrap_trial_with_resources,
+)
 from .contracts import (
     TrialEvidence,
     TrialSample,
@@ -47,6 +55,12 @@ from .synthetic import SYNTHETIC_API_KEY, SyntheticTrialServer
 __all__ = [
     "MAX_SPEC_FILE_BYTES",
     "GATES_DOC_PATH",
+    "PhaseEvent",
+    "TrialResourceObserver",
+    "run_gpu_metadata_query",
+    "run_resource_diagnostic",
+    "validate_resource_wrapper",
+    "wrap_trial_with_resources",
     "EXIT_COMPLETE",
     "EXIT_NOT_RUN",
     "EXIT_USAGE",

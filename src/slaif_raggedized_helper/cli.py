@@ -23,8 +23,23 @@ S --max-dispatches N --max-output-tokens-total T
     shape, budgets, declared identities, gate projection) with
     execution NOT_RUN. Zero model/HTTP/telemetry I/O; a rejected plan
     is exit 2 with exact safe reasons (zero dispatch).
+``raggedized resource diagnose [--duration-seconds S] [--samples N]
+[--gpu] [--output PATH]``
+    EXPLICIT OPT-IN bounded read-only local resource diagnostic: one
+    finite own-process CPU/RSS observation window on THIS devhost
+    (default and maximum 5 s / 64 samples; the D0 bounded allowance),
+    with at most ONE bounded ``nvidia-smi`` fixed-argv metadata query
+    when ``--gpu`` is given (timeout <= 1 s, stdout <= 16 KiB,
+    stderr <= 4 KiB). Zero model/network work; no config, credentials,
+    keys or GPU/model changes. The measurements are of THIS caller
+    process on THIS devhost — never evidence about a remote inference
+    host or the target model service; GPU absence is an honest
+    unavailable, never a zero. Exit 0 diagnostic complete (even with
+    unavailable telemetry), 2 invalid bounded flags/output
+    destination, 3 post-work export failure with the full safe
+    document on stdout.
 ``raggedized qualification run --config PATH --spec PATH [--synthetic]
-[--output PATH]``
+[--resources] [--resource-gpu] [--output PATH]``
     EXPLICIT OPT-IN execution of one finite repeated-parent trial
     against the configured gateway route or materialized offline-
     diagnostic direct destination through the real adapters and real
@@ -40,6 +55,16 @@ S --max-dispatches N --max-output-tokens-total T
     not-run-incomplete / 2 pre-dispatch refusal with zero dispatches /
     3 post-work evidence export failure with the full safe evidence on
     stdout).
+    ``--resources`` is the explicit opt-in for bounded read-only local
+    resource telemetry (004-d): the plain v1 trial evidence stays
+    intact inside the returned explicit versioned WRAPPER document,
+    which additionally carries the strict versioned own-process
+    CPU/RSS observation series (and, with ``--resource-gpu``, at most
+    ONE bounded nvidia-smi metadata observation). Constructing the
+    observer starts no work; it is bound to the actual single trial
+    deadline, which still spans sampling with no extension/reset, and
+    the collector activity accounting is separate from model/template
+    dispatches.
     Run the bounded repeated-parent qualification probe against the
     explicitly configured gateway route or materialized offline-diagnostic
     direct destination. Explicit probe opt-in: import, ``--help``,
@@ -563,8 +588,13 @@ def _post_work_contract_error(document: object) -> dict[str, object]:
         "constructed document; availability is marked unknown and the "
         "attempted call count is never assumed zero"
     )
-    raw = (document.get("transport_boundary")
-           if isinstance(document, dict) else None)
+    trial_document = document
+    if (isinstance(document, dict)
+            and document.get("resource_wrapper") == 1
+            and isinstance(document.get("trial"), dict)):
+        trial_document = document["trial"]
+    raw = (trial_document.get("transport_boundary")
+           if isinstance(trial_document, dict) else None)
     if isinstance(raw, dict):
         try:
             ledger = TransportBoundarySection.model_validate(raw).model_dump()
@@ -597,7 +627,9 @@ def _post_work_contract_error(document: object) -> dict[str, object]:
 
 
 def run_qualification_run(config_path: str, spec_path: str,
-                          synthetic: bool, output_path: str | None) -> int:
+                          synthetic: bool, output_path: str | None,
+                          resources: bool = False,
+                          resource_gpu: bool = False) -> int:
     """EXPLICIT opt-in trial execution. Returns the process exit code.
 
     Zero-dispatch guarantees: invalid/missing config or spec, a spec/
@@ -624,6 +656,16 @@ def run_qualification_run(config_path: str, spec_path: str,
     code, config, spec = _load_qualification_inputs(config_path, spec_path)
     if code != EXIT_OK:
         return code
+    if resource_gpu and not resources:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": "USAGE_INVALID",
+                          "message": ("--resource-gpu requires --resources "
+                                      "(the resource observer is the "
+                                       "explicit opt-in; refused before "
+                                       "any dispatch; no HTTP was sent)")},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE
     if output_path is not None:
         refusal = _output_destination_refusal(output_path)
         if refusal is not None:
@@ -637,14 +679,38 @@ def run_qualification_run(config_path: str, spec_path: str,
     from .qualification import run_trial, validate_trial_evidence
     from pydantic import ValidationError
 
-    exit_code, document = run_trial(config, spec, synthetic=synthetic)
+    # Bounded local resource telemetry (004-d): EXPLICIT opt-in only.
+    # The observer is CONSTRUCTED here and starts no work; the runner
+    # binds it to the actual single trial deadline before any dispatch.
+    resources_observer = None
+    if resources:
+        from .qualification.resources import TrialResourceObserver
+
+        resources_observer = TrialResourceObserver(gpu_query=resource_gpu)
+    exit_code, document = run_trial(
+        config, spec, synthetic=synthetic,
+        resources_observer=resources_observer)
     # Serialization-boundary invariant (004-b criterion 2, 004-c
-    # criterion 8): the canonical FULL strict result contract — strict
-    # shape plus the analysis pure-recomputation from the recorded
-    # samples against the ACTUAL transport-boundary ledger — must hold
-    # before the document is rendered or exported. A violation is an
-    # honest post-work failure (exit 3), never a silent export.
-    if document.get("status") in ("complete", "incomplete", "not_run"):
+    # criterion 8, 004-d criterion 6): the canonical FULL strict result
+    # contract — strict shape plus the analysis pure-recomputation from
+    # the recorded samples against the ACTUAL transport-boundary
+    # ledger — must hold before the document is rendered or exported.
+    # For the opt-in resource wrapper the trial member is validated by
+    # the same canonical contract plus the strict versioned resource
+    # section. A violation is an honest post-work failure (exit 3),
+    # never a silent export.
+    if document.get("resource_wrapper") == 1:
+        from .qualification.resources import validate_resource_wrapper
+
+        try:
+            validate_resource_wrapper(document)
+        except (ValidationError, ValueError):
+            error_doc = _post_work_contract_error(document)
+            rendered = json.dumps(error_doc, indent=2, sort_keys=True)
+            sys.stdout.write(rendered + "\n")
+            sys.stderr.write(rendered + "\n")
+            return EXIT_EVIDENCE_EXPORT
+    elif document.get("status") in ("complete", "incomplete", "not_run"):
         try:
             validate_trial_evidence(document)
         except (ValidationError, ValueError):
@@ -679,6 +745,81 @@ def run_qualification_run(config_path: str, spec_path: str,
                  "message": ("evidence file write failed after the trial "
                              "returned; the full document was written to "
                              "stdout; " + dispatch_note)},
+                indent=2, sort_keys=True), file=sys.stderr)
+            return EXIT_EVIDENCE_EXPORT
+    else:
+        sys.stdout.write(rendered)
+    return exit_code
+
+
+def run_resource_diagnose(duration_seconds: float, samples: int,
+                          gpu: bool, output_path: str | None) -> int:
+    """EXPLICIT opt-in bounded own-process resource diagnostic.
+
+    Zero model/network work (004-d criterion 7): import/help/plan/
+    gates/doctor never run telemetry; only this command does. The
+    bounded flags are validated BEFORE any work (exit 2, zero work).
+    A post-work ``--output`` write failure is an honest exit 3 with
+    the full safe document on stdout.
+    """
+    from .qualification.resources import (
+        DIAGNOSTIC_MAX_DURATION_SECONDS,
+        DIAGNOSTIC_MAX_SAMPLES,
+        run_resource_diagnostic,
+    )
+
+    if (not isinstance(duration_seconds, (int, float))
+            or isinstance(duration_seconds, bool)
+            or not (0 < float(duration_seconds) <= DIAGNOSTIC_MAX_DURATION_SECONDS)):
+        print(json.dumps({"qualification": "resource", "status": "error",
+                          "error": "USAGE_INVALID",
+                          "message": (
+                              f"duration_seconds must be finite in "
+                              f"(0, {DIAGNOSTIC_MAX_DURATION_SECONDS}] "
+                              "(the bounded local observational "
+                              "allowance); refused before any work; "
+                              "no telemetry ran")},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE
+    if (not isinstance(samples, int) or isinstance(samples, bool)
+            or not (1 <= samples <= DIAGNOSTIC_MAX_SAMPLES)):
+        print(json.dumps({"qualification": "resource", "status": "error",
+                          "error": "USAGE_INVALID",
+                          "message": (
+                              f"samples must be an integer in "
+                              f"1..{DIAGNOSTIC_MAX_SAMPLES} (the bounded "
+                              "local observational allowance); refused "
+                              "before any work; no telemetry ran")},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE
+    if output_path is not None:
+        refusal = _output_destination_refusal(output_path)
+        if refusal is not None:
+            print(json.dumps({"qualification": "resource", "status": "error",
+                              "error": "OUTPUT_DESTINATION_INVALID",
+                              "message": refusal + " (refused before any "
+                                         "work; no telemetry ran)"},
+                             indent=2, sort_keys=True))
+            sys.stdout.write("\n")
+            return EXIT_USAGE
+    exit_code, document = run_resource_diagnostic(
+        duration_seconds=float(duration_seconds), samples=samples,
+        gpu_query=gpu)
+    rendered = json.dumps(document, indent=2, sort_keys=True) + "\n"
+    if output_path is not None:
+        try:
+            Path(output_path).write_text(rendered, encoding="utf-8")
+        except OSError:
+            sys.stdout.write(rendered)
+            print(json.dumps(
+                {"qualification": "resource", "status": "error",
+                 "error": "EVIDENCE_EXPORT_FAILED",
+                 "stage": "post_work_evidence_export",
+                 "message": ("diagnostic file write failed after the "
+                             "diagnostic returned; the full document "
+                             "was written to stdout")},
                 indent=2, sort_keys=True), file=sys.stderr)
             return EXIT_EVIDENCE_EXPORT
     else:
@@ -765,6 +906,49 @@ def _build_parser() -> argparse.ArgumentParser:
     qual_run.add_argument("--output", default=None,
                           help="write the evidence document to this file "
                                "(default: stdout)")
+    resource = subparsers.add_parser(
+        "resource",
+        help="bounded read-only local resource telemetry (own-process "
+             "devhost measurements; explicit opt-in; zero model/network "
+             "work)",
+    )
+    resource_sub = resource.add_subparsers(
+        dest="resource_command", required=True)
+    res_diag = resource_sub.add_parser(
+        "diagnose",
+        help="ONE bounded own-process CPU/RSS diagnostic window "
+             "(default and max 5 s / 64 samples); --gpu adds at most "
+             "ONE bounded nvidia-smi fixed-argv metadata query "
+             "(timeout <= 1 s, stdout <= 16 KiB, stderr <= 4 KiB); "
+             "GPU absence is an honest unavailable, never a zero",
+    )
+    res_diag.add_argument(
+        "--duration-seconds", type=_positive_finite_float_arg,
+        default=5.0,
+        help="finite observation window in seconds (max "
+             f"{5.0}, the bounded local allowance)")
+    res_diag.add_argument(
+        "--samples", type=_positive_int_arg, default=64,
+        help="finite sample count (max 64, the bounded local allowance)")
+    res_diag.add_argument(
+        "--gpu", action="store_true",
+        help="at most ONE bounded nvidia-smi fixed-argv metadata query "
+             "(only if installed; exact unavailable/error evidence "
+             "otherwise)")
+    res_diag.add_argument(
+        "--output", default=None,
+        help="write the diagnostic document to this file "
+             "(default: stdout)")
+    qual_run.add_argument(
+        "--resources", action="store_true",
+        help="EXPLICIT opt-in: bounded read-only local resource "
+             "telemetry; the plain v1 trial evidence stays intact "
+             "inside the returned explicit versioned wrapper document")
+    qual_run.add_argument(
+        "--resource-gpu", action="store_true",
+        help="with --resources: at most ONE bounded nvidia-smi "
+             "fixed-argv metadata query (only if installed; exact "
+             "unavailable/error evidence otherwise)")
     return parser
 
 
@@ -787,7 +971,13 @@ def main(argv: list[str] | None = None) -> int:
         if args.qualification_command == "plan":
             return run_qualification_plan(args.config, args.spec)
         return run_qualification_run(args.config, args.spec,
-                                     args.synthetic, args.output)
+                                     args.synthetic, args.output,
+                                     resources=args.resources,
+                                     resource_gpu=args.resource_gpu)
+    if args.command == "resource":
+        if args.resource_command == "diagnose":
+            return run_resource_diagnose(args.duration_seconds, args.samples,
+                                         args.gpu, args.output)
     parser.error("unknown command")
     return EXIT_USAGE
 

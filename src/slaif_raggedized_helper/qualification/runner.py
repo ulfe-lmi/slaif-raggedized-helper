@@ -73,6 +73,11 @@ from ..schema import (
 )
 from .analysis import analyze_trial
 from .gates import GATES_DOC_PATH, executable_gate_ids
+from .resources import (
+    PhaseEvent,
+    TrialResourceObserver,
+    wrap_trial_with_resources,
+)
 from .spec import TrialSpec
 from .synthetic import FIXTURE_ENDPOINT_IDENTITY, SYNTHETIC_API_KEY, SyntheticTrialServer
 from .contracts import (
@@ -363,6 +368,7 @@ def run_trial(
     inner_transport: GatewayTransport | None = None,
     synthetic: bool = False,
     synthetic_server: SyntheticTrialServer | None = None,
+    resources_observer: TrialResourceObserver | None = None,
 ) -> tuple[int, dict[str, Any]]:
     """Run one finite repeated-parent qualification trial.
 
@@ -379,6 +385,16 @@ def run_trial(
     route/destination (or, under the explicit synthetic opt-in, from the
     owned fixture). The shared-budget seam always wraps the inner
     transport regardless of its origin.
+
+    ``resources_observer`` is the narrow trusted resource-telemetry
+    seam (004-d, explicit opt-in only): the observer is CONSTRUCTED by
+    the caller and starts NO work here until the ACTUAL single trial
+    deadline is bound; it then receives only phase/ordinal/ledger
+    facts, stops and joins within a finite cleanup bound on
+    finish/failure/cancellation, and the returned document is the
+    explicit versioned WRAPPER whose ``trial`` member is the unchanged
+    plain v1 evidence. ``None`` (the default) keeps the plain v1
+    document exactly as before.
     """
     _clock = clock if clock is not None else time.monotonic
     issues = preflight_issues(config, spec)
@@ -400,6 +416,7 @@ def run_trial(
             inner_transport=inner_transport,
             synthetic=synthetic,
             synthetic_server=synthetic_server if synthetic_server is not None else fixture,
+            resources_observer=resources_observer,
         )
     finally:
         if fixture is not None:
@@ -414,6 +431,7 @@ def _run_trial_inner(
     inner_transport: GatewayTransport | None,
     synthetic: bool,
     synthetic_server: SyntheticTrialServer | None,
+    resources_observer: TrialResourceObserver | None,
 ) -> tuple[int, dict[str, Any]]:
     # ---- target materialization (before any transport is built) --------
     if spec.backend == "gateway":
@@ -493,6 +511,12 @@ def _run_trial_inner(
         max_dispatches=spec.budgets.max_dispatches,
         clock=clock,
     )
+    # Resource telemetry (004-d, explicit opt-in only): the observer is
+    # bound to the ACTUAL single trial deadline NOW (work starts here,
+    # never at construction); the deadline still spans sampling with no
+    # extension/reset.
+    if resources_observer is not None:
+        resources_observer.start(trial_deadline)
     # The REAL application adapters, bound to the budgeted REAL transport.
     if spec.backend == "gateway":
         adapter: GatewayGenerator | DirectNativeGenerator = GatewayGenerator(
@@ -517,6 +541,11 @@ def _run_trial_inner(
         if remaining <= 0:
             stop_reason = "budget_exhausted_deadline"
             break
+        if resources_observer is not None:
+            resources_observer.record_phase(PhaseEvent(
+                phase=phase, ordinal=ordinal,
+                attempted_calls=transport.attempted_calls,
+                elapsed_seconds=round(max(0.0, now - start), 9)))
         request = GeneratorRequest(
             request_id=f"trial-{spec.trial_id}-{ordinal}",
             purpose=GeneratorPurpose.ANNOTATION,
@@ -569,6 +598,13 @@ def _run_trial_inner(
         status = "not_run"
     else:
         status = "incomplete"
+
+    # Finish telemetry BEFORE the evidence document is assembled: stop
+    # new samples/queries and join the owned sampler within the finite
+    # cleanup bound (never a detached sampler doing work).
+    if resources_observer is not None:
+        resources_observer.stop(
+            "finished" if stop_reason is None else "stopped")
 
     elapsed = round(clock() - start, 9)
     if not math.isfinite(elapsed) or elapsed < 0:
@@ -771,4 +807,11 @@ def _run_trial_inner(
             },
         }
     exit_code = EXIT_COMPLETE if status == "complete" else EXIT_NOT_RUN
+    if resources_observer is not None:
+        # The explicit versioned opt-in wrapper: the trial member is
+        # the INTACT plain v1 evidence (validated above); the resource
+        # section is the strict versioned observation.
+        resources_section = resources_observer.finish(status)
+        return exit_code, wrap_trial_with_resources(evidence,
+                                                     resources_section)
     return exit_code, evidence

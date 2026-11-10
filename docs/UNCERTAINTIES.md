@@ -226,3 +226,45 @@ human question.
 - No live target/model/GPU/corpus work was performed (order 004-c
   live authorization: NONE); the certifi (MPL-2.0) policy gate
   remains an open human question (LICENSE-01).
+
+### 2026-11-10, order 004-d (bounded resource telemetry)
+
+- U03/U04/U08 updated in kind: 004-d delivers the bounded read-only
+  LOCAL resource telemetry that earlier 004 slices named as pending —
+  strict versioned own-process CPU/RSS observations on THIS devhost
+  (interval CPU deltas with disclosed utilization normalization, RSS
+  current vs ru_maxrss lifetime high-water mark vs observed interval
+  sample peak, exact unavailable/error vocabulary, bounded fixed-argv
+  nvidia-smi metadata query with pipe-boundary byte limits and owned-
+  child timeout/kill), composed with the actual finite repeated-parent
+  trials behind the explicit opt-in `--resources`/`resource diagnose`
+  commands (plain v1 trial evidence intact inside the versioned
+  wrapper; phase/ordinal/ledger facts only; one shared deadline still
+  spans sampling; finite cleanup). What it does NOT resolve: no
+  remote inference host, worker or model-process measurement exists
+  (per-process/CUDA allocated/reserved and worker peaks stay
+  unavailable until an owned worker instruments them; supplied worker
+  measurements are supplied-unverified); peaks are observed sample
+  peaks, not true worst-case peaks; vector/rank parity and full named
+  gate composition remain required before whole-004 acceptance; all
+  real gates/trials stay NOT_RUN and the ~2 GiB margin is still a
+  declared criterion, not a measured default. Local devhost
+  measurements never establish the remote target or an assigned
+  production device/process/model.
+- U05 unchanged: no cache/prefix-reuse claim from telemetry; cache
+  counters stay reported raw facts.
+- Operational (narrow U10 evidence from the final 004-c review,
+  recorded here preserving the failed goal-first history): on the
+  actual 004-c handoff, strategy's post-handoff startup sequence —
+  the restored qualified ordinary startup FIRST, then ONE bounded
+  native goal — was QUALIFIED in the final 004-c review (actual
+  wrapper/role/order/tools, Goal ACTIVE, subsequent tools, goal
+  marked complete before clear). The 004-a/004-b goal-FIRST startup
+  attempts remain RECORDED FAILED history and are never relabeled
+  passed; U10 stays OPEN for future handoffs — operational
+  qualification is per-handoff work, never inferred from file hash.
+- No live target/model/GPU/corpus work was performed (order 004-d
+  live authorization: NONE; only the D0 bounded local observational
+  allowance applied, with real unique host/device metadata kept out
+  of Git/public reports); the certifi (MPL-2.0) policy gate remains
+  an open human question (LICENSE-01).

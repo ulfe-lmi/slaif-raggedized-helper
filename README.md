@@ -32,7 +32,16 @@ available-stage timing summaries, the deterministic explicit synthetic
 route and the machine-readable section 23.2 prerequisite projection
 ([docs/benchmarks/qualification-protocol.md](docs/benchmarks/qualification-protocol.md)).
 Real target/hardware/model qualification remains NOT RUN; snapshot/agent
-layers are not implemented yet.
+layers are not implemented yet. The 004-d slice adds bounded read-only
+local resource telemetry (explicit opt-in only): the
+`raggedized resource diagnose` own-process CPU/RSS diagnostic on this
+devhost (D0 bounded allowance: 5 s / 64 samples, at most ONE bounded
+nvidia-smi fixed-argv metadata query with `--gpu`) and
+`raggedized qualification run --resources[ --resource-gpu]`, which
+returns the plain v1 trial evidence INTACT inside an explicit
+versioned wrapper carrying the strict versioned own-process
+observation (peaks are observed sample peaks; phase events are
+declarations; GPU absence is an exact unavailable, never a zero).
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.
@@ -61,6 +70,7 @@ uv run raggedized --help
 uv run raggedized doctor --config config/examples/example-config.json
 uv run raggedized qualification gates   # offline section 23.2 prerequisite projection
 uv run raggedized qualification plan --config CONFIG.json --spec SPEC.json   # offline, zero I/O
+uv run raggedized resource diagnose --duration-seconds 1 --samples 4   # explicit opt-in, own-process only
 uv run pytest tests/unit -q
 uv run pytest tests/integration -q   # 003-b/i/j + 004-a: owned loopback HTTP/SSE, probe and trial composition, synthetic keys
 ```
