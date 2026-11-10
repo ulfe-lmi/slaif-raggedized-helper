@@ -1378,8 +1378,8 @@ class TestAggregateAdmissionAccounting:
         assert section["collector"]["bytes_read"] == 0
         assert len(section["series"]["samples"]) == 200
         assert section["collector"]["stop_reason"] == "samples_reached"
-        # collection calls cover the samples plus the final observation
-        assert section["collector"]["collection_calls"] == 201
+        # collection calls cover baseline, samples and the final observation
+        assert section["collector"]["collection_calls"] == 202
         ResourceSection.model_validate(section)
 
     def test_pipe_read_enforces_remaining_allowance(self, tmp_path, monkeypatch):
@@ -1583,3 +1583,204 @@ class TestLateExportSpentAccounting:
         assert error_doc["ledger_availability"] == "unavailable"
         assert error_doc["transport_boundary"] is None
         assert "never assumed zero" in error_doc["ledger_note"]
+
+class TestParallelResourceCorrections:
+    def test_diagnostic_interrupt_stops_owned_thread(self, monkeypatch):
+        class Interrupted(TrialResourceObserver):
+            instance = None
+
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                Interrupted.instance = self
+
+            def observe_for(self, seconds):
+                time.sleep(0.025)
+                raise KeyboardInterrupt("original")
+
+        monkeypatch.setattr(resources, "TrialResourceObserver", Interrupted)
+        with pytest.raises(KeyboardInterrupt, match="original"):
+            resources.run_resource_diagnostic(duration_seconds=0.3, samples=30)
+        observer = Interrupted.instance
+        assert observer is not None and observer._thread is not None
+        assert not observer._thread.is_alive()
+        before = len(observer._samples)
+        time.sleep(0.04)
+        assert len(observer._samples) == before
+
+    def test_standalone_duration_clips_owned_query(self, tmp_path):
+        import sys
+        child = _write_executable(
+            tmp_path / "slow-duration", f"#!{sys.executable}\n"
+            "import time\ntime.sleep(0.25)\nprint('0, FAKE, 100, 25, 75')\n")
+        started = time.monotonic()
+        _, doc = resources.run_resource_diagnostic(
+            duration_seconds=0.05, samples=1, gpu_query=True,
+            gpu_timeout_seconds=0.6, gpu_executable=str(child))
+        assert time.monotonic() - started < 0.24
+        assert doc["series"]["samples"] == []
+        assert doc["gpu"]["reason"] == "timeout"
+        assert doc["collector"]["stop_reason"] == "duration_reached"
+
+    def test_expired_start_and_finish_do_no_probes(self, monkeypatch):
+        calls = []
+        monkeypatch.setattr(resources, "own_process_cpu", lambda: calls.append("cpu"))
+        monkeypatch.setattr(resources, "own_process_rss_bytes", lambda: calls.append("rss"))
+        monkeypatch.setattr(resources, "lifetime_max_rss_bytes", lambda: calls.append("lifetime"))
+        observer = TrialResourceObserver(max_duration_seconds=0.1, max_samples=1)
+        observer.start(time.monotonic() - 1)
+        section = observer.finish("not_run")
+        assert calls == []
+        assert section["collector"]["collection_calls"] == 0
+        assert section["series"]["cpu"]["total_seconds"] is None
+        assert section["series"]["rss"]["lifetime_max_bytes"] is None
+        ResourceSection.model_validate(section)
+
+    def test_call_limit_includes_baseline_and_final(self, monkeypatch):
+        calls = []
+        monkeypatch.setattr(resources, "MAX_COLLECTION_CALLS", 1)
+        monkeypatch.setattr(
+            resources, "own_process_cpu", lambda: (calls.append("cpu") or (0.0, 0.0)))
+        monkeypatch.setattr(resources, "lifetime_max_rss_bytes", lambda: calls.append("lifetime"))
+        observer = TrialResourceObserver(max_duration_seconds=0.1, max_samples=1)
+        observer.start()
+        section = observer.finish("not_run")
+        assert calls == ["cpu"]
+        assert section["collector"]["collection_calls"] == 1
+        assert section["collector"]["stop_reason"] == "resource_exhausted"
+        assert section["series"]["cpu"]["total_seconds"] is None
+        ResourceSection.model_validate(section)
+
+    def test_device_bytes_share_total_reservation(self, monkeypatch, tmp_path):
+        import sys
+        monkeypatch.setattr(resources, "MAX_COLLECTOR_BYTES", 64)
+        monkeypatch.setattr(resources, "_PROC_STATUS_READ_BYTES", 40)
+        actual_read = resources.read_proc_self_status
+        monkeypatch.setattr(resources, "read_proc_self_status", lambda: actual_read(40))
+        child = _write_executable(
+            tmp_path / "device", f"#!{sys.executable}\n"
+            "print('0, OWNED-FAKE-GPU, 100, 25, 75')\n")
+        observer = TrialResourceObserver(
+            max_duration_seconds=0.5, max_samples=1, gpu_query=True,
+            gpu_timeout_seconds=0.4, gpu_stdout_bytes=31, gpu_stderr_bytes=1,
+            gpu_executable=str(child))
+        observer.start()
+        section = observer.finish("not_run")
+        collector = section["collector"]
+        assert collector["device_query_bytes_read"] == 31
+        assert collector["bytes_read"] == 0
+        assert collector["samples"] == 0
+        assert collector["stop_reason"] == "resource_exhausted"
+        assert collector["bytes_read"] + collector["device_query_bytes_read"] <= 64
+        ResourceSection.model_validate(section)
+
+    @pytest.mark.parametrize("failure_stage", ["start", "finish"])
+    def test_diagnostic_failure_stops_started_observer(self, monkeypatch, failure_stage):
+        class Failing(TrialResourceObserver):
+            instance = None
+
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                Failing.instance = self
+
+            def start(self, deadline=None):
+                super().start(deadline)
+                if failure_stage == "start":
+                    raise RuntimeError("original startup")
+
+            def finish(self, trial_status):
+                if failure_stage == "finish":
+                    raise RuntimeError("original finish")
+                return super().finish(trial_status)
+
+        monkeypatch.setattr(resources, "TrialResourceObserver", Failing)
+        with pytest.raises(RuntimeError, match=f"original {failure_stage}"):
+            resources.run_resource_diagnostic(duration_seconds=0.05, samples=5)
+        observer = Failing.instance
+        assert observer is not None and observer._thread is not None
+        assert not observer._thread.is_alive()
+        before = len(observer._samples)
+        time.sleep(0.02)
+        assert len(observer._samples) == before
+
+    def test_final_call_is_not_admitted_after_call_limit(self, monkeypatch):
+        calls = []
+        monkeypatch.setattr(resources, "MAX_COLLECTION_CALLS", 2)
+        monkeypatch.setattr(
+            resources, "own_process_cpu", lambda: (calls.append("cpu") or (0.0, 0.0)))
+        monkeypatch.setattr(resources, "own_process_rss_bytes", lambda: 0)
+        monkeypatch.setattr(resources, "lifetime_max_rss_bytes", lambda: calls.append("lifetime"))
+        observer = TrialResourceObserver(max_duration_seconds=0.5, max_samples=1)
+        observer.start()
+        section = observer.finish("not_run")
+        assert calls == ["cpu", "cpu"]
+        assert section["collector"]["collection_calls"] == 2
+        assert section["collector"]["stop_reason"] == "resource_exhausted"
+        assert section["series"]["cpu"]["total_seconds"] is None
+        ResourceSection.model_validate(section)
+
+class TestMaximumObservationWindow:
+    def test_expiry_and_delayed_finalization_keep_actual_elapsed(self, monkeypatch):
+        clock = [0.0]
+        monkeypatch.setattr(resources, "own_process_cpu", lambda: (1.0, 1.0))
+        monkeypatch.setattr(resources, "own_process_rss_bytes", lambda: 1)
+        observer = TrialResourceObserver(
+            clock=lambda: clock[0], max_duration_seconds=resources.MAX_OBSERVATION_DURATION_SECONDS,
+            max_samples=1)
+        observer.start(deadline=resources.MAX_OBSERVATION_DURATION_SECONDS)
+        clock[0] = resources.MAX_OBSERVATION_DURATION_SECONDS + 0.1
+        section = observer.finish("not_run")
+        assert section["series"]["duration_seconds"] == 86400.0
+        assert section["collector"]["wall_seconds"] == 86400.1
+        assert section["series"]["samples"][0]["t"] == 0.0
+        assert section["series"]["cpu"]["total_seconds"] is None
+        assert section["collector"]["stop_reason"] == "deadline_reached"
+        ResourceSection.model_validate(section)
+
+    def test_final_cpu_endpoint_crossing_cutoff_preserves_actual_cpu_wall(self, monkeypatch):
+        clock = [0.0]
+        calls = []
+
+        def cpu():
+            calls.append(1)
+            if len(calls) == 3:  # baseline, initial sample, admitted final CPU
+                clock[0] += 0.2
+                return (2.0, 2.0)
+            return (1.0, 1.0)
+
+        monkeypatch.setattr(resources, "own_process_cpu", cpu)
+        monkeypatch.setattr(resources, "own_process_rss_bytes", lambda: 1)
+        lifetime_calls = []
+        monkeypatch.setattr(resources, "lifetime_max_rss_bytes",
+                            lambda: lifetime_calls.append(1) or 1)
+        observer = TrialResourceObserver(
+            clock=lambda: clock[0], max_duration_seconds=resources.MAX_OBSERVATION_DURATION_SECONDS,
+            max_samples=1)
+        observer.start(deadline=resources.MAX_OBSERVATION_DURATION_SECONDS)
+        clock[0] = 86399.9
+        section = observer.finish("complete")
+        assert section["series"]["duration_seconds"] == 86400.0
+        assert section["series"]["cpu"]["wall_seconds"] == 86400.1
+        assert section["series"]["cpu"]["total_seconds"] == 2.0
+        assert section["series"]["rss"]["lifetime_max_bytes"] is None
+        assert lifetime_calls == []
+        assert section["collector"]["wall_seconds"] == 86400.1
+        ResourceSection.model_validate(section)
+
+    def test_sample_offsets_survive_late_report_assembly(self, monkeypatch):
+        clock = [10.0]
+        monkeypatch.setattr(resources, "own_process_cpu", lambda: (1.0, 1.0))
+        monkeypatch.setattr(resources, "own_process_rss_bytes", lambda: 1)
+        observer = TrialResourceObserver(
+            clock=lambda: clock[0], interval_seconds=10.0,
+            max_duration_seconds=5.0, max_samples=2)
+        observer.start()
+        clock[0] = 14.0
+        with observer._lock:
+            observer._record_sample_locked()
+        clock[0] = 17.0
+        section = observer.finish("incomplete")
+        assert [sample["t"] for sample in section["series"]["samples"]] == [0.0, 4.0]
+        assert section["series"]["duration_seconds"] == 5.0
+        assert section["collector"]["wall_seconds"] == 7.0
+        assert section["series"]["cpu"]["total_seconds"] is None
+        ResourceSection.model_validate(section)
