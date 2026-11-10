@@ -117,10 +117,32 @@ def parse_manifest(data: bytes) -> Manifest:
     try:
         if len(data) > MAX_MANIFEST:
             raise ValueError
-        obj = json.loads(data, object_pairs_hook=_unique)
+        if type(data) is not bytes:
+            raise ValueError
+        obj = json.loads(
+            data.decode("utf-8"), object_pairs_hook=_unique, parse_constant=_invalid_constant
+        )
+        _valid_unicode(obj)
         return Manifest.model_validate(obj)
     except (ValueError, TypeError, ValidationError, UnicodeError, RecursionError):
         raise AdmissionError("invalid manifest") from None
+
+
+def _invalid_constant(value: str) -> None:
+    raise ValueError("invalid JSON number")
+
+
+def _valid_unicode(value: object) -> None:
+    stack = [value]
+    while stack:
+        item = stack.pop()
+        if isinstance(item, str):
+            item.encode("utf-8")
+        elif isinstance(item, dict):
+            stack.extend(item.keys())
+            stack.extend(item.values())
+        elif isinstance(item, list):
+            stack.extend(item)
 
 
 def _unique(pairs: list[tuple[str, object]]) -> dict[str, object]:
@@ -189,6 +211,7 @@ class OriginalStore:
     def __init__(self, root: Path, *, fault: Callable[[str], None] | None = None):
         self.root = Path(root)
         self.fault = fault or (lambda _: None)
+        self._fd = -1
         try:
             self.root.mkdir(mode=0o700, parents=False, exist_ok=True)
             self._fd = os.open(self.root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
@@ -201,6 +224,8 @@ class OriginalStore:
                 fd = os.open(name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=self._fd)
                 os.close(fd)
         except OSError:
+            if self._fd >= 0:
+                os.close(self._fd)
             raise AdmissionError("store unavailable") from None
 
     def close(self) -> None:
@@ -314,6 +339,13 @@ class OriginalStore:
             raise AdmissionError("admission failed") from None
 
     def inspect(self, revision_id: str) -> Revision:
+        return self._verified_original(revision_id)[0]
+
+    def read_original(self, revision_id: str) -> bytes:
+        """Return bytes verified against the controlled revision and blob descriptors."""
+        return self._verified_original(revision_id)[1]
+
+    def _verified_original(self, revision_id: str) -> tuple[Revision, bytes]:
         try:
             if not revision_id.startswith("sha256:") or not HEX.fullmatch(revision_id[7:]):
                 raise ValueError
@@ -328,6 +360,14 @@ class OriginalStore:
             blob = self._read("blobs", record.blob, MAX_ORIGINAL)
             if len(blob) != record.source.size or hashlib.sha256(blob).hexdigest() != record.blob:
                 raise ValueError
-            return record
-        except (OSError, ValueError, TypeError, ValidationError, UnicodeError, RecursionError):
+            return record, blob
+        except (
+            OSError,
+            ValueError,
+            TypeError,
+            AttributeError,
+            ValidationError,
+            UnicodeError,
+            RecursionError,
+        ):
             raise AdmissionError("invalid stored revision") from None
