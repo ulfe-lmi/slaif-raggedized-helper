@@ -1382,26 +1382,22 @@ class TestAggregateAdmissionAccounting:
         assert section["collector"]["collection_calls"] == 201
         ResourceSection.model_validate(section)
 
-    def test_pipe_read_enforces_remaining_allowance(self, tmp_path):
+    def test_pipe_read_enforces_remaining_allowance(self, tmp_path, monkeypatch):
         child = _write_executable(
             tmp_path / "flood",
             "#!/bin/sh\nprintf 'x%.0s' $(seq 1 1000)\n")
-        actual_read = resources.os.read
+        real_read = resources._collector_read
         reads: list[tuple[int, int]] = []
 
         def tracked_read(fd: int, size: int) -> bytes:
-            data = actual_read(fd, size)
+            data = real_read(fd, size)
             reads.append((size, len(data)))
             return data
 
-        monkeypatch_read = resources.os
-        monkeypatch_read.read = tracked_read
-        try:
-            result = run_gpu_metadata_query(
-                timeout_seconds=0.8, stdout_bytes=128, stderr_bytes=128,
-                executable=str(child))
-        finally:
-            resources.os.read = actual_read
+        monkeypatch.setattr(resources, "_collector_read", tracked_read)
+        result = run_gpu_metadata_query(
+            timeout_seconds=0.8, stdout_bytes=128, stderr_bytes=128,
+            executable=str(child))
         assert result["reason"] == "stdout_oversize"
         # the ACTUAL observed bytes are reported (cap + the one
         # lookahead byte), never an assumed cap+1
@@ -1413,25 +1409,22 @@ class TestAggregateAdmissionAccounting:
             assert requested <= 128
         assert reads[-1][0] == 1
 
-    def test_pipe_stream_ending_at_exact_cap_not_oversize(self, tmp_path):
+    def test_pipe_stream_ending_at_exact_cap_not_oversize(self, tmp_path, monkeypatch):
         child = _write_executable(
             tmp_path / "exact",
             "#!/bin/sh\nprintf 'x%.0s' $(seq 1 128)\n")
-        actual_read = resources.os.read
+        real_read = resources._collector_read
         reads: list[tuple[int, int]] = []
 
         def tracked_read(fd: int, size: int) -> bytes:
-            data = actual_read(fd, size)
+            data = real_read(fd, size)
             reads.append((size, len(data)))
             return data
 
-        resources.os.read = tracked_read
-        try:
-            result = run_gpu_metadata_query(
-                timeout_seconds=0.8, stdout_bytes=128, stderr_bytes=128,
-                executable=str(child))
-        finally:
-            resources.os.read = actual_read
+        monkeypatch.setattr(resources, "_collector_read", tracked_read)
+        result = run_gpu_metadata_query(
+            timeout_seconds=0.8, stdout_bytes=128, stderr_bytes=128,
+            executable=str(child))
         # exact fit: the bounded one-byte lookahead observes EOF, so
         # NOT oversize; the invalid CSV is refused as malformed with
         # the actual count

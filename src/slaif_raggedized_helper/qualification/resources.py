@@ -858,6 +858,18 @@ def _gpu_error(reason: str, *, wall: float | None = None,
     }
 
 
+def _collector_read(fd: int, size: int) -> bytes:
+    """The owned collector pipe read (narrow owned test seam).
+
+    The ONLY collector read path: the fixed-argv query loop reads the
+    owned child's stdout/stderr through this seam so owned tests can
+    observe the EXACT remaining-allowance request sizes and actual
+    byte counts without intercepting unrelated interpreter or
+    subprocess-internals reads.
+    """
+    return os.read(fd, size)
+
+
 def run_gpu_metadata_query(
     *,
     timeout_seconds: float,
@@ -933,7 +945,7 @@ def run_gpu_metadata_query(
                 # bytes, never the configured cap.
                 read_size = min(_PIPE_READ_CHUNK_BYTES, max(1, remaining))
                 try:
-                    chunk = os.read(stream.fileno(), read_size)
+                    chunk = _collector_read(stream.fileno(), read_size)
                 except OSError:
                     status = "query_failed"
                     break
