@@ -1,0 +1,35 @@
+{
+  "lane_id": "PAR-004-ROUTER-A",
+  "result": "COMPLETE",
+  "implementation_head": "4978ca7bc331fd6022620bda89ae94735df07f6b",
+  "report_publication_commit": "SELF",
+  "summary": "Added a thin installed raggedized parity route that delegates parsing, supplied-value analysis and export to the existing parity_cli module without duplicating logic. Existing routing paths remain intact.",
+  "API": "raggedized parity embedding|rerank --input FILE --output FILE; required paths are the operator opt-in. Returns delegated exit 0/2/3, exact input byte SHA-256 and size, SUPPLIED_UNVERIFIED analysis and real qualification NOT_RUN. No model or remote execution.",
+  "tests": [
+    {
+      "command": "uv run --isolated --locked --python 3.12 pytest -o addopts='' -q tests/integration/test_parity_installed_cli.py",
+      "result": "5 passed in 9.71s; actual installed executable, both analyzers, raw binding, missing input/output, removed/unknown flags, invalid destination, true post-work RLIMIT export failure and guarded help/import."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -o addopts='' -q tests/integration/test_parity_installed_cli.py tests/integration/test_parity_module_cli.py tests/unit/test_cli_doctor.py tests/unit/test_parity_cli_gates.py",
+      "result": "36 passed in 19.83s."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -o addopts='' -q tests/integration/test_qualification_composition.py::test_synthetic_trial_deterministic_mock_route tests/integration/test_qualification_composition.py::test_synthetic_direct_trial_deterministic_mock_route",
+      "result": "2 passed in 5.50s; owned synthetic gateway and direct plain-trial paths."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 ruff check src/slaif_raggedized_helper/cli.py tests/integration/test_parity_installed_cli.py",
+      "result": "PASS."
+    },
+    {
+      "command": "git diff --check; cmp copied order to lane order",
+      "result": "PASS."
+    }
+  ],
+  "limitations": [
+    "Local candidate only; strategy owns acceptance and integration. No push, PR, merge, canonical state change or CI certification.",
+    "Supplied-value evidence does not qualify real models, GPU, target, corpus or license. Existing parity I/O trusts operator parent and hard-link choices and exports non-atomically.",
+    "This branch is based before separately reviewed resource corrections; no resource handler or parity analyzer was changed."
+  ]
+}
