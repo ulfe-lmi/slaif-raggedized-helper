@@ -1,0 +1,14 @@
+{
+  "lane_id": "PAR-004-PARITY-IO-B",
+  "result": "COMPLETE",
+  "implementation_head": "e7d4185c70dc874286a863ee20856d6af72e5e4a",
+  "report_publication_commit": "SELF",
+  "summary": "Reject nonzero JSON floats that underflow to zero and reject NUL-containing output paths before analysis, preserving existing file admission and export behavior.",
+  "API": "Existing read_document, render_json, preflight_output and run_export APIs remain unchanged. Nonzero underflow raises input-free Refusal; true signed zero and representable subnormals remain valid. NUL output paths raise Refusal before the trusted analyzer callback; post-work export failures still raise ExportError carrying evidence.",
+  "tests": [
+    {"command": "uv run --no-sync pytest tests/unit/test_parity_io.py tests/integration/test_parity_io_composition.py tests/unit/test_rerank_parity.py tests/integration/test_rerank_parity_composition.py tests/unit/test_contracts.py -q", "result": "PASSED (57 tests)"},
+    {"command": "uv run --no-sync ruff check src/slaif_raggedized_helper/qualification/parity_io.py tests/unit/test_parity_io.py tests/integration/test_parity_io_composition.py", "result": "PASSED"},
+    {"command": "git diff --check", "result": "PASSED before implementation commit"}
+  ],
+  "limitations": "Synthetic owned fixtures only; no real model or hardware qualification. Existing trusted operator-parent and hard-link assumptions apply; preflight is advisory and export is not atomic or durable. CLI routing and embedding composition remain for integration. No push, PR, merge, deployment or real service access."
+}
