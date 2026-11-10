@@ -18,11 +18,8 @@ def main(argv=None):
     parser.add_argument("kind", choices=("embedding", "rerank"))
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
-    parser.add_argument("--allow-supplied-input", action="store_true")
     try:
         args = parser.parse_args(argv)
-        if not args.allow_supplied_input:
-            raise parity_io.Refusal("explicit input opt-in required")
         document = parity_io.read_document(args.input)
         parity_io.preflight_output(args.output)
         analyzer = (

@@ -79,14 +79,23 @@ def test_success_binding_and_opt_in(tmp_path, kind):
     source, target = tmp_path / "in", tmp_path / "out"
     raw = json.dumps(fixture(kind), ensure_ascii=False).encode()
     source.write_bytes(raw)
-    assert invoke(kind, source, target).returncode == 2
-    result = invoke(kind, source, target, "--allow-supplied-input")
+    result = invoke(kind, source, target)
     assert result.returncode == 0, result.stderr
     evidence = json.loads(result.stdout)
     assert evidence == json.loads(target.read_bytes())
     assert evidence["input_sha256"] == hashlib.sha256(raw).hexdigest()
     assert evidence["input_bytes"] == len(raw)
     assert evidence["real_qualification"] == "NOT_RUN"
+    from slaif_raggedized_helper.qualification import embedding_parity, rerank_parity
+
+    analyzer = (
+        embedding_parity.analyze if kind == "embedding" else rerank_parity.analyze_rerank_parity
+    )
+    assert evidence["analysis"] == analyzer(json.loads(raw))
+    assert (
+        evidence["analysis"]["evidence" if kind == "embedding" else "provenance"]
+        == "SUPPLIED_UNVERIFIED"
+    )
     assert evidence["analysis"]["input_fingerprint" if kind == "embedding" else "input_binding"]
 
 
@@ -105,7 +114,7 @@ def test_success_binding_and_opt_in(tmp_path, kind):
 def test_refusals(tmp_path, raw):
     source = tmp_path / "private-canary"
     source.write_bytes(raw)
-    result = invoke("rerank", source, tmp_path / "out", "--allow-supplied-input")
+    result = invoke("rerank", source, tmp_path / "out")
     assert result.returncode == 2 and b"private-canary" not in result.stderr
     assert not (tmp_path / "out").exists()
 
@@ -113,14 +122,13 @@ def test_refusals(tmp_path, raw):
 def test_invalid_destination_and_late_failure(tmp_path):
     source = tmp_path / "input"
     source.write_text(json.dumps(fixture("rerank")))
-    args = ("--allow-supplied-input",)
-    assert invoke("rerank", source, tmp_path / "missing" / "out", *args).returncode == 2
+    assert invoke("rerank", source, tmp_path / "missing" / "out").returncode == 2
 
     def limit():
         signal.signal(signal.SIGXFSZ, signal.SIG_IGN)
         resource.setrlimit(resource.RLIMIT_FSIZE, (0, 0))
 
-    result = invoke("rerank", source, tmp_path / "out", *args, preexec_fn=limit)
+    result = invoke("rerank", source, tmp_path / "out", preexec_fn=limit)
     assert result.returncode == 3
     evidence = json.loads(result.stdout)["evidence"]
     assert evidence["analysis"]["pair_count"] == 1
@@ -141,13 +149,13 @@ def test_promotion_refused(tmp_path, kind):
     data["evidence"] = "EXECUTED"
     source = tmp_path / "in"
     source.write_text(json.dumps(data))
-    result = invoke(kind, source, tmp_path / "out", "--allow-supplied-input")
+    result = invoke(kind, source, tmp_path / "out")
     assert result.returncode == 2
     assert not (tmp_path / "out").exists()
 
 
 def test_import_and_help_do_not_call_network_or_telemetry():
-    code = '''
+    code = """
 import resource, socket, subprocess, sys
 
 def forbidden(*args, **kwargs):
@@ -161,6 +169,27 @@ try:
     cli.main(["--help"])
 except SystemExit as exc:
     assert exc.code == 0
-'''
+"""
     result = subprocess.run([sys.executable, "-c", code], capture_output=True)
     assert result.returncode == 0, result.stderr
+
+
+def test_required_paths_and_removed_flag_are_refused(tmp_path):
+    source = tmp_path / "in"
+    source.write_text(json.dumps(fixture("rerank")))
+    for args in (
+        ["rerank", "--input", str(source)],
+        ["rerank", "--output", str(tmp_path / "out")],
+        [
+            "rerank",
+            "--input",
+            str(source),
+            "--output",
+            str(tmp_path / "out"),
+            "--allow-supplied-input",
+        ],
+    ):
+        result = subprocess.run([sys.executable, "-m", MODULE, *args], capture_output=True)
+        assert result.returncode == 2
+        assert result.stderr == b'{"error":"input or configuration refused"}\n'
+        assert not (tmp_path / "out").exists()
