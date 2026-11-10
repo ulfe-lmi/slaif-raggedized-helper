@@ -18,10 +18,12 @@ Rules enforced here (architecture A01/A13/A16/A19/A20, V2-01/V2-06, SECURITY S03
 
 from __future__ import annotations
 
+import ipaddress
 import json
 import re
 from enum import Enum
 from pathlib import Path
+from datetime import datetime
 from typing import Literal
 from urllib.parse import urlsplit
 
@@ -99,6 +101,25 @@ class SecretRef(BaseModel):
         return self
 
 
+class RouteCapabilities(BaseModel):
+    """Explicit transport capabilities advertised by the configured route.
+
+    Everything is default-deny: an optional control (streaming, vision,
+    structured output, prompt caching) is usable only when its route
+    capability is explicitly declared here (architecture A13/A18: no JSON/
+    stream/vision/cache support is guessed).
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    streaming: bool = False
+    vision: bool = False
+    json_mode: bool = False
+    structured_outputs: bool = False
+    prompt_caching: bool = False
+    stored_responses: bool = False
+
+
 class RouteConfig(BaseModel):
     """Explicit gateway route contract reference (never guessed)."""
 
@@ -108,6 +129,7 @@ class RouteConfig(BaseModel):
     model: str = Field(min_length=1, max_length=256)
     api: Literal["v1-responses"] = "v1-responses"
     timeout_seconds: PositiveFiniteFloat
+    capabilities: RouteCapabilities = Field(default_factory=RouteCapabilities)
 
     @field_validator("base_url")
     @classmethod
@@ -170,6 +192,8 @@ class GeneratorConfig(BaseModel):
     max_inflight: PositiveInt = 1
     degradation: DegradationPolicy = Field(default_factory=DegradationPolicy)
     fallback: str | None = Field(default=None, max_length=128)
+    api_key_ref: str | None = Field(default=None, max_length=256)
+    max_retries: int = Field(default=1, ge=0, le=5)
 
     @model_validator(mode="after")
     def _check_degradation_explicitness(self) -> GeneratorConfig:
@@ -195,13 +219,123 @@ class GeneratorConfig(BaseModel):
         return self
 
 
+# Pinned llama.cpp built-in chat template names (server reference commit
+# 3b4d6ab3f79651935fba1dd93732f29022a7f5f5, `--chat-template` registry). A
+# name in this registry is NOT qualification: offline_diagnostic mode also
+# requires a DirectTemplateQualification record binding the template to a
+# tested build (README /apply-template or pinned-upstream verification).
+PINNED_LLAMA_CHAT_TEMPLATES = ("chatml", "llava", "mistral", "phi-2", "zephyr")
+
+
+
+class DirectCapabilities(BaseModel):
+    """Tested native /completion capabilities of the private llama build.
+
+    ``cache_prompt``/slot selection enter the wire envelope only when the
+    capability was actually tested on that build (architecture A13: native
+    cache_prompt/id_slot only on tested builds).
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    cache_prompt_tested: bool = False
+    slot_tested: bool = False
+
+
+class DirectDestination(BaseModel):
+    """Private trusted /completion destination (never a public caller choice).
+
+    Private IP/localhost alone is not access-control proof: enabling direct
+    mode additionally requires the explicit ``private_trusted`` policy
+    declaration on :class:`DirectGenerationConfig`.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    base_url: str = Field(min_length=1, max_length=1024)
+
+    @field_validator("base_url")
+    @classmethod
+    def _check_private_url(cls, value: str) -> str:
+        parts = urlsplit(value)
+        if parts.scheme not in ("http", "https"):
+            raise ValueError("direct destination must use http or https")
+        if parts.username is not None or parts.password is not None:
+            raise ValueError("credentials in the direct destination URL are forbidden")
+        if parts.query or parts.fragment:
+            raise ValueError("query/fragment strings in the direct destination URL are forbidden")
+        hostname = parts.hostname
+        if not hostname:
+            raise ValueError("direct destination must contain a hostname")
+        if not _is_private_destination_host(hostname):
+            raise ValueError(
+                "direct destination must be a private/loopback host "
+                "(private IP alone is not access-control proof; declare the "
+                "trusted policy explicitly)"
+            )
+        return value
+
+
+def _is_private_destination_host(hostname: str) -> bool:
+    host = hostname.strip("[]").lower()
+    if host == "localhost" or host.endswith(".localhost"):
+        return True
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    if address.is_unspecified:
+        return False
+    return address.is_private or address.is_loopback or address.is_link_local
+
+
+class DirectTemplateQualification(BaseModel):
+    """Explicit qualification record binding a chat template to a build.
+
+    The template name alone never proves qualification: offline direct
+    mode requires this record, produced by ``POST /apply-template`` against
+    the tested build or by pinned-upstream verification of the exact
+    built-in template rendering.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    template: str = Field(min_length=1, max_length=64)
+    build_id: str = Field(min_length=1, max_length=128)
+    method: Literal["apply-template", "pinned-upstream"]
+    recorded_at: datetime
+
+    @field_validator("recorded_at")
+    @classmethod
+    def _check_aware(cls, value: datetime) -> datetime:
+        if value.tzinfo is None:
+            raise ValueError("recorded_at must carry an explicit UTC offset")
+        return value
+
+
 class DirectGenerationConfig(BaseModel):
-    """Direct (non-gateway) generation. Online direct generation is refused;
-    a private trusted offline opt-in is a later explicit slice."""
+    """Direct (non-gateway) generation.
+
+    Online direct generation is unconditionally refused: the ``enabled``
+    guard from the foundation slice is retained and no online direct mode
+    exists. ``mode: offline_diagnostic`` is the narrow explicit offline
+    opt-in for context-annotation/visual-extraction diagnostics against a
+    private trusted destination; it is never an answer fallback.
+    """
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     enabled: bool = False
+    mode: Literal["disabled", "offline_diagnostic"] = "disabled"
+    destination: DirectDestination | None = None
+    trusted_policy: Literal["private_trusted"] | None = None
+    capabilities: DirectCapabilities = Field(default_factory=DirectCapabilities)
+    chat_template: str | None = Field(default=None, max_length=64)
+    template_qualification: DirectTemplateQualification | None = None
+    slot_id: int | None = Field(default=None, ge=0)
+    max_output_tokens: PositiveInt | None = None
+    deadline_seconds: PositiveFiniteFloat | None = None
+    max_retries: int = Field(default=0, ge=0, le=3)
 
     @field_validator("enabled")
     @classmethod
@@ -212,6 +346,44 @@ class DirectGenerationConfig(BaseModel):
                 "must use the gateway route (no direct online fallback)"
             )
         return value
+
+    @field_validator("chat_template")
+    @classmethod
+    def _check_template(cls, value: str | None) -> str | None:
+        if value is not None and value not in PINNED_LLAMA_CHAT_TEMPLATES:
+            raise ValueError(
+                f"chat_template must be a pinned llama.cpp built-in: "
+                f"{sorted(PINNED_LLAMA_CHAT_TEMPLATES)}"
+            )
+        return value
+
+    @model_validator(mode="after")
+    def _check_offline_opt_in(self) -> DirectGenerationConfig:
+        if self.mode == "offline_diagnostic":
+            if self.destination is None:
+                raise ValueError("offline_diagnostic mode requires a private destination")
+            if self.trusted_policy != "private_trusted":
+                raise ValueError(
+                    "offline_diagnostic mode requires the explicit private_trusted policy"
+                )
+            if self.chat_template is None:
+                raise ValueError("offline_diagnostic mode requires a qualified chat_template")
+            if self.template_qualification is None:
+                raise ValueError(
+                    "offline_diagnostic mode requires a template qualification record"
+                )
+            if self.template_qualification.template != self.chat_template:
+                raise ValueError(
+                    "template qualification record does not match the declared chat_template"
+                )
+            if self.slot_id is not None and not self.capabilities.slot_tested:
+                raise ValueError("slot_id requires the tested slot capability")
+        else:
+            if self.destination is not None or self.trusted_policy is not None:
+                raise ValueError(
+                    "disabled direct mode must not carry a destination or trusted policy"
+                )
+        return self
 
 
 class ProfileConfig(BaseModel):
@@ -290,6 +462,15 @@ class RaggedizedConfig(BaseModel):
         names = [profile.name for profile in self.profiles]
         if len(set(names)) != len(names):
             raise ValueError("profile names must be unique")
+        return self
+
+    @model_validator(mode="after")
+    def _check_api_key_ref(self) -> RaggedizedConfig:
+        ref = self.generator.api_key_ref
+        if ref is not None and ref not in self.secrets:
+            raise ValueError(
+                f"generator.api_key_ref {ref!r} does not name a declared secret reference"
+            )
         return self
 
 

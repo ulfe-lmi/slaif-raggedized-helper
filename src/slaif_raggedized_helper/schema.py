@@ -31,7 +31,9 @@ import json
 import math
 from datetime import datetime
 from enum import Enum
-from typing import Literal
+
+
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -57,6 +59,7 @@ class Capability(str, Enum):
     VISION = "vision"
     JSON_MODE = "json_mode"
     STREAMING = "streaming"
+    PROMPT_CACHING = "prompt_caching"
 
 
 class ModelIdentity(BaseModel):
@@ -87,6 +90,8 @@ class CompletionOutcome(str, Enum):
 MAX_INPUT_ITEMS = 64
 MAX_INPUT_CHARS = 200_000
 MAX_IMAGES = 16
+MAX_INSTRUCTIONS = 16_000
+MAX_JSON_SCHEMA_BYTES = 32_768
 
 
 class TextItem(BaseModel):
@@ -119,6 +124,22 @@ class GeneratorRequest(BaseModel):
     required_capabilities: frozenset[Capability] = frozenset()
     max_output_tokens: PositiveInt
     deadline_seconds: PositiveFiniteFloat
+    instructions: str | None = Field(default=None, max_length=MAX_INSTRUCTIONS)
+    temperature: float | None = Field(default=None, ge=0.0, le=2.0)
+    top_p: float | None = Field(default=None, gt=0.0, le=1.0)
+    response_format: Literal["text", "json_object", "json_schema"] | None = None
+    json_schema: dict[str, Any] | None = None
+    prompt_cache_key: str | None = Field(default=None, min_length=1, max_length=128)
+
+    @field_validator("json_schema")
+    @classmethod
+    def _check_json_schema_bound(cls, value: dict[str, Any] | None) -> dict[str, Any] | None:
+        if value is None:
+            return None
+        payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+        if len(payload.encode("utf-8")) > MAX_JSON_SCHEMA_BYTES:
+            raise ValueError("json_schema exceeds the bounded wire size")
+        return value
 
     @model_validator(mode="after")
     def _check_purpose_and_capabilities(self) -> GeneratorRequest:
@@ -130,6 +151,13 @@ class GeneratorRequest(BaseModel):
                 "request requires capabilities the model does not declare: "
                 + ", ".join(sorted(c.value for c in missing))
             )
+        if self.response_format == "json_schema" and self.json_schema is None:
+            raise ValueError("response_format json_schema requires a bounded json_schema payload")
+        if self.json_schema is not None and self.response_format != "json_schema":
+            raise ValueError("json_schema payload requires response_format json_schema")
+        if self.prompt_cache_key is not None:
+            if Capability.PROMPT_CACHING not in self.required_capabilities:
+                raise ValueError("prompt_cache_key requires the prompt_caching capability")
         return self
 
 
@@ -169,6 +197,7 @@ class GeneratorResult(BaseModel):
     timings: TimingMetrics | None = None
     fingerprint: str | None = None
     error: str | None = Field(default=None, max_length=1024)
+    attempts: NonNegativeInt | None = None
 
     @model_validator(mode="after")
     def _check_outcome_consistency(self) -> GeneratorResult:

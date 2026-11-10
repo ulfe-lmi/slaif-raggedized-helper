@@ -1,0 +1,782 @@
+"""Gateway ``/v1/responses`` adapter behind the 002 ``GeneratorClient`` contract.
+
+The wire dialect is the bounded Responses contract of the pinned gateway
+revision ``f2df0e82df8766740d9ac169ea56ffd7a3cb1f1e``
+(``ulfe-lmi/slaif-api-gateway``, ``docs/responses-compatibility.md``):
+``model``, text/item-array ``input``, optional ``instructions``,
+``max_output_tokens``, ``temperature``, ``top_p``, ``store`` (the gateway
+injects ``store=false`` when omitted; this adapter sends it explicitly),
+``stream`` only when the route advertises streaming, bounded ``text.format``
+structured output, and (behind explicit capability) ``prompt_cache_key``.
+Native llama fields (``cache_prompt``/``id_slot``/``slot_ids``) never appear
+on the gateway wire.
+
+Outcome mapping (architecture A13/V2-03/V2-06): only a validated
+``response.completed`` / ``status: completed`` produces TERMINAL. Refusals,
+incomplete and failed terminals, duplicate/malformed or out-of-order item
+IDs, and EOF without terminal success never appear as COMPLETE. Provider
+error bodies are never echoed; only safe status classes and bounded
+provider codes are reported.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import time
+from typing import Protocol, runtime_checkable
+
+from ..config import GeneratorConfig
+from ..schema import (
+    Capability,
+    CompletionOutcome,
+    GeneratorRequest,
+    GeneratorResult,
+    ImageRef,
+    ModelIdentity,
+    UsageMetrics,
+    fingerprint,
+)
+from .transport import (
+    GatewayTransport,
+    SSEFrame,
+    TransportConfigError,
+    TransportConnectError,
+    TransportError,
+    TransportProtocolError,
+    TransportRefusedError,
+    TransportTimeoutError,
+    TransportTruncatedError,
+)
+
+GATEWAY_CONTRACT_COMMIT = "f2df0e82df8766740d9ac169ea56ffd7a3cb1f1e"
+GATEWAY_CONTRACT_SOURCE = "ulfe-lmi/slaif-api-gateway:docs/responses-compatibility.md"
+RESPONSES_PATH = "/v1/responses"
+_MAX_ERROR_TEXT = 200
+
+# Provider-controlled strings are exfiltration channels: only fixed protocol
+# vocabulary from the pinned dialect is ever echoed; anything else becomes a
+# fixed safe reason. No provider codes, messages or body bytes are reported.
+_REFUSAL_REASONS = frozenset({"content_filter", "unknown"})
+_INCOMPLETE_REASONS = frozenset({"max_output_tokens", "content_filter"})
+_SAFE_IMAGE_PREFIXES = ("data:image/png;base64,", "data:image/jpeg;base64,",
+                        "data:image/webp;base64,", "data:image/gif;base64,")
+_SAFE_IMAGE_URL_RE = re.compile(r"https://[a-z0-9._:-]+(/.*)?\Z", re.IGNORECASE)
+
+# Event families of the bounded Responses SSE dialect at the pinned contract
+# commit. Anything else is delivered but never treated as a terminal.
+_KNOWN_EVENTS = frozenset(
+    {
+        "response.created",
+        "response.in_progress",
+        "response.output_item.added",
+        "response.content_part.added",
+        "response.output_text.delta",
+        "response.output_text.done",
+        "response.content_part.done",
+        "response.output_item.done",
+        "response.completed",
+        "response.failed",
+        "response.incomplete",
+        "error",
+    }
+)
+
+
+@runtime_checkable
+class ImageResolver(Protocol):
+    """Explicitly trusted bounded resolver for authorized ``ImageRef`` IDs.
+
+    Callers never pass raw URLs/files: the resolver is trusted operator code
+    that maps an authorized ``(image_id, source_revision)`` pair to bounded
+    image material (data URL or credential-free https URL).
+    """
+
+    def resolve(self, image_ref: ImageRef) -> str:  # pragma: no cover - protocol
+        ...
+
+
+def _safe_error(message: str) -> str:
+    return message[:_MAX_ERROR_TEXT]
+
+
+def _allowlisted(value: object, allowed: frozenset[str]) -> str | None:
+    return value if isinstance(value, str) and value in allowed else None
+
+
+def _nonneg_int(value: object) -> int | None:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        return None
+    return value
+
+
+def _is_finite_number(value: object) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and value >= 0.0
+
+
+def _parse_usage(usage: object) -> UsageMetrics | None:
+    """Map provider usage to null-preserving metrics; missing stays None."""
+    if not isinstance(usage, dict):
+        return None
+    input_tokens = _nonneg_int(usage.get("input_tokens"))
+    output_tokens = _nonneg_int(usage.get("output_tokens"))
+    cached_tokens = None
+    details = usage.get("input_tokens_details")
+    if isinstance(details, dict):
+        cached_tokens = _nonneg_int(details.get("cached_tokens"))
+    if input_tokens is None and output_tokens is None and cached_tokens is None:
+        return None
+    return UsageMetrics(
+        input_tokens=input_tokens,
+        output_tokens=output_tokens,
+        prefill_tokens=None,  # the gateway dialect does not report prefill counts
+        cache_hit_tokens=cached_tokens,
+    )
+
+
+def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
+    """Collect ordered output-text and refusals from a Responses ``output``.
+
+    Returns ``(message_texts, refusal_reason, structural_error)``. The pinned
+    dialect requires each output item to carry a unique ID and an
+    ``output_index`` in order; a ``message`` item must carry content parts.
+    Only ``output_text`` content parts contribute answer text; text in
+    arbitrary untrusted fields is never accepted. Malformed or unusable
+    message items are structural errors, never skipped to salvage success;
+    a completed response without usable output text is an error.
+    """
+    if not isinstance(output, list) or not output:
+        return [], None, "malformed output (expected non-empty item list)"
+    seen_ids: set[str] = set()
+    refusal: str | None = None
+    texts: list[str] = []
+    for position, item in enumerate(output):
+        if not isinstance(item, dict):
+            return [], None, "malformed output item (expected object)"
+        item_id = item.get("id")
+        if not isinstance(item_id, str) or not item_id:
+            return [], None, "output item missing ID"
+        if item_id in seen_ids:
+            return [], None, "duplicate output item ID"
+        seen_ids.add(item_id)
+        if _nonneg_int(item.get("output_index")) != position:
+            return [], None, "out-of-order output item"
+        if item.get("type") != "message":
+            continue  # reasoning/function/etc. items carry no answer text
+        if item.get("status") == "refusal":
+            refusal = refusal or "refusal"
+        content = item.get("content")
+        if not isinstance(content, list) or not content:
+            return [], None, "message item without content parts"
+        message_text: list[str] = []
+        saw_refusal_part = False
+        for part in content:
+            if not isinstance(part, dict):
+                return [], None, "malformed content part"
+            part_type = part.get("type")
+            if part_type == "output_text":
+                text = part.get("text")
+                if not isinstance(text, str):
+                    return [], None, "malformed output_text part"
+                message_text.append(text)
+            elif part_type == "refusal":
+                saw_refusal_part = True
+                refusal = (
+                    refusal
+                    or _allowlisted(part.get("refusal"), _REFUSAL_REASONS)
+                    or "refusal"
+                )
+        if not message_text and not saw_refusal_part:
+            return [], None, "message item without usable output_text content"
+        if message_text:
+            texts.append("".join(message_text))
+    if not texts and refusal is None:
+        return [], None, "no usable output text in completed response"
+    return texts, refusal, None
+
+
+def gateway_backend_fingerprint(route: object) -> str:
+    """Stable declared backend identity (A13 provenance).
+
+    Identifies the adapter dialect, pinned contract, declared model, route
+    and capability snapshot. Changing the request ID or response text must
+    not change it; a declared model revision or route/capability change
+    must. The deployed runtime/GGUF identity is explicitly unverified in
+    this slice and recorded as such.
+    """
+    return fingerprint(
+        {
+            "kind": "gateway",
+            "dialect": "v1-responses",
+            "contract_commit": GATEWAY_CONTRACT_COMMIT,
+            "model": route.model,  # type: ignore[attr-defined]
+            "host": route.host,  # type: ignore[attr-defined]
+            "timeout_seconds": route.timeout_seconds,  # type: ignore[attr-defined]
+            "capabilities": dict(sorted(route.capabilities.model_dump().items())),  # type: ignore[attr-defined]
+            "runtime_identity": "unverified",
+        }
+    )
+
+
+def _terminal_result(
+    request: GeneratorRequest,
+    outcome: CompletionOutcome,
+    *,
+    backend_fingerprint: str | None = None,
+    text: str | None = None,
+    usage: UsageMetrics | None = None,
+    error: str | None = None,
+    attempts: int | None = None,
+) -> GeneratorResult:
+    return GeneratorResult(
+        request_id=request.request_id,
+        outcome=outcome,
+        text=text,
+        usage=usage,
+        timings=None,
+        fingerprint=backend_fingerprint,
+        error=_safe_error(error) if error else None,
+        attempts=attempts,
+    )
+
+
+def build_responses_envelope(
+    request: GeneratorRequest,
+    route: object,
+    *,
+    stream: bool,
+    image_materials: list[str] | None = None,
+) -> dict:
+    """Serialize the exact bounded Responses create envelope.
+
+    The body contains only the constructed allowlist keys; native direct
+    fields (``cache_prompt``/``id_slot``/``slot_ids``) are impossible here by
+    construction. ``image_materials`` must align 1:1 with
+    ``request.images`` in order.
+    """
+    parts: list[dict] = [{"type": "input_text", "text": item.text} for item in request.items]
+    if request.images:
+        materials = image_materials or []
+        if len(materials) != len(request.images):
+            raise ValueError("image material count mismatch")
+        for material in materials:
+            parts.append({"type": "input_image", "image_url": material})
+    envelope: dict = {
+        "model": route.model,  # type: ignore[attr-defined]
+        "input": [{"type": "message", "role": "user", "content": parts}],
+        "max_output_tokens": request.max_output_tokens,
+        "store": False,
+    }
+    if request.instructions:
+        envelope["instructions"] = request.instructions
+    if request.temperature is not None:
+        envelope["temperature"] = request.temperature
+    if request.top_p is not None:
+        envelope["top_p"] = request.top_p
+    if request.response_format == "json_object":
+        envelope["text"] = {"format": {"type": "json_object"}}
+    elif request.response_format == "json_schema":
+        assert request.json_schema is not None
+        envelope["text"] = {"format": {"type": "json_schema", "name": "output",
+                                       "schema": request.json_schema}}
+    if request.prompt_cache_key:
+        envelope["prompt_cache_key"] = request.prompt_cache_key
+    if stream:
+        envelope["stream"] = True
+    return envelope
+
+
+class _StreamState:
+    """Frame-by-frame accumulator with fail-closed structural validation."""
+
+    def __init__(self) -> None:
+        self.response_id: str | None = None
+        self.public_events = 0
+        self.terminal: tuple[str, dict] | None = None  # (kind, payload.response)
+        self.terminal_reason: str | None = None
+        self.error: str | None = None
+        self.saw_done = False
+        self.item_ids: set[str] = set()
+        self.item_order: list[str] = []
+        self.item_buffers: dict[str, list[str]] = {}
+        self.item_final_text: dict[str, str] = {}
+        self.item_refusal: dict[str, str | None] = {}
+        self.completed_payload: dict | None = None
+
+    def note_response_id(self, response_id: object) -> None:
+        if not isinstance(response_id, str) or not response_id:
+            return
+        if self.response_id is None:
+            self.response_id = response_id
+        elif self.response_id != response_id:
+            self.fail("conflicting response IDs")
+
+    def fail(self, reason: str) -> None:
+        if self.error is None:
+            self.error = reason
+
+
+class _GatewayAccumulator:
+    def __init__(self) -> None:
+        self.state = _StreamState()
+
+    def handle(self, frame: SSEFrame) -> None:
+        state = self.state
+        try:
+            payload = json.loads(frame.data) if frame.data else {}
+        except json.JSONDecodeError:
+            state.fail("malformed event payload")
+            return
+        if not isinstance(payload, dict):
+            state.fail("malformed event payload")
+            return
+        event = frame.event
+        if event not in _KNOWN_EVENTS:
+            return  # unknown events are inert; never terminals
+        state.public_events += 1
+        if event == "response.created" or event == "response.in_progress":
+            response = payload.get("response")
+            if isinstance(response, dict):
+                state.note_response_id(response.get("id"))
+        elif event == "response.output_item.added":
+            self._handle_item_added(payload)
+        elif event == "response.output_text.delta":
+            self._handle_text_delta(payload)
+        elif event == "response.output_text.done":
+            self._handle_text_done(payload)
+        elif event == "response.output_item.done":
+            self._handle_item_done(payload)
+        elif event == "response.completed":
+            self._handle_terminal("completed", payload)
+        elif event == "response.failed":
+            self._handle_terminal("failed", payload)
+        elif event == "response.incomplete":
+            self._handle_terminal("incomplete", payload)
+        elif event == "error":
+            state.terminal = ("error", {})
+            state.terminal_reason = "provider error"
+
+    def _handle_item_added(self, payload: dict) -> None:
+        state = self.state
+        item = payload.get("item")
+        if not isinstance(item, dict):
+            state.fail("malformed output_item.added")
+            return
+        item_id = item.get("id")
+        if not isinstance(item_id, str) or not item_id:
+            state.fail("output item missing ID")
+            return
+        if item_id in state.item_ids:
+            state.fail("duplicate output item ID")
+            return
+        output_index = payload.get("output_index")
+        if output_index is not None:
+            if _nonneg_int(output_index) != len(state.item_order):
+                state.fail("out-of-order output item")
+                return
+        state.item_ids.add(item_id)
+        state.item_order.append(item_id)
+        state.item_buffers[item_id] = []
+        state.item_final_text[item_id] = ""
+        state.item_refusal[item_id] = None
+
+    def _handle_text_delta(self, payload: dict) -> None:
+        state = self.state
+        item_id = payload.get("item_id")
+        if not isinstance(item_id, str) or item_id not in state.item_buffers:
+            state.fail("delta for unknown output item")
+            return
+        delta = payload.get("delta")
+        if isinstance(delta, str):
+            state.item_buffers[item_id].append(delta)
+
+    def _handle_text_done(self, payload: dict) -> None:
+        state = self.state
+        item_id = payload.get("item_id")
+        if not isinstance(item_id, str) or item_id not in state.item_buffers:
+            state.fail("done for unknown output item")
+            return
+        cumulative = payload.get("text")
+        if not isinstance(cumulative, str):
+            state.fail("malformed output_text.done")
+            return
+        if "".join(state.item_buffers[item_id]) != cumulative:
+            state.fail("delta/cumulative text mismatch")
+            return
+        state.item_buffers[item_id] = [cumulative]
+
+    def _handle_item_done(self, payload: dict) -> None:
+        state = self.state
+        item = payload.get("item")
+        if not isinstance(item, dict):
+            state.fail("malformed output_item.done")
+            return
+        item_id = item.get("id")
+        if not isinstance(item_id, str) or item_id not in state.item_buffers:
+            state.fail("done for unknown output item")
+            return
+        if item.get("type") == "message":
+            if item.get("status") == "refusal":
+                state.item_refusal[item_id] = "refusal"
+            content = item.get("content")
+            if isinstance(content, list):
+                for part in content:
+                    if isinstance(part, dict) and part.get("type") == "refusal":
+                        state.item_refusal[item_id] = (
+                            _allowlisted(part.get("refusal"), _REFUSAL_REASONS) or "refusal"
+                        )
+                parts_text = [
+                    part.get("text")
+                    for part in content
+                    if isinstance(part, dict) and part.get("type") == "output_text"
+                    and isinstance(part.get("text"), str)
+                ]
+                if parts_text:
+                    state.item_final_text[item_id] = "".join(parts_text)
+        streamed = "".join(state.item_buffers[item_id])
+        if streamed and state.item_final_text[item_id] != streamed:
+            state.fail("item text mismatch between delta stream and done item")
+
+    def _handle_terminal(self, kind: str, payload: dict) -> None:
+        state = self.state
+        if state.terminal is not None:
+            state.fail("duplicate terminal event")
+            return
+        response = payload.get("response")
+        if not isinstance(response, dict):
+            state.fail("malformed terminal payload")
+            return
+        state.note_response_id(response.get("id"))
+        if kind == "completed":
+            state.completed_payload = response
+        elif kind == "failed":
+            state.terminal_reason = "provider failure"
+        elif kind == "incomplete":
+            details = response.get("incomplete_details")
+            reason = _allowlisted(details.get("reason"), _INCOMPLETE_REASONS) \
+                if isinstance(details, dict) else None
+            state.terminal_reason = f"incomplete: {reason}" if reason else "incomplete"
+        state.terminal = (kind, response)
+
+    def stream_text(self) -> str | None:
+        """Ordered partial/full text across output items, or None if none."""
+        ordered: list[str] = []
+        for item_id in self.state.item_order:
+            text = self.state.item_final_text.get(item_id) or "".join(
+                self.state.item_buffers.get(item_id, [])
+            )
+            if text:
+                ordered.append(text)
+        return "\n".join(ordered) if ordered else None
+
+    def stream_refusal(self) -> str | None:
+        for item_id in self.state.item_order:
+            if self.state.item_refusal.get(item_id):
+                return self.state.item_refusal[item_id]
+        return None
+
+
+def _parse_non_stream(body: bytes, request: GeneratorRequest,
+                      backend_fingerprint: str) -> GeneratorResult:
+    try:
+        text = body.decode("utf-8")
+    except UnicodeDecodeError:
+        return _terminal_result(request, CompletionOutcome.FAILED,
+                                backend_fingerprint=backend_fingerprint,
+                                error="provider response is not valid UTF-8")
+    try:
+        doc = json.loads(text)
+    except json.JSONDecodeError:
+        return _terminal_result(request, CompletionOutcome.FAILED,
+                                backend_fingerprint=backend_fingerprint,
+                                error="provider response is not valid JSON")
+    if not isinstance(doc, dict):
+        return _terminal_result(request, CompletionOutcome.FAILED,
+                                backend_fingerprint=backend_fingerprint,
+                                error="malformed provider response")
+    status = doc.get("status")
+    usage = _parse_usage(doc.get("usage"))
+    if status == "completed":
+        texts, refusal, structural = _collect_output(doc.get("output"))
+        if structural:
+            return _terminal_result(request, CompletionOutcome.FAILED,
+                                    backend_fingerprint=backend_fingerprint,
+                                    error=structural, usage=usage)
+        if refusal is not None:
+            return _terminal_result(request, CompletionOutcome.REFUSAL,
+                                    backend_fingerprint=backend_fingerprint,
+                                    error=f"refusal: {refusal}", usage=usage)
+        return _terminal_result(request, CompletionOutcome.TERMINAL,
+                                backend_fingerprint=backend_fingerprint,
+                                text="\n".join(texts), usage=usage)
+    if status == "incomplete":
+        details = doc.get("incomplete_details")
+        reason = _allowlisted(details.get("reason"), _INCOMPLETE_REASONS) \
+            if isinstance(details, dict) else None
+        return _terminal_result(request, CompletionOutcome.INCOMPLETE,
+                                backend_fingerprint=backend_fingerprint,
+                                error=f"incomplete: {reason}" if reason else "incomplete",
+                                usage=usage)
+    if status == "failed":
+        return _terminal_result(request, CompletionOutcome.FAILED,
+                                backend_fingerprint=backend_fingerprint,
+                                error="provider failure", usage=usage)
+    return _terminal_result(request, CompletionOutcome.FAILED,
+                            backend_fingerprint=backend_fingerprint,
+                            error="unexpected provider terminal status", usage=usage)
+
+
+def _finish_stream(acc: _GatewayAccumulator, request: GeneratorRequest,
+                   eof_incomplete: bool, backend_fingerprint: str) -> GeneratorResult:
+    state = acc.state
+    if state.error is not None:
+        return _terminal_result(request, CompletionOutcome.FAILED,
+                                backend_fingerprint=backend_fingerprint, error=state.error)
+    if state.terminal is None:
+        if state.public_events == 0:
+            return _terminal_result(
+                request, CompletionOutcome.UNKNOWN_COMPLETION,
+                backend_fingerprint=backend_fingerprint,
+                error="stream ended without events after dispatch",
+            )
+        error = "stream ended without terminal success"
+        if state.saw_done:
+            error = "stream closed with [DONE] but no terminal success"
+        if eof_incomplete:
+            error = "stream truncated mid-frame without terminal"
+        return _terminal_result(request, CompletionOutcome.INCOMPLETE,
+                                backend_fingerprint=backend_fingerprint, text=acc.stream_text(),
+                                error=error)
+    kind, response = state.terminal
+    usage = _parse_usage(response.get("usage"))
+    if kind == "completed":
+        status = response.get("status")
+        if status != "completed":
+            return _terminal_result(request, CompletionOutcome.FAILED,
+                                    backend_fingerprint=backend_fingerprint,
+                                    error="completed event with non-completed status", usage=usage)
+        texts, refusal, structural = _collect_output(response.get("output"))
+        if structural:
+            return _terminal_result(request, CompletionOutcome.FAILED,
+                                    backend_fingerprint=backend_fingerprint,
+                                    error=structural, usage=usage)
+        observed = state.item_order
+        if observed:
+            completed_ids = [
+                item.get("id")
+                for item in (response.get("output") or [])
+                if isinstance(item, dict) and isinstance(item.get("id"), str)
+            ]
+            if completed_ids and completed_ids != observed:
+                return _terminal_result(
+                    request, CompletionOutcome.FAILED,
+                    backend_fingerprint=backend_fingerprint,
+                    error="completed output does not match observed item order", usage=usage,
+                )
+        streamed_text = acc.stream_text()
+        completed_text = "\n".join(texts)
+        if streamed_text is not None and completed_text != streamed_text:
+            return _terminal_result(request, CompletionOutcome.FAILED,
+                                    backend_fingerprint=backend_fingerprint,
+                                    error="completed text mismatch with observed deltas",
+                                    usage=usage)
+        if refusal is not None:
+            return _terminal_result(request, CompletionOutcome.REFUSAL,
+                                    backend_fingerprint=backend_fingerprint,
+                                    error=f"refusal: {refusal}", usage=usage)
+        return _terminal_result(request, CompletionOutcome.TERMINAL,
+                                backend_fingerprint=backend_fingerprint,
+                                text=completed_text, usage=usage)
+    if kind == "incomplete":
+        return _terminal_result(request, CompletionOutcome.INCOMPLETE,
+                                backend_fingerprint=backend_fingerprint,
+                                text=acc.stream_text(), error=state.terminal_reason or "incomplete",
+                                usage=usage)
+    return _terminal_result(request, CompletionOutcome.FAILED,
+                            backend_fingerprint=backend_fingerprint,
+                            error=state.terminal_reason or "stream terminal failure", usage=usage)
+
+
+class GatewayGenerator:
+    """Callable gateway adapter for annotation/visual/answer purposes."""
+
+    def __init__(
+        self,
+        config: GeneratorConfig,
+        *,
+        api_key: str | None = None,
+        transport: GatewayTransport | None = None,
+        image_resolver: ImageResolver | None = None,
+    ) -> None:
+        self._config = config
+        self._api_key = api_key
+        self._transport = transport
+        self._image_resolver = image_resolver
+
+    @property
+    def identity(self) -> ModelIdentity | None:
+        """Identity of the configured route/model transport (no route -> None).
+
+        Per-request :class:`ModelIdentity` still carries the model-specific
+        declared capabilities; this identity identifies the route itself.
+        """
+        route = self._config.route
+        if route is None:
+            return None
+        return ModelIdentity(name=route.model, adapter="gateway-responses")
+
+    def _transport_instance(self) -> GatewayTransport:
+        if self._transport is not None:
+            return self._transport
+        route = self._config.route
+        if route is None:
+            raise TransportConfigError("gateway route not configured")
+        return GatewayTransport(
+            route.base_url,
+            timeout_seconds=route.timeout_seconds,
+            api_key=self._api_key,
+        )
+
+    def _preflight(self, request: GeneratorRequest) -> tuple[dict, list[str]] | str:
+        route = self._config.route
+        if route is None:
+            return "gateway route not configured"
+        caps = route.capabilities
+        required = request.required_capabilities
+        if Capability.STREAMING in required and not caps.streaming:
+            return "streaming control refused: route does not advertise Responses streaming"
+        # Actual image input requires route/model vision permission even when
+        # the caller omits the capability from required_capabilities: the
+        # semantic input shape, not caller declarations, gates transport.
+        if (request.images or Capability.VISION in required) and not caps.vision:
+            return "vision control refused: route does not advertise vision input"
+        if request.response_format == "json_object" and not caps.json_mode:
+            return "structured output refused: route does not advertise json_mode"
+        if request.response_format == "json_schema" and not caps.structured_outputs:
+            return "structured output refused: route does not advertise structured_outputs"
+        if request.prompt_cache_key and not caps.prompt_caching:
+            return "prompt caching refused: route does not advertise prompt_caching"
+        materials: list[str] = []
+        if request.images:
+            if self._image_resolver is None:
+                return "vision transport not materialized (no trusted image resolver configured)"
+            for ref in request.images:
+                try:
+                    material = self._image_resolver.resolve(ref)
+                except Exception:
+                    return "image resolution failed for authorized reference"
+                if not (
+                    isinstance(material, str)
+                    and (material.startswith(_SAFE_IMAGE_PREFIXES)
+                         or _SAFE_IMAGE_URL_RE.fullmatch(material))
+                ):
+                    return "image material is not bounded safe URL/data form"
+                materials.append(material)
+        stream = Capability.STREAMING in required
+        try:
+            envelope = build_responses_envelope(request, route, stream=stream,
+                                                image_materials=materials or None)
+        except ValueError:
+            return "image material count mismatch"
+        return envelope, materials
+
+    def generate(self, request: GeneratorRequest) -> GeneratorResult:
+        """Run one bounded gateway generation; expected failures are safe results."""
+        route = self._config.route
+        backend_fingerprint = gateway_backend_fingerprint(route) if route is not None else None
+        preflight = self._preflight(request)
+        if isinstance(preflight, str):
+            return _terminal_result(request, CompletionOutcome.FAILED,
+                                    backend_fingerprint=backend_fingerprint, error=preflight)
+        envelope, _ = preflight
+        try:
+            transport = self._transport_instance()
+        except TransportConfigError as exc:
+            return _terminal_result(request, CompletionOutcome.FAILED,
+                                    backend_fingerprint=backend_fingerprint, error=str(exc))
+        stream = Capability.STREAMING in request.required_capabilities
+        deadline = time.monotonic() + min(request.deadline_seconds, self._config.deadline_seconds)
+        payload = json.dumps(envelope, sort_keys=True, separators=(",", ":"),
+                             ensure_ascii=True).encode("utf-8")
+        max_attempts = 1 + self._config.max_retries
+        attempts = 0
+        while True:
+            attempts += 1
+            try:
+                if stream:
+                    result = self._run_stream(transport, request, payload, deadline,
+                                              backend_fingerprint)
+                else:
+                    status, body = transport.post_json(RESPONSES_PATH, payload, deadline=deadline)
+                    if status >= 400:
+                        return _terminal_result(
+                            request,
+                            CompletionOutcome.FAILED,
+                            backend_fingerprint=backend_fingerprint,
+                            error=f"request refused (HTTP {status})",
+                            attempts=attempts,
+                        )
+                    result = _parse_non_stream(body, request, backend_fingerprint)
+                return result.model_copy(update={"attempts": attempts})
+            except TransportConnectError as exc:
+                if attempts < max_attempts:
+                    continue
+                return _terminal_result(request, CompletionOutcome.FAILED,
+                                        backend_fingerprint=backend_fingerprint,
+                                        error=str(exc), attempts=attempts)
+            except TransportTimeoutError as exc:
+                if exc.retryable and attempts < max_attempts:
+                    continue
+                if exc.retryable:
+                    return _terminal_result(request, CompletionOutcome.FAILED,
+                                            backend_fingerprint=backend_fingerprint,
+                                            error=str(exc), attempts=attempts)
+                return _terminal_result(request, CompletionOutcome.UNKNOWN_COMPLETION,
+                                        backend_fingerprint=backend_fingerprint,
+                                        error=str(exc), attempts=attempts)
+            except TransportRefusedError as exc:
+                return _terminal_result(request, CompletionOutcome.FAILED,
+                                        backend_fingerprint=backend_fingerprint,
+                                        error=str(exc), attempts=attempts)
+            except TransportTruncatedError as exc:
+                return _terminal_result(request, CompletionOutcome.FAILED,
+                                        backend_fingerprint=backend_fingerprint,
+                                        error=str(exc), attempts=attempts)
+            except TransportError as exc:
+                return _terminal_result(request, CompletionOutcome.FAILED,
+                                        backend_fingerprint=backend_fingerprint,
+                                        error=str(exc), attempts=attempts)
+
+    def _run_stream(self, transport: GatewayTransport, request: GeneratorRequest,
+                    payload: bytes, deadline: float,
+                    backend_fingerprint: str) -> GeneratorResult:
+        acc = _GatewayAccumulator()
+        try:
+            with transport.open_stream(RESPONSES_PATH, payload, deadline=deadline) as handle:
+                frames = handle.frames()
+                for frame in frames:
+                    if frame.event == "message" and frame.data == "[DONE]":
+                        acc.state.saw_done = True
+                        continue
+                    acc.handle(frame)
+                return _finish_stream(acc, request, eof_incomplete=frames.incomplete_trailing,
+                                      backend_fingerprint=backend_fingerprint)
+        except TransportTimeoutError:
+            text = acc.stream_text()
+            return _terminal_result(
+                request, CompletionOutcome.UNKNOWN_COMPLETION,
+                backend_fingerprint=backend_fingerprint,
+                text=text, error="deadline exhausted mid-stream",
+            )
+        except (TransportProtocolError, TransportTruncatedError) as exc:
+            return _terminal_result(
+                request, CompletionOutcome.FAILED,
+                backend_fingerprint=backend_fingerprint, error=str(exc),
+            )
+        except TransportError as exc:
+            text = acc.stream_text()
+            return _terminal_result(
+                request, CompletionOutcome.UNKNOWN_COMPLETION,
+                backend_fingerprint=backend_fingerprint,
+                text=text, error=f"stream interrupted: {exc}",
+            )
