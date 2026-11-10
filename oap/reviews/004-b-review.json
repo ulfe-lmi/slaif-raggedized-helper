@@ -1,0 +1,89 @@
+{
+  "round": "004-b",
+  "objective": "004",
+  "status": "FINAL",
+  "decision": "CONTINUE_SAME_PR_004_c",
+  "pr": 6,
+  "implementation": "a769265cb888271a9daf67dbe333025b4e423a6d",
+  "report_commit": "693ef7a2cc49ca35ea7fd86939ccc2a104dbb22d",
+  "report_sha256": "747e447550ddb6ebdd5d08021ca0354da10d204b75532a67d3510106aeff2176",
+  "recorded_at": "2026-11-10T15:20:11.896106+00:00",
+  "consumed_response": {
+    "identifier": "004-b",
+    "pr": 6,
+    "implementation": "a769265cb888271a9daf67dbe333025b4e423a6d",
+    "report_commit": "693ef7a2cc49ca35ea7fd86939ccc2a104dbb22d",
+    "report_sha256": "747e447550ddb6ebdd5d08021ca0354da10d204b75532a67d3510106aeff2176",
+    "verified_at": "2026-11-10T15:09:39.393641+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "publication": "UniquePR6OPEN/original004branch/mainbase2bc320ff. Remoteexactreportbytes/SELF/soleimplementationparent/report-onlydiff verified. 18implementationpaths scoped. Worktreecleanafterreport; 004-a-review/order/active bytescommittedunchanged; architecture/sourceoriginals/dependencies/helpers/promptsource/clientsettings unchanged.",
+  "ci": {
+    "implementation_run": 42840299833,
+    "implementation": "ALL_5_SUCCESS",
+    "report_run": 42841191490,
+    "report": "ALL_5_SUCCESS",
+    "last_report_job": "2026-11-10T15:11:04Z"
+  },
+  "counts": "576product independentlycollected; reported275unit+301integration =532baseline+37unit+7integration. Separate41unchangedOAP. CurrentstrictProduct3.12/3.14+OAP3.12/3.13/3.14actualCIallSUCCESS. No fullscopeacceptancefromchecks.",
+  "positives": {
+    "input_reader": "RetainedCLIfileoracle finalsource7fef98d7...: UTF8bytes/malformedJSON/5000digitinteger typedSPEC_INVALID2; ownedTEMPinputFIFO returns2bounded/nokill/notraceback. Descriptor fstat afterO_NONBLOCK, finite65536admission+4096lookahead correct. NoOAPFIFOaccess. ValidUnicodecontrolPLAN0/run0/oneactualownedPOST.",
+    "typed_contracts": "ActualTrialSample/TrialEvidence/sections nowexist andusedatconstruction/analysis/serialization; strictint/float/bool tested. UnchangedDTOoracle: alltestednumericbools+nonfinite refuse; known0/null preserved; validSample/Stagepositiveadmits. Partsofidentity/accountingrelations stillmissing below.",
+    "stages": "IndependenthandcomputedfullyshapedsampleanalysisPASS: perfill/decode/modeltotal/callerwalln/p50/p95/max, known0vsnull, separatewarmups, failed777excluded, emptysets, determinism. No fabricatedprefill/TTFT or actualhardwarequalification.",
+    "transport": "Unchanged7ownedHTTPwitnesses stillconformaftertyped integration (runnerSHAe617f6ad...): sharedGW/nativecallallowancesacrosswarmups/reps, actualtemplatecounts, absolutedeadline~0.2s, unknownnoadapterreplay, wrongmodel0HTTP. PrioractualTCPconnectretry/operatorSIGINTcleanup evidence applies; clients/transport/probesunchanged.",
+    "docs": "TESTING14IDscorrect, admissionminimumwordingcorrected, CONTEXTBUDGETnow42158/TESTING9607 matchesactualmanifest; actualnewgoal-firststartupFAILED explicitlyrecordedandU10open; allrealmodel/resource/licensegatesremainNOTRUN."
+  },
+  "findings": [
+    {
+      "id": "004B-F01",
+      "scope": "004-b criterion2 cross-field result consistency",
+      "severity": "CORRECTION_REQUIRED",
+      "evidence": "ActualonePOSTownedHTTPvalidresultadmits. Sixsingle-fieldcontradictionsalsoADMITunchangedbindingwitnessatfinalcontractSHAd1cefeebb0741718707b356adf9f95c336fa9231bb462192e2668df653e359c0: analysis-vs-transportcallcounts; envelope-vs-declaredbackend; sample-vs-observedbackendfp; reservationtotal-vs-budgettotal; target_type-vs-evidence_class; cacheconsistentcountwithoutreportedcache. Helperrecomputescallsfromanalysis.transport_calls_by_kind, a circularself-copy, notactualledger.",
+      "required": "Bindduplicatedfacts/crossreferences, derive/checkaccountingfromrecordedsamplesandactualledger. Preserveunknown/rawcontradictorybackendfacts, floorreservations/incompleteprefix. Internalconsistencyisnotexecutionattestation."
+    },
+    {
+      "id": "004B-F02",
+      "scope": "Metric completeness",
+      "severity": "CORRECTION_REQUIRED",
+      "evidence": "StageMetricn2/minNone/p50=1/p95=2/max2admits. _QuartileBlock checksallNonebutnotallpresentforn>0. Fullhelperwouldrejectsomeforgedanalysisbyrecomputation, butpublicDTOguarditselfcontradictsitscontract.",
+      "required": "n0allnull; n>0everyquartilepresent, finite/nonnegative andvalidordering. Preservegoodknown0/missingstats andpurefullanalysisrecompute."
+    },
+    {
+      "id": "004B-F03",
+      "scope": "004-b criterion1 decoded Unicode/scalar admission and privacy",
+      "severity": "CORRECTION_REQUIRED",
+      "evidence": "Correctmatching-fingerprintownedHTTPsupplement: invalidhighsurrogateparent/lowfirstsuffixPLAN0, thenrun1/rawPydanticstring_unicodeValidationError/0HTTP; ownedsourcecanaryechoedstderr. ValidUnicodecontrolPLAN0/run0/1POST. EarlierUnicodeoraclebadcaseshadcontrolfingerprintmismatch and provedmismatchrefusal, notUnicodeadmission; originalpreservedandscopecorrected.",
+      "required": "RefuseinvaliddecodedworkloadUnicodewithfixedtyped2/zeroHTTP/noinputecho beforefingerprinting/requestconstruction. PreserveactualvalidUnicode; no replacement/truncation/globalencodingchange."
+    },
+    {
+      "id": "004B-F04",
+      "scope": "004-b criterion2 canonical CLI serialization validation/spent ledger",
+      "severity": "CORRECTION_REQUIRED",
+      "evidence": "Actual2POSTvalidCLIcontrol0fullledgerstdout. Controlledpost-runversioncorruption: exit3EVIDENCE_CONTRACT_VIOLATION butstdoutEMPTY/actualledgerlost. Controlledwithin-rangeforgedp50afteractual2POST: CLIexit0exportsforgedanalysis. CLIcallsTrialEvidence.model_validate, notcanonicalvalidate_trial_evidence (whichrecomputesanalysis).",
+      "required": "Usecanonicalfullcontractatserialization; onpost-workrejection emitfixedsafeerrorwithavailablevalidactualspentledger/unavailabilityscope, no invalidrecordasvalidexport, no zeroHTTPclaim/traceback/blindreplay. Preserveexistinglatewritefailurebehavior."
+    }
+  ],
+  "criteria": {
+    "1": "PARTIAL file/bytes/decoderinputfixed; decodedunpairedUnicodeadmissionstillmissed",
+    "2": "PARTIAL strictDTOs/executionboundariesreal, butcrossfieldbindings/canonicalserialization/ledgerpathincomplete",
+    "3": "VERIFIED_ANALYSIS handcomputedavailablestages/missingness/eligibilitypositive",
+    "4": "PARTIAL broadmeaningfultests+576product/41OAP/allCIpositive; retainedadditionalnegativecasesuncovered",
+    "5": "VERIFIED_CURRENT_DOCS baselinecounts/budgets/contextmeasurementcorrected; consistencyclaimsmusttrackactualnextfixes",
+    "6": "CI_VERIFIED; goal-firstoperationalqualificationFAILED, notpassed. Supportedordinary+post-startgoalrecoveryobserved; sourcepromptstillbadrequiresquiescentstrategicrestorationbeforefurtherautomaticstartup"
+  },
+  "why_not_merge": "Concreteinput/privacy/serializer/internalevidencebindinggaps remain despiteallgreenCI, andwhole004telemetry/parity/fullgatecompositionstillunimplemented. COMPLETEexecutionreportisnotstrategicacceptance. Continuebounded004-c, no005.",
+  "strongest_counterargument": "Allnormalruntimepathsand576producttestsaregreen, andimportedevidenceisalwaysunqualified. Thatdoesnotmeetexplicitstrictbinding/typedrefusal/privacy/spent-accountingcontracts; fixknowncounterexamplesbeforeacceptance.",
+  "operational_checkpoint": "Report/responseverified, /goalclear sent. Coderwasdoingreadonlypost-reportCIaudit: toolroundtripinvaliderrorobservedafterclear, noappmutations. ActualreportCIallgreenandownedpaneprocessinspection15:18:09 showedonlybash+Codex,nobackgroundchildren; worktreeclean. Retireoldcontextthroughqualifiedfreshnextstartup, no/stop/modelrestart/signalreplay. Futuregoalclearonlyafterquiet/toolcompletion; strategyownsreport-headCI, notcodingpost-responsepolling.",
+  "next": "AtquietcheckpointstrategyrestoresEXACTprior582byteordinaryprompt(source41afe88a...), boundedoperationaldocs/manifest, backups, currentgovernance/OAPproof; nextFINAL004-ccommitsrootauthoredbytesunchanged. Then solehandoffandboundednativegoalAFTERactualordinaryfirsttools. Actualrestoredsequencequalificationrequired; failedgoal-firstmodehistoryneverrewritten. Further004resource/parity/fullgate slicesstillrequiredbeforemerge.",
+  "authority": "StandinghumanMVP/scaffold/recovery/developmentauthority. No D1/CRITICALentryforbugs; no D2/model/profile/auth/helper/gateway/service/GPU/data/licenseexception. Real approvedtargets/corpus/heldoutinputsabsent, certifiMPLunapproved; distribution/readiness gatesopen. Fullarchitecture2/A01-A40/text+visualMVP/ICAunfinished.",
+  "oracles": {
+    "/tmp/raggedized004-cli-spec-input-review.py": "e54da22d3627d25cf24c5c7d7424fded25c02e78f4c15d07eee269b38a43299d",
+    "/tmp/raggedized004-unicode-matched-fingerprint-review.py": "bb61c6a86cc5906a85cf68201cbc5921e4db65778d8b2beb71041463310f8bc0",
+    "/tmp/raggedized004-unicode-privacy-review.py": "f9219051ffb9f802fdd992e3700cd3d9d1e912cddd0a3bc94246a36a5f3dd1f5",
+    "/tmp/raggedized004-cli-validation-boundary-review.py": "6051f4643289642cb5826128d30cc3848fa677b67d153d42e83981aca2a55a6b",
+    "/tmp/raggedized004-evidence-binding-review.py": "2790f8b30ff2b7bf82fc0b2f9f74a9b822f0f8328fc752c88605f8da991929d5",
+    "/tmp/raggedized004-evidence-contract-review.py": "1a2176ccaa6b59edc33278695a34decae7a612eaba0a58183ef3cbdd7f79df6d",
+    "/tmp/raggedized004-stage-analysis-review.py": "752c26a38a73256771fa4f6bd83687a906c0c3acbcce577282c05cadc198b7ed",
+    "/tmp/raggedized004-runner-http-review.py": "a97e71a49d7379dcda94461b468985fe01b2b55136be794e63120c5087a6a3d3"
+  }
+}

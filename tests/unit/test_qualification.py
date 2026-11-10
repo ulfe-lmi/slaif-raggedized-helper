@@ -34,6 +34,10 @@ from slaif_raggedized_helper.qualification import (
     trial_workload_fingerprint,
     validate_trial_evidence,
 )
+from slaif_raggedized_helper.qualification.contracts import (
+    StageMetric,
+    derive_cache_input_consistency_counts,
+)
 from slaif_raggedized_helper.qualification.spec import TrialSpec
 from slaif_raggedized_helper.qualification.specio import (
     MAX_SPEC_FILE_BYTES,
@@ -46,13 +50,21 @@ from slaif_raggedized_helper.qualification.specio import (
     REASON_TOO_LONG,
     SPEC_ERROR_MISSING,
 )
-from slaif_raggedized_helper.config import RaggedizedConfig
+from slaif_raggedized_helper.config import (
+    RaggedizedConfig,
+    safe_validation_errors,
+)
 from slaif_raggedized_helper.schema import fingerprint
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 PARENT = "Unit qualification parent fixture, constant bounded text."
 SUFFIXES = [" Suffix A.", " Suffix B."]
+
+# The observed per-trial backend binding used by the evidence fixtures:
+# every KNOWN per-sample backend fingerprint must equal it (004-c);
+# an absent binding stays null.
+OBSERVED_BACKEND_FP = "sha256:" + "1" * 64
 
 
 def make_spec_dict(**overrides) -> dict:
@@ -434,7 +446,7 @@ def sample(phase: str, outcome: str, wall: float | None = 0.1,
         "adapter_reported_cycles": 1,
         "text_fingerprint": None,
         "content_fingerprint": None,
-        "backend_fingerprint": "sha256:" + "0" * 64,
+        "backend_fingerprint": OBSERVED_BACKEND_FP,
         "usage": usage or {"input_tokens": None, "output_tokens": None,
                            "prefill_tokens": None,
                            "cache_hit_tokens": None},
@@ -763,12 +775,19 @@ class TestSampleContracts:
 def _evidence_doc(samples, *, calls_by_kind, evidence_class="MOCK",
                   backend="gateway", max_dispatches=10,
                   stop_reason=None, status=None,
-                  declared_warmups=None, declared_repetitions=None) -> dict:
+                  declared_warmups=None, declared_repetitions=None,
+                  max_output_tokens_total=30, per_sample_output_tokens=10,
+                  reservation_total=None, reservation_per_sample=None) -> dict:
     """Build a strict-contract evidence envelope for tests.
 
     ``declared_warmups``/``declared_repetitions`` default to the
     recorded split; an incomplete/not-run envelope declares the FULL
     sequence while recording only the executed prefix.
+
+    ``per_sample_output_tokens``/``reservation_total``/
+    ``reservation_per_sample`` default to the consistent declared
+    budget (floor even share over the declared scheduled sample
+    count); pass explicit values to build a contradictory document.
     """
     analysis = analyze_trial(samples, calls_by_kind=calls_by_kind,
                              evidence_class=evidence_class)
@@ -779,6 +798,10 @@ def _evidence_doc(samples, *, calls_by_kind, evidence_class="MOCK",
                else declared_warmups)
     repetitions = (recorded_repetitions if declared_repetitions is None
                    else declared_repetitions)
+    if reservation_total is None:
+        reservation_total = max_output_tokens_total
+    if reservation_per_sample is None:
+        reservation_per_sample = per_sample_output_tokens
     attempted = sum(calls_by_kind.values())
     if status is None:
         if len(samples) == warmups + repetitions:
@@ -826,8 +849,8 @@ def _evidence_doc(samples, *, calls_by_kind, evidence_class="MOCK",
         "budgets": {
             "deadline_seconds": 30,
             "max_dispatches": max_dispatches,
-            "max_output_tokens_total": 30,
-            "per_sample_output_tokens": 10,
+            "max_output_tokens_total": max_output_tokens_total,
+            "per_sample_output_tokens": per_sample_output_tokens,
             "elapsed_seconds": 0.1,
             "elapsed_seconds_scope": "trial only",
             "semantics": "one absolute deadline, one shared allowance",
@@ -845,7 +868,7 @@ def _evidence_doc(samples, *, calls_by_kind, evidence_class="MOCK",
                      "endpoint": "fixture"}),
             },
             "observed": {
-                "backend_fingerprint": "sha256:" + "1" * 64,
+                "backend_fingerprint": OBSERVED_BACKEND_FP,
                 "runtime_identity": "unverified",
                 "model_runtime_identity": "unverified",
                 "tokenizer_identity": "unavailable",
@@ -868,8 +891,8 @@ def _evidence_doc(samples, *, calls_by_kind, evidence_class="MOCK",
         },
         "accounting": {
             "output_reservation": {
-                "total": 30,
-                "per_sample": 10,
+                "total": reservation_total,
+                "per_sample": reservation_per_sample,
                 "semantics": "reserved before dispatch",
             },
             "cache_input_consistency": {
@@ -1005,6 +1028,290 @@ class TestEvidenceEnvelope:
                             declared_repetitions=2)
         doc["credentials"] = {"api_key_ref": None, "resolved": None}
         validate_trial_evidence(doc)
+
+
+# ---------------------------------------------------------------------------
+# 004-c cross-field bindings (004B-F01) and metric completeness (004B-F02)
+# ---------------------------------------------------------------------------
+
+class TestCrossFieldBindings:
+    """The canonical full validator binds every duplicated fact.
+
+    Each test flips ONE field of a valid envelope and requires the
+    refusal; the unaltered envelope stays a positive control. Internal
+    consistency is proven — never that the declared metadata is true
+    or that imported JSON was executed here.
+    """
+
+    def test_unaltered_envelope_is_the_positive_control(self):
+        validate_trial_evidence(_valid_evidence())
+
+    def test_analysis_call_count_conflicts_with_actual_ledger_refused(self):
+        # 004B-F01: the recomputation is driven by the ACTUAL
+        # transport-boundary ledger, not the analysis's own copy — a
+        # duplicated count that drifts from the ledger is refused.
+        doc = _valid_evidence()
+        doc["analysis"]["transport_calls_by_kind"]["model_dispatch"] += 1
+        with pytest.raises((ValidationError, ValueError),
+                           match="pure recomputation"):
+            validate_trial_evidence(doc)
+        # the reverse drift (ledger intact, analysis under-counts) too
+        doc = _valid_evidence()
+        doc["analysis"]["transport_calls_by_kind"]["model_dispatch"] -= 1
+        with pytest.raises((ValidationError, ValueError),
+                           match="pure recomputation"):
+            validate_trial_evidence(doc)
+
+    def test_envelope_backend_conflicts_with_declared_backend_refused(self):
+        doc = _valid_evidence()
+        doc["backend"] = "direct"
+        with pytest.raises(ValidationError, match="declared backend"):
+            TrialEvidence.model_validate(doc)
+
+    def test_sample_backend_fp_conflicts_with_observed_binding_refused(self):
+        doc = _valid_evidence()
+        doc["requests"][0]["backend_fingerprint"] = "sha256:" + "0" * 64
+        with pytest.raises(ValidationError,
+                           match="backend fingerprint conflicts"):
+            TrialEvidence.model_validate(doc)
+
+    def test_null_sample_backend_fp_stays_allowed(self):
+        # an absent binding stays null, never guessed — failure
+        # samples without a declared binding remain valid
+        doc = _valid_evidence()
+        doc["requests"][0]["backend_fingerprint"] = None
+        validate_trial_evidence(doc)
+
+    def test_target_type_conflicts_with_evidence_class_refused(self):
+        doc = _valid_evidence()  # MOCK / synthetic-owned-fixture
+        doc["target_type"] = "unverified"
+        with pytest.raises(ValidationError, match="consistent with the evidence class"):
+            TrialEvidence.model_validate(doc)
+        doc = _valid_evidence()
+        doc["evidence_class"] = "CONFIGURED_UNVERIFIED"
+        with pytest.raises(ValidationError, match="consistent with the evidence class"):
+            TrialEvidence.model_validate(doc)
+
+    def test_configured_unverified_pair_is_the_other_valid_pair(self):
+        doc = _valid_evidence()
+        doc["evidence_class"] = "CONFIGURED_UNVERIFIED"
+        doc["target_type"] = "unverified"
+        doc["analysis"] = analyze_trial(
+            [s.model_dump() for s in
+             TrialEvidence.model_validate(_valid_evidence()).requests],
+            calls_by_kind={"model_dispatch": 3},
+            evidence_class="CONFIGURED_UNVERIFIED")
+        validate_trial_evidence(doc)
+
+    def test_output_reservation_conflicts_with_budget_refused(self):
+        doc = _valid_evidence()
+        doc["accounting"]["output_reservation"]["total"] += 1
+        with pytest.raises(ValidationError,
+                           match="reservation total must equal"):
+            TrialEvidence.model_validate(doc)
+        doc = _valid_evidence()
+        doc["accounting"]["output_reservation"]["per_sample"] += 1
+        with pytest.raises(ValidationError,
+                           match="reservation per-sample must equal"):
+            TrialEvidence.model_validate(doc)
+
+    def test_per_sample_must_be_even_share_of_declared_count(self):
+        # declared 3 samples, total 30 -> share 10; a share computed
+        # from the SHORTER recorded prefix (1 sample -> 30) refuses
+        samples = [sample("warmup", "terminal", wall=0.5, ordinal=0)]
+        doc = _evidence_doc(samples, calls_by_kind={"model_dispatch": 1},
+                            status="incomplete",
+                            stop_reason="budget_exhausted_deadline",
+                            declared_warmups=1, declared_repetitions=2,
+                            per_sample_output_tokens=30)
+        with pytest.raises(ValidationError,
+                           match="floor even share"):
+            TrialEvidence.model_validate(doc)
+        # the declared-count share (10) with the incomplete recorded
+        # prefix stays valid
+        doc = _evidence_doc(samples, calls_by_kind={"model_dispatch": 1},
+                            status="incomplete",
+                            stop_reason="budget_exhausted_deadline",
+                            declared_warmups=1, declared_repetitions=2)
+        validate_trial_evidence(doc)
+
+    def test_cache_consistency_claim_without_reported_cache_refused(self):
+        doc = _valid_evidence()  # no sample reports cache_hit_tokens
+        doc["accounting"]["cache_input_consistency"]["consistent_samples"] = 1
+        with pytest.raises(ValidationError,
+                           match="pure derivation from the actually recorded raw usage"):
+            TrialEvidence.model_validate(doc)
+
+    def test_cache_consistency_counts_derived_from_recorded_usage(self):
+        # raw facts: contradictory cache 999 > input 5 stays a VALID
+        # sample value; the label must equal the pure derivation
+        doc = _valid_evidence()
+        doc["requests"][0]["usage"] = _usage(input_tokens=5,
+                                             cache_hit_tokens=999)
+        doc["accounting"]["cache_input_consistency"] = {
+            "consistent_samples": 0,
+            "contradictory_samples": 1,
+            "uncheckable_samples": 0,
+            "note": "raw facts only",
+        }
+        validate_trial_evidence(doc)
+        # uncheckable: known cache, missing input
+        doc = _valid_evidence()
+        doc["requests"][0]["usage"] = _usage(input_tokens=None,
+                                             cache_hit_tokens=3)
+        doc["accounting"]["cache_input_consistency"] = {
+            "consistent_samples": 0,
+            "contradictory_samples": 0,
+            "uncheckable_samples": 1,
+            "note": "raw facts only",
+        }
+        validate_trial_evidence(doc)
+        # consistent: cache 3 <= input 12
+        doc = _valid_evidence()
+        doc["requests"][0]["usage"] = _usage(input_tokens=12,
+                                             cache_hit_tokens=3)
+        doc["accounting"]["cache_input_consistency"] = {
+            "consistent_samples": 1,
+            "contradictory_samples": 0,
+            "uncheckable_samples": 0,
+            "note": "raw facts only",
+        }
+        validate_trial_evidence(doc)
+
+
+class TestCacheDerivation:
+    """The shared pure derivation over recorded raw usage (004-c)."""
+
+    @staticmethod
+    def _s(input_tokens, cache_hit_tokens):
+        return {"usage": {"input_tokens": input_tokens,
+                          "output_tokens": None, "prefill_tokens": None,
+                          "cache_hit_tokens": cache_hit_tokens}}
+
+    def test_all_unknown_is_all_zero(self):
+        assert derive_cache_input_consistency_counts(
+            [self._s(None, None), self._s(5, None)]) == (0, 0, 0)
+
+    def test_known_zero_cache_is_a_fact(self):
+        # reported 0 <= reported 0 is CONSISTENT (a known zero is a
+        # measurement, not unknown)
+        assert derive_cache_input_consistency_counts(
+            [self._s(0, 0)]) == (1, 0, 0)
+
+    def test_known_cache_with_unknown_input_is_uncheckable(self):
+        assert derive_cache_input_consistency_counts(
+            [self._s(None, 3)]) == (0, 0, 1)
+
+    def test_contradictory_counters_are_raw_facts(self):
+        assert derive_cache_input_consistency_counts(
+            [self._s(3, 5)]) == (0, 1, 0)
+
+    def test_within_relation_is_consistent(self):
+        assert derive_cache_input_consistency_counts(
+            [self._s(12, 3), self._s(None, None)]) == (1, 0, 0)
+
+
+class TestQuartileCompleteness:
+    """n=0 iff all quartiles null; n>0 requires EVERY quartile."""
+
+    @staticmethod
+    def _stage(**over):
+        doc = dict(n=2, min=1.0, p50=1.0, p95=2.0, max=2.0, missing=0,
+                   invalid_observations=0, source="owned-fixture")
+        doc.update(over)
+        return doc
+
+    def test_valid_quartiles_admitted(self):
+        StageMetric.model_validate(self._stage())
+        StageMetric.model_validate(self._stage(n=0, min=None, p50=None,
+                                               p95=None, max=None))
+
+    @pytest.mark.parametrize("field", ["min", "p50", "p95", "max"])
+    def test_positive_count_partial_quartile_refused(self, field):
+        with pytest.raises(ValidationError,
+                           match="every quartile present"):
+            StageMetric.model_validate(self._stage(**{field: None}))
+
+    @pytest.mark.parametrize("over", [
+        {"min": 2.0, "p50": 1.0},
+        {"p50": 3.0, "p95": 2.0},
+        {"p95": 3.0, "max": 2.0},
+    ])
+    def test_malformed_ordering_refused(self, over):
+        with pytest.raises(ValidationError, match="ordered"):
+            StageMetric.model_validate(self._stage(**over))
+
+    @pytest.mark.parametrize("field", ["min", "p50", "p95", "max"])
+    @pytest.mark.parametrize("value", [float("inf"), -1.0])
+    def test_nonfinite_or_negative_quartile_refused(self, field, value):
+        with pytest.raises(ValidationError):
+            StageMetric.model_validate(self._stage(**{field: value}))
+
+    def test_bool_sample_count_refused(self):
+        with pytest.raises(ValidationError):
+            StageMetric.model_validate(self._stage(n=True))
+
+    def test_zero_count_with_present_quartile_refused(self):
+        with pytest.raises(ValidationError, match="all-null"):
+            StageMetric.model_validate(self._stage(n=0))
+
+
+class TestSpecUnicodeAdmission:
+    """Invalid decoded workload Unicode refuses at spec admission."""
+
+    def _spec(self, **overrides) -> dict:
+        # Matched-fingerprint fixture: the declared fingerprint always
+        # tracks the EXACT declared material, so a refusal can only
+        # come from the decoded-Unicode admission (not a fingerprint
+        # mismatch).
+        parent = overrides.get("parent", PARENT)
+        suffixes = list(overrides.get("suffixes", list(SUFFIXES)))
+        doc = make_spec_dict(parent=parent, suffixes=list(suffixes))
+        doc["workload_fingerprint"] = trial_workload_fingerprint(
+            parent=parent, suffixes=list(suffixes), seed=11, warmups=1,
+            repetitions=2)
+        return doc
+
+    def test_lone_high_surrogate_parent_refused(self):
+        doc = self._spec(parent="\ud800")
+        with pytest.raises(ValidationError) as excinfo:
+            TrialSpec.model_validate(doc)
+        errors = excinfo.value.errors()
+        assert [tuple(e["loc"]) for e in errors] == [("parent",)]
+        assert "invalid decoded Unicode" in errors[0]["msg"]
+        # fixed safe message: the input value is never echoed
+        assert "\ud800" not in str(errors[0]["msg"])
+
+    def test_lone_low_surrogate_first_suffix_refused(self):
+        doc = self._spec(suffixes=["\udfff", " Suffix B."])
+        with pytest.raises(ValidationError) as excinfo:
+            TrialSpec.model_validate(doc)
+        errors = excinfo.value.errors()
+        assert [tuple(e["loc"]) for e in errors] == [("suffixes",)]
+        assert "invalid decoded Unicode" in errors[0]["msg"]
+
+    @pytest.mark.parametrize("parent,suffixes", [
+        ("Owned \U0001f600 \u0161\u010d\u0360.", [" Suffix A.", " Suffix B."]),
+        ("Valid astral \U0001f1e7\U0001f1e7 text", [" A"]),
+    ])
+    def test_valid_unicode_admitted_unchanged(self, parent, suffixes):
+        doc = self._spec(parent=parent, suffixes=list(suffixes))
+        spec = TrialSpec.model_validate(doc)
+        assert spec.parent == parent
+        assert spec.suffixes == list(suffixes)
+        # the fingerprint is computed from the exact admitted text
+        assert spec.declared_workload_fingerprint_matches()
+
+    def test_refusal_performs_no_replacement_or_truncation(self):
+        doc = self._spec(parent="canary-parent\ud800-tail")
+        with pytest.raises(ValidationError) as excinfo:
+            TrialSpec.model_validate(doc)
+        # the fixed safe message and the CLI's rendered error string
+        # (safe_validation_errors) never echo the input value
+        assert "canary-parent" not in excinfo.value.errors()[0]["msg"]
+        rendered = safe_validation_errors(excinfo.value)
+        assert "canary-parent" not in rendered
+        assert "\ud800" not in rendered
 
 
 # ---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-"""Explicit strict bounded sample/result evidence contracts (OAP 004-b).
+"""Explicit strict bounded sample/result evidence contracts (OAP 004-b/c).
 
 004-a criterion 1 (004-F02): the per-sample records and the trial
 result envelope are EXACT, BOUNDED, FROZEN DTOs — no untyped
@@ -23,10 +23,30 @@ boundaries:
 - ``validate_trial_evidence`` additionally requires the analysis
   section to equal the PURE recomputation from the recorded samples —
   a forged or drifted analysis is a contract violation.
+  004-c (004B-F01): the recomputation is driven by the ACTUAL
+  transport-boundary call ledger (``transport_boundary.calls_by_kind``),
+  never by the analysis's own copy of the call counts — a duplicated
+  fact that drifts from the ledger is a contract violation.
 
 All scalar fields are STRICT: no implicit coercion (a bool is never a
 number, a float is never an integer counter, a string is never a
 boolean).
+
+Cross-field bindings enforced by the envelope (004-c, 004B-F01):
+
+- the envelope backend equals the declared backend;
+- every KNOWN per-sample backend fingerprint equals the observed
+  per-trial backend binding (an absent binding stays null, never
+  guessed);
+- the output-reservation metadata equals the same declared
+  total/per-sample budget used by execution, and the per-sample share
+  is the floor even share over the DECLARED scheduled sample count
+  (never the shorter recorded prefix after an early stop);
+- the provenance pair is consistent (MOCK iff
+  synthetic-owned-fixture; CONFIGURED_UNVERIFIED iff unverified);
+- the cache/input consistency counts equal the pure derivation from
+  the ACTUALLY RECORDED raw usage (raw contradictory facts stay valid
+  sample values; the label lives in the accounting section).
 """
 
 from __future__ import annotations
@@ -198,6 +218,35 @@ class TrialSample(BaseModel):
 # analysis section
 # ---------------------------------------------------------------------------
 
+def derive_cache_input_consistency_counts(
+        samples: list[dict[str, Any]]) -> tuple[int, int, int]:
+    """Derive the supported cache/input accounting relation per sample.
+
+    Over the ACTUALLY RECORDED raw usage (shared by the runner and the
+    result validator, 004-c): a sample that reports no
+    ``cache_hit_tokens`` is uncounted (unknown stays unknown); a known
+    ``cache_hit_tokens`` with missing ``input_tokens`` is
+    ``uncheckable``; ``cache_hit_tokens > input_tokens`` is
+    ``contradictory``; otherwise ``consistent``. Contradictory counters
+    remain valid raw sample facts — the label lives here, never in a
+    mutation of the raw value.
+    """
+    consistent = contradictory = uncheckable = 0
+    for sample in samples:
+        usage = sample["usage"]
+        cache_hit = usage["cache_hit_tokens"]
+        input_tokens = usage["input_tokens"]
+        if cache_hit is None:
+            continue
+        if input_tokens is None:
+            uncheckable += 1
+        elif cache_hit > input_tokens:
+            contradictory += 1
+        else:
+            consistent += 1
+    return consistent, contradictory, uncheckable
+
+
 class _QuartileBlock(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -208,15 +257,28 @@ class _QuartileBlock(BaseModel):
     max: StrictFloat | None = None
 
     @model_validator(mode="after")
-    def _check_zero_all_null(self) -> "_QuartileBlock":
+    def _check_quartile_completeness(self) -> "_QuartileBlock":
+        # n == 0 requires ALL-NULL quartiles; n > 0 requires EVERY
+        # quartile present (004B-F02: a partial quartile set with a
+        # positive count contradicts the summary contract), finite,
+        # non-negative and ordered min <= p50 <= p95 <= max.
         quartiles = (self.min, self.p50, self.p95, self.max)
-        if (self.n == 0) != all(value is None for value in quartiles):
+        if self.n == 0:
+            if any(value is not None for value in quartiles):
+                raise ValueError(
+                    "n==0 requires all-null quartiles")
+            return self
+        if any(value is None for value in quartiles):
             raise ValueError(
-                "n==0 requires all-null quartiles and n>0 requires all "
-                "present quartiles")
-        for value in quartiles:
-            if value is not None:
-                _finite_nonneg_float(value, "quartile")
+                "n>0 requires every quartile present (min, p50, p95, max)")
+        values = [
+            _finite_nonneg_float(value, name)
+            for name, value in zip(("min", "p50", "p95", "max"),
+                                   quartiles)
+        ]
+        if not (values[0] <= values[1] <= values[2] <= values[3]):
+            raise ValueError(
+                "quartiles must be ordered min <= p50 <= p95 <= max")
         return self
 
 
@@ -634,6 +696,22 @@ class TrialEvidence(BaseModel):
     @model_validator(mode="after")
     def _check_trial_relations(self) -> "TrialEvidence":
         requests = self.requests
+        # 004-c cross-field bindings: duplicated facts and references
+        # are bound to their authoritative section. These checks prove
+        # INTERNAL consistency only — never that the declared metadata
+        # is true, that a hash proves deployed hardware/model identity,
+        # or that imported JSON was executed here.
+        if self.backend != self.identities.declared.backend:
+            raise ValueError(
+                "envelope backend must equal the declared backend")
+        expected_target = ("synthetic-owned-fixture"
+                           if self.evidence_class == "MOCK"
+                           else "unverified")
+        if self.target_type != expected_target:
+            raise ValueError(
+                "target_type must be consistent with the evidence "
+                "class (MOCK iff synthetic-owned-fixture; "
+                "CONFIGURED_UNVERIFIED iff unverified)")
         # The recorded samples are an EXACT PREFIX of the declared
         # sequence: a complete trial records all of them; an incomplete
         # trial records the leading prefix actually executed (deadline,
@@ -659,6 +737,12 @@ class TrialEvidence(BaseModel):
                 raise ValueError(
                     f"sample {position} first_repetition must be "
                     f"{expected_first}")
+            if (sample.backend_fingerprint is not None
+                    and sample.backend_fingerprint
+                    != self.identities.observed.backend_fingerprint):
+                raise ValueError(
+                    f"sample {position} backend fingerprint conflicts "
+                    "with the observed per-trial backend binding")
         if (self.analysis.warmups.samples_total
                 != min(self.workload.warmups, len(requests))):
             raise ValueError(
@@ -667,6 +751,37 @@ class TrialEvidence(BaseModel):
                 != max(0, len(requests) - self.workload.warmups)):
             raise ValueError(
                 "measured group size must equal the recorded repetitions")
+        # Output reservation metadata is the SAME declared budget used
+        # by execution: the per-sample share is the floor even share
+        # over the DECLARED scheduled sample count (never the shorter
+        # recorded prefix), so an incomplete trial still carries the
+        # reservation computed from the full declared sequence.
+        if (self.budgets.per_sample_output_tokens
+                != (self.budgets.max_output_tokens_total
+                    // self.workload.samples)):
+            raise ValueError(
+                "per-sample output allowance must be the floor even "
+                "share of the declared total over the declared "
+                "scheduled sample count")
+        if (self.accounting.output_reservation.total
+                != self.budgets.max_output_tokens_total):
+            raise ValueError(
+                "output reservation total must equal the declared "
+                "max_output_tokens_total budget")
+        if (self.accounting.output_reservation.per_sample
+                != self.budgets.per_sample_output_tokens):
+            raise ValueError(
+                "output reservation per-sample must equal the declared "
+                "per-sample output budget")
+        derived = derive_cache_input_consistency_counts(
+            [sample.model_dump() for sample in requests])
+        declared = self.accounting.cache_input_consistency
+        if ((declared.consistent_samples,
+             declared.contradictory_samples,
+             declared.uncheckable_samples) != derived):
+            raise ValueError(
+                "cache/input consistency counts must equal the pure "
+                "derivation from the actually recorded raw usage")
         if self.transport_boundary.remaining_dispatches \
                 + self.transport_boundary.attempted_calls \
                 != self.budgets.max_dispatches:
@@ -700,13 +815,21 @@ def validate_trial_evidence(document: dict[str, Any]) -> TrialEvidence:
     pure function of its observations; a forged or drifted analysis is
     a contract violation). Raises ``pydantic.ValidationError`` with
     field locations on any violation.
+
+    004-c (004B-F01): the recomputation's call accounting is driven by
+    the ACTUAL transport-boundary ledger
+    (``transport_boundary.calls_by_kind``), never by the analysis's
+    own copy of the call counts — the analysis section is checked
+    against the ledger, and an analysis call count different from the
+    ledger is refused (adapter cycles can differ legitimately; they
+    never replace actual transport attempts).
     """
     from .analysis import analyze_trial
 
     model = TrialEvidence.model_validate(document)
     expected = analyze_trial(
         [sample.model_dump() for sample in model.requests],
-        calls_by_kind=dict(model.analysis.transport_calls_by_kind),
+        calls_by_kind=dict(model.transport_boundary.calls_by_kind),
         evidence_class=model.evidence_class,
     )
     actual = model.analysis.model_dump()

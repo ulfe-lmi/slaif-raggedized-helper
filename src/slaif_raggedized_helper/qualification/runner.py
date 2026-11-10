@@ -75,7 +75,11 @@ from .analysis import analyze_trial
 from .gates import GATES_DOC_PATH, executable_gate_ids
 from .spec import TrialSpec
 from .synthetic import FIXTURE_ENDPOINT_IDENTITY, SYNTHETIC_API_KEY, SyntheticTrialServer
-from .contracts import TrialSample, validate_trial_evidence
+from .contracts import (
+    TrialSample,
+    derive_cache_input_consistency_counts,
+    validate_trial_evidence,
+)
 
 STOP_EVIDENCE_CONTRACT_VIOLATION = "evidence_contract_violation"
 
@@ -330,20 +334,14 @@ def _cache_input_consistency(samples: list[dict[str, Any]]) -> dict[str, int]:
     ``cache_hit_tokens <= input_tokens`` when both are reported;
     contradictory counters are raw facts and can never become positive
     evidence; an uncheckable relation (input missing) stays explicit.
+
+    The counts are the SHARED pure derivation
+    (``derive_cache_input_consistency_counts``) that the result
+    validator recomputes (004-c): the declared counts must equal the
+    derivation from the actually recorded raw usage.
     """
-    consistent = contradictory = uncheckable = 0
-    for sample in samples:
-        usage = sample["usage"]
-        cache_hit = usage["cache_hit_tokens"]
-        input_tokens = usage["input_tokens"]
-        if cache_hit is None:
-            continue
-        if input_tokens is None:
-            uncheckable += 1
-        elif cache_hit > input_tokens:
-            contradictory += 1
-        else:
-            consistent += 1
+    consistent, contradictory, uncheckable = (
+        derive_cache_input_consistency_counts(samples))
     return {
         "consistent_samples": consistent,
         "contradictory_samples": contradictory,

@@ -181,3 +181,48 @@ human question.
 - No live target/model/GPU/corpus work was performed (order 004-b
   live authorization: NONE); the certifi (MPL-2.0) policy gate
   remains an open human question (LICENSE-01).
+### 2026-11-10, order 004-c (evidence consistency and metric completeness)
+
+- U01-U09 unchanged in kind: the 004-c slice closes the
+  independently reproduced cross-field evidence-consistency, metric-
+  completeness, decoded-Unicode and serializer/spent-ledger gaps on
+  the verified 004-b head (actual-ledger-driven analysis
+  recomputation; envelope/declared/sample backend and fingerprint
+  bindings; provenance pairs; declared-budget reservation and floor
+  even share over the declared sample count; pure cache/input
+  consistency derivation; quartile-complete stage metrics; unpaired-
+  surrogate refusal at spec admission; canonical full strict result
+  contract at CLI serialization with the actual valid spent ledger
+  preserved on post-work rejection) and is executable synthetic-only
+  software. U01/U02 stay OPEN — the new bindings prove INTERNAL
+  consistency of the evidence document only: declared identities are
+  still verified pre-dispatch, but the deployed runtime/GGUF/tokenizer
+  identities remain unverified/unavailable, a fingerprint does not
+  prove deployed hardware/model identity, and consistent imported
+  metadata is still not trusted local execution or qualification
+  evidence.
+- U05 unchanged in kind, strengthened in bound: reported
+  cache/input counters stay raw facts; the consistency LABEL is now
+  bound to the shared pure derivation from the actually recorded raw
+  usage (unreported cache uncounted, known cache with unknown input
+  uncheckable, cache > input contradictory — a known 0 is a fact).
+  No positive cache/latency evidence follows from any of this.
+- U03/U04/U08 unchanged: no resource telemetry, parity analysis or
+  latency promise in this slice; the quartile-complete stage summaries
+  are instrumentation over reported values only — gateway
+  prefill/TTFT remain unavailable (n=0, all-null), not zero. Resource
+  telemetry, vector/rank parity and full named gate composition
+  remain required in later proof-sized 004 continuations.
+- Operational: the 004-a /goal-first startup qualification remains
+  RECORDED FAILED history (never relabeled passed); strategy restored
+  the exact previously qualified 582-byte ordinary startup prompt
+  (committed byte-unchanged with this round, manifest entry
+  preserved) and the root-authored startup docs record the actual
+  supported two-step sequence (ordinary startup first, then one
+  bounded native goal) and its bounds. Real restored
+  wrapper/role/order/post-start-goal qualification is performed by
+  strategy on this actual handoff, never inferred from file hash;
+  U10 stays OPEN.
+- No live target/model/GPU/corpus work was performed (order 004-c
+  live authorization: NONE); the certifi (MPL-2.0) policy gate
+  remains an open human question (LICENSE-01).

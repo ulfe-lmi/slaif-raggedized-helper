@@ -1,8 +1,8 @@
 # Qualification trial protocol — finite repeated-parent trials (OAP 004-a)
 
 This document describes the EXECUTED software of objective 004 (the
-004-a finite qualification trial runner and the 004-b evidence
-contract correction): one finite qualification trial runner, strict
+004-a finite qualification trial runner and the 004-b/004-c evidence
+contract corrections): one finite qualification trial runner, strict
 bounded trial-spec/sample/result contracts, bounded safe spec file
 input, available-stage latency summaries and actual
 gateway/direct repeated-parent composition. It records the exact 004
@@ -10,12 +10,14 @@ software replan (the D0 replan in order 004-a): authorized real
 gateway/GPU/model/corpus inputs remain absent, so this software
 establishes usable instrumentation and exact prerequisites; actual
 A1/hardware/quality feasibility remains UNPROVEN and is mandatory at
-019/ICA/MVP. The 004-b correction (this slice) completes the evidence
-contracts and input boundaries of the verified 004-a head; resource
-telemetry, vector/rank parity and full named gate composition remain
-required in later proof-sized 004 continuations (strategic
-activation required). Whole-004 acceptance/merge and 005 selection
-are not delegated here.
+019/ICA/MVP. The 004-b correction completed the evidence contracts
+and input boundaries of the verified 004-a head, and the 004-c
+correction (this slice) closes the cross-field evidence-consistency,
+metric-completeness, decoded-Unicode and serializer/spent-ledger gaps
+on the verified 004-b head; resource telemetry, vector/rank parity and
+full named gate composition remain required in later proof-sized 004
+continuations (strategic activation required). Whole-004
+acceptance/merge and 005 selection are not delegated here.
 
 ## Explicit supported CLI commands
 
@@ -120,6 +122,15 @@ BEFORE any fingerprinting or dispatch:
 - encoding: STRICT UTF-8 — invalid Unicode is refused before
   fingerprinting/dispatch, never replaced or truncated into a new
   workload;
+- decoded Unicode: after decoding and JSON parsing, the strict
+  `TrialSpec` field validators refuse a workload string that decodes
+  to INVALID Unicode — an unpaired surrogate code point
+  (U+D800..U+DFFF, e.g. from a JSON `\uD800` escape) — with a fixed
+  safe reason BEFORE fingerprinting or request construction (004-c).
+  Valid Unicode — including escaped astral surrogate pairs and
+  non-Latin text — is admitted unchanged; the refusal performs no
+  replacement, no truncation, no global encoding change and no
+  fingerprint-version change;
 - JSON: the expected decoder failures are FIXED typed refusals —
   `not_json` (with the decoder line number), `integer_too_large`
   (a JSON integer beyond the interpreter's fixed digit bound) and
@@ -179,7 +190,7 @@ config/secret privacy rules and the exit-code distinctions.
   the adapter's finite configured retry policy (which itself consumes
   the shared allowance).
 
-## Strict sample/result evidence contracts (004-b)
+## Strict sample/result evidence contracts (004-b/004-c)
 
 The per-sample records and the trial result envelope are EXACT,
 BOUNDED, FROZEN DTOs
@@ -217,9 +228,47 @@ BOUNDED, FROZEN DTOs
   render/export a document that violates the contract — an honest
   post-work exit-3, never a silent export);
 - `validate_trial_evidence` additionally requires the analysis
-  section to EQUAL the pure recomputation from the recorded samples
-  (the analysis is a pure function of its observations; a forged or
-  drifted analysis is a contract violation);
+  section to EQUAL the pure recomputation from the recorded samples,
+  driven by the ACTUAL transport-boundary call ledger
+  (`transport_boundary.calls_by_kind`), never the analysis's own copy
+  of the call counts (the analysis is a pure function of its
+  observations; a forged or drifted analysis — including a call count
+  that conflicts with the ledger — is a contract violation; adapter
+  cycles can differ legitimately and never replace actual transport
+  attempts);
+- the envelope binds every duplicated fact to its authoritative
+  section (004-c): the envelope backend equals the declared backend;
+  every KNOWN per-sample backend fingerprint equals the observed
+  per-trial backend binding (an absent binding stays null, never
+  guessed); the target type is consistent with the evidence class
+  (MOCK iff synthetic-owned-fixture, CONFIGURED_UNVERIFIED iff
+  unverified); the output-reservation total/per-sample equal the same
+  declared `max_output_tokens_total` / per-sample budget, with the
+  per-sample share the floor even share over the DECLARED scheduled
+  sample count (never the shorter recorded prefix after an early
+  stop); and the cache/input consistency counts equal the shared pure
+  derivation from the actually recorded raw usage (an unreported
+  cache counter is uncounted, a known cache with unknown input is
+  uncheckable, cache > input is contradictory — raw contradictory
+  counters stay valid sample facts, the label lives in the accounting
+  section);
+- the stage metric summaries are complete or null (004-c): `n=0`
+  requires ALL-NULL quartiles and `n>0` requires EVERY quartile
+  present, finite, non-negative and ordered `min <= p50 <= p95 <=
+  max`; a partial quartile set with a positive count is refused;
+- the CLI serialization boundary uses the canonical FULL strict
+  result contract (`validate_trial_evidence` — strict shape plus the
+  analysis pure-recomputation), not a basic shape check (004-c): a
+  post-work rejection is an honest exit 3 — a fixed safe structured
+  error carrying the ACTUAL valid spent-attempt ledger is written to
+  stdout (and stderr) and the invalid record is never exported as a
+  valid result; when the ledger itself cannot be validated its
+  availability is marked honestly (never assumed zero, never a crash
+  while formatting);
+- these checks prove INTERNAL consistency only — never that the
+  declared metadata is true, that a fingerprint proves deployed
+  hardware/model identity, or that the imported JSON was executed
+  here;
 - the public dict JSON compatibility is preserved through validated
   DTO serialization (the rendered document is the DTO projection of
   the same values).
@@ -342,18 +391,34 @@ feasibility.
 
 - The 004 D0 replan is explicit: 004-a delivered the runner, strict
   spec contracts, composition and the machine-readable prerequisite
-  projection. The 004-b correction (this slice) completes the missing
-  evidence contracts (strict bounded sample/result DTOs used at the
-  construction/serialization/analysis boundaries, analysis
+  projection. The 004-b correction completed the missing evidence
+  contracts (strict bounded sample/result DTOs used at the
+  construction/serialization/analysis boundaries, the analysis
   recomputation invariant), the bounded safe spec file input
   (descriptor/type/byte/UTF-8/JSON-decoder typed refusals at zero
-  HTTP) and the available-stage summaries, and corrects the current
-  documentation and context measurements to the actual implementation.
-  Resource telemetry, vector/rank parity and full named gate
-  composition remain required in LATER proof-sized 004 continuations
-  (strategic activation required); 019/ICA/MVP gate actual
-  feasibility. This correction does not substitute a smaller
-  objective for that scope.
+  HTTP) and the available-stage summaries. The 004-c correction (this
+  slice) closes the independently reproduced cross-field evidence
+  consistency bindings (analysis recomputation driven by the actual
+  transport-boundary ledger; envelope/declared backend and per-sample
+  backend-fingerprint bindings; evidence-class/target-type provenance
+  pairs; output reservation bound to the declared budget with the
+  floor even share over the DECLARED scheduled sample count; cache/
+  input consistency counts equal to the pure derivation from the
+  actually recorded raw usage), the metric-completeness contract
+  (n=0 iff all-null quartiles; n>0 every quartile present, finite,
+  non-negative and ordered), the decoded-Unicode admission refusal
+  (unpaired surrogate code points refused at spec admission with the
+  fixed safe reason, zero HTTP, no input echo) and the
+  serializer/spent-ledger boundary (the canonical FULL strict result
+  contract at CLI serialization; a post-work rejection emits the
+  fixed safe error with the actual valid spent ledger and honest
+  ledger availability, never an assumed zero, and the invalid record
+  is never exported), and corrects the documentation and context
+  measurements to the actual implementation. Resource telemetry,
+  vector/rank parity and full named gate composition remain required
+  in LATER proof-sized 004 continuations (strategic activation
+  required); 019/ICA/MVP gate actual feasibility. These corrections
+  do not substitute a smaller objective for that scope.
 - Live target authorization: NONE. No approved actual URL/model/
   secretref/GPU ownership/corpus reply has arrived. ALL real trials
   persist NOT_RUN; no positive topology, cache, speedup, quality,
@@ -385,11 +450,28 @@ installed-CLI owned-loopback composition in
 `tests/integration/test_qualification_composition.py`). Covers the
 strict spec refusals, the bounded spec file input refusals (special
 file/FIFO without blocking, byte bound, strict UTF-8, typed JSON
-decoder/integer/depth refusals, zero HTTP, no path echo), the strict
-sample/result contract roundtrips and invalid shapes, the envelope
-relations (prefix recording, status/stop-reason/allowance invariants,
-analysis recomputation), the hand-computed stage quantiles with
-known-zero/missing/exclusion semantics, and all 004-a transport,
-global-budget, retry, native-template, UNKNOWN-outcome, credential and
-export positives. Synthetic and offline only: no external network,
-product services, real keys, GPU or model downloads.
+decoder/integer/depth refusals, zero HTTP, no path echo), the decoded
+workload Unicode admission (unpaired-surrogate parent / lone-low-
+surrogate first suffix refused at spec admission with the fixed safe
+reason — zero HTTP, no traceback, no input echo; valid escaped-astral
+and non-Latin Unicode admitted unchanged), the strict sample/result
+contract roundtrips and invalid shapes, the envelope relations (prefix
+recording, status/stop-reason/allowance invariants, the analysis
+recomputation driven by the actual transport-boundary ledger) and the
+004-c cross-field bindings (every single-field contradiction refused:
+envelope backend vs declared backend, known per-sample backend
+fingerprint vs the observed per-trial binding (null stays allowed),
+evidence class vs target type, output reservation vs the declared
+budget and the floor even share over the declared sample count,
+cache/input consistency claims vs the pure derivation from the
+actually recorded raw usage; the unaltered envelope stays the
+positive), the quartile completeness contract (n=0 iff all-null
+quartiles; n>0 every quartile present, finite, non-negative and
+ordered), the hand-computed stage quantiles with known-zero/missing/
+exclusion semantics, the serialization-boundary post-work refusal
+(fixed safe error with the actual valid spent-attempt ledger on
+stdout, honest ledger availability, the invalid record never
+exported), and all 004-a transport, global-budget, retry, native-
+template, UNKNOWN-outcome, credential and export positives. Synthetic
+and offline only: no external network, product services, real keys,
+GPU or model downloads.

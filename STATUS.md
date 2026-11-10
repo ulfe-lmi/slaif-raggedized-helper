@@ -2,7 +2,8 @@
 
 ## Current state (2026-11-10)
 
-- Active objective: 004 (the 004-b evidence-contract correction of
+- Active objective: 004 (the 004-b/004-c evidence-contract corrections
+  of
   the 004-a trial runner and gateway/direct composition), open on PR
   #6, branch oap/004-qualification-harness; live PR/CI/merge state is
   queried on GitHub, not asserted here.
@@ -10,9 +11,11 @@
   merged), the complete 003 gateway/transport/native/probe slice
   (merged as PR #5) plus the 004-a finite qualification trial runner
   with the 004-b strict bounded trial spec/sample/result evidence
-  contracts, bounded safe spec file input and available-stage
-  summaries, actual gateway/direct repeated-parent composition and the
-  machine-readable section 23.2 gate projection (open on PR #6, see
+  contracts with the 004-c cross-field consistency bindings and
+  quartile-complete stage summaries, bounded safe spec file input with
+  decoded-Unicode admission and available-stage summaries, actual
+  gateway/direct repeated-parent composition and the machine-readable
+  section 23.2 gate projection (open on PR #6, see
   history). Hardware/model qualification: NOT RUN. ICA: NOT RUN.
 - The coding client is active on objective 004 (PR #6), not idle.
 - Current main is the 003 merge commit 2bc320f (PR #5); PR #6 builds
@@ -294,3 +297,60 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   parity and full named gate composition remain required in later
   proof-sized 004 continuations; no merge; 004 continuations and 005
   selection remain strategy alone.
+
+- 004-c (evidence-consistency and metric-completeness correction of
+  the verified 004-b head; amends the same open PR #6, branch
+  oap/004-qualification-harness): the four ordered corrections from
+  the final 004-b review (oap/reviews/004-b-review.json committed
+  byte-unchanged, SHA-256
+  81f1fa1b4e8566bb5b7ab6a18ea0bef66f81f576dbaaa86516e6984b8c2f5fc4):
+  (F01) cross-field evidence bindings (qualification/contracts.py:
+  the analysis pure-recomputation is driven by the ACTUAL
+  transport-boundary call ledger — an analysis call count that
+  conflicts with the ledger is refused; the envelope backend equals
+  the declared backend; every KNOWN per-sample backend fingerprint
+  equals the observed per-trial backend binding, an absent binding
+  stays null; the evidence class and target type form the consistent
+  provenance pair; the output reservation total/per-sample equal the
+  declared budget with the per-sample share the floor even share over
+  the DECLARED scheduled sample count; the cache/input consistency
+  counts equal the shared pure derivation from the actually recorded
+  raw usage — every single-field contradiction refused, the unaltered
+  actual owned-HTTP result admitted); (F02) metric completeness
+  (n=0 iff all-null quartiles; n>0 requires EVERY quartile present,
+  finite, non-negative and ordered min <= p50 <= p95 <= max; partial
+  quartile sets refused; the full result validation still
+  recomputes the deterministic summaries); (F03) decoded-Unicode
+  admission (qualification/spec.py: a workload string that decodes to
+  an unpaired surrogate code point is refused at spec admission with
+  a fixed safe reason BEFORE fingerprinting or request construction —
+  typed exit 2, zero HTTP, no input echo; valid Unicode including
+  escaped astral pairs and Slovenian text admitted unchanged; no
+  replacement/truncation/global-encoding/fingerprint-version
+  change); (F04) serializer/spent-ledger boundary (cli.py: the
+  canonical FULL strict result contract — strict shape plus the
+  analysis pure-recomputation — is enforced at serialization; a
+  post-work rejection is an honest exit 3 with the fixed safe
+  structured error carrying the ACTUAL valid spent-attempt ledger on
+  stdout, honest ledger availability when the ledger itself cannot
+  validate — never assumed zero, never a crash — and the invalid
+  record is never exported as a valid result). These checks prove
+  INTERNAL consistency only — never that declared metadata is true,
+  that a fingerprint proves deployed identity, or that imported JSON
+  was executed here. The root-authored startup-governance restoration
+  (oap/prompts/coding-startup.txt the exact previously qualified
+  582-byte ordinary prompt, docs/AGENT-ROLE-SETUP.md and
+  docs/OAP-RUNBOOK.md) is committed byte-unchanged; the 004-a
+  /goal-first qualification remains RECORDED FAILED history, never
+  relabeled passed; U10 stays OPEN and real restored
+  wrapper/role/order/post-start-goal qualification is strategy's,
+  performed on this actual handoff, never inferred from hash.
+  Documentation (protocol/TESTING/STATUS/UNCERTAINTIES/README) and
+  context measurements refreshed to the actual implementation. All
+  004-a/004-b transport/budget/retry/native-template/UNKNOWN/
+  credential/export/file-input/Unicode/ledger positives preserved.
+  No live target/model/GPU/corpus work (live authorization NONE);
+  all real qualification gates and LICENSE-01 remain open; resource
+  telemetry, vector/rank parity and full named gate composition
+  remain required in later proof-sized 004 continuations; no merge;
+  004 continuations and 005 selection remain strategy alone.

@@ -21,6 +21,15 @@ fixed safe reason (zero HTTP). The only supported workload is
 context/pair/batch/precision/seed-variation controls are not implemented
 and are refused with their named prerequisites, never silently claimed.
 
+Decoded-Unicode admission (004-c, 004B-F03): a workload string that
+decodes to INVALID Unicode (unpaired surrogate code points, e.g. from
+JSON ``\\uD800`` escapes) is refused at spec admission with a fixed safe
+reason BEFORE fingerprinting or request construction (zero HTTP, no
+input echo). Valid Unicode — including escaped astral surrogate pairs
+and non-Latin text — is admitted unchanged; the refusal performs no
+replacement, no truncation, no global encoding change and no
+fingerprint-version change.
+
 Spec files are operator-supplied declarations: they can select a workload
 and budgets, but they can never carry or prove execution evidence.
 """
@@ -96,6 +105,23 @@ def _not_bool(value: Any, field_name: str) -> int:
 def _digest(value: str) -> str:
     if _SHA256_DIGEST_RE.fullmatch(value) is None:
         raise ValueError("must be a sha256:<64 lowercase hex> digest")
+    return value
+
+
+def _valid_decoded_unicode(value: str, field_name: str) -> str:
+    """Refuse a decoded string containing unpaired surrogate code points.
+
+    A Python ``str`` is representable as valid UTF-8 (and therefore
+    safe to fingerprint, serialize and send) exactly when it carries no
+    code point in the surrogate range U+D800..U+DFFF. The refusal is a
+    FIXED safe message: it never echoes the input value.
+    """
+    for char in value:
+        if 0xD800 <= ord(char) <= 0xDFFF:
+            raise ValueError(
+                f"{field_name} contains invalid decoded Unicode "
+                "(unpaired surrogate code point); refused before "
+                "fingerprinting or request construction")
     return value
 
 
@@ -287,7 +313,7 @@ class TrialSpec(BaseModel):
             raise ValueError("parent must not be empty")
         if len(value) > MAX_PARENT_CHARS:
             raise ValueError(f"parent exceeds the bound {MAX_PARENT_CHARS} chars")
-        return value
+        return _valid_decoded_unicode(value, "parent")
 
     @field_validator("suffixes")
     @classmethod
@@ -302,6 +328,7 @@ class TrialSpec(BaseModel):
             if len(suffix) > MAX_SUFFIX_CHARS:
                 raise ValueError(
                     f"each suffix exceeds the bound {MAX_SUFFIX_CHARS} chars")
+            _valid_decoded_unicode(suffix, "suffixes")
         return value
 
     @field_validator("seed")

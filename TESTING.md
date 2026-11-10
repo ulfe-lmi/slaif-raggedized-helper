@@ -85,7 +85,7 @@ All synthetic and offline: no external network, product services,
 real keys, GPU or model downloads. Real runtime/cache/quality
 qualification remains NOT RUN.
 
-T08. Finite qualification trial composition (objective 004-a, evidence-contract correction 004-b): `uv run
+T08. Finite qualification trial composition (objective 004-a, evidence-contract corrections 004-b/004-c): `uv run
 pytest tests/integration/test_qualification_composition.py -q` runs
 the INSTALLED `raggedized qualification` CLI in subprocesses with the
 real gateway/native adapters against owned 127.0.0.1 loopback servers
@@ -112,7 +112,12 @@ refusals (absent spec, owned TEMP FIFO/special file refused WITHOUT
 blocking, file past the 65536-byte bound, invalid UTF-8, JSON integer
 beyond the fixed decoder bound and deep nesting — all pre-dispatch
 with zero HTTP, fixed safe errors and no input or private-path echo),
-and the available-stage timing summaries (gateway prefill/TTFT stay
+the decoded workload Unicode admission (unpaired-surrogate parent /
+lone-low-surrogate first suffix refused at spec admission with the
+fixed safe reason — zero HTTP, no traceback, no input echo, matched
+fingerprints proving the refusal is the Unicode admission; valid
+escaped-astral and Slovenian Unicode admitted unchanged), and the
+available-stage timing summaries (gateway prefill/TTFT stay
 n=0 all-null unavailable; direct per-stage quartiles hand-computed
 from the sample observations with known-zero/missing/invalid
 bookkeeping). Unit contracts
@@ -128,7 +133,23 @@ envelope relations: requests are the exact leading prefix of the
 declared workload, remaining+attempted ==
 budgets.max_dispatches, status/stop_reason consistency, not_run
 implies zero dispatches, and the analysis section must equal the pure
-recomputation from the recorded samples), the stage metric summaries
+recomputation from the recorded samples driven by the ACTUAL
+transport-boundary ledger — an analysis call count that conflicts
+with the ledger is refused), the 004-c cross-field bindings (envelope
+backend vs declared backend; known per-sample backend fingerprint vs
+the observed per-trial binding, an absent binding stays null and is
+allowed; evidence class vs target type provenance pair; output
+reservation total/per-sample vs the declared budget with the floor
+even share over the DECLARED scheduled sample count; cache/input
+consistency claims vs the pure derivation from the actually recorded
+raw usage — every single-field contradiction refused, the unaltered
+envelope admitted), the quartile completeness contract (n=0 iff
+all-null quartiles; n>0 every quartile present, finite, non-negative
+and ordered; partial quartile sets refused), the serialization-
+boundary post-work refusal (fixed safe error with the actual valid
+spent-attempt ledger on stdout, ledger availability marked honestly
+when the ledger itself cannot validate — never assumed zero, no
+crash, the invalid record never exported), the stage metric summaries
 (known-zero counts, missing and invalid-observation exclusions,
 per-stage provenance), preflight consistency, the nearest-rank
 quantile convention and zero-sample nulls, the pure deterministic
@@ -139,5 +160,5 @@ rendering). Plan/gates/help are proven zero model/HTTP/telemetry I/O
 on a closed port. All synthetic and offline: no external network,
 product services, real keys, GPU or model downloads. Real
 target/hardware/model qualification remains NOT RUN (order 004-a live
-authorization: NONE; 004-b correction, live authorization also
+authorization: NONE; 004-b/004-c corrections, live authorization also
 NONE).

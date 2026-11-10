@@ -74,7 +74,15 @@ Exit codes: ``0`` ok (probe: complete), ``1`` validation/
             returned (the full evidence document, including the
             transport-boundary spent-attempt accounting that states
             whether dispatch occurred, is written to stdout; blind
-            replay is not safe).
+            replay is not safe). For ``qualification run`` an exit 3
+            also covers the post-work evidence CONTRACT failure: the
+            canonical full strict result contract (strict shape plus
+            the analysis pure-recomputation) is enforced at
+            serialization, the invalid record is never exported as a
+            valid result, and the fixed safe error document with the
+            actual valid spent-attempt ledger is written to stdout
+            (ledger availability is marked honestly when it cannot be
+            validated — never assumed zero, never a crash).
 """
 
 from __future__ import annotations
@@ -535,6 +543,59 @@ def run_qualification_plan(config_path: str, spec_path: str) -> int:
     return exit_code
 
 
+def _post_work_contract_error(document: object) -> dict[str, object]:
+    """Fixed safe post-work evidence-contract error (004-c criterion 8).
+
+    The invalid document is never re-exported as a valid result. The
+    ACTUAL transport-boundary spent-attempt ledger is preserved when it
+    validates against the strict ledger contract; when it is missing or
+    malformed its availability is marked unknown — the attempted-call
+    count is never assumed zero and formatting never crashes.
+    """
+    from pydantic import ValidationError
+
+    from .qualification.contracts import TransportBoundarySection
+
+    ledger: dict[str, object] | None = None
+    availability = "unavailable"
+    note = (
+        "the spent-attempt ledger is missing or malformed in the "
+        "constructed document; availability is marked unknown and the "
+        "attempted call count is never assumed zero"
+    )
+    raw = (document.get("transport_boundary")
+           if isinstance(document, dict) else None)
+    if isinstance(raw, dict):
+        try:
+            ledger = TransportBoundarySection.model_validate(raw).model_dump()
+            availability = "valid"
+            note = (
+                "the transport-boundary spent-attempt ledger validated "
+                "against the strict contract and is preserved exactly "
+                "as recorded (do not replay blindly: ambiguous or "
+                "spent work may have occurred)"
+            )
+        except (ValidationError, ValueError):
+            pass
+    return {
+        "qualification": "trial",
+        "status": "error",
+        "error": "EVIDENCE_CONTRACT_VIOLATION",
+        "stage": "post_work_evidence_contract",
+        "message": (
+            "the evidence document failed the canonical full strict "
+            "sample/result contract (including the analysis "
+            "pure-recomputation from the recorded samples against the "
+            "actual transport-boundary ledger) after actual work; the "
+            "invalid record is not exported as a valid result and "
+            "blind replay is not safe"
+        ),
+        "transport_boundary": ledger,
+        "ledger_availability": availability,
+        "ledger_note": note,
+    }
+
+
 def run_qualification_run(config_path: str, spec_path: str,
                           synthetic: bool, output_path: str | None) -> int:
     """EXPLICIT opt-in trial execution. Returns the process exit code.
@@ -548,6 +609,17 @@ def run_qualification_run(config_path: str, spec_path: str,
     full safe evidence document — including the transport-boundary
     spent-attempt accounting that states whether dispatch occurred — is
     written to stdout and blind replay is not invited.
+
+    Serialization-boundary invariant (004-c criterion 8): the canonical
+    FULL strict result contract — ``validate_trial_evidence``, i.e. the
+    strict shape PLUS the analysis pure-recomputation from the recorded
+    samples against the ACTUAL transport-boundary ledger — is enforced
+    before rendering or export. A post-work rejection is an honest exit
+    3: a fixed safe error document carrying the actual valid
+    spent-attempt ledger (availability marked honestly when the ledger
+    itself cannot be validated) is written to stdout; the invalid
+    record is never exported as a valid result and blind replay is not
+    invited.
     """
     code, config, spec = _load_qualification_inputs(config_path, spec_path)
     if code != EXIT_OK:
@@ -562,36 +634,24 @@ def run_qualification_run(config_path: str, spec_path: str,
                              indent=2, sort_keys=True))
             sys.stdout.write("\n")
             return EXIT_USAGE
-    from .qualification import TrialEvidence, run_trial
+    from .qualification import run_trial, validate_trial_evidence
     from pydantic import ValidationError
 
     exit_code, document = run_trial(config, spec, synthetic=synthetic)
-    # Serialization-boundary invariant (004-b criterion 2): the full
-    # result envelope must satisfy the strict sample/result contract
-    # before it is rendered or exported. A violation is an internal
-    # post-work failure (honest exit 3), never a silent export.
+    # Serialization-boundary invariant (004-b criterion 2, 004-c
+    # criterion 8): the canonical FULL strict result contract — strict
+    # shape plus the analysis pure-recomputation from the recorded
+    # samples against the ACTUAL transport-boundary ledger — must hold
+    # before the document is rendered or exported. A violation is an
+    # honest post-work failure (exit 3), never a silent export.
     if document.get("status") in ("complete", "incomplete", "not_run"):
         try:
-            TrialEvidence.model_validate(document)
+            validate_trial_evidence(document)
         except (ValidationError, ValueError):
-            attempted = int(
-                document.get("transport_boundary", {})
-                .get("attempted_calls", 0) or 0)
-            dispatch_note = (
-                f"{attempted} transport call(s) were attempted (see the "
-                "runner transport-boundary ledger) — do not replay "
-                "blindly: ambiguous or spent work may have occurred"
-                if attempted else
-                "no transport call was attempted by this run")
-            print(json.dumps(
-                {"qualification": "trial", "status": "error",
-                 "error": "EVIDENCE_CONTRACT_VIOLATION",
-                 "stage": "post_work_evidence_contract",
-                 "message": ("the evidence document failed the strict "
-                             "sample/result contract (internal "
-                             "invariant); no evidence is claimable; "
-                             + dispatch_note)},
-                indent=2, sort_keys=True), file=sys.stderr)
+            error_doc = _post_work_contract_error(document)
+            rendered = json.dumps(error_doc, indent=2, sort_keys=True)
+            sys.stdout.write(rendered + "\n")
+            sys.stderr.write(rendered + "\n")
             return EXIT_EVIDENCE_EXPORT
     rendered = json.dumps(document, indent=2, sort_keys=True) + "\n"
     if output_path is not None:

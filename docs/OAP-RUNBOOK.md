@@ -67,20 +67,25 @@ busy prompt requires manual reconciliation, not blind command injection. Tmux in
 startup/recovery only; durable order remains authority. Both sender and receiver use lock files;
 duplicates refuse. Notifications contain exactly OK without LF, IDs or JSON. Active ends LF.
 
-Since the 004-a operational correction, the coding startup prompt is the `/goal`-first
-bounded-goal prompt at `oap/prompts/coding-startup.txt` (SHA-256
-6d2323bb832e5f78e4cd86d6951c04c0b3975dc80730c473fc7834820965a98e; the
-governance manifest measurement was updated in the same round). It
-declares one bounded coding goal per order — execute only the exact
-FINAL order selected by `oap/active`, continue implementation/tests/
-docs/unique PR/CI through the immutable report-only SELF commit and
-remote verification, send exactly one response OK, then mark the goal
-complete and remain idle. A truthful COMPLETE/PARTIAL/BLOCKED/FAILED
-execution report ends the bounded goal; strategic acceptance, merge and
-next-order selection stay separate. The new `/goal`-first startup is
-NOT operationally validated by file hash alone: strategy qualifies it
-during the same-objective 004-b fresh control handoff, before final 004
-acceptance. Do not self-trigger it.
+The supported startup sequence is ordinary role/order input, THEN one bounded
+native goal. At the quiet checkpoint after 004-b, strategy restored the exact
+previously qualified 582-byte ordinary `oap/prompts/coding-startup.txt` (SHA-256
+41afe88aa473905c6496b8179aa3e2b87a04a8b0c88662b3214481634d3f8464).
+The 004-a `/goal`-first replacement failed actual 004-b fresh-start qualification
+with `upstream_payload_not_approved` before tools. Ordinary startup plus a later
+bounded native goal recovered SAME 004-b without control replay or client/model/
+profile/auth/helper changes. The failed mode remains recorded FAILED.
+
+After a new sole control wake, verify actual ordinary model/tools read the correct
+role and exact active order; strategy then sets one bounded `/goal` through the
+qualified wake with `fresh=False`. Never make `/goal` the first input of an empty
+conversation or create a duplicate goal. Observe the real restored wrapper/role/
+order/goal sequence before whole-004 acceptance; file hashes do not certify it.
+Coding checks implementation-head CI before report publication. Verified report/
+response ends its goal; strategy owns report-head CI, acceptance and continuation.
+Do not start post-response polling/audits. Clear a completed goal or start a fresh
+chat only after tool roundtrips and owned terminals are quiet/terminal; a response
+receipt alone is insufficient. Reconcile actual handles, not an observation timeout.
 
 ## Completion, review and development merge
 
@@ -89,7 +94,8 @@ After local/implementation-head checks it writes immutable report with literal i
 SHA and SELF, commits only report and pushes. Verify using verify_report.py; then
 `oap.py respond --role CODING --identifier ID` with root/runtime sends exact OK after independent
 remote publication checks. Report cannot attest its future push or CI. A post-push receipt does.
-Then coding starts one control waiter for the next round; current model stops mutations.
+Coding marks its bounded goal complete and remains idle without mutations or new readers.
+Strategy arranges the next sole external control waiter only after the next authorized order.
 
 Strategy validates report topology/identity and current-head code/tests/docs/review/security/
 license/DHA. Required checks all successful; absent/skipped/pending is not a pass. Current-head

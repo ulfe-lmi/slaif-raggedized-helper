@@ -13,11 +13,18 @@ truthful native stop/metric mapping), the bounded explicit
 `raggedized probe` qualification probe and real loopback integration tests
 ([docs/generator-contract.md](docs/generator-contract.md)); and — open on
 PR #6 (branch `oap/004-qualification-harness`, not merged) — the
-objective 004 finite qualification trial runner (004-a) plus the 004-b
-evidence-contract correction: strict bounded trial spec/sample/result
-contracts enforced at the construction/serialization/analysis
-boundaries, bounded safe spec file input (special-file/FIFO, byte,
-UTF-8 and JSON-decoder typed refusals at zero dispatch), actual
+objective 004 finite qualification trial runner (004-a) plus the
+004-b/004-c evidence-contract corrections: strict bounded trial
+spec/sample/result contracts with cross-field consistency bindings
+(actual-ledger-driven analysis recomputation, backend/fingerprint
+bindings, provenance pairs, declared-budget reservation, pure
+cache/input consistency derivation) and quartile-complete stage
+metrics enforced at the construction/serialization/analysis
+boundaries, bounded safe spec file input with decoded-Unicode
+admission (special-file/FIFO, byte, UTF-8, JSON-decoder and unpaired-
+surrogate typed refusals at zero dispatch), the canonical full strict
+result contract at CLI serialization with the actual spent-attempt
+ledger preserved on post-work rejection, actual
 gateway/direct repeated-parent composition under one absolute trial
 deadline and one shared dispatch allowance at the real transport
 boundary, reproducible nearest-rank caller-wall latency analysis with
