@@ -16,7 +16,7 @@ Each page is `native_text` or `visual_needed`; a textless page or a page with an
 pdfminer's text (which may synthesize whitespace), page anchor, actual layout
 bbox in PDF points with the pdfminer bottom-left coordinate convention and
 explicit heuristic reading-order uncertainty. No original byte equivalence,
-OCR, table structure, layout ordering, token count or model claim is made.
+OCR, general table fidelity, layout ordering, token count or model claim is made. Literal single-line list and table kinds are classified using the bounded grammar in [the classifier contract](pdf-structure-api.md).
 The policy fingerprint binds backend version, extraction semantics version, point convention and limits. Parent validation requires at least one counted layout object per block; the request nonce correlates a response and does not authenticate a compromised worker.
 
 Defaults and maximums are 2,000,000 input bytes, 32 pages, 20,000 layout
@@ -88,3 +88,5 @@ blockers. This provides no license exception, allowlist expansion, application
 graph clearance or LICENSE-01 pass. Canonical 006 must separately provision and
 qualify its actual CI host isolation and backend; these fixtures do not qualify
 full 006, MVP, security or production.
+
+Policy definition v4 binds the classifier version. Block fingerprint v2 binds the kind along with revision, extraction, order, page, text digest and bounding box. Existing v3 policy records are immutable and incompatible: explicitly re-extract under v4 rather than silently upgrading them. These identities do not change native count fingerprints or quotas.

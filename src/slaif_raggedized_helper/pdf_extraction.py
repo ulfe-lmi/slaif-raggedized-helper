@@ -15,6 +15,7 @@ from pathlib import Path
 
 from .provenance_records import Block, Dependency, Scope, catalog, extraction_id
 from .schema import fingerprint
+from . import pdf_structure as structure
 from .source_admission import OriginalStore, Revision
 
 
@@ -47,9 +48,17 @@ class PdfPolicy:
 
     @property
     def definition(self):
-        return json.dumps({'adapter': 'pdfminer.six-20260107', 'version': 3,
+        return json.dumps({'adapter': 'pdfminer.six-20260107', 'version': 4,
+                           'classifier': structure.VERSION,
                            **self.__dict__, 'geometry': 'pdf-points-bottom-left',
                            'isolation': 'bwrap-linux-v1'}, sort_keys=True, separators=(',', ':'))
+
+
+def block_fingerprint(revision_id, extraction_id, order, page, text_sha256, geometry, kind):
+    return fingerprint({'kind': 'pdf-native-block', 'version': 2,
+                        'revision_id': revision_id, 'extraction_id': extraction_id,
+                        'order': order, 'page': page, 'text_sha256': text_sha256,
+                        'geometry': list(geometry), 'block_kind': kind})
 
 
 @dataclass(frozen=True)
@@ -200,6 +209,7 @@ def extract(store: OriginalStore, revision_id: str, runtime: PdfRuntime,
                 raise ValueError
             pages.append((i, page['status']))
         blocks = []
+        validated = []
         chars = 0
         last_page = 0
         counts = [0] * len(pages)
@@ -222,17 +232,20 @@ def extract(store: OriginalStore, revision_id: str, runtime: PdfRuntime,
                 raise ValueError
             last_page = item['page']
             counts[last_page - 1] += 1
-            digest = hashlib.sha256(item['text'].encode('utf-8')).hexdigest()
-            anchor = f'page:{last_page}'
-            ident = fingerprint({'kind': 'pdf-native-block', 'version': 1,
-                                 'revision_id': revision_id, 'extraction_id': dep.extraction_id,
-                                 'order': index, 'page': last_page, 'text_sha256': digest,
-                                 'geometry': bbox})
+            validated.append((last_page, item['text'], tuple(float(v) for v in bbox)))
+        kinds = structure.classify(tuple(structure.Line(page, text, bbox)
+                                         for page, text, bbox in validated))
+        for index, ((page, text, bbox), kind) in enumerate(zip(validated, kinds)):
+            if time.monotonic() >= deadline:
+                raise PdfError('pdf worker timeout')
+            digest = hashlib.sha256(text.encode('utf-8')).hexdigest()
+            anchor = f'page:{page}'
+            ident = block_fingerprint(revision_id, dep.extraction_id, index, page,
+                                      digest, bbox, kind)
             blocks.append(Block(schema_version=1, block_id=ident, revision_id=revision_id,
-                                extraction_id=dep.extraction_id, order=index, kind='text',
-                                anchor=anchor, text=item['text'], text_sha256=digest,
-                                origin='native', page_ref=anchor,
-                                geometry=tuple(float(v) for v in bbox),
+                                extraction_id=dep.extraction_id, order=index, kind=kind,
+                                anchor=anchor, text=text, text_sha256=digest,
+                                origin='native', page_ref=anchor, geometry=bbox,
                                 uncertainty='PDF native text and order are layout heuristic.'))
         if any(count == 0 and status == 'native_text'
                for count, (_, status) in zip(counts, pages)):

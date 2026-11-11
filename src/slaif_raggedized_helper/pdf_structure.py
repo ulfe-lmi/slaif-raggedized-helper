@@ -5,7 +5,7 @@ import math
 import re
 import time
 
-VERSION = "pdf-literal-structure-v1"
+VERSION = "pdf-literal-structure-v2"
 
 
 class StructureError(ValueError):
@@ -127,7 +127,15 @@ def classify(lines: tuple[Line, ...]) -> tuple[str, ...]:
             i += 1
             continue
         j = i + 2
-        while j < len(lines) and lines[j].page == lines[i].page and columns[j] == header:
+        row_signature = columns[j]
+        compatible = row_signature == header
+        if (not compatible and header[0] == "space" and row_signature
+                and row_signature[0] == "space"
+                and len(header[1]) == len(row_signature[1])
+                and all(abs(a - b) <= 1 for a, b in zip(header[1], row_signature[1]))):
+            compatible = True
+        while (compatible and j < len(lines) and lines[j].page == lines[i].page
+               and columns[j] == row_signature):
             check()
             if j + 1 < len(lines) and re.fullmatch(r"[-+| ]{3,}", texts[j + 1]):
                 break

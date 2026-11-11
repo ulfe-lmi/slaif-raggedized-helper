@@ -173,3 +173,36 @@ def test_coherent_fragment_and_neighbor_defects_refused(tmp_path, defect):
             bundle.validate(store, nc._json(metadata), tuple(changed))
     finally:
         store.close()
+
+
+def test_typed_pdf_publish_close_and_fresh_load(tmp_path, monkeypatch):
+    from test_native_pdf_structure import owned_pdf
+    from slaif_raggedized_helper import derived_store, ingestion_store
+    from slaif_raggedized_helper.source_admission import OriginalStore
+
+    data = owned_pdf(['Parameter       Value (kg)', '--------------------------',
+                      'Item001          1 kg', 'Item002          2 kg',
+                      '1. Do not energize.', 'TAILCANARY'])
+    store, revision, item, metadata, members = build(tmp_path, data)
+    assert {'table_header', 'table_row', 'list'} <= {b.kind for b in item.blocks}
+    derived_path = tmp_path / 'derived'
+    derived_path.mkdir(mode=0o700)
+    derived = derived_store.Store(derived_path)
+    expected = bundle.validate(store, nc._json(metadata), members)
+    ident = ingestion_store.publish(store, derived, nc._json(metadata), members)
+    derived.close()
+    store.close()
+    monkeypatch.setattr(pdf, '_run', lambda *a: pytest.fail('parser launched on load'))
+    monkeypatch.setattr(nc, 'build', lambda *a, **k: pytest.fail('tokenizer launched on load'))
+    fresh = OriginalStore(tmp_path / 'store')
+    fresh_derived = derived_store.Store(derived_path)
+    try:
+        loaded = ingestion_store.load(fresh, fresh_derived, ident)
+        assert loaded == expected
+        assert loaded.blocks == item.blocks and loaded.revision == revision
+        assert fresh.read_original(revision.revision_id) == data
+        assert len(loaded.receipts) == 3 * len(loaded.chunks)
+        assert len(loaded.neighbors) == len(loaded.chunks)
+    finally:
+        fresh_derived.close()
+        fresh.close()

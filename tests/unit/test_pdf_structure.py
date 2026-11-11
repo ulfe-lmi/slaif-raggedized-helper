@@ -113,3 +113,14 @@ def test_long_spaces_bounded_process():
         "tuple(Line(1, 'x', (0,0,1,1)) for _ in range(3))) == ('text',)*4"
     )
     subprocess.run([sys.executable, "-c", code], check=True, timeout=2.5)
+
+
+def test_one_character_header_offset_requires_consistent_rows():
+    header = "Parameter       Value (kg)"
+    rule = "--------------------------"
+    assert classify(lines(header, rule, "Item001          1 kg", "Item002          2 kg")) == (
+        "table_header", "table_row", "table_row", "table_row"
+    )
+    for rows in (("Item001          1 kg", "Item002           2 kg"),
+                 ("Item001           1 kg", "Item002           2 kg")):
+        assert classify(lines(header, rule, *rows)) == ("text",) * 4
