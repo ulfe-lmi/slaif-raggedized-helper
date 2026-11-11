@@ -163,6 +163,8 @@ def test_schema2_actual_files_and_space(tmp_path, fmt, name):
     admitted = embedding_space.admit(raw, root, d, t, inv.inventory_id)
     assert (admitted.inventory_schema, admitted.checkpoint_format) == (2, fmt)
     assert inv.inventory_id != old.inventory_id
+    with pytest.raises(embedding_space.SpaceRefused):
+        embedding_space.admit(raw, root, d, t, "0" * 64)
     m["checkpoint_format"] = "safetensors" if fmt == "pytorch-state-dict" else "pytorch-state-dict"
     with pytest.raises(embedding_artifacts.ArtifactRefused):
         embedding_artifacts.verify_artifacts(json.dumps(m).encode(), root)

@@ -342,3 +342,69 @@ def test_public_trace_suppresses_dynamic_path_and_path_object_errors(tmp_path, m
         assert str(caught.value) == "artifact verification refused"
         assert canary not in "".join(traceback.format_exception(caught.value))
     assert calls == ["open", "fspath"]
+
+
+def schema2_tree(root):
+    m = setup_tree(root)
+    (root / 'synthetic.safetensors').rename(root / 'model.safetensors')
+    m['files'][-1]['path'] = 'model.safetensors'
+    m.update(schema=2, checkpoint_format='safetensors')
+    return m
+
+
+@pytest.mark.parametrize('mutation', [
+    'missing', 'unknown', 'nonstring', 'mismatch', 'arbitrary_pt', 'arbitrary_bin',
+    'duplicate', 'two_weights', 'version', 'boolean', 'extra', 'digest',
+])
+def test_schema2_format_refusals(tmp_path, monkeypatch, mutation):
+    root = tmp_path / 'tree'
+    m = schema2_tree(root)
+    assert check(root, m).checkpoint_format == 'safetensors'
+    w = m['files'][-1]
+    if mutation == 'missing':
+        del m['checkpoint_format']
+    elif mutation == 'unknown':
+        m['checkpoint_format'] = 'unknown'
+    elif mutation == 'nonstring':
+        m['checkpoint_format'] = 1
+    elif mutation == 'mismatch':
+        m['checkpoint_format'] = 'pytorch-state-dict'
+    elif mutation in ('arbitrary_pt', 'arbitrary_bin'):
+        w['path'] = 'arbitrary.' + ('pt' if mutation == 'arbitrary_pt' else 'bin')
+    elif mutation == 'duplicate':
+        m['files'].append(dict(w))
+    elif mutation == 'two_weights':
+        m['files'].append(dict(w, path='other.safetensors'))
+    elif mutation == 'version':
+        m['schema'] = 3
+    elif mutation == 'boolean':
+        m['schema'] = True
+    elif mutation == 'extra':
+        m['extra'] = 1
+    else:
+        w['sha256'] = '0' * 64
+    if mutation != 'digest':
+        monkeypatch.setattr(os, 'open', lambda *a, **k: pytest.fail('opened before preflight'))
+    with pytest.raises(ArtifactRefused):
+        check(root, m)
+
+
+def test_schema1_exact_legacy_identity(tmp_path):
+    from slaif_raggedized_helper.embedding_artifacts import VerifiedInventory
+
+    root = tmp_path / 'tree'
+    m = schema2_tree(root)
+    m.pop('checkpoint_format')
+    m['schema'] = 1
+    old_id = 'c46798c163e9483e52c9bf81f2caefb13c204b07f68e547dd6d615c419c765ec'
+    result = check(root, m)
+    assert result.inventory_id == old_id
+    assert VerifiedInventory('m', 'r', (), 'i').schema == 1
+    assert VerifiedInventory('m', 'r', (), 'i').checkpoint_format == 'safetensors'
+    m.update(schema=2, checkpoint_format='safetensors')
+    assert check(root, m).inventory_id != old_id
+    m.pop('checkpoint_format')
+    m['schema'] = 1
+    m['files'][-1]['path'] = 'pytorch_model.bin'
+    with pytest.raises(ArtifactRefused):
+        check(root, m)

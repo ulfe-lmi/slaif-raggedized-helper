@@ -21,7 +21,7 @@ Schema 1 is exactly `{ "schema": 1, "model_name": "BAAI/bge-m3", "model_revision
 | sentence_bert_config | sentence_bert_config.json |
 | sentence_transformers_config | config_sentence_transformers.json |
 
-At least one `weights` descriptor is required; it may occur multiple times with distinct
+In schema 1 at least one `weights` descriptor is required; it may occur multiple times with distinct
 relative `.safetensors` paths. No names, sizes, or hashes of actual weights are assumed.
 Paths are unique, relative, slash-separated and contain no empty, dot, dot-dot, NUL, colon,
 or backslash components. Manifests are at most 256 KiB and 32 descriptors, each file at most
@@ -55,3 +55,11 @@ preflight reports an input-free refusal for invalid input and filesystem errors.
 formatted tracebacks suppress underlying exception chains; Python exception introspection
 may still expose the original context.
 Tokenizer and weight contents remain streamed and hashed, not JSON parsed.
+
+Schema 2 adds exactly `checkpoint_format`: `safetensors` requires exactly one weight at
+`model.safetensors`; `pytorch-state-dict` requires exactly one at `pytorch_model.bin`.
+The verified inventory exposes schema and format, and schema 2 binds both into its ID.
+The published BGE-M3 2.27 GB `.bin` is metadata-only evidence in
+`audit/007-public-checkpoint-layout.json`; it does not establish acquisition, licensing,
+or forward qualification. A future loader needs a reviewed locked weights-only policy;
+model, runtime, license and authorization remain open.

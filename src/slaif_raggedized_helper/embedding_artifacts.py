@@ -149,7 +149,13 @@ def _admit(data):
         if role == "weights":
             if schema == 1 and not path.endswith(".safetensors"):
                 _fail()
-            if schema == 2 and (role in roles or path != {"safetensors": "model.safetensors", "pytorch-state-dict": "pytorch_model.bin"}[fmt]):
+            if schema == 2 and (
+                role in roles
+                or path != {
+                    "safetensors": "model.safetensors",
+                    "pytorch-state-dict": "pytorch_model.bin",
+                }[fmt]
+            ):
                 _fail()
         if not _digest(digest, 64) or type(size) is not int or not 0 <= size <= 4 * 1024**3:
             _fail()

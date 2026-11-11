@@ -8,4 +8,4 @@ Composition checks exercise real local file verification, configuration identity
 refusal and the shared cooperative deadline. They do not load weights or run a model; the
 deadline is cooperative and cannot preempt an individual blocking filesystem operation.
 
-Schema 1 retains its safetensors compatibility behavior. Schema 2 admits `safetensors` at `model.safetensors` or `pytorch-state-dict` at `pytorch_model.bin`; admission hashes raw bytes and never loads them. The admitted result exposes the verified schema and format. A future loader needs a separately reviewed safe loading policy.
+Schema 1 retains its safetensors compatibility behavior. Schema 2 admits `safetensors` at `model.safetensors` or `pytorch-state-dict` at `pytorch_model.bin`; admission hashes raw bytes and never loads them. The admitted result exposes the verified schema and format. A future loader needs a separately reviewed locked weights-only loading policy.
