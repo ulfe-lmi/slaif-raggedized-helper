@@ -1,0 +1,16 @@
+{
+  "lane_id": "PAR-007-PUBLISHED-FORMAT-B",
+  "result": "PARTIAL",
+  "implementation_head": "b68da5072e944890beeac8bb8556934fe5f589b9",
+  "report_publication_commit": "SELF",
+  "API": "AdmittedSpace exposes inventory_schema and checkpoint_format with legacy defaults; synthetic schema 2 files admitted for both formats.",
+  "commands_results": [
+    "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14: separate bounded unit pytest: exit 0, 57 passed",
+    "same invocation separate integration pytest: exit 0, 6 passed",
+    "ruff check modified Python: exit 0",
+    "git diff --check: exit 0"
+  ],
+  "witness_hashes": {},
+  "limits": "Old reader exact ID comparison, comprehensive schema 2 negative matrix, original Root JSON and dynamic trace witnesses, artifact API documentation and full requested proof remain outstanding. No weights downloaded or loaded; no model qualification.",
+  "DHA": "NONE"
+}
