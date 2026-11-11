@@ -1,0 +1,42 @@
+{
+  "lane_id": "PAR-006-MEMBER-STORE-C",
+  "result": "COMPLETE",
+  "implementation_head": "2451dcd081b62b3202fc96ce949a0e4b343bf741",
+  "report_publication_commit": "SELF",
+  "finitecasetable": {
+    "stages": [
+      "object",
+      "manifest"
+    ],
+    "boundaries": [
+      "first write",
+      "link",
+      "file fsync",
+      "directory fsync after link",
+      "stage unlink",
+      "directory fsync after cleanup"
+    ],
+    "timing": [
+      "before",
+      "after"
+    ],
+    "cases": 24,
+    "result": "24 passed; actual primitive interception with real files, boundary hit, descriptor closure, canaries, visible manifest validation and retry. Before unlink failure permits owned orphan stage. Existing valid and corrupt object EEXIST and added manifest EEXIST checked.",
+    "admission": "Input and canonical metadata caps including float expansion, member and aggregate small caps with actual publish/load, 16/17 members, 32/33 names and duplicates, 430/431 bit integers, manifest overhead depth and node limits, malformed record and outer fields before object reads; existing cases retained."
+  },
+  "actualcommands": [
+    "wait-control derived-member-store-c: exit 0 EXACT_OK_CONSUMED",
+    "uv run pytest tests/unit tests/integration/test_source_installed_cli.py tests/integration/test_source_module_cli.py tests/integration/test_source_admission_composition.py tests/integration/test_provenance_records_composition.py tests/integration/test_derived_store_composition.py: exit 0, 681 passed in 19.70s",
+    "uv run ruff check src/slaif_raggedized_helper/derived_store.py tests/unit/test_derived_store.py tests/integration/test_derived_store_composition.py: exit 0",
+    "uv run python /tmp/raggedized-root-derived-store-closed.py: exit 0",
+    "uv run python /tmp/raggedized-root-derived-store-deadline.py: exit 0",
+    "git diff --check and git diff --cached --check: exit 0",
+    "Initial python3 -m pytest tests/unit/test_derived_store.py -q: exit 2, package not installed in system Python; subsequent uv environment runs passed."
+  ],
+  "limits": [
+    "Finite injected cases do not prove all hostile filesystem behaviors or interleavings. A failed cleanup unlink can leave an owned stage; no rollback is assumed.",
+    "Caller must protect root and descriptors; cooperative deadline cannot interrupt a blocked syscall or establish a hard RSS bound. No typed bundle, authorization, hardware qualification, deployment, or MVP claim."
+  ],
+  "source_changes": "None; tests and documentation only.",
+  "dha": "NONE"
+}
