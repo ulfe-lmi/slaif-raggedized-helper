@@ -129,3 +129,75 @@ def test_forged_receipts_and_close(monkeypatch):
     with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
         rr.build(None, b'secret', (), 'chunk', definition, runtime)
     assert len(closed) == 2 * len(cases) + 1
+
+
+@pytest.mark.parametrize('changes', [
+    {'version': 'bad'}, {'version': True}, {'max_items': True},
+    {'max_items': 1.0}, {'max_items': 0}, {'max_items': 129},
+    {'max_total_codepoints': False}, {'max_total_codepoints': 0},
+    {'max_total_codepoints': 1000001}, {'max_total_request_bytes': 1.0},
+    {'max_total_request_bytes': 0}, {'max_total_request_bytes': 4000001},
+])
+def test_invalid_batch_policy_before_validation(monkeypatch, changes):
+    from dataclasses import replace
+    definition, runtime, _ = controlled(monkeypatch)
+    def forbidden(*args):
+        pytest.fail('validator reached')
+    monkeypatch.setattr(rr.ingestion_bundle, 'validate', forbidden)
+    with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
+        rr.build_many(None, b'', (), ['chunk'], definition, runtime,
+                      batch_policy=replace(rr.BatchPolicy(), **changes))
+
+
+def test_batch_preflight_and_later_failure(monkeypatch):
+    from types import SimpleNamespace as NS
+    from dataclasses import replace
+    import hashlib
+    import json
+    definition, runtime, first = controlled(monkeypatch, 'hello')
+    second = NS(chunk_id='second', heading_path=(), text='world', extraction_id='extraction',
+                revision_id='revision')
+    class Metadata:
+        title = None
+        def model_dump(self, mode): return {}
+    validated = NS(chunks=(first, second), revision=NS(source=Metadata(), revision_id='revision'),
+                   scope=Metadata())
+    monkeypatch.setattr(rr.ingestion_bundle, 'validate', lambda *args: validated)
+    closed = []
+    mode = ['good']
+    class Session:
+        def __init__(self, *args): self.calls = 0
+        def __enter__(self): return self
+        def __exit__(self, *args): closed.append(True)
+        def count(self, role, text):
+            self.calls += 1
+            digest = hashlib.sha256(json.dumps([text, None], ensure_ascii=True,
+                                    separators=(',', ':')).encode()).hexdigest()
+            count = rr.native_tokenizers.Count(3, definition.sha256, '0.21.4', role,
+                                                'revision', 'raw', digest, 'single')
+            if self.calls == 2 and mode[0] == 'raise':
+                raise ValueError('secret')
+            if self.calls == 2 and mode[0] == 'bad':
+                return replace(count, input_sha256='0' * 64)
+            return count
+    monkeypatch.setattr(rr, 'Session', Session)
+    args = (None, b'', (), ['chunk', 'second'], definition, runtime)
+    assert len(rr.build_many(*args)) == 2
+    for failure in ('bad', 'raise'):
+        mode[0] = failure
+        with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
+            rr.build_many(*args)
+    assert len(closed) == 3
+    mode[0] = 'good'
+    def wire(text):
+        return len(json.dumps({'text': text, 'pair': None, 'nonce': '0' * 32,
+                                           'role': definition.role, 'artifact': 0},
+                                          ensure_ascii=True, separators=(',', ':')).encode()) + 1
+    assert wire('hello') < wire('hello') + wire('world')
+    def forbidden(*args, **kwargs): pytest.fail('worker or hash reached')
+    monkeypatch.setattr(rr, 'Session', forbidden)
+    monkeypatch.setattr(rr.hashlib, 'sha256', forbidden)
+    with pytest.raises(rr.RepresentationError):
+        rr.build_many(*args, batch_policy=rr.BatchPolicy(max_total_request_bytes=wire('hello') + 1))
+    with pytest.raises(rr.RepresentationError):
+        rr.build_many(*args, batch_policy=rr.BatchPolicy(max_total_codepoints=9))

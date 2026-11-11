@@ -93,7 +93,7 @@ def build_many(store, metadata_json_bytes, members, chunk_ids, definition, runti
                 raise ValueError
             components = [x for x in components[:-1] if x] + [components[-1]]
             length = sum(len(x) for x in components) + 2 * (len(components) - 1)
-            if length > 100000:
+            if length > 100000 or total_chars + length > bp.max_total_codepoints:
                 raise ValueError
             text = policy.separator.join(components)
             wire = json.dumps({'text': text, 'pair': None, 'nonce': '0' * 32,
