@@ -1,0 +1,18 @@
+{
+  "lane_id": "PAR-007-CPU-BACKEND-A",
+  "result": "PARTIAL",
+  "implementation_head": "7783abe5ffc7296458085779c1498509f975e9a4",
+  "report_publication_commit": "SELF",
+  "API": "Not implemented.",
+  "commands_and_results": [
+    "wait-control cpu-backend: EXACT_OK_CONSUMED",
+    "git status --short --branch: clean at specified base",
+    "Read embedding_space.py and embedding_artifacts.py",
+    "Copied FINAL order unchanged and committed it"
+  ],
+  "witness_hashes": {
+    "order_sha256": "020119e8f875c14f5a51294a45bfc526127a977e5348fa208577a920a8f1e946"
+  },
+  "limits": "No backend, tests, or API documentation implemented; all five acceptance criteria remain unmet. No external blocker established. No framework import, model load, inference, or qualification performed.",
+  "DHA": "NONE"
+}

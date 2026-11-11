@@ -1,0 +1,37 @@
+{
+  "lane_id": "PAR-007-NORMALIZATION-A",
+  "result": "COMPLETE",
+  "implementation_head": "81f85b4320b0769215d39044618d08911c91edd0",
+  "report_publication_commit": "SELF",
+  "API": "normalize_rows; VectorRefused; immutable NormalizedVectors",
+  "commands": [
+    {
+      "command": "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14 bash -c \"ulimit -v 1048576; ulimit -t 30; timeout 120 python -m pytest -q tests/unit/test_embedding_vectors.py\"",
+      "count": 4,
+      "exit": 0
+    },
+    {
+      "command": "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14 bash -c \"ulimit -v 1048576; ulimit -t 30; timeout 120 python -m pytest -q tests/integration/test_embedding_vectors_composition.py\"",
+      "count": 1,
+      "exit": 0
+    },
+    {
+      "command": "RAYON_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 ruff check on three changed Python files",
+      "exit": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0
+    }
+  ],
+  "witness_hashes": {
+    "src/slaif_raggedized_helper/embedding_vectors.py": "c69906f3cb4a1239241990d31eb2688fb14712525c5046e93ff07331724b3a67",
+    "tests/unit/test_embedding_vectors.py": "a92583a39e709bd3b2b1e6b4b829fd6d3f4f39e00867aa8baff94cda7cdbe6bd",
+    "tests/integration/test_embedding_vectors_composition.py": "266f884670d90c2a69c6c9db5bc211a1c772884d790fbbd55d005ea814b255f5",
+    "docs/parallel/embedding-vectors-api.md": "6f7324a56f66f40493584c4bd6c679203e45a8ee08d7f1014488c9cf8de5d8c2",
+    "oap/parallel/orders/PAR-007-NORMALIZATION-A.md": "57768fa5189db5bb3087a2a4d5c49e2c80b683dafa1cff12e0b096c5899ac9d7"
+  },
+  "limits": "Local raw numeric producer only; original 007 remains PARTIAL. Official model and CPU/GPU mathematical parity, worker, native input, persisted storage, row map, authorization, license, ICA, MVP and hardware qualification remain open. No bitwise parity claim.",
+  "strongest_counterargument": "Official reference may accumulate and round differently; physical CPU/GPU parity must be measured. The local arithmetic and bounded refusal contract is independently testable.",
+  "DHA Decision": "NONE"
+}
