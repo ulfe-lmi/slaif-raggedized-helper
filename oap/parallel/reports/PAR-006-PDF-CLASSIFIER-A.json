@@ -1,0 +1,16 @@
+{
+  "lane_id": "PAR-006-PDF-CLASSIFIER-A",
+  "result": "PARTIAL",
+  "implementation_head": "dca0cb1137549fa8510ab3d87a4603f263320e95",
+  "report_publication_commit": "SELF",
+  "api": "pdf-literal-structure-v1: frozen Line, classify, StructureError",
+  "commands": [
+    "uv run --isolated --locked --offline --python 3.14 python -c 'import pytest; print(\"cached test runner ready\")': passed",
+    "uv run --isolated --locked --offline --python 3.14 pytest -o addopts='' -q tests/unit/test_pdf_structure.py: 4 passed",
+    "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/pdf_structure.py tests/unit/test_pdf_structure.py: passed",
+    "git diff --check: passed"
+  ],
+  "witness_hashes": {"script": "ea6aa3938d847dfb25e035192320320e45067701cd7f279b9ecdafaab3a2e417", "prior_output": "ef92b19632e61050809786e425cb826b679ccedb52be4191e8a2a6f812ae29dc"},
+  "limits": "Tests do not yet prove all exact character caps, deadline exhaustion, pipe alignment or every requested negative case. Literal heuristics cannot solve arbitrary PDF layout; integration and full 006 remain outstanding. Review implementation for rule alignment and budget behavior before acceptance.",
+  "dha": "NONE"
+}
