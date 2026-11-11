@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-11T20:40:52.657709+00:00",
+  "status": "INERT_INTEGRATION_PREPARATION",
+  "candidate": "31bbb86276f288934baed3ba1331cda257584ab0",
+  "implementation": "01a362b1a91cd14d5df0076cf9620417cbb8fde8",
+  "candidate_base": "266dca51ed6bb55dede44f63a7c1bd32ee8b8e67",
+  "report_sha256": "8a119b2c5f7f1912aefdb9c8db308df40fc3007858f7ba2ff2079b118dd258d3",
+  "existing_review": "parallel/vector-codec/review.json",
+  "forecast_against_current006report": {
+    "base": "b0162aafc68e044d662b3664955700cda55c1969",
+    "tree": "c7daeddb8ee408b79d28bb4033a2a560f7868267",
+    "paths": [
+      "docs/parallel/dense-index-memory-api.md",
+      "docs/parallel/lexical-index-memory-api.md",
+      "docs/parallel/rank-fusion-api.md",
+      "docs/parallel/technical-analyzer-api.md",
+      "docs/parallel/vector-codec-api.md",
+      "oap/parallel/orders/PAR-007-VECTOR-CODEC-A.md",
+      "oap/parallel/orders/PAR-008-ANALYZER-A.md",
+      "oap/parallel/orders/PAR-008-DENSE-A.md",
+      "oap/parallel/orders/PAR-008-DENSE-B.md",
+      "oap/parallel/orders/PAR-008-LEXICAL-A.md",
+      "oap/parallel/orders/PAR-008-LEXICAL-B.md",
+      "oap/parallel/orders/PAR-008-RRF-A.md",
+      "oap/parallel/reports/PAR-007-VECTOR-CODEC-A.json",
+      "oap/parallel/reports/PAR-008-ANALYZER-A.json",
+      "oap/parallel/reports/PAR-008-DENSE-A.json",
+      "oap/parallel/reports/PAR-008-DENSE-B.json",
+      "oap/parallel/reports/PAR-008-LEXICAL-A.json",
+      "oap/parallel/reports/PAR-008-LEXICAL-B.json",
+      "oap/parallel/reports/PAR-008-RRF-A.json",
+      "src/slaif_raggedized_helper/dense_index.py",
+      "src/slaif_raggedized_helper/lexical_index.py",
+      "src/slaif_raggedized_helper/rank_fusion.py",
+      "src/slaif_raggedized_helper/technical_analyzer.py",
+      "src/slaif_raggedized_helper/vector_codec.py",
+      "tests/integration/test_dense_index_composition.py",
+      "tests/integration/test_lexical_index_composition.py",
+      "tests/integration/test_rank_fusion_composition.py",
+      "tests/integration/test_technical_analyzer_composition.py",
+      "tests/integration/test_vector_codec_composition.py",
+      "tests/unit/test_dense_index.py",
+      "tests/unit/test_lexical_index.py",
+      "tests/unit/test_rank_fusion.py",
+      "tests/unit/test_technical_analyzer.py",
+      "tests/unit/test_vector_codec.py"
+    ]
+  },
+  "decision": "Do not merge entire codec tip: its ancestry introduces dense_index/lexical_index/rank_fusion/technical_analyzer and associated008orders/reports/tests outside the first007scope. Future canonical coding order transfers exactly four reviewed codec blobs onto accepted main, retains original candidate/history/SELF report as provenance, and re-verifies integration/currentCI.",
+  "allowed_exact_files": {
+    "src/slaif_raggedized_helper/vector_codec.py": {
+      "blob": "00a83165fa02310d64ae302f7535d0c74dfefaaf",
+      "sha256": "13a923892bba79089d1e1c7282d562eff1fd3fff2ec51c3c6df4a7f5dc52330c"
+    },
+    "tests/unit/test_vector_codec.py": {
+      "blob": "6a930a6d585a26271f6aaf245704307aac6818d0",
+      "sha256": "d4311ed50108a5e186306ec10b36311bc73f49e50f17d31995deb6c2a05b455d"
+    },
+    "tests/integration/test_vector_codec_composition.py": {
+      "blob": "866d330ad6daec0a71cd25898d12b06b436acb8a",
+      "sha256": "a38bb02cf493c08b642332861f2a795500c2834860154d10d2180060030080a1"
+    },
+    "docs/parallel/vector-codec-api.md": {
+      "blob": "600f4f9c6896ced1a10b33bc81d73cf2c4595eb1",
+      "sha256": "eb1c191ae443ffd91512f9c4301236f31e8184195c2d4d637d7398d80f14f27c"
+    }
+  },
+  "inspection": "Read complete unit and composition tests and API doc; codec tests import no008component, so four-file selective transfer is self-contained apart fromNumPy/runtime dependency.",
+  "gate": "No transfer now:006 remainsunresolvedpendingreportCI. Final base/governance/dependency pin and007activation await actual006resolution/currentstate. No source copy by strategy, no alteration of coding reports, no new numericPR. DHA NONE."
+}

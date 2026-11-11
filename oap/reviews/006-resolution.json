@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-11T21:20:47.144138+00:00",
+  "status": "MERGED_VERIFIED_COMPLETE_BOUNDED_NATIVE_SOFTWARE",
+  "objective": "006",
+  "identifier": "006-e",
+  "pr": 8,
+  "branch": "oap/006-native-extraction-and-chunking",
+  "accepted_report": "b0162aafc68e044d662b3664955700cda55c1969",
+  "implementation": "6168099c3171d4b18fac8e39674cc7596c37ce4d",
+  "report_sha256": "d0d63ee2dd506412287fee4834df6a99e7165c5d2c2783c22c90caa166d1664c",
+  "main_before": "4977186d3ddbd2259f78590b29c0364fe26eb1fb",
+  "merge": "11badc7782bed326995d400f5532b63399b91fbd",
+  "tree": "fc2737840fda964bee2896dbb957366c67671703",
+  "parents": [
+    "4977186d3ddbd2259f78590b29c0364fe26eb1fb",
+    "b0162aafc68e044d662b3664955700cda55c1969"
+  ],
+  "merged_at": "2026-11-11T21:17:13Z",
+  "review": "audit/006-e-review.json",
+  "report_CI": "audit/006-e-report-CI.json",
+  "postmerge_CI": {
+    "run": 43101734536,
+    "conclusion": "",
+    "headSha": "11badc7782bed326995d400f5532b63399b91fbd",
+    "status": "in_progress"
+  },
+  "DHA": "NONE",
+  "scope": "Accepted bounded native ingestion software only. Real model/hardware/current authorization/PDF fidelity/visual/license/held-out/ICA gates remain open. No release/tag/deployment.",
+  "continuation_replan": "Human WHY DID YOU STOP correction: required CI gates relevant acceptance/merge; pending CI does not suspend independent authorized development. Activate bounded007 on verified accepted main; fullMVP goal ACTIVE.",
+  "merge_mechanism": "Expected-head guarded gh pr merge --merge --match-head-commit; no admin/auto/bypass. Remote result and local fetched main parents/tree independently reverified.",
+  "decision": "MERGED",
+  "accepted_head": "b0162aafc68e044d662b3664955700cda55c1969",
+  "merge_commit": "11badc7782bed326995d400f5532b63399b91fbd",
+  "rounds": [
+    "006-a",
+    "006-b",
+    "006-c",
+    "006-d",
+    "006-e"
+  ]
+}
