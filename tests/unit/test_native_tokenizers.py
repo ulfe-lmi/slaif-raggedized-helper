@@ -10,26 +10,50 @@ import pytest
 
 from slaif_raggedized_helper import native_tokenizers as n
 
-SPIKE = Path('/tmp/slaif-tokenizer-spike-006')
-PACKAGES = SPIKE / 'venv/lib/python3.14/site-packages'
+def make_native(tmp_path):
+    """Generate owned artifacts with the explicitly configured trusted backend."""
+    root = os.environ.get('SLAIF_NATIVE_TEST_ROOT')
+    packages = os.environ.get('SLAIF_NATIVE_TEST_PACKAGES')
+    python = os.environ.get('SLAIF_NATIVE_TEST_PYTHON')
+    if not all((root, packages, python)):
+        pytest.fail('set SLAIF_NATIVE_TEST_ROOT, SLAIF_NATIVE_TEST_PACKAGES and '
+                    'SLAIF_NATIVE_TEST_PYTHON for required native tests')
+    runtime = n.Runtime(Path(root), Path(packages), python)
+    generator = """
+import sys
+from tokenizers import Tokenizer, models, pre_tokenizers, processors
+for name, vocab, single, pair, specials in [
+ ('a', {'[UNK]':0,'[CLS]':1,'[SEP]':2,'hello':3,'café':4,'世界':5},
+  '[CLS] $A [SEP]', '[CLS] $A [SEP] $B:1 [SEP]:1', [('[CLS]',1),('[SEP]',2)]),
+ ('b', {'<unk>':0,'<s>':1,'</s>':2,'hello':3,'café':4},
+  '<s> $A </s>', '<s> $A </s> </s> $B:1 </s>:1', [('<s>',1),('</s>',2)])]:
+ t = Tokenizer(models.WordLevel(vocab, unk_token=next(iter(vocab))))
+ t.pre_tokenizer = pre_tokenizers.Whitespace()
+ t.post_processor = processors.TemplateProcessing(single=single, pair=pair, special_tokens=specials)
+ t.enable_truncation(max_length=5)
+ t.enable_padding(length=20, pad_id=0, pad_token=next(iter(vocab)))
+ t.save(sys.argv[1] + '/' + name + '.json')
+"""
+    env = {**os.environ, 'PYTHONPATH': packages, 'TOKENIZERS_PARALLELISM': 'false'}
+    subprocess.run([str(Path(root) / 'bin' / python), '-c', generator, str(tmp_path)],
+                   check=True, timeout=2, env=env)
+    paths = [tmp_path / 'a.json', tmp_path / 'b.json']
 
-
-@pytest.fixture
-def native(tmp_path):
-    if not (PACKAGES / 'tokenizers/__init__.py').exists():
-        pytest.skip('development-only native backend unavailable')
-    if not (SPIKE / 'a.json').exists() or not (SPIKE / 'b.json').exists():
-        pytest.skip('owned spike fixtures unavailable')
-    paths = []
-    for name in ('a', 'b'):
-        target = tmp_path / (name + '.json')
-        target.write_bytes((SPIKE / (name + '.json')).read_bytes())
-        paths.append(target)
-    runtime = n.Runtime(Path('/usr'), PACKAGES)
     def definition(path, role='bge_body'):
         return n.Definition(path, hashlib.sha256(path.read_bytes()).hexdigest(), '0.21.4',
                             role, 'synthetic-revision', 'identity')
     return paths, runtime, definition
+
+
+@pytest.fixture
+def native(tmp_path, monkeypatch):
+    original = n.count
+
+    def bounded(*args, **kwargs):
+        kwargs.setdefault('policy', n.Policy(wall_seconds=2))
+        return original(*args, **kwargs)
+    monkeypatch.setattr(n, 'count', bounded)
+    return make_native(tmp_path)
 
 
 def test_actual_full_counts(native):
@@ -151,7 +175,7 @@ print(json.dumps(result))
     try:
         argv = n._argv(runtime, paths[0], request)
         argv[argv.index('/worker.py') - 1] = str(probe)
-        result = json.loads(n._run(argv, 4096, time.monotonic() + 5))
+        result = json.loads(n._run(argv, 4096, time.monotonic() + 2))
     finally:
         os.close(fd)
         listener.close()
@@ -201,20 +225,15 @@ def test_cpu_limit_refuses_runaway(native, tmp_path):
     probe.write_text('while True: pass\n')
     argv = n._argv(runtime, paths[0], request)
     argv[argv.index('/worker.py') - 1] = str(probe)
+    argv[2] = '--cpu=1'
     start = time.monotonic()
     with pytest.raises(n.TokenizerError):
-        n._run(argv, 4096, start + 5)
-    assert time.monotonic() - start < 5.9
+        n._run(argv, 4096, start + 2)
+    assert time.monotonic() - start < 3
 
 
 def test_serialized_padding_is_disabled(native):
     paths, runtime, definition = native
-    python = SPIKE / 'venv/bin/python'
-    subprocess.run([str(python), '-c',
-                    'import sys; from tokenizers import Tokenizer; '
-                    't=Tokenizer.from_file(sys.argv[1]); '
-                    't.enable_padding(length=20, pad_id=0, pad_token="[UNK]"); '
-                    't.save(sys.argv[1])', str(paths[0])], check=True, timeout=5)
     assert n.count(definition(paths[0]), runtime, 'hello').count == 3
 
 
@@ -228,4 +247,78 @@ def test_native_worker_under_restrictive_resources(native, tmp_path):
         argv = n._argv(runtime, paths[0], request)
         argv[1 if limit.startswith('--as') else 2] = limit
         with pytest.raises(n.TokenizerError):
-            n._run(argv, 4096, time.monotonic() + 5)
+            n._run(argv, 4096, time.monotonic() + 2)
+
+
+def test_output_encoding_and_duplicate_keys(native, monkeypatch):
+    import json
+    paths, runtime, definition = native
+    for codec in ('utf-8', 'utf-16', 'utf-32'):
+        def forged(argv, cap, deadline):
+            req = json.loads(Path(argv[argv.index('/request.json') - 1]).read_text())
+            return json.dumps({'nonce': req['nonce'], 'version': '0.21.4',
+                               'count': 2}).encode(codec)
+        monkeypatch.setattr(n, '_run', forged)
+        if codec == 'utf-8':
+            assert n.count(definition(paths[0]), runtime, 'x').count == 2
+        else:
+            with pytest.raises(n.TokenizerError):
+                n.count(definition(paths[0]), runtime, 'x')
+    def duplicate(argv, cap, deadline):
+        req = json.loads(Path(argv[argv.index('/request.json') - 1]).read_text())
+        return ('{"nonce":"' + req['nonce'] + '","version":"0.21.4",'
+                '"count":1,"count":2}').encode()
+    monkeypatch.setattr(n, '_run', duplicate)
+    with pytest.raises(n.TokenizerError):
+        n.count(definition(paths[0]), runtime, 'x')
+
+
+def test_large_valid_artifact_and_max(native, monkeypatch):
+    paths, runtime, definition = native
+    path = paths[0]
+    path.write_bytes(path.read_bytes() + b' ' * 17_100_000)
+    d = definition(path)
+    assert n.count(d, runtime, 'hello café 世界').count == 5
+    assert n.count(replace(d, role='reranker_pair'), runtime, 'hello', 'café 世界').count == 6
+    original = n.os.read
+    def forbidden_read(*args):
+        raise AssertionError('oversize descriptor must be refused before read')
+    monkeypatch.setattr(n.os, 'read', forbidden_read)
+    with pytest.raises(n.TokenizerError):
+        n.count(d, runtime, 'x', policy=n.Policy(max_artifact_bytes=1000, wall_seconds=2))
+    monkeypatch.setattr(n.os, 'read', original)
+    with path.open('ab') as f:
+        f.truncate(32_000_001)
+    with pytest.raises(n.TokenizerError):
+        n.count(d, runtime, 'x')
+    with pytest.raises(n.TokenizerError):
+        n.Policy(max_artifact_bytes=32_000_001)
+
+
+def test_missing_runtime_refuses_offline(tmp_path):
+    with pytest.raises(n.TokenizerPrerequisiteError):
+        n._argv(n.Runtime(tmp_path, tmp_path), tmp_path, tmp_path)
+
+
+def test_growth_over_hard_max(native, monkeypatch):
+    paths, runtime, definition = native
+    path = paths[0]
+    with path.open('ab') as f:
+        f.truncate(32_000_000)
+    d = definition(path)
+    original = n.os.read
+    changed = False
+
+    def grow(fd, size):
+        nonlocal changed
+        result = original(fd, size)
+        if not changed:
+            changed = True
+            with path.open('ab') as target:
+                target.write(b' ')
+        return result
+
+    monkeypatch.setattr(n.os, 'read', grow)
+    with pytest.raises(n.TokenizerError):
+        n.count(d, runtime, 'x')
+    assert changed

@@ -33,7 +33,7 @@ class Runtime:
 
 @dataclass(frozen=True)
 class Policy:
-    max_artifact_bytes: int = 4_000_000
+    max_artifact_bytes: int = 32_000_000
     max_request_bytes: int = 200_000
     max_chars: int = 100_000
     max_count: int = 200_000
@@ -41,7 +41,7 @@ class Policy:
     wall_seconds: float = 5.0
 
     def __post_init__(self):
-        for value, maximum in ((self.max_artifact_bytes, 4_000_000),
+        for value, maximum in ((self.max_artifact_bytes, 32_000_000),
                                (self.max_request_bytes, 200_000), (self.max_chars, 100_000),
                                (self.max_count, 200_000), (self.max_output, 4096)):
             if type(value) is not int or not 1 <= value <= maximum:
@@ -224,7 +224,7 @@ def count(definition: Definition, runtime: Runtime, text: str, pair: str | None 
                     raise ValueError
                 result[key] = value
             return result
-        obj = json.loads(output, object_pairs_hook=unique,
+        obj = json.loads(output.decode('utf-8', errors='strict'), object_pairs_hook=unique,
                          parse_constant=lambda _: (_ for _ in ()).throw(ValueError()))
         if (type(obj) is not dict or set(obj) != {'nonce', 'count', 'version'} or
                 obj['nonce'] != nonce or obj['version'] != definition.backend_version or

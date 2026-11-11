@@ -24,7 +24,7 @@ sums or assumed overhead. Native imports occur only in the worker; no AutoTokeni
 remote-code loader or fetch is used. Use callbacks extracting `.count` with
 `chunking.Counters`; its provenance remains `SUPPLIED_UNVERIFIED`.
 
-Default and maximum policy limits are 4 MB artifact, 200 KB request, 100,000
+Default and maximum policy limits are 32,000,000 bytes artifact, 200 KB request, 100,000
 characters, 200,000 count, 4096 output bytes, and 5 seconds wall time. Each call
 starts one worker. Limits may be lowered but not increased; integer and finite types
 are strict. Linux x86-64, bubblewrap user/PID/network namespaces, prlimit, and an
@@ -33,7 +33,7 @@ worker sees read-only runtime, package directory, input files and selected syste
 libraries, an empty tmpfs and isolated /proc and /dev; environment and inherited file
 descriptors are cleared. CPU is limited to 3 seconds, address space to 512 MiB,
 open descriptors to 32, and file size to 4096 bytes. Output is read with a byte cap;
-timeout, errors and cancellation terminate and reap the owned process. Operators must
+timeout, errors and cancellation terminate and reap the owned process. Child output must be strict UTF-8 JSON with unique keys; the nonce matches request and response but is not an authentication mechanism. Operators must
 bound concurrent calls externally. Runtime, packages, native code and system
 libraries are trusted operator inputs; neither the artifact nor a request selects
 code or an executable. Unsupported hosts must refuse; there is no unsandboxed fallback.
@@ -45,3 +45,22 @@ not arbitrary hostile-file or supply-chain security. Actual pinned BGE and reran
 artifacts, preprocessing and inference-tokenizer parity remain unqualified; they
 require the applicable 006/007/012/019 work and independent audit. No actual model
 identity, rights, GPU or MVP qualification is implied.
+
+
+The 32,000,000-byte default and hard maximum admit the approximately 17.1 MB
+class observed in mutable public metadata, while bounding descriptor reads and
+memory. Metadata is not a pinned artifact or qualification. Smaller policy values
+are supported. Large-file tests pad an owned tiny valid JSON with whitespace; they
+do not measure full vocabulary performance or establish real-model parity.
+
+For required native development tests, provide `SLAIF_NATIVE_TEST_ROOT`,
+`SLAIF_NATIVE_TEST_PYTHON` (python3.12 or python3.14), and
+`SLAIF_NATIVE_TEST_PACKAGES` pointing at a trusted isolated installation of
+`tokenizers==0.21.4`. Install that wheel and its dependencies into a separate test
+environment before running; no project dependency is added. Tests generate their
+own artifacts and fail explicitly if configuration or the backend is missing. Run
+unit and integration files with the project dev dependencies installed. Each own
+fixture worker uses a 2-second wall allowance with up to 1 second cleanup; this
+is distinct from the library's 5-second production ceiling and 3-second CPU limit.
+The parent interpreter and the explicitly configured native worker interpreter may
+differ and must be reported separately. Host isolation tests are host-specific.
