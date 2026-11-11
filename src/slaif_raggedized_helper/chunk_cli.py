@@ -41,9 +41,13 @@ def main(argv=None):
             result = ingestion_prepare.prepare(parsed.original_store, parsed.derived_store,
                                                parsed.revision, parsed.adapter, profile,
                                                parsed.query, end)
-        if time.monotonic() >= end:
+        try:
+            output = json.dumps(result, sort_keys=True)
+        except (TypeError, ValueError, OverflowError):
+            raise ingestion_prepare.PrepareError(result.get('bundle_id')) from None
+        if len(output) > 65536 or time.monotonic() >= end:
             raise ingestion_prepare.PrepareError(result.get('bundle_id'))
-        print(json.dumps(result, sort_keys=True))
+        print(output)
         return 1 if result['status'] == 'no_native_chunks' else 0
     except (ValueError, UnicodeError, ingestion_profile.ProfileError) as exc:
         if isinstance(exc, ingestion_prepare.PrepareError):
