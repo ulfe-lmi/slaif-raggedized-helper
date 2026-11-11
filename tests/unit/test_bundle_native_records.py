@@ -35,3 +35,42 @@ def test_early_refusal(monkeypatch):
 def test_tree_node_limit():
     with pytest.raises(ValueError):
         b._parse(b"[1,2,3]", 3)
+
+
+@pytest.mark.parametrize(
+    "raw,limit,accepted",
+    [
+        (b"[1,2,3]", 4, True),
+        (b"[1,2,3]", 3, False),
+        (b'{"a":1}', 3, True),
+        (b'{"a":1}', 2, False),
+        (b"[" * 16 + b"0" + b"]" * 16, 17, True),
+        (b"[" * 17 + b"0" + b"]" * 17, 18, False),
+        (b'{"\\ud800":1}', 3, False),
+    ],
+)
+def test_tree_admission_boundaries(raw, limit, accepted):
+    if accepted:
+        b._parse(raw, limit)
+    else:
+        with pytest.raises(ValueError):
+            b._parse(raw, limit)
+
+
+def test_queue_admission_precedes_expansion():
+    import sys
+
+    peak = []
+
+    def trace(frame, event, arg):
+        if frame.f_code is b._parse.__code__ and event == "line":
+            peak.append(len(frame.f_locals.get("stack", ())))
+        return trace
+
+    sys.settrace(trace)
+    try:
+        with pytest.raises(ValueError):
+            b._parse(b"[" + b"0," * 15000 + b"0]", 10000)
+    finally:
+        sys.settrace(None)
+    assert max(peak) <= 10000

@@ -10,6 +10,16 @@ from . import chunking, native_chunking as nc, provenance_jsonl as jl, provenanc
 from .native_tokenizers import Count
 
 
+HEADER_BYTES = 65536
+RECEIPTS_BYTES = 8000000
+HEADER_NODES = 10000
+RECEIPTS_NODES = 500000
+MAX_DEPTH = 16
+MAX_WORK = 20000000
+MAX_INPUT_CHARS = 100000
+MAX_INPUT_BYTES = 200000
+
+
 class BundleRecordsError(ValueError):
     """Input-free refusal of the complete bundle boundary."""
 
@@ -40,17 +50,25 @@ def _parse(raw, max_nodes):
         parse_constant=lambda _: (_ for _ in ()).throw(ValueError()),
     )
     stack = [(obj, 0)]
-    nodes = 0
+    admitted = 1  # Values and dictionary keys, whether pending or already visited.
     while stack:
         value, depth = stack.pop()
-        nodes += 1
-        if nodes > max_nodes or depth > 16:
+        if depth > MAX_DEPTH:
             raise ValueError
         if type(value) is dict:
-            stack.extend((x, depth + 1) for x in value.values())
+            children = len(value) * 2
+            if admitted + children > max_nodes or (children and depth >= MAX_DEPTH):
+                raise ValueError
+            admitted += children
+            # Keys count as nodes and are checked before adding values to the queue.
             for key in value:
                 key.encode("utf-8")
+            stack.extend((x, depth + 1) for x in value.values())
         elif type(value) is list:
+            children = len(value)
+            if admitted + children > max_nodes or (children and depth >= MAX_DEPTH):
+                raise ValueError
+            admitted += children
             stack.extend((x, depth + 1) for x in value)
         elif type(value) is str:
             value.encode("utf-8")
@@ -83,14 +101,14 @@ def validate(chunking_header_json_bytes, chunks_jsonl_bytes, receipts_json_bytes
                 type(x) is not bytes
                 for x in (chunking_header_json_bytes, chunks_jsonl_bytes, receipts_json_bytes)
             )
-            or len(chunking_header_json_bytes) > 65536
+            or len(chunking_header_json_bytes) > HEADER_BYTES
             or len(chunks_jsonl_bytes) > jl.MAX_BYTES
-            or len(receipts_json_bytes) > 8000000
+            or len(receipts_json_bytes) > RECEIPTS_BYTES
             or type(expected_chunks) is not int
             or not 1 <= expected_chunks <= 4096
         ):
             raise ValueError
-        header = _parse(chunking_header_json_bytes, 10000)
+        header = _parse(chunking_header_json_bytes, HEADER_NODES)
         _fields(header, ("policy", "query", "definitions", "policy_definition", "policy_id"))
         _fields(header["policy"], (f.name for f in fields(chunking.Policy)))
         policy = chunking.Policy(**header["policy"])
@@ -150,7 +168,7 @@ def validate(chunking_header_json_bytes, chunks_jsonl_bytes, receipts_json_bytes
             expected_chunks,
         )
         check()
-        receipt_doc = _parse(receipts_json_bytes, 250000)
+        receipt_doc = _parse(receipts_json_bytes, RECEIPTS_NODES)
         _fields(receipt_doc, ("version", "receipts"))
         receipts = receipt_doc["receipts"]
         if (
@@ -210,13 +228,13 @@ def validate(chunking_header_json_bytes, chunks_jsonl_bytes, receipts_json_bytes
                 text, pair = ((chunk.text, None), (rep, None), (query, rep))[j]
                 chars = len(text) + (len(pair) if pair is not None else 0)
                 work += chars
-                if chars > 100000 or work > 20000000:
+                if chars > MAX_INPUT_CHARS or work > MAX_WORK:
                     raise ValueError
                 serialized = json.dumps(
                     [text, pair], ensure_ascii=True, separators=(",", ":")
                 ).encode()
                 serialized_work += len(serialized)
-                if len(serialized) > 200000 or serialized_work > 20000000:
+                if len(serialized) > MAX_INPUT_BYTES or serialized_work > MAX_WORK:
                     raise ValueError
                 expected = {
                     **d,
@@ -238,9 +256,17 @@ def validate(chunking_header_json_bytes, chunks_jsonl_bytes, receipts_json_bytes
                 ):
                     raise ValueError
                 admitted_receipts.append(nc.Receipt(chunk.chunk_id, ident, Count(**count)))
-        canonical_header = nc._json(header)
-        canonical_receipts = nc._json(receipt_doc)
+        canonical_header = json.dumps(
+            header, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")
+        ).encode("utf-8")
+        canonical_receipts = json.dumps(
+            receipt_doc, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")
+        ).encode("utf-8")
+        if len(canonical_header) > HEADER_BYTES or len(canonical_receipts) > RECEIPTS_BYTES:
+            raise ValueError
         canonical_chunks = jl.encode("Chunk", tuple(c.model_dump_json().encode() for c in chunks))
+        if len(canonical_chunks) > jl.MAX_BYTES:
+            raise ValueError
         check()
         return Validated(
             policy,
