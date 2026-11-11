@@ -27,6 +27,8 @@ class AdmittedSpace:
     pooling: str
     normalize: bool
     space_id: str
+    inventory_schema: int = 1
+    checkpoint_format: str = "safetensors"
 
 
 def admit(
@@ -120,7 +122,16 @@ def admit(
         if time.monotonic() - start >= timeout:
             raise ValueError
         return AdmittedSpace(
-            inv.inventory_id, fp, tokenizer.sha256, "identity", 1024, "cls", True, space_id
+            inv.inventory_id,
+            fp,
+            tokenizer.sha256,
+            "identity",
+            1024,
+            "cls",
+            True,
+            space_id,
+            inv.schema,
+            inv.checkpoint_format,
         )
     except Exception:
         raise SpaceRefused("space admission refused") from None

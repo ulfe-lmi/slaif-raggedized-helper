@@ -146,3 +146,23 @@ def test_preflight_before_file_work_and_private_error(tmp_path, monkeypatch):
     assert str(tmp_path) not in str(exc.value)
     with pytest.raises(embedding_space.SpaceRefused):
         embedding_space.admit(raw, str(tmp_path / "tree") + "/../tree", d, t, inv.inventory_id)
+
+
+@pytest.mark.parametrize(
+    "fmt,name", [("pytorch-state-dict", "pytorch_model.bin"), ("safetensors", "model.safetensors")]
+)
+def test_schema2_actual_files_and_space(tmp_path, fmt, name):
+    root = tmp_path / "tree"
+    m, _, old, d, t = fixture(root)
+    weight = next(x for x in m["files"] if x["role"] == "weights")
+    (root / weight["path"]).rename(root / name)
+    weight["path"] = name
+    m.update(schema=2, checkpoint_format=fmt)
+    raw = json.dumps(m).encode()
+    inv = embedding_artifacts.verify_artifacts(raw, root)
+    admitted = embedding_space.admit(raw, root, d, t, inv.inventory_id)
+    assert (admitted.inventory_schema, admitted.checkpoint_format) == (2, fmt)
+    assert inv.inventory_id != old.inventory_id
+    m["checkpoint_format"] = "safetensors" if fmt == "pytorch-state-dict" else "pytorch-state-dict"
+    with pytest.raises(embedding_artifacts.ArtifactRefused):
+        embedding_artifacts.verify_artifacts(json.dumps(m).encode(), root)
