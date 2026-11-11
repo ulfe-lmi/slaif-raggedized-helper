@@ -90,3 +90,5 @@ qualify its actual CI host isolation and backend; these fixtures do not qualify
 full 006, MVP, security or production.
 
 Policy definition v4 binds the classifier version. Block fingerprint v2 binds the kind along with revision, extraction, order, page, text digest and bounding box. Existing v3 policy records are immutable and incompatible: explicitly re-extract under v4 rather than silently upgrading them. These identities do not change native count fingerprints or quotas.
+
+Records bound to classifier `pdf-literal-structure-v2`, including policy v4 records, are incompatible with classifier v3 and require explicit re-extraction.

@@ -5,7 +5,7 @@ import math
 import re
 import time
 
-VERSION = "pdf-literal-structure-v2"
+VERSION = "pdf-literal-structure-v3"
 
 
 class StructureError(ValueError):
@@ -98,12 +98,12 @@ def classify(lines: tuple[Line, ...]) -> tuple[str, ...]:
         check()
         if re.match(r"^\s*(?:[-*•]|\d+[.)]) +\S", text):
             result[i] = "list"
-    i = 0
-    while i + 3 < len(lines):
-        check()
+    def candidate(i):
+        if i + 3 >= len(lines):
+            return False
         header = columns[i]
         rule = texts[i + 1].strip()
-        if (
+        return not (
             not header
             or not rule
             or not re.fullmatch(r"[-+| ]+", rule)
@@ -123,9 +123,27 @@ def classify(lines: tuple[Line, ...]) -> tuple[str, ...]:
                 )
             )
             or lines[i].page != lines[i + 1].page
-        ):
+            or lines[i + 2].page != lines[i].page
+            or lines[i + 3].page != lines[i].page
+            or columns[i + 2] is None
+            or columns[i + 2] != columns[i + 3]
+            or not compatible_columns(header, columns[i + 2])
+        )
+
+    def compatible_columns(header, row):
+        return row == header or (
+            header[0] == "space" and row and row[0] == "space"
+            and len(header[1]) == len(row[1])
+            and all(abs(a - b) <= 1 for a, b in zip(header[1], row[1]))
+        )
+
+    i = 0
+    while i + 3 < len(lines):
+        check()
+        if not candidate(i):
             i += 1
             continue
+        header = columns[i]
         j = i + 2
         row_signature = columns[j]
         compatible = row_signature == header
@@ -137,7 +155,7 @@ def classify(lines: tuple[Line, ...]) -> tuple[str, ...]:
         while (compatible and j < len(lines) and lines[j].page == lines[i].page
                and columns[j] == row_signature):
             check()
-            if j + 1 < len(lines) and re.fullmatch(r"[-+| ]{3,}", texts[j + 1]):
+            if candidate(j):
                 break
             j += 1
         if j >= i + 4:

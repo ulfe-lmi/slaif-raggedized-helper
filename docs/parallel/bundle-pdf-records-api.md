@@ -23,3 +23,5 @@ or license clearance. Later composition must bind chunks, intervals, neighbors a
 visual extraction, current authorization, licensing, independent audit and MVP gates remain open.
 
 The validator requires PDF policy v4 including classifier version, rederives the complete kind sequence from admitted page, text and geometry, and checks the shared v2 block fingerprint including kind. It rejects older v3 records; re-extract explicitly under the new policy. Load never runs the parser or tokenizer. This is a trusted-producer consistency check, not a fresh fidelity or authorization attestation. Objective 019, visual, license and independent audit gates remain open.
+
+Records bound to classifier `pdf-literal-structure-v2`, including policy v4 records, are incompatible with classifier v3 and require explicit re-extraction.

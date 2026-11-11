@@ -119,8 +119,35 @@ def test_one_character_header_offset_requires_consistent_rows():
     header = "Parameter       Value (kg)"
     rule = "--------------------------"
     assert classify(lines(header, rule, "Item001          1 kg", "Item002          2 kg")) == (
-        "table_header", "table_row", "table_row", "table_row"
+        "table_header",
+        "table_row",
+        "table_row",
+        "table_row",
     )
-    for rows in (("Item001          1 kg", "Item002           2 kg"),
-                 ("Item001           1 kg", "Item002           2 kg")):
+    for rows in (
+        ("Item001          1 kg", "Item002           2 kg"),
+        ("Item001           1 kg", "Item002           2 kg"),
+    ):
         assert classify(lines(header, rule, *rows)) == ("text",) * 4
+
+
+@pytest.mark.parametrize("tail", [(), ("----------",), ("",), ("   ",)])
+def test_table_terminators_and_incomplete_next_table(tail):
+    data = lines("Name  Unit", "----------", "A     kg", "B     no", *tail)
+    assert classify(data)[:4] == ("table_header", "table_row", "table_row", "table_row")
+    assert classify(data)[4:] == ("text",) * len(tail)
+
+
+def test_incomplete_next_header_remains_in_first_run():
+    data = lines(
+        "Name  Unit", "----------", "A     kg", "B     no", "Next  Unit", "----------", "C     kg"
+    )
+    assert classify(data) == (
+        "table_header",
+        "table_row",
+        "table_row",
+        "table_row",
+        "table_row",
+        "text",
+        "text",
+    )

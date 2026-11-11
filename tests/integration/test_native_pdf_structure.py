@@ -38,17 +38,17 @@ def owned_pdf(lines):
     return bytes(data)
 
 
-@pytest.mark.parametrize('case', ['small', 'default', 'warning'])
+@pytest.mark.parametrize('case', ['small', 'closing', 'default', 'warning'])
 def test_real_structural_chunks(tmp_path, case):
     if case == 'warning':
         lines = ['Other text.', 'WARNING isolate power before reset.',
                  '1. Do not energize.', 'TAILCANARY.']
     else:
-        n = 20 if case == 'small' else 300
-        width = 2 if case == 'small' else 3
+        n = 20 if case in ('small', 'closing') else 300
+        width = 2 if case in ('small', 'closing') else 3
         lines = ['Parameter       Value (kg)', '--------------------------'] + [
             f'Item{i:0{width}d}          {i} kg' for i in range(1, n + 1)
-        ] + ['TAILCANARY 99 kg']
+        ] + (['--------------------------'] if case == 'closing' else []) + ['TAILCANARY 99 kg']
     paths, runtime, make = make_native(tmp_path)
     defs = (make(paths[0], 'bge_body'), make(paths[0], 'bge_representation'),
             make(paths[1], 'reranker_pair'))
