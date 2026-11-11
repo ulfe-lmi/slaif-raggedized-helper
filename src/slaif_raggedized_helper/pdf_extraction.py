@@ -47,7 +47,7 @@ class PdfPolicy:
 
     @property
     def definition(self):
-        return json.dumps({'adapter': 'pdfminer.six-20260107', 'version': 1,
+        return json.dumps({'adapter': 'pdfminer.six-20260107', 'version': 3,
                            **self.__dict__, 'geometry': 'pdf-points-bottom-left',
                            'isolation': 'bwrap-linux-v1'}, sort_keys=True, separators=(',', ':'))
 
@@ -189,7 +189,8 @@ def extract(store: OriginalStore, revision_id: str, runtime: PdfRuntime,
                 != (revision_id, dep.extraction_id, nonce)
                 or type(obj['objects']) is not int or not 0 <= obj['objects'] <= policy.max_objects
                 or type(obj['pages']) is not list or not 1 <= len(obj['pages']) <= policy.max_pages
-                or type(obj['blocks']) is not list or len(obj['blocks']) > 4096):
+                or type(obj['blocks']) is not list or len(obj['blocks']) > 4096
+                or obj['objects'] < len(obj['blocks'])):
             raise ValueError
         pages = []
         for i, page in enumerate(obj['pages'], 1):
@@ -233,13 +234,15 @@ def extract(store: OriginalStore, revision_id: str, runtime: PdfRuntime,
                                 origin='native', page_ref=anchor,
                                 geometry=tuple(float(v) for v in bbox),
                                 uncertainty='PDF native text and order are layout heuristic.'))
-        if any((count > 0) != (status == 'native_text')
+        if any(count == 0 and status == 'native_text'
                for count, (_, status) in zip(counts, pages)):
             raise ValueError
         if time.monotonic() >= deadline:
             raise PdfError('pdf worker timeout')
         return PdfResult(revision, scope, dep, tuple(blocks), tuple(pages),
-                         'partial_visual_needed' if any(not n for n in counts) else 'native_text')
+                         'partial_visual_needed'
+                         if any(status == 'visual_needed' for _, status in pages)
+                         else 'native_text')
     except PdfError:
         raise
     except Exception:

@@ -1,0 +1,35 @@
+{
+  "lane_id": "PAR-006-PDF-D",
+  "result": "COMPLETE",
+  "implementation_head": "525405b30d9e0e2d8c33fa1a404f35adb1fd0560",
+  "report_publication_commit": "SELF",
+  "summary": "Mark pdfminer LTImage and LTCurve layout objects, including nested forms, as visual_needed even when native text is present. Preserve native blocks and geometry, bounded traversal, and pure native forms. Advance extraction policy semantics version to 3.",
+  "API": "Existing extract API unchanged; page visual_needed yields overall partial_visual_needed. Visual markers require downstream processing and do not provide rendered evidence. No image decoding or rendering added.",
+  "tests": [
+    {
+      "command": "TMPDIR=/tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline pytest -p no:cacheprovider --basetemp=/tmp/pdf-d-final -o addopts='' -q tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py tests/unit/test_source_admission.py tests/integration/test_source_admission_composition.py",
+      "result": "36 passed in 6.62s; no skips. Includes mixed and textless raster/vector fixtures, nested forms, native text bbox/origin, source and isolation limits."
+    },
+    {
+      "command": "TMPDIR=/tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline ruff check src/slaif_raggedized_helper/pdf_extraction.py src/slaif_raggedized_helper/pdf_worker.py tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "All checks passed."
+    },
+    {
+      "command": "TMPDIR=/tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline python /tmp/audit_pdf_b_extra.py",
+      "result": "Mixed image: partial_visual_needed, visual_needed, native warning and bbox retained; duplicate key, NaN bbox, invalid page and boolean objects refused."
+    },
+    {
+      "command": "TMPDIR=/tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline python /tmp/raggedized-audit-pdf-figure.py",
+      "result": "Pure native form: native_text, normal and nested warning retained."
+    },
+    {
+      "command": "TMPDIR=/tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline python /tmp/raggedized-audit-pdf-witness.py",
+      "result": "Native warning and bbox retained; contradictory zero-object child refused."
+    },
+    {
+      "command": "git diff --check",
+      "result": "Passed before implementation commit."
+    }
+  ],
+  "limits": "Synthetic owned PDFs and development-only backend graph. Other unsupported visual content may remain undetected. No vision, hostile-PDF security, license/native notice, ICA, full 006, MVP or deployment qualification. No DHA append ordered; no push, PR, integration or protected resource change."
+}

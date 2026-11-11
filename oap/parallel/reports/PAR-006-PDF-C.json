@@ -1,0 +1,27 @@
+{
+  "lane_id": "PAR-006-PDF-C",
+  "result": "COMPLETE",
+  "implementation_head": "398276f5c23be7bb3068ed0c205256e8cb6964c6",
+  "report_publication_commit": "SELF",
+  "summary": "Corrected the 12 reported E501, E701 and E731 lint errors using line wrapping, statement layout, and a local named function; fixture bytes, assertions and behavior remain unchanged.",
+  "API": "No API or extraction behavior changes.",
+  "tests": [
+    {
+      "command": "uv run --isolated --locked --offline ruff check src/slaif_raggedized_helper/pdf_extraction.py src/slaif_raggedized_helper/pdf_worker.py tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "All checks passed; prior run found 12 errors."
+    },
+    {
+      "command": "TMPDIR=/tmp/raggedized-audit-pdf-tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline pytest -p no:cacheprovider --basetemp=/tmp/raggedized-pdf-c-pytest -o addopts='' -q tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "20 passed in 3.78s."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed before implementation commit"
+    },
+    {
+      "command": "cmp /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/pdf-adapter-c/order.md oap/parallel/orders/PAR-006-PDF-C.md",
+      "result": "identical"
+    }
+  ],
+  "limits": "Formatting correction only; no license, MVP, hostile PDF, deployment or hardware clearance. No push or integration. DHA NONE."
+}

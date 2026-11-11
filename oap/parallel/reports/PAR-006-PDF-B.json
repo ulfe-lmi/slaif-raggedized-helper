@@ -1,0 +1,27 @@
+{
+  "lane_id": "PAR-006-PDF-B",
+  "result": "COMPLETE",
+  "implementation_head": "f6a8528f6440897ba23d8823c828a6d0da0b43b8",
+  "report_publication_commit": "SELF",
+  "summary": "Traverse nested layout in deterministic preorder; emit text containers once and uncovered characters with actual geometry; mark unsupported text leaves visual-needed, including mixed pages. Reject child block counts exceeding counted objects. Preserve verified input and isolation.",
+  "API": "Page visual_needed can contain native blocks; overall partial_visual_needed follows page status. Extraction definition version 2 reflects changed behavior. Nonce correlates, does not authenticate a compromised worker.",
+  "tests": [
+    {
+      "command": "TMPDIR=/tmp/raggedized-audit-pdf-tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline pytest -p no:cacheprovider --basetemp=/tmp/raggedized-pdf-b-pytest2 -o addopts='' -q tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py tests/unit/test_source_admission.py tests/unit/test_source_cli.py tests/integration/test_source_admission_composition.py tests/unit/test_provenance_records.py tests/integration/test_provenance_records_composition.py tests/unit/test_text_extraction.py tests/integration/test_text_extraction_composition.py",
+      "result": "55 passed, no skips"
+    },
+    {
+      "command": "TMPDIR=/tmp/raggedized-audit-pdf-tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline python /tmp/raggedized-audit-pdf-figure.py",
+      "result": "Before: Visible normal only, native_text. After: Visible normal and Hidden warning, native_text."
+    },
+    {
+      "command": "TMPDIR=/tmp/raggedized-audit-pdf-tmp PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline python /tmp/raggedized-audit-pdf-witness.py",
+      "result": "Before: zero objects with one block accepted. After: rejected; real PDF still returned native text and geometry."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed before implementation commit"
+    }
+  ],
+  "limits": "Synthetic development fixtures only; order and geometry are pdfminer heuristics, no visual completeness or hostile-PDF security proof. Unsupported text leaves mark visual-needed; images and unreadable content may still occur on native-text pages. No license clearance, deployment, hardware, vision or MVP claims. No push or merge. DHA NONE."
+}
