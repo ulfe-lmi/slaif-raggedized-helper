@@ -2,21 +2,16 @@
 
 ## Current state (2026-11-11)
 
-- Active objective: 006, current slice 006-e (bounded native PDF
-  structural correction on the 006-a/006-b/006-c/006-d slices: the
-  conservative literal line classifier pdf-literal-structure-v3 under
-  PDF policy definition v4 and the shared kind-bound block fingerprint
-  v2, repairing the root-reproduced reduced-policy table
-  header-relationship loss, the fitting-warning separation and the
-  closing-rule last-row loss; classifier v2 / policy v3 records remain
-  immutable and require explicit re-extraction; whole-006 native
-  coverage is software-complete on this branch subject to the
-  independent Root review after the 006-e report — code queue and green
-  CI alone are not acceptance), open on
-  the 006 PR, branch
-  oap/006-native-extraction-and-chunking from main 4977186;
-  live PR/CI/merge state is queried on GitHub, not asserted
-  here. Objective 005 is complete: both slices (005-a canonical
+- Active objective: 007, current slice 007-a (first bounded
+  slice: the exact reviewed normalized FP32 NPY subset codec plus the
+  reproducible NumPy 2.5.4 runtime pin, open on the 007 PR, branch
+  oap/007-embedding-pipeline from main 11badc7; whole-007 remains
+  PARTIAL — no encoder, CPU query, resumable owned GPU batches or
+  qualification contracts yet), live PR/CI/merge state is queried on
+  GitHub, not asserted here. Objective 006 is complete and merged to
+  main as PR #8 (merge commit 11badc7; final slice 006-e bounded native
+  PDF structural correction, terminal resolution
+  oap/reviews/006-resolution.json). Objective 005 is complete: both slices (005-a canonical
   source integration, 005-b canonical provenance and job records)
   were root-reviewed and merged to main as PR #7 (merge commit
   4977186; final review oap/reviews/005-b-review.json, terminal
@@ -44,8 +39,8 @@
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 006 (006 PR), not idle.
-- Current main is the 005 merge commit 4977186 (PR #7); the 006
+- The coding client is active on objective 007 (007 PR), not idle.
+- Current main is the 006 merge commit 11badc7 (PR #8); the 007
   branch builds from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md

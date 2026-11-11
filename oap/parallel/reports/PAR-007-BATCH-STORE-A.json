@@ -1,0 +1,19 @@
+{
+  "lane_id": "PAR-007-BATCH-STORE-A",
+  "result": "COMPLETE",
+  "preparation_head": "23ef3ab18653b6c34438a1be4456535623d1ee83",
+  "implementation_head": "f1f5f3cbeb7546b758f7dc387b9e38f7d4de5259",
+  "report_publication_commit": "SELF",
+  "api": "publish and load provide bounded typed structural persistence with exact declared metadata binding, actual Store fresh reads, fixed-policy NPY numeric validation, ordered row IDs and immutable matrix bytes.",
+  "checks": [
+    "env -u PYTHONPATH RAYON_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; timeout 120 pytest tests/unit/test_embedding_batch_store.py': 15 passed, exit 0",
+    "env -u PYTHONPATH RAYON_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; timeout 120 pytest tests/integration/test_embedding_batch_store_composition.py': 13 passed, exit 0 at preceding implementation checkpoint; only unit test changed subsequently",
+    "uv run --isolated --locked --offline --python 3.14 ruff check on all three changed Python files: passed; changed unit file rechecked after final amendment: passed",
+    "git diff --check and git diff --cached --check: passed",
+    "Root ownership witness /tmp/raggedized-root-batch-store-ownership.py: exit 0, FORGED_NON_STORE_REFUSED; sha256 7b77895d208019bcf537d35b98e2ee64fd2ed02a8ca68b8856467d5bd0e5973f",
+    "Private guard removal experiment accepted faithful forged snapshot, demonstrating corrected test causality; Root independent guard causality witness sha256 64dca9f1b1e642a49473f5062c338ef4463fe4f9d5dab4ee5397df2685d69abb exit 0"
+  ],
+  "review_corrections": "First review exposed forged non-Store acceptance; exact Store guards and actual Store I/O spies fixed it. Second review exposed a non-causal forgery fixture; valid metadata and vectors now make ownership the discriminating property.",
+  "limits": "Declarations do not prove source relations, row-vector semantics, model execution or current rights. Immutable orphan objects may remain on failure. No transaction or completed job is claimed. No runtime, parity, license, hardware, quality, ICA or MVP qualification is established. No network, model, GPU, push, PR, merge or deployment performed.",
+  "dha": "NONE"
+}

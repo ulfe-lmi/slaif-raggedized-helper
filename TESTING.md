@@ -231,3 +231,7 @@ after integration with no skip or fallback. Full command coverage,
 backend setup, the four-fresh-read derived-store semantics and NOT-RUN
 distinctions: docs/benchmarks/ingestion-count-storage.md (T15). All
 synthetic and offline; real qualification NOT RUN.
+
+T16. Bounded 007-a codec slice: `uv run pytest tests/unit/test_vector_codec.py
+tests/integration/test_vector_codec_composition.py -q` (21 cases, synthetic offline;
+command/limit detail in docs/embedding.md). Real qualification NOT RUN.
