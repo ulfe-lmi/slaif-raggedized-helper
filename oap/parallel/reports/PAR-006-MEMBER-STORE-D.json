@@ -1,0 +1,31 @@
+{
+  "lane_id": "PAR-006-MEMBER-STORE-D",
+  "result": "COMPLETE",
+  "implementation_head": "80f0f9d408f26a319d36b71f738f3db76b0a2a49",
+  "report_publication_commit": "SELF",
+  "API": "Changed read attempts are discarded; up to four fresh nofollow opens, re-admissions and full before/after comparisons under existing deadline. Only stable bytes reach existing size/hash verification. No guarantee under persistent churn. Same-uid history outside observation is not attested.",
+  "evidence": "Deterministically unlinking an owned hardlink between before-stat and read changed link count 2 to 1 and ctime without mtime/content change, causing old ValueError. Independent witness failed before fix and passes unchanged after fix. Regression verifies a fresh open after unlink and persistent restored-mode changes exhaust four attempts. Existing corrupt EEXIST, symlink, mutation, independent-process and publication fault tests retained.",
+  "actualcommands": [
+    "wait-control derived-member-store-d: exit 0 EXACT_OK_CONSUMED",
+    "uv run python /tmp/derived-d-witness.py before fix: exit 0; benign unlink rejected; chmod/restored mode changes ctime",
+    "uv run python /tmp/raggedized-root-store-link-race.py before fix: exit 1, benign_other_stage_unlink_refused=True; after fix: exit 0, false",
+    "uv run pytest -o addopts='' tests/unit/test_derived_store.py tests/integration/test_derived_store_composition.py -q: 84 passed in 0.62s",
+    "uv run ruff check src/slaif_raggedized_helper/derived_store.py tests/unit/test_derived_store.py tests/integration/test_derived_store_composition.py: exit 0",
+    "uv run python resource-limited pytest -o addopts='' -q tests/unit tests/integration/test_source_installed_cli.py tests/integration/test_source_module_cli.py tests/integration/test_source_admission_composition.py tests/integration/test_provenance_records_composition.py tests/integration/test_derived_store_composition.py: 683 passed in 19.68s; 180s timeout, 120s CPU and 1GiB address space set after uv startup",
+    "10 subprocess runs of pytest -o addopts='' -q tests/unit/test_derived_store.py::test_concurrent_publication tests/integration/test_derived_store_composition.py::test_independent_processes_converge: 20 tests passed, 0 failed, 7.14s; CPU/address caps after uv startup, per-run 15s timeout",
+    "uv run python /tmp/raggedized-root-derived-store-closed.py and /tmp/raggedized-root-derived-store-deadline.py: both exit 0",
+    "git diff --check and git diff --cached --check: exit 0"
+  ],
+  "witnesshashes": {
+    "root_witness_sha256": "84fe137c2104527b9e0f18d57693d8bde9749d71b7425585c149750ae392b3da",
+    "local_witness_sha256": "ad2fd37a224ec804c1a476709f248e86f85d27288d6df67ffaa3054cd4f3028f",
+    "source_sha256": "80cb56fcee50aa18df1c291a58e4ea8a0b462fcd614aa480d36605e12916e761",
+    "test_sha256": "209dc75c7ea18c12bc36c297b72e2c76826de55ab7fee778a6df9a166309d0be",
+    "order_sha256": "bb66f4e73f4f010fe9188ddcd7ec1760c0923d14dd05a0a0d7583a0b1172d434"
+  },
+  "limits": [
+    "Finite retries can fail under sustained legitimate contention; not universal convergence or filesystem proof. Stable secure read does not attest past restored changes. Protected root and descriptors remain required; deadline is cooperative, no blocked-syscall or hard RSS guarantee.",
+    "No model, hardware, gateway, license, authorization, ICA, visual MVP, release, or deployment qualification."
+  ],
+  "dha": "NONE"
+}
