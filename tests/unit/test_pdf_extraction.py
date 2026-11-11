@@ -110,7 +110,8 @@ def test_worker_marks_unsupported_nested_text_on_mixed_page(monkeypatch, capsys)
     import types
     from slaif_raggedized_helper import pdf_worker as worker
 
-    class Text: pass
+    class Text:
+        pass
     class Container:
         def __init__(self, children): self.children = children
         def __iter__(self): return iter(self.children)
@@ -120,17 +121,20 @@ def test_worker_marks_unsupported_nested_text_on_mixed_page(monkeypatch, capsys)
     class Char(Text):
         bbox = (0, 0, 1, 1)
         def get_text(self): return 'x'
-    class Unsupported(Text): pass
+    class Unsupported(Text):
+        pass
     page = [TextContainer([Char()]), Container([Unsupported()])]
     modules = {
         'pdfminer': types.ModuleType('pdfminer'),
         'pdfminer.high_level': types.SimpleNamespace(extract_pages=lambda *a, **k: [page]),
         'pdfminer.layout': types.SimpleNamespace(LTContainer=Container, LTText=Text,
                                                  LTTextContainer=TextContainer, LTChar=Char),
-        'pdfminer.pdfdocument': types.SimpleNamespace(PDFDocument=lambda _: types.SimpleNamespace(encryption=None)),
+        'pdfminer.pdfdocument': types.SimpleNamespace(
+            PDFDocument=lambda _: types.SimpleNamespace(encryption=None)),
         'pdfminer.pdfparser': types.SimpleNamespace(PDFParser=lambda _: None),
     }
-    for name, module in modules.items(): monkeypatch.setitem(sys.modules, name, module)
+    for name, module in modules.items():
+        monkeypatch.setitem(sys.modules, name, module)
     monkeypatch.setattr(worker, 'version', lambda _: '20260107')
     monkeypatch.setattr('builtins.open', lambda *a, **k: __import__('io').BytesIO())
     monkeypatch.setattr(sys, 'argv', ['worker', 'revision', 'policy', 'nonce', '1', '10', '100'])

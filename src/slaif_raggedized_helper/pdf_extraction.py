@@ -240,7 +240,9 @@ def extract(store: OriginalStore, revision_id: str, runtime: PdfRuntime,
         if time.monotonic() >= deadline:
             raise PdfError('pdf worker timeout')
         return PdfResult(revision, scope, dep, tuple(blocks), tuple(pages),
-                         'partial_visual_needed' if any(status == 'visual_needed' for _, status in pages) else 'native_text')
+                         'partial_visual_needed'
+                         if any(status == 'visual_needed' for _, status in pages)
+                         else 'native_text')
     except PdfError:
         raise
     except Exception:

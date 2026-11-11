@@ -267,14 +267,18 @@ def nested_form_pdf():
     outer = b'BT /F1 12 Tf 50 700 Td (Visible normal) Tj ET\n/Fm1 Do\n'
     form = b'BT /F1 12 Tf 50 600 Td (Hidden warning) Tj ET\n/Fm2 Do\n'
     inner = b'BT /F1 12 Tf 50 500 Td (Nested warning) Tj ET\n'
-    stream = lambda data: b' /Length %d >>\nstream\n' % len(data) + data + b'endstream'
+    def stream(data):
+        return b' /Length %d >>\nstream\n' % len(data) + data + b'endstream'
     objects = [b'<< /Type /Catalog /Pages 2 0 R >>',
                b'<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
-               b'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> /XObject << /Fm1 6 0 R >> >> /Contents 5 0 R >>',
+               b'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources '
+               b'<< /Font << /F1 4 0 R >> /XObject << /Fm1 6 0 R >> >> /Contents 5 0 R >>',
                b'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
                b'<<' + stream(outer),
-               b'<< /Type /XObject /Subtype /Form /BBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> /XObject << /Fm2 7 0 R >> >>' + stream(form),
-               b'<< /Type /XObject /Subtype /Form /BBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >>' + stream(inner)]
+               b'<< /Type /XObject /Subtype /Form /BBox [0 0 612 792] /Resources '
+               b'<< /Font << /F1 4 0 R >> /XObject << /Fm2 7 0 R >> >>' + stream(form),
+               b'<< /Type /XObject /Subtype /Form /BBox [0 0 612 792] /Resources '
+               b'<< /Font << /F1 4 0 R >> >>' + stream(inner)]
     data = bytearray(b'%PDF-1.4\n')
     offsets = [0]
     for i, obj in enumerate(objects, 1):
@@ -284,7 +288,8 @@ def nested_form_pdf():
     data.extend(f'xref\n0 {len(offsets)}\n0000000000 65535 f \n'.encode())
     for offset in offsets[1:]:
         data.extend(f'{offset:010d} 00000 n \n'.encode())
-    data.extend(f'trailer\n<< /Size {len(offsets)} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n'.encode())
+    data.extend(
+        f'trailer\n<< /Size {len(offsets)} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n'.encode())
     return bytes(data)
 
 
@@ -296,7 +301,8 @@ def test_nested_forms_keep_text_once_with_geometry_and_limits(tmp_path, runtime)
         assert text == 'Visible normal\nHidden warningNested warning'
         assert result.pages == ((1, 'native_text'),)
         assert all(block.geometry is not None for block in result.blocks)
-        assert next(b for b in result.blocks if b.text == 'H').geometry[1] > next(b for b in result.blocks if b.text == 'N').geometry[1]
+        assert (next(b for b in result.blocks if b.text == 'H').geometry[1]
+            > next(b for b in result.blocks if b.text == 'N').geometry[1])
         assert pdf.extract(store, rev.revision_id, runtime).blocks == result.blocks
         for policy in (pdf.PdfPolicy(max_objects=10), pdf.PdfPolicy(max_chars=20)):
             with pytest.raises(pdf.PdfError):
@@ -307,7 +313,8 @@ def test_nested_forms_keep_text_once_with_geometry_and_limits(tmp_path, runtime)
 
 def test_matching_child_object_counts_and_mixed_status(tmp_path, runtime, monkeypatch):
     store, rev = make_store(tmp_path, tiny_pdf())
-    state = {'objects': 0, 'status': 'native_text', 'blocks': [{'page': 1, 'text': 'x', 'bbox': [0, 0, 1, 1]}]}
+    state = {'objects': 0, 'status': 'native_text',
+             'blocks': [{'page': 1, 'text': 'x', 'bbox': [0, 0, 1, 1]}]}
     def forged(argv, cap, deadline):
         rid, policy, nonce = argv[-6:-3]
         return json.dumps(dict(revision=rid, policy=policy, request=nonce,
