@@ -128,11 +128,15 @@ jobs:
 
       - name: Provision new private hash-verified PDF test backend
         run: |
+          set -o pipefail
           target="$RUNNER_TEMP/pdf-test-backend-new"
           test ! -e "$target"
           python3 tests/support/prepare_pdf_test_backend.py \
             --runtime-dir "$PDF_TEST_RUNTIME" --target "$target" | tee pdf-backend-setup.log
-          grep '^export ' pdf-backend-setup.log >> "$GITHUB_ENV"
+          # The helper's printed export lines are shell-oriented; GITHUB_ENV
+          # takes literal NAME=value entries only, so bind the known private
+          # package path explicitly (never source or eval helper output).
+          printf 'PDF_TEST_PACKAGES=%s/lib/python3.12/site-packages\n' "$target" >> "$GITHUB_ENV"
 
       - name: Lint (product scope)
         run: uv run ruff check src tests/unit tests/integration
