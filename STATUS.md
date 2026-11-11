@@ -1,14 +1,20 @@
 # Project status
 
-## Current state (2026-11-10)
+## Current state (2026-11-11)
 
-- Active objective: 004 (the 004-b/004-c evidence-contract corrections
-  of
-  the 004-a trial runner and gateway/direct composition, and the
-  004-d bounded read-only local resource telemetry slice with the
-  004-e resource lifecycle/accounting/contract corrections), open on PR
-  #6, branch oap/004-qualification-harness; live PR/CI/merge state is
-  queried on GitHub, not asserted here.
+- Active objective: 005, first slice 005-a (canonical source
+  integration of the independently reviewed local original
+  admission/store plus a thin installed `raggedized source
+  import|inspect` route), open on the new 005 PR, branch
+  oap/005-artifact-schema-and-source-scopes from main bd8e454;
+  live PR/CI/merge state is queried on GitHub, not asserted
+  here. Objective 004 is complete: the explicitly replanned 004
+  software scope was root-reviewed and merged to main as PR #6
+  (merge commit bd8e454; final review
+  oap/reviews/004-f-review.json, terminal resolution
+  oap/reviews/004-resolution.json). All fourteen real
+  qualification trials remain NOT_RUN; the development merge is
+  not qualification.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
   (merged as PR #5) plus the 004-a finite qualification trial runner
@@ -29,9 +35,9 @@
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 004 (PR #6), not idle.
-- Current main is the 003 merge commit 2bc320f (PR #5); PR #6 builds
-  from it.
+- The coding client is active on objective 005 (new 005 PR), not idle.
+- Current main is the 004 merge commit bd8e454 (PR #6); the 005
+  branch builds from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
   (strategic, copied unchanged).
@@ -410,3 +416,25 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   parity and the full named gate composition, 019/ICA/MVP and
   LICENSE-01 remain open; no merge; 004 continuations and 005
   selection remain strategy alone.
+- 005-a (canonical source integration, first 005 slice; new 005 PR,
+  branch oap/005-artifact-schema-and-source-scopes from main bd8e454,
+  the PR #6 merge): ONE authorized local --no-ff merge of the
+  root-reviewed local candidate branch oap/parallel-005-source-cli tip
+  32a2b84d099f2641123d2569b01afe533064ac61 (including the
+  source-admission-b tip
+  0837191198b2b1712445d5ba6ca268d358637866) preserving candidate
+  order/report/implementation histories, plus the thin installed
+  `raggedized source` prefix delegation to the existing source_cli.main,
+  focused installed-CLI source tests and documentation/governance
+  reconciliation. Adds source_admission.py (strict versioned manifest,
+  descriptor-bounded approved-root reads, digest-named immutable blobs,
+  metadata-sensitive immutable revisions, atomic same-filesystem
+  publication) and source_cli.py (bounded import/inspect operator tool);
+  the installed route proves shared-byte blob dedup with distinct
+  rights/ACL/corpus metadata, metadata-revision immutability, verified
+  reuse and safe input-free failures on owned disposable fixtures.
+  Strategic 005-a round-start bytes committed byte-for-byte unchanged.
+  Block/span/chunk, derived-scope and job/attempt records remain REQUIRED
+  same-PR continuations before whole-005 acceptance; no 006 activation or
+  partial 005 merge; all real qualification, provenance, license and MVP
+  gates remain open (NOT RUN).

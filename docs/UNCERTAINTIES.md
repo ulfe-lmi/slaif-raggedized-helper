@@ -309,3 +309,25 @@ human question.
   MPL-2.0) remains an open human question. The immutable 004-d
   report is not rewritten; this correction supersedes its over-
   claimed statements.
+### 2026-11-11, order 005-a (canonical source integration)
+
+- U06 narrowed in software only: the integrated admission/store now
+  carries explicit per-revision access labels (empty means public
+  classification), independent redistribution rights, corpus and
+  declared metadata with unknown facts staying unknown, and byte
+  deduplication that preserves distinct rights/ACL/corpus identities.
+  Representative corpus rights/ACL/language/version evidence and human
+  gold questions are still absent; U06 stays OPEN for 005/009 work.
+- U07 unchanged: processing approval is operator metadata, never a
+  redistribution clearance; the open MIT-0/certifi/native-component
+  license questions are unaffected by this slice.
+- Documented local trust assumptions (honest boundary, not a fix):
+  the private operator store and its parent must be protected from
+  untrusted local mutation; the store filesystem must support atomic
+  hard links and directory fsync (same-filesystem POSIX scope);
+  admitted approvals are not authentication, and the store provides no
+  access enforcement, revocation, snapshot isolation, source serving or
+  legal verification. Source bytes/metadata cannot choose output paths,
+  add locations, invoke tools or cause fetches; display URIs are inert
+  data. Extraction/parsing remains 006/016 scope and all real
+  qualification stays NOT RUN.
