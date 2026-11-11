@@ -1,0 +1,13 @@
+{
+  "lane_id": "PAR-006-BUNDLE-RECEIPTS-B",
+  "result": "PARTIAL",
+  "implementation_head": "116338aa83b411eab73f4c263b6b41ed320affc7",
+  "report_publication_commit": "SELF",
+  "api": "bundle_native_records.validate(header_bytes, chunks_jsonl_bytes, receipts_json_bytes, expected_chunks) returns frozen Validated policy, chunks, receipts and canonical bytes; refuses with BundleRecordsError",
+  "commands_and_results": [
+    {"command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 PYTHONPATH=src /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest tests/unit tests/integration/test_bundle_native_records_composition.py tests/integration/test_native_chunking_composition.py tests/integration/test_tokenizer_session_composition.py tests/integration/test_provenance_jsonl_composition.py -q", "result": "passed"},
+    {"command": "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check src/slaif_raggedized_helper/bundle_native_records.py tests/unit/test_bundle_native_records.py tests/integration/test_bundle_native_records_composition.py && git diff --check", "result": "passed"}
+  ],
+  "limits": ["PARTIAL: the order's exhaustive negative and boundary test matrix is not fully covered; in particular fragment/provenance forgery, exact caps and all duplicate/missing/extra cases need additional tests.", "Positive uses two native tokenizer artifact files across three roles, as supported by the existing Session, rather than three independently distinct artifacts.", "Validation checks mechanical consistency only; source Registry, original spans, coverage, neighbors, current serving authorization, query reserve producer observations, deployment and model qualification remain outside this leaf.", "Full ingestion bundle, PDF, store and CLI scope remains open; DHA NONE."
+  ]
+}
