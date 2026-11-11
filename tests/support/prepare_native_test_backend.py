@@ -4,20 +4,59 @@ import os
 from pathlib import Path
 import platform
 import shlex
+import selectors
 import shutil
 import subprocess
 import sys
+import time
 
 
 PIN = ('tokenizers==0.21.4 --hash=sha256:'
        '51b7eabb104f46c1c50b486520555715457ae833d5aee9ff6ae853d1130506ff')
 
 
+OUTPUT_LIMIT = 8192
+
+
 def run(argv, env, timeout=10, capture=True):
-    result = subprocess.run(argv, env=env, check=True, timeout=timeout, text=True,
-                            stdout=subprocess.PIPE if capture else subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL)
-    return result.stdout if capture else ''
+    if not capture:
+        subprocess.run(argv, env=env, check=True, timeout=timeout,
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return ''
+    child = subprocess.Popen(argv, env=env, stdout=subprocess.PIPE,
+                             stderr=subprocess.DEVNULL)
+    deadline = time.monotonic() + timeout
+    output = bytearray()
+    try:
+        with selectors.DefaultSelector() as selector:
+            selector.register(child.stdout, selectors.EVENT_READ)
+            while True:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0 or not selector.select(remaining):
+                    raise subprocess.TimeoutExpired(argv, timeout)
+                chunk = os.read(child.stdout.fileno(), OUTPUT_LIMIT + 1 - len(output))
+                if not chunk:
+                    break
+                output.extend(chunk)
+                if len(output) > OUTPUT_LIMIT:
+                    raise RuntimeError('probe output exceeds byte limit')
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise subprocess.TimeoutExpired(argv, timeout)
+        if child.wait(timeout=remaining):
+            raise RuntimeError('probe exited unsuccessfully')
+        return output.decode('utf-8', errors='strict')
+    finally:
+        child.stdout.close()
+        if child.poll() is None:
+            child.terminate()
+            try:
+                child.wait(timeout=1)
+            except subprocess.TimeoutExpired:
+                child.kill()
+                child.wait(timeout=1)
+        else:
+            child.wait()
 
 
 def main():
@@ -81,6 +120,6 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except (OSError, subprocess.SubprocessError, RuntimeError) as exc:
+    except (OSError, subprocess.SubprocessError, RuntimeError, UnicodeError) as exc:
         print(f'Native development backend setup failed: {exc}', file=sys.stderr)
         sys.exit(1)

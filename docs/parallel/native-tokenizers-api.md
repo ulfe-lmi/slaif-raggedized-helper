@@ -67,7 +67,9 @@ engine API, and emits shell-quoted `SLAIF_NATIVE_TEST_ROOT`,
 Run those exports in the test shell. It requires `uv` on PATH, uses the explicit
 PyPI registry, a clean child environment, binary-only installation and the pinned
 SHA-256 in `tests/support/native-test-requirements.txt`. It refuses existing
-targets. On a failed install, inspect and remove only the newly created target you
+targets. Captured runtime and inventory probes are limited to 8192 bytes and an
+absolute deadline; oversized, invalid UTF-8, timed-out or unsuccessful probes fail
+without exposing their output and the owned child is reaped. On a failed install, inspect and remove only the newly created target you
 own before retrying. The target is mode 0700. The worker also requires Linux
 bubblewrap with working user, PID and network namespaces, `/usr/bin/prlimit`,
 `/usr/bin/timeout` and compatible system libraries; availability of binaries alone
