@@ -29,6 +29,10 @@ root and must not mutate the process's descriptors behind the store. Separate in
 processes may publish concurrently. Deadlines are checked after final cleanup and snapshot
 freezing, so an expired operation reports failure even when its manifest is already committed.
 Retry the identical publication or look up its ID; do not assume failure means rollback.
+If descriptor metadata changes during a read, the store discards that attempt and reopens
+and rechecks the file, up to four attempts within the existing deadline. Only bytes from a
+stable, secure attempt reach the normal size and hash checks. Persistent changes can still
+cause failure; a successful read does not attest to changes outside its observation interval.
 
 The finite publication fault tests inject before and after the first write, file fsync,
 link, post-link directory fsync, stage unlink, and post-cleanup directory fsync for
