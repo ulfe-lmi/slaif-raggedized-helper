@@ -28,3 +28,87 @@ def test_invalid_policy_refuses_before_validation(policy, monkeypatch):
     with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
         rr.build(None, b'secret', (), 'secret', definition, runtime, policy)
     assert not reached
+
+
+def controlled(monkeypatch, text='hello'):
+    from types import SimpleNamespace as NS
+    from pathlib import Path
+    definition = rr.native_tokenizers.Definition(Path('/unused'), 'a' * 64, '0.21.4',
+                                                  'bge_representation', 'revision', 'raw')
+    runtime = rr.native_tokenizers.Runtime(Path('/unused'), Path('/unused'))
+    chunk = NS(chunk_id='chunk', heading_path=(), text=text, extraction_id='extraction',
+               revision_id='revision')
+    validated = NS(chunks=(chunk,), revision=NS(source=NS(title=None)))
+    monkeypatch.setattr(rr.ingestion_bundle, 'validate', lambda *args: validated)
+    return definition, runtime, chunk
+
+
+def test_early_size_bounds(monkeypatch):
+    import json
+    definition, runtime, chunk = controlled(monkeypatch, '😀' * 20000)
+    assert len(chunk.text) <= 100000
+    wire = json.dumps({'text': chunk.text, 'pair': None, 'nonce': '0' * 32,
+                       'role': definition.role, 'artifact': 0}, ensure_ascii=True,
+                      separators=(',', ':')).encode() + b'\n'
+    assert len(wire) > 200000
+    reached = []
+    def forbidden(*args, **kwargs):
+        reached.append(True)
+        raise AssertionError('expensive operation reached')
+    monkeypatch.setattr(rr, 'Session', forbidden)
+    monkeypatch.setattr(rr.hashlib, 'sha256', forbidden)
+    with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
+        rr.build(None, b'', (), 'chunk', definition, runtime)
+    assert not reached
+    chunk.text = 'x' * 100001
+    monkeypatch.setattr(rr.json, 'dumps', forbidden)
+    with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
+        rr.build(None, b'', (), 'chunk', definition, runtime)
+    assert not reached
+
+
+def test_definition_metadata_rejected_before_validation(monkeypatch):
+    from dataclasses import replace
+    definition, runtime, _ = controlled(monkeypatch)
+    reached = []
+    monkeypatch.setattr(rr.ingestion_bundle, 'validate', lambda *args: reached.append(True))
+    for bad in (replace(definition, model_revision='x' * 257),
+                replace(definition, preprocessing=''), replace(definition, sha256='x' * 1000000),
+                replace(definition, sha256=None)):
+        with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
+            rr.build(None, b'', (), 'chunk', bad, runtime)
+        assert not reached
+
+
+def test_forged_receipts_and_close(monkeypatch):
+    from dataclasses import replace
+    import hashlib
+    import json
+    definition, runtime, _ = controlled(monkeypatch)
+    digest = hashlib.sha256(json.dumps(['hello', None], ensure_ascii=True,
+                                      separators=(',', ':')).encode()).hexdigest()
+    count = rr.native_tokenizers.Count(3, definition.sha256, '0.21.4',
+                                       'bge_representation', 'revision', 'raw', digest, 'single')
+    cases = [dict(input_sha256='0' * 64), dict(role='bge_body'),
+             dict(artifact_sha256='0' * 64), dict(backend_version='bad'),
+             dict(model_revision='bad'), dict(preprocessing='bad'), dict(mode='pair'),
+             dict(serialization='bad'), dict(count=True), dict(count=1.5), dict(count=-1),
+             dict(count=1025)]
+    closed = []
+    class FakeSession:
+        def __init__(self, *args): pass
+        def __enter__(self): return self
+        def __exit__(self, *args): closed.append(True)
+        def count(self, *args): return current[0]
+    monkeypatch.setattr(rr, 'Session', FakeSession)
+    for change in cases:
+        current = [replace(count, **change)]
+        with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
+            rr.build(None, b'secret', (), 'chunk', definition, runtime)
+    assert len(closed) == len(cases)
+    class FailingSession(FakeSession):
+        def count(self, *args): raise ValueError('secret')
+    monkeypatch.setattr(rr, 'Session', FailingSession)
+    with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
+        rr.build(None, b'secret', (), 'chunk', definition, runtime)
+    assert len(closed) == len(cases) + 1

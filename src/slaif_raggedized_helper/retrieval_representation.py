@@ -2,6 +2,7 @@
 from dataclasses import asdict, dataclass
 import hashlib
 import json
+import re
 
 from . import ingestion_bundle, native_tokenizers
 from .tokenizer_session import Session
@@ -48,8 +49,14 @@ def build(store, metadata_json_bytes, members, chunk_id, definition, runtime, po
                 or type(definition) is not native_tokenizers.Definition
                 or definition.role != 'bge_representation'
                 or definition.backend_version != '0.21.4'
+                or type(definition.sha256) is not str
+                or not re.fullmatch('[0-9a-f]{64}', definition.sha256)
+                or any(type(x) is not str or not 1 <= len(x) <= 256
+                       for x in (definition.model_revision, definition.preprocessing))
                 or type(runtime) is not native_tokenizers.Runtime):
             raise ValueError
+        definition.model_revision.encode('utf-8', errors='strict')
+        definition.preprocessing.encode('utf-8', errors='strict')
         validated = ingestion_bundle.validate(store, metadata_json_bytes, members)
         matches = [c for c in validated.chunks if c.chunk_id == chunk_id]
         if len(matches) != 1:
