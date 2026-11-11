@@ -120,3 +120,61 @@ def test_policy_and_input_refusals(tmp_path):
                      chunking.Policy(max_calls=1))
     finally:
         store.close()
+
+
+@pytest.mark.parametrize('kind', ['procedure', 'table'])
+def test_representative_native_documents(tmp_path, monkeypatch, kind):
+    from slaif_raggedized_helper import native_tokenizers as native
+
+    paths, runtime, definition = make_native(tmp_path)
+    defs = (definition(paths[0], 'bge_body'), definition(paths[0], 'bge_representation'),
+            definition(paths[1], 'reranker_pair'))
+    if kind == 'procedure':
+        text = ('# Procedure\n\n' + ''.join(
+            f'WARNING {i}: isolate power before service.\n\n1. Check pressure {i} kPa.\n'
+            '2. If hot, wait until safe.\n\n' for i in range(80))
+            + 'Tail: restore power only after inspection.\n')
+    else:
+        text = ('# Measurements\n\n' + ''.join(
+            '| Parameter | Value | Unit | Condition |\n| --- | --- | --- | --- |\n' + ''.join(
+                f'| flow {i}-{k} | {k} | L/s | if valve open |\n' for k in range(8)) + '\n'
+            for i in range(24)) + 'Tail: confirm units.\n')
+    store, revs = create_store(tmp_path, text)
+    observed = []
+    original = nc.Session.count
+
+    def count(self, role, text, pair=None):
+        observed.append((role, text, pair))
+        return original(self, role, text, pair)
+
+    monkeypatch.setattr(nc.Session, 'count', count)
+    try:
+        item = s.extract(store, revs[0].revision_id)
+        reg = p.Registry((revs[0],), (item.dependency,), item.blocks)
+        before = (tmp_path / 'root' / 'a').read_bytes()
+        result = nc.build(reg, item.blocks, *defs, runtime, 'hello')
+        first_calls = tuple(observed)
+        assert 1024 < len(first_calls) < 8192
+        assert len(first_calls) == len(set(first_calls))
+        assert result == nc.build(reg, item.blocks, *defs, runtime, 'hello')
+        assert tuple(observed[len(first_calls):]) == first_calls
+        assert len(result.receipts) == 3 * len(result.chunks)
+        assert reg.bind_neighbors(result.chunks, result.neighbors) == result.neighbors
+        assert 'Tail:' in result.chunks[-1].text
+        for block in item.blocks:
+            spans = [f for c in result.chunks for f in c.fragments
+                     if isinstance(f, p.SourceFragment) and f.block_id == block.block_id]
+            assert {i for f in spans for i in range(f.start, f.end)} == set(range(len(block.text)))
+        for chunk in (result.chunks[0], result.chunks[len(result.chunks) // 2], result.chunks[-1]):
+            rep = ''.join(chunk.heading_path) + chunk.text
+            expected = (native.count(defs[0], runtime, chunk.text),
+                        native.count(defs[1], runtime, rep),
+                        native.count(defs[2], runtime, 'hello', rep))
+            receipts = [r.count for r in result.receipts if r.chunk_id == chunk.chunk_id]
+            assert tuple(receipts) == expected
+            assert chunk.counts[0].count <= 768
+            assert chunk.counts[1].count <= 1024
+            assert chunk.counts[2].count <= 1280
+        assert (tmp_path / 'root' / 'a').read_bytes() == before == text.encode()
+    finally:
+        store.close()

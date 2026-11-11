@@ -33,9 +33,12 @@ query-with-empty-passage are measured, so reserve is not a substitute for pair c
 The inherited builder has a five-second build budget, 4096 blocks/chunks, one million
 source characters, 20,000 calls and 20 million work characters; Session limits are
 stricter where applicable: startup five seconds, request two seconds, lifetime 20
-seconds, 1024 calls, 16 MB input, 4 MB output, 200000 bytes and 100000 characters per
-request, 4096 bytes per response and 200000 tokens per count. The observation cache is
-bounded by those Session call and input limits. Receipt output is capped at 8 MB after
+seconds, 8192 calls, 16 MB input, 4 MB output, 200000 bytes and 100000 characters per
+request, 4096 bytes per response and 200000 tokens per count. Each build memoizes only exact role and full input pairs after the first native
+response is validated. The cache belongs to that build and Session, never crosses
+sources or builds, and retains the first observation. Cache hits still consume the
+chunker callback, work-character and deadline budgets; native requests consume the
+Session request and byte budgets. The cache is bounded by those Session limits. Receipt output is capped at 8 MB after
 serialization of produced results; this is not a general memory admission guarantee for
 arbitrary caller-forged Result or Receipt objects. Exceeding a limit refuses without
 returning a partial result. Errors contain no source text. Filesystem reads and runtime/packages are trusted local inputs, and
@@ -46,3 +49,9 @@ inference qualification. Full 006, 012 preprocessing/inference alignment, 019 he
 evaluation, native and transitive license audit, independent architecture review (ICA),
 rights and deployment gates remain open. Public tokenizer tooling and the standalone
 development backend are not transitive or license approval.
+
+Representative synthetic procedure and table fixtures complete under these limits, but
+larger documents can still refuse: a 157,312-byte many-paragraph fixture reached the
+five-second builder budget in a local run. This is not a general capacity guarantee;
+CPU speed, tokenizer behavior and source structure affect admission. No MVP claim,
+model/domain qualification or inference parity follows from these software counts.

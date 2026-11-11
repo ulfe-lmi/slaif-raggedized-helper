@@ -94,6 +94,9 @@ def build(registry: p.Registry, blocks: tuple[p.Block, ...], body: native.Defini
         cache = {}
         with Session(definitions, runtime) as session:
             def observe(index, text, second=None):
+                key = (index, text, second)
+                if key in cache:
+                    return cache[key].count
                 d = definitions[index]
                 result = session.count(d.role, text, second)
                 expected = (d.sha256, d.backend_version, d.role, d.model_revision,
@@ -104,9 +107,6 @@ def build(registry: p.Registry, blocks: tuple[p.Block, ...], body: native.Defini
                         (result.artifact_sha256, result.backend_version, result.role,
                          result.model_revision, result.preprocessing, result.input_sha256,
                          result.mode, result.serialization) != expected):
-                    raise ValueError
-                key = (index, text, second)
-                if key in cache and cache[key] != result:
                     raise ValueError
                 cache[key] = result
                 return result.count
