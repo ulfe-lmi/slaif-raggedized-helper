@@ -45,7 +45,7 @@ declarations; GPU absence is an exact unavailable, never a zero; the
 honest observed-byte aggregate accounting, every-exit-path owned
 observer stop and canonical inner-trial-ledger late-export
 accounting that the telemetry semantics require). The first 005
-slice (open on the new 005 PR, branch
+slice (open on the 005 PR, branch
 `oap/005-artifact-schema-and-source-scopes`, not merged) adds the
 independently reviewed local original admission/store and a thin
 installed `raggedized source import|inspect` route: a strict
@@ -54,11 +54,20 @@ beneath an explicit approved root into a private operator store
 with bounded descriptor-verified reads, digest-named immutable
 blobs, metadata-sensitive immutable revisions, byte deduplication
 with distinct rights/ACL/corpus metadata, atomic same-filesystem
-publication and safe input-free failures; parsing/extraction,
-provenance and job records remain later 005/006 scope and operator
+publication and safe input-free failures. The 005-b continuation
+merges the independently reviewed provenance and job record modules:
+versioned block/span/chunk/derived-scope records reconstruct exact
+original text from code-point spans with explicit separators,
+all-label source scopes keep distinct rights and reject
+cross-boundary support, and bounded job/attempt DTOs carry safe
+status transitions without claiming execution, caching or output
+existence; parsing/extraction remain 006 scope and operator
 approval is metadata, not authentication
 ([docs/parallel/source-admission-api.md](docs/parallel/source-admission-api.md),
-[docs/parallel/source-cli-api.md](docs/parallel/source-cli-api.md)).
+[docs/parallel/source-cli-api.md](docs/parallel/source-cli-api.md),
+[docs/parallel/provenance-records-api.md](docs/parallel/provenance-records-api.md),
+[docs/parallel/job-records-api.md](docs/parallel/job-records-api.md),
+[docs/data-model.md](docs/data-model.md)).
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.

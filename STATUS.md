@@ -2,11 +2,13 @@
 
 ## Current state (2026-11-11)
 
-- Active objective: 005, first slice 005-a (canonical source
-  integration of the independently reviewed local original
-  admission/store plus a thin installed `raggedized source
-  import|inspect` route), open on the new 005 PR, branch
-  oap/005-artifact-schema-and-source-scopes from main bd8e454;
+- Active objective: 005, current slice 005-b (canonical provenance
+  and job records on the 005 source foundation), open on the 005 PR,
+  branch oap/005-artifact-schema-and-source-scopes from main bd8e454;
+  first slice 005-a (canonical source integration of the
+  independently reviewed local original admission/store plus a thin
+  installed `raggedized source import|inspect` route) remains in the
+  branch;
   live PR/CI/merge state is queried on GitHub, not asserted
   here. Objective 004 is complete: the explicitly replanned 004
   software scope was root-reviewed and merged to main as PR #6
@@ -438,3 +440,29 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   same-PR continuations before whole-005 acceptance; no 006 activation or
   partial 005 merge; all real qualification, provenance, license and MVP
   gates remain open (NOT RUN).
+- 005-b (canonical provenance and job records; same PR 7 branch):
+  TWO authorized local --no-ff merges of the root-reviewed candidate
+  tips, provenance first (oap/parallel-005-provenance tip
+  3f2ec5768cc07c86c2f0ab663a4e4af23ecac406) then jobs
+  (oap/parallel-005-job-records tip
+  798d92524dfcf4b24bc312712d21453f159b204a), each forecast clean with
+  git merge-tree against the actual parent (purely additive trees, no
+  shared-code change), preserving candidate order/report/implementation
+  histories. Adds provenance_records.py (admit_record/catalog/Registry
+  bind_chunk/bind_neighbors/bind_derived/reader_allows over strict
+  versioned Scope/Dependency/Block/SourceFragment/Separator/Chunk/
+  Neighbors/Derived/Grants/Restrictions DTOs) and job_records.py
+  (admit/serialize/transition over JobSpec/Configuration/InputRef/
+  JobState/Attempt/OutputRef), the ONE combined
+  tests/integration/test_canonical_records_journey.py store-to-record
+  journey (shared-byte two-document store with distinct
+  rights/labels/corpus, metadata revision, code-point multi-span
+  chunks with explicit separators and repeated table-header
+  references, reciprocal neighbors, same-source derived support with
+  label union and cross-boundary rejection, unknown-version
+  fail-closed reader intersection, job/attempt roundtrip and bounded
+  transitions) and docs/data-model.md record protocol. NOT a GitHub
+  PR/default-main merge. Extraction, contextualization, embedding,
+  snapshots, serving/auth and worker execution remain later ordered
+  scope (006/010/007/008/014/017); DTO COMPLETE is not artifact, cache
+  or execution proof; all real qualification remains NOT RUN.

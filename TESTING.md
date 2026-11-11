@@ -132,3 +132,26 @@ help/import at zero network/model work. All synthetic and offline: no extraction
 network fetch, models, GPU or real corpus; operator approval is metadata, not authentication.
 Source serving, provenance/job records and 006 extraction remain later ordered scope; real
 qualification NOT RUN.
+
+T12. Combined canonical 005 record journey (objective 005-b): `uv run pytest
+tests/integration/test_canonical_records_journey.py -q` composes the actual
+005-a `OriginalStore` with the merged provenance and job record modules in ONE
+owned journey: two synthetic logical documents sharing bytes with distinct
+corpus/labels/rights and a metadata-corrected revision over one verified blob;
+exact byte load via `read_original`; synthetic native Block/Dependency records
+with astral/combining/CRLF content; start-inclusive/end-exclusive code-point
+multi-span chunks with explicit separators and a repeated original table-header
+reference; Registry chunk/neighbor binding with reciprocal links; same-source
+derived support (label union, cross-boundary and cross-revision rejection);
+pure reader grant/restriction intersection with unknown-version fail-closed;
+and `JobSpec`/`JobState`/`Attempt` admission, serialization roundtrip and
+bounded transitions (COMPLETE with an asserted-only verified output reference,
+UNKNOWN_COMPLETION without automatic retry, RETRYABLE_FAILED retry with a fresh
+attempt ID). Forged spans, conflicting copied text, boolean/out-of-range
+offsets, wrong revision/dependency/hash and missing labels are refused with
+input-free errors. The candidate unit suites (`test_provenance_records.py`,
+`test_job_records.py`) and component composition suites cover the remaining
+per-record negative boundaries. All synthetic and offline: no extraction,
+parsing, network, models, GPU or real corpus; supplied text/counts are
+assertions, not executed parsers or qualified tokenizer measurements; DTO
+COMPLETE is not artifact or cache proof. Real qualification NOT RUN.
