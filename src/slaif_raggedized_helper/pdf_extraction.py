@@ -47,7 +47,7 @@ class PdfPolicy:
 
     @property
     def definition(self):
-        return json.dumps({'adapter': 'pdfminer.six-20260107', 'version': 2,
+        return json.dumps({'adapter': 'pdfminer.six-20260107', 'version': 3,
                            **self.__dict__, 'geometry': 'pdf-points-bottom-left',
                            'isolation': 'bwrap-linux-v1'}, sort_keys=True, separators=(',', ':'))
 

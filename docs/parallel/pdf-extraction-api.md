@@ -12,8 +12,7 @@ runtime, backend or Linux isolation raises the input-free
 `PdfPrerequisiteError`. Other failures raise an input-free `PdfError`; no
 partial extraction result is returned on a worker/validation failure.
 
-Each page is `native_text` or `visual_needed`; a textless page or a page with an unsupported text leaf yields result status `partial_visual_needed`, even when other blocks are present. The worker traverses layout in deterministic preorder, emits text containers once without re-emitting their descendants, and emits uncovered character leaves individually with their actual bounding boxes. This retains native text in nested Form XObjects without inventing separators. Unsupported text leaves are not emitted and mark the page visual-needed. Even native-text pages can contain images or
-unreadable material; visual completeness is not claimed. Each block preserves
+Each page is `native_text` or `visual_needed`; a textless page or a page with an unsupported text leaf, raster image, or vector drawing primitive yields result status `partial_visual_needed`, even when other blocks are present. The worker traverses layout in deterministic preorder, emits text containers once without re-emitting their descendants, and emits uncovered character leaves individually with their actual bounding boxes. This retains native text in nested Form XObjects without inventing separators. Unsupported text leaves are not emitted and mark the page visual-needed. Images and vector primitives are flagged even within nested forms or mixed pages; they are not decoded or rendered. Other unreadable or unsupported material may remain undetected, so visual completeness is not claimed. Each block preserves
 pdfminer's text (which may synthesize whitespace), page anchor, actual layout
 bbox in PDF points with the pdfminer bottom-left coordinate convention and
 explicit heuristic reading-order uncertainty. No original byte equivalence,

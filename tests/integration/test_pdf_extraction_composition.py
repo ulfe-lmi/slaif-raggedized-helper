@@ -334,3 +334,59 @@ def test_matching_child_object_counts_and_mixed_status(tmp_path, runtime, monkey
             pdf.extract(store, rev.revision_id, runtime)
     finally:
         store.close()
+
+
+def visual_pdf(kind, *, text=True, nested=False):
+    warning = b'BT /F1 12 Tf 50 700 Td (Native warning) Tj ET\n' if text else b''
+    visual = (b'q 40 0 0 40 100 100 cm /Im1 Do Q\n' if kind == 'raster'
+              else b'100 100 m 150 150 l S\n')
+    outer = warning + (b'/Fm1 Do\n' if nested else visual)
+    def stream(data):
+        return b' /Length %d >>\nstream\n' % len(data) + data + b'endstream'
+    objects = [b'<< /Type /Catalog /Pages 2 0 R >>',
+               b'<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+               b'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources '
+               b'<< /Font << /F1 4 0 R >> /XObject << /Fm1 6 0 R /Im1 7 0 R >> >> '
+               b'/Contents 5 0 R >>',
+               b'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+               b'<<' + stream(outer),
+               b'<< /Type /XObject /Subtype /Form /BBox [0 0 612 792] /Resources '
+               b'<< /XObject << /Im1 7 0 R >> >>' + stream(visual),
+               b'<< /Type /XObject /Subtype /Image /Width 1 /Height 1 '
+               b'/ColorSpace /DeviceGray /BitsPerComponent 8' + stream(b'\x00')]
+    data = bytearray(b'%PDF-1.4\n')
+    offsets = [0]
+    for i, obj in enumerate(objects, 1):
+        offsets.append(len(data))
+        data.extend(f'{i} 0 obj\n'.encode() + obj + b'\nendobj\n')
+    xref = len(data)
+    data.extend(f'xref\n0 {len(offsets)}\n0000000000 65535 f \n'.encode())
+    for offset in offsets[1:]:
+        data.extend(f'{offset:010d} 00000 n \n'.encode())
+    data.extend(f'trailer\n<< /Size {len(offsets)} /Root 1 0 R >>\n'
+                f'startxref\n{xref}\n%%EOF\n'.encode())
+    return bytes(data)
+
+
+@pytest.mark.parametrize('kind', ['raster', 'vector'])
+@pytest.mark.parametrize('nested', [False, True])
+@pytest.mark.parametrize('text', [False, True])
+def test_actual_visual_material_marks_page_and_preserves_native(tmp_path, runtime, kind, nested,
+                                                               text):
+    store, rev = make_store(tmp_path, visual_pdf(kind, text=text, nested=nested))
+    try:
+        result = pdf.extract(store, rev.revision_id, runtime)
+        assert result.status == 'partial_visual_needed'
+        assert result.pages == ((1, 'visual_needed'),)
+        if text:
+            assert len(result.blocks) == 1
+            block = result.blocks[0]
+            assert block.text == 'Native warning\n'
+            assert block.geometry == pytest.approx((50.0, 697.516, 129.356, 709.516))
+            assert block.origin == 'native' and block.page_ref == 'page:1'
+            assert block.revision_id == rev.revision_id
+        else:
+            assert not result.blocks
+        assert pdf.extract(store, rev.revision_id, runtime).blocks == result.blocks
+    finally:
+        store.close()

@@ -19,7 +19,8 @@ def main() -> int:
             return 2
         try:
             from pdfminer.high_level import extract_pages
-            from pdfminer.layout import LTChar, LTContainer, LTText, LTTextContainer
+            from pdfminer.layout import (LTChar, LTContainer, LTCurve, LTImage, LTText,
+                                         LTTextContainer)
             from pdfminer.pdfdocument import PDFDocument
             from pdfminer.pdfparser import PDFParser
         except ImportError:
@@ -48,6 +49,8 @@ def main() -> int:
                 objects += 1
                 if objects > objects_limit:
                     raise ValueError
+                if isinstance(obj, (LTImage, LTCurve)):
+                    incomplete = True
                 emit = not covered and isinstance(obj, (LTTextContainer, LTChar))
                 if emit:
                     text = obj.get_text()

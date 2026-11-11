@@ -128,7 +128,9 @@ def test_worker_marks_unsupported_nested_text_on_mixed_page(monkeypatch, capsys)
         'pdfminer': types.ModuleType('pdfminer'),
         'pdfminer.high_level': types.SimpleNamespace(extract_pages=lambda *a, **k: [page]),
         'pdfminer.layout': types.SimpleNamespace(LTContainer=Container, LTText=Text,
-                                                 LTTextContainer=TextContainer, LTChar=Char),
+                                                 LTTextContainer=TextContainer, LTChar=Char,
+                                                 LTImage=type('Image', (), {}),
+                                                 LTCurve=type('Curve', (), {})),
         'pdfminer.pdfdocument': types.SimpleNamespace(
             PDFDocument=lambda _: types.SimpleNamespace(encryption=None)),
         'pdfminer.pdfparser': types.SimpleNamespace(PDFParser=lambda _: None),
