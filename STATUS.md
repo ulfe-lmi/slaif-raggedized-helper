@@ -2,15 +2,35 @@
 
 ## Current state (2026-11-10)
 
-- Active objective: 003-i (probe evidence and credential boundaries),
-  open on PR #5, branch oap/003-generator-adapters-and-cache-probes;
-  live PR/CI/merge state is queried on GitHub, not asserted here.
+- Active objective: 004 (the 004-b/004-c evidence-contract corrections
+  of
+  the 004-a trial runner and gateway/direct composition, and the
+  004-d bounded read-only local resource telemetry slice with the
+  004-e resource lifecycle/accounting/contract corrections), open on PR
+  #6, branch oap/004-qualification-harness; live PR/CI/merge state is
+  queried on GitHub, not asserted here.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
-  merged) plus the 003 gateway/transport/native slice and the bounded
-  explicit probe/CLI composition (open on PR #5, see history).
-  Hardware/model qualification: NOT RUN. ICA: NOT RUN.
-- The coding client is active on objective 003 (PR #5), not idle.
-- Current main is the 002-a merge commit 93b4317 (PR #4); PR #5 builds
+  merged), the complete 003 gateway/transport/native/probe slice
+  (merged as PR #5) plus the 004-a finite qualification trial runner
+  with the 004-b strict bounded trial spec/sample/result evidence
+  contracts with the 004-c cross-field consistency bindings and
+  quartile-complete stage summaries, bounded safe spec file input with
+  decoded-Unicode admission and available-stage summaries, actual
+  gateway/direct repeated-parent composition and the machine-readable
+  section 23.2 gate projection, plus the 004-d bounded read-only local
+  resource telemetry (explicit opt-in `resource diagnose` own-process
+  CPU/RSS diagnostic and `qualification run --resources` wrapper with
+  the plain v1 trial evidence intact; at most one bounded nvidia-smi
+  metadata query; no remote/worker/model-process measurement), open on
+  PR #6, see history, with the 004-e corrections of its resource
+  lifecycle (shared-deadline startup admission, every-exit-path
+  observer stop), honest aggregate byte accounting at the pipe and
+  sample boundaries, late-export spent-ledger handling and strict
+  versioned collector/code-source binding. Hardware/model
+  qualification: NOT RUN. ICA:
+  NOT RUN.
+- The coding client is active on objective 004 (PR #6), not idle.
+- Current main is the 003 merge commit 2bc320f (PR #5); PR #6 builds
   from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
@@ -187,5 +207,206 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   owned-loopback HTTP; live-target evidence is NOT a 003 closure
   prerequisite — it belongs to the separate 004/019/full-MVP
   qualification gates, which remain OPEN and NOT RUN. Objective 003
-  as a whole is unresolved, not merged, not deployed; no model, GPU,
-  live route or service change.
+  was accepted and merged as PR #5 (merge commit 2bc320f,
+  2026-11-10); the strategic 003-j review and resolution records were
+  committed unchanged with 004-a.
+- 004-a (trial runner and gateway/direct composition; open on PR #6,
+  branch oap/004-qualification-harness from main 2bc320f): the first
+  proof-sized slice of objective 004 under the explicit D0 replan
+  (authorized real gateway/GPU/model/corpus inputs remain absent;
+  004 establishes usable instrumentation and exact prerequisites;
+  actual A1/hardware/quality feasibility remains UNPROVEN, mandatory
+  at 019/ICA/MVP). Delivered executable software, not a JSON approval
+  wrapper: strict finite trial spec/sample/result contracts
+  (slaif_raggedized_helper/qualification/spec.py: bounded, frozen,
+  extra-forbid; declared workload/seed fingerprints verified
+  pre-dispatch; unimplemented context/pair/batch/precision/seed
+  controls refuse with named prerequisites); a finite trial runner
+  (qualification/runner.py) that actually invokes the current
+  gateway/direct application adapters through the REAL transport with
+  ONE absolute trial deadline and ONE shared dispatch admission
+  allowance spanning all warmups, repetitions, retries, template and
+  model calls (enforced at the real transport dispatch boundary, the
+  reused 003 shared-budget seam; native template work consumes the
+  allowance; exact sample-start minimums), safe per-trial/per-phase
+  observations (fingerprints only, declared-vs-observed identities
+  with unavailable physical identities explicit, physical cold/warm
+  state unknown, reported-only usage, contradictory cache/input
+  accounting as raw facts only); reproducible nearest-rank latency
+  analysis (qualification/analysis.py: deterministic pure function,
+  terminal samples only, zero-sample nulls, no qualifying pass from
+  synthetic/configured-unverified evidence); the deterministic
+  explicit synthetic route (--synthetic: owned loopback fixture,
+  real adapters, evidence labeled MOCK / synthetic-owned-fixture,
+  configured secrets never read; a configured URL is never
+  classified synthetic by a boolean); CLI `raggedized
+  qualification gates|plan|run` (help/import/plan/gates zero
+  model/HTTP/telemetry I/O; run is explicit opt-in; exit codes 0/1/2/3
+  with the honest post-work export stage); the machine-readable
+  prerequisite projection of every architecture section 23.2 ID
+  (qualification/gates.py + docs/benchmarks/qualification-gates.json:
+  all real trials NOT_RUN, live target authorization NONE, only text
+  repeated-parent runner entrypoints executable in this slice);
+  installed-CLI owned-loopback composition tests (gateway + direct,
+  budget boundaries, deadline/cancellation, unknown-no-replay,
+  preflight zero-dispatch, metric ambiguity, deterministic synthetic
+  route, zero-I/O plan/gates) and unit contracts; docs/benchmarks/
+  qualification-protocol.md plus README/TESTING (T08)/STATUS/CI/
+  UNCERTAINTIES updates. The one ordered operational correction:
+  oap/prompts/coding-startup.txt replaced with the exact
+  /goal-first bounded-goal bytes (SHA-256
+  6d2323bb832e5f78e4cd86d6951c04c0b3975dc80730c473fc7834820965a98e)
+  with docs/AGENT-ROLE-SETUP.md, docs/OAP-RUNBOOK.md and the
+  governance manifest measurement updated; the new startup is NOT
+  operationally validated by file hash alone (strategy qualifies it
+  during the same-objective 004-b fresh control handoff). The
+  strategic 003-j review/resolution files and the unchanged 004
+  order/active are committed with this round. Live target/model/GPU/
+  corpus work: NONE; all real qualification gates and LICENSE-01
+  remain open (certifi MPL-2.0 exception not granted); 004-b/005+
+  selection remains strategy alone.
+- 004-b (evidence-contract correction of the verified 004-a head;
+  amends the same open PR #6, branch oap/004-qualification-harness):
+  the four ordered corrections from the final 004-a review
+  (oap/reviews/004-a-review.json committed byte-unchanged, SHA-256
+  02ab0d2288191469c5c480b11777d71b509b3963b8110e0f9afeb5f7a6db0611):
+  (F01) bounded safe trial-spec file input (qualification/specio.py:
+  non-blocking open with fstat of the actually opened descriptor —
+  directories/FIFOs/sockets/devices, including a path resolving
+  through a symlink to a special file — refused without blocking;
+  65536-byte bound; strict UTF-8; typed JSON decoder/integer/depth
+  refusals; fixed safe messages with no input or private-path echo;
+  no process-global decoder-limit change); (F02) explicit strict
+  bounded sample/result evidence contracts (qualification/contracts.
+  py: frozen extra=forbid DTOs with strict int/float/bool; envelope
+  invariants — requests are the exact leading prefix of the declared
+  workload, remaining+attempted == budgets.max_dispatches,
+  status/stop_reason consistency, not_run implies zero dispatches —
+  and the analysis section must equal the pure recomputation from the
+  recorded samples; used at the construction, analysis and
+  serialization boundaries, a violating executed document is an
+  honest post-work exit-3 evidence_contract_violation, and the spent
+  ledger is preserved); (F03) reproducible available-stage
+  n/min/p50/p95/max summaries per warmup/measured group
+  (caller_wall/prefill/decode/model_total/ttft with known-zero,
+  missing and invalid-observation bookkeeping and per-stage
+  provenance; gateway prefill/TTFT stay n=0 all-null, unavailable not
+  zero); (F04) documentation corrections to the actual implementation
+  (14 section 23.2 IDs, sample-start minimums are an admission guard
+  only, context measurements refreshed from the final actual files:
+  routine governance 42158 bytes, ceiling 50000; exact model tokens
+  and client injection remain UNMEASURED). The 004-b fresh-handoff
+  /goal-first startup qualification is RECORDED FAILED by strategy
+  (upstream payload refusal before any implementation; the stalled
+  goal was cleared and the sole control OK was consumed, never
+  replayed); the previously qualified ordinary startup is restored
+  and the bounded native goal sequence is set by strategy after this
+  ordinary startup — it is NOT claimed passed, and U10 stays OPEN.
+  All 004-a transport/budget/retry/native-template/UNKNOWN/
+  credential/export positives preserved. No live target/model/GPU/
+  corpus work (live authorization NONE); all real qualification
+  gates and LICENSE-01 remain open; resource telemetry, vector/rank
+  parity and full named gate composition remain required in later
+  proof-sized 004 continuations; no merge; 004 continuations and 005
+  selection remain strategy alone.
+
+- 004-c (evidence-consistency and metric-completeness correction of
+  the verified 004-b head; amends the same open PR #6, branch
+  oap/004-qualification-harness): the four ordered corrections from
+  the final 004-b review (oap/reviews/004-b-review.json committed
+  byte-unchanged, SHA-256
+  81f1fa1b4e8566bb5b7ab6a18ea0bef66f81f576dbaaa86516e6984b8c2f5fc4):
+  (F01) cross-field evidence bindings (qualification/contracts.py:
+  the analysis pure-recomputation is driven by the ACTUAL
+  transport-boundary call ledger — an analysis call count that
+  conflicts with the ledger is refused; the envelope backend equals
+  the declared backend; every KNOWN per-sample backend fingerprint
+  equals the observed per-trial backend binding, an absent binding
+  stays null; the evidence class and target type form the consistent
+  provenance pair; the output reservation total/per-sample equal the
+  declared budget with the per-sample share the floor even share over
+  the DECLARED scheduled sample count; the cache/input consistency
+  counts equal the shared pure derivation from the actually recorded
+  raw usage — every single-field contradiction refused, the unaltered
+  actual owned-HTTP result admitted); (F02) metric completeness
+  (n=0 iff all-null quartiles; n>0 requires EVERY quartile present,
+  finite, non-negative and ordered min <= p50 <= p95 <= max; partial
+  quartile sets refused; the full result validation still
+  recomputes the deterministic summaries); (F03) decoded-Unicode
+  admission (qualification/spec.py: a workload string that decodes to
+  an unpaired surrogate code point is refused at spec admission with
+  a fixed safe reason BEFORE fingerprinting or request construction —
+  typed exit 2, zero HTTP, no input echo; valid Unicode including
+  escaped astral pairs and Slovenian text admitted unchanged; no
+  replacement/truncation/global-encoding/fingerprint-version
+  change); (F04) serializer/spent-ledger boundary (cli.py: the
+  canonical FULL strict result contract — strict shape plus the
+  analysis pure-recomputation — is enforced at serialization; a
+  post-work rejection is an honest exit 3 with the fixed safe
+  structured error carrying the ACTUAL valid spent-attempt ledger on
+  stdout, honest ledger availability when the ledger itself cannot
+  validate — never assumed zero, never a crash — and the invalid
+  record is never exported as a valid result). These checks prove
+  INTERNAL consistency only — never that declared metadata is true,
+  that a fingerprint proves deployed identity, or that imported JSON
+  was executed here. The root-authored startup-governance restoration
+  (oap/prompts/coding-startup.txt the exact previously qualified
+  582-byte ordinary prompt, docs/AGENT-ROLE-SETUP.md and
+  docs/OAP-RUNBOOK.md) is committed byte-unchanged; the 004-a
+  /goal-first qualification remains RECORDED FAILED history, never
+  relabeled passed; U10 stays OPEN and real restored
+  wrapper/role/order/post-start-goal qualification is strategy's,
+  performed on this actual handoff, never inferred from hash.
+  Documentation (protocol/TESTING/STATUS/UNCERTAINTIES/README) and
+  context measurements refreshed to the actual implementation. All
+  004-a/004-b transport/budget/retry/native-template/UNKNOWN/
+  credential/export/file-input/Unicode/ledger positives preserved.
+  No live target/model/GPU/corpus work (live authorization NONE);
+  all real qualification gates and LICENSE-01 remain open; resource
+  telemetry, vector/rank parity and full named gate composition
+  remain required in later proof-sized 004 continuations; no merge;
+  004 continuations and 005 selection remain strategy alone.
+- 004-e (resource lifecycle and budget correction of the verified
+  004-d head; amends the same open PR #6, branch
+  oap/004-qualification-harness): the five ordered corrections from
+  the final 004-d review (oap/reviews/004-d-review.json committed
+  byte-unchanged, SHA-256
+  5a8d4dff6a259dc689cf056071091960501ba1ae321a0b3285b611230bf19e10):
+  (F01) the startup nvidia-smi metadata query is clipped to the
+  remaining trial AND observer duration and admission is rechecked
+  after the query and before every sample — an already-passed
+  deadline queries nothing and samples nothing, and no late first
+  sample is admitted past expiry (the 0.08 s deadline case that
+  previously admitted a ~0.276 s late query/sample); (F02) pipe
+  reads enforce the remaining declared allowance plus a bounded
+  one-byte lookahead and report the ACTUAL observed bytes (a cap-128
+  overflow reports the observed 129 instead of requesting 4096 and
+  claiming cap+1), and aggregate collection calls/bytes/time are
+  enforced before work across the whole observer lifetime —
+  bytes_read is actual observed bytes (never the read cap) with the
+  cap reserved per admitted sample, so a finite workload terminates
+  with a valid honest partial record at resource_exhausted instead
+  of an over-limit invalid document; (F03) the runner stops and
+  finitely joins the owned observer on EVERY execution exit path,
+  including in-process KeyboardInterrupt with a surviving caller
+  (no detached sampler, no continued samples, original exception
+  preserved); (F04) late --output failures use the canonical inner
+  trial ledger (wrapper-aware): after real work the error reports
+  the actual known call count with a replay warning, a
+  missing/invalid ledger stays an explicit unknown, and only genuine
+  pre-dispatch refusals keep the true zero-dispatch claim; (F05)
+  resource schema versions refuse booleans and wrong numeric types,
+  and the collector record binds the bounded collector identity,
+  code source and actual executing package version with the Git
+  source revision explicitly unavailable (no attestation/signing, no
+  Git subprocess on import or default commands). The published
+  004-d report is immutable; its over-claimed pipe bound, aggregate
+  admission, cancellation and collector/code metadata statements are
+  superseded by this correction. The retained independent 004-d
+  witnesses now demonstrate the corrected behaviors; the plain trial
+  v1 contract, the 004-a/b/c positives and the D0 bounded allowance
+  are preserved. No live target/model/GPU/corpus work (live
+  authorization NONE); all real qualification gates, vector/rank
+  parity and the full named gate composition, 019/ICA/MVP and
+  LICENSE-01 remain open; no merge; 004 continuations and 005
+  selection remain strategy alone.

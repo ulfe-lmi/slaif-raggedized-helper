@@ -1,0 +1,47 @@
+{
+  "round": "004-e",
+  "objective": "004",
+  "status": "FINAL",
+  "decision": "ACCEPT_RESOURCE_CORRECTION_CONTINUE_SAME_PR_004_f",
+  "recorded_at": "2026-11-10T22:16:37.498595+00:00",
+  "pr": 6,
+  "implementation": "651635c22e76fef11adbe3f440cf4c5593dfefb0",
+  "report_commit": "6df26c82df26c1f946f2fd21792441d874b43acf",
+  "report_sha256": "7fb36653df1ce9b9bf571ed73edfe02226990f0d07e0f32bef6e08da2024bf6e",
+  "consumed_response": {
+    "identifier": "004-e",
+    "pr": 6,
+    "implementation": "651635c22e76fef11adbe3f440cf4c5593dfefb0",
+    "report_commit": "6df26c82df26c1f946f2fd21792441d874b43acf",
+    "report_sha256": "7fb36653df1ce9b9bf571ed73edfe02226990f0d07e0f32bef6e08da2024bf6e",
+    "verified_at": "2026-11-10T22:11:42.664191+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "publication": "Unique OPEN PR6/original branch/base main2bc320ff. Remote exact bytes/SELF/sole literal parent/report-only diff independently verified. Worktree clean before this review. Resource and test blobs equal independently reviewed parallelB. Original order/priorreview/startup bytes preserved. No PR/default-main merge.",
+  "ci": {
+    "implementation_run": 42909169894,
+    "implementation_head": "651635c22e76fef11adbe3f440cf4c5593dfefb0",
+    "implementation_result": "ALL_5_SUCCESS",
+    "implementation_last_job": "2026-11-10T21:55:21Z",
+    "report_run": 42912122057,
+    "report_head": "6df26c82df26c1f946f2fd21792441d874b43acf",
+    "report_result": "ALL_5_SUCCESS",
+    "report_last_job": "2026-11-10T22:13:57Z",
+    "source": "Automatic pull_request runs; no duplicate dispatch or bypass."
+  },
+  "tests": "Canonical484unit+318integration=802 product,41OAP. Root independent170resource unit3.12/170same3.14/17resource integration3.14, owned HTTP ledger/export/cancellation and deadline/bytes/source/maxfakeclock outputs inspected. No aggregation of overlapping test counts.",
+  "independent_review": "Full initial changes and parallel A/B correction diffs/docs reviewed; Root reproduced residual standalone interruption/duration-only/expiry/global-call/combined-byte bugs ondf4, then verified correction. Opposite-author scoped audit-resource-e-b accepted exactB59c184d; Rootreview SHA0c168790e9111fb69f11cd33f2e0016e1579f6b4b48a5741a9720eee2cfe4ea5. Main merge exact parents[df4a4232,59c184d] and tree0e60910d... verified. Tests scoped to owned collector-read seam, no limit waiver.",
+  "resolved": {
+    "F01": "One absolute trial+observer duration admission; initialquery clipped also with deadlineNone, no late sample. Alreadyexpiredstart zero CPU/RSS/GPU work.",
+    "F02": "Actual pipe read requests and observedcounts; conservative total self+device reservations; baseline/query/sample/final logical calls admitted. Exhaustion returns valid partial/unavailable rather than invalid section or fake0. Workwindow separated from true completion/CPU endpoint; max86400+0.1 finalization valid without increasedworkbudget.",
+    "F03": "Trial and standalone diagnostic every-exit cleanup including surviving-callerKeyboardInterrupt; no continuing samples, owned thread/child only.",
+    "F04": "Lateexport and invalid-resource errors preserve actual inner ledger; 2 real ownedPOSTs remain2 and replaywarning, no false pre-dispatch0.",
+    "F05": "Strict resource integer versions refusebool/float/string; actual collector/module/package metadata, revision unavailable, no import/defaultGit/model/telemetry."
+  },
+  "documentation_note": "Canonical report criterion4 uses some obsolete shorthand reason names (no_gpus/permission_denied/nonzero_exit) instead of actual fixed no_devices/query_failed vocabulary. Immutable report stays unchanged; nextF must reconcile CURRENT canonical protocol/CLI docs with actual enum and final window-vs-completion semantics, not repeat shorthand. Correct parallel API note is present.",
+  "governance": "Architecture4b419053...unchanged. Candidate governance routine48206/50000 bytes verified by check_state/OAP CI. OrderE819d7d47... and priorDreview5a8d4dff... committed unchanged; startup/role/runbook exact accepted sources untouched. Parallel human mandate explicitly allowed isolated model-preserving coding/review; Root no product patch.",
+  "goal_boundary": "Observed native Goal achieved and no ongoing tool/working marker after report/response; no post-response CI polling by coding agent. Root still must clear completed coding goal only at quiet boundary before next fresh activation. Root fullMVPgoal ACTIVE.",
+  "strongest_reason_not_to_merge": "Whole004 parity/shared fileIO/module+installedCLI and final14gate composition still only local candidates, not integrated/validated in canonical branch. Actual model/hardware/quality/vision/license/019/ICA gates unearned. Accept resource slice only; no PR/default-main merge.",
+  "next": "Independently review thinrouter956eed then finalize canonical004-f from inactive draft with exact new review/source hashes; merge approved parity branch history, reconcile docs/gates, combinedchecks/CI/SELFreport. Only whole004software acceptance permits protected expected-head PRmerge/mainCI/terminalresolution and canonical005.",
+  "authority": "Standing human fullMVP and explicit parallel request; ordinary defects/D0, DHA NONE. No legal/license exception, target/credential/GPU/service/release permission inferred from OK or silence."
+}

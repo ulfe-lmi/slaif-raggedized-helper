@@ -12,6 +12,59 @@ Commands
 S --max-dispatches N --max-output-tokens-total T
 [--expected-output-a sha256:<64hex>] [--expected-output-b sha256:<64hex>]
 [--output PATH]``
+``raggedized qualification gates``
+    Print the machine-readable prerequisite projection of the
+    architecture section 23.2 mandatory experiment matrix (offline;
+    zero model/HTTP/telemetry I/O; real trials NOT_RUN).
+``raggedized qualification plan --config PATH --spec PATH``
+    Offline qualification plan for one finite repeated-parent trial
+    spec: validates the strict spec against the configured identities
+    and prints the deterministic plan (workload fingerprints, sequence
+    shape, budgets, declared identities, gate projection) with
+    execution NOT_RUN. Zero model/HTTP/telemetry I/O; a rejected plan
+    is exit 2 with exact safe reasons (zero dispatch).
+``raggedized resource diagnose [--duration-seconds S] [--samples N]
+[--gpu] [--output PATH]``
+    EXPLICIT OPT-IN bounded read-only local resource diagnostic: one
+    finite own-process CPU/RSS observation window on THIS devhost
+    (default and maximum 5 s / 64 samples; the D0 bounded allowance),
+    with at most ONE bounded ``nvidia-smi`` fixed-argv metadata query
+    when ``--gpu`` is given (timeout <= 1 s, stdout <= 16 KiB,
+    stderr <= 4 KiB). Zero model/network work; no config, credentials,
+    keys or GPU/model changes. The measurements are of THIS caller
+    process on THIS devhost — never evidence about a remote inference
+    host or the target model service; GPU absence is an honest
+    unavailable, never a zero. Exit 0 diagnostic complete (even with
+    unavailable telemetry), 2 invalid bounded flags/output
+    destination, 3 post-work export failure with the full safe
+    document on stdout.
+``raggedized qualification run --config PATH --spec PATH [--synthetic]
+[--resources] [--resource-gpu] [--output PATH]``
+    EXPLICIT OPT-IN execution of one finite repeated-parent trial
+    against the configured gateway route or materialized offline-
+    diagnostic direct destination through the real adapters and real
+    transport. One absolute trial deadline and one shared dispatch
+    admission allowance span all warmups, repetitions, retries,
+    template and model calls (enforced at the transport dispatch
+    boundary). ``--synthetic`` is the deterministic explicit synthetic
+    route: an owned loopback fixture is started by the process, the
+    evidence is labeled MOCK / synthetic-owned-fixture and configured
+    secrets are never read. Missing target/adapter prerequisites give
+    exact NOT_RUN/BLOCKED evidence, never fake runnable successes.
+    Exit codes as ``probe`` (0 complete execution status / 1
+    not-run-incomplete / 2 pre-dispatch refusal with zero dispatches /
+    3 post-work evidence export failure with the full safe evidence on
+    stdout).
+    ``--resources`` is the explicit opt-in for bounded read-only local
+    resource telemetry (004-d): the plain v1 trial evidence stays
+    intact inside the returned explicit versioned WRAPPER document,
+    which additionally carries the strict versioned own-process
+    CPU/RSS observation series (and, with ``--resource-gpu``, at most
+    ONE bounded nvidia-smi metadata observation). Constructing the
+    observer starts no work; it is bound to the actual single trial
+    deadline, which still spans sampling with no extension/reset, and
+    the collector activity accounting is separate from model/template
+    dispatches.
     Run the bounded repeated-parent qualification probe against the
     explicitly configured gateway route or materialized offline-diagnostic
     direct destination. Explicit probe opt-in: import, ``--help``,
@@ -46,7 +99,15 @@ Exit codes: ``0`` ok (probe: complete), ``1`` validation/
             returned (the full evidence document, including the
             transport-boundary spent-attempt accounting that states
             whether dispatch occurred, is written to stdout; blind
-            replay is not safe).
+            replay is not safe). For ``qualification run`` an exit 3
+            also covers the post-work evidence CONTRACT failure: the
+            canonical full strict result contract (strict shape plus
+            the analysis pure-recomputation) is enforced at
+            serialization, the invalid record is never exported as a
+            valid result, and the fixed safe error document with the
+            actual valid spent-attempt ledger is written to stdout
+            (ledger availability is marked honestly when it cannot be
+            validated — never assumed zero, never a crash).
 """
 
 from __future__ import annotations
@@ -442,6 +503,393 @@ def run_probe(config_path: str, mode: str, deadline_seconds: float,
     return exit_code
 
 
+def run_qualification_gates() -> int:
+    """Print the machine-readable prerequisite projection (offline).
+
+    Zero model/HTTP/telemetry I/O: the projection is a pure rendering of
+    the architecture section 23.2 matrix with real trials NOT_RUN (live
+    target authorization NONE).
+    """
+    from .qualification import gate_projection_bytes
+
+    sys.stdout.buffer.write(gate_projection_bytes())
+    return EXIT_OK
+
+
+def _load_qualification_inputs(
+        config_path: str, spec_path: str) -> tuple[int, object, object]:
+    """Safe config/spec loading; (exit_code, config, spec or error doc)."""
+    try:
+        config = load_config(config_path)
+    except ConfigLoadError as exc:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": "CONFIG_INVALID", "message": str(exc)},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE, None, None
+    # Bounded safe spec input (004-b criterion 1): the descriptor
+    # actually opened is type-checked (special files refuse without
+    # blocking), the read is byte-bounded, UTF-8 is strict, and the
+    # expected JSON decoder/integer/depth failures are fixed typed
+    # refusals — before fingerprinting or dispatch, at zero HTTP.
+    from .qualification.specio import load_trial_spec_json
+
+    data, refusal = load_trial_spec_json(spec_path)
+    if refusal is not None:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": refusal.error,
+                          "reason": refusal.reason,
+                          "message": refusal.message},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE, None, None
+    from .qualification import TrialSpec
+    try:
+        spec = TrialSpec.model_validate(data)
+    except Exception as exc:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": "SPEC_INVALID",
+                          "message": safe_validation_errors(exc)},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE, None, None
+    return EXIT_OK, config, spec
+
+
+def run_qualification_plan(config_path: str, spec_path: str) -> int:
+    """Offline qualification plan (zero model/HTTP/telemetry I/O)."""
+    code, config, spec = _load_qualification_inputs(config_path, spec_path)
+    if code != EXIT_OK:
+        return code
+    from .qualification import plan_trial
+
+    exit_code, document = plan_trial(config, spec)
+    sys.stdout.write(json.dumps(document, indent=2, sort_keys=True) + "\n")
+    return exit_code
+
+
+def _spent_ledger_facts(document: object) -> tuple[dict[str, object] | None,
+                                                   int | None]:
+    """The canonical inner-trial spent-attempt ledger of a document.
+
+    For the opt-in resource wrapper the canonical ledger lives in the
+    WRAPPED trial member (004-e F04); for a plain v1 document it is
+    the document itself. Returns ``(validated ledger dict | None,
+    attempted calls | None)``: a missing/invalid ledger is an explicit
+    UNKNOWN (``None``), never an assumed zero.
+    """
+    from pydantic import ValidationError
+
+    from .qualification.contracts import TransportBoundarySection
+
+    trial_document = document
+    if (isinstance(document, dict)
+            and document.get("resource_wrapper") == 1
+            and isinstance(document.get("trial"), dict)):
+        trial_document = document["trial"]
+    raw = (trial_document.get("transport_boundary")
+           if isinstance(trial_document, dict) else None)
+    if not isinstance(raw, dict):
+        return None, None
+    try:
+        ledger = TransportBoundarySection.model_validate(raw).model_dump()
+    except (ValidationError, ValueError):
+        return None, None
+    return ledger, int(ledger["attempted_calls"])
+
+
+def _is_pre_dispatch_refusal(document: object) -> bool:
+    """True only for the runner's pre-dispatch refusal documents.
+
+    Those carry ``status: error`` and by construction no dispatch
+    occurred (the transport was never built); they are the ONLY
+    documents where a zero-dispatch claim is true by definition.
+    """
+    trial_document = document
+    if (isinstance(document, dict)
+            and document.get("resource_wrapper") == 1
+            and isinstance(document.get("trial"), dict)):
+        trial_document = document["trial"]
+    return (isinstance(trial_document, dict)
+            and trial_document.get("status") == "error")
+
+
+def _post_work_contract_error(document: object,
+                              scope: str = "trial") -> dict[str, object]:
+    """Fixed safe post-work evidence-contract error (004-c criterion 8).
+
+    The invalid document is never re-exported as a valid result. The
+    ACTUAL transport-boundary spent-attempt ledger (canonical inner
+    trial, wrapper-aware) is preserved when it validates against the
+    strict ledger contract; when it is missing or malformed its
+    availability is marked unknown — the attempted-call count is never
+    assumed zero and formatting never crashes.
+    """
+    ledger, _ = _spent_ledger_facts(document)
+    if ledger is not None:
+        availability = "valid"
+        note = (
+            "the transport-boundary spent-attempt ledger validated "
+            "against the strict contract and is preserved exactly "
+            "as recorded (do not replay blindly: ambiguous or "
+            "spent work may have occurred)"
+        )
+    else:
+        availability = "unavailable"
+        note = (
+            "the spent-attempt ledger is missing or malformed in the "
+            "constructed document; availability is marked unknown and "
+            "the attempted call count is never assumed zero"
+        )
+    if scope == "resource_wrapper":
+        message = (
+            "the resource wrapper failed the strict versioned "
+            "contract after actual work (the trial member must satisfy "
+            "the canonical full strict sample/result contract, "
+            "including the analysis pure-recomputation from the "
+            "recorded samples against the actual transport-boundary "
+            "ledger, and the resources member the strict versioned "
+            "section); the invalid record is not exported as a valid "
+            "result and blind replay is not safe"
+        )
+    else:
+        message = (
+            "the evidence document failed the canonical full strict "
+            "sample/result contract (including the analysis "
+            "pure-recomputation from the recorded samples against the "
+            "actual transport-boundary ledger) after actual work; the "
+            "invalid record is not exported as a valid result and "
+            "blind replay is not safe"
+        )
+    return {
+        "qualification": "trial",
+        "status": "error",
+        "error": "EVIDENCE_CONTRACT_VIOLATION",
+        "stage": "post_work_evidence_contract",
+        "message": message,
+        "transport_boundary": ledger,
+        "ledger_availability": availability,
+        "ledger_note": note,
+    }
+
+
+def run_qualification_run(config_path: str, spec_path: str,
+                          synthetic: bool, output_path: str | None,
+                          resources: bool = False,
+                          resource_gpu: bool = False) -> int:
+    """EXPLICIT opt-in trial execution. Returns the process exit code.
+
+    Zero-dispatch guarantees: invalid/missing config or spec, a spec/
+    config consistency refusal, an unconfigured target, an absent or
+    invalid credential reference and a knowably invalid ``--output``
+    destination all refuse BEFORE any transport is constructed (exit 2,
+    always zero HTTP). A write failure that occurs AFTER the trial
+    returned is an honest post-work export-stage error (exit 3): the
+    full safe evidence document — including the transport-boundary
+    spent-attempt accounting that states whether dispatch occurred — is
+    written to stdout and blind replay is not invited.
+
+    Serialization-boundary invariant (004-c criterion 8): the canonical
+    FULL strict result contract — ``validate_trial_evidence``, i.e. the
+    strict shape PLUS the analysis pure-recomputation from the recorded
+    samples against the ACTUAL transport-boundary ledger — is enforced
+    before rendering or export. A post-work rejection is an honest exit
+    3: a fixed safe error document carrying the actual valid
+    spent-attempt ledger (availability marked honestly when the ledger
+    itself cannot be validated) is written to stdout; the invalid
+    record is never exported as a valid result and blind replay is not
+    invited.
+    """
+    code, config, spec = _load_qualification_inputs(config_path, spec_path)
+    if code != EXIT_OK:
+        return code
+    if resource_gpu and not resources:
+        print(json.dumps({"qualification": "trial", "status": "error",
+                          "error": "USAGE_INVALID",
+                          "message": ("--resource-gpu requires --resources "
+                                      "(the resource observer is the "
+                                       "explicit opt-in; refused before "
+                                       "any dispatch; no HTTP was sent)")},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE
+    if output_path is not None:
+        refusal = _output_destination_refusal(output_path)
+        if refusal is not None:
+            print(json.dumps({"qualification": "trial", "status": "error",
+                              "error": "OUTPUT_DESTINATION_INVALID",
+                              "message": refusal + " (refused before any "
+                                         "dispatch; no HTTP was sent)"},
+                             indent=2, sort_keys=True))
+            sys.stdout.write("\n")
+            return EXIT_USAGE
+    from .qualification import run_trial, validate_trial_evidence
+    from pydantic import ValidationError
+
+    # Bounded local resource telemetry (004-d): EXPLICIT opt-in only.
+    # The observer is CONSTRUCTED here and starts no work; the runner
+    # binds it to the actual single trial deadline before any dispatch.
+    resources_observer = None
+    if resources:
+        from .qualification.resources import TrialResourceObserver
+
+        resources_observer = TrialResourceObserver(gpu_query=resource_gpu)
+    exit_code, document = run_trial(
+        config, spec, synthetic=synthetic,
+        resources_observer=resources_observer)
+    # Serialization-boundary invariant (004-b criterion 2, 004-c
+    # criterion 8, 004-d criterion 6): the canonical FULL strict result
+    # contract — strict shape plus the analysis pure-recomputation from
+    # the recorded samples against the ACTUAL transport-boundary
+    # ledger — must hold before the document is rendered or exported.
+    # For the opt-in resource wrapper the trial member is validated by
+    # the same canonical contract plus the strict versioned resource
+    # section. A violation is an honest post-work failure (exit 3),
+    # never a silent export.
+    if document.get("resource_wrapper") == 1:
+        from .qualification.resources import validate_resource_wrapper
+
+        try:
+            validate_resource_wrapper(document)
+        except (ValidationError, ValueError):
+            error_doc = _post_work_contract_error(
+                document, scope="resource_wrapper")
+            rendered = json.dumps(error_doc, indent=2, sort_keys=True)
+            sys.stdout.write(rendered + "\n")
+            sys.stderr.write(rendered + "\n")
+            return EXIT_EVIDENCE_EXPORT
+    elif document.get("status") in ("complete", "incomplete", "not_run"):
+        try:
+            validate_trial_evidence(document)
+        except (ValidationError, ValueError):
+            error_doc = _post_work_contract_error(document)
+            rendered = json.dumps(error_doc, indent=2, sort_keys=True)
+            sys.stdout.write(rendered + "\n")
+            sys.stderr.write(rendered + "\n")
+            return EXIT_EVIDENCE_EXPORT
+    rendered = json.dumps(document, indent=2, sort_keys=True) + "\n"
+    if output_path is not None:
+        try:
+            Path(output_path).write_text(rendered, encoding="utf-8")
+        except OSError:
+            # The canonical ledger is the WRAPPED trial's
+            # transport_boundary for the opt-in wrapper (004-e F04);
+            # a missing/invalid ledger is an explicit unknown, never
+            # an assumed zero, and only the genuine pre-dispatch
+            # refusal documents carry a true zero-dispatch claim.
+            ledger, attempted = _spent_ledger_facts(document)
+            if ledger is not None and attempted is not None:
+                if attempted > 0:
+                    dispatch_note = (
+                        f"{attempted} transport call(s) were attempted "
+                        "(see the transport_boundary ledger in the "
+                        "evidence) — do not replay blindly: ambiguous "
+                        "or spent work may have occurred")
+                else:
+                    dispatch_note = (
+                        "the spent ledger records 0 attempted transport "
+                        "calls (no dispatch was sent by this run); the "
+                        "full document is preserved on stdout")
+            elif _is_pre_dispatch_refusal(document):
+                dispatch_note = (
+                    "no transport call was attempted by this run; the "
+                    "document carries the pre-dispatch refusal facts")
+            else:
+                dispatch_note = (
+                    "the transport-boundary spent-attempt ledger is "
+                    "missing or invalid in the constructed document; "
+                    "the attempted call count is unknown and is never "
+                    "assumed zero — do not replay blindly")
+            sys.stdout.write(rendered)
+            print(json.dumps(
+                {"qualification": "trial", "status": "error",
+                 "error": "EVIDENCE_EXPORT_FAILED",
+                 "stage": "post_work_evidence_export",
+                 "message": ("evidence file write failed after the trial "
+                             "returned; the full document was written to "
+                             "stdout; " + dispatch_note)},
+                indent=2, sort_keys=True), file=sys.stderr)
+            return EXIT_EVIDENCE_EXPORT
+    else:
+        sys.stdout.write(rendered)
+    return exit_code
+
+
+def run_resource_diagnose(duration_seconds: float, samples: int,
+                          gpu: bool, output_path: str | None) -> int:
+    """EXPLICIT opt-in bounded own-process resource diagnostic.
+
+    Zero model/network work (004-d criterion 7): import/help/plan/
+    gates/doctor never run telemetry; only this command does. The
+    bounded flags are validated BEFORE any work (exit 2, zero work).
+    A post-work ``--output`` write failure is an honest exit 3 with
+    the full safe document on stdout.
+    """
+    from .qualification.resources import (
+        DIAGNOSTIC_MAX_DURATION_SECONDS,
+        DIAGNOSTIC_MAX_SAMPLES,
+        run_resource_diagnostic,
+    )
+
+    if (not isinstance(duration_seconds, (int, float))
+            or isinstance(duration_seconds, bool)
+            or not (0 < float(duration_seconds) <= DIAGNOSTIC_MAX_DURATION_SECONDS)):
+        print(json.dumps({"qualification": "resource", "status": "error",
+                          "error": "USAGE_INVALID",
+                          "message": (
+                              f"duration_seconds must be finite in "
+                              f"(0, {DIAGNOSTIC_MAX_DURATION_SECONDS}] "
+                              "(the bounded local observational "
+                              "allowance); refused before any work; "
+                              "no telemetry ran")},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE
+    if (not isinstance(samples, int) or isinstance(samples, bool)
+            or not (1 <= samples <= DIAGNOSTIC_MAX_SAMPLES)):
+        print(json.dumps({"qualification": "resource", "status": "error",
+                          "error": "USAGE_INVALID",
+                          "message": (
+                              f"samples must be an integer in "
+                              f"1..{DIAGNOSTIC_MAX_SAMPLES} (the bounded "
+                              "local observational allowance); refused "
+                              "before any work; no telemetry ran")},
+                         indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return EXIT_USAGE
+    if output_path is not None:
+        refusal = _output_destination_refusal(output_path)
+        if refusal is not None:
+            print(json.dumps({"qualification": "resource", "status": "error",
+                              "error": "OUTPUT_DESTINATION_INVALID",
+                              "message": refusal + " (refused before any "
+                                         "work; no telemetry ran)"},
+                             indent=2, sort_keys=True))
+            sys.stdout.write("\n")
+            return EXIT_USAGE
+    exit_code, document = run_resource_diagnostic(
+        duration_seconds=float(duration_seconds), samples=samples,
+        gpu_query=gpu)
+    rendered = json.dumps(document, indent=2, sort_keys=True) + "\n"
+    if output_path is not None:
+        try:
+            Path(output_path).write_text(rendered, encoding="utf-8")
+        except OSError:
+            sys.stdout.write(rendered)
+            print(json.dumps(
+                {"qualification": "resource", "status": "error",
+                 "error": "EVIDENCE_EXPORT_FAILED",
+                 "stage": "post_work_evidence_export",
+                 "message": ("diagnostic file write failed after the "
+                             "diagnostic returned; the full document "
+                             "was written to stdout")},
+                indent=2, sort_keys=True), file=sys.stderr)
+            return EXIT_EVIDENCE_EXPORT
+    else:
+        sys.stdout.write(rendered)
+    return exit_code
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="raggedized",
@@ -449,6 +897,8 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--version", action="version", version=f"raggedized {__version__}")
     subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers.add_parser(
+        "parity", help="analyze supplied embedding vectors or reranker scores")
     doctor = subparsers.add_parser(
         "doctor",
         help="validate configuration and inspect model manifests offline "
@@ -480,12 +930,102 @@ def _build_parser() -> argparse.ArgumentParser:
                             "(digest-only exact-output check)")
     probe.add_argument("--output", default=None,
                        help="write the evidence document to this file (default: stdout)")
+    qualification = subparsers.add_parser(
+        "qualification",
+        help="finite qualification trials: offline gates/plan (zero I/O) "
+             "and explicit opt-in repeated-parent execution over the real "
+             "gateway/direct application code",
+    )
+    qualification_sub = qualification.add_subparsers(
+        dest="qualification_command", required=True)
+    qualification_sub.add_parser(
+        "gates",
+        help="print the machine-readable section 23.2 prerequisite "
+             "projection (offline; real trials NOT_RUN)",
+    )
+    qual_plan = qualification_sub.add_parser(
+        "plan",
+        help="offline trial plan for one strict spec (zero "
+             "model/HTTP/telemetry I/O; execution NOT_RUN)",
+    )
+    qual_plan.add_argument("--config", required=True,
+                           help="path to the JSON configuration file")
+    qual_plan.add_argument("--spec", required=True,
+                           help="path to the strict trial spec JSON file")
+    qual_run = qualification_sub.add_parser(
+        "run",
+        help="EXPLICIT opt-in trial execution against the configured "
+             "gateway route or offline-diagnostic direct destination "
+             "(--synthetic: owned deterministic MOCK fixture; safe "
+             "structured evidence; no live claims)",
+    )
+    qual_run.add_argument("--config", required=True,
+                          help="path to the JSON configuration file")
+    qual_run.add_argument("--spec", required=True,
+                          help="path to the strict trial spec JSON file")
+    qual_run.add_argument("--synthetic", action="store_true",
+                          help="use the deterministic explicit synthetic "
+                               "route (owned loopback fixture; evidence "
+                               "labeled MOCK; configured secrets never "
+                               "read)")
+    qual_run.add_argument("--output", default=None,
+                          help="write the evidence document to this file "
+                               "(default: stdout)")
+    resource = subparsers.add_parser(
+        "resource",
+        help="bounded read-only local resource telemetry (own-process "
+             "devhost measurements; explicit opt-in; zero model/network "
+             "work)",
+    )
+    resource_sub = resource.add_subparsers(
+        dest="resource_command", required=True)
+    res_diag = resource_sub.add_parser(
+        "diagnose",
+        help="ONE bounded own-process CPU/RSS diagnostic window "
+             "(default and max 5 s / 64 samples); --gpu adds at most "
+             "ONE bounded nvidia-smi fixed-argv metadata query "
+             "(timeout <= 1 s, stdout <= 16 KiB, stderr <= 4 KiB); "
+             "GPU absence is an honest unavailable, never a zero",
+    )
+    res_diag.add_argument(
+        "--duration-seconds", type=_positive_finite_float_arg,
+        default=5.0,
+        help="finite observation window in seconds (max "
+             f"{5.0}, the bounded local allowance)")
+    res_diag.add_argument(
+        "--samples", type=_positive_int_arg, default=64,
+        help="finite sample count (max 64, the bounded local allowance)")
+    res_diag.add_argument(
+        "--gpu", action="store_true",
+        help="at most ONE bounded nvidia-smi fixed-argv metadata query "
+             "(only if installed; exact unavailable/error evidence "
+             "otherwise)")
+    res_diag.add_argument(
+        "--output", default=None,
+        help="write the diagnostic document to this file "
+             "(default: stdout)")
+    qual_run.add_argument(
+        "--resources", action="store_true",
+        help="EXPLICIT opt-in: bounded read-only local resource "
+             "telemetry; the plain v1 trial evidence stays intact "
+             "inside the returned explicit versioned wrapper document")
+    qual_run.add_argument(
+        "--resource-gpu", action="store_true",
+        help="with --resources: at most ONE bounded nvidia-smi "
+             "fixed-argv metadata query (only if installed; exact "
+             "unavailable/error evidence otherwise)")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
+    arguments = sys.argv[1:] if argv is None else argv
+    if arguments and arguments[0] == "parity":
+        # Delegate parsing and all work to the existing parity entrypoint.
+        from .qualification.parity_cli import main as parity_main
+
+        return parity_main(arguments[1:])
     parser = _build_parser()
-    args = parser.parse_args(argv)
+    args = parser.parse_args(arguments)
     if args.command == "doctor":
         exit_code, report = run_doctor(args.config)
         json.dump(report, sys.stdout, indent=2, sort_keys=True)
@@ -496,6 +1036,19 @@ def main(argv: list[str] | None = None) -> int:
                          args.max_dispatches, args.max_output_tokens_total,
                          args.expected_output_a, args.expected_output_b,
                          args.output)
+    if args.command == "qualification":
+        if args.qualification_command == "gates":
+            return run_qualification_gates()
+        if args.qualification_command == "plan":
+            return run_qualification_plan(args.config, args.spec)
+        return run_qualification_run(args.config, args.spec,
+                                     args.synthetic, args.output,
+                                     resources=args.resources,
+                                     resource_gpu=args.resource_gpu)
+    if args.command == "resource":
+        if args.resource_command == "diagnose":
+            return run_resource_diagnose(args.duration_seconds, args.samples,
+                                         args.gpu, args.output)
     parser.error("unknown command")
     return EXIT_USAGE
 
