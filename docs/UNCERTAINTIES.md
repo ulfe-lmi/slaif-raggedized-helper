@@ -422,3 +422,50 @@ human question.
   approval and operator grants remain metadata, never authentication
   or clearance. Real tokenization on deployed assets, model, GPU,
   license and corpus qualification all remain NOT RUN.
+
+### 2026-11-11, order 006-c (durable record integration)
+
+- U06 narrowed further in software only: the accepted native
+  efficiency/query correction now runs under the current session hard
+  caps (16,384 calls / 32 MB input / 4 MB output), the 15,000 ms
+  native default builder deadline (legacy explicit default 5,000 ms,
+  maximum 15,000 ms), per-build reuse with duplicate-free
+  deterministic session call streams, and policy definition v2
+  binding the exact UTF-8 SHA-256 query digest, so the 7876-byte
+  procedure source (403 blocks, 81 chunks, 1,305 session calls) and
+  the 9269-byte table source (243 blocks, 25 chunks, 1,657 session
+  calls) complete at the current caps; the same combined journey
+  composes actual structured text records through
+  bundle_source_records.validate and bundle_native_records.validate
+  into the opaque immutable derived_store container, published
+  idempotently and revalidated from a FRESH store in a NEW owned
+  process against the actual OriginalStore, both validators, Registry
+  chunk/neighbor re-binding, scope, full coverage union, tail, roles
+  and deterministic IDs, with corrupted-member and altered-original
+  refusals asserted. This is bounded software with honest
+  degradation, not a capacity proof: the retained contrary scale
+  timings (157,312-byte author run 10.79 s, independent peer 13.81 s,
+  root run 15.17 s refused at the 15,000 ms deadline) keep target
+  host/model performance 019 OPEN and carry no extra quota authority.
+  Observed local tokenization of locally generated fixtures remains
+  not inference preprocessing parity, deployed-model equivalence,
+  serving or quality evidence; representative corpus counts on real
+  assets and human gold questions are still absent; U06 stays OPEN
+  for 006 continuation/009 work.
+- Component storage composition is not a trusted complete native
+  ingestion bundle: the opaque derived store and the two validators
+  compose and survive fresh-process revalidation, but the full typed
+  ingestion bundle loader, PDF semantic value composition and the
+  private installed chunk CLI remain required following 006 work and
+  are not claimed by this slice.
+- U07 unchanged: the required native development backend remains a
+  DEV-only engine-only capsule (pinned hash-verified
+  tokenizers==0.21.4 with --no-deps in a new private 0700 target):
+  it adds no project dependency, lock, allowlist entry, license
+  exception or application graph change and is not upstream
+  complete-app dependency or license clearance; the open MIT-0 and
+  transitive/native/platform/model license questions stay release
+  and redistribution gates. Processing approval and operator grants
+  remain metadata, never authentication or clearance. Real
+  tokenization on deployed assets, model, GPU, license and corpus
+  qualification all remain NOT RUN.

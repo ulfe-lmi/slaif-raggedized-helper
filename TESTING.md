@@ -162,63 +162,51 @@ tests/unit/test_pdf_extraction.py tests/integration/test_text_extraction_composi
 tests/integration/test_structured_text_composition.py
 tests/integration/test_pdf_extraction_composition.py
 tests/integration/test_extraction_combined.py -q` runs the merged native
-extraction adapters on owned synthetic originals: the literal line and
-structural adapters classify a bounded Markdown subset with exact
-Unicode code-point coverage (contiguous half-open ranges tiling the decoded
-original), and the fixed trusted PDF worker (pdfminer.six 20260107 in a
-private pinned hash-verified environment under `/usr/bin/prlimit` +
-`/usr/bin/bwrap` with user/PID/net/IPC/UTS namespaces) proves native text,
-nested-form deduplication, mixed raster/vector visual-needed pages and
-count/geometry/object accounting. `test_extraction_combined.py` composes
-manifest -> `OriginalStore` -> all three adapters -> `provenance.Registry`
-in one journey: shared bytes with distinct corpus/labels/rights/version, a
-metadata revision reusing one verified blob, native literal and structural
-coverage, source immutability, and malformed/oversized/wrong-hash/
-unsupported-media refusal; the source byte-integrity pass, parse limits and
-cooperative parent/worker deadlines are separate mechanisms, none a hard
-filesystem-interrupt guarantee. The required PDF tests fail explicitly
-(instead of skipping) when `PDF_TEST_RUNTIME`/`PDF_TEST_PACKAGES` are absent
-or the backend or isolation is unavailable. Local setup: `uv python install
-3.12` plus `python3 tests/support/prepare_pdf_test_backend.py --runtime-dir
-<standalone 3.12 root> --target <new private dir>` (prints exact
-`PDF_TEST_RUNTIME`/`PDF_TEST_PACKAGES` exports); product CI provisions the
-equivalent per run on disposable GitHub-hosted runners and verifies
-bwrap/prlimit and an unprivileged namespace smoke. The development pins
-(pdfminer.six 20260107, charset-normalizer 3.5.2, cryptography 50.0.2,
-cffi 2.0.0, pycparser 3.12, SHA-256 verified) are DEV-only and add no
-project dependency, lock, allowlist, license exception or application graph
-change. All synthetic and offline; no real corpus, network, GPU, model or
-quality work. Structural chunking, tokenizer sessions and all physical/
-model/domain/license/ICA qualification remain later ordered scope; real
-qualification NOT RUN.
+extraction adapters on owned synthetic originals: literal line and bounded
+structural adapters with exact Unicode code-point coverage (half-open ranges
+tiling the decoded original) and the fixed trusted isolated PDF worker
+(pdfminer.six 20260107 in a private pinned hash-verified environment under
+`/usr/bin/prlimit` + `/usr/bin/bwrap`), composing manifest ->
+`OriginalStore` -> all three adapters -> `provenance.Registry` in ONE journey
+with shared-byte distinct scopes, a metadata revision over one verified
+blob, source immutability and safe refusals. The required PDF tests fail
+explicitly (never skip) when `PDF_TEST_RUNTIME`/`PDF_TEST_PACKAGES`, the
+backend or the isolation is absent or invalid; product CI provisions the
+DEV-only pinned backend per run. Full command coverage, isolation and
+NOT-RUN distinctions: docs/benchmarks/ingestion-count-storage.md (T13). All
+synthetic and offline; real qualification NOT RUN.
 
-T14. Combined canonical 006 observed-count journey (objective 006-b):
-`uv run pytest tests/unit/test_native_tokenizers.py
+T14. Combined canonical 006 observed-count journey (objectives
+006-b/006-c): `uv run pytest tests/unit/test_native_tokenizers.py
 tests/unit/test_native_chunking.py
 tests/integration/test_native_chunking_composition.py
 tests/integration/test_native_extraction_counts.py -q` runs the merged
 native count/chunk stack on owned synthetic originals: manifest ->
 OriginalStore -> line/structure/PDF extraction -> Registry ->
-native_chunking.build with three OBSERVED local token counts and
-receipts per chunk (exact role inputs, artifact SHA, backend,
-revision/preprocessing, input digests), 512/768/1024 budgets,
-up-to-64-token word-boundary overlap, no discarded tail, reciprocal
-neighbors, deterministic rebuild, same-byte distinct IDs and
-cross-source denial, native pair 1280/reserve 64 with strict
-smaller-policy refusal, legacy callback pair 512 kept
-SUPPLIED_UNVERIFIED, and independent session re-counts instead of
-hand-derived word counts. The required native tests fail explicitly
-(never skip) when SLAIF_NATIVE_TEST_ROOT/PACKAGES/PYTHON, the backend
-or the isolation is absent or invalid. Local setup: `python3
-tests/support/prepare_native_test_backend.py --runtime-dir
-<standalone 3.12 root> --target <new private dir>`; product CI
-provisions the NEW private pinned hash-verified engine-only
-tokenizers 0.21.4 capsule per run on both Python 3.12/3.14 legs with
-literal GITHUB_ENV bindings (helper output never sourced). Observed
-limit: the 1024-call session budget refuses representative-scale
-sources at attempted call 1025 before any output (asserted with the
-exact observed count); the commissioned same-PR efficiency correction
-must land before whole-006 acceptance. The capsule is DEV-only
-(engine-only --no-deps; no dependency/lock/allowlist/license change);
-toy artifacts only — no deployed-model equivalence, serving, hardware,
-license or quality claim. Real qualification NOT RUN.
+native_chunking.build with three OBSERVED local token counts and receipts
+per chunk (exact role inputs, artifact SHA, backend,
+revision/preprocessing, input digests), 512/768/1024 budgets, up-to-64-token
+word-boundary overlap, no discarded tail, reciprocal neighbors,
+deterministic rebuild, same-byte distinct IDs and cross-source denial,
+native pair 1280/reserve 64 with strict smaller-policy refusal, legacy
+callback pair 512 kept SUPPLIED_UNVERIFIED, and independent session
+re-counts. Current 006-c bounds: Session hard caps 16,384 calls / 32 MB
+input / 4 MB output; builder deadline 15,000 ms native default / 5,000 ms
+legacy explicit default (max 15,000 ms); per-build reuse removes duplicate
+identical count requests; policy definition v2 binds the exact UTF-8 SHA-256
+query digest (10,000-character query bound kept; native v1 identity and
+receipt fingerprints unchanged). Representative-scale 7876-byte procedure
+and 9269-byte table sources complete under the current caps (exact observed
+session call counts 1,305 and 1,657), and the hard-quota negative is a
+standalone Session seeded at 16,384 calls whose next count refuses with
+owned-child cleanup. The required native tests fail explicitly (never skip)
+when SLAIF_NATIVE_TEST_ROOT/PACKAGES/PYTHON, the backend or the isolation is
+absent or invalid; product CI provisions the NEW private pinned
+hash-verified engine-only tokenizers 0.21.4 capsule per run on both Python
+3.12/3.14 legs with literal GITHUB_ENV bindings (helper output never
+sourced). Full command coverage, observed results, component storage
+composition (T14a) and NOT-RUN distinctions:
+docs/benchmarks/ingestion-count-storage.md. The capsule is DEV-only
+(engine-only --no-deps; no dependency/lock/allowlist/license change); toy
+artifacts only — no deployed-model equivalence, serving, hardware, license
+or quality claim. Real qualification NOT RUN.

@@ -2,11 +2,12 @@
 
 ## Current state (2026-11-11)
 
-- Active objective: 006, current slice 006-b (observed native
-  count/chunk integration on the 006-a extraction slice: the fixed
-  native tokenizer session and structural chunk adapter with
-  canonical extraction, observed counts and receipts per chunk, and
-  required native development tests on both product CI legs), open on
+- Active objective: 006, current slice 006-c (durable record
+  integration on the 006-a/006-b slices: the accepted native
+  efficiency/query correction with raised session caps and per-build
+  reuse, the reviewed source/receipt record validators and the opaque
+  immutable derived container store composed in the ONE combined
+  counts journey with fresh-process revalidation), open on
   the 006 PR, branch
   oap/006-native-extraction-and-chunking from main 4977186;
   live PR/CI/merge state is queried on GitHub, not asserted
@@ -538,3 +539,56 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   snapshot/retrieval, GPU/vision, real corpus and model/license/ICA
   qualification all remain open; all real qualification remains
   NOT RUN.
+- 006-c (durable record integration; same PR 8 branch): THREE
+  authorized local --no-ff merges of the root-reviewed candidate
+  tips in the exact ordered index, native query fix A first
+  (oap/parallel-006-native-query-fix tip
+  0761f6de94cc388ccfd71042986f13d0fa90db4f, implementation
+  4f73a38d6b2cc574c91c6320c34dbfb2a4611a84, carrying the accepted
+  PAR-006-NATIVE-EFFICIENCY-A/SCALE-C and query correction),
+  structured text bundle source A second
+  (oap/parallel-006-bundle-source-text tip
+  1b05f3647ac3ca83593bc1f1ca2e869ebad4826f, implementation
+  026abc91de4bbfc0265a9d1dca4a3f9e9b92fa80, carrying the accepted
+  JSONL A / receipt C lanes), derived member store C third
+  (oap/parallel-006-derived-member-store-c tip
+  f2a2cedc80286cb114ee87db83e674d901fccd74, implementation
+  2451dcd081b62b3202fc96ce949a0e4b343bf741), each forecast clean
+  with git merge-tree against the actual parents and the merged
+  trees equal to the recomputed forecasts, preserving candidate
+  order/report/implementation histories; the strategic 006-c
+  round-start bytes (order, active, 006-b root review and the
+  006-c component index) were committed byte-for-byte unchanged,
+  and all accepted source module blobs plus the corrected
+  unchanged PDF parser/worker blobs match the root component
+  index. The combined counts journey is updated to the current
+  bounds: session hard caps 16,384 calls / 32 MB input / 4 MB
+  output, 15,000 ms native default builder deadline (legacy
+  explicit default 5,000 ms, maximum 15,000 ms), per-build reuse
+  with duplicate-free deterministic session call streams, and
+  policy definition v2 binding the exact UTF-8 SHA-256 query
+  digest (10,000-character query bound kept; equal-count distinct
+  queries keep distinct policy IDs; native v1 identity and receipt
+  fingerprints unchanged); the stale 1025-attempt negative is
+  replaced by actual 7876-byte procedure (403 blocks, 81 chunks,
+  1,305 session calls) and 9269-byte table (243 blocks, 25 chunks,
+  1,657 session calls) positive journeys at the current caps, a
+  standalone Session hard-quota negative (seeded at 16,384 calls;
+  next count refuses; owned child reaped), and a tightened full
+  interval-union/no-gap block coverage helper. The SAME combined
+  test gains the component storage composition: actual structured
+  text records -> bundle_source_records.validate +
+  bundle_native_records.validate -> opaque immutable
+  derived_store container publication (idempotent) -> close ->
+  FRESH store in a NEW owned process revalidating against the
+  actual OriginalStore, both validators, Registry chunk/neighbor
+  re-binding, scope, full coverage union, tail, roles and
+  deterministic IDs; corrupted-member and altered-original
+  refusals asserted. This foundation slice does NOT implement or
+  claim the full typed ingestion bundle loader, PDF semantic value
+  composition or the private installed chunk CLI; those remain
+  required following 006 work. No numeric 007 or whole-006 merge
+  from this slice. NOT a GitHub PR/default-main merge;
+  contextualization, embedding, snapshot/retrieval, GPU/vision,
+  real corpus and model/license/ICA qualification all remain
+  open; all real qualification remains NOT RUN.

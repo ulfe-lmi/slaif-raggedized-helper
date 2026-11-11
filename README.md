@@ -74,23 +74,29 @@ extraction on that foundation: the exact literal line and bounded
 structural Markdown subset adapters with full Unicode code-point
 coverage, and the fixed trusted isolated PDF worker (bounded verified
 read, private pinned hash-verified development backend, required
-reproducible PDF development tests on product CI). The 006-b
-continuation integrates the reviewed fixed native tokenizer session
-and structural chunk adapter with canonical extraction: chunks with
-exact original spans/separators, conditional word-boundary overlap and
-no discarded tail, each carrying three observed local token counts and
+reproducible PDF development tests on product CI). The 006-b/006-c
+continuation integrates the reviewed fixed native tokenizer session and
+structural chunk adapter with canonical extraction: chunks with exact
+original spans/separators, conditional word-boundary overlap and no
+discarded tail, each carrying three observed local token counts and
 receipts binding exact role inputs, artifact SHA, backend, declared
 revision/preprocessing and input digests (512/768/1024 budgets, up to
 64-token overlap, native pair 1280 with 64 reserved; the legacy
-callback fixture keeps supplied pair 512 unverified); the required
-native tests are mandatory on both product CI legs under a NEW private
-pinned hash-verified engine-only tokenizers 0.21.4 capsule (DEV only;
-no dependency, lock, allowlist or license change). An observed session
-call-budget limit (1024 calls) makes representative-scale sources
-refuse totally at attempted call 1025 with the current accepted
-bridge; the commissioned same-PR native efficiency correction,
-durable derived bundles/loaders and the private installed chunk
-command remain required 006 work before whole-006 acceptance.
+callback fixture keeps supplied pair 512 unverified); the 006-c
+correction raises the session caps to 16,384 calls / 32 MB input /
+4 MB output, adds the 15,000 ms native default builder deadline (legacy
+explicit default 5,000 ms) and per-build reuse, so the representative-
+scale 7876-byte procedure and 9269-byte table sources now complete
+under the current caps; the required native tests are mandatory on
+both product CI legs under a NEW private pinned hash-verified
+engine-only tokenizers 0.21.4 capsule (DEV only; no dependency, lock,
+allowlist or license change). The 006-c slice also composes the
+reviewed source/receipt record validators and the opaque immutable
+derived container store in the same combined journey (validated records
+survive publication and fresh-process revalidation); the full typed
+ingestion bundle loader, PDF semantic value composition and the private
+installed chunk command remain required 006 work before whole-006
+acceptance.
 Source-to-block anchors, native versus visual-needed page semantics,
 refusal behavior, budgets and observed-count provenance are documented
 in

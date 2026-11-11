@@ -1,4 +1,4 @@
-"""Combined canonical 006 second-slice native counts journey (order 006-b).
+"""Combined canonical 006 native counts journey (orders 006-b/006-c).
 
 Composes the actually merged components in ONE owned store: owned manifest ->
 OriginalStore -> native literal line / structural text / isolated fixed PDF
@@ -14,22 +14,35 @@ tokenization of locally generated toy tokenizer artifacts: no deployed-model
 equivalence, inference preprocessing parity, serving, hardware, license or
 quality claim.
 
-Actual usability limit (observed 2026-11-11, reproducible): the owned Session
-accepts at most 1024 count requests per build. A representative-scale
-procedure source (7876 characters, 403 blocks) is refused at attempted call
-1025 with no chunk/neighbor/receipt output; the refusal is asserted with the
-exact observed call count. This limit is a precise observed bound, not a
-capacity proof: larger representative documents require the separately
-commissioned same-PR native efficiency correction before whole-006
-acceptance. Both the native backend and the PDF backend are required here:
-the tests fail — they do not skip — when either is absent or unavailable.
+Current observed bounds (order 006-c, reproducible): the owned Session hard
+caps are 16,384 calls, 32 MB input and 4 MB output; the builder deadline is
+15,000 ms for the native default policy and 5,000 ms for the legacy explicit
+default (maximum 15,000 ms); per-build reuse removes duplicate identical
+count requests within one build. Representative-scale sources now complete
+under the current caps: the 7876-byte procedure source (403 blocks) and the
+9269-byte table source (243 blocks) both build with the exact observed
+session call counts, and the hard-quota negative seeds a standalone Session
+at 16,384 calls and asserts the next count refuses with owned-child cleanup
+rather than tokenizing a huge fixture. These are precise observed bounds on
+bounded software with honest degradation, not a universal capacity or
+throughput claim; target host/model performance remains open (objective 019).
+
+The component storage composition extends the SAME journey: actual
+structured text records -> source validator + receipt validator -> opaque
+derived-container publication -> close -> FRESH store/new-process load ->
+revalidation against the actual OriginalStore, both validators, Registry
+chunk/neighbor binding, scopes, full coverage union, tail, roles and
+deterministic IDs. A successful opaque store load is NOT a trusted complete
+native ingestion bundle. Both the native backend and the PDF backend are
+required here: the tests fail — they do not skip — when either is absent or
+unavailable.
 """
 
 import hashlib
 import json
 import os
 import sys
-import time
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -40,13 +53,18 @@ from test_extraction_combined import mixed_pdf  # noqa: E402
 from test_native_tokenizers import make_native  # noqa: E402
 
 from slaif_raggedized_helper import chunking  # noqa: E402
+from slaif_raggedized_helper import bundle_native_records as bn  # noqa: E402
+from slaif_raggedized_helper import bundle_source_records as bs  # noqa: E402
 from slaif_raggedized_helper import native_chunking as nc  # noqa: E402
 from slaif_raggedized_helper import pdf_extraction as pdf  # noqa: E402
+from slaif_raggedized_helper import provenance_jsonl as jl  # noqa: E402
 from slaif_raggedized_helper import provenance_records as p  # noqa: E402
 from slaif_raggedized_helper import structured_text as st  # noqa: E402
 from slaif_raggedized_helper import text_extraction as tx  # noqa: E402
 from slaif_raggedized_helper.source_admission import OriginalStore, parse_manifest  # noqa: E402
 from slaif_raggedized_helper.tokenizer_session import Session  # noqa: E402
+from slaif_raggedized_helper import derived_store as ds  # noqa: E402
+from slaif_raggedized_helper import native_tokenizers as nt  # noqa: E402
 
 PDF_RUNTIME = Path(os.environ['PDF_TEST_RUNTIME']) if os.environ.get('PDF_TEST_RUNTIME') else None
 PDF_PACKAGES = (Path(os.environ['PDF_TEST_PACKAGES'])
@@ -97,13 +115,21 @@ RICH = (
 BUDGET_DOC = '# Big\r\n' + sentence(700, 'bud') + '\r\n'
 
 # Exact representative-scale fixture of the QUAL-006-BUNDLE-SIZES-A evidence:
-# 7876 characters, 403 structural blocks, refused at attempted session call
-# 1025 before any output.
+# 7876 characters, 403 structural blocks. Completes at the current 006-c
+# caps (supersedes the 006-b 1024-call refusal observation).
 PROCEDURE = ('# Procedure\n\n'
              + ''.join(f'WARNING {i}: isolate power before service.\n\n'
                        f'1. Check pressure {i} kPa.\n2. If hot, wait until safe.\n\n'
                        for i in range(80))
              + 'Tail: restore power only after inspection.\n')
+
+
+# Exact representative-scale table fixture: 9269 characters, 243 structural
+# blocks; observed to complete at the current 006-c caps.
+TABLE = ('# Measurements\n\n' + ''.join(
+    '| Parameter | Value | Unit | Condition |\n| --- | --- | --- | --- |\n' + ''.join(
+        f'| flow {i}-{k} | {k} | L/s | if valve open |\n' for k in range(8)) + '\n'
+    for i in range(24)) + 'Tail: confirm units.\n')
 
 
 def admit(store, root, logical_id, path, data, media, corpus, labels, version, rights):
@@ -181,14 +207,18 @@ def assert_receipt_bindings(result, defs, query, expected_chunks=None):
 
 
 def assert_exact_block_coverage(item, chunks):
+    """Full interval union per block: exact text, no gap, full original end."""
     for block in item.blocks:
         fragments = [f for c in chunks for f in c.fragments
                      if isinstance(f, p.SourceFragment) and f.block_id == block.block_id]
-        end = 0
         for fragment in fragments:
+            assert 0 <= fragment.start < fragment.end <= len(block.text)
             assert fragment.copied_text == block.text[fragment.start:fragment.end]
-            end = max(end, fragment.end)
-        assert end == len(block.text)
+        position = 0
+        for start, end in sorted((f.start, f.end) for f in fragments):
+            assert start <= position, (start, position)
+            position = max(position, end)
+        assert position == len(block.text)
 
 
 def test_combined_native_extraction_counts_and_chunks(tmp_path, native, pdf_runtime):
@@ -368,41 +398,272 @@ def test_legacy_callback_pair512_supplied_unverified(tmp_path):
         store.close()
 
 
-def test_native_session_call_budget_refuses_before_output(tmp_path, native, monkeypatch):
-    """Representative scale is refused at the exact 1024-call Session budget.
+def test_representative_scale_sources_complete_at_current_caps(tmp_path, native, monkeypatch):
+    """Representative-scale procedure and table sources complete at current caps.
 
-    The observed Session subclass only records counters; it changes no count,
-    worker or limit. The refusal returns no chunk, neighbor or receipt output.
+    The wrapped Session.count only records the exact session calls; it changes
+    no count, worker or limit. Per-build reuse keeps the session call stream
+    duplicate-free within one build, so the observed call counts are exact and
+    deterministic for these fixtures.
     """
     paths, runtime, definition = native
-    stats = {}
-    original = nc.Session
+    observed = []
+    original = Session.count
 
-    class Observed(original):
-        def count(self, *args):
-            try:
-                return super().count(*args)
-            finally:
-                stats.update(calls=self._calls, input_bytes=self._input,
-                             output_bytes=self._output)
+    def count(self, role, text, pair=None):
+        observed.append((role, text, pair))
+        return original(self, role, text, pair)
 
-    monkeypatch.setattr(nc, 'Session', Observed)
-    store, _, revisions = make_store(tmp_path)
+    monkeypatch.setattr(Session, 'count', count)
+    store, root, (rev_a, _, _, _) = make_store(tmp_path)
     proc_root = tmp_path / 'proc'
     proc_root.mkdir()
     proc_rev = admit(store, proc_root, 'proc', 'p.md', PROCEDURE.encode('utf-8'),
                      'text/markdown', 'private-e', [], '1.0', 'unknown')
+    table_root = tmp_path / 'table'
+    table_root.mkdir()
+    table_rev = admit(store, table_root, 'table', 't.md', TABLE.encode('utf-8'),
+                      'text/markdown', 'private-f', [], '1.0', 'unknown')
     try:
-        assert len(PROCEDURE) == 7876
-        item = st.extract(store, proc_rev.revision_id)
-        assert len(item.blocks) == 403
-        registry = p.Registry((proc_rev,), (item.dependency,), item.blocks)
+        assert len(PROCEDURE.encode('utf-8')) == 7876
+        assert len(TABLE.encode('utf-8')) == 9269
         defs = definitions(paths, definition)
-        start = time.monotonic()
-        with pytest.raises(nc.NativeChunkingError, match='^native chunk construction refused$'):
-            nc.build(registry, item.blocks, *defs, runtime, 'hello')
-        assert time.monotonic() - start < 30
-        assert stats['calls'] == 1025
-        assert stats['input_bytes'] > 0 and stats['output_bytes'] > 0
+        for rev, text, tail, expected_blocks in (
+                (proc_rev, PROCEDURE, 'Tail: restore power only after inspection.\n', 403),
+                (table_rev, TABLE, 'Tail: confirm units.\n', 243)):
+            item = st.extract(store, rev.revision_id)
+            assert len(item.blocks) == expected_blocks
+            registry = p.Registry((rev,), (item.dependency,), item.blocks)
+            observed.clear()
+            result = nc.build(registry, item.blocks, *defs, runtime, 'hello')
+            first_calls = tuple(observed)
+            assert 1024 < len(first_calls) < 16384
+            assert len(first_calls) == len(set(first_calls))
+            assert result == nc.build(registry, item.blocks, *defs, runtime, 'hello')
+            assert tuple(observed[len(first_calls):]) == first_calls
+            assert_receipt_bindings(result, defs, 'hello')
+            assert_exact_block_coverage(item, result.chunks)
+            assert result.chunks[-1].text.endswith(tail)
+            assert all(c.counts[0].count <= 768 and c.counts[1].count <= 1024
+                       and c.counts[2].count <= 1280 for c in result.chunks)
+            assert (proc_root / 'p.md' if rev is proc_rev
+                    else table_root / 't.md').read_bytes() == text.encode('utf-8')
+        assert len(observed) < 16384
     finally:
         store.close()
+
+
+def test_session_hard_quota_refuses_and_cleans_owned_child(tmp_path, native):
+    """The hard 16,384-call Session quota refuses the next count and cleans up.
+
+    A standalone owned Session is seeded at the exact quota; the next count is
+    refused before any worker request, the session closes itself, and the
+    owned child process is terminated and reaped. No huge fixture is
+    tokenized.
+    """
+    paths, runtime, definition = native
+    with Session((definition(paths[0], 'bge_body'),), runtime) as session:
+        child = session._child
+        assert child is not None and child.poll() is None
+        session._calls = 16384
+        with pytest.raises(nt.TokenizerError, match='^tokenizer session refused$'):
+            session.count('bge_body', 'x')
+        assert session._child is None
+    assert child.poll() is not None
+
+
+def test_durable_component_storage_composition(tmp_path, native):
+    """Component storage composition: validated records survive opaque storage.
+
+    Actual structured text records and observed-count chunks/receipts are
+    validated by the source and receipt validators, published as ONE opaque
+    immutable derived container, then revalidated after close by a FRESH
+    store in a NEW process: source validation against the actual OriginalStore,
+    receipt validation from immutable bytes, Registry chunk and reciprocal
+    neighbor re-binding, scope, full per-block coverage union, tail, roles and
+    deterministic chunk IDs. This proves component storage composition only;
+    a successful opaque store load is NOT a trusted complete native ingestion
+    bundle, and no full typed bundle loader, PDF semantic composition or
+    private installed chunk CLI is invented here.
+    """
+    from dataclasses import asdict
+
+    paths, runtime, definition = native
+    defs = definitions(paths, definition)
+    store, root, (rev_a, _, _, _) = make_store(tmp_path)
+    derived_root = tmp_path / 'derived'
+    derived_root.mkdir()
+    derived_root.chmod(0o700)
+    query = 'hello'
+    closed = False
+    try:
+        struct_a = st.extract(store, rev_a.revision_id)
+        registry = p.Registry((rev_a,), (struct_a.dependency,), struct_a.blocks)
+        result = nc.build(registry, struct_a.blocks, *defs, runtime, query)
+        assert result.chunks
+
+        # Source validator: re-extract the bounded original and bind the
+        # supplied records to that result, yielding canonical bytes.
+        source_header = dict(dependency=struct_a.dependency.model_dump(),
+                             adapter='structured_text', status='complete_text',
+                             coverage_kind='unicode_codepoints',
+                             uncertainty=struct_a.uncertainty)
+        source_blocks = b''.join(b.model_dump_json().encode() + b'\n'
+                                 for b in struct_a.blocks)
+        source_coverage = dict(schema_version=1, kind='unicode_codepoints',
+                               spans=[asdict(x) for x in struct_a.coverage])
+        v_source = bs.validate(store, rev_a.revision_id,
+                               json.dumps(source_header).encode(), source_blocks,
+                               json.dumps(source_coverage).encode(), len(struct_a.blocks))
+        assert v_source.blocks == struct_a.blocks
+
+        # Receipt validator: pure byte validation of policy identity, chunks
+        # and three receipts per chunk, with no source access or tokenizer.
+        # The default native policy of nc.build is pair 1280, deadline 15000.
+        policy = chunking.Policy(pair_max=1280, deadline_ms=15000)
+        declarations = [dict(role=d.role, artifact_sha256=d.sha256,
+                             backend_version=d.backend_version,
+                             model_revision=d.model_revision,
+                             preprocessing=d.preprocessing) for d in defs]
+        policy_definition = nc._json(dict(
+            version=1, kind='observed-local-native', policy=asdict(policy),
+            definitions=[nc._identity(d) for d in defs],
+            query_input_sha256=nc._input_digest(query, None),
+            serialization=nc._SERIALIZATION)).decode()
+        raw_header = nc._json(dict(policy=asdict(policy), query=query,
+                                   definitions=declarations,
+                                   policy_definition=policy_definition,
+                                   policy_id=p.policy_id(policy_definition)))
+        raw_chunks = jl.encode('Chunk', tuple(c.model_dump_json().encode()
+                                              for c in result.chunks))
+        raw_receipts = result.receipts_json()
+        v_native = bn.validate(raw_header, raw_chunks, raw_receipts, len(result.chunks))
+        assert v_native.chunks == result.chunks
+        assert v_native.header_json == raw_header
+        assert v_native.chunks_jsonl == raw_chunks
+        assert v_native.receipts_json == raw_receipts
+        assert all(c.policy_id == p.policy_id(policy_definition) for c in result.chunks)
+
+        # Opaque immutable container: the six canonical member bytes and the
+        # minimal metadata; publication is idempotent for identical input.
+        members = (ds.Member('source_header', v_source.header_json),
+                   ds.Member('source_blocks', v_source.blocks_jsonl),
+                   ds.Member('source_coverage', v_source.coverage_json),
+                   ds.Member('native_header', v_native.header_json),
+                   ds.Member('native_chunks', v_native.chunks_jsonl),
+                   ds.Member('native_receipts', v_native.receipts_json))
+        metadata = json.dumps(dict(format='component-storage-composition-v1',
+                                   revision_id=rev_a.revision_id,
+                                   expected_blocks=len(struct_a.blocks),
+                                   expected_chunks=len(result.chunks))).encode()
+        with ds.Store(derived_root) as dstore:
+            container_id = dstore.publish(metadata, members)
+            assert dstore.publish(metadata, members) == container_id
+            snapshot = dstore.load(container_id)
+        assert hashlib.sha256(snapshot.manifest).hexdigest() == container_id
+        assert {m.name: m.data for m in snapshot.members} == {
+            m.name: m.data for m in members}
+
+        store.close()
+        closed = True
+        # FRESH OriginalStore and NEW process revalidate the same immutable
+        # bytes: source validation against the actual original, receipt
+        # validation, Registry chunk/neighbor re-binding, scope, full
+        # per-block coverage union, tail, roles and deterministic IDs.
+        code = (
+            'import hashlib\n'
+            'from slaif_raggedized_helper import bundle_native_records as bn\n'
+            'from slaif_raggedized_helper import bundle_source_records as bs\n'
+            'from slaif_raggedized_helper import provenance_records as p\n'
+            'from slaif_raggedized_helper.derived_store import Store\n'
+            'from slaif_raggedized_helper.source_admission import OriginalStore\n'
+            f'store_root = {str(tmp_path / "store")!r}\n'
+            f'derived_root = {str(derived_root)!r}\n'
+            f'container_id = {container_id!r}\n'
+            f'revision_id = {rev_a.revision_id!r}\n'
+            f'expected_blocks = {len(struct_a.blocks)}\n'
+            f'expected_chunks = {len(result.chunks)}\n'
+            'ds_store = Store(derived_root)\n'
+            'snap = ds_store.load(container_id)\n'
+            'ds_store.close()\n'
+            'assert hashlib.sha256(snap.manifest).hexdigest() == container_id\n'
+            'members = {m.name: m.data for m in snap.members}\n'
+            'assert set(members) == {"source_header", "source_blocks",\n'
+            '                       "source_coverage", "native_header",\n'
+            '                       "native_chunks", "native_receipts"}\n'
+            'original = OriginalStore(store_root)\n'
+            'v_source = bs.validate(original, revision_id, members["source_header"],\n'
+            '                        members["source_blocks"], members["source_coverage"],\n'
+            '                        expected_blocks)\n'
+            'v_native = bn.validate(members["native_header"], members["native_chunks"],\n'
+            '                       members["native_receipts"], expected_chunks)\n'
+            'decoded = original.read_original(revision_id).decode("utf-8")\n'
+            'assert "".join(b.text for b in v_source.blocks) == decoded\n'
+            'assert v_source.header_json == members["source_header"]\n'
+            'assert v_source.blocks_jsonl == members["source_blocks"]\n'
+            'assert v_source.coverage_json == members["source_coverage"]\n'
+            'position = 0\n'
+            'for start, end in sorted((s.start, s.end) for s in v_source.coverage):\n'
+            '    assert start <= position\n'
+            '    position = max(position, end)\n'
+            'assert position == len(decoded)\n'
+            'registry = p.Registry((v_source.revision,), (v_source.dependency,),\n'
+            '                       v_source.blocks)\n'
+            'for chunk in v_native.chunks:\n'
+            '    registry.bind_chunk(chunk)\n'
+            'links = tuple(p.Neighbors(schema_version=1, chunk_id=c.chunk_id,\n'
+            '    previous_chunk_id=v_native.chunks[i - 1].chunk_id if i else None,\n'
+            '    next_chunk_id=v_native.chunks[i + 1].chunk_id\n'
+            '    if i + 1 < expected_chunks else None)\n'
+            '    for i, c in enumerate(v_native.chunks))\n'
+            'assert registry.bind_neighbors(v_native.chunks, links) == links\n'
+            'scope = registry.bind_chunk(v_native.chunks[0])\n'
+            'assert scope.corpus == "private-a"\n'
+            'assert scope.labels == ("a-label",)\n'
+            'assert scope.redistribution_rights == "prohibited"\n'
+            'assert scope.version == "1.0"\n'
+            'assert v_native.chunks[-1].text.endswith("Tail warning remains.\\r\\n")\n'
+            'assert all(c.chunk_id == p.chunk_id(c) for c in v_native.chunks)\n'
+            'assert [r.count.role for r in v_native.receipts[:3]] == [\n'
+            '    "bge_body", "bge_representation", "reranker_pair"]\n'
+            'original.close()\n'
+            'print("FRESH_PROCESS_OK")\n'
+        )
+        proc = subprocess.run([sys.executable, '-c', code], capture_output=True,
+                              text=True, env=os.environ.copy())
+        assert proc.returncode == 0, proc.stderr
+        assert proc.stdout.strip() == 'FRESH_PROCESS_OK'
+
+        # Altered stored original bytes refuse source validation in a fresh
+        # store; the original file in the admission root stays untouched.
+        blob_path = tmp_path / 'store' / 'blobs' / rev_a.blob
+        raw_blob = blob_path.read_bytes()
+        blob_path.write_bytes(b'X' + raw_blob[1:])
+        try:
+            fresh_store = OriginalStore(tmp_path / 'store')
+            try:
+                with pytest.raises(bs.BundleSourceError,
+                                   match='^source bundle records refused$'):
+                    bs.validate(fresh_store, rev_a.revision_id,
+                                v_source.header_json, v_source.blocks_jsonl,
+                                v_source.coverage_json, len(struct_a.blocks))
+            finally:
+                fresh_store.close()
+        finally:
+            blob_path.write_bytes(raw_blob)
+
+        # Corrupted container member object refuses load.
+        digest = hashlib.sha256(v_source.blocks_jsonl).hexdigest()
+        object_path = derived_root / 'derived' / 'v1' / 'objects' / digest
+        raw_member = object_path.read_bytes()
+        object_path.write_bytes(b'X' + raw_member[1:])
+        try:
+            with ds.Store(derived_root) as dstore:
+                with pytest.raises(ds.StoreError, match='^invalid container$'):
+                    dstore.load(container_id)
+        finally:
+            object_path.write_bytes(raw_member)
+    finally:
+        if not closed:
+            store.close()
+        assert (root / 'a.md').read_bytes() == RICH.encode('utf-8')
