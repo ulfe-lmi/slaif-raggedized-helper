@@ -1,0 +1,24 @@
+# Complete structural chunk algorithm — PAR-006-CHUNK-B
+
+Status: FINAL
+Role: CODING WORKER
+Worktree: /home/janezp/codex-work/slaif-raggedized-helper-parallel-structural-chunking-b
+Branch: oap/parallel-006-structural-chunking-b
+Base: 7d8ff5380aa5d634cd7e4b2258c82a797f512a62
+Decision: NONE
+Provenance: human parallel coding mandate; architecture7.2/9.3; I AUDIT-006-CHUNK-A and Root confirmed grouping/overlap omissions and counter identity mismatch.
+
+Every tool uses isolated worktree. Preserve Terra medium/profile/auth. No canonical active/FIFO/main edits, push/PR/integration, dependency/lock/model/GPU/services/realcorpus/network or legal exceptions. Read original exact oap/parallel/orders/PAR-006-CHUNK-A.md (its full requirements REMAIN), actual APIs/tests/docs, regular parallel/structural-chunking/review.json and parallel/audit-structural-chunking/report.json. Candidate A is PARTIAL, not accepted; finish all ordered software criteria without reducing scope. No arbitrary development time/token cutoff or report-only stopping while routine implementation remains possible.
+
+1. Add actual structural priority: adjacent procedure+warning/prerequisites (including literal blank separators) stay together when combined soft body/representation/pair budget permits, even across target512 threshold. Do not attach unrelated distant text; deterministic documented bounded policy. If combination cannot fit, retain exact traceable splits and warning evidence, never silently discard original tail. Actual /tmp/raggedized-root-chunk-a-review.py and /tmp/audit006_witness.py reproduce gaps; inspect before rerunning unchanged, compare printed facts rather than exit0 alone.
+2. Implement conditional paragraph-crossing overlap up to64 actual supplied BGE tokens, only when justified, not uniform everyblock/chunk. Exact original source spans map overlap, counters remeasure final entire strings including specials and heading representation; every full body<=768, representation<=1024 and independent rerankerpair<=configured bound. Preserve procedure/code/table structure and referenced header/unit row groups. Make complete source coverage/no-tail-loss assertions with repeats handled explicitly.
+3. Correct tokenizer identity semantics: body and representation count modes can share SAME actual BGE artifact identity; require distinct independent reranker identity, not three fabricated artifact IDs. Roles/modes still explicit, supplied counters unverified. No realtokenizer download/qualification. Trusted callbacks cannot be chosen by source. Strict type/provenance/identity/policy/counter results; preserve finite call/work/char/blocks/chunks/fragments/deadline bounds and fixed input-free no-partial errors. Review counter consistency/queryreserve/pair special handling and immutable Registry coupling honestly.
+4. Complete original meaningful positive/negative matrix: default512/768/1024 and narrowed threshold equality/over-limit; warningprocedurefitssoftbutexceedstarget; conditionalproseoverlap measured<=64; coherent code fit/refuse; repeatedoriginal tableheaders and units; Unicode/CRLF/Slovenian/identifiers/negation/tail warnings; actual independentpair counting vsbody; missing/forged DTO/scope/dependencies/crossACL/counterbool/negative/nonfinite/contradictory/oversize, call/work/deadline/fragment/chunk bounds, safe canary errors. Actual owned source->structure->Registry->chunks, deterministic identities/heading/reciprocalneighbors/sourcecoverage. Do not weaken existing tests or claim old overlapping counts as new proof. No generic callback/hardware fixture claimed qualified BGE.
+5. Run focused new+affected regressions and full relevant lint; report actual complete software scope or specific externally blocked condition. No broader tests solely for counts. Document exact APIs/priorities/limits/trusted-counter/cooperative-deadline and missing qualified artifact adapters/full006/ICA/MVP gates. No shared source/provenance/text/PDF/schema/CLI/governance edits.
+
+Consume fresh control once:
+python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py wait-control structural-chunking-b
+Allowed paths: src/slaif_raggedized_helper/chunking.py, docs/parallel/structural-chunking-api.md, tests/unit/test_structural_chunking.py, tests/integration/test_structural_chunking_composition.py, oap/parallel/orders/PAR-006-CHUNK-B.md
+Copy exact order to oap/parallel/orders/PAR-006-CHUNK-B.md; ONE implementation commit soleparent=base, ONE report-only JSON oap/parallel/reports/PAR-006-CHUNK-B.json soleparent=implementation with lane_id/result/implementation_head fullSHA/report_publication_commit SELF/summary/API/tests actualcommandsresults/limits. Clean tree; respond ONCE then idle:
+python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py respond structural-chunking-b
+No nextwork/acceptance/merge/license/MVP claims.

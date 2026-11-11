@@ -1,0 +1,39 @@
+{
+  "lane_id": "PAR-006-PDF-BRIDGE-B",
+  "result": "COMPLETE",
+  "implementation_head": "2e56f059b350a5a75ed02dcedc903e61fe863199",
+  "report_publication_commit": "SELF",
+  "DHA": "NONE",
+  "API": "PdfPolicy definition v4 binds pdf-literal-structure-v2; block fingerprint v2 binds classified kind. Producer and stored validator use the same classifier and fingerprint. Legacy v3 requires explicit re-extraction.",
+  "verification": [
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 pytest tests/unit -q",
+      "result": "PASS 882 tests"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 pytest -q tests/integration/{test_native_pdf_structure,test_pdf_extraction_composition,test_bundle_pdf_records_composition,test_ingestion_bundle_pdf_composition,test_chunk_cli_composition}.py -k not isolation_denies_owned_external_canary_network_and_inherited_fd",
+      "result": "PASS 75; one network isolation test deselected under no-network constraint. Configured required PDF and native backends; no missing backend skip."
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check affected Python files; git diff --check",
+      "result": "PASS"
+    },
+    {
+      "command": "bounded /tmp/audit006_pdf_structure_witness.py; /tmp/audit006_pdf_default_and_procedure.py A; /tmp/raggedized-root-pdf-warning-fit.py B",
+      "result": "PASS; small coverage, default 303 blocks/2 row chunks with headers and complete coverage, warning grouped with procedure and unrelated prefix separate; counts 14/14/17."
+    },
+    {
+      "command": "git hash-object src/slaif_raggedized_helper/pdf_worker.py",
+      "result": "652fcf664cb6de017a9ed4d13353b0a365031be0 unchanged"
+    }
+  ],
+  "witness_hashes": {
+    "small_script_sha256": "ea6aa3938d847dfb25e035192320320e45067701cd7f279b9ecdafaab3a2e417",
+    "default_script_sha256": "95367139703ec6483072a0dc2264cd6bc01e898a777a7da86e62da0b10611b92",
+    "warning_script_sha256": "3805f5f4d0c02c4dcb74c8a9f2c55c7125ca866a37ab01b17576318d623a810c",
+    "small_pdf_sha256": "5a358f30d22459b33d80e3f5d1a7fdd4d43bf21c976281efe836142b4438997a",
+    "default_pdf_sha256": "ec64eefcc51e471860d7c74cc8f6ec760274dec938fe10dcc3416d2f60e59f54",
+    "warning_pdf_sha256": "fb622add4fbf3ed219441711cbb8bece2d064b3974bed7a26964b1a8916ddd82"
+  },
+  "limits": "Literal grammar cannot solve general PDF layout. Source fidelity and current authorization are not attested by stored validation; trusted producer and pinned identity remain assumptions. Visual, license, 019, independent audit and full 006/MVP gates remain. Local only; no integration, release or deployment. Diagnostic scripts ran with 120 CPU seconds and 1 GiB limits after uv startup; pytest commands were not wrapped in those parent limits."
+}

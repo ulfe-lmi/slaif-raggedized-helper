@@ -155,3 +155,79 @@ per-record negative boundaries. All synthetic and offline: no extraction,
 parsing, network, models, GPU or real corpus; supplied text/counts are
 assertions, not executed parsers or qualified tokenizer measurements; DTO
 COMPLETE is not artifact or cache proof. Real qualification NOT RUN.
+
+T13. Combined canonical 006 first-slice extraction (objective 006-a):
+`uv run pytest tests/unit/test_text_extraction.py tests/unit/test_structured_text.py
+tests/unit/test_pdf_extraction.py tests/integration/test_text_extraction_composition.py
+tests/integration/test_structured_text_composition.py
+tests/integration/test_pdf_extraction_composition.py
+tests/integration/test_extraction_combined.py -q` runs the merged native
+extraction adapters on owned synthetic originals: literal line and bounded
+structural adapters with exact Unicode code-point coverage (half-open ranges
+tiling the decoded original) and the fixed trusted isolated PDF worker
+(pdfminer.six 20260107 in a private pinned hash-verified environment under
+`/usr/bin/prlimit` + `/usr/bin/bwrap`), composing manifest ->
+`OriginalStore` -> all three adapters -> `provenance.Registry` in ONE journey
+with shared-byte distinct scopes, a metadata revision over one verified
+blob, source immutability and safe refusals. The required PDF tests fail
+explicitly (never skip) when `PDF_TEST_RUNTIME`/`PDF_TEST_PACKAGES`, the
+backend or the isolation is absent or invalid; product CI provisions the
+DEV-only pinned backend per run. Full command coverage, isolation and
+NOT-RUN distinctions: docs/benchmarks/ingestion-count-storage.md (T13). Order 006-e integrates the conservative literal structure classifier into the PDF adapter (pdf-literal-structure-v3, policy definition v4, shared kind-bound block fingerprint v2; classifier v2 / policy v3 records are immutable and require explicit re-extraction): `tests/unit/test_pdf_structure.py` (grammar, admission bounds, two-second deadline, terminator and incomplete-prefix limits) and `tests/integration/test_native_pdf_structure.py` (owned reduced-policy small and closing, default-policy and fitting-warning PDFs through extraction and native chunking; every row chunk retains the original header; full coverage and tail preserved) join the T13 command under the same backends. All synthetic and offline; real qualification NOT RUN.
+
+T14. Combined canonical 006 observed-count journey (objectives
+006-b/006-c): `uv run pytest tests/unit/test_native_tokenizers.py
+tests/unit/test_native_chunking.py
+tests/integration/test_native_chunking_composition.py
+tests/integration/test_native_extraction_counts.py -q` runs the merged
+native count/chunk stack on owned synthetic originals: manifest ->
+OriginalStore -> line/structure/PDF extraction -> Registry ->
+native_chunking.build with three OBSERVED local token counts and receipts
+per chunk (exact role inputs, artifact SHA, backend,
+revision/preprocessing, input digests), 512/768/1024 budgets, up-to-64-token
+word-boundary overlap, no discarded tail, reciprocal neighbors,
+deterministic rebuild, same-byte distinct IDs and cross-source denial,
+native pair 1280/reserve 64 with strict smaller-policy refusal, legacy
+callback pair 512 kept SUPPLIED_UNVERIFIED, and independent session
+re-counts. Current 006-c bounds: Session hard caps 16,384 calls / 32 MB
+input / 4 MB output; builder deadline 15,000 ms native default / 5,000 ms
+legacy explicit default (max 15,000 ms); per-build reuse removes duplicate
+identical count requests; policy definition v2 binds the exact UTF-8 SHA-256
+query digest (10,000-character query bound kept; native v1 identity and
+receipt fingerprints unchanged). Representative-scale 7876-byte procedure
+and 9269-byte table sources complete under the current caps (exact observed
+session call counts 1,305 and 1,657), and the hard-quota negative is a
+standalone Session seeded at 16,384 calls whose next count refuses with
+owned-child cleanup. The required native tests fail explicitly (never skip)
+when SLAIF_NATIVE_TEST_ROOT/PACKAGES/PYTHON, the backend or the isolation is
+absent or invalid; product CI provisions the NEW private pinned
+hash-verified engine-only tokenizers 0.21.4 capsule per run on both Python
+3.12/3.14 legs with literal GITHUB_ENV bindings (helper output never
+sourced). Full command coverage, observed results, component storage
+composition (T14a) and NOT-RUN distinctions:
+docs/benchmarks/ingestion-count-storage.md. The capsule is DEV-only
+(engine-only --no-deps; no dependency/lock/allowlist/license change); toy
+artifacts only — no deployed-model equivalence, serving, hardware, license
+or quality claim. Real qualification NOT RUN.
+
+T15. Installed private chunk/inspect operator and complete semantic
+bundle (objective 006-d): `uv run pytest tests/unit/test_chunk_cli.py
+tests/unit/test_ingestion_prepare.py
+tests/integration/test_chunk_cli_composition.py -q` with the T13/T14
+dev backends runs the INSTALLED `raggedized chunk` and
+`raggedized chunk inspect` routes in subprocesses on owned private
+stores: prepare + durable publication under an explicit operator
+profile (actual private CPU tokenizer session and isolated PDF
+worker), the bounded JSON overview, exit 0/1/2 semantics,
+`no_native_chunks` with `source_status` partial visual truth, the
+known `published_bundle_id` retained on later failure, idempotent
+canonical retries, coherent cross-revision semantic refusal,
+corruption/profile/hash/backend/policy/query refusals and the
+cooperative 180-second budget. The six combined extraction/count
+integration composition suites (T13/T14: text/structured/PDF
+extraction composition, extraction combined, native chunking
+composition and native extraction counts; 49 cases) re-run unchanged
+after integration with no skip or fallback. Full command coverage,
+backend setup, the four-fresh-read derived-store semantics and NOT-RUN
+distinctions: docs/benchmarks/ingestion-count-storage.md (T15). All
+synthetic and offline; real qualification NOT RUN.

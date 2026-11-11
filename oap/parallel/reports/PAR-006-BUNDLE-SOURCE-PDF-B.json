@@ -1,0 +1,24 @@
+{
+  "lane_id": "PAR-006-BUNDLE-SOURCE-PDF-B",
+  "result": "COMPLETE",
+  "implementation_head": "0dd0b015ec8c273c6c7f74ddd39a0ae67f81fc2d",
+  "report_publication_commit": "SELF",
+  "api": "bundle_pdf_records.validate(store, revision_id, extraction_header_json_bytes, blocks_jsonl_bytes, coverage_json_bytes, expected_blocks)",
+  "changes": "Before expansion, account for visited and pending nodes plus all dictionary keys and values or list children, and refuse children beyond depth 16. Added exact and one-over node boundaries, cumulative nested pending and depth cases, and public validation refusal before store access.",
+  "verification": [
+    {"command": "PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages timeout 180s uv run --isolated --locked --offline --python 3.14 pytest tests/unit tests/integration/test_bundle_pdf_records_composition.py tests/integration/test_pdf_extraction_composition.py -q -o addopts=''", "result": "759 passed in 70.71s; no skips"},
+    {"command": "timeout 180s uv run --isolated --locked --offline --python 3.14 pytest tests/integration/test_source_admission_composition.py tests/integration/test_provenance_jsonl_composition.py -q -o addopts=''", "result": "2 passed in 0.42s; no skips"},
+    {"command": "PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages timeout 180s uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-pdf-source-nodes.py", "result": "passed; malformed 88907-byte coverage refused; peak pending 20, cap 20000"},
+    {"command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/bundle_pdf_records.py tests/unit/test_bundle_pdf_records.py tests/integration/test_bundle_pdf_records_composition.py", "result": "passed"},
+    {"command": "git diff --check; git diff --cached --check", "result": "passed"}
+  ],
+  "witness_sha256": {
+    "/tmp/raggedized-root-pdf-source-nodes.py": "f518dea88d18b3efee06196174cd246c128a1202d43b93633ad07d60fff47af7",
+    "src/slaif_raggedized_helper/bundle_pdf_records.py": "b55b9cb82fa2fca4461db4a2391a01823ba8c4446338821ff677a031d1e80743",
+    "tests/unit/test_bundle_pdf_records.py": "84a2fe319b2a1b674f8ae3b66496468bbb0e16db0870ae30ec8c06c090f4bbca",
+    "tests/integration/test_bundle_pdf_records_composition.py": "f17cbfc5079ab09bf193e800062ba0e8345ff8d0848749ba64d3996fee6b4e16",
+    "oap/parallel/orders/PAR-006-BUNDLE-SOURCE-PDF-B.md": "a59a98607bc6504b7b636f9bb3aac440fbb322f80a93a3746c57bfa8a5777480"
+  },
+  "limits": "Local CPU development only. No PDF completeness, execution attestation, source-byte equivalence, authorization, performance, RSS, or deployment qualification claimed. JSON decoding precedes bounded traversal; existing raw caps remain. No push or integration.",
+  "dha": "NONE"
+}

@@ -1,0 +1,29 @@
+{
+  "lane_id": "PAR-006-OPERATOR-CLI-B",
+  "result": "PARTIAL",
+  "implementation_head": "27900c830d01a27e8f00e08d4ffc8007e7a545de",
+  "report_publication_commit": "SELF",
+  "API": "prepare/inspect validate deadline and reconstructed declarations; no-native reports source_status; CLI bounds serialization and retains known IDs on typed failures.",
+  "commands_and_results": [
+    "Control: python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py wait-control operator-chunk-cli-b: EXACT_OK_CONSUMED once.",
+    "Environment for native/PDF runs: PYTHONPATH=$PWD/src; PATH=/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin:$PATH; SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu; SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages; SLAIF_NATIVE_TEST_PYTHON=python3.12; PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu; PDF_TEST_PACKAGES=/tmp/raggedized-pdf-dependency-pin-312/lib/python3.12/site-packages.",
+    "After final source change: pytest tests/unit tests/integration/test_chunk_cli_composition.py tests/integration/test_source_admission_composition.py tests/integration/test_source_installed_cli.py tests/integration/test_source_module_cli.py tests/integration/test_pdf_extraction_composition.py tests/integration/test_native_chunking_composition.py tests/integration/test_native_tokenizers_composition.py tests/integration/test_ingestion_profile_composition.py tests/integration/test_ingestion_store_composition.py tests/integration/test_ingestion_bundle_composition.py tests/integration/test_ingestion_bundle_pdf_composition.py tests/integration/test_bundle_native_records_composition.py tests/integration/test_bundle_pdf_records_composition.py tests/integration/test_bundle_source_records_composition.py tests/integration/test_derived_store_composition.py tests/integration/test_structural_chunking_composition.py: 1053 passed, 110.39s; tests were subsequently extended and rerun focused.",
+    "pytest tests/unit/test_ingestion_prepare.py tests/unit/test_chunk_cli.py: 20 passed after final unit additions.",
+    "pytest tests/integration/test_chunk_cli_composition.py: 2 passed after final integration additions, including installed text, empty text, native/nested/mixed raster/vector and all-visual PDFs, inspect, source bytes and receipt counts.",
+    "PYTHONPATH=src /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/raggedized-root-operator-deadline-admission.py: exit 0; no OriginalStore calls for NaN or infinity (before final source change; subsequent change only CLI serialization).",
+    "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check .: passed; git diff --check: passed."
+  ],
+  "witness_hashes": {
+    "order_sha256": "6d6d01180e55b3d42a14c5c4a8da637574e5c12b5c8611d5789059f617971d6d",
+    "peer_note_sha256": "2428752a629628fea7a578706877b75dcfc32555a27c38edd840044c946affad",
+    "deadline_witness_sha256": "31b5e87006504f58e77a60f6683d49ab8d96c8b10e42e1f15b02ff7dc2ed3892",
+    "composition_test_sha256": "3c35863c891f863747a208a63266e09dec03936f6b4472d6a04dddb1775f78fd",
+    "prepare_test_sha256": "63ab60a9879215754a7ab13e6fa1e5d43fb4b2c76457ba33d8837b672619d8ae"
+  },
+  "limits": [
+    "PARTIAL: ordered full finite matrix remains unfinished: substantive procedure/table/overlap/tail coverage and distinct scope/version IDs; full canonical and corruption/cross-revision end-to-end proofs; wrong artifact/missing backend and broad privacy-canary negatives; explicit postpublication fresh-load/deadline fault proof and final-output timing proof. Existing component tests do not establish all of these CLI journeys.",
+    "Operator documentation is candidate, not complete proof of all requested setup and refusal scenarios. No acceptance, release, hardware/model, license, ICA or full MVP claim.",
+    "PDF fixtures exercise actual isolated producer; tokenizers are synthetic owned artifacts with actual backend, not model-equivalence evidence. No GPU, inference, network or service used."
+  ],
+  "DHA": "NONE"
+}

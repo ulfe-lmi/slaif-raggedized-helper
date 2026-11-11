@@ -1,0 +1,14 @@
+{
+  "lane_id": "PAR-006-PDF-BRIDGE-A",
+  "result": "PARTIAL",
+  "preparation_head": "1150b8776d8baf7136542e2595790cafd239d01d",
+  "implementation_head": "9dcca35a2fa2b68586469c96d93e095529a94de0",
+  "report_publication_commit": "SELF",
+  "commands_and_results": [
+    "git merge-tree --write-tree HEAD b2d274cdf5b652df2fc874c422bd2dd04fa5f058: tree 9acccf47912cba92c072903fadd111ee92a6b31a",
+    "git merge --no-ff --no-edit b2d274cdf5b652df2fc874c422bd2dd04fa5f058: successful, expected parents and tree",
+    "uv run --isolated --locked --offline --python 3.14 python -c import pytest: exit 0"
+  ],
+  "limits": "Order copied only. No bridge implementation, classifier update, regression tests, witness hashes, or qualification performed. Work remains unfinished; no external blocker established. Full 006 remains open.",
+  "DHA": "NONE"
+}

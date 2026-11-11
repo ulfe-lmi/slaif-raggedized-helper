@@ -1,0 +1,45 @@
+{
+  "lane_id": "PAR-006-CHUNK-C",
+  "result": "COMPLETE",
+  "implementation_head": "337470c39fee1d21ad1857f7a2a0bb81ca926e72",
+  "report_publication_commit": "SELF",
+  "summary": "Completed the ordered software continuation. Maximal adjacent recognized warning/prerequisite/procedure chains are grouped when all measured limits fit; fitting adjacent pairs remain eligible if the chain does not fit. No unrelated text is bridged. Empty blocks do not create invalid empty fragments.",
+  "API": "chunking.build(registry, blocks, counters, query, policy=None); see docs/parallel/structural-chunking-api.md. Counters are supplied and unverified. Registry is an in-memory validated snapshot, not authorization or persistent storage.",
+  "numbered_coverage": {
+    "1": "Synthetic exact call recordings cover default target equality/one-over, body 768/769, representation 1024/1025 independently, complete pair and query reserve equality/one-over including fixture specials. Tests cover fit above target, chain exceeding soft maximum, no unrelated bridging, measured source-referenced paragraph overlap, original repeated table header and separator with unit-bearing rows, CRLF, Slovenian text, commands, negation and tail warning. Actual BGE qualification is not claimed.",
+    "2": "Dedicated mixed revision and distinct-ACL input, missing dependency at Registry construction, duplicate/conflicting and unknown/forged blocks, incomplete/reordered collections, counter identity and invalid results, repeated inconsistent count, and block/character/chunk/fragment/call/work/deadline limits are tested. Failures expose fixed errors without content and return no partial result. Tests verify coverage union, heading paths, determinism and actual reciprocal neighbors. Registry validates snapshots at construction; no validation bypass is claimed.",
+    "3": "Changed only the allowed chunking module: maximal adjacent qualifying chains, pair fallback, and omission of empty block fragments. Existing actual callback counting and independent pair modes retained; shared BGE identity is accepted. Empty input and all-empty blocks refuse; indivisible over-budget units refuse. Documentation describes these boundaries and cooperative deadline.",
+    "4": "Focused chunk/structure/provenance suites and lint passed. Both original witnesses were inspected and run unchanged before and after; exact facts appear below. The additional user-provided multiwarning witness was inspected and run unchanged before and after. No model, corpus, GPU, service or license qualification was performed."
+  },
+  "commands_results": [
+    {
+      "command": "PYTHONPATH=src /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest tests/unit/test_structural_chunking.py tests/integration/test_structural_chunking_composition.py tests/unit/test_structured_text.py tests/integration/test_structured_text_composition.py tests/unit/test_provenance_records.py tests/integration/test_provenance_records_composition.py -q",
+      "result": "44 passed"
+    },
+    {
+      "command": "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check .",
+      "result": "All checks passed; initial run found two line-length issues, corrected before final run"
+    },
+    {
+      "command": "PYTHONPATH=src:tests/integration /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/raggedized-root-chunk-a-review.py",
+      "result": "Before and after: warning+procedure together true, count 9 <= 12, all source retained true; same BGE identity accepted true."
+    },
+    {
+      "command": "PYTHONPATH=src:tests/integration /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/audit006_witness.py",
+      "result": "Before and after: journey 37 blocks, 2 chunks, counts (497,500,502) and (166,169,171), 705 callbacks; procedure grouped; split prose repeats four./eight.; table header repeated across 3 row chunks; bool, negative, call cap, work cap, oversize, forged and incomplete refused; neighbors reciprocal true."
+    },
+    {
+      "command": "PYTHONPATH=src:tests/integration /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/raggedized-root-chunk-b-multiwarning.py",
+      "result": "Before: warning and prerequisite/step in separate chunks, all together false. After: all in one exact original-text chunk, all together true; full fixture count 12, soft max 24."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed before implementation commit"
+    }
+  ],
+  "limits": [
+    "Counter fixtures are SUPPLIED_UNVERIFIED; actual BGE and reranker artifacts, tokenizer adapters, real corpus, hardware and licenses remain unqualified.",
+    "Grouping uses documented bounded English markers and numbered lists; semantic completeness is not claimed. Trusted callback deadlines are cooperative.",
+    "Full 006, independent audit, MVP, legal/license, deployment and release gates remain open. No push, PR, merge, integration, production or service action was performed. Decision NONE."
+  ]
+}

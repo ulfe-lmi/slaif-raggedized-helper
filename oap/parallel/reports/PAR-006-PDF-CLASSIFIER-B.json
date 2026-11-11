@@ -1,0 +1,17 @@
+{
+  "lane_id": "PAR-006-PDF-CLASSIFIER-B",
+  "result": "PARTIAL",
+  "implementation_head": "14d2365bfbb49dc3f22a33902509aa27b862d606",
+  "report_publication_commit": "SELF",
+  "API": "pdf-literal-structure-v1: Line, classify, StructureError",
+  "commands_and_results": [
+    "uv run --isolated --locked --offline --python 3.14 python -c import pytest: passed",
+    "uv run --isolated --locked --offline --python 3.14 python -m pytest tests/unit/test_pdf_structure.py -q: 8 passed",
+    "uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-pdf-classifier-admission.py: both cases passed (0.060s and 0.063s)",
+    "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/pdf_structure.py tests/unit/test_pdf_structure.py: passed",
+    "git diff --check: passed"
+  ],
+  "witness_sha256": "ffe1e677bf6a8605cbfe2c8bee6aea43ec360fed4f856172348d4b7197feda2b",
+  "limits": "Finite proof is incomplete: explicit wrong DTO/container variants, all requested boundary and grammar combinations, and comprehensive adjacent near-match cases require further coverage and review. No integration or PDF fidelity qualification.",
+  "DHA": "NONE"
+}

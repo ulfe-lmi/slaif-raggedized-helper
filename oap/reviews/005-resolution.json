@@ -1,0 +1,36 @@
+{
+  "objective": "005",
+  "rounds": [
+    "005-a",
+    "005-b"
+  ],
+  "decision": "MERGED",
+  "pr": 7,
+  "pr_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/pull/7",
+  "accepted_head": "45a50db3478152fdb4056c1bcb3a990580d60373",
+  "implementation": "617bc725cdc34519ab9d080e5da185065ffd4d91",
+  "report_sha256": "091b4bdce4ea426b697b559b50aa68343094812c9bd1fb23ed5a180dba3b2d2c",
+  "merge_commit": "4977186d3ddbd2259f78590b29c0364fe26eb1fb",
+  "accepted_and_merged_tree": "547e8b71a77405ce100226f8f59a09b25da4d8d8",
+  "created_at": "2026-11-11T14:11:28Z",
+  "merged_at": "2026-11-11T15:05:18Z",
+  "verified_at": "2026-11-11T15:11:23.114587+00:00",
+  "implementation_ci_run": 43042968211,
+  "pr_ci_run": 43044055137,
+  "main_ci_run": 43044818307,
+  "main_ci_last_job": "2026-11-11T15:09:06Z",
+  "status": "FINAL_VERIFIED_COMPLETE",
+  "scope": "Original005 SOFTWARE record/store and pure source-scope/job transition scope complete. Real OriginalStore plus exact source/metadata revisions, Unicode original provenance and immutable DTOs, no extraction/model/worker/auth/cache proof.",
+  "review_sha256": "1aae55206bd1d8c786037bb7db5022a48d5bbcecb2bc008fb5824f8014b73219",
+  "review": "oap/reviews/005-b-review.json; Root independent30 focused combined tests, full new journey/protocol/docs, exact accepted source/merge/report graphs and remote bytes, all5 implementation/report/main CI success, no review threads/auto/bypass.",
+  "strongest_counterargument": "Pure schemas, metadata approvals and supplied extraction/output/count identities are not execution, authentication/current revocation or actual model/domain qualification. These remain explicit later006+ obligations and acceptance is scoped to original005 software.",
+  "remaining_gates": [
+    "006 actual native extraction/chunk/software/CI integration; model inference parity distinct",
+    "007/008/009/010/011/012/013/014/015/016/017 remaining pipelines/indices/evaluation/workers/auth/vision/recovery",
+    "018 exact license/native/model/transitive/SBOM; no certifi/MPL/MIT-0/platform exception inferred",
+    "019 authorized real targets/hardware/corpus/held-out qualification",
+    "020 independent full-source ICA; full text and visual MVP not accepted; no release/deploy"
+  ],
+  "authority": "Activated human MVP development and protected qualifying merges only. No deployment/tag/release/service/GPU/credentials/real-data/legal exception.",
+  "next": "Activate006-a bounded native extraction and required PDF CI on one006 PR; structural native chunk/count continuation remains mandatory before whole006 merge."
+}

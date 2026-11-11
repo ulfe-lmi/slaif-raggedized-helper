@@ -1,0 +1,16 @@
+{
+  "lane_id": "PAR-006-BUNDLE-SOURCE-TEXT-A",
+  "result": "COMPLETE",
+  "implementation_head": "026abc91de4bbfc0265a9d1dca4a3f9e9b92fa80",
+  "report_publication_commit": "SELF",
+  "API": "bundle_source_records.validate(store, revision_id, header_bytes, blocks_jsonl_bytes, coverage_bytes, expected_blocks) returns frozen source-bound values and canonical bytes; BundleSourceError is input-free.",
+  "summary": "Admits bounded immutable records and exact structured policy, then re-extracts the verified original and compares complete records, coverage, dependency and uncertainty. No publication or model execution.",
+  "tests": [
+    {"command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit tests/integration/test_bundle_source_records_composition.py tests/integration/test_provenance_jsonl_composition.py tests/integration/test_structured_text_composition.py tests/integration/test_source_admission_composition.py", "result": "PASS, 100%. Initial run without the specified native environment failed native fixtures; corrected run passed."},
+    {"command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/bundle_source_records.py tests/unit/test_bundle_source_records.py tests/integration/test_bundle_source_records_composition.py", "result": "PASS"},
+    {"command": "git diff --cached --check", "result": "PASS before implementation commit"}
+  ],
+  "evidence": "Owned text and Markdown round trips preserve Unicode, CRLF, controls, source tail, warnings, tables and distinct same-byte revision scopes. Mutation, admission, tree limits, final deadline and changed-original refusals exercised.",
+  "remaining_limits": "Local candidate only. Mechanical source verification is not producer attestation or serving authorization; cooperative deadlines cannot interrupt blocked filesystem work. PDF, chunks, neighbors, full bundle, store and CLI remain separate work; no ICA or MVP claim.",
+  "DHA": "NONE"
+}

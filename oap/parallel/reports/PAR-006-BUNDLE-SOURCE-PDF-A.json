@@ -1,0 +1,22 @@
+{
+  "lane_id": "PAR-006-BUNDLE-SOURCE-PDF-A",
+  "result": "COMPLETE",
+  "implementation_head": "3b9b41ebcd19b603ac306a07e487ae72fcadc20a",
+  "report_publication_commit": "SELF",
+  "api": "bundle_pdf_records.validate(store, revision_id, extraction_header_json_bytes, blocks_jsonl_bytes, coverage_json_bytes, expected_blocks)",
+  "changes": "Bytes-first finite PDF source validation, verified original/catalog and policy/dependency bindings, page and native block consistency, immutable canonical result, API trust documentation and owned producer/negative tests. Zero-native all-visual results remain partial.",
+  "verification": [
+    {"command": "PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages timeout 180s uv run --isolated --locked --offline --python 3.14 pytest tests/unit tests/integration/test_bundle_pdf_records_composition.py tests/integration/test_pdf_extraction_composition.py -q -o addopts=''", "result": "756 passed in 68.90s; no skips"},
+    {"command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/bundle_pdf_records.py tests/unit/test_bundle_pdf_records.py tests/integration/test_bundle_pdf_records_composition.py", "result": "passed"},
+    {"command": "git diff --cached --check", "result": "passed before implementation commit"}
+  ],
+  "witness_sha256": {
+    "src/slaif_raggedized_helper/bundle_pdf_records.py": "e99dae59840cf49b5aff4e128e1ddb713c6e3ae6af49d73ff749a9fa4c95c3bd",
+    "tests/unit/test_bundle_pdf_records.py": "79420cbad045593dbb0d19c9363d813d5405731853ccda35708ef798e3cba717",
+    "tests/integration/test_bundle_pdf_records_composition.py": "60cec5b7b4b18d65f978e467fea5c1d20b1d965469801125d5b2db3ce49b966b",
+    "docs/parallel/bundle-pdf-records-api.md": "23adcc3580405847501944c8eb8fc3e1b84160d266d4ea6721d2de58978c34ed",
+    "oap/parallel/orders/PAR-006-BUNDLE-SOURCE-PDF-A.md": "7904899299887f68898be8caf4be6561aa101269b336b7d5ab486bcd0011ade8"
+  },
+  "limits": "Actual fixed isolated producer on owned native, multipage, nested-form, mixed raster/vector and all-visual fixtures; not a fresh extraction attestation or proof of fidelity, completeness, authorization, licensing, ICA, full 006, MVP, deployment, performance, hard filesystem cancellation or RSS. Source/chunk composition and human gates remain open. Local only; no push, merge or deployment.",
+  "dha": "NONE"
+}

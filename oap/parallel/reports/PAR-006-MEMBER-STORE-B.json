@@ -1,0 +1,20 @@
+{
+  "lane_id": "PAR-006-MEMBER-STORE-B",
+  "result": "PARTIAL",
+  "implementation_head": "de299e856605df07a86817c5ea771fd18b22c760",
+  "report_publication_commit": "SELF",
+  "actualcommands": [
+    "wait-control derived-member-store-b: exit 0 EXACT_OK_CONSUMED",
+    "uv run pytest tests/unit tests/integration/test_source_installed_cli.py tests/integration/test_source_module_cli.py tests/integration/test_source_admission_composition.py tests/integration/test_provenance_records_composition.py tests/integration/test_derived_store_composition.py: exit 0, 646 passed",
+    "uv run ruff check src/slaif_raggedized_helper/derived_store.py tests/unit/test_derived_store.py tests/integration/test_derived_store_composition.py: exit 0",
+    "git diff --check and git diff --cached --check: exit 0",
+    "uv run python /tmp/raggedized-root-derived-store-closed.py: exit 0, reused descriptors refused",
+    "uv run python /tmp/raggedized-root-derived-store-deadline.py: exit 0, expired publication refused"
+  ],
+  "tests": "Lifecycle, post-fsync and post-freeze deadlines, chunk checks, independent processes, manifest pre-open admission, JSON complexity, file mutation, fault injection at write/link/fsync for both stages, committed manifest after directory fsync failure, retry, corruption, missing member, unrelated stage and original store coexistence.",
+  "limits": [
+    "The complete requested fault/boundary matrix is not established: distinct before/after interception of every member and manifest file and directory fsync and cleanup failure, all malformed manifest variants and all exact cap boundaries are not individually demonstrated. No external blocker caused this evidence gap; do not treat this report as complete acceptance.",
+    "Cooperative deadlines cannot interrupt blocked syscalls; root and descriptor protection remain caller trust assumptions. No fixed RSS or typed bundle, authorization, qualification, or deployment claim."
+  ],
+  "strongest_counterargument": "The focused tests cannot prove all filesystem failure interleavings and admission boundaries; this limits confidence in crash recovery and requires the remaining matrix before acceptance."
+}

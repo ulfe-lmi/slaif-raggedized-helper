@@ -1,0 +1,21 @@
+{
+  "lane_id": "PAR-006-INGESTION-PROFILE-A",
+  "result": "COMPLETE",
+  "implementation_head": "b9080566b65c6b9df80ab89c3ff6bff8075fd32d",
+  "report_publication_commit": "SELF",
+  "api": "ingestion_profile.parse_profile(bytes), load_profile(operator_path): frozen Profile with native runtime, three fixed role definitions, optional PDF runtime and explicit chunking.Policy; fixed ProfileError",
+  "verification": [
+    {"command": "PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages timeout 180s uv run --isolated --locked --offline --python 3.14 pytest tests/unit tests/integration/test_ingestion_profile_composition.py -q -o addopts=''", "result": "742 passed in 45.65s, no skips"},
+    {"command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/ingestion_profile.py tests/unit/test_ingestion_profile.py tests/integration/test_ingestion_profile_composition.py", "result": "passed"},
+    {"command": "git diff --cached --check", "result": "passed for implementation"}
+  ],
+  "witness_sha256": {
+    "src/slaif_raggedized_helper/ingestion_profile.py": "9aff244ec4e95747ee9f80b56aac5e8486ae742e74d5414e091585cceaca5c85",
+    "tests/unit/test_ingestion_profile.py": "d14cd674fd7f19da4f7027a2746821f99d57c44ef6a75aa0512a6db807b932aa",
+    "tests/integration/test_ingestion_profile_composition.py": "ec8906f448304f85e9f3fcfbfb4dd214c5e0ecb994424df363c69d40e8d820ac",
+    "docs/parallel/ingestion-profile-api.md": "b4f7cdd49d9d0d5c44e78d78d6fd8b50d2d9276d7d61012e68a95b0628564194",
+    "oap/parallel/orders/PAR-006-INGESTION-PROFILE-A.md": "d07bfa37dea0991d8155590ded6af31d1ea85061981707daa1e1ccc72aab7b20"
+  },
+  "limits": "Local declaration-only work; no artifact existence/hash, backend, model, preprocessing, serving or license qualification. Deadline is cooperative and cannot interrupt a blocked filesystem call. No experimental resource limits or performance claims. CLI, preparation, Store, PDF integration, current CI, 019, model/domain/license, ICA and full MVP remain open.",
+  "dha": "NONE"
+}

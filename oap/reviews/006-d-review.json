@@ -1,0 +1,95 @@
+{
+  "at": "2026-11-11T19:25:33.367709+00:00",
+  "status": "FINAL_PARTIAL_RECONCILED_CONTINUE_SAME006_NO_WHOLE_ACCEPTANCE",
+  "report_head": "391c8331d43365b048c9c7903637637b5f459601",
+  "implementation": "62fc63ca4d99b38d30e531e1fd5421c1de53b508",
+  "report_sha256": "96f9c73c51fd7b48c8863e90d0fa1cc0972b70771f1eae8cdee29207cf102f1e",
+  "scope": "Full116line report and entire8file doc/governance diff298insertions30deletions read. Bothactualmergeforecasts/Rootcopies/16sourceblobs previouslyverified; implementationdocs/governanceonly, no appsourcechange. Root3actualinstalledcasesPASS38.77s. Currentcheck_state0/c3caa89d8539ab6f74182fdf8a848e25192c7bfe31f1cd97f53f0da0a20b7cb3/routine49017/50000; authorizedTESTING/contextmeasurementchange notrewritingactivation.",
+  "CI": "Bothimplementation43082584764 andreport43084322956 ALL5/ALLrequiredstepsSUCCESS independentlyverified. Sourcecoveragefailurestillpreventswhole006acceptance.",
+  "report_limits": "ReportBasecommit4977186namesmainratherthanroundbase0b6e51b; actualroundstartancestryverified, recordmetadataambiguity notinventedgraph. Wordingcurrentreporthead0b6 refersPREVIOUS006c report; immutableSELFfutureCI notclaimed. NativePDFresidualreferencesoldPAR006PDFSTRUCTUREA/reducedcase only; newerRootdefaulttable/fittingwarning andsplitrepairs supersede operatingstate, preserveoldreportunchanged.",
+  "doc_note": "docs/ingestion.md sayssemanticvalidator re-extractsverifiedsourcegenerally; actualPDFpathpurestoredrecords verification doesNOTfreshparsePDF. DetailedAPItrustboundaryalreadycorrect; correctroutinewording in laterordered006e docs. No currentauth/producerattestation fromselfconsistentPDFrecords.",
+  "strongest_reason_not_to_accept": "ActualdefaultPDFtableheaderloss andfittingwarning-procedure groupingloss remain; existingCIpassingcannotclearstructuralcoveragegate. NewbridgeBactualcode/tests underway.",
+  "next": "Awaitsole006dresponse1972460/actualcurrentheadCIandbridgeexactreport; later006e reviewedPDFrepairintegration beforewhole006devmerge/numeric007. No FIFO read/duplicateconsumer.",
+  "actual_CI": [
+    {
+      "run": "43082584764",
+      "head": "62fc63ca4d99b38d30e531e1fd5421c1de53b508",
+      "status": "completed",
+      "conclusion": "success",
+      "all5_and_allsteps_success": true,
+      "jobs": [
+        {
+          "name": "OAP tests (Python 3.13)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "OAP tests (Python 3.12)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "OAP tests (Python 3.14)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Product tests (Python 3.14)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Product tests (Python 3.12)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run": "43084322956",
+      "head": "391c8331d43365b048c9c7903637637b5f459601",
+      "status": "completed",
+      "conclusion": "success",
+      "all5_and_allsteps_success": true,
+      "jobs": [
+        {
+          "name": "Product tests (Python 3.14)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Product tests (Python 3.12)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "OAP tests (Python 3.14)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "OAP tests (Python 3.13)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "OAP tests (Python 3.12)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "unique_PR": {
+    "autoMergeRequest": null,
+    "baseRefName": "main",
+    "headRefName": "oap/006-native-extraction-and-chunking",
+    "headRefOid": "391c8331d43365b048c9c7903637637b5f459601",
+    "state": "OPEN"
+  },
+  "main_verified": "4977186d3ddbd2259f78590b29c0364fe26eb1fb",
+  "review_threads": 0,
+  "current_source": "All16 exactacceptedsourceblobs andunchangedPDFworker at391c833 verified; clean; installedstrategiclawidenticalcanonical. Source/architecture/realPDFgate remainsactualfailure, notwavedbygreenCI.",
+  "receipt": "Userconfirmedsole006dwrapperconsumedOK; noFIFOread/replay.",
+  "resolution": "FINALPARTIALreconciled; same006latercontinuation afterfinalnativePDFcorrection/code/tests/independentreview/canonicalintegration/CI. No whole006developmentmerge/numeric007/ICA/MVPacceptance now."
+}

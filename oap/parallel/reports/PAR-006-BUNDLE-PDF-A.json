@@ -1,0 +1,41 @@
+{
+  "lane_id": "PAR-006-BUNDLE-PDF-A",
+  "result": "COMPLETE",
+  "preparation_head": "a536e06c684681a811ab9b17443ae09e0360f516",
+  "preparation_tree": "ee0983931b5c8448311c4d0d5faba97f3e732915",
+  "preparation_parents": [
+    "e63a8266d92baf03cd6d68a96597c692da4e0e90",
+    "ba6a671914fdb060af96ec123232c09eef49df24"
+  ],
+  "implementation_head": "d2ec676d68a9fbcf73162279244de76abbc207aa",
+  "report_publication_commit": "SELF",
+  "api": "ingestion_bundle.validate(store, metadata_json_bytes, members); fixed structured_text/pdf_extraction dispatch; frozen coverage/pages and validated adapter/status/coverage_kind",
+  "verification": [
+    {
+      "command": "PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages timeout 180s uv run --isolated --locked --offline --python 3.14 pytest tests/unit tests/integration/test_ingestion_bundle_pdf_composition.py tests/integration/test_ingestion_bundle_composition.py tests/integration/test_bundle_pdf_records_composition.py tests/integration/test_pdf_extraction_composition.py tests/integration/test_source_admission_composition.py tests/integration/test_provenance_jsonl_composition.py tests/integration/test_bundle_native_records_composition.py tests/integration/test_bundle_source_records_composition.py tests/integration/test_native_chunking_composition.py tests/integration/test_native_tokenizers_composition.py tests/integration/test_native_direct.py -q -o addopts=''",
+      "result": "948 passed in 128.53s; no skips. Test-only assertions added while running; focused final test below covers their final bytes."
+    },
+    {
+      "command": "PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages timeout 180s uv run --isolated --locked --offline --python 3.14 pytest tests/unit/test_ingestion_bundle_pdf.py tests/integration/test_ingestion_bundle_pdf_composition.py -q -o addopts=''",
+      "result": "10 passed in 5.49s; no skips"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/ingestion_bundle.py tests/unit/test_ingestion_bundle_pdf.py tests/integration/test_ingestion_bundle_pdf_composition.py",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check; git diff --cached --check",
+      "result": "passed"
+    }
+  ],
+  "witness_sha256": {
+    "text_base_ingestion_bundle.py": "384ac846de3040410c879643e49730f0e07aa5c9d560fd3c9c34aad98e9a31bf",
+    "src/slaif_raggedized_helper/ingestion_bundle.py": "666fb65107f88d22846ba5145a723538a520cbd2d12a848cba104656f6294654",
+    "src/slaif_raggedized_helper/bundle_pdf_records.py": "b55b9cb82fa2fca4461db4a2391a01823ba8c4446338821ff677a031d1e80743",
+    "tests/unit/test_ingestion_bundle_pdf.py": "c3bb5513d6cc6b5299808152248135e8872be67755b74562498cc7c1b1fd4c6d",
+    "tests/integration/test_ingestion_bundle_pdf_composition.py": "59b955764076120b966c952023dbfaf2fb2e4bd65a0acc589b3769af912ad7cf",
+    "oap/parallel/orders/PAR-006-BUNDLE-PDF-A.md": "05ecc3e838b039ac43c88152e22ca0cbb228b4cda3dc9f99c197def170daf970"
+  },
+  "limits": "Local extension only, not integration acceptance. Text A remains partial pending separate B proof and source reconciliation; PDF delta needs independent review. PDF records rely on fixed producer and pinned storage; no fresh extraction, complete visual coverage, byte equivalence, authorization, actual tokenization attestation, reserve proof, performance or deployment claim. No experimental resource limits applied. Store, loader, private CLI, 019, model, license, ICA and MVP gates remain open.",
+  "dha": "NONE"
+}

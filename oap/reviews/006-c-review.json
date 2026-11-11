@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-11T18:37:28.069560+00:00",
+  "status": "FINAL_PARTIAL_RECONCILED_NOT_ACCEPTED_CONTINUE_SAME_OBJECTIVE",
+  "objective": "006-c",
+  "implementation": "55dd89ee68390adf0a0a3e8441c43e322005bac4",
+  "PR": 8,
+  "reviewed": "Exact post-merge code/doc diff:9files671insertions152deletions. Baseline3merge topology/source/PDF blob verification durable in006-c-merge-topology-review.json. No app source edited in this implementation; updated actual procedure/table tests, 16384quota/childcleanup, fullfragmentunion and fresh-process source/receipt/opaque-storage composition. Entire edited tests/docs/governance diff inspected. Source and opaque storage semantics distinguished from complete typed bundle/installedCLI/currentauth. Contrary scale performance retained.",
+  "verification": [
+    {
+      "command": "approved native6cd/PDF20ca env; timeout180 uv run --isolated --locked --offline --python3.14 pytest -q tests/integration/test_native_extraction_counts.py",
+      "exit": 0,
+      "actual_test_count": 6,
+      "result": "all6 passed; actual backend/PDF/native extraction/count/storage composition exercised"
+    },
+    {
+      "run": "43076681862",
+      "head": "55dd89ee68390adf0a0a3e8441c43e322005bac4",
+      "jobs": "3OAP SUCCESS, Product3.12 FAILURE concurrent unitpublication, Product3.14 FAILURE independentprocessconvergence",
+      "decision": "Cannot accept requiredCI failure; no rerun-only masking."
+    }
+  ],
+  "new_failure": {
+    "root_witness": "/tmp/raggedized-root-store-link-race.py",
+    "sha256": "84fe137c2104527b9e0f18d57693d8bde9749d71b7425585c149750ae392b3da",
+    "exit": 1,
+    "observed": "Unchanged object bytes refused when competing temporary hardlink unlinks during read. Narrow evidence of ctime boundary; not solepossibleCI cause.",
+    "repair_lane": "PAR-006-MEMBER-STORE-D"
+  },
+  "strongest_reason_not_to_accept": "Actual required CI and deterministic concurrent-publication contract failure override prior component local acceptance. Root combined pass does not clear race.",
+  "next": "Await canonical honest report, retain006-c as partial unresolved foundation; later samePR continuation integrates independently reviewed repair and full final operator/PDF components. Numeric006 remainsactive.",
+  "DHA": "NONE; ordinarybug notD1. No release/deploy.",
+  "report_commit": "0b6e51b07c0ccf2b36ffe133bf6bbfbbe2dca791",
+  "report_path": "oap/reports/006-c-durable-record-integration.md",
+  "report_sha256": "4f6810b4d70cb6a62c65a604fb794029ffa32a4bcb3a8ff772f6a0799c806edc",
+  "report_review": "Full immutable120line report read; truthful PARTIAL/failedimplementationCI and actual source-scope preserved. Report-only soleimplparent, fetchedremoteexactbytes/hash, cleanlocalhead/uniquePR8base main/defaultmain4977186/noautomerge; reviewthreads inspected. ReportcurrentCI43079404016 productjobs inprogress; no reportCIgreenclaim. Cannot accept criterion4 while original deterministic contractfailure remains even if reportCI laterpasses.",
+  "current_report_CI": "43079404016 IN_PROGRESS, OAP3success; finalcurrentheadcheck deferred to nextgate, no merge now",
+  "resolution": "Same objective006 continuation d after exact store repair and final CLI review/peer. No objectiveacceptance/numeric007/merge. DHA NONE.",
+  "review_threads": {
+    "data": {
+      "repository": {
+        "pullRequest": {
+          "reviewThreads": {
+            "totalCount": 0,
+            "nodes": []
+          }
+        }
+      }
+    }
+  }
+}

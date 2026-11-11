@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-11T17:41:16.356117+00:00",
+  "authority": "Root STRATEGIC, accepted exact local components for bounded006c integration; no whole006 or performance/auth/model qualification",
+  "ordered_merges": [
+    {
+      "lane": "native-query-fix",
+      "tip": "0761f6de94cc388ccfd71042986f13d0fa90db4f",
+      "implementation": "4f73a38d6b2cc574c91c6320c34dbfb2a4611a84",
+      "report_sha256": "9b35d40efc1a0aa9b611a32f46475b79b9ce0d88d598ce0215a5f9f30d083efc",
+      "review_path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/native-query-fix/review.json",
+      "review_sha256": "24e269fef3abfc68d60c44b3333d680cf190d9c9bcc5ba92d757f97245d6c1d9",
+      "expected_source_blobs": {
+        "src/slaif_raggedized_helper/chunking.py": "6b6c6763e15fbe7e3f0abe1138331e75aa38c817",
+        "src/slaif_raggedized_helper/native_chunking.py": "7385efd5c9b1a73a445b01fe9186bc549e78fc1e",
+        "src/slaif_raggedized_helper/tokenizer_session.py": "ef068a7338481126c44ae5ec37e94227048ab333"
+      }
+    },
+    {
+      "lane": "bundle-source-text",
+      "tip": "1b05f3647ac3ca83593bc1f1ca2e869ebad4826f",
+      "implementation": "026abc91de4bbfc0265a9d1dca4a3f9e9b92fa80",
+      "report_sha256": "7dcef7bf6b83e866f99a6cc28bb01b887b93aaf74c1b43dfe4091cc4c93837f9",
+      "review_path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/bundle-source-text/review.json",
+      "review_sha256": "0a7b83254b8cf0b51358304d7ea29158fa45e71d6f8f487da5ba10ead86149bb",
+      "expected_source_blobs": {
+        "src/slaif_raggedized_helper/bundle_source_records.py": "f83ef8adff8cddc0f650d13a138071a72a9e7c10",
+        "src/slaif_raggedized_helper/bundle_native_records.py": "e19fa86b12077121a798507450179953e8493f56",
+        "src/slaif_raggedized_helper/provenance_jsonl.py": "e6f25442ae9e6d8034d7c5dd431edd4521c70723"
+      }
+    },
+    {
+      "lane": "derived-member-store-c",
+      "tip": "f2a2cedc80286cb114ee87db83e674d901fccd74",
+      "implementation": "2451dcd081b62b3202fc96ce949a0e4b343bf741",
+      "report_sha256": "056e42ad9b28c02e62791c40524b8c5f17d9280e26336ef55aa000e3245ce7c0",
+      "review_path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/derived-member-store-c/review.json",
+      "review_sha256": "7e9a272fd8216326219e40d98d83ef3d2fa4114315d8576d125dfb54ceb9e506",
+      "expected_source_blobs": {
+        "src/slaif_raggedized_helper/derived_store.py": "f4631911456c3f1abf08ec801b84f45b958202ce"
+      }
+    }
+  ],
+  "native_performance": "C author157312B10.79s success, independentpeer13.81s complete, Root15.17s refusal ALLretained; boundedsoftwareaccepted, no universalcapacity/latency claim;targetperformancegate019OPEN. No extraquota/packing change.",
+  "receipt_scope": "Mechanical3count receipts, Root84tests+twoformerbugwitness+18finitechecks; oppositepeer1684477df8f562ff7539ecdd0e0ba4b0e578d2b5c45f0876f523755f9cf47242 ACCEPT confirmscoordinatedcountforgeryisexpectedtrustedproducerboundary. SourceTextRoot7actualtests+fullreparsecomparison; no currentauth.",
+  "store_scope": "Opaque immutable5member container only, descriptor-safety/lifecycle/hash/fsync/faults covered Root82tests+recycledFD/deadline/corruption/sixprocesspeerwitness; sourceidenticalBpeerf97d7832739ac6fe9c4c6c18814d2f8e5d53296a568a65774081018f551d5591. Notfulltypednativebundleloader.",
+  "corrected_PDF_blobs": {
+    "src/slaif_raggedized_helper/pdf_extraction.py": "01d18381895ad539051e9fe6f98119c31623f3f1",
+    "src/slaif_raggedized_helper/pdf_worker.py": "652fcf664cb6de017a9ed4d13353b0a365031be0"
+  },
+  "remaining": "ParallelPDFsourceB/nodefix andfulltextbundleB/proof NOTaccepted/integratedbythisorder. Typedfullbundle/PDFcomposition/sourceverifieddurableloader/privateinstalledchunkCLI requiredfollowing006beforewholemerge. All realmodel/hardware/domain/license/ICA/fullvisualMVPgatesopen. DHA NONE."
+}

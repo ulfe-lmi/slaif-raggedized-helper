@@ -1,0 +1,21 @@
+{
+  "lane_id": "PAR-006-BUNDLE-VALUES-A",
+  "result": "PARTIAL",
+  "preparation_heads": [
+    "72a93aba32eb4e570307fe9414236c60db00a708",
+    "091e52c461c9ee12a5671cc2aac9ee907236151f"
+  ],
+  "implementation_head": "d887b4b59c9b9e1166057be156c628aae2868664",
+  "report_publication_commit": "SELF",
+  "api": "Not implemented; no validated bundle API is provided.",
+  "commands_results": [
+    "wait-control: EXACT_OK_CONSUMED",
+    "git merge-tree base JSONL: d638b56b4449d4b5cee4d0a24ab330698f71378f; no-ff merge matched",
+    "git merge-tree first-preparation PDF: 65ef51d61956479660776e6714363cea0b1920df; no-ff merge matched",
+    "git rev-parse PDF parser and worker: 01d18381895ad539051e9fe6f98119c31623f3f1 and 652fcf664cb6de017a9ed4d13353b0a365031be0",
+    "git diff --cached --check: exit 0",
+    "No tests run: implementation absent."
+  ],
+  "limits": "Only the exact order and contract were copied. Semantic codec, native/PDF composition, negative tests, documentation and final validation remain unimplemented. This is incomplete work, not a claim of an upstream blocker, acceptance, or qualification. No source/model data or query was processed.",
+  "dha": "NONE"
+}

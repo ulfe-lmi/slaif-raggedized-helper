@@ -1,0 +1,29 @@
+# Preparatory native ingestion software — PAR-006-CHUNK-A
+
+Status: FINAL
+Role: CODING WORKER
+Worktree: /home/janezp/codex-work/slaif-raggedized-helper-parallel-structural-chunking
+Branch: oap/parallel-006-structural-chunking
+Base: 7a0caf1a3c51427de33fa7140ec01bc24ca81d13
+Decision: NONE
+
+Human explicitly authorized parallel Terra medium coding. This trusted bounded worker role overrides the strategic starting directory. EVERY tool uses this isolated worktree. Preserve model/profile/auth. Read compact coding/security and exact relevant architecture/API/code/tests only; no helper/history or future-order scans. No canonical active/FIFO/main changes, push/PR/default-main merge, other-lane writes, realcorpus/credentials/services/models/GPU/network or downloads. Local preparatory006 only, not canonical activation/acceptance. No dependency/pyproject/lock/vendor/license-policy changes or production security/MVP claim. Fixed input-free errors and finite work bounds.
+
+## Structural chunk algorithm scope
+
+Provenance: architecture7.2/9.3 and original006 criteria2/3. Structured-text scope accepted independently at exact7a0caf; underlying oldPDF ancestor is still pending correction and MUST NOT be accepted/executed here. Implement actual new chunking.py over existing provenance Registry/Block/Chunk/SourceFragment/Separator/TokenCount/Neighbors APIs, with real structural grouping/splitting and exact reconstruction. Do not edit shared provenance/source/text/PDF/CLI/governance modules.
+
+1. Use an explicit trusted operator-supplied tokenizer/counter interface with DISTINCT BGE body/representation and reranker pair identities. Call actual counters on full exact serialized text/pair; never convert character/byte counts into BGE tokens or reuse BGE counts as reranker pair counts. No tokenizer artifact/model exists under this order: fixture counters must be marked SUPPLIED_UNVERIFIED, not qualified BGE/model measurements. Missing required counter/identity/refused or malformed count fails closed. Document production qualified-artifact adapter still REQUIRED before full006; pure counter seam is no readiness proof. No document-chosen callables/loaders/paths.
+2. Starting BGE body target512, softmaximum768, conditional paragraph overlap<=64, enriched full representation maximum1024 INCLUDING actual special tokens; policies finite strict positive integer/no bool, enforce actual count and retain counter identity/provenance. Separate complete reranker query+passage+pair specials check with configured max/query reserve; overlength refuses or structurally splits as appropriate, never silently slices token/text tails or guesses special-token overhead. Tiny supplied fixture tokenizers may narrow policy values to exercise cases. Actual counter callbacks are trusted compute with documented cooperative limit, no claim to interrupt arbitrary blocking code.
+3. Prioritize procedure with adjacent warning/prerequisite when fit, coherent fenced code when fit, long tables by bounded row groups retaining actual original header/unit references, paragraph/sentence boundaries for long prose. If an indivisible unit cannot fit safely refuse explicitly without truncated success. All emitted fragments/separators trace to exact original blocks; semantic unit splits must be traceable, multilingual/Unicode/CRLF/commands/version/negation/tail warnings retained. Page boundaries are provenance not unconditional cuts. Record heading path, deterministic policy/counter/source-bound IDs and reciprocal actual neighbor references using existing noncircular API. Scope stays same approved revision; no mixed ACL/corpus/source aggregation.
+4. Finite practical max input blocks/chars, chunks/fragments, percounter calls, total tokenization work/deadline and strict DTO validation. Reject forged copies, duplicate/mixed revisions/dependencies/unknown blocks, invalid count types/zero-unavailable confusion, impossible budgets or contradictory suppliedcounter responses. No partial result on failure, fixed safe input-free errors. No app execution from source injection text.
+5. Actual owned OriginalStore -> structured_text -> Registry -> chunk builder -> exact reconstruction/bindings; two shared-byte distinctACL sources remain separate, source metadata changes invalidate IDs, determinism/heading/neighbors verified. Meaningful small-budget long prose/procedure warning/code/table with repeated referenced headers, overlap ONLY at justified paragraph crossing, Unicode/CRLF/Slovenian identifiers, no-tail-loss and full independentpair-count negatives. Strict badpolicy/counter/bounds/corruption/unknownscope/canary failure tests. Full counts/tests tagged synthetic; no model/realcorpus/latency/hardware/tokenizerqualification. Run lint and focused regressions; document exact public APIs/assumptions/missing real tokenizer adapter.
+
+## One lane publication cycle
+
+Consume fresh control once:
+python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py wait-control structural-chunking
+Allowed paths: src/slaif_raggedized_helper/chunking.py, docs/parallel/structural-chunking-api.md, tests/unit/test_structural_chunking.py, tests/integration/test_structural_chunking_composition.py, oap/parallel/orders/PAR-006-CHUNK-A.md
+Copy this exact order to oap/parallel/orders/PAR-006-CHUNK-A.md. ONE implementation commit soleparent=base, then ONE report-only JSON oap/parallel/reports/PAR-006-CHUNK-A.json soleparent=implementation, fields lane_id/result COMPLETE|PARTIAL|FAILED/implementation_head fullSHA/report_publication_commit SELF/summary/API/tests actualcommands+results/limits. Preserve original records and oracles. Clean worktree then respond ONCE and idle:
+python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py respond structural-chunking
+Actual implementation and tests required. No push, integration, nextwork, fullICA/license/MVP claims.

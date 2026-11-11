@@ -1,0 +1,37 @@
+{
+  "lane_id": "PAR-006-BUNDLE-STORE-A",
+  "result": "COMPLETE",
+  "preparation_head": "35c6ebc441146223a2cde6afcca0063a47133b0d",
+  "preparation_parents": [
+    "83e98aa3e7f13297a3d592f3413e8c15a0051e7b",
+    "f2a2cedc80286cb114ee87db83e674d901fccd74"
+  ],
+  "preparation_tree": "e0c1b4a53f064d1a533bc4e3050b0aa7afc30291",
+  "implementation_head": "609eeaf04a4edcb974ae3ee6c6b690a74f191418",
+  "report_publication_commit": "SELF",
+  "API": "ingestion_store.publish(OriginalStore, Store, metadata bytes, fixed member tuple) -> raw ID; load(OriginalStore, Store, ID) -> Validated; IngestionStoreError is input-free.",
+  "commands": [
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages PYTHONDONTWRITEBYTECODE=1 timeout 180s uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -t 120; ulimit -v 1048576; exec pytest -p no:cacheprovider -o addopts=\"\" -q tests/unit tests/integration/test_ingestion_store_composition.py tests/integration/test_ingestion_bundle_composition.py tests/integration/test_bundle_source_records_composition.py tests/integration/test_bundle_native_records_composition.py tests/integration/test_provenance_jsonl_composition.py tests/integration/test_native_chunking_composition.py tests/integration/test_derived_store_composition.py tests/integration/test_source_admission_composition.py tests/integration/test_provenance_records_composition.py'",
+      "result": "893 passed in 68.73s, exit 0; no skips"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/ingestion_store.py tests/unit/test_ingestion_store.py tests/integration/test_ingestion_store_composition.py",
+      "result": "pass"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "pass"
+    }
+  ],
+  "witnesses": {
+    "contract_sha256": "8936ed9c7975f6f2973633f28b8f5ee1cb4932d5c1b872cd47a177db49d87753",
+    "order_sha256": "523c30b803ca291e8dd5f138a11e039720994471920db089d64ce22096256a01",
+    "adapter_sha256": "1799ec8a79bea134e628e44147a9f83405c94640338973c8d557c6b2fdae1c7a",
+    "integration_test_sha256": "7f3f7ebdb19df18336f36f747c648ec2f1e2c8f1c8025d3042e3a1cdd77e0cf0",
+    "root_b_review_sha256": "7c22380ca48cb39abfe085847b109f74bb1a856c458dc823cc941d63c2215a06"
+  },
+  "proof": "Actual owned text extraction and three native tokenizer roles, canonical complete value, three revisions sharing bytes with differing rights/labels/version, repeated and concurrent publication, fresh objects and fresh process verified canonical digest. Semantic refusals spy on Store.publish; wrong ID/root, opaque and cross-revision containers, altered original and corrupted manifest/member refuse. A simulated final deadline after actual first commit refuses, leaves the container visible and retry converges; final load boundary also refuses. Closed original descriptor reuse leaves sentinel unchanged. Component tests cover lower-level store fault matrix.",
+  "limits": "Cooperative deadline; no blocked-filesystem, RSS or performance guarantee. Resource limits apply after uv startup. Receipts do not prove producer authenticity, execution, reserve counts or authorization. Private stores, trusted producer and pinned ID assumed. No installed chunk/inspect CLI, PDF integration, CI, 019, model, domain, license, ICA, full visual MVP, release or deployment qualification.",
+  "DHA": "NONE"
+}

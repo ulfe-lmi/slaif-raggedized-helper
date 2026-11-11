@@ -1,0 +1,42 @@
+{
+  "lane_id": "PAR-006-PDF-A",
+  "result": "COMPLETE",
+  "implementation_head": "52d4ff88a446ad7433b9690ea9dc1693ae5223d6",
+  "report_publication_commit": "SELF",
+  "summary": "Added bounded native PDF extraction through a fixed pdfminer.six 20260107 worker in an operator-configured Linux namespace sandbox. Added public bounded source revision/byte read that checks declared size before blob reads and verifies returned descriptor bytes. Produces provenance blocks with measured geometry and explicit visual-needed page status.",
+  "API": "pdf_extraction.extract(store, revision_id, PdfRuntime(runtime_dir, packages_dir), PdfPolicy|None), PdfResult, PdfError and PdfPrerequisiteError; OriginalStore.read_verified(revision_id, max_bytes=...). See docs/parallel/pdf-extraction-api.md for exact limits, prerequisites, semantics and caveats.",
+  "tests": [
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -o addopts='' -q tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "17 passed in 2.78s; no skips. Actual isolated pdfminer development environment and owned sandbox fixture."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.12 pytest -o addopts='' -q tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "17 passed in 2.75s; no skips."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -o addopts='' -q tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py tests/unit/test_source_admission.py tests/unit/test_source_cli.py tests/integration/test_source_admission_composition.py tests/unit/test_provenance_records.py tests/integration/test_provenance_records_composition.py tests/unit/test_text_extraction.py tests/integration/test_text_extraction_composition.py",
+      "result": "49 passed in 8.09s before additional final isolated PDF-only regressions and missing-backend import handling."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 ruff check src/slaif_raggedized_helper/pdf_extraction.py src/slaif_raggedized_helper/pdf_worker.py src/slaif_raggedized_helper/source_admission.py tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "PASS."
+    },
+    {
+      "command": "git diff --check and cmp copied order to exact lane order",
+      "result": "PASS."
+    }
+  ],
+  "evidence": [
+    "Actual tiny PDF native text and pdfminer page bbox compose through owned source store and Registry; deterministic block IDs and policy changes verified. Textless page explicitly partial_visual_needed.",
+    "Actual excess pages, object count, text, output and input limits; malformed and encrypted inputs; unsupported media; corrupt and mid-read-mutated source; wrong child identity; missing backend; child crash, timeout, flood, cancellation and selector-startup failure all refuse without returning partial results. Owned child handles were reaped/closed in tests.",
+    "Actual namespace probe saw no outside owned canary, home, GPU node, inherited descriptor or writable input, and could not connect to a parent-owned loopback listener. This is a host-specific test, not comprehensive isolation proof.",
+    "Import guard blocked model/parser import, network, subprocess and telemetry; module import succeeded without those side effects."
+  ],
+  "limitations": [
+    "Local candidate only; no canonical integration, deployment, PR, merge or strategic acceptance.",
+    "No project dependency/lock/runtime packaging, license exception or LICENSE-01 clearance. The isolated development graph has unresolved MIT-0, native wheel and notice questions.",
+    "Linux x86-64 host-specific bwrap/prlimit and trusted CPython 3.12/package paths require deployment-host qualification; no seccomp policy or hostile-PDF security proof. PDF layout text is heuristic and can synthesize whitespace; native text does not prove all visual content was read.",
+    "Wall deadline cannot interrupt blocking filesystem operations. Synthetic fixtures do not qualify real data, GPU, model, vision, full 006, ICA or MVP."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "status": "FINAL",
+  "at": "2026-11-11T16:19:04.631895+00:00",
+  "decision": "ACCEPT_006_A_SLICE_CONTINUE_SAME_PR_NO_MERGE",
+  "report": {
+    "identifier": "006-a",
+    "pr": 8,
+    "implementation": "e57820e13993860f86d026531dd0ef6d223f0f60",
+    "report_commit": "6b087d3a58d1f96faf130f086556706fec297de1",
+    "report_sha256": "873dcb31bb9971eb84c5b0bf419616c01de4870dbb113964aea4d2e131a6a6ca",
+    "verified_at": "2026-11-11T16:10:59.593053+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "review": "Root full exact report, combined327line test, ingestion125line contract, allnewcanonicalchanges/workflow/docs/governance diffs and inherited candidate identities independently inspected. Helper verified remote reportbytes/uniquePR/SELF soleimplementationparent/report-onlydiff; branch/base/currenthead independently confirmed. Both real merges match forecasttrees, literal line no-op topology correct, correctedPDF-D blobs preserved. Zero reviewthreads/autoMerge. No appgraph/license/human intent/law changes.",
+  "actual_verification": {
+    "Root_extraction": "51PASS11.97s parent3.14/actual isolatedworker3.12.15, no skips",
+    "Root_collection": "614unit+383integration; collection-only",
+    "CI_implementation": "43053529368 ALL5SUCCESS, actual product logs retained; fullunit/integration/41OAP/governance/lint/help/doctor executed",
+    "CI_report": "43055664954 ALL5SUCCESS exactreport6b087d3 independently verified actualconclusions",
+    "Root_governance": "check_state exit0 routine46521/50000; manifestceec4a34ae426a83d107edd7a96253ad6bdd3acbb3f362875cd05b6786d094f9; authorizedT13/context diff explains activation digest change; source originals/law unchanged"
+  },
+  "strongest_reason_not_to_merge": "Whole006 still lacks observednativechunking integration and usable durablebundle/installedchunk journey. Extraction slice accepted; samePR continuation authorized, no whole006/numericadvance/developmentmerge/release claim.",
+  "report_note": "Roundstart shortID 32ab979e in report is a clerical typo; independently verified actual fullcommit32ab9792b9efb33a73fc2f3e58a67b9e12ee83ad and parents/tree/order bytes establish provenance. No report rewrite requested.",
+  "DHA": "NONE, register empty, noD1 or exceptions",
+  "scope": "Native software fixtures/DEV only; no hostilePDF security, model/hardware/domain/license/ICA/MVP/release qualification."
+}
