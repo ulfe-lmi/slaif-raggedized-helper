@@ -1,0 +1,39 @@
+{
+  "lane_id": "PAR-006-BUNDLE-RECEIPTS-C",
+  "result": "PARTIAL",
+  "implementation_head": "b8ba45a6d5b2aa1f89445ecd113470a004f4906a",
+  "report_publication_commit": "SELF",
+  "api": "bundle_native_records.validate returns immutable validated policy, chunks, receipts and canonical bytes or input-free BundleRecordsError.",
+  "commands_and_results": [
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages uv run --isolated --locked --offline --python 3.14 pytest tests/unit tests/integration/test_bundle_native_records_composition.py tests/integration/test_native_chunking_composition.py tests/integration/test_tokenizer_session_composition.py tests/integration/test_provenance_jsonl_composition.py -q",
+      "result": "PASS, 770 collected tests"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/bundle_native_records.py tests/unit/test_bundle_native_records.py tests/integration/test_bundle_native_records_composition.py && git diff --check",
+      "result": "PASS"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-bundle-records-node-admission.py (native environment as above)",
+      "result": "PASS; peak pending 1"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-bundle-records-canonical.py (native environment as above)",
+      "result": "PASS; input and canonical 26137 bytes, revalidation succeeded"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 pytest tests/unit tests/integration/test_bundle_native_records_composition.py tests/integration/test_native_chunking_composition.py tests/integration/test_tokenizer_session_composition.py tests/integration/test_provenance_jsonl_composition.py --collect-only -o addopts='' -q",
+      "result": "770 tests collected"
+    }
+  ],
+  "witness_sha256": {
+    "node_admission": "cf3a757c8399337df4a89706314542667ab82d3db0803b8226f02a6f638b363e",
+    "canonical": "f5f674d2950fcf1a478655bf59d4b7b1d9fd08fb39356f62eaed663e1919f48b"
+  },
+  "limits": [
+    "PARTIAL: finite matrix is not fully demonstrated: canonical output cap exact/one-over independently of raw admission, independent character and serialized aggregate work boundaries, and the complete field/type/bound permutations require further tests. Existing cap tests exercise raw limits and combined work ceiling.",
+    "Unicode witness mechanically rebinds an observed chunk; it does not establish full native producer acceptance of the 10000-character query.",
+    "Mechanical consistency only; no source Registry, spans, coverage, neighbors, authorization, query-only reserve evidence, or execution attestation. Two tokenizer artifacts serve three roles.",
+    "No hardware qualification or performance claim. DHA NONE."
+  ]
+}
