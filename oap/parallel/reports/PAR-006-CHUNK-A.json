@@ -1,0 +1,19 @@
+{
+  "lane_id": "PAR-006-CHUNK-A",
+  "result": "PARTIAL",
+  "implementation_head": "3a941efdd223e13652df76e8ec72beb7ef2698a2",
+  "report_publication_commit": "SELF",
+  "summary": "Preparatory bounded structural chunk construction with registry binding, exact source spans, sentence splitting, original table header repetition, heading paths, independent supplied counters and reciprocal neighbors. This does not satisfy all ordered acceptance criteria.",
+  "API": "chunking.build(registry, blocks, counters, query, policy=None); see docs/parallel/structural-chunking-api.md. Counts are SUPPLIED_UNVERIFIED.",
+  "tests": [
+    {"command": "PYTHONPATH=src /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest tests/unit/test_structural_chunking.py tests/integration/test_structural_chunking_composition.py tests/integration/test_structured_text_composition.py tests/unit/test_provenance_records.py -q", "result": "19 passed; synthetic fixtures"},
+    {"command": "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check src/slaif_raggedized_helper/chunking.py tests/unit/test_structural_chunking.py tests/integration/test_structural_chunking_composition.py", "result": "passed"},
+    {"command": "python3 -m pytest tests/unit/test_structural_chunking.py tests/integration/test_structural_chunking_composition.py tests/integration/test_structured_text_composition.py -q", "result": "collection failed: system Python lacks project import path; subsequent PYTHONPATH attempt lacked pydantic; local existing virtual environment succeeded"}
+  ],
+  "limits": [
+    "Conditional paragraph overlap and explicit adjacent procedure-warning/prerequisite grouping are not implemented; grouping is greedy and can separate related units at target boundaries.",
+    "The complete ordered negative and structural test matrix is not covered; additional review and work are necessary before acceptance. Counter contradiction detection only covers repeated identical calls and basic pair inequalities.",
+    "Production qualified tokenizer artifact adapters remain required. No model, real corpus, hardware, latency or tokenizer qualification was performed. Callback deadline is cooperative and cannot interrupt blocking code.",
+    "The API currently relies on Registry private snapshot fields to verify complete scope and requires review for compatibility. The ancestor PDF work remains pending and was not executed."
+  ]
+}
