@@ -1,0 +1,26 @@
+{
+  "lane_id": "PAR-007-REPRESENTATION-D",
+  "result": "COMPLETE",
+  "implementation_head": "08a4747fe5c65bd395ad7b1f07d7a36fbeb3fbde",
+  "report_publication_commit": "SELF",
+  "API": "retrieval_representation.build; Policy",
+  "verification": {
+    "focused": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 pytest -s tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: exit 0, 15 passed in 4.70s",
+    "ruff": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/retrieval_representation.py tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: exit 0",
+    "diff": "git diff --check: exit 0",
+    "native_counts": "body 8, final 12 for both titles; exact 12 succeeds, 11 refuses",
+    "upstream": "20000 emoji exceeds native session wire bound; chunk construction refused before final build; controlled local validator covers representation preflight"
+  },
+  "witness_hashes": {
+    "Titre Ž": {
+      "rendered": "52abb5d915f1f78da900c520c4141de6030f299e9fcc1b355a754ecf44f8e914",
+      "native_input": "c2a3517a55c3584346cfb62ffd1fbfc3c98bc275e6ef909b1456ad044556f6ed"
+    },
+    "Titre É": {
+      "rendered": "08f0263a826b8820cfc4b4430798193bb321952d49537d330a64efe68ed2e1bd",
+      "native_input": "3bbc51c0be4c0d20e6dc5ae272acf65adae5868b8288b097198028a368051467"
+    }
+  },
+  "limits": "Synthetic CPU tokenizer fixtures only; no encoder, weights, device or authorization qualification. Per-build validation and session startup remain.",
+  "DHA": "NONE"
+}

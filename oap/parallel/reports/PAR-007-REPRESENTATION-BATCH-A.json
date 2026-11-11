@@ -1,0 +1,17 @@
+{
+  "lane_id": "PAR-007-REPRESENTATION-BATCH-A",
+  "result": "PARTIAL",
+  "implementation_head": "066da57ff48cefbf31cea63dbfb9684b84e1c455",
+  "report_publication_commit": "SELF",
+  "API": "build_many returns ordered tuple; build delegates; BatchPolicy bounds items, aggregate codepoints and wire bytes",
+  "verification": [
+    "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: 15 passed; native two-chunk comparison observed validator=1 session=1",
+    "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/retrieval_representation.py tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: passed",
+    "git diff --check: passed"
+  ],
+  "initial_failure": "Initial pytest invocation omitted required native fixture environment; 12 passed and 3 failed at fixture setup. Corrected invocation passed.",
+  "remaining": "Acceptance negative matrix is incomplete: aggregate wire, invalid BatchPolicy, final bad receipt and later count failure need batch-specific causal tests with positive controls; E guard-removal causality not rerun. Native resource limits were not independently enforced during test invocation. Review single-item compatibility for bounded IDs and batch version contract. Do not accept as complete.",
+  "witness_sha256": {"src/slaif_raggedized_helper/retrieval_representation.py": "9ff2b2564c598c0ff781740cedde7b1526291ae580b6144ebeb155035766cf3f", "tests/integration/test_retrieval_representation_composition.py": "4d4359999b1f8153b05466a3852914c3e88e3ad2043e62aea86c3074cdd9cc3f"},
+  "limits": "No network, models, GPU, push or deployment; native counts are not encoder execution. No throughput claim.",
+  "DHA": "NONE"
+}

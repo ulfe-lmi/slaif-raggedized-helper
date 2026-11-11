@@ -1,0 +1,16 @@
+{
+  "lane_id": "PAR-007-REPRESENTATION-BATCH-B",
+  "result": "PARTIAL",
+  "implementation_head": "4914fe54e116efd5d655d5bb4aac7227aaa945f6",
+  "report_publication_commit": "SELF",
+  "API": "build_many and build",
+  "commands_results": [
+    "Native environment as ordered: uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: PASS 28 cases",
+    "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/retrieval_representation.py tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: PASS",
+    "git diff --check: PASS"
+  ],
+  "observations": "Positive batch and two later failures close session; aggregate wire cap above each row blocks before worker and hashing; invalid batch policy cases block validator. Composition instruments one validator and session.",
+  "limits": "PARTIAL: guard-removal compiled mutation witness not produced; explicit bounded selection pre-validator causality and complete policy type matrix not established; owned fixture resource bounds not applied inside Python. No throughput claim. Tests ran before automatic lint formatting of test wire helper.",
+  "witness_hashes": [],
+  "DHA": "NONE"
+}

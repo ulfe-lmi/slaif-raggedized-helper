@@ -1,0 +1,18 @@
+{
+  "lane_id": "PAR-007-REPRESENTATION-C",
+  "result": "PARTIAL",
+  "implementation_head": "3a313a999e11cdc4e33c9b331a535d367123514c",
+  "report_publication_commit": "SELF",
+  "API": "unchanged; strict Policy scalar validation corrected",
+  "commands": {
+    "unit": "uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit/test_retrieval_representation.py: 9 passed, exit 0",
+    "integration": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 pytest -q tests/integration/test_retrieval_representation_composition.py: 1 passed, exit 0",
+    "ruff": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/retrieval_representation.py tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: exit 0",
+    "diff": "git diff --check: exit 0"
+  },
+  "witnesshashes": {
+    "order_sha256": "9bfc9d6d12f3f4552cd977ae88947b666b48cfc9485cdd0d7e04acb698140be4"
+  },
+  "limits": "Required causal cases in criteria 2\u20135 were not completed; no test failure or external blocker established. Existing native composition test is insufficient evidence. Native counts are not encoder, weights, device or authorization proof. Validator and session startup cost unchanged.",
+  "DHA": "NONE"
+}
