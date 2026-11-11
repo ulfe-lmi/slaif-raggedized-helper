@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-11T18:41:49.324624+00:00",
+  "status": "FINAL",
+  "authority": "Root strategic reviewed exact2localcomponents for006d; no merge/MVP/runtimequalification authority",
+  "ordered_merges": [
+    {
+      "lane": "derived-member-store-d",
+      "tip": "b2d274cdf5b652df2fc874c422bd2dd04fa5f058",
+      "implementation": "80f0f9d408f26a319d36b71f738f3db76b0a2a49",
+      "report_sha256": "0b03e6b4919e49b3e88f4d9ea467af7a66e774dce0bedd14f171d702083db98d",
+      "review_path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/derived-member-store-d/review.json",
+      "review_sha256": "f056f82e861f513c68f23be60a8ba956a04bbd738c8eafc45ff4ddcdf8f58a17"
+    },
+    {
+      "lane": "operator-chunk-cli-c",
+      "tip": "b3ac81b6eb4d9435272a9535f2987a7742d62d8b",
+      "implementation": "2012393e768a0db8c7d3f183287f94a04c6f3f97",
+      "report_sha256": "f9ff86b2b4893b60d95a721fc2087677284d6d009d25305329b6afb372476841",
+      "review_path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/operator-chunk-cli-c/review.json",
+      "review_sha256": "dce126acadc82bfeb8f3d88568b4661436f11e2eedeb539a4c4864c8691f8736"
+    }
+  ],
+  "expected_source_blobs": {
+    "src/slaif_raggedized_helper/chunking.py": "6b6c6763e15fbe7e3f0abe1138331e75aa38c817",
+    "src/slaif_raggedized_helper/native_chunking.py": "7385efd5c9b1a73a445b01fe9186bc549e78fc1e",
+    "src/slaif_raggedized_helper/tokenizer_session.py": "ef068a7338481126c44ae5ec37e94227048ab333",
+    "src/slaif_raggedized_helper/bundle_source_records.py": "f83ef8adff8cddc0f650d13a138071a72a9e7c10",
+    "src/slaif_raggedized_helper/bundle_native_records.py": "e19fa86b12077121a798507450179953e8493f56",
+    "src/slaif_raggedized_helper/provenance_jsonl.py": "e6f25442ae9e6d8034d7c5dd431edd4521c70723",
+    "src/slaif_raggedized_helper/derived_store.py": "9e6c8cf6b5a1e842a96678d2b7b6bd331e70a554",
+    "src/slaif_raggedized_helper/pdf_extraction.py": "01d18381895ad539051e9fe6f98119c31623f3f1",
+    "src/slaif_raggedized_helper/pdf_worker.py": "652fcf664cb6de017a9ed4d13353b0a365031be0",
+    "src/slaif_raggedized_helper/bundle_pdf_records.py": "fd07ee903ce009cd649743a9f8eab6a7addd54eb",
+    "src/slaif_raggedized_helper/ingestion_bundle.py": "b81098e345acfa00d0fb3ecc2aa18550ca84076e",
+    "src/slaif_raggedized_helper/ingestion_store.py": "5e65c51cbdc7f5e0a6936aa035b451eaf8fa0eaa",
+    "src/slaif_raggedized_helper/ingestion_profile.py": "ed5b3c656d186371375fb30f5adac78ec4aaa6d8",
+    "src/slaif_raggedized_helper/ingestion_prepare.py": "b3c16d89a5c1ef98a119afd36a3dcccf8e5d739f",
+    "src/slaif_raggedized_helper/chunk_cli.py": "c66f215e666e91ea449f01c8e0ee6a1cd762561e",
+    "src/slaif_raggedized_helper/cli.py": "c2e3a0f08f4244f25b86ee4fac2231235d5b2b4f"
+  },
+  "peer_limits": "AUDIT-006-OPERATOR-CLI-C 4ed3568b6e25eae654c4c16c3a7e3b8e98e1ea13315fa7958817ad12b209fab3 PARTIAL/UNPROVEN: actual25testsPASS36.23s/sourceunchanged/invalidbudgetrefusal, noestablishedbug, explicitlyincompletefulltest/docsreconciliation. Rootreadfullreport; no completepeerclaim.",
+  "remaining": "Canonicalpostmergeintegration/requiredCI/sourcecoverage/independentmergedmilestoneICA; wholeMVP scope unchanged. DHA NONE."
+}

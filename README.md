@@ -68,6 +68,60 @@ approval is metadata, not authentication
 [docs/parallel/provenance-records-api.md](docs/parallel/provenance-records-api.md),
 [docs/parallel/job-records-api.md](docs/parallel/job-records-api.md),
 [docs/data-model.md](docs/data-model.md)).
+The first 006 slice (open on the 006 PR, branch
+`oap/006-native-extraction-and-chunking`, not merged) adds native
+extraction on that foundation: the exact literal line and bounded
+structural Markdown subset adapters with full Unicode code-point
+coverage, and the fixed trusted isolated PDF worker (bounded verified
+read, private pinned hash-verified development backend, required
+reproducible PDF development tests on product CI). The 006-b/006-c
+continuation integrates the reviewed fixed native tokenizer session and
+structural chunk adapter with canonical extraction: chunks with exact
+original spans/separators, conditional word-boundary overlap and no
+discarded tail, each carrying three observed local token counts and
+receipts binding exact role inputs, artifact SHA, backend, declared
+revision/preprocessing and input digests (512/768/1024 budgets, up to
+64-token overlap, native pair 1280 with 64 reserved; the legacy
+callback fixture keeps supplied pair 512 unverified); the 006-c
+correction raises the session caps to 16,384 calls / 32 MB input /
+4 MB output, adds the 15,000 ms native default builder deadline (legacy
+explicit default 5,000 ms) and per-build reuse, so the representative-
+scale 7876-byte procedure and 9269-byte table sources now complete
+under the current caps; the required native tests are mandatory on
+both product CI legs under a NEW private pinned hash-verified
+engine-only tokenizers 0.21.4 capsule (DEV only; no dependency, lock,
+allowlist or license change). The 006-c slice composes the reviewed source/receipt
+record validators and the opaque immutable derived container store in the
+same combined journey (validated records survive publication and
+fresh-process revalidation). The 006-d continuation corrects concurrent
+derived-store reads (a changed read attempt is discarded and the file is
+re-admitted at most four fresh times within the existing deadline; not a
+universal convergence guarantee), adds the complete typed text/PDF
+semantic bundle with its durable publisher and verified fresh loader, the
+operator profile, and the installed private `raggedized chunk` /
+`chunk inspect` route (bounded JSON overview, exit 0/1/2,
+`no_native_chunks` with partial visual truth, the known published ID
+retained on later failure, idempotent canonical retries, cooperative
+180-second budget); the root-reproduced reduced-policy PDF table
+header-relationship loss (all source code points, anchors and tail
+preserved) is repaired by the 006-e bounded native PDF structural
+correction: the conservative literal line classifier
+(`pdf-literal-structure-v3`) under PDF policy definition v4 and the
+shared kind-bound block fingerprint v2 restores the original header
+relationship, the closing-rule last row and the warning/procedure
+grouping on the actual owned PDF fixtures (reduced-policy small and
+closing tables, default-policy 300-row table, fitting warning) with full
+source coverage, tail, units and anchors preserved; classifier v2 /
+policy v3 records remain immutable and require explicit re-extraction,
+and the literal grammar cannot infer arbitrary PDF layout. Whole-006
+acceptance and all real qualification remain open.
+Source-to-block anchors, native versus visual-needed page semantics,
+refusal behavior, budgets and observed-count provenance are documented
+in
+[docs/ingestion.md](docs/ingestion.md) with the detailed per-adapter
+contracts under [docs/parallel/](docs/parallel/). Contextualization,
+embeddings, snapshot/retrieval, GPU/vision and all
+model/license/ICA qualification remain open.
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.

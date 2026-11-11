@@ -53,14 +53,40 @@ memory. Metadata is not a pinned artifact or qualification. Smaller policy value
 are supported. Large-file tests pad an owned tiny valid JSON with whitespace; they
 do not measure full vocabulary performance or establish real-model parity.
 
-For required native development tests, provide `SLAIF_NATIVE_TEST_ROOT`,
-`SLAIF_NATIVE_TEST_PYTHON` (python3.12 or python3.14), and
-`SLAIF_NATIVE_TEST_PACKAGES` pointing at a trusted isolated installation of
-`tokenizers==0.21.4`. Install that wheel and its dependencies into a separate test
-environment before running; no project dependency is added. Tests generate their
-own artifacts and fail explicitly if configuration or the backend is missing. Run
-unit and integration files with the project dev dependencies installed. Each own
-fixture worker uses a 2-second wall allowance with up to 1 second cleanup; this
-is distinct from the library's 5-second production ceiling and 3-second CPU limit.
-The parent interpreter and the explicitly configured native worker interpreter may
-differ and must be reported separately. Host isolation tests are host-specific.
+For required native development tests on Linux x86-64, use a trusted standalone
+CPython 3.12 base runtime and a new, nonexistent private target directory:
+
+```sh
+python3 tests/support/prepare_native_test_backend.py \
+  --runtime-dir /path/to/cpython-3.12-base --target /path/to/new-private-capsule
+```
+
+The helper checks the actual base prefix, CPython version, installed inventory and
+engine API, and emits shell-quoted `SLAIF_NATIVE_TEST_ROOT`,
+`SLAIF_NATIVE_TEST_PYTHON=python3.12` and `SLAIF_NATIVE_TEST_PACKAGES` exports.
+Run those exports in the test shell. It requires `uv` on PATH, uses the explicit
+PyPI registry, a clean child environment, binary-only installation and the pinned
+SHA-256 in `tests/support/native-test-requirements.txt`. It refuses existing
+targets. Captured runtime and inventory probes are limited to 8192 bytes and an
+absolute deadline; oversized, invalid UTF-8, timed-out or unsuccessful probes fail
+without exposing their output and the owned child is reaped. On a failed install, inspect and remove only the newly created target you
+own before retrying. The target is mode 0700. The worker also requires Linux
+bubblewrap with working user, PID and network namespaces, `/usr/bin/prlimit`,
+`/usr/bin/timeout` and compatible system libraries; availability of binaries alone
+is not namespace qualification.
+
+This is an intentionally engine-only `--no-deps` development capsule for the fixed
+`Tokenizer.from_file` and owned fixture API. The upstream wheel declares
+`huggingface-hub`; hub functionality is not provided or tested. This is not a
+complete application dependency installation, release graph, license clearance,
+or model acquisition. Native, vendored, transitive, model and platform audits
+remain 018/release gates. No model files or weights are downloaded.
+
+Tests generate their own artifacts and fail explicitly if configuration or the
+backend is missing. Run the native and session unit and composition suites with
+project test dependencies installed. Each fixture worker uses a 2-second wall
+allowance with up to 1 second cleanup; this is distinct from the library's 5-second
+production ceiling and 3-second CPU limit. The parent interpreter and explicitly
+configured worker interpreter may differ and must be reported separately. Host
+isolation tests are host-specific; this helper alone does not qualify CI, inference,
+serving, hardware, quality or MVP readiness.

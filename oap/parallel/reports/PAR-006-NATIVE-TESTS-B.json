@@ -1,0 +1,41 @@
+{
+  "lane_id": "PAR-006-NATIVE-TESTS-B",
+  "result": "COMPLETE",
+  "implementation_head": "00e973a79e60bf36b2dc396b872200ece1c8fe24",
+  "report_publication_commit": "SELF",
+  "summary": "Bound captured setup probes to 8192 bytes and one absolute deadline, strict UTF-8, and finite owned-child termination/reaping; retain engine-only capsule setup.",
+  "API": {
+    "command": "python3 tests/support/prepare_native_test_backend.py --runtime-dir /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu --target /tmp/par006-native-capsule-b-20261111",
+    "result": "success; new private target, CPython 3.12.15, tokenizers 0.21.4, fixed wheel SHA256 51b7eabb104f46c1c50b486520555715457ae833d5aee9ff6ae853d1130506ff; emitted all three exports"
+  },
+  "tests": [
+    {
+      "command": "python3 /tmp/raggedized-root-native-setup-output-bound.py",
+      "result": "exit 0, oversize_output_refused true; unchanged witness"
+    },
+    {
+      "command": "/tmp/dense-memory-008-venv/bin/python -m pytest -q -p no:cacheprovider tests/unit/test_native_backend_setup.py",
+      "result": "5 passed; exact cap, one over, flood, timeout, nonzero and invalid UTF-8; owned children reaped"
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/par006-native-capsule-b-20261111/packages PYTHONPATH=src <parent> -m pytest -q -p no:cacheprovider tests/unit/test_native_tokenizers.py tests/unit/test_tokenizer_session.py tests/integration/test_native_tokenizers_composition.py tests/integration/test_tokenizer_session_composition.py",
+      "result": "38 passed no skips on each parent /tmp/dense-memory-008-venv/bin/python (3.14) and /tmp/slaif216-qualification-venv/bin/python (3.12); actual worker 3.12.15"
+    },
+    {
+      "command": "/tmp/slaif216-qualification-venv/bin/ruff check tests/support/prepare_native_test_backend.py tests/unit/test_native_backend_setup.py; python3 -m py_compile tests/support/prepare_native_test_backend.py tests/unit/test_native_backend_setup.py",
+      "result": "passed"
+    },
+    {
+      "command": "private Python subprocess negative checks: existing sentinel target, nonexistent runtime, /usr incompatible runtime, PATH=/usr/bin:/bin missing uv, private helper copy corrupted requirements",
+      "result": "all refused; sentinel intact and new targets absent"
+    },
+    {
+      "command": "cmp exact B order; git diff --exit-code HEAD -- src tests/integration tests/support/native-test-requirements.txt uv.lock pyproject.toml oap/parallel/reports/PAR-006-NATIVE-TESTS-A.json; git diff --check",
+      "result": "passed before implementation commit; source, integration fixtures, requirements, lock and A report unchanged"
+    }
+  ],
+  "limits": [
+    "Opposite peer report was not located from the review record; Root review.json records its finding and SHA256 b26d57addc20b84d4e9a1551fb224c0d6da24d5ee107db4d1d931f93b30bcd7a.",
+    "Engine-only no-deps capsule; no hub or full application graph. Native/transitive/model/platform license audits, real inference, 012, domain, 019, ICA, full 006 and MVP remain open. No CI, hardware or release qualification."
+  ]
+}

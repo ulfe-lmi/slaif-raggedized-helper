@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-11T19:31:42.800180+00:00",
+  "status": "FINAL",
+  "authority": "Root strategic exactlocalPDFcorrection acceptedfor006e integrationONLY; no whole006/MVP/releaseacceptance",
+  "ordered_merges": [
+    {
+      "lane": "native-pdf-bridge-c",
+      "tip": "275335a068e9f62723d344288240b6571f9d4f8e",
+      "implementation": "b39317a838f7d6d7500be4efb84a586af5b45205",
+      "report_sha256": "784a002f001cafca54714660747d39f20b7c00af186b3d3a8a8cbcf05ba81f2c",
+      "review_path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/native-pdf-bridge-c/review.json",
+      "review_sha256": "a33f20c36ce11b5212991942ee139206cfdab34327c2f4f24212edb1d753a57b",
+      "peer_report_sha256": "8a8a52c82973448ad405c850aa8e9efd55f6e340824adb11512d0a2102f06fa0"
+    }
+  ],
+  "expected_source_blobs": {
+    "src/slaif_raggedized_helper/chunking.py": "6b6c6763e15fbe7e3f0abe1138331e75aa38c817",
+    "src/slaif_raggedized_helper/native_chunking.py": "7385efd5c9b1a73a445b01fe9186bc549e78fc1e",
+    "src/slaif_raggedized_helper/tokenizer_session.py": "ef068a7338481126c44ae5ec37e94227048ab333",
+    "src/slaif_raggedized_helper/bundle_source_records.py": "f83ef8adff8cddc0f650d13a138071a72a9e7c10",
+    "src/slaif_raggedized_helper/bundle_native_records.py": "e19fa86b12077121a798507450179953e8493f56",
+    "src/slaif_raggedized_helper/provenance_jsonl.py": "e6f25442ae9e6d8034d7c5dd431edd4521c70723",
+    "src/slaif_raggedized_helper/derived_store.py": "9e6c8cf6b5a1e842a96678d2b7b6bd331e70a554",
+    "src/slaif_raggedized_helper/pdf_extraction.py": "2eed8b97b9ecf4b125c949bffec24fe5a7a3d597",
+    "src/slaif_raggedized_helper/pdf_worker.py": "652fcf664cb6de017a9ed4d13353b0a365031be0",
+    "src/slaif_raggedized_helper/bundle_pdf_records.py": "a9775649e4dfeb08f83c2a2eed9f1c7d6393fdce",
+    "src/slaif_raggedized_helper/ingestion_bundle.py": "b81098e345acfa00d0fb3ecc2aa18550ca84076e",
+    "src/slaif_raggedized_helper/ingestion_store.py": "5e65c51cbdc7f5e0a6936aa035b451eaf8fa0eaa",
+    "src/slaif_raggedized_helper/ingestion_profile.py": "ed5b3c656d186371375fb30f5adac78ec4aaa6d8",
+    "src/slaif_raggedized_helper/ingestion_prepare.py": "b3c16d89a5c1ef98a119afd36a3dcccf8e5d739f",
+    "src/slaif_raggedized_helper/chunk_cli.py": "c66f215e666e91ea449f01c8e0ee6a1cd762561e",
+    "src/slaif_raggedized_helper/cli.py": "c2e3a0f08f4244f25b86ee4fac2231235d5b2b4f",
+    "src/slaif_raggedized_helper/pdf_structure.py": "cf5a89cfd4e90883f1707e345ddc468bba13105d"
+  },
+  "versions": {
+    "PDF_policy": 4,
+    "classifier": "pdf-literal-structure-v3",
+    "kind_bound_block": 2
+  },
+  "remaining": "Finalcanonicalintegration/ALL5CI/currentreport/sourcecoverage; Source/rights/currentauth/model/hardware/heldout/visual/license/ICA/fullMVP gates remain. DHA NONE."
+}
