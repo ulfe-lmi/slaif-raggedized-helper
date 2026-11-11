@@ -1,0 +1,45 @@
+{
+  "lane_id": "PAR-006-OPERATOR-CLI-A",
+  "result": "PARTIAL",
+  "implementation_head": "8a32ab70740755e801055c97661d342be103fa07",
+  "report_publication_commit": "SELF",
+  "preparation_heads": [
+    "de603843eacf0ba31a558f44ab532ec51a9c8d7c",
+    "40763573da31794eb987f302d00734633b466a07"
+  ],
+  "API": "Candidate ingestion_prepare.prepare/inspect and installed raggedized chunk; unaccepted and incomplete.",
+  "commands_and_results": [
+    "Ordered no-ff preparation merges: completed; first conflict resolved with specified document, second clean.",
+    "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-47b4c9427a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --offline pytest tests/integration/test_chunk_cli_composition.py: 1 passed; prior run with venv runtime failed worker startup, and subsequent run failed because test derived directory was absent; corrected fixture.",
+    "uv run --offline ruff check src/slaif_raggedized_helper/ingestion_prepare.py src/slaif_raggedized_helper/chunk_cli.py src/slaif_raggedized_helper/cli.py tests/integration/test_chunk_cli_composition.py: passed.",
+    "git diff --check: passed."
+  ],
+  "witness_hashes": {
+    "order_sha256": "5b51e7c245e51fc6ff09568672a53ea20df3370c8d7b64988a73e679352f28f7",
+    "resolution_sha256": "93c89b6f235d8e320202af0011387752b3f18679a64c1067930f0f50b9104e0e"
+  },
+  "limits": [
+    "Not complete: no actual PDF journey, full negative/privacy/corruption and postpublication tests, unit tests, full regressions, operator documentation, or full final verification.",
+    "Candidate needs review and correction: query/role/policy admission before costly extraction is not fully demonstrated; cancellation and final-output deadline boundaries are not proven; no-native status and input classification require review. Do not integrate or treat candidate as accepted.",
+    "No hardware, model, 019, license, ICA, MVP, release or deployment claim."
+  ],
+  "DHA": "NONE",
+  "preparation_details": [
+    {
+      "head": "de603843eacf0ba31a558f44ab532ec51a9c8d7c",
+      "parents": [
+        "5989093b4b21d1741f4bf6472be6ca8935142c06",
+        "bda8f322a45865dc98137a1f3cd6885dd4def097"
+      ],
+      "tree": "a7a3f4a071c630e8f225f7e6a93c66288765f617"
+    },
+    {
+      "head": "40763573da31794eb987f302d00734633b466a07",
+      "parents": [
+        "de603843eacf0ba31a558f44ab532ec51a9c8d7c",
+        "0761f6de94cc388ccfd71042986f13d0fa90db4f"
+      ],
+      "tree": "e2fa9d2e1f6d7bdcffb36ac86fe9188586747146"
+    }
+  ]
+}
