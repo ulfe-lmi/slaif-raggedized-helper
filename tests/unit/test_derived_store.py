@@ -266,6 +266,62 @@ def test_descriptor_mutation_is_refused(tmp_path, monkeypatch):
             store.load(ident)
 
 
+def test_stage_unlink_discards_attempt_and_reopens(tmp_path, monkeypatch):
+    import time
+    import slaif_raggedized_helper.derived_store as ds
+
+    with Store(tmp_path) as store, Store(tmp_path) as other:
+        ident = store.publish(b"{}", (Member("x", b"concurrent"),))
+        digest = hashlib.sha256(b"concurrent").hexdigest()
+        obj = tmp_path / "derived/v1/objects" / digest
+        stage = obj.parent / ".stage-test"
+        os.link(obj, stage)
+        original_read, original_open = ds.os.read, ds.os.open
+        hits, opens = [], []
+
+        def read(fd, count):
+            if not hits:
+                hits.append(True)
+                stage.unlink()
+            return original_read(fd, count)
+
+        def opened(path, *args, **kwargs):
+            if path == digest:
+                opens.append(path)
+            return original_open(path, *args, **kwargs)
+
+        monkeypatch.setattr(ds.os, "read", read)
+        monkeypatch.setattr(ds.os, "open", opened)
+        assert other._read(other._objects, digest, 10, time.monotonic() + 10) == b"concurrent"
+        assert len(hits) == 1 and len(opens) == 2
+        assert other.publish(b"{}", (Member("x", b"concurrent"),)) == ident
+        assert other.load(ident).members == (Member("x", b"concurrent"),)
+
+
+def test_repeated_metadata_changes_exhaust_read_attempts(tmp_path, monkeypatch):
+    import time
+    import slaif_raggedized_helper.derived_store as ds
+
+    with Store(tmp_path) as store:
+        store.publish(b"{}", (Member("x", b"abc"),))
+        digest = hashlib.sha256(b"abc").hexdigest()
+        original = ds.os.read
+        changes = []
+
+        def mutate(fd, count):
+            data = original(fd, count)
+            if data:
+                os.fchmod(fd, 0o400)
+                os.fchmod(fd, 0o600)
+                changes.append(True)
+            return data
+
+        monkeypatch.setattr(ds.os, "read", mutate)
+        with pytest.raises(ValueError):
+            store._read(store._objects, digest, 3, time.monotonic() + 10)
+        assert len(changes) == 4
+
+
 def test_metadata_and_member_limits_without_large_allocations(tmp_path, monkeypatch):
     import slaif_raggedized_helper.derived_store as ds
 

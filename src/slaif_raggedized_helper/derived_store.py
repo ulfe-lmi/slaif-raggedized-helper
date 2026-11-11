@@ -183,28 +183,34 @@ class Store:
         return digest.hexdigest()
 
     def _read(self, directory, name, limit, end):
-        self._deadline(end)
-        fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=directory)
-        try:
-            before = os.fstat(fd)
-            if not _secure(before) or before.st_size > limit:
-                raise ValueError
-            chunks = []
-            count = 0
-            while True:
-                self._deadline(end)
-                chunk = os.read(fd, min(65536, limit + 1 - count))
-                if not chunk:
-                    break
-                chunks.append(chunk)
-                count += len(chunk)
-                if count > limit:
+        # A competing publisher's stage unlink changes the final inode's ctime.
+        # Discard any changed attempt completely; only a fresh, stable and secure
+        # descriptor may supply bytes to the caller's size and digest checks.
+        for _ in range(4):
+            self._deadline(end)
+            fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=directory)
+            try:
+                before = os.fstat(fd)
+                if not _secure(before) or before.st_size > limit:
                     raise ValueError
-            if count != before.st_size or _changed(before, os.fstat(fd)):
-                raise ValueError
-            return b"".join(chunks)
-        finally:
-            os.close(fd)
+                chunks = []
+                count = 0
+                while True:
+                    self._deadline(end)
+                    chunk = os.read(fd, min(65536, limit + 1 - count))
+                    if not chunk:
+                        break
+                    chunks.append(chunk)
+                    count += len(chunk)
+                    if count > limit:
+                        raise ValueError
+                if count != before.st_size:
+                    raise ValueError
+                if not _changed(before, os.fstat(fd)):
+                    return b"".join(chunks)
+            finally:
+                os.close(fd)
+        raise ValueError
 
     def _put(self, directory, digest, data, end):
         stage = ".stage-" + secrets.token_hex(16)
