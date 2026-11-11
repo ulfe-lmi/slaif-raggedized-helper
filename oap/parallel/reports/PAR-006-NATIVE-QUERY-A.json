@@ -1,0 +1,46 @@
+{
+  "lane_id": "PAR-006-NATIVE-QUERY-A",
+  "result": "COMPLETE",
+  "implementation_head": "4f73a38d6b2cc574c91c6320c34dbfb2a4611a84",
+  "implementation_parent": "48caac18ddc175761f2852ba2e3abe52b764dc25",
+  "report_publication_commit": "SELF",
+  "summary": "Structural intermediate policy definition version 2 binds SHA-256 of the exact UTF-8 query; all other policy fields, identities and provenance retained. No limit changed. Legacy IDs change; native final version 1 definition and receipts remain unchanged.",
+  "api": "Existing chunking.build and native_chunking.build APIs unchanged; see structural and native API documentation.",
+  "verification": [
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit tests/integration/test_native_chunking_composition.py tests/integration/test_structural_chunking_composition.py tests/integration/test_tokenizer_session_composition.py",
+      "result": "exit 0; 577 passed, no skips (collection count checked separately); actual native backend. A whitespace-only test formatting correction was made during this run."
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 pytest -o addopts='' --collect-only -q tests/unit tests/integration/test_native_chunking_composition.py tests/integration/test_structural_chunking_composition.py tests/integration/test_tokenizer_session_composition.py",
+      "result": "exit 0; 577 collected."
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages uv run --isolated --locked --offline --python 3.14 pytest -o addopts='' -q tests/integration/test_native_direct.py tests/integration/test_native_tokenizers_composition.py",
+      "result": "exit 0; 84 passed, no skips, actual native backend."
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-native-query-admission.py",
+      "result": "exit 0; unchanged witness: 10000 Unicode characters, pair-empty count 5 <= reserve 64, success; intermediate definition 565 characters, final native definition 639 characters."
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages uv run --isolated --locked --offline --python 3.14 pytest -q tests/integration/test_native_chunking_composition.py::test_full_native_query_domain_and_identity",
+      "result": "exit 0; one passed; full owned producer with 10000 ASCII and Unicode queries, same-token-count changed query and empty query, independent count, identity, digest and source coverage checks, over-length and actual over-reserve refusal."
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages uv run --isolated --locked --offline --python 3.14 pytest -q tests/integration/test_structural_chunking_composition.py::test_structural_query_digest_policy_v2",
+      "result": "exit 0; one passed."
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check . && git diff --check",
+      "result": "exit 0; all checks passed. Initial lint found one line length issue, corrected before final lint."
+    },
+    {
+      "command": "cmp /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/native-query-fix/order.md oap/parallel/orders/PAR-006-NATIVE-QUERY-A.md",
+      "result": "exit 0; order identical."
+    }
+  ],
+  "negative_evidence": "Over 10000 characters and independently measured over-reserve query refused; no cap raised, query truncation or normalization, raw query embedding, skipped reserve or pair counting. No test-only policy relaxation. No change to native final serialization or identities.",
+  "limits": "Local CPU synthetic fixture evidence only. Existing 157312-byte capacity benchmark not rerun; source change is policy identity only. Cooperative resource limits and trusted local runtime/packages remain. No model, weights, inference, GPU, service, downloads, production data, performance or MVP qualification. Base C remains under independent verification; no integration, push or merge.",
+  "dha": "NONE"
+}

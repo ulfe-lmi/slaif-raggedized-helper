@@ -469,3 +469,45 @@ def test_representation_limit_and_zero_length_block(tmp_path):
             c.build(empty_only, (empty,), counters(), 'q')
     finally:
         store.close()
+
+
+def test_cooperative_deadline_refuses_slow_callback(tmp_path):
+    import time
+
+    store, revisions = create_store(tmp_path, 'small text\n')
+    try:
+        item = s.extract(store, revisions[0].revision_id)
+        reg = p.Registry((item.revision,), (item.dependency,), item.blocks)
+        def slow(text):
+            time.sleep(0.01)
+            return len(text.split())
+        callbacks = c.Counters('body', 'rep', 'pair', slow, slow, lambda q, x: 1)
+        with pytest.raises(c.ChunkingError):
+            c.build(reg, item.blocks, callbacks, 'q', c.Policy(deadline_ms=1))
+    finally:
+        store.close()
+
+
+def test_structural_query_digest_policy_v2(tmp_path):
+    import hashlib
+    import json
+
+    store, revisions = create_store(tmp_path, 'hello\n')
+    try:
+        item = s.extract(store, revisions[0].revision_id)
+        reg = p.Registry((item.revision,), (item.dependency,), item.blocks)
+        ctr = counters()
+        policy = c.Policy()
+        query = 'é' * 10000
+        result = c.build(reg, item.blocks, ctr, query, policy)
+        definition = json.dumps(
+            {'version': 2, 'policy': policy.__dict__,
+             'identities': (ctr.body_identity, ctr.representation_identity, ctr.pair_identity),
+             'provenance': ctr.provenance,
+             'query_sha256': hashlib.sha256(query.encode('utf-8')).hexdigest()},
+            sort_keys=True, ensure_ascii=True, separators=(',', ':'))
+        assert all(ch.policy_id == p.policy_id(definition) for ch in result.chunks)
+        assert result.chunks[0].policy_id != c.build(
+            reg, item.blocks, ctr, 'è' * 10000, policy).chunks[0].policy_id
+    finally:
+        store.close()

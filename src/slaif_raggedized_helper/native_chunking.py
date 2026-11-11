@@ -85,7 +85,7 @@ def build(registry: p.Registry, blocks: tuple[p.Block, ...], body: native.Defini
             raise ValueError
         query.encode('utf-8')
         if policy is None:
-            policy = chunking.Policy(pair_max=1280)
+            policy = chunking.Policy(pair_max=1280, deadline_ms=15000)
         elif type(policy) is chunking.Policy:
             policy = chunking.Policy(**policy.__dict__)
         else:
@@ -114,7 +114,7 @@ def build(registry: p.Registry, blocks: tuple[p.Block, ...], body: native.Defini
             counters = chunking.Counters(*identities, lambda t: observe(0, t),
                                          lambda t: observe(1, t),
                                          lambda q, t: observe(2, q, t))
-            raw = chunking.build(registry, blocks, counters, query, policy)
+            raw = chunking._build(registry, blocks, counters, query, policy, reuse=True)
             policy_definition = _json({'version': 1, 'kind': 'observed-local-native',
                                        'policy': policy.__dict__, 'definitions': identities,
                                        'query_input_sha256': _input_digest(query, None),

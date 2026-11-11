@@ -66,7 +66,7 @@ def test_dead_worker_and_exhaustion(tmp_path):
     child.wait()
     with pytest.raises(n.TokenizerError):
         session.count('bge_body', 'x')
-    for attr, value in (('_calls', 8192), ('_input', 16_000_000),
+    for attr, value in (('_calls', 16384), ('_input', 32_000_000),
                         ('_output', 4_000_000)):
         session = Session((body,), runtime)
         child = session._child
@@ -117,7 +117,7 @@ def test_actual_request_ceiling_and_immutable_artifacts(tmp_path):
     paths, runtime, definition = make_native(tmp_path)
     before = [path.read_bytes() for path in paths]
     with Session((definition(paths[0]),), runtime) as session:
-        for i in range(8192):
+        for i in range(16384):
             assert session.count('bge_body', str(i)).count == 3
         with pytest.raises(n.TokenizerError):
             session.count('bge_body', 'x')
@@ -131,3 +131,19 @@ def test_oversized_request_and_unicode_canary(tmp_path):
         with pytest.raises(n.TokenizerError) as exc:
             session.count('bge_body', text)
         assert str(exc.value) == 'tokenizer session refused'
+
+
+def test_input_wire_exact_and_one_over(tmp_path):
+    paths, runtime, definition = make_native(tmp_path)
+    body = definition(paths[0])
+    with Session((body,), runtime) as probe:
+        probe.count('bge_body', 'x')
+        request_bytes = probe._input
+    with Session((body,), runtime) as exact:
+        exact._input = 32_000_000 - request_bytes
+        exact.count('bge_body', 'x')
+        assert exact._input == 32_000_000
+    with Session((body,), runtime) as over:
+        over._input = 32_000_001 - request_bytes
+        with pytest.raises(n.TokenizerError):
+            over.count('bge_body', 'x')

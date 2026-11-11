@@ -17,6 +17,14 @@ def test_fixed_error_on_untrusted_inputs():
 
 def test_all_policy_fields_reject_nonintegers_and_unbounded_values():
     for field in c.Policy.__dataclass_fields__:
-        for value in (True, -1, 0, float('nan'), float('inf'), 10**30):
+        for value in (True, 1.5, -1, 0, float('nan'), float('inf'), 10**30):
             with pytest.raises(c.ChunkingError, match='^invalid policy$'):
                 c.Policy(**{field: value})
+
+
+def test_deadline_policy_boundaries():
+    assert c.Policy().deadline_ms == 5000
+    assert c.Policy(deadline_ms=1).deadline_ms == 1
+    assert c.Policy(deadline_ms=15000).deadline_ms == 15000
+    with pytest.raises(c.ChunkingError):
+        c.Policy(deadline_ms=15001)

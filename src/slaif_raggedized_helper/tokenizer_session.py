@@ -135,7 +135,7 @@ class Session:
             wire = json.dumps(request, ensure_ascii=True, separators=(',', ':')).encode() + b'\n'
             self._calls += 1
             self._input += len(wire)
-            if len(wire) > 200_000 or self._calls > 8192 or self._input > 16_000_000:
+            if len(wire) > 200_000 or self._calls > 16384 or self._input > 32_000_000:
                 raise ValueError
             deadline = min(self._deadline, time.monotonic() + 2)
             with selectors.DefaultSelector() as sel:
