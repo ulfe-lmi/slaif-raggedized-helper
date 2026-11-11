@@ -1,0 +1,161 @@
+{
+  "lane_id": "PAR-006-NATIVE-EFFICIENCY-A",
+  "result": "COMPLETE",
+  "implementation_head": "2202fb87e42ad2501dbb3015192bba9b35ed05b2",
+  "report_publication_commit": "SELF",
+  "base": "1a9e6387f4ba2134894f81c6827c78d78d462843",
+  "decision": "NONE",
+  "summary": "Per-build exact role/full-input memoization only after validation; first observations retained for receipts. Session request ceiling raised from 1024 to 8192 after measured refusals. All other limits unchanged.",
+  "commands": [
+    {
+      "command": "python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py wait-control native-count-efficiency",
+      "exit": 0,
+      "result": "EXACT_OK_CONSUMED"
+    },
+    {
+      "command": "/usr/bin/timeout --signal=KILL 180s /usr/bin/prlimit --as=1073741824 --cpu=120 -- <bridge-b>/.venv/bin/python /tmp/native_efficiency_witness.py > /tmp/native_efficiency_1024.out (memoization, old ceiling)",
+      "exit": 0
+    },
+    {
+      "command": "/usr/bin/timeout --signal=KILL 180s /usr/bin/prlimit --as=1073741824 --cpu=120 -- <bridge-b>/.venv/bin/python /tmp/native_efficiency_witness.py > /tmp/native_efficiency_8192.out (candidate)",
+      "exit": 0
+    },
+    {
+      "command": "/usr/bin/timeout --signal=KILL 180s /usr/bin/prlimit --as=1073741824 --cpu=120 -- <bridge-b>/.venv/bin/python /tmp/native_efficiency_trace.py > /tmp/native_efficiency_trace.out",
+      "exit": 0
+    },
+    {
+      "command": "PYTHONPATH=$PWD/src SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 <bridge-b>/.venv/bin/python -m pytest tests/unit tests/integration/test_native_chunking_composition.py tests/integration/test_tokenizer_session_composition.py tests/integration/test_structural_chunking_composition.py tests/integration/test_structured_text_composition.py",
+      "exit": 0,
+      "result": "574 passed in 56.71s; no skips"
+    },
+    {
+      "command": "<bridge-b>/.venv/bin/ruff check .",
+      "exit": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0
+    },
+    {
+      "command": "cmp -s copied-order assigned-order",
+      "exit": 0
+    }
+  ],
+  "earlier_checks": "Initial invocation accidentally imported bridge-b source: 3 failed, 31 passed; fixed with explicit candidate PYTHONPATH. One concurrent whole-unit run was interrupted (exit 2) to maintain one-case-at-a-time execution. Candidate focused run 72 passed; candidate whole unit 544 passed; final combined run above supersedes both.",
+  "metrics": {
+    "baseline_root_rerun": "procedure/table/many paragraphs refused at attempted request 1025 before output; input bytes 202810/272139/854937 respectively",
+    "memoized_1024": "procedure/table/many paragraphs still refused at request 1025; manual 57 requests versus baseline 150",
+    "candidate": [
+      {
+        "name": "manual",
+        "source_bytes": 157,
+        "source_sha256": "26adea33cb9a713998e6073679b343fd65f3c8286fc635c76d3f48cf43d147d6",
+        "blocks": 11,
+        "build_seconds": 0.143352,
+        "session": {
+          "startup_seconds": 0.110421,
+          "calls": 57,
+          "input_bytes": 9576,
+          "output_bytes": 10668
+        },
+        "chunks": 3,
+        "fragments": 11,
+        "receipts": 9,
+        "outcome": "success"
+      },
+      {
+        "name": "procedure",
+        "source_bytes": 7876,
+        "source_sha256": "ec2f1cc41be21683e51178387b1aa005338eb67d2b5cf1b60fce9672d358bc5c",
+        "blocks": 403,
+        "build_seconds": 1.407848,
+        "session": {
+          "startup_seconds": 0.110903,
+          "calls": 1305,
+          "input_bytes": 271098,
+          "output_bytes": 243970
+        },
+        "chunks": 81,
+        "fragments": 403,
+        "receipts": 243,
+        "outcome": "success"
+      },
+      {
+        "name": "table",
+        "source_bytes": 9269,
+        "source_sha256": "e9e8738b346a405683130f0aa307f8fd4f8038ab9057e59fee8b28ee3d07a9f6",
+        "blocks": 243,
+        "build_seconds": 1.33201,
+        "session": {
+          "startup_seconds": 0.111079,
+          "calls": 1657,
+          "input_bytes": 455552,
+          "output_bytes": 310347
+        },
+        "chunks": 25,
+        "fragments": 243,
+        "receipts": 75,
+        "outcome": "success"
+      },
+      {
+        "name": "unicode",
+        "source_bytes": 1111,
+        "source_sha256": "228efd8620dbc366edde6f0594e7fb2d2b2db5f10ab3e68fa7edb26f01f563b7",
+        "blocks": 51,
+        "build_seconds": 0.316962,
+        "session": {
+          "startup_seconds": 0.112337,
+          "calls": 217,
+          "input_bytes": 205388,
+          "output_bytes": 40670
+        },
+        "chunks": 1,
+        "fragments": 51,
+        "receipts": 3,
+        "outcome": "success"
+      },
+      {
+        "name": "many_paragraphs",
+        "source_bytes": 157312,
+        "source_sha256": "33810770e910bc8cc68906657c93447c034ca83f66fb46150c4d8f4329cb7384",
+        "blocks": 2403,
+        "build_seconds": 5.157059,
+        "session": {
+          "startup_seconds": 0.111727,
+          "calls": 3287,
+          "input_bytes": 4077825,
+          "output_bytes": 616517
+        },
+        "chunks": null,
+        "fragments": null,
+        "receipts": null,
+        "outcome": "refused"
+      },
+      {
+        "name": "too_many_blocks",
+        "source_bytes": 70300,
+        "source_sha256": "9c378a127fe4519c72eda47fcb482607a5da527079925be3e3ab9d9d97e2ca4a",
+        "blocks": null,
+        "build_seconds": null,
+        "session": null,
+        "chunks": null,
+        "fragments": null,
+        "receipts": null,
+        "outcome": "refused"
+      }
+    ],
+    "scale_trace": "many-paragraph refusal at chunking count deadline: 6882 callbacks, 6011349 work characters, deadline 3027793.35417365, observed monotonic 3027793.355213706; tracing adds overhead."
+  },
+  "fixtures": "Locally generated toy tokenizers: artifact SHA256 1432b17ab7e9e4214568327a62acb0004515b6d23d920c3c8ed1150041f2ee32 and 36583090527cd1a96fb0e9e576053ebece1a8621a7d788fdef6cb380a7e66153; private Python 3.12 backend tokenizers 0.21.4. Representative exact fixture coverage, receipt roles and bounded direct-worker sample comparisons in integration tests. No public tokenizer or inference used.",
+  "witnesses": {
+    "/tmp/bundle_capacity_measure.py": "a86d9e99ffec8852655248bbcc9704f4f25e0a198cb594d50bd8bd7be730d449",
+    "/tmp/native_efficiency_witness.py": "69be09cbc20a3f36bafb2f2d789fc053cae84d997029c204c9a06401823bd39e",
+    "/tmp/native_efficiency_1024.out": "6ff0f5706833e502bbcca07a7bd77baeafe3681dfdd66ef6e16eb8de6d23685d",
+    "/tmp/native_efficiency_8192.out": "4d25cf09d1fa199de5be67e3d60d85fd3634d5e922496137f23b494f4932b5bd",
+    "/tmp/native_efficiency_trace.py": "3bd78f76526cbe2003b7716ad6b1d939a0a5920eb74e31097405857450e0bb3f",
+    "/tmp/native_efficiency_trace.out": "1e75f94cf3187cee81df5c059cb15c57c1744f1c5ff543203082d0c9ddada412"
+  },
+  "limits": "Session 8192 requests, 16 MB input, 4 MB output, 200 kB request, 20 s lifetime, 10 CPU s, 1 GiB, 5 s startup, 2 s request. Chunker 5 s, 20000 callback calls, 20M work characters. Hits still incur chunker accounting. No partial result. Many-paragraph case remains refused; no general capacity, inference parity, domain/model, CPU/hardware, license, 019, ICA, MVP or deployment qualification. Canonical integration and CI remain mandatory.",
+  "publication": "Local implementation and report-only commits; no push, PR, merge, release or deployment."
+}

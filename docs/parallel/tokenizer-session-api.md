@@ -10,7 +10,7 @@ disabled. There is no automatic retry or replay after refusal.
 
 The worker is bounded by a 20-second lifetime, 10 CPU seconds and 1 GiB address
 space; startup is limited to five seconds, requests to two seconds, and cleanup to
-one second. At most 1024 requests, 16 MB request bytes and 4 MB response bytes are
+one second. At most 16384 requests, 32 MB request bytes and 4 MB response bytes are
 accepted. Requests are capped at 200000 bytes and 100000 characters; responses at
 4096 bytes and 200000 tokens. Each response is tied to a nonce, role, artifact and
 input digest. No input or native exception is placed in errors. Callers own sessions

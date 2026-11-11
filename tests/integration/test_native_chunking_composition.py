@@ -56,7 +56,8 @@ def test_owned_pipeline_and_invalidation(tmp_path):
             ((replace(defs[0], model_revision='changed'), *defs[1:]), 'hello', None),
             ((replace(defs[0], preprocessing='changed'), *defs[1:]), 'hello', None),
             ((definition(paths[1], 'bge_body'), *defs[1:]), 'hello', None),
-            (defs, 'café', None), (defs, 'hello', chunking.Policy(pair_max=1280, target=511))]:
+            (defs, 'café', None), (defs, 'hello', chunking.Policy(pair_max=1280, target=511)),
+            (defs, 'hello', chunking.Policy(pair_max=1280, deadline_ms=9999))]:
             assert result.chunks[0].chunk_id != run(items[0], ds, query, policy).chunks[0].chunk_id
         forged = (items[0].blocks[0].model_copy(update={'text': 'canary-secret'}),
                   *items[0].blocks[1:])
@@ -118,5 +119,137 @@ def test_policy_and_input_refusals(tmp_path):
         with pytest.raises(nc.NativeChunkingError):
             nc.build(reg, item.blocks, *defs, runtime, 'hello',
                      chunking.Policy(max_calls=1))
+    finally:
+        store.close()
+
+
+@pytest.mark.parametrize('kind', ['procedure', 'table'])
+def test_representative_native_documents(tmp_path, monkeypatch, kind):
+    from slaif_raggedized_helper import native_tokenizers as native
+
+    paths, runtime, definition = make_native(tmp_path)
+    defs = (definition(paths[0], 'bge_body'), definition(paths[0], 'bge_representation'),
+            definition(paths[1], 'reranker_pair'))
+    if kind == 'procedure':
+        text = ('# Procedure\n\n' + ''.join(
+            f'WARNING {i}: isolate power before service.\n\n1. Check pressure {i} kPa.\n'
+            '2. If hot, wait until safe.\n\n' for i in range(80))
+            + 'Tail: restore power only after inspection.\n')
+    else:
+        text = ('# Measurements\n\n' + ''.join(
+            '| Parameter | Value | Unit | Condition |\n| --- | --- | --- | --- |\n' + ''.join(
+                f'| flow {i}-{k} | {k} | L/s | if valve open |\n' for k in range(8)) + '\n'
+            for i in range(24)) + 'Tail: confirm units.\n')
+    store, revs = create_store(tmp_path, text)
+    observed = []
+    original = nc.Session.count
+
+    def count(self, role, text, pair=None):
+        observed.append((role, text, pair))
+        return original(self, role, text, pair)
+
+    monkeypatch.setattr(nc.Session, 'count', count)
+    try:
+        item = s.extract(store, revs[0].revision_id)
+        reg = p.Registry((revs[0],), (item.dependency,), item.blocks)
+        before = (tmp_path / 'root' / 'a').read_bytes()
+        result = nc.build(reg, item.blocks, *defs, runtime, 'hello')
+        first_calls = tuple(observed)
+        assert 1024 < len(first_calls) < 8192
+        assert len(first_calls) == len(set(first_calls))
+        assert result == nc.build(reg, item.blocks, *defs, runtime, 'hello')
+        assert tuple(observed[len(first_calls):]) == first_calls
+        assert len(result.receipts) == 3 * len(result.chunks)
+        assert reg.bind_neighbors(result.chunks, result.neighbors) == result.neighbors
+        assert 'Tail:' in result.chunks[-1].text
+        for block in item.blocks:
+            spans = [f for c in result.chunks for f in c.fragments
+                     if isinstance(f, p.SourceFragment) and f.block_id == block.block_id]
+            assert {i for f in spans for i in range(f.start, f.end)} == set(range(len(block.text)))
+        for chunk in (result.chunks[0], result.chunks[len(result.chunks) // 2], result.chunks[-1]):
+            rep = ''.join(chunk.heading_path) + chunk.text
+            expected = (native.count(defs[0], runtime, chunk.text),
+                        native.count(defs[1], runtime, rep),
+                        native.count(defs[2], runtime, 'hello', rep))
+            receipts = [r.count for r in result.receipts if r.chunk_id == chunk.chunk_id]
+            assert tuple(receipts) == expected
+            assert chunk.counts[0].count <= 768
+            assert chunk.counts[1].count <= 1024
+            assert chunk.counts[2].count <= 1280
+        assert (tmp_path / 'root' / 'a').read_bytes() == before == text.encode()
+    finally:
+        store.close()
+
+
+def test_full_native_query_domain_and_identity(tmp_path):
+    import hashlib
+
+    from slaif_raggedized_helper import native_tokenizers as native
+    from slaif_raggedized_helper.tokenizer_session import Session
+
+    def digest_input(text, pair):
+        data = json.dumps([text, pair], ensure_ascii=True, separators=(',', ':')).encode()
+        return hashlib.sha256(data).hexdigest()
+
+    paths, runtime, definition = make_native(tmp_path)
+    defs = (definition(paths[0], 'bge_body'), definition(paths[0], 'bge_representation'),
+            definition(paths[1], 'reranker_pair'))
+    policy = chunking.Policy(pair_max=1280)
+    text = '# Guide\n\nhello world\n'
+    store, revs = create_store(tmp_path, text)
+    try:
+        item = s.extract(store, revs[0].revision_id)
+        reg = p.Registry((revs[0],), (item.dependency,), item.blocks)
+        queries = ('x' * 10000, 'é' * 10000, 'y' * 10000, '')
+        with Session(defs, runtime) as session:
+            measured = [session.count('reranker_pair', q, '').count for q in queries]
+            over = 'hello ' * 100
+            assert session.count('reranker_pair', over, '').count > policy.query_reserve
+        assert all(count <= policy.query_reserve for count in measured)
+        assert measured[0] == measured[2]
+        ids = []
+        serialization = 'utf8-json-v1;no-truncation;no-padding;special-tokens'
+        identities = []
+        for d in defs:
+            fields = {'version': 1, 'artifact_sha256': d.sha256,
+                      'backend_version': d.backend_version, 'role': d.role,
+                      'model_revision': d.model_revision, 'preprocessing': d.preprocessing,
+                      'mode': 'pair' if d.role == 'reranker_pair' else 'single',
+                      'serialization': serialization}
+            encoded = json.dumps(fields, ensure_ascii=True, sort_keys=True,
+                                 separators=(',', ':'), allow_nan=False).encode()
+            identities.append(hashlib.sha256(encoded).hexdigest())
+        for query in queries:
+            result = nc.build(reg, item.blocks, *defs, runtime, query, policy)
+            definition_json = json.dumps(
+                {'version': 1, 'kind': 'observed-local-native', 'policy': policy.__dict__,
+                 'definitions': identities, 'query_input_sha256': digest_input(query, None),
+                 'serialization': serialization}, ensure_ascii=True, sort_keys=True,
+                separators=(',', ':'), allow_nan=False)
+            expected_id = p.policy_id(definition_json)
+            ids.append(expected_id)
+            assert all(chunk.policy_id == expected_id for chunk in result.chunks)
+            for block in item.blocks:
+                spans = [f for ch in result.chunks for f in ch.fragments
+                         if isinstance(f, p.SourceFragment) and f.block_id == block.block_id]
+                covered = {i for f in spans for i in range(f.start, f.end)}
+                assert covered == set(range(len(block.text)))
+                assert all(f.copied_text == block.text[f.start:f.end] for f in spans)
+            for ch in result.chunks:
+                rep = ''.join(ch.heading_path) + ch.text
+                counts = (native.count(defs[0], runtime, ch.text),
+                          native.count(defs[1], runtime, rep),
+                          native.count(defs[2], runtime, query, rep))
+                receipts = [r for r in result.receipts if r.chunk_id == ch.chunk_id]
+                assert tuple(r.count for r in receipts) == counts
+                assert [r.definition_fingerprint for r in receipts] == identities
+                assert [r.count.input_sha256 for r in receipts] == [
+                    digest_input(ch.text, None), digest_input(rep, None), digest_input(query, rep)]
+                assert [c.count for c in ch.counts] == [c.count for c in counts]
+        assert ids[0] != ids[2]
+        for query in ('x' * 10001, over):
+            with pytest.raises(nc.NativeChunkingError, match='^native chunk construction refused$'):
+                nc.build(reg, item.blocks, *defs, runtime, query, policy)
+        assert (tmp_path / 'root' / 'a').read_bytes() == text.encode()
     finally:
         store.close()

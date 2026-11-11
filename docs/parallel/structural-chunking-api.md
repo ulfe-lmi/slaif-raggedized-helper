@@ -12,10 +12,12 @@ Defaults are body target 512, soft maximum 768, representation maximum 1024 and 
 maximum 512 with query reserve 64; all counts include whatever specials the supplied
 counter adds. Policy limits narrow these bounds and also cap blocks, characters, chunks,
 callback calls and total callback input characters; each chunk has at most 256 fragments.
-The five-second deadline is cooperative: a blocking trusted callback cannot be interrupted.
+The strict integer `deadline_ms` defaults to 5000 and ranges from 1 to 15000.
+The deadline is cooperative: a blocking trusted callback cannot be interrupted.
 The complete body, heading plus body, and query plus heading plus body are measured separately.
 The pair counter also measures empty-query and empty-passage cases, and the latter must fit
-the query reserve. Contradictory repeat measurements and invalid results are refused.
+the query reserve. Contradictory repeat measurements and invalid results are refused. The effective deadline is
+part of the policy fingerprint, so changing it changes policy and chunk IDs.
 
 An immediately adjacent warning or prerequisite and numbered procedure, optionally separated
 by one blank block, are grouped ahead of target when their combined budgets fit. Other content
@@ -39,3 +41,8 @@ no blocks and are refused by this builder. Zero-length blocks contribute no frag
 a revision containing only zero-length blocks is refused. Indivisible over-budget
 units are refused. Registry validation happens at construction and its in-memory
 snapshot is used for binding; this is neither persistent storage nor authorization.
+
+Structural policy definitions use version 2, binding `query_sha256` to the exact UTF-8
+query bytes instead of embedding the raw query as in version 1. This changes legacy
+policy and chunk IDs, including for unchanged inputs; queries are neither normalized nor
+truncated. Native final policy definitions retain their separate version 1 format.
