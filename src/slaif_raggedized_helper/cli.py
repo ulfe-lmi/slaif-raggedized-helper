@@ -899,6 +899,10 @@ def _build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser(
         "parity", help="analyze supplied embedding vectors or reranker scores")
+    subparsers.add_parser(
+        "source",
+        help="import approved local originals into the private operator store "
+             "or inspect a stored revision (local operator tool)")
     doctor = subparsers.add_parser(
         "doctor",
         help="validate configuration and inspect model manifests offline "
@@ -1024,6 +1028,11 @@ def main(argv: list[str] | None = None) -> int:
         from .qualification.parity_cli import main as parity_main
 
         return parity_main(arguments[1:])
+    if arguments and arguments[0] == "source":
+        # Delegate parsing and all work to the existing source entrypoint.
+        from .source_cli import main as source_main
+
+        return source_main(arguments[1:])
     parser = _build_parser()
     args = parser.parse_args(arguments)
     if args.command == "doctor":

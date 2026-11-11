@@ -1,0 +1,15 @@
+{
+  "lane_id": "PAR-005-SOURCE-CLI-A",
+  "result": "COMPLETE",
+  "implementation_head": "9d7a67b80bf019c4d22929465a0a7dbc01b2ecaa",
+  "report_publication_commit": "SELF",
+  "summary": "Added bounded operator-local source import and inspect module, strict UTF-8 manifest admission and descriptor-verified original-byte reads, with honest per-document partial-failure reporting.",
+  "API": "python -m slaif_raggedized_helper.source_cli import|inspect; OriginalStore.read_original(revision_id); see docs/parallel/source-cli-api.md.",
+  "tests": [
+    {"command": "uv run --offline pytest -q tests/unit/test_source_cli.py tests/integration/test_source_module_cli.py tests/unit/test_source_admission.py tests/integration/test_source_admission_composition.py tests/unit/test_contracts.py", "result": "31 tests passed; 31 collected; final subsequent change strengthened only a focused test"},
+    {"command": "uv run --offline pytest -o addopts='' -q tests/unit/test_source_cli.py tests/integration/test_source_module_cli.py", "result": "9 passed in 10.03s after final test change"},
+    {"command": "uv run --offline ruff check src/slaif_raggedized_helper/source_admission.py src/slaif_raggedized_helper/source_cli.py tests/unit/test_source_cli.py tests/integration/test_source_module_cli.py", "result": "All checks passed"},
+    {"command": "git diff --check; cmp /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/source-cli/order.md oap/parallel/orders/PAR-005-SOURCE-CLI-A.md", "result": "passed and order identical"}
+  ],
+  "limitations": "Private operator-controlled POSIX store and trusted store parent required; no batch transaction, authentication, ACL enforcement, revocation, serving, extraction, model or hardware qualification. A failing current document can have partially published artifacts; retry and inspect are necessary. Candidate requires strategic review and canonical composition."
+}

@@ -1,0 +1,37 @@
+{
+  "objective": "004",
+  "rounds": [
+    "004-a",
+    "004-b",
+    "004-c",
+    "004-d",
+    "004-e",
+    "004-f"
+  ],
+  "decision": "MERGED",
+  "pr": 6,
+  "pr_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/pull/6",
+  "accepted_head": "ca6efbfe1867a81c027a1c249c48f07f10528522",
+  "implementation": "d34e31b334848501c2ef0e60c165edae3d3c7fa6",
+  "merge_commit": "bd8e454b23b09bb25967b2c496ace9c0719a96a0",
+  "accepted_and_merged_tree": "d563611cb32ff5cb966d52c2aa8b50b50f8da9a3",
+  "created_at": "2026-11-10T13:57:43Z",
+  "merged_at": "2026-11-11T13:41:13Z",
+  "verified_at": "2026-11-11T13:46:15.200501+00:00",
+  "pr_ci_run": 42920077145,
+  "implementation_ci_run": 42918833573,
+  "main_ci_run": 43031375735,
+  "main_ci_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43031375735",
+  "status": "FINAL_VERIFIED_COMPLETE",
+  "scope": "Complete explicitly replanned004 SOFTWARE only: bounded trial/evidence/latency/resource instrumentation, supplied-value parity and all14 actual prerequisite projection. Real A1/model/hardware/domain/vision/license qualification NOT_RUN and mandatory at019/ICA/MVP.",
+  "review": "Final audit/004-f-review.json SHA5c5c431e5f6ace85472c123c0afb69d5c7dfcae76bf7e94f3909ac0aec0b7225. Root inspected exact report/source/doc/order/automatic merge graph and parent reviews, independently85focused tests plus previous resource/HTTP/math/IO adversarial witnesses. All5 implementation/report/mainCI succeeded. Protected expected-head gh merge, no admin/auto bypass; exact main parents/tree verified. No unresolved review threads.",
+  "strongest_counterargument": "Real deployed target/model/hardware/domain/license feasibility absent. Explicit004-a replan permits independently useful software acceptance while preserving all actual qualification gates; no narrowedMVP claim.",
+  "remaining_gates": [
+    "007/010/012/014/015/016/017 pipelines, workers, online/auth/GPU/security/vision implementations",
+    "018 exact license/native/model/renderer/SBOM audit; certifi MPL and PDF MIT-0 exceptions not granted; platform classification unresolved",
+    "019 real target/heldout/model/GPU/quality trials",
+    "020 independent full-scope ICA and fulltext+visualMVP acceptance"
+  ],
+  "authority": "Standing activated human MVP development mandate and qualifying development merges only; no legal exception/protected service/credentials/realcorpus/release/deploy permission.",
+  "next": "Activate005-a source integration on new005 PR; later samePR provenance/job records remain mandatory before whole005 merge."
+}

@@ -309,3 +309,48 @@ human question.
   MPL-2.0) remains an open human question. The immutable 004-d
   report is not rewritten; this correction supersedes its over-
   claimed statements.
+### 2026-11-11, order 005-a (canonical source integration)
+
+- U06 narrowed in software only: the integrated admission/store now
+  carries explicit per-revision access labels (empty means public
+  classification), independent redistribution rights, corpus and
+  declared metadata with unknown facts staying unknown, and byte
+  deduplication that preserves distinct rights/ACL/corpus identities.
+  Representative corpus rights/ACL/language/version evidence and human
+  gold questions are still absent; U06 stays OPEN for 005/009 work.
+- U07 unchanged: processing approval is operator metadata, never a
+  redistribution clearance; the open MIT-0/certifi/native-component
+  license questions are unaffected by this slice.
+- Documented local trust assumptions (honest boundary, not a fix):
+  the private operator store and its parent must be protected from
+  untrusted local mutation; the store filesystem must support atomic
+  hard links and directory fsync (same-filesystem POSIX scope);
+  admitted approvals are not authentication, and the store provides no
+  access enforcement, revocation, snapshot isolation, source serving or
+  legal verification. Source bytes/metadata cannot choose output paths,
+  add locations, invoke tools or cause fetches; display URIs are inert
+  data. Extraction/parsing remains 006/016 scope and all real
+  qualification stays NOT RUN.
+
+### 2026-11-11, order 005-b (canonical provenance and job records)
+
+- U06 narrowed further in software only: provenance records now bind
+  exact original block text, code-point spans, extraction/dependency
+  and chunk-policy identities, all-label source-revision
+  classifications (empty = public classification), separate
+  redistribution rights, same-source derived support with label union
+  and cross-boundary rejection, and pure reader grant/restriction
+  intersection that fails closed on unknown versions. The supplied
+  synthetic extraction records are assertions, not real extraction;
+  representative corpus rights/ACL/language/version evidence and human
+  gold questions are still absent; U06 stays OPEN for 005/009 work.
+- Job/attempt DTOs are data-only: a COMPLETE state with an OutputRef
+  is a caller assertion, verified or not, and is not artifact, cache
+  or exactly-once execution proof; UNKNOWN_COMPLETION has no automatic
+  retry path. Claim ownership, output-first publication, bounded
+  retry execution and artifact reconciliation remain 010 scope.
+- U07 unchanged: processing approval and operator grants remain
+  metadata, never authentication or redistribution clearance; the open
+  MIT-0/certifi/native-component license questions are unaffected.
+  Real extraction, tokenization, embedding, model, GPU, license and
+  corpus qualification all remain NOT RUN.
