@@ -1,0 +1,25 @@
+{
+  "lane_id": "PAR-006-PDF-BRIDGE-C",
+  "result": "COMPLETE",
+  "implementation_head": "b39317a838f7d6d7500be4efb84a586af5b45205",
+  "report_publication_commit": "SELF",
+  "API": "pdf-literal-structure-v3; policy v4 and kind-bound block v2 unchanged; prior classifier records require re-extraction",
+  "commands_and_results": [
+    "uv run --isolated --locked --offline --python 3.14 pytest tests/unit tests/integration/test_native_pdf_structure.py tests/integration/test_pdf_extraction_composition.py tests/integration/test_bundle_pdf_records_composition.py tests/integration/test_ingestion_bundle_pdf_composition.py -q: 961 passed",
+    "uv run --isolated --locked --offline --python 3.14 pytest tests/integration/test_chunk_cli_composition.py tests/integration/test_source_installed_cli.py -q: 8 passed",
+    "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/pdf_structure.py tests/unit/test_pdf_structure.py tests/integration/test_native_pdf_structure.py: pass; git diff --check: pass",
+    "uv run --isolated --locked --offline --python 3.12 python /tmp/raggedized-root-pdf-table-terminator.py: pass, 24 blocks, 20 row chunks all header, trailing blank text",
+    "same python command for /tmp/raggedized-root-pdf-classifier-admission.py, pdf-source-nodes.py, pdf-v4-witness.py: pass",
+    "same python command for /tmp/raggedized-root-pdf-warning-fit.py A and B under timeout 180: pass, complete source coverage and header/warning grouping"
+  ],
+  "environment": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu; SLAIF_NATIVE_TEST_PYTHON=python3.12; SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages; PDF_TEST_RUNTIME same root; PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages. Initial attempts with missing or incorrect environment failed; corrected runs above pass.",
+  "witness_sha256": {
+    "pdf-table-terminator.py": "47113eed50e9670ae07551e06af1e8f4319ec1e797e873f5aa1dfb3e40faf173",
+    "pdf-classifier-admission.py": "ffe1e677bf6a8605cbfe2c8bee6aea43ec360fed4f856172348d4b7197feda2b",
+    "pdf-source-nodes.py": "f518dea88d18b3efee06196174cd246c128a1202d43b93633ad07d60fff47af7",
+    "pdf-v4-witness.py": "54018d1bffff7efc107d0eca64d37f11bff4d60fbe57d8a737ba8ed8b7c87c8c",
+    "pdf-warning-fit.py": "3805f5f4d0c02c4dcb74c8a9f2c55c7125ca866a37ab01b17576318d623a810c"
+  },
+  "limits": "Literal grammar only; no arbitrary PDF fidelity, authorization, performance, hardware, or deployment qualification. Local only.",
+  "DHA": "NONE"
+}
