@@ -1,0 +1,29 @@
+{
+  "lane_id": "PAR-006-BUNDLE-TEXT-B",
+  "result": "COMPLETE",
+  "implementation_head": "5351fea1a459d99fdfb70724fd62c036fc7ffa8a",
+  "report_publication_commit": "SELF",
+  "api": "ingestion_bundle.validate: immutable source-bound structured-text bundle values; input-free BundleError on refusal",
+  "commands": [
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages timeout 180s uv run --isolated --locked --offline --python 3.14 pytest -o addopts=\"\" -q tests/unit tests/integration/test_ingestion_bundle_composition.py tests/integration/test_bundle_source_records_composition.py tests/integration/test_bundle_native_records_composition.py tests/integration/test_provenance_jsonl_composition.py tests/integration/test_native_chunking_composition.py",
+      "result": "807 passed in 67.00s after final changes; required actual native backend"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/ingestion_bundle.py tests/unit/test_ingestion_bundle.py tests/integration/test_ingestion_bundle_composition.py",
+      "result": "passed after final changes"
+    },
+    {
+      "command": "git diff --check; git diff --cached --check",
+      "result": "passed"
+    }
+  ],
+  "witness_hashes": {
+    "order": "4e017217c14ea8e70549e5291952b4e707289245010ac84fea5da284b82543be",
+    "unit_test": "2ec173b8a6d121db2cf286f9ff6896cf7b36c2a3f757b6b3825358c55b44ce2d",
+    "integration_test": "069b5221fbcd4242cddfdcb4ec2eb37abe7791514c14690c66ad5395d09ad9b7",
+    "implementation_unchanged": "384ac846de3040410c879643e49730f0e07aa5c9d560fd3c9c34aad98e9a31bf"
+  },
+  "limits": "Tests verify raw and metadata admission call recording, instrumented exact and one-over caps with actual canonical producer output, actual paragraph overlap and repeated table headers, distinct scope and source versions, canonical idempotency, scoped final deadline and leaf/registry-admitted coordinated source/order/heading/neighbor refusals. Coordinated counts are mechanical data, not execution proof. No bounded resource experiment or performance claim. Source rights are not serving authorization; PDF composition, durable bundle store/loader, operator CLI, 019, current CI, licensing, independent audit and MVP gates remain open.",
+  "dha": "NONE"
+}
