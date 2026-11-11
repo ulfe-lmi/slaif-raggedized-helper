@@ -25,5 +25,5 @@ and matching receipt can remain consistent. Query-only reserve and overlap-token
 are not present in the exported receipts and are trusted producer invariants.
 
 This value layer does not provide the descriptor store, fresh loader, or installed operator CLI.
-Full 006 additionally needs PDF composition and current CI; model, domain, licensing, hardware,
+Full 006 additionally needs PDF composition and current CI; objective 019, model, domain, licensing, hardware,
 independent audit, and broader MVP gates remain open.
