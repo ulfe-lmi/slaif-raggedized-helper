@@ -188,14 +188,33 @@ def _build(registry, blocks, counters, query, policy):
     def procedure(b):
         return b.kind == 'list' and bool(re.match(r'\s*\d+[.)]\s', b.text))
 
+    # Maximal adjacent runs keep multiple warnings/prerequisites with a procedure.
+    # One literal blank block may separate consecutive recognized units.
     grouped = {}
-    for i, first in enumerate(blocks):
-        j = i + 1
-        if j < len(blocks) and blocks[j].kind == 'text' and not blocks[j].text.strip():
-            j += 1
-        if j < len(blocks) and ((warning(first) and procedure(blocks[j]))
-                                or (procedure(first) and warning(blocks[j]))):
-            grouped[i] = j
+    pairs = {}
+    i = 0
+    while i < len(blocks):
+        if not (warning(blocks[i]) or procedure(blocks[i])):
+            i += 1
+            continue
+        run = [i]
+        j = i
+        while True:
+            nxt = j + 1
+            if nxt < len(blocks) and blocks[nxt].kind == 'text' and not blocks[nxt].text.strip():
+                nxt += 1
+            if nxt >= len(blocks) or not (warning(blocks[nxt]) or procedure(blocks[nxt])):
+                break
+            run.append(nxt)
+            j = nxt
+        if any(warning(blocks[k]) for k in run) and any(procedure(blocks[k]) for k in run):
+            grouped[run[0]] = run[-1]
+            # If the entire run cannot fit, preserve a fitting adjacent pair.
+            for left, right in zip(run, run[1:]):
+                if ((warning(blocks[left]) and procedure(blocks[right]))
+                        or (procedure(blocks[left]) and warning(blocks[right]))):
+                    pairs[left] = right
+        i = j + 1
 
     skip_until = -1
     for index, block in enumerate(blocks):
@@ -216,10 +235,16 @@ def _build(registry, blocks, counters, query, policy):
         elif block.kind != 'table_row':
             table_header = None
         unit = [fragment(block, 0, len(block.text))]
-        if index in grouped:
-            end_index = grouped[index]
-            group = [fragment(b, 0, len(b.text)) for b in blocks[index:end_index + 1]]
+        if index in grouped or index in pairs:
+            end_index = grouped.get(index, pairs.get(index))
+            group = [fragment(b, 0, len(b.text)) for b in blocks[index:end_index + 1]
+                     if b.text]
             _, _, group_fits = measure(group, path)
+            if not group_fits and index in pairs and pairs[index] != end_index:
+                end_index = pairs[index]
+                group = [fragment(b, 0, len(b.text)) for b in blocks[index:end_index + 1]
+                         if b.text]
+                _, _, group_fits = measure(group, path)
             if group_fits:
                 # Give the local relationship priority over the target, but not
                 # over any hard limit or unrelated preceding material.

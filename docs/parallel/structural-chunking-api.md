@@ -30,3 +30,12 @@ representation are explicit modes and may share the same actual BGE artifact ide
 reranker identity must be independent. Counts are `SUPPLIED_UNVERIFIED`, not evidence of a
 qualified tokenizer. A production qualified-artifact adapter, full 006, independent audit and
 MVP gates remain outstanding. No model, hardware or real-corpus qualification is implied.
+
+A maximal adjacent chain of recognized warnings, prerequisites and numbered procedure
+items (with at most one literal blank block between units) is kept together when all
+budgets fit, even above the target. If the chain cannot fit, eligible adjacent pairs
+are considered independently; unrelated text is never crossed. Empty originals have
+no blocks and are refused by this builder. Zero-length blocks contribute no fragments;
+a revision containing only zero-length blocks is refused. Indivisible over-budget
+units are refused. Registry validation happens at construction and its in-memory
+snapshot is used for binding; this is neither persistent storage nor authorization.
