@@ -115,6 +115,17 @@ source coverage, tail, units and anchors preserved; classifier v2 /
 policy v3 records remain immutable and require explicit re-extraction,
 and the literal grammar cannot infer arbitrary PDF layout. Whole-006
 acceptance and all real qualification remain open.
+The first 007 slice (open on the 007 PR, branch
+`oap/007-embedding-pipeline`, not merged) integrates the exact reviewed
+bounded normalized FP32 NPY subset codec (`vector_codec`: strict header
+admission before materialization, writer interop, immutable read-only
+views, input-free refusals) and the first exact runtime dependency pin
+(NumPy 2.5.4 in the lock; the full 018 license/SBOM audit remains OPEN).
+Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
+007 remains PARTIAL — no encoder, CPU query, resumable GPU batches or
+qualification yet
+([docs/embedding.md](docs/embedding.md),
+[docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
 Source-to-block anchors, native versus visual-needed page semantics,
 refusal behavior, budgets and observed-count provenance are documented
 in

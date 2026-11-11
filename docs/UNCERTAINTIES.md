@@ -555,3 +555,23 @@ human question.
   pinned hash-verified environments as in 006-d. Real tokenization on
   deployed assets, model, GPU, license and corpus qualification all
   remain NOT RUN.
+
+### 2026-11-11, order 007-a (first 007 slice: vector codec + NumPy pin)
+
+- 007 is PARTIAL after this slice: the exact reviewed normalized FP32 NPY
+  subset codec is integrated on the 007 branch (PR not merged), with the
+  first exact runtime dependency pin (NumPy 2.5.4 in uv.lock; observed
+  dist metadata Requires-Python >=3.12, License-Expression
+  "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0"). No encoder,
+  CPU query path, resumable owned GPU batches, snapshot binding or
+  qualification contract exists yet; U04 (CPU query latency, CPU/GPU
+  embedding parity) and U07 (license/distribution clearance) remain OPEN
+  for the following 007 continuations and 018. The codec proves no
+  embedding space, row mapping, parity, performance or hardware claim;
+  store facts recorded in docs/embedding.md (128-row 524,416-byte member
+  roundtrip, 20,000-row 81,920,128-byte frame refused at the 64 MiB
+  member cap, 128 job refs 24,492 bytes / 129th refused) are measured
+  bounded-software facts from the reviewed batch-capacity interop
+  observation, not qualification. The full 018 transitive
+  license/SBOM/notice audit remains OPEN; no allowlist exception.
+  Real qualification NOT RUN.
