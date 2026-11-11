@@ -68,6 +68,26 @@ def test_representation_native_composition(tmp_path):
                        for f in c.fragments) for c in result.chunks) > 1
         valid = bundle.validate(store, nc._json(metadata), members)
         from slaif_raggedized_helper import retrieval_representation as rr
+        ids = [c.chunk_id for c in valid.chunks[:2]]
+        assert len(ids) == 2
+        expected_batch = tuple(rr.build(store, nc._json(metadata), members, cid, defs[1], runtime)
+                               for cid in ids)
+        from unittest.mock import patch
+        with patch.object(rr.ingestion_bundle, 'validate', wraps=bundle.validate) as validator, \
+             patch.object(rr, 'Session', wraps=rr.Session) as session:
+            batch = rr.build_many(store, nc._json(metadata), members, ids, defs[1], runtime)
+            assert validator.call_count == session.call_count == 1
+        assert batch == expected_batch
+        assert (rr.build_many(store, nc._json(metadata), members, ids[::-1], defs[1], runtime)
+                == batch[::-1])
+        for bad in ([], ids * 2, ['x' * 72], ['missing'], [1], ['x'] * 129):
+            with pytest.raises(rr.RepresentationError):
+                rr.build_many(store, nc._json(metadata), members, bad, defs[1], runtime)
+        with patch.object(rr, 'Session', wraps=rr.Session) as session:
+            with pytest.raises(rr.RepresentationError):
+                rr.build_many(store, nc._json(metadata), members, ids, defs[1], runtime,
+                              batch_policy=rr.BatchPolicy(max_total_codepoints=1))
+            assert session.call_count == 0
         c = valid.chunks[0]
         value = rr.build(store, nc._json(metadata), members, c.chunk_id, defs[1], runtime)
         expected = "\n\n".join(
