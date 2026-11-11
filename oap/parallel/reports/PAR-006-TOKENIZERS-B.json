@@ -1,0 +1,32 @@
+{
+  "lane_id": "PAR-006-TOKENIZERS-B",
+  "result": "COMPLETE",
+  "implementation_head": "c138ee3e16c037330048db3bc74be63973cd9b1d",
+  "report_publication_commit": "SELF",
+  "summary": "Practical bounded 32,000,000-byte artifact policy, strict UTF-8 child JSON, generated owned fixtures, and actual native callbacks through chunk build and Registry bindings.",
+  "API": "Definition, Runtime, Policy, Count and count remain as documented. Default and hard maximum artifact size 32,000,000 bytes; policies can narrow it. Child response requires strict UTF-8 and matching nonce/version, unique JSON keys and bounded integer count. Nonce is not authentication. Chunk counts remain SUPPLIED_UNVERIFIED.",
+  "tests": [
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/usr SLAIF_NATIVE_TEST_PYTHON=python3.14 SLAIF_NATIVE_TEST_PACKAGES=/tmp/slaif-tokenizer-spike-006/venv/lib/python3.14/site-packages UV_PROJECT_ENVIRONMENT=/tmp/slaif-tokenizer-tests-314 uv run --offline --python 3.14 --group dev pytest tests/unit/test_native_tokenizers.py tests/integration/test_native_tokenizers_composition.py",
+      "result": "16 passed; parent and isolated native worker Python 3.14"
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/slaif-tokenizer-tests-312/lib/python3.12/site-packages UV_PROJECT_ENVIRONMENT=/tmp/slaif-tokenizer-tests-312 uv run --offline --python 3.12 --group dev pytest tests/unit/test_native_tokenizers.py tests/integration/test_native_tokenizers_composition.py",
+      "result": "16 passed; parent and isolated native worker Python 3.12"
+    },
+    {
+      "command": "UV_PROJECT_ENVIRONMENT=/tmp/slaif-tokenizer-lint uv run --offline --python 3.14 --group dev ruff check src/slaif_raggedized_helper/native_tokenizers.py src/slaif_raggedized_helper/tokenizer_worker.py tests/unit/test_native_tokenizers.py tests/integration/test_native_tokenizers_composition.py",
+      "result": "All checks passed"
+    },
+    {
+      "command": "PYTHONPATH=src /tmp/slaif-tokenizer-tests-314/bin/python /tmp/raggedized-root-native-output-codec.py",
+      "result": "Unchanged inspected probe: UTF-8 accepted, UTF-16 and UTF-32 refused; forged response validation only."
+    }
+  ],
+  "evidence": "Owned valid JSON padded over 17.1 MB counts single 5 and pair 6, narrowed limit refuses before reading, actual file and growth over MAX refuse. Synthetic fixtures demonstrate complete Unicode single, pair with different templates, long input, special tokens and disabled serialized truncation/padding. Composition builds and binds real chunks with source coverage and exact supplied counts. Negative and OS isolation/resource/cancellation tests run; individual worker allowance at most 2 seconds and cleanup at most 1 second.",
+  "limits": [
+    "Public mutable upstream sizes are metadata, not pinned artifacts or qualification; padded tiny vocabulary proves neither actual model parity nor full vocabulary performance.",
+    "Actual BGE/reranker artifacts, inference parity, preprocessing, independent audit, model and native/transitive license and rights qualification, and MVP remain open.",
+    "Linux host isolation observations are host-specific; trusted runtime and native packages are development inputs. No CI, real artifacts, deployment, release, push, PR or integration."
+  ]
+}

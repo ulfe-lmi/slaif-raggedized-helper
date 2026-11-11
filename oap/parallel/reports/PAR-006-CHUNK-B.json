@@ -1,0 +1,36 @@
+{
+  "lane_id": "PAR-006-CHUNK-B",
+  "result": "PARTIAL",
+  "implementation_head": "372eb61728561933fabf5bb85901edf8f85cebfe",
+  "report_publication_commit": "SELF",
+  "summary": "Implemented bounded adjacent warning/prerequisite and numbered procedure grouping, conditional source-span paragraph overlap, shared BGE artifact identity, and coverage union verification. Focused software evidence is positive, but the complete requested adversarial matrix has not been established; this is not acceptance.",
+  "API": "chunking.build(registry, blocks, counters, query, policy=None); see docs/parallel/structural-chunking-api.md for exact bounds and assumptions.",
+  "tests": [
+    {
+      "command": "PYTHONPATH=src /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest tests/unit/test_structural_chunking.py tests/integration/test_structural_chunking_composition.py tests/integration/test_structured_text_composition.py tests/unit/test_provenance_records.py -q",
+      "result": "24 passed"
+    },
+    {
+      "command": "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check .",
+      "result": "All checks passed"
+    },
+    {
+      "command": "PYTHONPATH=src:tests/integration /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/raggedized-root-chunk-a-review.py",
+      "result": "grouped warning and procedure true; same BGE identity accepted; all source retained"
+    },
+    {
+      "command": "PYTHONPATH=src:tests/integration /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/audit006_witness.py",
+      "result": "procedure grouped; split prose repeats source suffixes; original table header repeated; fixed refusal witnesses and coverage passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed before commit"
+    }
+  ],
+  "limits": [
+    "The requested complete negative and threshold matrix is not established: explicit cross-ACL mixed input, missing dependency, and exhaustive 512 threshold and repeated table unit-row cases lack dedicated new witnesses. Existing scope tests do not establish authorization.",
+    "The local grouping rule recognizes adjacent English warning/prerequisite markers and numbered lists with at most one blank block; semantic classification beyond that rule is not claimed.",
+    "Supplied counters are unverified; no qualified BGE or reranker artifact, real corpus, hardware or service was used. Callback deadlines are cooperative.",
+    "Full 006, independent audit and MVP gates remain open."
+  ]
+}

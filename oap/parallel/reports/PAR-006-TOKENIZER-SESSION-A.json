@@ -1,0 +1,40 @@
+{
+  "lane_id": "PAR-006-TOKENIZER-SESSION-A",
+  "result": "COMPLETE",
+  "preparation_head": "2a93775739379be44c653c326930c27af357e8e2",
+  "preparation_parents": [
+    "5731f4ab2c4b77c9ea7c16720788567764143c91",
+    "52344df79970a587fbe373e18d93a709aff920c6"
+  ],
+  "preparation_tree": "3bb19c39933998db41d6c319cff7996dd80a1309",
+  "implementation_head": "3be76b9f171430f716636c75dd22f4178e84afb0",
+  "report_publication_commit": "SELF",
+  "summary": "Added separate context-managed reusable isolated native tokenizer sessions; accepted one-shot and chunking code are unchanged.",
+  "api": "Session(definitions, runtime), count(role, text, pair=None), close(); fixed worker with verified copied artifacts, nonce/role/artifact/digest/version correlation and strict finite bounds. Failures close the owned worker without retry. See docs/parallel/tokenizer-session-api.md.",
+  "verification": [
+    {
+      "command": "PYTHONPATH=src SLAIF_NATIVE_TEST_ROOT=/usr SLAIF_NATIVE_TEST_PYTHON=python3.14 SLAIF_NATIVE_TEST_PACKAGES=/tmp/qual006.yqp82n2D/packages /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest tests/unit/test_tokenizer_session.py tests/integration/test_tokenizer_session_composition.py tests/unit/test_native_tokenizers.py tests/integration/test_native_tokenizers_composition.py tests/unit/test_structural_chunking.py tests/integration/test_structural_chunking_composition.py tests/unit/test_structured_text.py tests/integration/test_structured_text_composition.py -q",
+      "result": "PASS; 68 tests. The subsequently expanded composition fixture was rerun separately and passed."
+    },
+    {
+      "command": "PYTHONPATH=src SLAIF_NATIVE_TEST_ROOT=/usr SLAIF_NATIVE_TEST_PYTHON=python3.14 SLAIF_NATIVE_TEST_PACKAGES=/tmp/qual006.yqp82n2D/packages /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest tests/integration/test_tokenizer_session_composition.py -q",
+      "result": "PASS; distinct-input composition, full original-span coverage and Registry bindings, source/blob immutability."
+    },
+    {
+      "command": "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check src/slaif_raggedized_helper/tokenizer_session.py src/slaif_raggedized_helper/tokenizer_session_worker.py tests/unit/test_tokenizer_session.py tests/integration/test_tokenizer_session_composition.py",
+      "result": "PASS"
+    },
+    {
+      "command": "env -i PATH=/usr/bin:/bin PYTHONPATH=src timeout 180s /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/qual006-b-research/session-compare.py",
+      "result": "PASS: 30 applicable recorded explicit reference counts and input digests match. Script sha256 db24935529224785299dd042f93594c26cbecd1dcb9d1a8126a796918fb59391; output /tmp/qual006-b-research/session-compare.json sha256 76243889652ec63771f3e6c0f5aceb63e945af3577e0a7f08894e1f6be17218e."
+    },
+    {
+      "command": "env -i PATH=/usr/bin:/bin PYTHONPATH=src timeout 180s /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/qual006-b-research/session-workflow.py",
+      "result": "PASS: small startup 1.788s, build 0.048s, cleanup 0.001s, 155 calls, 2 bound chunks counts (26,28,34) and (29,31,37); modest startup 1.781s, build 0.135s, cleanup 0.001s, 365 calls, 2 bound chunks counts (157,159,165) and (29,31,37). Default 5s chunk policy. Script sha256 ccb2049db9a1d6b11b75a579e5a312e596a45202668dff9cad61e15b2ee3e315; output /tmp/qual006-b-research/session-workflow.json sha256 c04c1404e42f4cee35ce1265ab91b6f67d154355d027a6aa79351c5ce6a121b5."
+    }
+  ],
+  "negative_evidence": "Wrong hash, invalid input/role, wrong nonce/role/artifact/digest/version, extra fields, boolean/oversized counts, malformed UTF-8/JSON/duplicate keys, oversized response, dead child, real 1024-call exhaustion, seeded aggregate input/output boundary exhaustion, idempotent cleanup, actual idle 20s worker death and canary-safe refusal tested. Aggregate byte boundary tests seed counters rather than transferring 16 MB or 4 MB. Initial pytest lacked PYTHONPATH and failed collection; corrected environment passed. A first distinct-input assertion failed on a one-paragraph fixture; expanded fixture passed.",
+  "public_artifacts": "Recomputed SHA256 21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08 and 69564b696052886ed0ac63fa393e928384e0f8caada38c1f4864a9bfbf379c15 against manifest and order. No model weights, inference, GPU, downloads or real data.",
+  "limits": "Software composition on this host, not serving latency or hardware qualification. Runtime, packages and system libraries remain trusted local filesystem inputs despite read-only mounts. Model preprocessing/inference parity 012, CI setup, rights/ACL, native/transitive licenses, domain/019/ICA/release/full 006/MVP remain open. No deployment or integration.",
+  "dha": "NONE"
+}
