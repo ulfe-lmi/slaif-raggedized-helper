@@ -1,0 +1,19 @@
+{
+  "lane_id": "PAR-006-NATIVE-CHUNKS-B",
+  "result": "COMPLETE",
+  "implementation_head": "40d7d867629c43e42aaf06ac56d9c58a509af6e1",
+  "report_publication_commit": "SELF",
+  "summary": "All three Definition declarations are checked for exact role and backend strings, lowercase 64-hex digest, and revision/preprocessing strings of 1..256 codepoints before bounded strict UTF-8 validation, identity serialization/hash or Session construction. Private identity semantics and native composition remain unchanged. The exact finalized order is included.",
+  "API": "Existing native_chunking.build and receipts_json interfaces unchanged. Documented finite observation cache/session limits and the post-serialization 8 MB receipt output cap, which is not a general memory admission bound for caller-forged DTOs.",
+  "tests": {
+    "environment": "SLAIF_NATIVE_TEST_ROOT=/usr SLAIF_NATIVE_TEST_PACKAGES=/tmp/qual006.yqp82n2D/packages SLAIF_NATIVE_TEST_PYTHON=python3.14",
+    "root_witness": "uv run --offline python /tmp/raggedized-root-native-definition-prehash.py: exit 0, events [], metadata_bound_before_identity true; unchanged witness.",
+    "matrix_command": "uv run --offline pytest -q -p no:cacheprovider tests/unit/test_native_chunking.py tests/integration/test_native_chunking_composition.py tests/unit/test_native_tokenizers.py tests/unit/test_tokenizer_session.py tests/unit/test_structural_chunking.py tests/unit/test_structured_text.py tests/unit/test_provenance_records.py tests/integration/test_native_tokenizers_composition.py tests/integration/test_tokenizer_session_composition.py tests/integration/test_structural_chunking_composition.py tests/integration/test_structured_text_composition.py tests/integration/test_provenance_records_composition.py",
+    "matrix_result": "exit 0, 96 tests (confirmed by collect-only); includes all 13 prior native chunk tests and one new boundary test, with 256-codepoint native composition added to the existing integration test.",
+    "focused_command": "uv run --offline pytest -p no:cacheprovider tests/unit/test_native_chunking.py tests/integration/test_native_chunking_composition.py",
+    "focused_result": "14 passed in 4.58s.",
+    "lint": "uv run --offline ruff check src tests: all checks passed; initial run identified one line length, corrected before passing.",
+    "other": "git diff --check passed; exact order compared byte-for-byte. New boundary test covers all fields in each role with 257-character and 1 MiB sentinels, wrong types/formats/empty and invalid UTF-8, asserting no identity, JSON or Session event and the same safe error. Actual 256-codepoint multibyte revision and preprocessing were exercised in native composition."
+  },
+  "limits": "A report and its public tokenizer manual evidence are preserved unchanged and were not rerun in B; old peer defect-detection oracle intentionally expects the defect and was not claimed as passing. No model/inference, hardware, 012, domain, 019, native/transitive/license, ICA, full 006 or MVP qualification. No PR, push, integration, deployment or release."
+}
