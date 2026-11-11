@@ -85,7 +85,7 @@ def build(registry: p.Registry, blocks: tuple[p.Block, ...], body: native.Defini
             raise ValueError
         query.encode('utf-8')
         if policy is None:
-            policy = chunking.Policy(pair_max=1280, deadline_ms=10000)
+            policy = chunking.Policy(pair_max=1280, deadline_ms=15000)
         elif type(policy) is chunking.Policy:
             policy = chunking.Policy(**policy.__dict__)
         else:

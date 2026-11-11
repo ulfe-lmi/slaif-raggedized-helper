@@ -25,6 +25,6 @@ def test_all_policy_fields_reject_nonintegers_and_unbounded_values():
 def test_deadline_policy_boundaries():
     assert c.Policy().deadline_ms == 5000
     assert c.Policy(deadline_ms=1).deadline_ms == 1
-    assert c.Policy(deadline_ms=10000).deadline_ms == 10000
+    assert c.Policy(deadline_ms=15000).deadline_ms == 15000
     with pytest.raises(c.ChunkingError):
-        c.Policy(deadline_ms=10001)
+        c.Policy(deadline_ms=15001)

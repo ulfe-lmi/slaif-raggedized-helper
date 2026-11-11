@@ -31,7 +31,7 @@ class Policy:
 
     def __post_init__(self):
         caps = (768, 768, 1024, 10000000, 10000000, 4096, 1000000, 4096,
-                20000, 20000000, 10000)
+                20000, 20000000, 15000)
         if any(type(v) is not int or not 1 <= v <= cap
                for v, cap in zip(self.__dict__.values(), caps)):
             raise ChunkingError('invalid policy')

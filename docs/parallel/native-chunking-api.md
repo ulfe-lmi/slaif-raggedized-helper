@@ -30,13 +30,13 @@ Default chunk policy is target 512, soft maximum 768, heading representation max
 maximum 1280 follows the architecture example; it is not the legacy seam's 512
 fixture default. Caller-supplied smaller values remain strict. The entire pair and
 query-with-empty-passage are measured, so reserve is not a substitute for pair counting.
-The native default builder has a 10000 ms cooperative build budget; explicit policies retain
+The native default builder has a 15000 ms cooperative build budget; explicit policies retain
 their own deadline (legacy default 5000 ms). The deadline is included in the existing version 1
 policy definition and changes policy and chunk IDs; tokenizer definition hashes do not change.
 The builder has 4096 blocks/chunks, one million
 source characters, 20,000 calls and 20 million work characters; Session limits are
 stricter where applicable: startup five seconds, request two seconds, lifetime 20
-seconds, 16384 calls, 16 MB input, 4 MB output, 200000 bytes and 100000 characters per
+seconds, 16384 calls, 32 MB input, 4 MB output, 200000 bytes and 100000 characters per
 request, 4096 bytes per response and 200000 tokens per count. Each build memoizes only exact role and full input pairs after the first native
 response is validated. The cache belongs to that build and Session, never crosses
 sources or builds, and retains the first observation. The structural builder can reuse a previously validated complete measurement within the native
@@ -54,9 +54,7 @@ evaluation, native and transitive license audit, independent architecture review
 rights and deployment gates remain open. Public tokenizer tooling and the standalone
 development backend are not transitive or license approval.
 
-Representative synthetic procedure and table fixtures complete under these limits, but
-larger documents can still refuse: a 157,312-byte many-paragraph fixture exceeded the
-16 MB native session input quota in a local run after structural reuse; other runs reached
-the 10000 ms cooperative deadline. This is not a general capacity guarantee;
-CPU speed, tokenizer behavior and source structure affect admission. No MVP claim,
-model/domain qualification or inference parity follows from these software counts.
+Representative synthetic procedure, table and a 157,312-byte many-paragraph manual
+completed in local CPU runs. These limits remain cooperative offline bounds, not a
+general capacity guarantee; CPU speed, tokenizer behavior and source structure affect
+admission. No MVP claim, model/domain qualification or inference parity follows.

@@ -12,7 +12,7 @@ Defaults are body target 512, soft maximum 768, representation maximum 1024 and 
 maximum 512 with query reserve 64; all counts include whatever specials the supplied
 counter adds. Policy limits narrow these bounds and also cap blocks, characters, chunks,
 callback calls and total callback input characters; each chunk has at most 256 fragments.
-The strict integer `deadline_ms` defaults to 5000 and ranges from 1 to 10000.
+The strict integer `deadline_ms` defaults to 5000 and ranges from 1 to 15000.
 The deadline is cooperative: a blocking trusted callback cannot be interrupted.
 The complete body, heading plus body, and query plus heading plus body are measured separately.
 The pair counter also measures empty-query and empty-passage cases, and the latter must fit
