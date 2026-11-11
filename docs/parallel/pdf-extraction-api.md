@@ -12,14 +12,13 @@ runtime, backend or Linux isolation raises the input-free
 `PdfPrerequisiteError`. Other failures raise an input-free `PdfError`; no
 partial extraction result is returned on a worker/validation failure.
 
-Each page is `native_text` or `visual_needed`; a textless page yields result
-status `partial_visual_needed`. Even native-text pages can contain images or
+Each page is `native_text` or `visual_needed`; a textless page or a page with an unsupported text leaf yields result status `partial_visual_needed`, even when other blocks are present. The worker traverses layout in deterministic preorder, emits text containers once without re-emitting their descendants, and emits uncovered character leaves individually with their actual bounding boxes. This retains native text in nested Form XObjects without inventing separators. Unsupported text leaves are not emitted and mark the page visual-needed. Even native-text pages can contain images or
 unreadable material; visual completeness is not claimed. Each block preserves
 pdfminer's text (which may synthesize whitespace), page anchor, actual layout
 bbox in PDF points with the pdfminer bottom-left coordinate convention and
 explicit heuristic reading-order uncertainty. No original byte equivalence,
 OCR, table structure, layout ordering, token count or model claim is made.
-The policy fingerprint binds backend version, point convention and limits.
+The policy fingerprint binds backend version, extraction semantics version, point convention and limits. Parent validation requires at least one counted layout object per block; the request nonce correlates a response and does not authenticate a compromised worker.
 
 Defaults and maximums are 2,000,000 input bytes, 32 pages, 20,000 layout
 objects, 500,000 decoded text code points, 2,000,000 output bytes and a
