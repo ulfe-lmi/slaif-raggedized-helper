@@ -1,0 +1,103 @@
+{
+  "at": "2026-11-11T22:03:26.452019+00:00",
+  "status": "ACCEPTED_LOCAL_COMPONENTS_FOR_FUTURE_CANONICAL007B",
+  "main_base": "11badc7782bed326995d400f5532b63399b91fbd",
+  "components": {
+    "representation-batch-b": {
+      "receipt": {
+        "lane": "representation-batch-b",
+        "lane_id": "PAR-007-REPRESENTATION-BATCH-B",
+        "result": "PARTIAL",
+        "implementation": "4914fe54e116efd5d655d5bb4aac7227aaa945f6",
+        "report_commit": "05257d0324f6096166d553305da17221f9fe192c",
+        "report_sha256": "8a5e1065906ef66b406f341cf3442d3133ba3460aaed03daf2a23a0ef20bfb87",
+        "paths": [
+          "docs/parallel/retrieval-representation-api.md",
+          "oap/parallel/orders/PAR-007-REPRESENTATION-BATCH-B.md",
+          "src/slaif_raggedized_helper/retrieval_representation.py",
+          "tests/unit/test_retrieval_representation.py"
+        ],
+        "verified_at": "2026-11-11T22:03:26.515242+00:00",
+        "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+      },
+      "files": {
+        "src/slaif_raggedized_helper/retrieval_representation.py": {
+          "blob": "21f82c1aef229649fb9f68483d6cdc46eca0e1ec",
+          "sha256": "681bf5145e980f77f67903c2fb5fd153f4694cf33344e208cd6181a5e65947a3"
+        },
+        "tests/unit/test_retrieval_representation.py": {
+          "blob": "de05b65b572fe12f4100c373c79b7660a95c7b0a",
+          "sha256": "a6cd402992f6fd102f0c1e7be880ccc26315406b02bdd696023a78903da546db"
+        },
+        "tests/integration/test_retrieval_representation_composition.py": {
+          "blob": "806978a9db0f26df16ec4405e72381292fb7122f",
+          "sha256": "4d4359999b1f8153b05466a3852914c3e88e3ad2043e62aea86c3074cdd9cc3f"
+        },
+        "docs/parallel/retrieval-representation-api.md": {
+          "blob": "dcc27f4518bf78068167c0980356e9a8bbd18a1e",
+          "sha256": "38d49e0be66e175e0a959dbe3924a8e9f60367336ae16b4f27882053bc5bb9ac"
+        }
+      },
+      "worktree": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-representation-batch-b",
+      "review": "parallel/representation-batch-b/review.json"
+    },
+    "published-checkpoint-format-c": {
+      "receipt": {
+        "lane": "published-checkpoint-format-c",
+        "lane_id": "PAR-007-PUBLISHED-FORMAT-C",
+        "result": "COMPLETE",
+        "implementation": "2900feafd9d48a4eeb430c6b94b2e2019d03249f",
+        "report_commit": "d38360428240dddf01de0f0763ad8504eaaa8aa8",
+        "report_sha256": "fb74619dfc3db56ebfc7a4169fae8f952308260b2ed3aeed8be200c2dbab22a6",
+        "paths": [
+          "docs/parallel/embedding-artifacts-api.md",
+          "docs/parallel/embedding-space-api.md",
+          "oap/parallel/orders/PAR-007-PUBLISHED-FORMAT-C.md",
+          "src/slaif_raggedized_helper/embedding_artifacts.py",
+          "tests/unit/test_embedding_artifacts.py",
+          "tests/unit/test_embedding_space.py"
+        ],
+        "verified_at": "2026-11-11T22:03:26.556130+00:00",
+        "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+      },
+      "files": {
+        "src/slaif_raggedized_helper/embedding_artifacts.py": {
+          "blob": "3d07335b78187d2caaa4d76d65a293551875956b",
+          "sha256": "f9f52ece4cea2f686d1765b3538ff1e1d52ac79bc55ab62c2f41f73ea0cb2892"
+        },
+        "tests/unit/test_embedding_artifacts.py": {
+          "blob": "445f8eab8dff9c06467d2445510a2ed18142f1d0",
+          "sha256": "36b09df14cee226d440160e4bc8a0ff9212c411c007a4a358bb3a6a4e3f2fe52"
+        },
+        "tests/integration/test_embedding_artifacts_composition.py": {
+          "blob": "45c8dc12e3600b973d7fbfe70679200b234309b1",
+          "sha256": "7701d5647f522cdee2575322d0808a431d652e88c17633ed611e49efaf5a3892"
+        },
+        "docs/parallel/embedding-artifacts-api.md": {
+          "blob": "70c6d015aa704a466da8d422f8466a92229ba494",
+          "sha256": "ae5dc7b132c2229ccbde85b856534533ac96e4996be0960ffe498b6880b20f0a"
+        },
+        "src/slaif_raggedized_helper/embedding_space.py": {
+          "blob": "93bc9dcdf4304faf40dd5f6ced440148d6cb37b0",
+          "sha256": "2cf63b8dcc5bc081fee174582159c362e6d7f351ba0e0ac74885aee9654a1e2e"
+        },
+        "tests/unit/test_embedding_space.py": {
+          "blob": "20486678b0b0673499e0a31dfbd7aec511a3cca4",
+          "sha256": "4910c5b8b50491a1750d3d9fddb1bfcfe14e45c2ac009535348ed41e11c8165d"
+        },
+        "tests/integration/test_embedding_space_composition.py": {
+          "blob": "75e08755fada8813817fffe46956669ebb107124",
+          "sha256": "7f5df3da973ef69e932ca318876868e7d0fe746de2b31ab5aef65c69d0ebf628"
+        },
+        "docs/parallel/embedding-space-api.md": {
+          "blob": "cb2588c04be2b1356be4a00127569c5c2d8f2f21",
+          "sha256": "f30a9f9e234551b4a0e55e0d03881b1ad087e5094fbb151e32bfc3195b5f8745"
+        }
+      },
+      "worktree": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-published-checkpoint-format-c",
+      "review": "parallel/published-checkpoint-format-c/review.json"
+    }
+  },
+  "integration": "Twoexacthistorymergesonlyafter007areport/currentremote/source/runtime/dirtyreconciliation; nofuture008ancestry. Rootmustreviewactualmergeforecast/currentCI.",
+  "DHA": "NONE"
+}

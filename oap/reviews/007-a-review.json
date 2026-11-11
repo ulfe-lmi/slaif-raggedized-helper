@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-11T22:52:37.352142+00:00",
+  "status": "REVIEWED_PARTIAL_CONTINUE_SAME_OBJECTIVE_007",
+  "receipt": {
+    "identifier": "007-a",
+    "pr": 9,
+    "implementation": "1f637ce3da442af2300808ca75f30866f0d1156c",
+    "report_commit": "b15e56e611214c3ed109bfda8ce6cc52507feec2",
+    "report_sha256": "2cf71b2cfa70d10dc45af4eaf6ab693fd364e8c8d8dd858042aaf18f40455532",
+    "verified_at": "2026-11-11T22:50:33.967849+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "scope": "Exact first codec + NumPy dependency slice reviewed; whole007 PARTIAL, no merge or full acceptance.",
+  "source_review": "Full changed codec/tests/docs/workflow/lock delta reviewed. Four reviewed Git blobs identical; previous lock package records unchanged, only NumPy2.5.4 adds65 hashed wheels/sdist. Source books/law/architecture unchanged; routine context49942/50000, exact tokensUNMEASURED. Whole immutable report read; remote exact head/branch/base/unique PR9 and SELF sole report-only parent, clean tree, no auto merge; zero review threads at current report SHA.",
+  "root_execution": {
+    "focused_codec": 21,
+    "witness": "/tmp/audit_007_vector_witness.py",
+    "witness_sha256": "d9efd9c02b7250c6d2575d0ab87101a07d843141a1673a4c7f9aa5f37952e675",
+    "witness_exit": 0,
+    "witness_facts": "writer interoperability/read-only/12malformed before materialization; all5 forbidden intercepts zero; Latin1 outside constrained subset honestly refused",
+    "implementation_CI": "audit/007-a-implementation-CI.json ALL5_ALL72_SUCCESS"
+  },
+  "report_CI": {
+    "run": 43114524779,
+    "status": "completed",
+    "conclusion": "success",
+    "gate": "Not counted green while incomplete. Required exact current-head checks remain merge gates; next bounded same-PR development may continue."
+  },
+  "strongest_counterargument": "No model/rowmap/encoder/resident CPU/resumable GPU/physical qualification and full018 license audit. First slice is intentionally partial and code/container proof does not imply embedding quality. Continue same objective to implement missing software; no numeric jump or merge justified.",
+  "decision": "CONTINUE_007_B_AFTER_REPORT_RECONCILIATION",
+  "DHA": "NONE"
+}

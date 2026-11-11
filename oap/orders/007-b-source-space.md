@@ -1,0 +1,54 @@
+# OAP Work Order — 007-b
+
+Status: FINAL
+Identifier: 007-b
+PR mode: AMEND_EXISTING_PR
+Branch: oap/007-embedding-pipeline
+Base commit: b15e56e611214c3ed109bfda8ce6cc52507feec2
+PR number: 9
+Expected active: 007-a
+Provenance: H active fullMVP/parallel mandate; A architecture7/8/11.1/11.2 and original007; I Root accepted batchB/publishedformatC and independent affected earlier peers; E raw source representations and actual pinned checkpoint format/space are missing in canonical007
+Architecture SHA256: 4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a
+Governance SHA256: 05bca47346d0a0eb1abfa3e17fe4cc8793c1cccaace64d45ff360c865e8b4d68
+
+## Objective
+Integrate the already independently reviewed source-bound raw retrieval representation/batch and published checkpoint inventory/encoder-space software into the existing007 PR. No new algorithms or opportunistic adaptation. Whole007 stays PARTIAL: resident actual encoder, token IDs, normalized typed durable batches, owned worker/GPU/resume/parity/runtime qualification remain later bounded work. No self-next-number or merge.
+
+## Dependencies and current state
+007-a immutable report b15e56e611214c3ed109bfda8ce6cc52507feec2, implementation1f637ce3da442af2300808ca75f30866f0d1156c, SHA2562cf71b2cfa70d10dc45af4eaf6ab693fd364e8c8d8dd858042aaf18f40455532, sole report-only SELF parent verified; remote uniqueOPENPR9/main11badc7/no auto merge/zero unresolved threads. Root21codec tests+unchanged12malformedframe witness PASS. ImplementationCI43112136624 ALL5/ALL72SUCCESS; reportCI43114524779 still in progress at reconciliation, NOT countedgreen; this gates merge, not bounded same-PR development. Record its actual terminal status if available before new push; no need to wait if ordinary work is ready. Canonical clean, response consumed once; do not rereadFIFO. 006 resolvedPR8/main11badc7782bed326995d400f5532b63399b91fbd; overall fullMVP/004/019/domain/currentrights/licenses/visual/ICA gates open.
+
+Exact source index: strategic audit/007-b-components.json SHA256c6f290535c1ab1496f51ce936103222d133a53e612105d873178f187cd7bae2a. Merge forecast audit/007-b-integration-forecast.json proves candidates/commonbase and disjoint deltas. Accepted LOCAL candidate1 representation-batch-b tip05257d0324f6096166d553305da17221f9fe192c /impl4914fe54e116efd5d655d5bb4aac7227aaa945f6; authorPARTIAL report immutable, Root independently closed named proof gaps:28focusedPASS/21prevalidator negative cases/faithful positive receipt/correct ASTguard-removal caught. Candidate2 published-checkpoint-format-c tipd38360428240dddf01de0f0763ad8504eaaa8aa8 /impl2900feafd9d48a4eeb430c6b94b2e2019d03249f: Root70unit+6standaloneintegrationPASS/strictUTF8+dynamictrace/actualoldreader schema1sameID proof. These histories contain only007 component orders/reports/source over main11bad, no008 ancestry. Both accepted code is LOCAL; current canonical integration/CI still required.
+
+## Allowed paths and scope
+CODING first commits exact Rootorder+active and exact Rootrecords below. Then merge --no-ff exact candidate1 followed by exactcandidate2, preserving immutable partial/fix/report histories and report SELF identities. No force/rebase/reset/clean/stash. Pairwise forecast is clean; all three deltas disjoint. Unexpected source conflict: preserve state/report actual conflict, do not choose a side silently.
+
+Exact12 indexed final files comprise src/slaif_raggedized_helper/retrieval_representation.py, embedding_artifacts.py, embedding_space.py; corresponding tests/unit/test_retrieval_representation.py, test_embedding_artifacts.py, test_embedding_space.py; tests/integration/test_retrieval_representation_composition.py, test_embedding_artifacts_composition.py, test_embedding_space_composition.py; docs/parallel/retrieval-representation-api.md, embedding-artifacts-api.md, embedding-space-api.md. SOURCE/tests must retain exact indexed Gitblob/SHA. The ONLY indexed-byte exception is embedding-artifacts-api.md: correct its private audit/007-public-checkpoint-layout.json reference to versioned oap/reviews/007-public-checkpoint-layout.json (or pinned primary public URL); document this tiny doc delta. No new source/test patches; root must review any reproduced integration failure before a fix order.
+
+Small current docs ONLY README.md, STATUS.md, TESTING.md, docs/UNCERTAINTIES.md, docs/embedding.md; oap/governance/CONTEXT-BUDGET.md+MANIFEST.json for actual byte/hash updates. Routine49942/50000 has58bytes headroom: replace/consolidate T16 plus newT17 into <=existing T16 bytes with links to detailed docs/embedding.md, keep historical evidence in detailed documents and immutable reports; don't append long routine prose or truncate law. Existing README whole006-open sentence is historical stale text; reconcile current006 merged and007PARTIAL consistently.
+
+Exact Rootrecords copy unchanged from strategic source: audit/007-a-review.json ->oap/reviews/007-a-review.json; audit/007-b-components.json ->oap/reviews/007-b-components.json; audit/007-b-integration-forecast.json ->oap/reviews/007-b-integration-forecast.json; parallel/representation-batch-b/review.json ->oap/reviews/007-representation-batch-review.json; parallel/published-checkpoint-format-c/review.json ->oap/reviews/007-published-format-review.json; audit/007-public-checkpoint-layout.json ->oap/reviews/007-public-checkpoint-layout.json. No other Rootstate or currentparallel work integrated. Newreport oap/reports/007-b-*.md only. Preserve007-a and allhistorical reports/orders unchanged.
+
+## Non-goals
+No CPUbackend/staging/normalization/token-ID candidates integrated yet; no real weights/deserialization/model/inference/GPU/service/privatecorpus/credentials/newdeps/workflows/allowlist/sourcebooks/law/architecture edits. No current authorization from source scope/hash/config/forgable receipt. No human-owner/referral product behavior. Raw.bin byte hashing does not prove deserializer safety; later CPUworker candidate PyTorch>=2.10.0 required by currentadvisory, never unsafe fallback.
+
+## Acceptance criteria
+1. Exact ordered merges/parents recorded, final indexed SOURCE/test blobs exact, existingcodec/deps unchanged, no008code/history. Twelve admitted files plus specifically permitted doc-reference delta; exact Rootbytes/active/order committed unchanged. No separate PR or duplicate implementation.
+2. Actual current source/store/native representations preserve title/heading/originaltext and IDs, ONE bundle validation and ONE native session for selected1..128unique chunks, full receipt/identity/budget refusal and no partial result. Schema1 byte identity compatibility unchanged; schema2 explicit pytorch-state-dict/safetensors fixed names/rawhashes/officialCLS1024/Normalize/8192config verification and actual space binding; no deserialization/runtime/model/auth claim.
+3. Run current focused representation/artifact/space unit tests plus each standalone integration WITHOUT developerPYTHONPATH using approved nativefixture runtime below. Rerun unchanged /tmp/raggedized-root-batch-boundaries.py, /tmp/raggedized-root-artifact-json-boundary.py, /tmp/raggedized-root-artifact-trace-privacy.py, /tmp/raggedized-root-schema1-compatibility.py against CURRENTCANONICAL code (inspect first; owned tiny bytes only). Record actual counts/exits/hashes; no skipped/pending substitute. Witnesses add tests/unit to their OWN process only and no source mutation; AST mutation is private process only. Existing codec focused regression remains green.
+4. Full current unit/integration/ruff/diff/41OAP/governance/console and ALL5required implementationCIjobs/every required step SUCCESS before immutableSELFreport. SamePR9/branch. No test deselection/fake/cancel-as-pass. Whole007PARTIAL report <=7000bytes, literal implementationSHA andSELF sole report-only child; report futureCI not asserted.
+5. Docs distinguish original source/selection scope from currentrights, expected byte inventory/config from provenance/license/physicalruntime, raw/contextual snapshots, representation vs encoder vs execution IDs. Actual pinned upstream BGE revision5617a9f61b028005a4858fdac845db406aefb181 publishes pytorch_model.bin2271145830bytes/LFSsha b5e0ce3470abf5ef3831aa1bd5553b486803e83251590ab7ff35a117cf6aad38, notsafetensors: metadata evidence only, no weightdownload/licenseclearance. Oldschema1 IDs remain equal, schema2 differs byformat+schema. No128 throughput or new model/query/hardware/ICA claim. Routinecontext<=50000 exact bytes/relevantmanifest consistent; exactmodeltokensUNMEASURED.
+
+## Verification and negative evidence
+Positiveactualnative synthetic sourcejourney first, then invalidselection/policy beforevalidator, wrong/synthetic nativeCount receipt refusal, correct finalcount/IDs/order, original UTF16/surrogate/private trace negativeproof and actualoldreader equality. Separate standalone integration catches test-import pollution. Preserve native20s lifetime/2srequest caps and existingstore64MiBmember/96MiBaggregate/16members; no widening to fit fullcorpus. Full20kcorpus uses futuremultipleboundedbatches.
+
+## Documentation
+Update detailed docs/embedding.md with actual integrated APIs/source hashes/legacy compatibility/format/freshness limitations and remaining007 scope. No tests mirror implementation, no percentageMVP by queue. Newcomponent reports are immutable provenance, not currentCI or Rootapproval.
+
+## Runtime and protected resources
+Live authorization NONE. Approved synthetic native CPU setup: SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu; SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages; SLAIF_NATIVE_TEST_PYTHON=python3.12 NAME. PDF_TEST_RUNTIME same3.12root/PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages. Cached uv run --isolated --locked --offline --python3.14 allowed, no new package graph needed. Small focused fixtures<=1GiBAS/30CPU/120wall AFTER uvstartup; native child uses approved owncaps. Full existing suites use ordinary approved DEVtest limits and OPENBLAS_NUM_THREADS=1/OMP_NUM_THREADS=1. No new publicmetadata fetch, externalweights/models/Torch/GPU/services/keys/corpus/downloads/deploy. Preserve Qwen3.8/A100Q8/xhigh/profile/auth; no nestedagents or otherpanes.
+
+## Deferred human adjudication
+- Decision: NONE
+
+## Publication and report
+SamePR9; compact law/order/exact index+reviews/APIs first. Commit Rootbytes, ordered merges, integration/docs/proofs, all5 implementationCI, conciseimmutableSELFreport then remote report verification andONEresponse through existing canonicalhelper. One bounded goal after ordinary tools may be supplied by Root; end after response/idle with no next work/readers/polls. Root owns suffix, exactcurrentheadreview/merge, no release/deploy. Whole007 remains PARTIAL.
