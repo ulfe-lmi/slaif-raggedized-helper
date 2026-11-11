@@ -1,0 +1,46 @@
+{
+  "round": "004-f",
+  "objective": "004",
+  "status": "FINAL",
+  "decision": "ACCEPT_REPLANNED_004_SOFTWARE_FOR_PROTECTED_DEVELOPMENT_MERGE",
+  "recorded_at": "2026-11-11T13:41:09.595289+00:00",
+  "pr": 6,
+  "implementation": "d34e31b334848501c2ef0e60c165edae3d3c7fa6",
+  "report_commit": "ca6efbfe1867a81c027a1c249c48f07f10528522",
+  "report_sha256": "3795727fca00f3b328254a2aba7b7d95a70502c74a72a027f7fe21944f7e8bbd",
+  "accepted_tree": "d563611cb32ff5cb966d52c2aa8b50b50f8da9a3",
+  "publication": "Unique original PR6/base main2bc320ff, remote report exact, SELF sole implementation parent, report-only diff, clean local tree, order/active exact. No unresolved GitHub review threads; auto-merge disabled.",
+  "scope_replan": "004-a explicitly replanned software instrumentation separately from real A1 qualification, mandatory later019/ICA/MVP. This accepts the complete replanned software scope only; all fourteen actual real trials remain NOT_RUN.",
+  "criterion_coverage": {
+    "004-a_1_4_contract_runner_observation_latency": "Original004-a/b source independently reviewed; c fixes at b35 accepted in immutable004-c review. Current source composition unchanged except exact reviewed additions. Strict actual dispatch budget/deadline/identity/accounting/known-unavailable and deterministic nearest-rank analysis retain owned HTTP and negative witnesses.",
+    "004-a_5_cli_admission_export": "c review independently proves zero-I/O/default/input/privacy/spent-ledger behaviors; E integration preserves corrected resource cancellation/export accounting; current installed router tests confirm delegation.",
+    "004-a_6_and_later_resource_parity_gates": "E final review independently accepted actual bounded resource implementation. F exact clean automatic merge integrates all accepted parity parent histories. All14 gates match architecture23.2 names and accurate executable-vs-analysis-vs-instrumentation prerequisites.",
+    "004-a_7_checks_operational_startup": "Original failed goal-FIRST qualification remains failed. Ordinary first/tools then native-goal flow was actually qualified in C/D/E/F, model/profile preserved. Required implementation and report CI all5success. 890 product tests reported and covered by actual CI;41 scaffold. Root current focused85 tests passed."
+  },
+  "independent_current_review": {
+    "source": "Read actual canonical12-line cli delta atop accepted resource handler, full F documentation/governance diff, generated14gate document, exact report/order and peer router report. Verified clean merge-tree equality; no postmerge source/test changes; changed parity blobs equal reviewed candidate; resource/runner/tests equal E.",
+    "tests": "Root Python3.14 focused parity math/IO/gate + installed/module CLI suites:85 passed. check_state exit0 context49996/50000; git diff --check clean. Existing independent candidate math/source/IO witnesses and opposite-author router review reconciled ACCEPT/no findings.",
+    "ci": {
+      "implementation_run": 42918833573,
+      "implementation_head": "d34e31b334848501c2ef0e60c165edae3d3c7fa6",
+      "result": "ALL_5_SUCCESS",
+      "report_run": 42920077145,
+      "report_head": "ca6efbfe1867a81c027a1c249c48f07f10528522",
+      "report_result": "ALL_5_SUCCESS",
+      "report_last_job": "2026-11-10T23:06:51Z"
+    },
+    "verification_note": "Initial blob comparison incorrectly expected whole cli.py equal the older parallel candidate, ignoring canonical E resource changes. Correct check inspected exact12-line router delta and automatic merge tree; no product defect found."
+  },
+  "documentation": "Current protocol accurately reconciles actual GPU reason enum, observation window vs CPU endpoint vs completion wall, conservative combined actual-byte pool and reservations; obsolete control prerequisite references replaced. Immutable E report untouched. Manifest measurements updated within existing50000 ceiling.",
+  "strongest_reason_not_to_merge": "Real deployed gateway/model/GPU/quality/domain/license feasibility is unproven; synthetic or supplied parity evidence cannot establish the MVP.",
+  "why_development_acceptance_is_justified": "Explicit pre-implementation004-a replan authorizes independently usable software acceptance without pretending physical gates passed; this complete instrumentation scope is now integrated, source independently reviewed and all required current checks pass. No dependency/architecture/product boundary weakened.",
+  "DHA": "NONE; current CRITICAL empty. No human license exception or deployment/release permission inferred.",
+  "merge_automation": "Inspected actual sole CI workflow: GitHub-hosted read-only contents, pinned checkout/setup, no secrets/deploy/publish hooks; no release/tag/deployment as development merge side effect.",
+  "remaining_gates": [
+    "019 real target/model/hardware/domain trials and heldout evidence",
+    "007/010/012/014/015/016/017 implementations required by exact gate projection",
+    "018 exact dependency/model/renderer license and notice inventory; certifi MPL and PDF MIT-0 policy questions unresolved",
+    "020 independent full-scope ICA, full text+visual MVP acceptance"
+  ],
+  "next": "Expected-head protected merge PR6 only; verify GitHub merged/default-main exact tree and all5mainCI before terminal resolution/canonical005 activation."
+}
