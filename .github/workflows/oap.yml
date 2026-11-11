@@ -94,6 +94,46 @@ jobs:
       - name: Install locked lightweight environment
         run: uv sync --locked --no-progress
 
+      # Required reproducible native PDF development tests (order 006-a), on
+      # these disposable GitHub-hosted runners only. The isolated worker is
+      # fixed to /usr/bin/prlimit + /usr/bin/bwrap with working user/PID/net/
+      # IPC/UTS namespaces, a trusted standalone CPython 3.12 runtime and a
+      # NEW private pinned hash-verified package graph. Missing or
+      # incompatible prerequisites fail this job; a skipped PDF test is not a
+      # pass and there is no unsandboxed fallback.
+      - name: Install and verify PDF isolation tools (runner only)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends bubblewrap
+          test -x /usr/bin/prlimit
+          bwrap --version
+          # Functional namespace smoke mirroring the fixed worker unshare
+          # set, run unprivileged as the runner user.
+          bwrap --unshare-user --unshare-pid --unshare-net --unshare-ipc \
+            --unshare-uts --ro-bind / / true
+          # The fixed worker argv also binds /usr/lib64, which merged-usr
+          # hosts may lack; an empty stub is inert there (the dynamic loader
+          # searches /usr/lib/x86_64-linux-gnu and worker packages load from
+          # the private /packages mount).
+          test -d /usr/lib64 || sudo mkdir -m 755 /usr/lib64
+
+      - name: Provision standalone CPython 3.12 worker runtime
+        run: |
+          uv python install 3.12
+          runtime="$(find "$(uv python dir)" -maxdepth 1 -type d \
+            -name 'cpython-3.12.*-linux-x86_64-gnu' | sort | tail -n 1)"
+          test -x "$runtime/bin/python3.12"
+          "$runtime/bin/python3.12" -c 'import sys; sys.exit(0 if sys.version_info[:2] == (3, 12) else 1)'
+          printf 'PDF_TEST_RUNTIME=%s\n' "$runtime" >> "$GITHUB_ENV"
+
+      - name: Provision new private hash-verified PDF test backend
+        run: |
+          target="$RUNNER_TEMP/pdf-test-backend-new"
+          test ! -e "$target"
+          python3 tests/support/prepare_pdf_test_backend.py \
+            --runtime-dir "$PDF_TEST_RUNTIME" --target "$target" | tee pdf-backend-setup.log
+          grep '^export ' pdf-backend-setup.log >> "$GITHUB_ENV"
+
       - name: Lint (product scope)
         run: uv run ruff check src tests/unit tests/integration
 

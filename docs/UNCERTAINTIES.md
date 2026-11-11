@@ -354,3 +354,33 @@ human question.
   MIT-0/certifi/native-component license questions are unaffected.
   Real extraction, tokenization, embedding, model, GPU, license and
   corpus qualification all remain NOT RUN.
+
+### 2026-11-11, order 006-a (native extraction first slice)
+
+- U06 narrowed further in software only: real native extraction now
+  exists on owned originals — exact literal lines, the bounded
+  structural subset with contiguous code-point coverage, and the
+  isolated PDF worker with native/visual-needed page semantics — all
+  bound to the accepted 005 revision/scope/dependency records and
+  Registry. Reading order, layout and geometry remain heuristic; the
+  structural subset is not CommonMark; PDF visual content is not
+  extracted. Representative corpus quality, real source rights/ACL
+  evidence and human gold questions are still absent; U06 stays OPEN
+  for 006 continuation/009 work.
+- The fixed PDF worker is a trusted isolated development worker, not a
+  hostile-PDF security boundary: namespaces plus prlimit bounds are
+  real but no seccomp policy is supplied, the cooperative parent
+  deadline cannot interrupt blocked filesystem calls, and the
+  request nonce correlates but does not authenticate a compromised
+  worker. Real isolation hardening stays 016/017 scope.
+- U07 unchanged: processing approval and operator grants remain
+  metadata, never authentication or redistribution clearance. The
+  required PDF development backend is DEV-only (pdfminer.six 20260107,
+  charset-normalizer 3.5.2, cryptography 50.0.2, cffi 2.0.0,
+  pycparser 3.12, SHA-256 verified): it adds no project dependency,
+  lock, allowlist entry, license exception or application graph
+  change; cffi MIT-0 and the remaining transitive/native/platform
+  model license questions stay release and redistribution gates.
+- Structural chunking, native tokenizer sessions, contextualization,
+  embedding, snapshot/retrieval, GPU/vision and all physical/model/
+  domain/license/ICA qualification remain NOT RUN.

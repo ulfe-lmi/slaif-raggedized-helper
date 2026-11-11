@@ -155,3 +155,39 @@ per-record negative boundaries. All synthetic and offline: no extraction,
 parsing, network, models, GPU or real corpus; supplied text/counts are
 assertions, not executed parsers or qualified tokenizer measurements; DTO
 COMPLETE is not artifact or cache proof. Real qualification NOT RUN.
+
+T13. Combined canonical 006 first-slice extraction (objective 006-a):
+`uv run pytest tests/unit/test_text_extraction.py tests/unit/test_structured_text.py
+tests/unit/test_pdf_extraction.py tests/integration/test_text_extraction_composition.py
+tests/integration/test_structured_text_composition.py
+tests/integration/test_pdf_extraction_composition.py
+tests/integration/test_extraction_combined.py -q` runs the merged native
+extraction adapters on owned synthetic originals: the literal line and
+structural adapters classify a bounded Markdown subset with exact
+Unicode code-point coverage (contiguous half-open ranges tiling the decoded
+original), and the fixed trusted PDF worker (pdfminer.six 20260107 in a
+private pinned hash-verified environment under `/usr/bin/prlimit` +
+`/usr/bin/bwrap` with user/PID/net/IPC/UTS namespaces) proves native text,
+nested-form deduplication, mixed raster/vector visual-needed pages and
+count/geometry/object accounting. `test_extraction_combined.py` composes
+manifest -> `OriginalStore` -> all three adapters -> `provenance.Registry`
+in one journey: shared bytes with distinct corpus/labels/rights/version, a
+metadata revision reusing one verified blob, native literal and structural
+coverage, source immutability, and malformed/oversized/wrong-hash/
+unsupported-media refusal; the source byte-integrity pass, parse limits and
+cooperative parent/worker deadlines are separate mechanisms, none a hard
+filesystem-interrupt guarantee. The required PDF tests fail explicitly
+(instead of skipping) when `PDF_TEST_RUNTIME`/`PDF_TEST_PACKAGES` are absent
+or the backend or isolation is unavailable. Local setup: `uv python install
+3.12` plus `python3 tests/support/prepare_pdf_test_backend.py --runtime-dir
+<standalone 3.12 root> --target <new private dir>` (prints exact
+`PDF_TEST_RUNTIME`/`PDF_TEST_PACKAGES` exports); product CI provisions the
+equivalent per run on disposable GitHub-hosted runners and verifies
+bwrap/prlimit and an unprivileged namespace smoke. The development pins
+(pdfminer.six 20260107, charset-normalizer 3.5.2, cryptography 50.0.2,
+cffi 2.0.0, pycparser 3.12, SHA-256 verified) are DEV-only and add no
+project dependency, lock, allowlist, license exception or application graph
+change. All synthetic and offline; no real corpus, network, GPU, model or
+quality work. Structural chunking, tokenizer sessions and all physical/
+model/domain/license/ICA qualification remain later ordered scope; real
+qualification NOT RUN.

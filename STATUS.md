@@ -2,20 +2,20 @@
 
 ## Current state (2026-11-11)
 
-- Active objective: 005, current slice 005-b (canonical provenance
-  and job records on the 005 source foundation), open on the 005 PR,
-  branch oap/005-artifact-schema-and-source-scopes from main bd8e454;
-  first slice 005-a (canonical source integration of the
-  independently reviewed local original admission/store plus a thin
-  installed `raggedized source import|inspect` route) remains in the
-  branch;
+- Active objective: 006, current slice 006-a (native extraction on
+  the accepted 005 record/store foundation: literal line, bounded
+  structural Markdown subset and the corrected isolated native PDF
+  worker, plus required reproducible PDF development tests), open on
+  the new 006 PR, branch
+  oap/006-native-extraction-and-chunking from main 4977186;
   live PR/CI/merge state is queried on GitHub, not asserted
-  here. Objective 004 is complete: the explicitly replanned 004
-  software scope was root-reviewed and merged to main as PR #6
-  (merge commit bd8e454; final review
-  oap/reviews/004-f-review.json, terminal resolution
-  oap/reviews/004-resolution.json). All fourteen real
-  qualification trials remain NOT_RUN; the development merge is
+  here. Objective 005 is complete: both slices (005-a canonical
+  source integration, 005-b canonical provenance and job records)
+  were root-reviewed and merged to main as PR #7 (merge commit
+  4977186; final review oap/reviews/005-b-review.json, terminal
+  resolution oap/reviews/005-resolution.json). Objective 004
+  likewise merged as PR #6 (merge commit bd8e454). All real
+  qualification trials remain NOT_RUN; the development merges are
   not qualification.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
@@ -37,8 +37,8 @@
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 005 (new 005 PR), not idle.
-- Current main is the 004 merge commit bd8e454 (PR #6); the 005
+- The coding client is active on objective 006 (new 006 PR), not idle.
+- Current main is the 005 merge commit 4977186 (PR #7); the 006
   branch builds from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
@@ -466,3 +466,36 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   snapshots, serving/auth and worker execution remain later ordered
   scope (006/010/007/008/014/017); DTO COMPLETE is not artifact, cache
   or execution proof; all real qualification remains NOT RUN.
+- 006-a (native extraction first slice; new 006 PR 8 branch
+  oap/006-native-extraction-and-chunking from main 4977186): THREE
+  ordered local --no-ff merge steps of the root-reviewed candidate
+  tips, PDF-test-setup first (oap/parallel-006-pdf-test-setup tip
+  be40286eeafe810071961789aa7d80d2fac847d5, carrying corrected PDF-D
+  tip eb80a7bc84fbf74f46882030a3ce277852e18bf2 with the accepted
+  parser/worker blobs plus the reproducible development PDF test
+  setup), literal line second (oap/parallel-006-text-extraction tip
+  e84469f78b82fc5cd41110289bfa7446793ca034, a strict ancestor of the
+  first merged tip so its full history is retained and the step
+  creates no new commits), structured text third
+  (oap/parallel-006-structured-text tip
+  7a0caf1a3c51427de33fa7140ec01bc24ca81d13); the two real merges were
+  forecast clean with git merge-tree and the merged trees equal the
+  forecasts. Adds text_extraction.py, structured_text.py,
+  pdf_extraction.py and the fixed pdf_worker.py, the ONE combined
+  tests/integration/test_extraction_combined.py journey (shared-byte
+  documents with distinct corpus/labels/rights/version, metadata
+  revision over one verified blob, exact code-point line/structural
+  coverage, mixed native/visual PDF pages binding into the
+  provenance Registry, and malformed/oversized/wrong-hash/
+  unsupported refusal), the required reproducible PDF development
+  tests (missing/incompatible backend or isolation fails instead of
+  skipping) wired into both product CI legs via a new private
+  pinned hash-verified backend and standalone CPython 3.12 worker
+  runtime with runner-only bwrap/prlimit install and namespace
+  verification, and docs/ingestion.md supported-subset protocol. NOT
+  a GitHub PR/default-main merge. This first slice does not close
+  006: structural chunking, native tokenizer sessions and bounded
+  composition remain the ordered same-PR continuation;
+  contextualization, embedding, snapshot/retrieval, GPU/vision, real
+  corpus, model and license/ICA qualification all remain open; all
+  real qualification remains NOT RUN.

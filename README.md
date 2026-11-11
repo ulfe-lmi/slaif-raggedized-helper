@@ -68,6 +68,19 @@ approval is metadata, not authentication
 [docs/parallel/provenance-records-api.md](docs/parallel/provenance-records-api.md),
 [docs/parallel/job-records-api.md](docs/parallel/job-records-api.md),
 [docs/data-model.md](docs/data-model.md)).
+The first 006 slice (open on the 006 PR, branch
+`oap/006-native-extraction-and-chunking`, not merged) adds native
+extraction on that foundation: the exact literal line and bounded
+structural Markdown subset adapters with full Unicode code-point
+coverage, and the fixed trusted isolated PDF worker (bounded verified
+read, private pinned hash-verified development backend, required
+reproducible PDF development tests on product CI); source-to-block
+anchors, native versus visual-needed page semantics and refusal
+behavior are documented in
+[docs/ingestion.md](docs/ingestion.md) with the detailed per-adapter
+contracts under [docs/parallel/](docs/parallel/). Structural chunking,
+tokenizer sessions, contextualization, embeddings, snapshot/retrieval,
+GPU/vision and all model/license/ICA qualification remain open.
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.
