@@ -1,0 +1,35 @@
+{
+  "round": "005-a",
+  "objective": "005",
+  "status": "FINAL",
+  "decision": "ACCEPT_SOURCE_SLICE_CONTINUE_SAME_PR_005_b",
+  "recorded_at": "2026-11-11T14:28:53.779414+00:00",
+  "pr": 7,
+  "implementation": "08b65b9ffc4dc7ebde9651ea258a9cbe4eb37a79",
+  "report_commit": "bb7fd82a811fd63c63c4dd40e66ff45a706c1a16",
+  "report_sha256": "d4e427e9a6e87f8a6429d6761d268b138767cb48d830750df2c5639d0f93b241",
+  "publication": "UniquePR7OPEN, originalbranch/mainbasebd8e454, noauto-merge andno unresolvedthreads. Exactremote reportbytes, report-onlySELF/soleimplparent, order/active/priorreviews unchanged, clean worktree and clean authorizedcandidate integration tree verified.",
+  "root_source_review": "Full thin9lineCLI route/new201lineinstalledtestsource/doc/governance diff read. Source modules andpriorcandidate tests byte-equal independentlyaccepted sourceCLI32a2; priorqualification/modelclient product blobs unchanged. Local --noff parents/automaticmerge-tree exact; no unreviewednewproduct stack.",
+  "criteria": {
+    "1": "Strictboundedversionedmanifest/Source/Revision andmetadataidentity/source-vs-extraction separation preserved fromreviewedcandidate. Unknownfactsnull, no fabricatedmodel/extraction observations.",
+    "2": "Processingapproval/explicitACL/corpus/rights andfixedapprovedlocalroot only. Actualdescriptor/no-follow/nonblocking/size/hash bindings andprivateoperatorstore boundary preserved; no URLfetch/tool/sourceexecution.",
+    "3": "Actualpath/symlink/intermediate-race/special-file/growth/corruption regressions preserved; uncheckedcopy escape/labelsimmutability/atimefixes retained.",
+    "4": "Installedtwo-documentshared-byte distinctrights/ACL/corpus plusmetadatarevision/retry/verifiedread tested; no dedupbroadening.",
+    "5": "Atomicno-replacehardlinkpublication/fsync plusinterrupt/orphan/retry invariants independentlyreviewed inoriginalcomponent; actualregressionspass oncanonicalhead.",
+    "6": "Root22focusedactualsource/module/installed testsPASS3.14, includingfive new installedroute actualoperatorjourneys/refusals/nomodelnonetworkguard. Actualsourceimplementation/report-headCI eachall5SUCCESS."
+  },
+  "documentation": "All oldT08/T09/T10 detail tail11460bytes preserved verbatim innewfocusedqualification-testing document. CompactTESTING9819 androutine42370/50000 actualcheck_state0; ceilingunchanged, manifesthashesmatch. No arch/role/helper/prompt/dependency edits.",
+  "ci": {
+    "implementation_run": 43036091799,
+    "implementation_result": "ALL_5_SUCCESS",
+    "report_run": 43037886906,
+    "report_result": "ALL_5_SUCCESS",
+    "report_last_job": "2026-11-11T14:26:27Z"
+  },
+  "counts": "912product=562unit+350integration,41OAP. ActualCIPython3.12/3.14 product and3.12/3.13/3.14 OAP allSUCCESS. Rootcollect-only confirmscounts butisnotexecutionproof; Root22focused executed andallCI actualjobs inspected.",
+  "operational_note": "One bounded evidence note identified repeated broad test rerunsfor hidden -q/-qsummary andpipeline-exit ambiguity; note queued fornexttoolboundarywithoutinterruptingcurrentrun andcodingfinalreportadopted actualreturncode/Rootcollection distinction. No testsweakened/model/goal/context/FIFOreplay.",
+  "strongest_reason_not_to_merge": "This source slice does not implement original005block/span/chunk/derivedscope/jobs. Import metadata is not authentication/legalrights, and real model/hardware/corpus/license/MVP qualification remains absent.",
+  "why_continue": "Source slice meets exactauthorizedorder with independentlyreviewedcode/tests/remoteCI; nextsamePR bounded005-b integratesacceptedrecordcomponents andprovescomplete005journey beforewholeobjective acceptance.",
+  "DHA": "NONE; currentCRITICALempty. No release/legalexception/realcorpus/protectedresource authority inferred.",
+  "next": "Publish005-bon samePR7 only afterquietfinishedcodinggoal boundary. No partial005merge or006canonicalactivation."
+}
