@@ -469,3 +469,20 @@ def test_representation_limit_and_zero_length_block(tmp_path):
             c.build(empty_only, (empty,), counters(), 'q')
     finally:
         store.close()
+
+
+def test_cooperative_deadline_refuses_slow_callback(tmp_path):
+    import time
+
+    store, revisions = create_store(tmp_path, 'small text\n')
+    try:
+        item = s.extract(store, revisions[0].revision_id)
+        reg = p.Registry((item.revision,), (item.dependency,), item.blocks)
+        def slow(text):
+            time.sleep(0.01)
+            return len(text.split())
+        callbacks = c.Counters('body', 'rep', 'pair', slow, slow, lambda q, x: 1)
+        with pytest.raises(c.ChunkingError):
+            c.build(reg, item.blocks, callbacks, 'q', c.Policy(deadline_ms=1))
+    finally:
+        store.close()

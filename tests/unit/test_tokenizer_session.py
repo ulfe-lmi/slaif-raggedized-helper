@@ -66,7 +66,7 @@ def test_dead_worker_and_exhaustion(tmp_path):
     child.wait()
     with pytest.raises(n.TokenizerError):
         session.count('bge_body', 'x')
-    for attr, value in (('_calls', 8192), ('_input', 16_000_000),
+    for attr, value in (('_calls', 16384), ('_input', 16_000_000),
                         ('_output', 4_000_000)):
         session = Session((body,), runtime)
         child = session._child
@@ -117,7 +117,7 @@ def test_actual_request_ceiling_and_immutable_artifacts(tmp_path):
     paths, runtime, definition = make_native(tmp_path)
     before = [path.read_bytes() for path in paths]
     with Session((definition(paths[0]),), runtime) as session:
-        for i in range(8192):
+        for i in range(16384):
             assert session.count('bge_body', str(i)).count == 3
         with pytest.raises(n.TokenizerError):
             session.count('bge_body', 'x')

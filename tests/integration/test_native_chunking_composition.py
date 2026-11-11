@@ -56,7 +56,8 @@ def test_owned_pipeline_and_invalidation(tmp_path):
             ((replace(defs[0], model_revision='changed'), *defs[1:]), 'hello', None),
             ((replace(defs[0], preprocessing='changed'), *defs[1:]), 'hello', None),
             ((definition(paths[1], 'bge_body'), *defs[1:]), 'hello', None),
-            (defs, 'café', None), (defs, 'hello', chunking.Policy(pair_max=1280, target=511))]:
+            (defs, 'café', None), (defs, 'hello', chunking.Policy(pair_max=1280, target=511)),
+            (defs, 'hello', chunking.Policy(pair_max=1280, deadline_ms=9999))]:
             assert result.chunks[0].chunk_id != run(items[0], ds, query, policy).chunks[0].chunk_id
         forged = (items[0].blocks[0].model_copy(update={'text': 'canary-secret'}),
                   *items[0].blocks[1:])

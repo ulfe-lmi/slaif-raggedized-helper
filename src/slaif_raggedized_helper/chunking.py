@@ -27,10 +27,11 @@ class Policy:
     max_chunks: int = 4096
     max_calls: int = 20000
     max_work_chars: int = 20000000
+    deadline_ms: int = 5000
 
     def __post_init__(self):
         caps = (768, 768, 1024, 10000000, 10000000, 4096, 1000000, 4096,
-                20000, 20000000)
+                20000, 20000000, 10000)
         if any(type(v) is not int or not 1 <= v <= cap
                for v, cap in zip(self.__dict__.values(), caps)):
             raise ChunkingError('invalid policy')
@@ -64,7 +65,7 @@ def build(registry: p.Registry, blocks: tuple[p.Block, ...], counters: Counters,
         raise ChunkingError('chunk construction refused') from None
 
 
-def _build(registry, blocks, counters, query, policy):
+def _build(registry, blocks, counters, query, policy, reuse=False):
     if type(registry) is not p.Registry or type(blocks) is not tuple or not blocks:
         raise ValueError
     if type(counters) is not Counters or type(query) is not str or len(query) > 10000:
@@ -99,9 +100,10 @@ def _build(registry, blocks, counters, query, policy):
                              'provenance': counters.provenance, 'query': query},
                             sort_keys=True, ensure_ascii=True, separators=(',', ':'))
     pid = p.policy_id(definition)
-    deadline = time.monotonic() + 5
+    deadline = time.monotonic() + policy.deadline_ms / 1000
     calls = work = 0
     seen = {}
+    measured = {}
 
     def count(fn, mode, *args):
         nonlocal calls, work
@@ -123,6 +125,11 @@ def _build(registry, blocks, counters, query, policy):
         text = ''.join(f.copied_text if isinstance(f, p.SourceFragment) else f.text
                        for f in fragments)
         representation = ''.join(headings) + text
+        key = (text, representation)
+        if reuse and key in measured:
+            if time.monotonic() >= deadline:
+                raise ValueError
+            return measured[key]
         body = count(counters.body, 'body', text)
         rep = count(counters.representation, 'representation', representation)
         pair = count(counters.pair, 'pair', query, representation)
@@ -131,9 +138,11 @@ def _build(registry, blocks, counters, query, policy):
         if (pair < empty_pair or pair < query_pair
                 or query_pair > policy.query_reserve):
             raise ValueError
-        return text, (body, rep, pair), (body <= policy.soft_max
-                                          and rep <= policy.representation_max
-                                          and pair <= policy.pair_max)
+        result = (text, (body, rep, pair), (body <= policy.soft_max
+                  and rep <= policy.representation_max and pair <= policy.pair_max))
+        if reuse:
+            measured[key] = result
+        return result
 
     def fragment(block, start, end):
         return p.SourceFragment(schema_version=1, kind='source', block_id=block.block_id,
@@ -143,13 +152,14 @@ def _build(registry, blocks, counters, query, policy):
     pending = []
     headings = []
     pending_headings = ()
+    pending_result = None
     table_header = None
 
     def flush():
-        nonlocal pending
+        nonlocal pending, pending_result
         if not pending:
             return
-        text, counts, fits = measure(pending, pending_headings)
+        text, counts, fits = pending_result if reuse else measure(pending, pending_headings)
         if not fits or len(pending) > 256 or len(output) >= policy.max_chunks:
             raise ValueError
         chunk = p.Chunk(schema_version=1, chunk_id='pending', revision_id=key[0],
@@ -163,21 +173,27 @@ def _build(registry, blocks, counters, query, policy):
         registry.bind_chunk(chunk)
         output.append(chunk)
         pending = []
+        pending_result = None
 
-    def append_unit(unit, path):
-        nonlocal pending, pending_headings
+    def append_unit(unit, path, unit_result=None):
+        nonlocal pending, pending_headings, pending_result
         if pending and pending_headings != path:
             flush()
+        candidate = None
         if pending:
-            _, nums, fits = measure(pending + unit, path)
-            if not fits or nums[0] > policy.target:
+            candidate = measure(pending + unit, path)
+            if not candidate[2] or candidate[1][0] > policy.target:
                 flush()
+                candidate = None
         if not pending:
             pending_headings = path
-        _, _, fits = measure(pending + unit, path)
-        if not fits:
+            candidate = unit_result if reuse and unit_result else measure(unit, path)
+        if not reuse and pending:
+            candidate = measure(pending + unit, path)
+        if not candidate[2]:
             raise ValueError
         pending += unit
+        pending_result = candidate
 
     # Adjacent warning/prerequisite and numbered procedure, with at most one
     # literal blank block between them. Never bridge unrelated content.
@@ -239,31 +255,40 @@ def _build(registry, blocks, counters, query, policy):
             end_index = grouped.get(index, pairs.get(index))
             group = [fragment(b, 0, len(b.text)) for b in blocks[index:end_index + 1]
                      if b.text]
-            _, _, group_fits = measure(group, path)
+            group_result = measure(group, path)
+            group_fits = group_result[2]
             if not group_fits and index in pairs and pairs[index] != end_index:
                 end_index = pairs[index]
                 group = [fragment(b, 0, len(b.text)) for b in blocks[index:end_index + 1]
                          if b.text]
-                _, _, group_fits = measure(group, path)
+                group_result = measure(group, path)
+            group_fits = group_result[2]
             if group_fits:
                 # Give the local relationship priority over the target, but not
                 # over any hard limit or unrelated preceding material.
                 flush()
                 pending_headings = path
                 pending = group
+                pending_result = group_result
                 skip_until = end_index
                 continue
         if block.kind == 'table_row' and not pending and table_header is not None:
             unit.insert(0, table_header)
-        _, _, fits = measure(unit, path)
-        if fits:
+        unit_result = measure(unit, path)
+        if unit_result[2]:
             if block.kind == 'table_row' and pending:
-                _, nums, combined = measure(pending + unit, path)
-                if not combined or nums[0] > policy.target:
+                candidate = measure(pending + unit, path)
+                if not candidate[2] or candidate[1][0] > policy.target:
                     flush()
                     if table_header is not None:
                         unit.insert(0, table_header)
-            append_unit(unit, path)
+                        if reuse:
+                            unit_result = measure(unit, path)
+                elif reuse:
+                    pending += unit
+                    pending_result = candidate
+                    continue
+            append_unit(unit, path, unit_result)
             continue
         if block.kind != 'text':
             raise ValueError
@@ -277,8 +302,8 @@ def _build(registry, blocks, counters, query, policy):
                 continue
             current = fragment(block, start, end)
             if pending:
-                _, nums, combined = measure(pending + [current], path)
-                if not combined or nums[0] > policy.target:
+                candidate = measure(pending + [current], path)
+                if not candidate[2] or candidate[1][0] > policy.target:
                     flush()
                     # Repeat only the immediately preceding sentence within the
                     # same split paragraph, if the actual body counter permits.
@@ -292,14 +317,20 @@ def _build(registry, blocks, counters, query, policy):
                         for offset in offsets:
                             overlap = fragment(block, offset, previous.end)
                             overlap_count = count(counters.body, 'body', overlap.copied_text)
-                            _, _, overlap_fits = measure([overlap, current], path)
-                            if overlap_count <= 64 and overlap_fits:
+                            overlap_result = measure([overlap, current], path)
+                            if overlap_count <= 64 and overlap_result[2]:
                                 pending_headings = path
                                 pending = [overlap, current]
+                                pending_result = overlap_result
                                 break
                         if pending:
                             previous = current
                             continue
+                elif reuse:
+                    pending += [current]
+                    pending_result = candidate
+                    previous = current
+                    continue
             append_unit([current], path)
             previous = current
     flush()
