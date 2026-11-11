@@ -6,7 +6,8 @@ import json
 import re
 import time
 
-from . import bundle_native_records as native, bundle_source_records as source
+from . import bundle_native_records as native, bundle_pdf_records as pdf
+from . import bundle_source_records as source
 from . import provenance_jsonl as jl, provenance_records as p
 from .source_admission import OriginalStore
 
@@ -28,6 +29,10 @@ class Validated:
     dependency: p.Dependency
     blocks: tuple
     coverage: tuple
+    pages: tuple
+    adapter: str
+    status: str
+    coverage_kind: str
     policy: object
     chunks: tuple
     neighbors: tuple
@@ -83,8 +88,15 @@ def validate(store, metadata_json_bytes, members):
             raise ValueError
         raw = tuple(item[1] for item in members)
         check()
-        src = source.validate(store, metadata['revision_id'], extraction, raw[0], raw[1],
-                              counts['blocks'])
+        adapter = metadata['extraction']['adapter']
+        if adapter == 'structured_text':
+            src = source.validate(store, metadata['revision_id'], extraction, raw[0], raw[1],
+                                  counts['blocks'])
+        elif adapter == 'pdf_extraction':
+            src = pdf.validate(store, metadata['revision_id'], extraction, raw[0], raw[1],
+                               counts['blocks'])
+        else:
+            raise ValueError
         check()
         nat = native.validate(chunking, raw[2], raw[4], counts['chunks'])
         check()
@@ -146,7 +158,11 @@ def validate(store, metadata_json_bytes, members):
                 or len(canonical) + sum(len(v) for _, v in result_members) > TOTAL_BYTES):
             raise ValueError
         check()
-        return Validated(src.revision, src.scope, src.dependency, src.blocks, src.coverage,
+        header = metadata['extraction']
+        return Validated(src.revision, src.scope, src.dependency, src.blocks,
+                         src.coverage if adapter == 'structured_text' else (),
+                         src.pages if adapter == 'pdf_extraction' else (),
+                         header['adapter'], header['status'], header['coverage_kind'],
                          nat.policy, nat.chunks, links, nat.receipts, canonical, result_members)
     except Exception:
         raise BundleError('ingestion bundle refused') from None
