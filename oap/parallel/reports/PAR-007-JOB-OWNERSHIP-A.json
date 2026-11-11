@@ -1,0 +1,24 @@
+{
+  "lane_id": "PAR-007-JOB-OWNERSHIP-A",
+  "result": "COMPLETE",
+  "implementation_head": "8e637a86adc45c647aeeb459689189a211b56529",
+  "report_publication_commit": "SELF",
+  "api": "claim(root, job_id) returns an acquired Lease with assert_owned, close and context management; OwnershipRefused signals sanitized refusal.",
+  "validation": [
+    "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14 pytest tests/integration/test_embedding_job_ownership_composition.py: exit 0, 1 passed",
+    "uv run --isolated --locked --offline --python 3.14 pytest tests/unit/test_embedding_job_ownership.py: exit 0, 8 passed",
+    "uv run --isolated --locked --offline --python 3.14 ruff check on the three changed Python files: exit 0",
+    "git diff --check: exit 0",
+    "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14 sh -c 'ulimit -v 1048576; ulimit -t 30; exec timeout 120 pytest tests/unit/test_embedding_job_ownership.py tests/integration/test_embedding_job_ownership_composition.py': exit 0, 9 passed",
+    "Initial attempt applying the address-space limit to uv itself aborted with exit 134; applying limits to the pytest process after setup passed.",
+    "All three independent root witnesses executed with uv run --isolated --locked --offline --python 3.14 python and exited 0."
+  ],
+  "witness_sha256": {
+    "/tmp/raggedized-root-job-ownership-boundaries.py": "e7ebdd6c4fa154d5d8c713df4ace6be068b09edb6e078eba2b1511977c681146",
+    "/tmp/raggedized-root-job-enter-failure.py": "73cc14d2fb8ff2bc465254599756784a7ae03241ebb15a9cc3fcd40dcf0600d8",
+    "/tmp/raggedized-root-job-interrupted-close.py": "f1ab20e4fe3cbcbf88387f0e603ab38312ff5c23d148c3d7a395e9876e657420"
+  },
+  "limits": "Protected root ancestry and cooperative same-UID filesystem writers are assumed; unmanaged fork descriptor holders can prolong locks. Local per-job kernel ownership only; no global GPU ownership, durable state, retry, authorization, model, hardware qualification, ICA or MVP claim. Whole 007 remains partial.",
+  "strongest_counterargument": "Ownership depends on trusted filesystem ancestry and cooperative same-UID writers, and unmanaged fork holders can prolong locks; these limits are explicit and process and recovery proofs establish the bounded primitive.",
+  "DHA": "NONE"
+}
