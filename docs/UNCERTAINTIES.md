@@ -384,3 +384,41 @@ human question.
 - Structural chunking, native tokenizer sessions, contextualization,
   embedding, snapshot/retrieval, GPU/vision and all physical/model/
   domain/license/ICA qualification remain NOT RUN.
+
+### 2026-11-11, order 006-b (observed native counts and chunks)
+
+- U06 narrowed further in software only: canonical extraction now
+  produces observed local native token counts and structural chunks
+  bound to the same accepted 005 records: three frozen count receipts
+  per chunk bind the exact role inputs (body, heading+body,
+  query-pair), observed artifact SHA, backend tokenizers 0.21.4,
+  declared revision/preprocessing and input digests, with 512/768/
+  1024 budgets, up-to-64-token word-boundary overlap and no
+  discarded tail. Observed local tokenization of locally generated
+  toy artifacts is not inference preprocessing parity, deployed-model
+  equivalence, serving or quality evidence; representative corpus
+  counts on real assets and human gold questions are still absent;
+  U06 stays OPEN for 006 continuation/009 work.
+- Observed usability limit (2026-11-11, independent rerun): the
+  accepted session's 1024-call budget refuses the 7876-byte procedure
+  source (403 blocks) and the 9269-byte table source (243 blocks) at
+  attempted session call 1025 before any chunk/neighbor/receipt
+  output, while the 938-byte Unicode source (765 calls) and the
+  148-byte manual (150 calls) complete. The refusal is total and
+  honest (no partial output); it is a precise observed bound, not a
+  capacity proof, and no representative large-document PASS is
+  claimed from the tiny bounded fixtures. The commissioned isolated
+  PAR-006-NATIVE-EFFICIENCY-A correction is required same-PR 006 work
+  before whole-006 acceptance; durable derived bundles/loaders and
+  the private installed chunk command remain separate required
+  same-PR work.
+- U07 unchanged: the required native development backend is a DEV-only
+  engine-only capsule (pinned hash-verified tokenizers==0.21.4 with
+  --no-deps in a new private 0700 target): it adds no project
+  dependency, lock, allowlist entry, license exception or application
+  graph change and is not upstream complete-app dependency or license
+  clearance; the open MIT-0 and transitive/native/platform/model
+  license questions stay release and redistribution gates. Processing
+  approval and operator grants remain metadata, never authentication
+  or clearance. Real tokenization on deployed assets, model, GPU,
+  license and corpus qualification all remain NOT RUN.

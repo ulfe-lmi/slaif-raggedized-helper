@@ -2,11 +2,12 @@
 
 ## Current state (2026-11-11)
 
-- Active objective: 006, current slice 006-a (native extraction on
-  the accepted 005 record/store foundation: literal line, bounded
-  structural Markdown subset and the corrected isolated native PDF
-  worker, plus required reproducible PDF development tests), open on
-  the new 006 PR, branch
+- Active objective: 006, current slice 006-b (observed native
+  count/chunk integration on the 006-a extraction slice: the fixed
+  native tokenizer session and structural chunk adapter with
+  canonical extraction, observed counts and receipts per chunk, and
+  required native development tests on both product CI legs), open on
+  the 006 PR, branch
   oap/006-native-extraction-and-chunking from main 4977186;
   live PR/CI/merge state is queried on GitHub, not asserted
   here. Objective 005 is complete: both slices (005-a canonical
@@ -499,3 +500,41 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   contextualization, embedding, snapshot/retrieval, GPU/vision, real
   corpus, model and license/ICA qualification all remain open; all
   real qualification remains NOT RUN.
+- 006-b (observed native counts and chunks; same PR 8 branch):
+  TWO authorized local --no-ff merges of the root-reviewed candidate
+  tips, native bridge B first (oap/parallel-006-native-chunk-bridge-b
+  tip 1a9e6387f4ba2134894f81c6827c78d78d462843, implementation
+  40d7d867629c43e42aaf06ac56d9c58a509af6e1) then native test setup B
+  (oap/parallel-006-native-test-setup-b tip
+  181fab4ad0db31acf50c74e48bdff9f1b3ea2c22, implementation
+  00e973a79e60bf36b2dc396b872200ece1c8fe24), each forecast clean with
+  git merge-tree against the actual parents and the merged trees equal
+  to the recomputed forecasts, preserving candidate
+  order/report/implementation histories; the strategic 006-b
+  round-start bytes (order, active, 006-a root review) were committed
+  byte-for-byte unchanged. Adds ONE combined
+  tests/integration/test_native_extraction_counts.py journey
+  (manifest -> OriginalStore -> line/structure/PDF extraction ->
+  Registry -> native_chunking.build with three observed
+  counts/receipts per chunk, exact digests/identities, Unicode/table/
+  warning/tail/overlap coverage, reciprocal neighbors, deterministic
+  rebuild, same-byte distinct IDs and cross-source denial,
+  partial_visual_needed, native pair against legacy supplied-512, and
+  independent session re-counts) and makes the native tests mandatory
+  on both product CI legs via a NEW private pinned hash-verified
+  engine-only tokenizers 0.21.4 capsule (DEV only; literal
+  SLAIF_NATIVE_TEST_* GITHUB_ENV bindings, helper output never
+  sourced). Observed limit: the 1024-call session budget refuses the
+  7876-byte procedure source (403 blocks) and the 9269-byte table
+  source (243 blocks) at attempted call 1025 before any output, while
+  the 938-byte Unicode (765 calls) and 148-byte manual (150 calls)
+  complete; the refusal is total and honest, a precise observed bound
+  rather than a capacity proof, and no representative large-document
+  PASS is claimed from the bounded fixtures. The commissioned isolated
+  PAR-006-NATIVE-EFFICIENCY-A correction plus the durable derived
+  bundle/loader and the private installed chunk command remain
+  required same-PR 006 work before whole-006 acceptance. NOT a GitHub
+  PR/default-main merge; contextualization, embedding,
+  snapshot/retrieval, GPU/vision, real corpus and model/license/ICA
+  qualification all remain open; all real qualification remains
+  NOT RUN.

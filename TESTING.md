@@ -191,3 +191,34 @@ change. All synthetic and offline; no real corpus, network, GPU, model or
 quality work. Structural chunking, tokenizer sessions and all physical/
 model/domain/license/ICA qualification remain later ordered scope; real
 qualification NOT RUN.
+
+T14. Combined canonical 006 observed-count journey (objective 006-b):
+`uv run pytest tests/unit/test_native_tokenizers.py
+tests/unit/test_native_chunking.py
+tests/integration/test_native_chunking_composition.py
+tests/integration/test_native_extraction_counts.py -q` runs the merged
+native count/chunk stack on owned synthetic originals: manifest ->
+OriginalStore -> line/structure/PDF extraction -> Registry ->
+native_chunking.build with three OBSERVED local token counts and
+receipts per chunk (exact role inputs, artifact SHA, backend,
+revision/preprocessing, input digests), 512/768/1024 budgets,
+up-to-64-token word-boundary overlap, no discarded tail, reciprocal
+neighbors, deterministic rebuild, same-byte distinct IDs and
+cross-source denial, native pair 1280/reserve 64 with strict
+smaller-policy refusal, legacy callback pair 512 kept
+SUPPLIED_UNVERIFIED, and independent session re-counts instead of
+hand-derived word counts. The required native tests fail explicitly
+(never skip) when SLAIF_NATIVE_TEST_ROOT/PACKAGES/PYTHON, the backend
+or the isolation is absent or invalid. Local setup: `python3
+tests/support/prepare_native_test_backend.py --runtime-dir
+<standalone 3.12 root> --target <new private dir>`; product CI
+provisions the NEW private pinned hash-verified engine-only
+tokenizers 0.21.4 capsule per run on both Python 3.12/3.14 legs with
+literal GITHUB_ENV bindings (helper output never sourced). Observed
+limit: the 1024-call session budget refuses representative-scale
+sources at attempted call 1025 before any output (asserted with the
+exact observed count); the commissioned same-PR efficiency correction
+must land before whole-006 acceptance. The capsule is DEV-only
+(engine-only --no-deps; no dependency/lock/allowlist/license change);
+toy artifacts only — no deployed-model equivalence, serving, hardware,
+license or quality claim. Real qualification NOT RUN.

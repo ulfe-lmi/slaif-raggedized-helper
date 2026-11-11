@@ -74,13 +74,30 @@ extraction on that foundation: the exact literal line and bounded
 structural Markdown subset adapters with full Unicode code-point
 coverage, and the fixed trusted isolated PDF worker (bounded verified
 read, private pinned hash-verified development backend, required
-reproducible PDF development tests on product CI); source-to-block
-anchors, native versus visual-needed page semantics and refusal
-behavior are documented in
+reproducible PDF development tests on product CI). The 006-b
+continuation integrates the reviewed fixed native tokenizer session
+and structural chunk adapter with canonical extraction: chunks with
+exact original spans/separators, conditional word-boundary overlap and
+no discarded tail, each carrying three observed local token counts and
+receipts binding exact role inputs, artifact SHA, backend, declared
+revision/preprocessing and input digests (512/768/1024 budgets, up to
+64-token overlap, native pair 1280 with 64 reserved; the legacy
+callback fixture keeps supplied pair 512 unverified); the required
+native tests are mandatory on both product CI legs under a NEW private
+pinned hash-verified engine-only tokenizers 0.21.4 capsule (DEV only;
+no dependency, lock, allowlist or license change). An observed session
+call-budget limit (1024 calls) makes representative-scale sources
+refuse totally at attempted call 1025 with the current accepted
+bridge; the commissioned same-PR native efficiency correction,
+durable derived bundles/loaders and the private installed chunk
+command remain required 006 work before whole-006 acceptance.
+Source-to-block anchors, native versus visual-needed page semantics,
+refusal behavior, budgets and observed-count provenance are documented
+in
 [docs/ingestion.md](docs/ingestion.md) with the detailed per-adapter
-contracts under [docs/parallel/](docs/parallel/). Structural chunking,
-tokenizer sessions, contextualization, embeddings, snapshot/retrieval,
-GPU/vision and all model/license/ICA qualification remain open.
+contracts under [docs/parallel/](docs/parallel/). Contextualization,
+embeddings, snapshot/retrieval, GPU/vision and all
+model/license/ICA qualification remain open.
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.
