@@ -58,14 +58,14 @@ def _parse(raw):
         nodes += 1
         if nodes > MAX_NODES or depth > MAX_DEPTH:
             raise ValueError
-        if type(item) is dict:
-            if len(item) > MAX_NODES:
+        if type(item) in (dict, list):
+            children = 2 * len(item) if type(item) is dict else len(item)
+            if nodes + len(stack) + children > MAX_NODES or (children and depth >= MAX_DEPTH):
                 raise ValueError
-            stack.extend((v, depth + 1) for pair in item.items() for v in pair)
-        elif type(item) is list:
-            if len(item) > MAX_NODES:
-                raise ValueError
-            stack.extend((v, depth + 1) for v in item)
+            if type(item) is dict:
+                stack.extend((v, depth + 1) for pair in item.items() for v in pair)
+            else:
+                stack.extend((v, depth + 1) for v in item)
         elif type(item) is str:
             item.encode("utf-8")
         elif type(item) is float:

@@ -1,3 +1,4 @@
+import json
 import subprocess
 import sys
 
@@ -81,3 +82,33 @@ def test_oversized_record_refused_before_parse(monkeypatch):
             b"{}",
             1,
         )
+
+
+def test_node_boundaries_and_cumulative_pending():
+    def parse(value):
+        return b._parse(json.dumps(value).encode())
+
+    # Dictionary keys and values both count, including the root.
+    exact_dict = {str(i): 0 for i in range(9999)}
+    exact_dict["0"] = [0]  # Replace one scalar with a list and its child.
+    assert parse(exact_dict) == exact_dict
+    with pytest.raises(ValueError):
+        parse({str(i): 0 for i in range(10000)})
+
+    exact_list = [0] * 19999
+    assert parse(exact_list) == exact_list
+    with pytest.raises(ValueError):
+        parse([0] * 20000)
+
+    # One sibling remains pending while the other is already visited and expanded.
+    exact_nested = [[0] * 9997, [0] * 10000]
+    assert parse(exact_nested) == exact_nested
+    with pytest.raises(ValueError):
+        parse([[0] * 9998, [0] * 10000])
+
+
+def test_depth_boundary():
+    exact = b"[" * b.MAX_DEPTH + b"0" + b"]" * b.MAX_DEPTH
+    assert b._parse(exact) is not None
+    with pytest.raises(ValueError):
+        b._parse(b"[" + exact + b"]")

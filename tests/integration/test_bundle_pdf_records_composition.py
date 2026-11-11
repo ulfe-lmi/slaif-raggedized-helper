@@ -225,3 +225,13 @@ def test_wrong_selected_revision_refused(evidence):
             json.dumps(coverage).encode(),
             len(blocks),
         )
+
+
+def test_large_nested_dictionary_refused_before_store(evidence, monkeypatch):
+    store, rev, result, header, blocks, _ = evidence
+    coverage = json.dumps({"x": {str(i): 0 for i in range(10001)}}).encode()
+    packed = b"".join(json.dumps(x).encode() + b"\n" for x in blocks)
+    monkeypatch.setattr(type(store), "read_verified", lambda *a, **k: pytest.fail("store read"))
+    with pytest.raises(boundary.PdfRecordsError):
+        boundary.validate(store, rev.revision_id, json.dumps(header).encode(), packed, coverage,
+                          len(result.blocks))
