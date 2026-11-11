@@ -41,7 +41,9 @@ def build(store, metadata_json_bytes, members, chunk_id, definition, runtime, po
         policy = Policy() if policy is None else policy
         if (type(policy) is not Policy or type(policy.max_tokens) is not int
                 or not 1 <= policy.max_tokens <= 1024 or policy.version != 'raw-v1'
-                or policy.separator != '\n\n' or policy.max_codepoints != 100000
+                or type(policy.version) is not str or type(policy.separator) is not str
+                or policy.separator != '\n\n' or type(policy.max_codepoints) is not int
+                or policy.max_codepoints != 100000 or type(policy.max_request_bytes) is not int
                 or policy.max_request_bytes != 200000 or type(chunk_id) is not str
                 or type(definition) is not native_tokenizers.Definition
                 or definition.role != 'bge_representation'
