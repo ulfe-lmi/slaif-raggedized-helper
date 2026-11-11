@@ -68,8 +68,8 @@ approval is metadata, not authentication
 [docs/parallel/provenance-records-api.md](docs/parallel/provenance-records-api.md),
 [docs/parallel/job-records-api.md](docs/parallel/job-records-api.md),
 [docs/data-model.md](docs/data-model.md)).
-The first 006 slice (open on the 006 PR, branch
-`oap/006-native-extraction-and-chunking`, not merged) adds native
+The 006 slices (merged to main as PR #8, branch
+`oap/006-native-extraction-and-chunking`) add native
 extraction on that foundation: the exact literal line and bounded
 structural Markdown subset adapters with full Unicode code-point
 coverage, and the fixed trusted isolated PDF worker (bounded verified
@@ -121,9 +121,16 @@ bounded normalized FP32 NPY subset codec (`vector_codec`: strict header
 admission before materialization, writer interop, immutable read-only
 views, input-free refusals) and the first exact runtime dependency pin
 (NumPy 2.5.4 in the lock; the full 018 license/SBOM audit remains OPEN).
+The 007-b continuation integrates the reviewed source-bound raw retrieval
+representation/batch (one bundle validation, one native token-counting
+session, exact receipt admission, bounded batch preflight) and the published
+BGE-M3 checkpoint inventory/encoder-space software (schema 1/2 byte-verified
+local artifact admission with fixed safetensors/pytorch-state-dict weight
+names; v1 CLS/1024/normalize/identity space binding; pinned layout evidence
+metadata-only, no deserialization or model execution).
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
-007 remains PARTIAL — no encoder, CPU query, resumable GPU batches or
-qualification yet
+007 remains PARTIAL — no encoder execution, CPU query, resumable GPU batches
+or qualification yet
 ([docs/embedding.md](docs/embedding.md),
 [docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
 Source-to-block anchors, native versus visual-needed page semantics,

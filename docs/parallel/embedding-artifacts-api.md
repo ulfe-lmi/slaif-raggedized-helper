@@ -60,6 +60,6 @@ Schema 2 adds exactly `checkpoint_format`: `safetensors` requires exactly one we
 `model.safetensors`; `pytorch-state-dict` requires exactly one at `pytorch_model.bin`.
 The verified inventory exposes schema and format, and schema 2 binds both into its ID.
 The published BGE-M3 2.27 GB `.bin` is metadata-only evidence in
-`audit/007-public-checkpoint-layout.json`; it does not establish acquisition, licensing,
+`oap/reviews/007-public-checkpoint-layout.json`; it does not establish acquisition, licensing,
 or forward qualification. A future loader needs a reviewed locked weights-only policy;
 model, runtime, license and authorization remain open.

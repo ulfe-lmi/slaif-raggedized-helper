@@ -1,10 +1,12 @@
-# Embedding pipeline — objective 007 (current: first 007-a slice)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space)
 
-Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a slice. This slice
-integrates the exact reviewed bounded vector codec and the reproducible lightweight NumPy
-runtime dependency only. It establishes no encoder, no CPU query path, no resumable owned
-GPU batches and no qualification contract. Numeric 007 remains PARTIAL until those are
-implemented and reviewed. No self-advance to 008 or main merge.
+Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a and 007-b slices.
+007-a integrates the exact reviewed bounded vector codec and the reproducible NumPy 2.5.4
+runtime dependency; 007-b integrates the reviewed source-bound raw retrieval
+representation/batch software and the published BGE-M3 checkpoint inventory/encoder-space
+software. Together they establish no encoder execution, no CPU query path, no resumable
+owned GPU batches and no qualification contract. Objective 007 remains PARTIAL until
+those are implemented and reviewed. No self-advance to 008 or main merge.
 
 ## 007-a slice: bounded normalized FP32 codec (integrated)
 
@@ -48,7 +50,8 @@ implemented and reviewed. No self-advance to 008 or main merge.
   publication nor execution parity: container/payload hashes identify bytes only. The
   shared embedding space (BGE-M3 1024-dim, CLS pooling, L2 normalization, pinned
   model/tokenizer/precision per A13/A18) and the CPU-query/GPU-encode execution split
-  are future 007 scope and remain unimplemented here.
+  remain execution scope: the 007-b `admit` software now provides the v1 space
+binding, but no execution is implemented.
 - Storage is typed: normalized FP32 vectors; the reviewed store contract admits a 128-row
   (128×1024) member of 524,416 bytes in a durable roundtrip and refuses the 20,000-row
   81,920,128-byte frame against the 64 MiB member cap; 128 job refs are 24,492 bytes and
@@ -57,19 +60,101 @@ implemented and reviewed. No self-advance to 008 or main merge.
   measured facts from the reviewed batch-capacity interop observation
   (`oap/reviews/007-batch-capacity-review.json`), not qualification.
 
+## 007-b slice: raw retrieval representation and published checkpoint space (integrated)
+
+Merged into the 007 branch as two root-reviewed local candidates, `--no-ff`, in order:
+representation batch tip `05257d03` (implementation `4914fe54`, report SHA-256
+`8a5e1065`), then published checkpoint format tip `d3836042` (implementation
+`2900feaf`, report SHA-256 `fb74619d`). All twelve indexed files hold the exact
+forecast Git blobs/SHA-256 (oap/reviews/007-b-components.json,
+oap/reviews/007-b-integration-forecast.json); no 008 ancestry entered.
+
+- Source-bound raw retrieval representation
+  (`src/slaif_raggedized_helper/retrieval_representation.py`, blob `21f82c1a` /
+  SHA-256 `681bf514`): `build`/`build_many` revalidate the whole ingestion bundle
+  against the trusted original store (one validation per batch), select 1..128
+  unique chunk IDs, join source title, nonempty heading path and original text
+  with the fixed `\n\n` separator, and count each final text through ONE native
+  tokenizer session (role `bge_representation`, backend 0.21.4) with full receipt
+  admission (artifact SHA, backend, revision, preprocessing, input digest,
+  mode/serialization). Preflight bounds: 100,000 codepoints / 200,000 request
+  bytes per text; batch policy 128 items / 1,000,000 codepoints / 4,000,000
+  escaped request bytes; any failure refuses the entire batch with input-free
+  `RepresentationError`. Scope records provenance only; token counting is not
+  encoder execution.
+- Published BGE-M3 checkpoint inventory and encoder space
+  (`embedding_artifacts.py` blob `3d07335b` / `f9f52ece`; `embedding_space.py`
+  blob `93bc9dcf` / `2cf63b8d`): `verify_artifacts` admits a caller-selected
+  manifest (schema 1 legacy safetensors set; schema 2 adds exactly
+  `checkpoint_format` with fixed names `model.safetensors` /
+  `pytorch_model.bin`) plus the protected local tree: strict UTF-8 JSON,
+  duplicate-key/`auto_map`/nonfinite refusals, symlink-free component opens,
+  streaming 64 KiB hashing of sizes/digests, pre/post-read signature recheck,
+  XLM-RoBERTa/1024 CLS/8192/normalize module semantics, 30 s cooperative
+  deadline, input-free `ArtifactRefused`. Weights are hashed bytes only: no
+  deserializer, no torch import, no model load. `admit` binds the verified
+  inventory, checkpoint weight digest and tokenizer to the v1 identity policy
+  (BAAI/bge-m3, CLS, normalize, 1024 dimensions, identity preprocessing,
+  backend 0.21.4) and derives a path-free `space_id`; expected IDs are
+  configuration, not approval, license or provenance.
+- Legacy and format compatibility: schema 1 inventory IDs remain equal to the
+  pre-007-b verifier (witness compares the old source at commit `b83c1ba7` with
+  the current module; ID `c46798c1...`); schema 2 IDs differ by format+schema.
+  The pinned public layout evidence
+  (oap/reviews/007-public-checkpoint-layout.json) records upstream BGE-M3
+  revision `5617a9f6` publishing `pytorch_model.bin` (2,271,145,830 bytes, LFS
+  SHA `b5e0ce34...`), not safetensors: metadata-only evidence, no weight
+  download, no license clearance, no freshness or authorization claim.
+- Documented doc delta (the only indexed-byte exception for 007-b):
+  docs/parallel/embedding-artifacts-api.md now cites the versioned
+  `oap/reviews/007-public-checkpoint-layout.json` instead of the private
+  strategic audit path (+6 bytes); all other merged API doc bytes are
+  unchanged.
+- Focused tests (no developer `PYTHONPATH`; approved native fixture runtime
+  `SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu`,
+  `SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages`,
+  `SLAIF_NATIVE_TEST_PYTHON=python3.12`; PDF routes
+  `PDF_TEST_RUNTIME` same 3.12 root /
+  `PDF_TEST_PACKAGES=/tmp/raggedized-root-pdf-setup-20ca62cd48/lib/python3.12/site-packages`):
+  `uv run --isolated --locked --offline --python 3.14 pytest
+  tests/unit/test_retrieval_representation.py
+  tests/unit/test_embedding_artifacts.py tests/unit/test_embedding_space.py -q`
+  plus each standalone integration file
+  `tests/integration/test_retrieval_representation_composition.py`,
+  `test_embedding_artifacts_composition.py`, `test_embedding_space_composition.py`.
+  Root witnesses re-run unchanged: `/tmp/raggedized-root-batch-boundaries.py`
+  (SHA-256 `004064b0`), `/tmp/raggedized-root-artifact-json-boundary.py`
+  (`f94d4d4f`), `/tmp/raggedized-root-artifact-trace-privacy.py` (`dfa36035`),
+  `/tmp/raggedized-root-schema1-compatibility.py` (`a576e7db`). Store caps
+  (64 MiB member / 96 MiB aggregate / 16 members) and native session 20 s /
+  2 s request caps unchanged; a 20k corpus uses future multiple bounded
+  batches.
+
 ## Remaining 007 work (not implemented this round)
 
-Shared encoder definition binding model/tokenizer/pooling/normalization and execution
-precision fingerprints; CPU FP32 query path and CPU exact dot-product search; resumable
-owned GPU encode batches with bounded resource telemetry; snapshot/manifest binding of
-vectors, row maps, ACL and space fingerprints; query/GPU precision qualification (FP16
-vs FP32 cosine/ranking/Recall@k); and all artifact/encoder/execution/auth gates.
-Live authorization remains NONE; no model weights, inference, GPU, services,
-credentials, private corpus, release or deploy in this slice.
+CPU FP32 query path and CPU exact dot-product search against admitted spaces;
+the resident actual encoder (model execution, a reviewed locked weights-only
+loading policy, execution precision fingerprints); resumable owned GPU encode
+batches with bounded resource telemetry; snapshot/manifest binding of vectors,
+row maps, ACL and space fingerprints; query/GPU precision qualification (FP16
+vs FP32 cosine/ranking/Recall@k); typed normalized durable batches wired to
+the store; and all artifact/encoder/execution/auth gates. A future CPU worker
+requires PyTorch >= 2.10.0 per the current weights-only advisory; no unsafe
+fallback. Live authorization remains NONE; no model weights, inference, GPU,
+services, credentials, private corpus, release or deploy in this slice.
 
 ## Evidence status
 
-Codec behavior is proven by the owned synthetic suite and the unchanged root witness
-(`/tmp/audit_007_vector_witness.py`): writer interop, immutability, 12 malformed frames
-refused before materialization, Latin-1 comment refused where NumPy accepts it, zero
-forbidden-call intercepts. Real qualification remains NOT RUN (U04/U07 relevant).
+007-a codec behavior is proven by the owned synthetic suite and the unchanged
+root witness (`/tmp/audit_007_vector_witness.py`): writer interop, immutability,
+12 malformed frames refused before materialization, Latin-1 comment refused
+where NumPy accepts it, zero forbidden-call intercepts. 007-b behavior is
+proven by the merged reviewed suites (representation, artifact and space
+unit/composition) and the four unchanged root witnesses (batch boundary
+preflight refusals, positive receipt regression with AST guard-removal catch,
+UTF-16/surrogate JSON boundary refusals, dynamic path trace privacy,
+old-reader schema 1 equality). The root-accepted local candidate reviews
+(oap/reviews/007-representation-batch-review.json,
+oap/reviews/007-published-format-review.json) are immutable provenance, not
+current CI or Root approval of this integration. Real qualification remains
+NOT RUN (U04/U07 relevant).

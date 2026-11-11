@@ -575,3 +575,23 @@ human question.
   observation, not qualification. The full 018 transitive
   license/SBOM/notice audit remains OPEN; no allowlist exception.
   Real qualification NOT RUN.
+
+### 2026-11-11, order 007-b (source-bound representation batch + published checkpoint space)
+
+- 007 is PARTIAL after this slice: the reviewed source-bound raw retrieval
+  representation/batch (one bundle validation, one native session, exact
+  receipt admission, 128-item / 1,000,000-codepoint / 4,000,000-byte batch
+  preflight) and the published BGE-M3 checkpoint inventory/encoder-space
+  software (schema 1/2 byte-verified local admission, fixed
+  safetensors/pytorch-state-dict weight names, v1 CLS/1024/normalize/
+  identity space binding) are integrated on the 007 branch (PR not
+  merged). No deserializer, model execution, CPU query path, resumable
+  owned GPU batches, snapshot binding or qualification contract exists;
+  U04 and U07 remain OPEN. Pinned layout evidence
+  (oap/reviews/007-public-checkpoint-layout.json: upstream revision
+  5617a9f6, pytorch_model.bin 2,271,145,830 bytes, LFS SHA b5e0ce34) is
+  metadata only: no weight download, no license clearance, no freshness
+  claim. Raw .bin byte hashing proves no deserializer safety; a future
+  CPU worker requires PyTorch >= 2.10.0 per the current weights-only
+  advisory. Schema 1 legacy IDs remain equal; schema 2 differs by
+  format+schema. Real qualification NOT RUN.
