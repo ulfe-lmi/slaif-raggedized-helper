@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import dataclass
 
 from . import chunking, native_tokenizers as native, provenance_records as p
@@ -68,14 +69,18 @@ def build(registry: p.Registry, blocks: tuple[p.Block, ...], body: native.Defini
     """Count exact inputs in an owned fixed session, and bind observed-count chunks."""
     try:
         definitions = (body, representation, pair)
-        if any(type(d) is not native.Definition or d.role != role
-               for d, role in zip(definitions, _ROLES)):
-            raise ValueError
+        # Bound every declaration before encoding or serializing any of them.
+        for d, role in zip(definitions, _ROLES):
+            if (type(d) is not native.Definition or type(d.role) is not str or
+                    d.role != role or type(d.backend_version) is not str or
+                    d.backend_version != '0.21.4' or type(d.sha256) is not str or
+                    len(d.sha256) != 64 or not re.fullmatch('[0-9a-f]{64}', d.sha256) or
+                    any(type(value) is not str or not 1 <= len(value) <= 256
+                        for value in (d.model_revision, d.preprocessing))):
+                raise ValueError
         for d in definitions:
-            for value in (d.model_revision, d.preprocessing):
-                if type(value) is not str:
-                    raise ValueError
-                value.encode('utf-8')
+            d.model_revision.encode('utf-8', errors='strict')
+            d.preprocessing.encode('utf-8', errors='strict')
         if type(query) is not str or len(query) > 10000:
             raise ValueError
         query.encode('utf-8')

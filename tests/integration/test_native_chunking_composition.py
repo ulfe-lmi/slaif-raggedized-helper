@@ -28,6 +28,9 @@ def test_owned_pipeline_and_invalidation(tmp_path):
         before = (tmp_path / 'root' / 'a').read_bytes()
         def run(item, ds=defs, query='hello', policy=None):
             return nc.build(reg, item.blocks, *ds, runtime, query, policy)
+        boundary = tuple(replace(d, model_revision='é' * 256, preprocessing='界' * 256)
+                         for d in defs)
+        assert run(items[0], boundary).chunks
         result = run(items[0])
         assert result == run(items[0])
         assert result.chunks[0].chunk_id != run(items[1]).chunks[0].chunk_id

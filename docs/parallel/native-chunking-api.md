@@ -34,9 +34,11 @@ The inherited builder has a five-second build budget, 4096 blocks/chunks, one mi
 source characters, 20,000 calls and 20 million work characters; Session limits are
 stricter where applicable: startup five seconds, request two seconds, lifetime 20
 seconds, 1024 calls, 16 MB input, 4 MB output, 200000 bytes and 100000 characters per
-request, 4096 bytes per response and 200000 tokens per count. Receipt output is capped
-at 8 MB. Exceeding any limit refuses without returning a partial result. Errors contain
-no source text. Filesystem reads and runtime/packages are trusted local inputs, and
+request, 4096 bytes per response and 200000 tokens per count. The observation cache is
+bounded by those Session call and input limits. Receipt output is capped at 8 MB after
+serialization of produced results; this is not a general memory admission guarantee for
+arbitrary caller-forged Result or Receipt objects. Exceeding a limit refuses without
+returning a partial result. Errors contain no source text. Filesystem reads and runtime/packages are trusted local inputs, and
 caller concurrency must be bounded externally.
 
 These are observed local tokenizer counts, not model, serving latency, hardware or
