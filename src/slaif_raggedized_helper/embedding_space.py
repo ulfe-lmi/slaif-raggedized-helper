@@ -3,6 +3,7 @@
 import hashlib
 import json
 import math
+import os
 import re
 import time
 from dataclasses import dataclass
@@ -52,6 +53,13 @@ def admit(
             or not hex64(d.checkpoint_sha256)
             or type(d.checkpoint_revision) is not str
             or re.fullmatch(r"[0-9a-f]{40}", d.checkpoint_revision) is None
+            or type(d.model_name) is not str
+            or type(d.pooling) is not str
+            or type(d.tokenizer_revision) is not str
+            or type(t.backend_version) is not str
+            or type(t.role) is not str
+            or type(t.model_revision) is not str
+            or type(t.preprocessing) is not str
             or d.model_name != "BAAI/bge-m3"
             or d.pooling != "cls"
             or d.normalize is not True
@@ -64,10 +72,23 @@ def admit(
             or t.role != "bge_representation"
             or t.model_revision != d.checkpoint_revision
             or t.preprocessing != "identity"
-            or type(t.artifact) is not Path
+            or not isinstance(t.artifact, Path)
             or type(timeout) not in (int, float)
             or not math.isfinite(timeout)
             or not 0 < timeout <= 30
+        ):
+            raise ValueError
+        root = os.fspath(artifact_root) if isinstance(artifact_root, (str, Path)) else None
+        path = os.fspath(t.artifact)
+        if (
+            type(root) is not str
+            or not root.startswith("/")
+            or len(root.encode()) > 4096
+            or os.path.normpath(root) != root
+            or root == "/"
+            or len(path.encode()) > 4096
+            or os.path.normpath(path) != path
+            or path != root + "/tokenizer.json"
         ):
             raise ValueError
         remaining = timeout - (time.monotonic() - start)
@@ -80,12 +101,6 @@ def admit(
             or len(weights) != 1
             or weights[0].sha256 != d.checkpoint_sha256
             or tokenizer.sha256 != t.sha256
-            or time.monotonic() - start >= timeout
-        ):
-            raise ValueError
-        raw = native_tokenizers._read_artifact(t.artifact, 32_000_000)
-        if (
-            hashlib.sha256(raw).hexdigest() != tokenizer.sha256
             or time.monotonic() - start >= timeout
         ):
             raise ValueError
@@ -102,6 +117,8 @@ def admit(
         space_id = hashlib.sha256(
             json.dumps(identity, sort_keys=True, separators=(",", ":")).encode()
         ).hexdigest()
+        if time.monotonic() - start >= timeout:
+            raise ValueError
         return AdmittedSpace(
             inv.inventory_id, fp, tokenizer.sha256, "identity", 1024, "cls", True, space_id
         )
