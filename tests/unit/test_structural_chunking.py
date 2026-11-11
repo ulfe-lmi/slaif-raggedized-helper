@@ -13,3 +13,10 @@ def test_policy_strict():
 def test_fixed_error_on_untrusted_inputs():
     with pytest.raises(c.ChunkingError, match='^chunk construction refused$'):
         c.build(None, (), None, 'canary secret')
+
+
+def test_all_policy_fields_reject_nonintegers_and_unbounded_values():
+    for field in c.Policy.__dataclass_fields__:
+        for value in (True, -1, 0, float('nan'), float('inf'), 10**30):
+            with pytest.raises(c.ChunkingError, match='^invalid policy$'):
+                c.Policy(**{field: value})
