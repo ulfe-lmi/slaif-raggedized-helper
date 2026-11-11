@@ -1,0 +1,21 @@
+{
+  "lane_id": "PAR-006-MEMBER-STORE-A",
+  "result": "PARTIAL",
+  "implementation_head": "756e6430a2a973ccff4252971b442c7250819916",
+  "report_publication_commit": "SELF",
+  "API": "Store(root), close(), context manager, publish(metadata_json_bytes, tuple[Member, ...]), load(container_id); frozen Member and Snapshot; StoreError",
+  "actualcommands": [
+    "python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py wait-control derived-member-store (exit 0, EXACT_OK_CONSUMED)",
+    "uv run ruff check src/slaif_raggedized_helper/derived_store.py tests/unit/test_derived_store.py tests/integration/test_derived_store_composition.py (exit 0 after formatting)",
+    "uv run pytest tests/unit tests/integration/test_derived_store_composition.py (exit 0, 603 passed before final stage-mode check and two added tests)",
+    "uv run pytest tests/unit/test_derived_store.py tests/integration/test_derived_store_composition.py (exit 0, 17 passed after final changes)",
+    "git diff --cached --check (exit 0)"
+  ],
+  "tests": "Roundtrip, canonical identity, deduplication, immutable metadata, malformed inputs, object tampering, symlink/FIFO, manifest extra field, pre-manifest failure, concurrent threads, permissions, and new-process coexistence with OriginalStore.",
+  "limits": [
+    "Incomplete required boundary and fault-injection matrix: no systematic injected failures around every write/link/fsync, descriptor mutation, all malformed manifest fields, or independent-process concurrent writers; no acceptance claim.",
+    "Hashing currently uses one-shot hashlib over resident members rather than bounded chunked hashing with deadline checks, so this requirement remains unresolved.",
+    "Full regression ran before the last small stage-mode change; focused tests and lint ran afterward.",
+    "No typed bundle validation, serving authorization, CLI, qualification, deployment or readiness claim. Cooperative deadlines cannot interrupt blocked syscalls."
+  ]
+}
