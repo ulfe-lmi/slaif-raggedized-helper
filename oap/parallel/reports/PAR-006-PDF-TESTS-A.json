@@ -1,0 +1,39 @@
+{
+  "lane_id": "PAR-006-PDF-TESTS-A",
+  "result": "COMPLETE",
+  "implementation_head": "33d77b6841bc22448095c791fdd9e8b9a37fa3ed",
+  "report_publication_commit": "SELF",
+  "summary": "Required native PDF integration tests use explicit trusted environment paths and fail on missing configuration. Added private development-only exact-hash binary wheel setup and documentation; PDF D parser sources unchanged. No DHA append ordered.",
+  "API": "PDF_TEST_RUNTIME selects the standalone CPython 3.12 worker runtime; PDF_TEST_PACKAGES selects its separate development backend site-packages. Parent pytest can run on 3.12 or 3.14. The setup helper requires a new private target and prints worker version, installed pinned inventory, verified wheel hashes and shell exports.",
+  "tests": [
+    {
+      "command": "python3 tests/support/prepare_pdf_test_backend.py --runtime-dir /home/janezp/.local/share/uv/python/cpython-3.12-linux-x86_64-gnu --target /tmp/raggedized-pdf-test-setup-par006-new",
+      "result": "exit 0; new mode 700 environment; worker CPython 3.12.15; five exact versions and wheel hashes printed, hash-verified binary install."
+    },
+    {
+      "command": "PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-pdf-test-setup-par006-new/lib/python3.12/site-packages PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline --python 3.12 pytest -p no:cacheprovider -o addopts='' -q tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "29 passed in 11.46s, no skips; parent 3.12.15, worker 3.12.15."
+    },
+    {
+      "command": "PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-pdf-test-setup-par006-new/lib/python3.12/site-packages PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline --python 3.14 pytest -p no:cacheprovider -o addopts='' -q tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "29 passed in 11.59s, no skips; parent 3.14.4, worker 3.12.15."
+    },
+    {
+      "command": "env -u PDF_TEST_RUNTIME -u PDF_TEST_PACKAGES PYTHONDONTWRITEBYTECODE=1 uv run --isolated --locked --offline --python 3.14 pytest -p no:cacheprovider -o addopts='' -q tests/integration/test_pdf_extraction_composition.py::test_native_pdf_to_registry",
+      "result": "expected exit 1, explicit fixture setup error naming both environment variables; no skip."
+    },
+    {
+      "command": "python3 tests/support/prepare_pdf_test_backend.py --runtime-dir /home/janezp/.local/share/uv/python/cpython-3.12-linux-x86_64-gnu --target /tmp/raggedized-pdf-test-setup-par006-new",
+      "result": "expected exit 1; existing target refused without reuse."
+    },
+    {
+      "command": "uv run --isolated --locked --offline ruff check tests/support/prepare_pdf_test_backend.py tests/unit/test_pdf_extraction.py tests/integration/test_pdf_extraction_composition.py",
+      "result": "All checks passed."
+    },
+    {
+      "command": "git diff --check; cmp /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/pdf-test-setup/order.md oap/parallel/orders/PAR-006-PDF-TESTS-A.md",
+      "result": "Both passed; PDF product source unchanged from base."
+    }
+  ],
+  "limits": "Linux x86-64 CPython 3.12 wheel selection and host-specific namespace/isolation prerequisites. Setup uses development graph only; unapproved MIT-0 and native notices remain release/distribution blockers, with no license exception or LICENSE-01 clearance. Canonical CI must provision and qualify its actual host; no full 006, security, MVP or production qualification. No production resources, credentials, GPU, services, real corpus, model downloads, push, PR or integration."
+}
