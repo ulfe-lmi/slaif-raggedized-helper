@@ -37,6 +37,6 @@ For example, this is an owned toy declaration, not an installed model or runtime
   "bge": {"artifact": "/toy/bge", "sha256": "0000000000000000000000000000000000000000000000000000000000000000", "backend_version": "0.21.4", "model_revision": "toy", "preprocessing": "toy"},
   "reranker": {"artifact": "/toy/reranker", "sha256": "0000000000000000000000000000000000000000000000000000000000000000", "backend_version": "0.21.4", "model_revision": "toy", "preprocessing": "toy"},
   "pdf_runtime": null,
-  "chunk_policy": {"target": 512, "soft_max": 768, "representation_max": 1024, "pair_max": 512, "query_reserve": 64, "max_blocks": 4096, "max_chars": 1000000, "max_chunks": 4096, "max_calls": 20000, "max_work_chars": 20000000}
+  "chunk_policy": {"target": 512, "soft_max": 768, "representation_max": 1024, "pair_max": 1280, "query_reserve": 64, "max_blocks": 4096, "max_chars": 1000000, "max_chunks": 4096, "max_calls": 20000, "max_work_chars": 20000000, "deadline_ms": 15000}
 }
 ```

@@ -12,7 +12,7 @@ complete visible container; unchanged canonical retries converge if the original
 No deletion or rollback is attempted. Store cleanup and concurrency semantics remain unchanged.
 
 This private operator API assumes a trusted producer, private stores and a pinned container ID;
-mechanical validation does not prove producer authenticity or serving authorization. It performs
-no inference, parsing, tokenization, subprocess or network operations. The installed chunk and
+mechanical validation does not prove producer authenticity or serving authorization. Loading parses the JSON manifest and reparses pure structured text for verification. It performs
+no PDF parsing, inference, tokenization, subprocess or network operations. The installed chunk and
 inspect operator journey, PDF integration, current CI, 019, model and domain qualification,
 license audit, independent audit and full visual MVP remain open. No deployment is implied.
