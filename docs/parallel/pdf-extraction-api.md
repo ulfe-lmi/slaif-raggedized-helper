@@ -44,3 +44,47 @@ The exact development graph and MIT-0/native/notice questions remain under
 review. This candidate adds no project dependency, lock, license exception,
 distribution authority or LICENSE-01 clearance. Synthetic fixtures do not
 qualify full 006, vision, ICA, MVP or a production deployment.
+
+## Reproducible development PDF tests
+
+These required tests use synthetic PDFs and an explicit trusted backend. They fail
+when `PDF_TEST_RUNTIME` or `PDF_TEST_PACKAGES` is absent or invalid, or when the
+actual backend or isolation is unavailable; a skipped test is not a pass. The
+fixture retains `RUNTIME`, `PACKAGES`, `tiny_pdf` and `make_store` for witnesses.
+Paths are trusted development configuration, never input from a PDF.
+
+On Linux x86-64 with `uv`, an existing trusted standalone CPython 3.12 runtime,
+compatible manylinux system libraries and working `/usr/bin/bwrap`,
+`/usr/bin/prlimit` and user/PID/network/IPC/UTS namespaces, create a **new**
+private directory (the target must not exist):
+
+```sh
+python3 tests/support/prepare_pdf_test_backend.py \
+  --runtime-dir /absolute/path/to/cpython-3.12-runtime \
+  --target /absolute/path/to/new-private-pdf-test-env
+# Copy the two export commands printed by the helper into the shell.
+uv run --isolated --locked --offline --python 3.12 pytest -p no:cacheprovider \
+  -o addopts='' -q tests/unit/test_pdf_extraction.py \
+  tests/integration/test_pdf_extraction_composition.py
+uv run --isolated --locked --offline --python 3.14 pytest -p no:cacheprovider \
+  -o addopts='' -q tests/unit/test_pdf_extraction.py \
+  tests/integration/test_pdf_extraction_composition.py
+```
+
+The parent running pytest may be 3.12 or 3.14; the sandboxed worker is always
+CPython 3.12 from `PDF_TEST_RUNTIME`. `PDF_TEST_PACKAGES` points to the new
+environment's 3.12 site-packages, mounted separately in the worker. The helper
+requires a standalone base runtime, installs the recorded exact graph with
+binary wheels and SHA-256 verification, prints the actual installed versions,
+verified wheel hashes, worker version and reusable shell exports. It supports
+only the recorded Linux x86-64 CPython 3.12 wheels; the installer may use its
+cache or the configured package registry. It makes no runtime download and
+will leave an owned partial target on failure for inspection; select a new
+name for another attempt. Project dependencies and locks are unchanged.
+
+This is development test setup only. pdfminer.six itself is MIT; unapproved
+transitive MIT-0 and native/notice questions remain release and distribution
+blockers. This provides no license exception, allowlist expansion, application
+graph clearance or LICENSE-01 pass. Canonical 006 must separately provision and
+qualify its actual CI host isolation and backend; these fixtures do not qualify
+full 006, MVP, security or production.

@@ -1,5 +1,6 @@
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -7,8 +8,14 @@ import pytest
 from slaif_raggedized_helper import pdf_extraction as pdf, provenance_records as p
 from slaif_raggedized_helper.source_admission import OriginalStore, parse_manifest
 
-RUNTIME = Path('/home/janezp/.local/share/uv/python/cpython-3.12-linux-x86_64-gnu')
-PACKAGES = Path('/tmp/raggedized-pdf-dependency-pin-312/lib/python3.12/site-packages')
+RUNTIME = Path(os.environ['PDF_TEST_RUNTIME']) if os.environ.get('PDF_TEST_RUNTIME') else None
+PACKAGES = Path(os.environ['PDF_TEST_PACKAGES']) if os.environ.get('PDF_TEST_PACKAGES') else None
+
+
+def configured_runtime():
+    if RUNTIME is None or PACKAGES is None or not RUNTIME.is_dir() or not PACKAGES.is_dir():
+        raise RuntimeError('Set PDF_TEST_RUNTIME and PDF_TEST_PACKAGES to trusted test paths')
+    return pdf.PdfRuntime(RUNTIME, PACKAGES)
 
 
 def tiny_pdf(pages=1, text=True):
@@ -53,9 +60,15 @@ def make_store(tmp_path, data):
 
 @pytest.fixture
 def runtime():
-    if not RUNTIME.is_dir() or not PACKAGES.is_dir():
-        pytest.skip('isolated development pdfminer runtime not installed')
-    return pdf.PdfRuntime(RUNTIME, PACKAGES)
+    return configured_runtime()
+
+
+
+def test_missing_test_configuration_fails_explicitly(monkeypatch):
+    monkeypatch.setitem(globals(), 'RUNTIME', None)
+    monkeypatch.setitem(globals(), 'PACKAGES', None)
+    with pytest.raises(RuntimeError, match='Set PDF_TEST_RUNTIME and PDF_TEST_PACKAGES'):
+        configured_runtime()
 
 
 def test_native_pdf_to_registry(tmp_path, runtime):
