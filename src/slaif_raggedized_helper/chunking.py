@@ -70,12 +70,14 @@ def _build(registry, blocks, counters, query, policy):
     if type(counters) is not Counters or type(query) is not str or len(query) > 10000:
         raise ValueError
     query.encode('utf-8')
+    if policy is not None and type(policy) is not Policy:
+        raise ValueError
     policy = Policy() if policy is None else Policy(**policy.__dict__)
     if type(counters.provenance) is not str or counters.provenance != 'SUPPLIED_UNVERIFIED':
         raise ValueError
     identities = (counters.body_identity, counters.representation_identity, counters.pair_identity)
     if (any(type(x) is not str or not 1 <= len(x) <= 128 for x in identities)
-            or len(set(identities)) != 3
+            or identities[2] in identities[:2]
             or not all(callable(x) for x in
                        (counters.body, counters.representation, counters.pair))):
         raise ValueError
@@ -101,7 +103,7 @@ def _build(registry, blocks, counters, query, policy):
     calls = work = 0
     seen = {}
 
-    def count(fn, identity, *args):
+    def count(fn, mode, *args):
         nonlocal calls, work
         calls += 1
         work += sum(len(x) for x in args)
@@ -111,7 +113,7 @@ def _build(registry, blocks, counters, query, policy):
         if (type(value) is not int or not 0 <= value <= 10000000
                 or time.monotonic() >= deadline):
             raise ValueError
-        k = (identity, args)
+        k = (mode, args)
         if k in seen and seen[k] != value:
             raise ValueError
         seen[k] = value
@@ -121,11 +123,11 @@ def _build(registry, blocks, counters, query, policy):
         text = ''.join(f.copied_text if isinstance(f, p.SourceFragment) else f.text
                        for f in fragments)
         representation = ''.join(headings) + text
-        body = count(counters.body, identities[0], text)
-        rep = count(counters.representation, identities[1], representation)
-        pair = count(counters.pair, identities[2], query, representation)
-        empty_pair = count(counters.pair, identities[2], '', representation)
-        query_pair = count(counters.pair, identities[2], query, '')
+        body = count(counters.body, 'body', text)
+        rep = count(counters.representation, 'representation', representation)
+        pair = count(counters.pair, 'pair', query, representation)
+        empty_pair = count(counters.pair, 'pair', '', representation)
+        query_pair = count(counters.pair, 'pair', query, '')
         if (pair < empty_pair or pair < query_pair
                 or query_pair > policy.query_reserve):
             raise ValueError
@@ -177,7 +179,28 @@ def _build(registry, blocks, counters, query, policy):
             raise ValueError
         pending += unit
 
-    for block in blocks:
+    # Adjacent warning/prerequisite and numbered procedure, with at most one
+    # literal blank block between them. Never bridge unrelated content.
+    def warning(b):
+        return b.kind in ('text', 'list') and bool(re.search(
+            r'(?i)\b(warning|caution|danger|prerequisite|prerequisites)\b', b.text))
+
+    def procedure(b):
+        return b.kind == 'list' and bool(re.match(r'\s*\d+[.)]\s', b.text))
+
+    grouped = {}
+    for i, first in enumerate(blocks):
+        j = i + 1
+        if j < len(blocks) and blocks[j].kind == 'text' and not blocks[j].text.strip():
+            j += 1
+        if j < len(blocks) and ((warning(first) and procedure(blocks[j]))
+                                or (procedure(first) and warning(blocks[j]))):
+            grouped[i] = j
+
+    skip_until = -1
+    for index, block in enumerate(blocks):
+        if index <= skip_until:
+            continue
         if not block.text:
             continue
         if block.kind == 'heading':
@@ -193,6 +216,18 @@ def _build(registry, blocks, counters, query, policy):
         elif block.kind != 'table_row':
             table_header = None
         unit = [fragment(block, 0, len(block.text))]
+        if index in grouped:
+            end_index = grouped[index]
+            group = [fragment(b, 0, len(b.text)) for b in blocks[index:end_index + 1]]
+            _, _, group_fits = measure(group, path)
+            if group_fits:
+                # Give the local relationship priority over the target, but not
+                # over any hard limit or unrelated preceding material.
+                flush()
+                pending_headings = path
+                pending = group
+                skip_until = end_index
+                continue
         if block.kind == 'table_row' and not pending and table_header is not None:
             unit.insert(0, table_header)
         _, _, fits = measure(unit, path)
@@ -211,12 +246,54 @@ def _build(registry, blocks, counters, query, policy):
         flush()
         starts = [0] + [m.end() for m in re.finditer(r'(?<=[.!?])\s+', block.text)]
         starts = sorted(set(starts + [len(block.text)]))
+        previous = None
         for start, end in zip(starts, starts[1:]):
-            if start != end:
-                append_unit([fragment(block, start, end)], path)
+            if start == end:
+                continue
+            current = fragment(block, start, end)
+            if pending:
+                _, nums, combined = measure(pending + [current], path)
+                if not combined or nums[0] > policy.target:
+                    flush()
+                    # Repeat only the immediately preceding sentence within the
+                    # same split paragraph, if the actual body counter permits.
+                    if previous is not None:
+                        # Try longest word-boundary suffix first. Offsets remain
+                        # original source offsets, even when only a suffix fits.
+                        offsets = [previous.start] + [
+                            previous.start + m.end()
+                            for m in re.finditer(r'\s+', previous.copied_text)
+                            if m.end() < len(previous.copied_text)]
+                        for offset in offsets:
+                            overlap = fragment(block, offset, previous.end)
+                            overlap_count = count(counters.body, 'body', overlap.copied_text)
+                            _, _, overlap_fits = measure([overlap, current], path)
+                            if overlap_count <= 64 and overlap_fits:
+                                pending_headings = path
+                                pending = [overlap, current]
+                                break
+                        if pending:
+                            previous = current
+                            continue
+            append_unit([current], path)
+            previous = current
     flush()
     if not output:
         raise ValueError
+    # Coverage is a union: repeated table headers and overlap are deliberate.
+    covered = {b.block_id: [] for b in blocks}
+    for chunk in output:
+        for f in chunk.fragments:
+            if isinstance(f, p.SourceFragment):
+                covered[f.block_id].append((f.start, f.end))
+    for b in blocks:
+        end = 0
+        for start, stop in sorted(covered[b.block_id]):
+            if start > end:
+                raise ValueError
+            end = max(end, stop)
+        if end != len(b.text):
+            raise ValueError
     chunks = tuple(output)
     links = tuple(p.Neighbors(schema_version=1, chunk_id=c.chunk_id,
                               previous_chunk_id=chunks[i - 1].chunk_id if i else None,
