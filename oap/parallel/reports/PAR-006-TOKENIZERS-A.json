@@ -1,0 +1,46 @@
+{
+  "lane_id": "PAR-006-TOKENIZERS-A",
+  "result": "COMPLETE",
+  "implementation_head": "9e321cec858423d3bd242d76e2892092f9acb4bd",
+  "report_publication_commit": "SELF",
+  "summary": "Implemented a bounded local native tokenizer count candidate with a fixed isolated worker, exact verified artifact bytes, complete single and pair encoding, safe result metadata and fail-closed errors. Development evidence only; no actual model or license qualification.",
+  "API": "native_tokenizers.Definition, Runtime, Policy, Count and count. Input is already transformed by the declared operator preprocessing. Separate body, representation and reranker pair roles; chunking callbacks remain SUPPLIED_UNVERIFIED. See docs/parallel/native-tokenizers-api.md.",
+  "tests": [
+    {
+      "command": "UV_PROJECT_ENVIRONMENT=/tmp/slaif-tokenizer-tests-314 uv run --offline --python 3.14 --group dev pytest tests/unit/test_native_tokenizers.py tests/integration/test_native_tokenizers_composition.py",
+      "result": "12 passed"
+    },
+    {
+      "command": "UV_PROJECT_ENVIRONMENT=/tmp/slaif-tokenizer-tests-312 uv run --offline --python 3.12 --group dev pytest tests/unit/test_native_tokenizers.py tests/integration/test_native_tokenizers_composition.py",
+      "result": "12 passed; parent Python 3.12, fixture worker Python 3.14"
+    },
+    {
+      "command": "Python 3.12 direct native count with /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu runtime and wheel installed under /tmp/slaif-tokenizer-tests-312",
+      "result": "actual isolated Python 3.12 worker pair count 6"
+    },
+    {
+      "command": "UV_PROJECT_ENVIRONMENT=/tmp/slaif-tokenizer-tests-314 uv run --offline --python 3.14 --group dev pytest tests/unit",
+      "result": "513 passed before final additional focused resource test"
+    },
+    {
+      "command": "UV_PROJECT_ENVIRONMENT=/tmp/slaif-tokenizer-tests-314 uv run --offline --python 3.14 --group dev pytest tests/integration",
+      "result": "343 passed"
+    },
+    {
+      "command": "UV_PROJECT_ENVIRONMENT=/tmp/slaif-tokenizer-lint uv run --offline --python 3.14 --group dev ruff check src tests",
+      "result": "all checks passed"
+    },
+    {
+      "command": "Initial combined tests/unit tests/integration invocation",
+      "result": "collection error due to duplicate test_qualification_resources module names; separate runs passed. Earlier concurrent uv invocations collided over .venv; isolated /tmp environments used for successful reruns."
+    }
+  ],
+  "evidence": "Two retained owned WordLevel JSON artifacts yield Unicode single 5, pair 6 vs 7, empty 2, long 10002; serialized truncation and padding disabled. Tests cover corrupt, hash mismatch, bool policy, nonregular, symlink, growing and oversized artifacts, invalid requests, forged child identity/count/output, timeout, crash, flood, caller cancellation, CPU/memory refusal and owned child cleanup. OS probe observed denied outside canary, host home, GPU path, inherited fd, write to mounted artifact and connection to an owned loopback listener; reported CPU and memory caps and failed 1 GiB allocation. The actual worker was also refused under restrictive CPU and address-space limits.",
+  "limits": [
+    "Actual BGE/reranker artifacts, model inference parity, preprocessing qualification, model identities and production readiness remain unproven; 006/007/012/019 and ICA gates remain open.",
+    "Native wheel 0.21.4 is development-only; Apache source terms and native/transitive dependency notices and rights audit remain unresolved. No dependency or lock change.",
+    "Sandbox observations are specific to this Linux host and synthetic inputs; they do not establish arbitrary hostile native parser or supply-chain security. Concurrency must be bounded by the trusted caller.",
+    "The full automated 3.12 suite uses the 3.14 worker; the separate 3.12 native worker check covers a synthetic pair only. Fixtures and native backend are retained under /tmp and tests skip if unavailable.",
+    "No real tokenizer downloads, credentials, GPU, real corpus, integration merge, push, PR, deployment or release."
+  ]
+}
