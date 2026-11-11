@@ -21,8 +21,8 @@ The BGE record creates separate fixed `bge_body` and `bge_representation` defini
 reranker record creates `reranker_pair`. The returned policy object must be used as the same
 object in the later producer and metadata. Paths and declarations do not establish artifact
 existence, hashes, backend or model equivalence, preprocessing, serving, or licensing. Actual
-hash and count validation remains a later producer step. CLI, preparation, Store, PDF integration,
-current CI, 019, model and domain qualification, license, ICA, and full MVP remain open.
+hash and count validation remains a later producer step. Target hardware, 019, model and domain qualification, license, ICA, current serving authorization,
+and full visual MVP remain open.
 
 A toy example can be constructed by supplying arbitrary owned absolute paths and explicitly
 serializing every field from `dataclasses.asdict(chunking.Policy())`; those toy paths are not

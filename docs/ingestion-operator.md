@@ -30,5 +30,16 @@ converge to the same ID when the same verified inputs remain available.
 The overall 180-second budget is cooperative and cannot interrupt a blocked filesystem or stdout
 operation. Interruptions propagate and owned resources are cleaned up where possible. Use private,
 trusted stores and profiles; this tool does not establish producer authenticity, authorization,
-model equivalence, or license clearance. The candidate still requires the remaining operator proof
-matrix before acceptance.
+model equivalence, or license clearance. Processing approval in admission metadata does not establish current serving authorization.
+The installed route has focused owned-fixture proofs for structured text, PDF and integrity
+refusals. Target hardware, model and 019 qualification, licenses, ICA, full visual coverage and
+current authorization remain open; this is not a release or deployment claim.
+
+The JSON overview contains revision and bundle IDs, adapter, status, coverage kind and counts
+of blocks, chunks, neighbors and receipts. Successful preparation and inspection exit 0; an empty
+native result or typed ingestion failure exits 1, and invalid input exits 2. For native publication
+the two artifacts supply three roles: BGE body and representation, plus reranker pair. The profile
+example in the linked reference lists every required policy field. Admission of the source revision
+precedes these commands; paths and backend artifacts must be provisioned privately by the operator.
+A coherently re-published container bound to another revision is refused by semantic validation,
+which tests more than a changed manifest hash alone.
