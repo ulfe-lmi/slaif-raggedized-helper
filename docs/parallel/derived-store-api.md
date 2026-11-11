@@ -22,3 +22,10 @@ manifest linking may already have committed; retry the same publication or look 
 Orphan objects and stages after a crash are not garbage-collected. Storage integrity does not
 validate typed ingestion bundles, rights, current serving authorization or deployment readiness.
 A future typed bundle loader must validate those semantics; any future CLI needs its own gate.
+
+Operations on one instance are serialized with `close()`; close is idempotent and a closed
+instance rejects future operations before touching descriptors. Callers must still protect the
+root and must not mutate the process's descriptors behind the store. Separate instances and
+processes may publish concurrently. Deadlines are checked after final cleanup and snapshot
+freezing, so an expired operation reports failure even when its manifest is already committed.
+Retry the identical publication or look up its ID; do not assume failure means rollback.

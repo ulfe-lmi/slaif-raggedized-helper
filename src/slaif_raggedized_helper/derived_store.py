@@ -10,6 +10,8 @@ import re
 import secrets
 import stat
 import time
+import threading
+from functools import wraps
 from dataclasses import dataclass
 from types import MappingProxyType
 
@@ -70,8 +72,12 @@ def _parse(data):
             if not math.isfinite(value):
                 raise ValueError
         elif type(value) is list:
+            if nodes + len(stack) + len(value) > 20000:
+                raise ValueError
             stack.extend((v, depth + 1) for v in value)
         elif type(value) is dict:
+            if nodes + len(stack) + 2 * len(value) > 20000:
+                raise ValueError
             stack.extend((v, depth + 1) for v in value.values())
             stack.extend((k, depth + 1) for k in value)
         elif value is not None and type(value) is not bool:
@@ -108,9 +114,22 @@ def _secure(st, directory=False):
     )
 
 
+def _open_operation(method):
+    @wraps(method)
+    def guarded(self, *args, **kwargs):
+        with self._lock:
+            if self._closed:
+                raise StoreError("store unavailable")
+            return method(self, *args, **kwargs)
+
+    return guarded
+
+
 class Store:
     def __init__(self, root):
         self._fds = []
+        self._lock = threading.RLock()
+        self._closed = True
         try:
             fd = os.open(root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
             self._fds.append(fd)
@@ -120,6 +139,7 @@ class Store:
                 fd = self._directory(fd, name)
             self._objects = self._directory(fd, "objects")
             self._manifests = self._directory(fd, "manifests")
+            self._closed = False
         except (OSError, ValueError, TypeError):
             self.close()
             raise StoreError("store unavailable") from None
@@ -137,8 +157,10 @@ class Store:
         return fd
 
     def close(self):
-        while self._fds:
-            os.close(self._fds.pop())
+        with self._lock:
+            self._closed = True
+            while self._fds:
+                os.close(self._fds.pop())
 
     def __enter__(self):
         return self
@@ -150,6 +172,15 @@ class Store:
     def _deadline(end):
         if time.monotonic() > end:
             raise ValueError
+
+    def _hash(self, data, end):
+        digest = hashlib.sha256()
+        view = memoryview(data)
+        for offset in range(0, len(view), 65536):
+            self._deadline(end)
+            digest.update(view[offset : offset + 65536])
+        self._deadline(end)
+        return digest.hexdigest()
 
     def _read(self, directory, name, limit, end):
         self._deadline(end)
@@ -201,13 +232,14 @@ class Store:
                 )
             except FileExistsError:
                 existing = self._read(directory, digest, len(data), end)
-                if len(existing) != len(data) or hashlib.sha256(existing).hexdigest() != digest:
+                if len(existing) != len(data) or self._hash(existing, end) != digest:
                     raise ValueError
             os.fsync(directory)
         finally:
             os.unlink(stage, dir_fd=directory)
             os.fsync(directory)
 
+    @_open_operation
     def publish(self, metadata_json_bytes, members):
         end = time.monotonic() + 30
         try:
@@ -240,7 +272,7 @@ class Store:
             records = []
             for member in members:
                 self._deadline(end)
-                digest = hashlib.sha256(member.data).hexdigest()
+                digest = self._hash(member.data, end)
                 records.append({"name": member.name, "sha256": digest, "bytes": len(member.data)})
             manifest = _encode({"format": FORMAT, "metadata": metadata, "members": records})
             if len(manifest) > MAX_MANIFEST:
@@ -248,8 +280,9 @@ class Store:
             _parse(manifest)
             for member, record in zip(members, records, strict=True):
                 self._put(self._objects, record["sha256"], member.data, end)
-            digest = hashlib.sha256(manifest).hexdigest()
+            digest = self._hash(manifest, end)
             self._put(self._manifests, digest, manifest, end)
+            self._deadline(end)
             return digest
         except (
             OSError,
@@ -262,13 +295,14 @@ class Store:
         ):
             raise StoreError("publication failed") from None
 
+    @_open_operation
     def load(self, container_id):
         end = time.monotonic() + 30
         try:
             if type(container_id) is not str or not HEX.fullmatch(container_id):
                 raise ValueError
             raw = self._read(self._manifests, container_id, MAX_MANIFEST, end)
-            if hashlib.sha256(raw).hexdigest() != container_id:
+            if self._hash(raw, end) != container_id:
                 raise ValueError
             obj = _parse(raw)
             if (
@@ -305,13 +339,12 @@ class Store:
             members = []
             for record in obj["members"]:
                 data = self._read(self._objects, record["sha256"], record["bytes"], end)
-                if (
-                    len(data) != record["bytes"]
-                    or hashlib.sha256(data).hexdigest() != record["sha256"]
-                ):
+                if len(data) != record["bytes"] or self._hash(data, end) != record["sha256"]:
                     raise ValueError
                 members.append(Member(record["name"], data))
-            return Snapshot(raw, _freeze(obj["metadata"]), tuple(members))
+            snapshot = Snapshot(raw, _freeze(obj["metadata"]), tuple(members))
+            self._deadline(end)
+            return snapshot
         except (
             OSError,
             ValueError,
