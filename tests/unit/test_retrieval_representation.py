@@ -38,7 +38,11 @@ def controlled(monkeypatch, text='hello'):
     runtime = rr.native_tokenizers.Runtime(Path('/unused'), Path('/unused'))
     chunk = NS(chunk_id='chunk', heading_path=(), text=text, extraction_id='extraction',
                revision_id='revision')
-    validated = NS(chunks=(chunk,), revision=NS(source=NS(title=None)))
+    class Metadata:
+        title = None
+        def model_dump(self, mode): return {}
+    validated = NS(chunks=(chunk,), revision=NS(source=Metadata(), revision_id='revision'),
+                   scope=Metadata())
     monkeypatch.setattr(rr.ingestion_bundle, 'validate', lambda *args: validated)
     return definition, runtime, chunk
 
@@ -81,7 +85,7 @@ def test_definition_metadata_rejected_before_validation(monkeypatch):
 
 
 def test_forged_receipts_and_close(monkeypatch):
-    from dataclasses import replace
+    from dataclasses import asdict, replace
     import hashlib
     import json
     definition, runtime, _ = controlled(monkeypatch)
@@ -102,13 +106,26 @@ def test_forged_receipts_and_close(monkeypatch):
         def count(self, *args): return current[0]
     monkeypatch.setattr(rr, 'Session', FakeSession)
     for change in cases:
+        current = [count]
+        positive = rr.build(None, b'', (), 'chunk', definition, runtime)
+        assert isinstance(positive, rr.Representation)
+        assert positive.rendered_sha256 == hashlib.sha256(b'hello').hexdigest()
+        identity = dict(revision_id='revision', extraction_id='extraction', chunk_id='chunk',
+                        source={}, scope={}, variant='raw', policy=asdict(rr.Policy()),
+                        rendered_sha256=positive.rendered_sha256)
+        identity_bytes = json.dumps(identity, sort_keys=True, ensure_ascii=True,
+                                    separators=(',', ':')).encode()
+        assert positive.representation_id == hashlib.sha256(identity_bytes).hexdigest()
+        assert positive.scope.model_dump(mode='json') == {}
+        assert positive.source.model_dump(mode='json') == {}
+        assert positive.count == count
         current = [replace(count, **change)]
         with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
             rr.build(None, b'secret', (), 'chunk', definition, runtime)
-    assert len(closed) == len(cases)
+    assert len(closed) == 2 * len(cases)
     class FailingSession(FakeSession):
         def count(self, *args): raise ValueError('secret')
     monkeypatch.setattr(rr, 'Session', FailingSession)
     with pytest.raises(rr.RepresentationError, match='^retrieval representation refused$'):
         rr.build(None, b'secret', (), 'chunk', definition, runtime)
-    assert len(closed) == len(cases) + 1
+    assert len(closed) == 2 * len(cases) + 1
