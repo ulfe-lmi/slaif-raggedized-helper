@@ -1,0 +1,69 @@
+{
+  "lane_id": "PAR-006-NATIVE-TESTS-A",
+  "result": "COMPLETE",
+  "implementation_head": "bd9d4b570dc95c1823ca669796ce910f50a55256",
+  "report_publication_commit": "SELF",
+  "summary": "Private engine-only tokenizers 0.21.4 setup with pinned wheel hash, clean installer environment, runtime/inventory/API checks, refusal cases and required actual-worker test matrix.",
+  "API": {
+    "command": "python3 tests/support/prepare_native_test_backend.py --runtime-dir /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu --target /tmp/par006-native-capsule-final-20261111",
+    "runtime": "CPython 3.12.15 base /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu",
+    "packages": "/tmp/par006-native-capsule-final-20261111/packages",
+    "test_matrix_packages": "/tmp/par006-native-capsule-20261111/packages (created by same helper before addition of prerequisite binary check)",
+    "installer": "uv 0.12.5; explicit https://pypi.org/simple; no config/cache/dependencies; clean child environment",
+    "wheel": "tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+    "sha256": "51b7eabb104f46c1c50b486520555715457ae833d5aee9ff6ae853d1130506ff",
+    "exports": "SLAIF_NATIVE_TEST_ROOT=<verified base>, SLAIF_NATIVE_TEST_PYTHON=python3.12, SLAIF_NATIVE_TEST_PACKAGES=<private target>/packages"
+  },
+  "tests": [
+    {
+      "command": "sha256sum /tmp/qual006-b-research/tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "result": "matches required hash"
+    },
+    {
+      "command": "/tmp/slaif216-qualification-venv/bin/ruff check tests/support/prepare_native_test_backend.py; python3 -m py_compile tests/support/prepare_native_test_backend.py",
+      "result": "passed"
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/par006-native-capsule-20261111/packages PYTHONPATH=src /tmp/slaif216-qualification-venv/bin/python -m pytest -q -p no:cacheprovider tests/unit/test_native_tokenizers.py tests/unit/test_tokenizer_session.py tests/integration/test_native_tokenizers_composition.py tests/integration/test_tokenizer_session_composition.py",
+      "result": "38 passed, no skips; parent CPython 3.12.15, pytest 9.2.0; actual worker 3.12.15"
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/par006-native-capsule-20261111/packages PYTHONPATH=src /tmp/dense-memory-008-venv/bin/python -m pytest -q -p no:cacheprovider tests/unit/test_native_tokenizers.py tests/unit/test_tokenizer_session.py tests/integration/test_native_tokenizers_composition.py tests/integration/test_tokenizer_session_composition.py",
+      "result": "38 passed, no skips; parent CPython 3.14.4, pytest 8.4.2; actual worker 3.12.15"
+    },
+    {
+      "command": "same 3.14 suite with system python3.14",
+      "result": "initial collection failed because system parent lacks pydantic; existing 3.14 environment rerun passed as recorded"
+    },
+    {
+      "command": "env -u SLAIF_NATIVE_TEST_ROOT -u SLAIF_NATIVE_TEST_PYTHON -u SLAIF_NATIVE_TEST_PACKAGES PYTHONPATH=src /tmp/slaif216-qualification-venv/bin/python -m pytest -q -p no:cacheprovider tests/unit/test_native_tokenizers.py::test_actual_full_counts",
+      "result": "expected exit 1, explicit missing environment failure"
+    },
+    {
+      "command": "helper --runtime-dir <verified runtime> --target <existing sentinel directory>; helper --runtime-dir <nonexistent> --target <new>; helper --runtime-dir /usr --target <new>; helper with PATH=/usr/bin:/bin; private helper copy with corrupted requirements hash",
+      "result": "each exit 1; existing sentinel preserved, other targets absent"
+    },
+    {
+      "command": "private temporary runtime bin/python3.12 symlink to /usr/bin/python3.14; invoke helper with that runtime and new target",
+      "result": "exit 1, incompatible CPython refused before target creation"
+    },
+    {
+      "command": "private owned helper copy with /usr/bin/bwrap replaced by nonexistent path; invoke with verified runtime and new target",
+      "result": "exit 1, required tool refused before target creation"
+    },
+    {
+      "command": "git diff --exit-code -- src tests/unit tests/integration uv.lock pyproject.toml; cmp /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/native-test-setup/order.md oap/parallel/orders/PAR-006-NATIVE-TESTS-A.md; git diff --check",
+      "result": "passed; source, worker and fixture tracked blobs unchanged, order exact"
+    },
+    {
+      "command": "actual suite tests test_actual_full_counts, test_sessions_reuse_and_bind, test_child_cancellation_cleanup, test_os_isolation_and_resources, test_idle_worker_has_actual_lifetime_limit and compositions",
+      "result": "actual isolated native execution, reusable session, owned child termination/reaping, namespaces and resource limits passed on this host"
+    }
+  ],
+  "limits": [
+    "Engine-only --no-deps capsule: upstream declares huggingface-hub; no hub or complete application graph.",
+    "Native/vendored/transitive/model/platform license audits remain 018/release gates.",
+    "Host namespace behavior does not qualify GitHub-hosted CI; canonical continuation owns integration and required checks.",
+    "No model assets, inference, serving, hardware, quality, license or MVP qualification."
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "status": "FINAL",
+  "decision": "ACCEPT_WHOLE_005_SOFTWARE_FOR_PROTECTED_DEVELOPMENT_MERGE",
+  "at": "2026-11-11T15:05:11.559563+00:00",
+  "pr": 7,
+  "accepted_head": "45a50db3478152fdb4056c1bcb3a990580d60373",
+  "implementation_head": "617bc725cdc34519ab9d080e5da185065ffd4d91",
+  "base": "bd8e454b23b09bb25967b2c496ace9c0719a96a0",
+  "report_sha256": "091b4bdce4ea426b697b559b50aa68343094812c9bd1fb23ed5a180dba3b2d2c",
+  "implementation_ci": 43042968211,
+  "report_ci": 43044055137,
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-11T15:01:06Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43044055137/job/130603189752",
+      "name": "OAP tests (Python 3.12)",
+      "startedAt": "2026-11-11T15:00:54Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-11T15:01:09Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43044055137/job/130603191326",
+      "name": "OAP tests (Python 3.13)",
+      "startedAt": "2026-11-11T15:00:54Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-11T15:01:07Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43044055137/job/130603189918",
+      "name": "OAP tests (Python 3.14)",
+      "startedAt": "2026-11-11T15:00:54Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-11T15:04:16Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43044055137/job/130603189295",
+      "name": "Product tests (Python 3.12)",
+      "startedAt": "2026-11-11T15:00:54Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-11-11T15:04:35Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43044055137/job/130603189823",
+      "name": "Product tests (Python 3.14)",
+      "startedAt": "2026-11-11T15:00:54Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    }
+  ],
+  "scope_review": {
+    "status": "PRE_REPORT_IMPLEMENTATION_REVIEW",
+    "at": "2026-11-11T14:58:46.506346+00:00",
+    "implementation_head": "617bc725cdc34519ab9d080e5da185065ffd4d91",
+    "tests": "Root actual30 focused new journey/provenance/jobs tests PASS3.14; full new412line journey,96line protocol and docs/workflow inspected. Prior005-a source acceptance and exact accepted component source blobs retained unchanged.",
+    "graph": "Two exact local merge parent lists and forecast trees independently recomputed; full accepted component source identities identical. No extra source changes in combined implementation.",
+    "criteria": {
+      "005_original_1": "Source metadata roundtrip and pure provenance records, exact Unicode spans; no actual extraction claim.",
+      "005_original_2": "Actual one shared blob, distinct logical metadata revisions/rights/ACL, annotations separate, deterministic IDs.",
+      "005_original_3": "Previously accepted actual source descriptor/traversal/symlink/no-URL-fetch/strict metadata tests remain unchanged; pure reader intersection unknown version fails closed.",
+      "005_original_4": "Previously reviewed atomic immutable OriginalStore publication/retry/corruption tests remain; no pickle path introduced. General job execution/output-first/cache at010 not claimed."
+    },
+    "strongest_reason_not_to_merge": "The schemas and supplied extraction/output identities do not prove authentication, current-policy revocation, extraction, worker ownership, artifact cache validation or model execution. This entire005 is a record/store software objective and explicitly preserves those later architecture gates; no milestone/MVP claim follows.",
+    "remaining_before_acceptance": [
+      "Immutable report SELF/remote exact head/bytes review",
+      "All required current report-head CI success",
+      "Fresh PR identity/threads/merge automation/protected expected-head guard and main verification"
+    ],
+    "scope": "Not final acceptance or merge authorization until listed current-head checks complete."
+  },
+  "report_review": "Full immutable report read; SELF sole-parent/report-only diff/exact strategic order/active and unchanged source hashes verified independently using helper, local graph and remote gh contents bytes. Original005 four criteria and all005-b six criteria reconciled. Root30 focused combined journey/provenance/jobs tests PASS3.14; previously accepted source and individual peer reviews retained. No code changes to exact accepted components. Docs, actual read-only GitHub-hosted push/PR CI automation, full changed paths, privacy, all-label/version boundary and current empty CRITICAL register reviewed. No source/model/GPU/license/human-owner product scope change.",
+  "strongest_reason_not_to_merge": "Record admission and caller-supplied extraction/count/output assertions do not prove authentication/revocation, actual extraction, worker execution/ownership, output-first publication, cache validation, model parity or domain quality. The explicit005 software scope implements schemas/store/pure scope and transitions; these architecture obligations remain mandatory in named later objectives and are not falsely accepted.",
+  "gate_state": "No D1 entries. Actual target/model/hardware/corpus/license qualification, full006+, full-source ICA and full text/visual MVP remain open. Development merge is not release/tag/deploy.",
+  "merge_guard": "Expected-head protected gh merge, no bypass/admin/auto; unique OPEN PR7/base main/default branch and zero review threads checked at exact current report head; all5 actual required checks SUCCESS. Record remote merge result/default main/tree and mainCI before006."
+}

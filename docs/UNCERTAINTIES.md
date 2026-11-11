@@ -354,3 +354,204 @@ human question.
   MIT-0/certifi/native-component license questions are unaffected.
   Real extraction, tokenization, embedding, model, GPU, license and
   corpus qualification all remain NOT RUN.
+
+### 2026-11-11, order 006-a (native extraction first slice)
+
+- U06 narrowed further in software only: real native extraction now
+  exists on owned originals — exact literal lines, the bounded
+  structural subset with contiguous code-point coverage, and the
+  isolated PDF worker with native/visual-needed page semantics — all
+  bound to the accepted 005 revision/scope/dependency records and
+  Registry. Reading order, layout and geometry remain heuristic; the
+  structural subset is not CommonMark; PDF visual content is not
+  extracted. Representative corpus quality, real source rights/ACL
+  evidence and human gold questions are still absent; U06 stays OPEN
+  for 006 continuation/009 work.
+- The fixed PDF worker is a trusted isolated development worker, not a
+  hostile-PDF security boundary: namespaces plus prlimit bounds are
+  real but no seccomp policy is supplied, the cooperative parent
+  deadline cannot interrupt blocked filesystem calls, and the
+  request nonce correlates but does not authenticate a compromised
+  worker. Real isolation hardening stays 016/017 scope.
+- U07 unchanged: processing approval and operator grants remain
+  metadata, never authentication or redistribution clearance. The
+  required PDF development backend is DEV-only (pdfminer.six 20260107,
+  charset-normalizer 3.5.2, cryptography 50.0.2, cffi 2.0.0,
+  pycparser 3.12, SHA-256 verified): it adds no project dependency,
+  lock, allowlist entry, license exception or application graph
+  change; cffi MIT-0 and the remaining transitive/native/platform
+  model license questions stay release and redistribution gates.
+- Structural chunking, native tokenizer sessions, contextualization,
+  embedding, snapshot/retrieval, GPU/vision and all physical/model/
+  domain/license/ICA qualification remain NOT RUN.
+
+### 2026-11-11, order 006-b (observed native counts and chunks)
+
+- U06 narrowed further in software only: canonical extraction now
+  produces observed local native token counts and structural chunks
+  bound to the same accepted 005 records: three frozen count receipts
+  per chunk bind the exact role inputs (body, heading+body,
+  query-pair), observed artifact SHA, backend tokenizers 0.21.4,
+  declared revision/preprocessing and input digests, with 512/768/
+  1024 budgets, up-to-64-token word-boundary overlap and no
+  discarded tail. Observed local tokenization of locally generated
+  toy artifacts is not inference preprocessing parity, deployed-model
+  equivalence, serving or quality evidence; representative corpus
+  counts on real assets and human gold questions are still absent;
+  U06 stays OPEN for 006 continuation/009 work.
+- Observed usability limit (2026-11-11, independent rerun): the
+  accepted session's 1024-call budget refuses the 7876-byte procedure
+  source (403 blocks) and the 9269-byte table source (243 blocks) at
+  attempted session call 1025 before any chunk/neighbor/receipt
+  output, while the 938-byte Unicode source (765 calls) and the
+  148-byte manual (150 calls) complete. The refusal is total and
+  honest (no partial output); it is a precise observed bound, not a
+  capacity proof, and no representative large-document PASS is
+  claimed from the tiny bounded fixtures. The commissioned isolated
+  PAR-006-NATIVE-EFFICIENCY-A correction is required same-PR 006 work
+  before whole-006 acceptance; durable derived bundles/loaders and
+  the private installed chunk command remain separate required
+  same-PR work.
+- U07 unchanged: the required native development backend is a DEV-only
+  engine-only capsule (pinned hash-verified tokenizers==0.21.4 with
+  --no-deps in a new private 0700 target): it adds no project
+  dependency, lock, allowlist entry, license exception or application
+  graph change and is not upstream complete-app dependency or license
+  clearance; the open MIT-0 and transitive/native/platform/model
+  license questions stay release and redistribution gates. Processing
+  approval and operator grants remain metadata, never authentication
+  or clearance. Real tokenization on deployed assets, model, GPU,
+  license and corpus qualification all remain NOT RUN.
+
+### 2026-11-11, order 006-c (durable record integration)
+
+- U06 narrowed further in software only: the accepted native
+  efficiency/query correction now runs under the current session hard
+  caps (16,384 calls / 32 MB input / 4 MB output), the 15,000 ms
+  native default builder deadline (legacy explicit default 5,000 ms,
+  maximum 15,000 ms), per-build reuse with duplicate-free
+  deterministic session call streams, and policy definition v2
+  binding the exact UTF-8 SHA-256 query digest, so the 7876-byte
+  procedure source (403 blocks, 81 chunks, 1,305 session calls) and
+  the 9269-byte table source (243 blocks, 25 chunks, 1,657 session
+  calls) complete at the current caps; the same combined journey
+  composes actual structured text records through
+  bundle_source_records.validate and bundle_native_records.validate
+  into the opaque immutable derived_store container, published
+  idempotently and revalidated from a FRESH store in a NEW owned
+  process against the actual OriginalStore, both validators, Registry
+  chunk/neighbor re-binding, scope, full coverage union, tail, roles
+  and deterministic IDs, with corrupted-member and altered-original
+  refusals asserted. This is bounded software with honest
+  degradation, not a capacity proof: the retained contrary scale
+  timings (157,312-byte author run 10.79 s, independent peer 13.81 s,
+  root run 15.17 s refused at the 15,000 ms deadline) keep target
+  host/model performance 019 OPEN and carry no extra quota authority.
+  Observed local tokenization of locally generated fixtures remains
+  not inference preprocessing parity, deployed-model equivalence,
+  serving or quality evidence; representative corpus counts on real
+  assets and human gold questions are still absent; U06 stays OPEN
+  for 006 continuation/009 work.
+- Component storage composition is not a trusted complete native
+  ingestion bundle: the opaque derived store and the two validators
+  compose and survive fresh-process revalidation, but the full typed
+  ingestion bundle loader, PDF semantic value composition and the
+  private installed chunk CLI remain required following 006 work and
+  are not claimed by this slice.
+- U07 unchanged: the required native development backend remains a
+  DEV-only engine-only capsule (pinned hash-verified
+  tokenizers==0.21.4 with --no-deps in a new private 0700 target):
+  it adds no project dependency, lock, allowlist entry, license
+  exception or application graph change and is not upstream
+  complete-app dependency or license clearance; the open MIT-0 and
+  transitive/native/platform/model license questions stay release
+  and redistribution gates. Processing approval and operator grants
+  remain metadata, never authentication or clearance. Real
+  tokenization on deployed assets, model, GPU, license and corpus
+  qualification all remain NOT RUN.
+
+### 2026-11-11, order 006-d (final native operator)
+
+- U06 narrowed further in software only: the corrected concurrent
+  derived-store member read now discards a changed attempt and
+  re-admits the file at most four fresh times within the existing
+  deadline, with only stable bytes reaching the size/hash checks; the
+  original root race witness passes unchanged and the closed-FD,
+  deadline and corruption witnesses pass, but finite retries are not a
+  universal convergence guarantee and a successful read does not attest
+  to changes outside its observation interval. The complete typed
+  text/PDF semantic bundle (ingestion_bundle.validate) with its durable
+  publisher and verified fresh loader (ingestion_store.publish/load),
+  the operator profile and the installed private `raggedized chunk` /
+  `chunk inspect` routes are implemented and tested with the owned
+  actual CPU tokenizer backend and the isolated PDF worker (25
+  CLI/service tests; the six combined extraction/count composition
+  suites, 49 cases, re-run after integration with no skip or fallback).
+  The root reproduced on the merged source a reduced-policy PDF table
+  header-relationship loss: a 23-all-text PDF table under a VALID
+  reduced policy (target 12 / soft 20 / representation 80 / pair 100 /
+  reserve 8) yields eight chunks in which only the first retains the
+  actual column header while every source code point, anchor and the
+  tail are preserved. This is a header-relationship loss, not dropped
+  text; no default-512 failure or procedure-proof claim follows from
+  this experiment. The bounded D0 causal repair (architecture 9.2/9.3)
+  is isolated in PAR-006-PDF-STRUCTURE-A with no app patch in this
+  round, so whole-006 native coverage stays PARTIAL until that reviewed
+  fix integrates in a later 006 continuation. The retained contrary
+  scale timings (157,312-byte author run 10.79 s, independent peer
+  13.81 s, root run 15.17 s refused at the 15,000 ms deadline) keep
+  target host/model performance 019 OPEN. Observed local tokenization
+  of locally generated fixtures remains not inference preprocessing
+  parity, deployed-model equivalence, serving or quality evidence;
+  representative corpus counts on real assets and human gold questions
+  are still absent; U06 stays OPEN for 006 continuation/009 work.
+- The complete semantic bundle is distinct from the opaque store:
+  ingestion_store.load alone does not establish native ingestion trust;
+  the trusted complete unit is the semantic validator plus durable
+  publisher plus verified fresh loader. Source admission approval and
+  source validation remain metadata, never current serving
+  authentication or rights clearance.
+- U07 unchanged: the required native development backend remains a
+  DEV-only engine-only capsule (pinned hash-verified
+  tokenizers==0.21.4 with --no-deps in a new private 0700 target): it
+  adds no project dependency, lock, allowlist entry, license exception
+  or application graph change and is not upstream complete-app
+  dependency or license clearance; the open MIT-0 and
+  transitive/native/platform/model license questions stay release and
+  redistribution gates. Real tokenization on deployed assets, model,
+  GPU, license and corpus qualification all remain NOT RUN.
+
+### 2026-11-11, order 006-e (bounded native PDF structural correction)
+
+- U06 narrowed further in software only: the integrated conservative
+  literal line classifier (pdf-literal-structure-v3) under PDF policy
+  definition v4 and the shared kind-bound block fingerprint v2 repairs
+  the three root-reproduced structural failures — the default 303-block
+  table losing the second header relationship, the fitting-warning body
+  (14 observed tokens, soft maximum 20, target 12) separated from its
+  procedure, and the closing rule/blank losing the last row's header —
+  on the actual post-merge owned fixtures: every row chunk of the
+  reduced-policy small/closing tables and of the default-policy 300-row
+  table retains the original header fragments with complete
+  interval-union coverage, tail, units and anchors preserved, and the
+  warning stays with its procedure while the unrelated prefix stays
+  separate. The unchanged Root terminator and admission witnesses and
+  the independent peer boundary witness pass against the merged source.
+  The grammar is a bounded literal heuristic, not a PDF layout or
+  fidelity solver: a one-character header offset requires two consistent
+  rows, a compatible but incomplete next-table prefix is retained in the
+  current table run, and other ambiguous or unsupported material stays
+  text; no all-PDF, visual or fidelity claim follows. Records under
+  classifier v2 or policy v3 are immutable and incompatible and require
+  explicit re-extraction, never a silent upgrade. Whole-006 native
+  coverage is software-complete on this branch subject to the
+  independent Root review after the 006-e report (code queue and green
+  CI alone are not acceptance); representative corpus counts on real
+  assets and human gold questions are still absent; U06 stays OPEN for
+  006 continuation/009 work.
+- U07 unchanged: the classifier adds no dependency, asset, runtime or
+  license surface (pure bounded Python over already-extracted lines);
+  the required native and PDF development backends remain DEV-only
+  pinned hash-verified environments as in 006-d. Real tokenization on
+  deployed assets, model, GPU, license and corpus qualification all
+  remain NOT RUN.
