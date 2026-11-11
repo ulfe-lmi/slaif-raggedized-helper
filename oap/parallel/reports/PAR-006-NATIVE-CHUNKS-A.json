@@ -1,0 +1,581 @@
+{
+  "lane_id": "PAR-006-NATIVE-CHUNKS-A",
+  "result": "COMPLETE",
+  "implementation_head": "7b369ff409ff76d65666f519d898aeacfb180aa9",
+  "report_publication_commit": "SELF",
+  "summary": "Fixed owned native Session adapter validates actual Count metadata and exact input digests, rebinds observed local count identities, chunk IDs and reciprocal neighbors, and emits bounded versioned receipts. Legacy callback provenance remains unchanged. Public tokenizer artifacts were checked against the manifest and exact ordered SHA256 before CPU-only manual composition.",
+  "API": "native_chunking.build(registry, blocks, body, representation, pair, runtime, query, policy=None); immutable Result(chunks, neighbors, receipts), receipts_json(). Default pair maximum 1280 and explicit reserve 64. See docs/parallel/native-chunking-api.md.",
+  "tests": {
+    "environment": "SLAIF_NATIVE_TEST_ROOT=/usr SLAIF_NATIVE_TEST_PACKAGES=/tmp/qual006.yqp82n2D/packages SLAIF_NATIVE_TEST_PYTHON=python3.14",
+    "matrix_command": "uv run --offline pytest tests/unit/test_native_chunking.py tests/integration/test_native_chunking_composition.py tests/unit/test_native_tokenizers.py tests/unit/test_tokenizer_session.py tests/unit/test_structural_chunking.py tests/unit/test_structured_text.py tests/unit/test_provenance_records.py tests/integration/test_native_tokenizers_composition.py tests/integration/test_tokenizer_session_composition.py tests/integration/test_structural_chunking_composition.py tests/integration/test_structured_text_composition.py tests/integration/test_provenance_records_composition.py",
+    "matrix_result": "94 passed in 38.09s; prior full run 93 passed before additional policy cases",
+    "focused_command": "uv run --offline pytest tests/unit/test_native_chunking.py tests/integration/test_native_chunking_composition.py",
+    "focused_result": "13 passed in 4.27s, including receipt output ceiling added after matrix run",
+    "lint_command": "uv run --offline ruff check src tests",
+    "lint_result": "All checks passed",
+    "public_experiment": "timeout 180s uv run --offline python - [inline bounded controller, staged manifest and exact two tokenizer SHA256 checks, owned source store/extraction/native adapter, coverage and pair limits]; completed successfully; first attempt failed at policy construction because default query reserve exceeded observed pair maximum, then rerun used explicit reserve 12. The exact-limit cases succeeded. Small one-over refused; modest one-over rechunked successfully. Timings include startup and cleanup and are not serving latency.",
+    "public_manuals": [
+      {
+        "chunks": [
+          {
+            "counts": [
+              26,
+              28,
+              34
+            ],
+            "id": "sha256:12b9dd9ad96eb60e6635c71de49e6505697d878b3a91efb6caf768e0e7b5338b",
+            "spans": [
+              [
+                "sha256:3990d6419ceceb9de6b5bb6e456663285a562a6ddef52c2d94e035397a4336a1",
+                0,
+                8
+              ],
+              [
+                "sha256:fc3a14d5ef1facd90e7e0c5e6a1637e37a76ef20ad146b01171cceddb272983a",
+                0,
+                1
+              ],
+              [
+                "sha256:d755b56a64a8915ab1a9fbc113e3e4f443d8c0a82a665898c9b3bc36bac9b6ee",
+                0,
+                18
+              ],
+              [
+                "sha256:4b3a6bbec402d0b8d22ae6e0d3b455c794abae8aa87fd6f1b7dcde26ec67bba7",
+                0,
+                1
+              ],
+              [
+                "sha256:608a44642d90c736bcf1e5bc4775fc999ec679d8a9d523ac08f923136d91310e",
+                0,
+                24
+              ],
+              [
+                "sha256:8f494b64780d55718709619e8c35f405f9c4871943d243418d4d82aa904623bf",
+                0,
+                1
+              ],
+              [
+                "sha256:e3e7e2ec87922aa0ced6096cd64bcb29a93e61b63f41dd706fb4bed24f7a4757",
+                0,
+                21
+              ],
+              [
+                "sha256:ddcd479ecc5c978fadf4613cf61c1d6fd8c9fb4c6cf8ab4f941c3d1555c9b1c8",
+                0,
+                1
+              ]
+            ]
+          },
+          {
+            "counts": [
+              29,
+              31,
+              37
+            ],
+            "id": "sha256:84a8664f13ef5cc124b4017a414de72415967b97b5f28aed274b81b8516fc7c4",
+            "spans": [
+              [
+                "sha256:1d358ec3ba1e2c350163775554fa69ef68a9dab6c277cc90175d2320e8df0daa",
+                0,
+                30
+              ],
+              [
+                "sha256:92e6c49c30a10ec3d0b1af974b0facaf5ce46662cac429ff279943c33e4c3bb4",
+                0,
+                15
+              ]
+            ]
+          }
+        ],
+        "configured_pair_max": 37,
+        "coverage": [
+          [
+            0,
+            8
+          ],
+          [
+            8,
+            9
+          ],
+          [
+            9,
+            27
+          ],
+          [
+            27,
+            28
+          ],
+          [
+            28,
+            52
+          ],
+          [
+            52,
+            53
+          ],
+          [
+            53,
+            74
+          ],
+          [
+            74,
+            75
+          ],
+          [
+            75,
+            105
+          ],
+          [
+            105,
+            120
+          ]
+        ],
+        "exact_chunks": 2,
+        "manual": "small",
+        "one_over": "refused",
+        "receipts": {
+          "receipts": [
+            {
+              "chunk_id": "sha256:12b9dd9ad96eb60e6635c71de49e6505697d878b3a91efb6caf768e0e7b5338b",
+              "count": {
+                "artifact_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+                "backend_version": "0.21.4",
+                "count": 26,
+                "input_sha256": "8368ffe61497a70dc8ad233fa72ee990d9734642fc82e34758e3c54eb7584b35",
+                "mode": "single",
+                "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+                "preprocessing": "literal Unicode",
+                "role": "bge_body",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "394193cf34ca0e7a2533fa7fe56697017d47a4f420e6b1f926b7fac2abeb4c55"
+            },
+            {
+              "chunk_id": "sha256:12b9dd9ad96eb60e6635c71de49e6505697d878b3a91efb6caf768e0e7b5338b",
+              "count": {
+                "artifact_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+                "backend_version": "0.21.4",
+                "count": 28,
+                "input_sha256": "1ff8928c4bcb8e7ce08e595567a8f09a80b2f4388641b1511e674d390eb181fd",
+                "mode": "single",
+                "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+                "preprocessing": "literal Unicode",
+                "role": "bge_representation",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "bbf68840de7328b80b5f26237e36fd69a696f902e2eb183078e560cf926ba17a"
+            },
+            {
+              "chunk_id": "sha256:12b9dd9ad96eb60e6635c71de49e6505697d878b3a91efb6caf768e0e7b5338b",
+              "count": {
+                "artifact_sha256": "69564b696052886ed0ac63fa393e928384e0f8caada38c1f4864a9bfbf379c15",
+                "backend_version": "0.21.4",
+                "count": 34,
+                "input_sha256": "4ff7fc94b5d517cf0d3892cdaa5ca21f1cd07ba80a8ae00cb301474805762c07",
+                "mode": "pair",
+                "model_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+                "preprocessing": "literal Unicode",
+                "role": "reranker_pair",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "a8423e0d8bc835c617784a06edc49d7e9615f14f056dba8d8ead08e9c3b07b73"
+            },
+            {
+              "chunk_id": "sha256:84a8664f13ef5cc124b4017a414de72415967b97b5f28aed274b81b8516fc7c4",
+              "count": {
+                "artifact_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+                "backend_version": "0.21.4",
+                "count": 29,
+                "input_sha256": "d26733be1270ec0ac5d8fa373fac59ef6a63212f8f8647dd6e00b456b2f6348f",
+                "mode": "single",
+                "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+                "preprocessing": "literal Unicode",
+                "role": "bge_body",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "394193cf34ca0e7a2533fa7fe56697017d47a4f420e6b1f926b7fac2abeb4c55"
+            },
+            {
+              "chunk_id": "sha256:84a8664f13ef5cc124b4017a414de72415967b97b5f28aed274b81b8516fc7c4",
+              "count": {
+                "artifact_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+                "backend_version": "0.21.4",
+                "count": 31,
+                "input_sha256": "7512db61283633c6d3778fb85afe4563491426b5bbb85f15815a4d5ea7da9516",
+                "mode": "single",
+                "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+                "preprocessing": "literal Unicode",
+                "role": "bge_representation",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "bbf68840de7328b80b5f26237e36fd69a696f902e2eb183078e560cf926ba17a"
+            },
+            {
+              "chunk_id": "sha256:84a8664f13ef5cc124b4017a414de72415967b97b5f28aed274b81b8516fc7c4",
+              "count": {
+                "artifact_sha256": "69564b696052886ed0ac63fa393e928384e0f8caada38c1f4864a9bfbf379c15",
+                "backend_version": "0.21.4",
+                "count": 37,
+                "input_sha256": "876ca7db9e6eae5ce17d992d2b69ad199821b74ba60dd67757c543001b8b4cdd",
+                "mode": "pair",
+                "model_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+                "preprocessing": "literal Unicode",
+                "role": "reranker_pair",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "a8423e0d8bc835c617784a06edc49d7e9615f14f056dba8d8ead08e9c3b07b73"
+            }
+          ],
+          "version": 1
+        },
+        "seconds": 1.85,
+        "source_sha256": "396251cd72377bc5d628afce889642796aafe62db968437110729b76b5660ddf"
+      },
+      {
+        "chunks": [
+          {
+            "counts": [
+              157,
+              159,
+              165
+            ],
+            "id": "sha256:48b5bcfab7fb5e277e351f128ce61cb5a5ca79b66e2c7833e75362d415e1b9ab",
+            "spans": [
+              [
+                "sha256:b376587096d497ab1efbd843ef5f5ae3e303508ad06196f4b12ba467cb29ed12",
+                0,
+                9
+              ],
+              [
+                "sha256:e5a26d92af60803851ee4a2e4f748b833a5f733ace6e74b28df3e3ee894cf952",
+                0,
+                1
+              ],
+              [
+                "sha256:db3475723c5f29635fce34ecadc32a6073dcc3d17b9196d8f9b9bcf6e217b4d5",
+                0,
+                73
+              ],
+              [
+                "sha256:e536cffceb9d6080d233dac3906afacd4a0ff8a1949f473631fd62129f91b635",
+                0,
+                1
+              ],
+              [
+                "sha256:a2538bfcf8092d9305893e91dca511a72a198329e032910fedcea617044076c5",
+                0,
+                73
+              ],
+              [
+                "sha256:00a122346a106facfed5ae9ba61e304155a17f09c0aca359865afe0ddd504e69",
+                0,
+                1
+              ],
+              [
+                "sha256:f1a54824d0853fbab7d331ad043cdbaca875f4e8b4f862731ed0b72b22f67216",
+                0,
+                73
+              ],
+              [
+                "sha256:c56cfd632279563ea361cf248050c3d912ea2b488bbffb966ca7a7eb5d2f85dc",
+                0,
+                1
+              ],
+              [
+                "sha256:d9d23d9ffd53ad26d716d533bd3d6d13d993e0e5a3cce4efcd9e2ed9cf5bb6ea",
+                0,
+                73
+              ],
+              [
+                "sha256:80f09891513c44b785b48f1f3e0cac16ac50d47e837264c4f8d945fc44d102a6",
+                0,
+                1
+              ],
+              [
+                "sha256:7b07863c3c0b88553774a974c4c2daf6c33b44f65a92b6bc261dacc2686ba522",
+                0,
+                73
+              ],
+              [
+                "sha256:52d9e670f0e50edf39c1d45ed3e3a4ef7784afb6fdf4159e85274664469c6549",
+                0,
+                1
+              ],
+              [
+                "sha256:5403e2fc414a2edade909f0552b94c365a92e12b923cad42762f251eea9b3c28",
+                0,
+                73
+              ],
+              [
+                "sha256:625c6917d613092b60f7395d30a1843631f3ff0f9d27947f2a581f6aa0b1c227",
+                0,
+                1
+              ],
+              [
+                "sha256:af11c719a9c132b748023fcc43ab7d74343608fc3b1f43d71e31704d813725dc",
+                0,
+                73
+              ],
+              [
+                "sha256:366487e3e82ffc5640cf9915621262244c0046e228c6c07ee793213247f639ed",
+                0,
+                1
+              ],
+              [
+                "sha256:62c3b3387b8822685c0c12da70052be2e3a45b1f73065b5c2f5066386a432a1c",
+                0,
+                73
+              ],
+              [
+                "sha256:4cc42cb2456bd8183fb03334e773cc9e936893cd78068f5a7839e12de8089b7d",
+                0,
+                1
+              ],
+              [
+                "sha256:6d334a30531f2409bbc51d29ece72a276211fbd017c0b3e270e77aa2dfe40d1f",
+                0,
+                24
+              ],
+              [
+                "sha256:5effd76446cfec3e63e612d0d988b1f536b9a78c9dbd2367112623514627fc23",
+                0,
+                1
+              ],
+              [
+                "sha256:ca3dd712708b456649b774de377f90cff1764e15a71416f83bacba46b717c570",
+                0,
+                21
+              ],
+              [
+                "sha256:b300c92ade3c74ef69c799ea82fb8e98ec1b674f36f2cfbc8541f055b5b0f198",
+                0,
+                1
+              ]
+            ]
+          },
+          {
+            "counts": [
+              29,
+              31,
+              37
+            ],
+            "id": "sha256:7c994451f736d9d04eea2f29588fccf342283152cfef52ba5c2ed6be1abb48f9",
+            "spans": [
+              [
+                "sha256:55bbfa693e584e7eb6affb51e16105166558662fd511b3039099b4a5b6c4cd95",
+                0,
+                30
+              ],
+              [
+                "sha256:17eabd2de8c26ee13d2cecab5b9508399159007352d2a5709758a7c0b256af6f",
+                0,
+                15
+              ]
+            ]
+          }
+        ],
+        "configured_pair_max": 165,
+        "coverage": [
+          [
+            0,
+            9
+          ],
+          [
+            9,
+            10
+          ],
+          [
+            10,
+            83
+          ],
+          [
+            83,
+            84
+          ],
+          [
+            84,
+            157
+          ],
+          [
+            157,
+            158
+          ],
+          [
+            158,
+            231
+          ],
+          [
+            231,
+            232
+          ],
+          [
+            232,
+            305
+          ],
+          [
+            305,
+            306
+          ],
+          [
+            306,
+            379
+          ],
+          [
+            379,
+            380
+          ],
+          [
+            380,
+            453
+          ],
+          [
+            453,
+            454
+          ],
+          [
+            454,
+            527
+          ],
+          [
+            527,
+            528
+          ],
+          [
+            528,
+            601
+          ],
+          [
+            601,
+            602
+          ],
+          [
+            602,
+            626
+          ],
+          [
+            626,
+            627
+          ],
+          [
+            627,
+            648
+          ],
+          [
+            648,
+            649
+          ],
+          [
+            649,
+            679
+          ],
+          [
+            679,
+            694
+          ]
+        ],
+        "exact_chunks": 2,
+        "manual": "modest",
+        "one_over": "rechunked successfully",
+        "receipts": {
+          "receipts": [
+            {
+              "chunk_id": "sha256:48b5bcfab7fb5e277e351f128ce61cb5a5ca79b66e2c7833e75362d415e1b9ab",
+              "count": {
+                "artifact_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+                "backend_version": "0.21.4",
+                "count": 157,
+                "input_sha256": "4b2b9dff37a83170d2e6c77bb0a0cc1c6cf79b1707f2094181959ce70175a7be",
+                "mode": "single",
+                "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+                "preprocessing": "literal Unicode",
+                "role": "bge_body",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "394193cf34ca0e7a2533fa7fe56697017d47a4f420e6b1f926b7fac2abeb4c55"
+            },
+            {
+              "chunk_id": "sha256:48b5bcfab7fb5e277e351f128ce61cb5a5ca79b66e2c7833e75362d415e1b9ab",
+              "count": {
+                "artifact_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+                "backend_version": "0.21.4",
+                "count": 159,
+                "input_sha256": "6806eeff14ede6c65c8c7f741e6252f7eaefb8de138f6e4acbace5728039b280",
+                "mode": "single",
+                "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+                "preprocessing": "literal Unicode",
+                "role": "bge_representation",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "bbf68840de7328b80b5f26237e36fd69a696f902e2eb183078e560cf926ba17a"
+            },
+            {
+              "chunk_id": "sha256:48b5bcfab7fb5e277e351f128ce61cb5a5ca79b66e2c7833e75362d415e1b9ab",
+              "count": {
+                "artifact_sha256": "69564b696052886ed0ac63fa393e928384e0f8caada38c1f4864a9bfbf379c15",
+                "backend_version": "0.21.4",
+                "count": 165,
+                "input_sha256": "9b739ccafa9767c68506ec7eb3ea194f395b5f6a0e571ec85f255ab117b2cf0d",
+                "mode": "pair",
+                "model_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+                "preprocessing": "literal Unicode",
+                "role": "reranker_pair",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "a8423e0d8bc835c617784a06edc49d7e9615f14f056dba8d8ead08e9c3b07b73"
+            },
+            {
+              "chunk_id": "sha256:7c994451f736d9d04eea2f29588fccf342283152cfef52ba5c2ed6be1abb48f9",
+              "count": {
+                "artifact_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+                "backend_version": "0.21.4",
+                "count": 29,
+                "input_sha256": "d26733be1270ec0ac5d8fa373fac59ef6a63212f8f8647dd6e00b456b2f6348f",
+                "mode": "single",
+                "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+                "preprocessing": "literal Unicode",
+                "role": "bge_body",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "394193cf34ca0e7a2533fa7fe56697017d47a4f420e6b1f926b7fac2abeb4c55"
+            },
+            {
+              "chunk_id": "sha256:7c994451f736d9d04eea2f29588fccf342283152cfef52ba5c2ed6be1abb48f9",
+              "count": {
+                "artifact_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+                "backend_version": "0.21.4",
+                "count": 31,
+                "input_sha256": "fb1f5da9dbbc3a56a0f35811826e8ae43db565015eced7af5a753984b144cd1d",
+                "mode": "single",
+                "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+                "preprocessing": "literal Unicode",
+                "role": "bge_representation",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "bbf68840de7328b80b5f26237e36fd69a696f902e2eb183078e560cf926ba17a"
+            },
+            {
+              "chunk_id": "sha256:7c994451f736d9d04eea2f29588fccf342283152cfef52ba5c2ed6be1abb48f9",
+              "count": {
+                "artifact_sha256": "69564b696052886ed0ac63fa393e928384e0f8caada38c1f4864a9bfbf379c15",
+                "backend_version": "0.21.4",
+                "count": 37,
+                "input_sha256": "8e27113071ce7241d2f98332487a7bc031af8f35cf5692014987d394f3ee0a65",
+                "mode": "pair",
+                "model_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+                "preprocessing": "literal Unicode",
+                "role": "reranker_pair",
+                "serialization": "utf8-json-v1;no-truncation;no-padding;special-tokens"
+              },
+              "definition_fingerprint": "a8423e0d8bc835c617784a06edc49d7e9615f14f056dba8d8ead08e9c3b07b73"
+            }
+          ],
+          "version": 1
+        },
+        "seconds": 1.916,
+        "source_sha256": "08271e8447603a0df0a46d8c7efd8ba378367afd68452eba0fbb9a3281c3e015"
+      }
+    ]
+  },
+  "limits": "No model weights, inference, GPU, service, deployment, credentials, release or model qualification. Declarations are caller supplied and runtime/filesystem trusted; callers bound concurrency. Native/transitive licensing, full 006, 012 inference/preprocessing alignment, 019 held-out evaluation, ICA, hardware and MVP remain open. Public assets and backend are tooling evidence only."
+}
