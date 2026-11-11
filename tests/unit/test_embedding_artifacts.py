@@ -1,6 +1,8 @@
 import hashlib
 import json
 import os
+import secrets
+import traceback
 
 import pytest
 
@@ -313,3 +315,30 @@ def test_unicode_admission_and_privacy(tmp_path, monkeypatch):
     ]:
         with pytest.raises(ArtifactRefused, match="^artifact verification refused$"):
             verify_artifacts(payload, path)
+
+
+def test_public_trace_suppresses_dynamic_path_and_path_object_errors(tmp_path, monkeypatch):
+    manifest = setup_tree(tmp_path / "fixture")
+    canary = secrets.token_hex(24)
+
+    calls = []
+    real_open = os.open
+
+    def tracked_open(path, *args, **kwargs):
+        if canary in os.fsdecode(path):
+            calls.append("open")
+        return real_open(path, *args, **kwargs)
+
+    monkeypatch.setattr(os, "open", tracked_open)
+
+    class BadPath:
+        def __fspath__(self):
+            calls.append("fspath")
+            raise OSError(canary)
+
+    for root in (tmp_path / canary, BadPath()):
+        with pytest.raises(ArtifactRefused) as caught:
+            verify_artifacts(encoded(manifest), root)
+        assert str(caught.value) == "artifact verification refused"
+        assert canary not in "".join(traceback.format_exception(caught.value))
+    assert calls == ["open", "fspath"]

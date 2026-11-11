@@ -51,5 +51,7 @@ not license clearance, encoder construction, authorization, device qualification
 
 Manifest and parsed small configuration JSON must be strict UTF-8 without a BOM;
 invalid Unicode, duplicate keys and non-finite numbers are refused. The public
-preflight reports an input-free refusal for invalid input and filesystem errors.
+preflight reports an input-free refusal for invalid input and filesystem errors. Normal
+formatted tracebacks suppress underlying exception chains; Python exception introspection
+may still expose the original context.
 Tokenizer and weight contents remain streamed and hashed, not JSON parsed.

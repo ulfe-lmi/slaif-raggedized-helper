@@ -364,4 +364,4 @@ def verify_artifacts(
     try:
         return _verify_artifacts(manifest_bytes, artifact_root, timeout=timeout)
     except Exception:
-        _fail()
+        raise ArtifactRefused("artifact verification refused") from None
