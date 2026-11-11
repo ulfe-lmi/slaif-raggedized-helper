@@ -210,3 +210,25 @@ docs/benchmarks/ingestion-count-storage.md. The capsule is DEV-only
 (engine-only --no-deps; no dependency/lock/allowlist/license change); toy
 artifacts only — no deployed-model equivalence, serving, hardware, license
 or quality claim. Real qualification NOT RUN.
+
+T15. Installed private chunk/inspect operator and complete semantic
+bundle (objective 006-d): `uv run pytest tests/unit/test_chunk_cli.py
+tests/unit/test_ingestion_prepare.py
+tests/integration/test_chunk_cli_composition.py -q` with the T13/T14
+dev backends runs the INSTALLED `raggedized chunk` and
+`raggedized chunk inspect` routes in subprocesses on owned private
+stores: prepare + durable publication under an explicit operator
+profile (actual private CPU tokenizer session and isolated PDF
+worker), the bounded JSON overview, exit 0/1/2 semantics,
+`no_native_chunks` with `source_status` partial visual truth, the
+known `published_bundle_id` retained on later failure, idempotent
+canonical retries, coherent cross-revision semantic refusal,
+corruption/profile/hash/backend/policy/query refusals and the
+cooperative 180-second budget. The six combined extraction/count
+integration composition suites (T13/T14: text/structured/PDF
+extraction composition, extraction combined, native chunking
+composition and native extraction counts; 49 cases) re-run unchanged
+after integration with no skip or fallback. Full command coverage,
+backend setup, the four-fresh-read derived-store semantics and NOT-RUN
+distinctions: docs/benchmarks/ingestion-count-storage.md (T15). All
+synthetic and offline; real qualification NOT RUN.

@@ -2,12 +2,16 @@
 
 ## Current state (2026-11-11)
 
-- Active objective: 006, current slice 006-c (durable record
-  integration on the 006-a/006-b slices: the accepted native
-  efficiency/query correction with raised session caps and per-build
-  reuse, the reviewed source/receipt record validators and the opaque
-  immutable derived container store composed in the ONE combined
-  counts journey with fresh-process revalidation), open on
+- Active objective: 006, current slice 006-d (final native
+  operator on the 006-a/006-b/006-c slices: the corrected concurrent
+  derived-store reads with at most four fresh re-admission attempts,
+  the complete typed text/PDF semantic bundle with its durable
+  publisher and verified fresh loader, the operator profile and the
+  installed private `raggedized chunk`/`chunk inspect` route; a
+  root-reproduced reduced-policy PDF table header-relationship loss
+  (full text preserved) is recorded and its bounded causal repair is
+  isolated in PAR-006-PDF-STRUCTURE-A, so whole-006 native coverage
+  stays PARTIAL until that reviewed fix integrates), open on
   the 006 PR, branch
   oap/006-native-extraction-and-chunking from main 4977186;
   live PR/CI/merge state is queried on GitHub, not asserted
@@ -39,7 +43,7 @@
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 006 (new 006 PR), not idle.
+- The coding client is active on objective 006 (006 PR), not idle.
 - Current main is the 005 merge commit 4977186 (PR #7); the 006
   branch builds from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
@@ -592,3 +596,58 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   contextualization, embedding, snapshot/retrieval, GPU/vision,
   real corpus and model/license/ICA qualification all remain
   open; all real qualification remains NOT RUN.
+- 006-d (final native operator; same PR 8 branch): TWO authorized
+  local --no-ff merges of the root-reviewed candidate tips in the
+  exact ordered index, derived member store D first
+  (oap/parallel-006-derived-member-store-d tip
+  b2d274cdf5b652df2fc874c422bd2dd04fa5f058, implementation
+  80f0f9d408f26a319d36b71f738f3db76b0a2a49) and final operator C
+  second (oap/parallel-006-operator-chunk-cli-c tip
+  b3ac81b6eb4d9435272a9535f2987a7742d62d8b, implementation
+  2012393e768a0db8c7d3f183287f94a04c6f3f97), each forecast clean with
+  git merge-tree against the actual parents, the merged trees equal to
+  the recomputed forecasts (first merge head 18d1d6c08ed62bedfb31f9be3087e134e621e956,
+  parents 334ef7d9cf2ede5347c5d93986c0ba8ad9e07000 +
+  b2d274cdf5b652df2fc874c422bd2dd04fa5f058, tree
+  bec0606afd3f53fabd4df74db8472e8249397f9c; second merge head
+  065f25a62fadf29020d517bfd750e4c34d845bf4, parents
+  18d1d6c08ed62bedfb31f9be3087e134e621e956 +
+  b3ac81b6eb4d9435272a9535f2987a7742d62d8b, tree
+  c12577b5dcb04478e2a98b96615f365f081dadab), preserving candidate
+  order/report/implementation histories; the strategic 006-d
+  round-start bytes (order, active, 006-c root review and the 006-d
+  component index) were committed byte-for-byte unchanged, and all
+  sixteen accepted source blobs plus the unchanged corrected PDF
+  parser/worker match the root component index (independently verified
+  by the root merge-topology review). Store D fixes the concurrent
+  member read: a changed read attempt is discarded and the file is
+  reopened and rechecked at most four fresh times within the existing
+  deadline; only stable bytes reach the size/hash checks; the original
+  root race witness now passes unchanged and the closed-FD, deadline
+  and corruption witnesses pass. Operator C adds the complete typed
+  text/PDF semantic bundle (ingestion_bundle.validate), the durable
+  publisher and verified fresh loader (ingestion_store.publish/load),
+  the operator profile (ingestion_profile) and the installed private
+  `raggedized chunk` / `chunk inspect` routes (bounded JSON overview,
+  exit 0/1/2, `no_native_chunks` + `source_status` partial visual
+  truth, known `published_bundle_id` on later failure, idempotent
+  canonical retries, cooperative 180-second budget). The root
+  reproduced on the merged source a reduced-policy PDF table
+  header-relationship loss: a 23-all-text PDF table under a VALID
+  reduced policy (target 12 / soft 20 / representation 80 / pair 100 /
+  reserve 8) yields eight chunks in which only the first retains the
+  actual column header while every source code point, anchor and the
+  tail are preserved; this is a header-relationship loss, not dropped
+  text, with no default-512 failure claim. The bounded D0 causal
+  repair (architecture 9.2/9.3) is isolated in PAR-006-PDF-STRUCTURE-A
+  with NO app patch in this round, so whole-006 native coverage stays
+  PARTIAL until that reviewed fix integrates in a later 006
+  continuation. Focused local checks: 84 derived-store tests passed;
+  25 installed CLI/service tests passed under the actual private CPU
+  tokenizer and isolated PDF backends; the six combined
+  extraction/count integration composition suites (49 cases) passed
+  with no skip or fallback. No numeric 007, no whole-006 merge from
+  this slice. NOT a GitHub PR/default-main merge; contextualization,
+  embedding, snapshot/retrieval, GPU/vision, real corpus and
+  model/license/ICA qualification all remain open; all real
+  qualification remains NOT RUN.

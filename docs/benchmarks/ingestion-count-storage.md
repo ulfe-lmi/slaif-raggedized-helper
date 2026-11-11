@@ -119,3 +119,67 @@ opaque store load is NOT a trusted complete native ingestion bundle, and no
 full typed bundle loader, PDF semantic value composition or private installed
 chunk CLI product API is invented or claimed. All synthetic and offline; real
 qualification NOT RUN.
+
+T15. Installed private chunk/inspect operator and complete semantic
+bundle (objective 006-d): `uv run pytest -o addopts='' -q
+tests/unit/test_chunk_cli.py tests/unit/test_ingestion_prepare.py
+tests/integration/test_chunk_cli_composition.py` under the T14 native
+and T13 PDF dev backends (25 tests; observed 37.68 s on the 006-d
+devhost) runs the INSTALLED `raggedized chunk` and
+`raggedized chunk inspect` routes in subprocesses on owned private
+original/derived stores. `chunk` takes `--original-store`,
+`--derived-store`, `--revision sha256:<64hex>`, `--adapter
+structured_text|pdf_extraction`, `--profile` (the complete explicit
+operator profile: native runtime, BGE and reranker tokenizer records,
+optional PDF runtime, full chunk policy, no defaults) and optional
+`--query` (at most 10,000 valid Unicode characters); it re-extracts,
+builds the observed-count chunks with the profile's three actual CPU
+tokenizer definitions, durably publishes the complete typed bundle as
+ONE opaque derived container, and finally inspect-verifies the
+published ID before returning the bounded JSON overview (revision and
+bundle IDs, adapter, status, coverage kind and blocks/chunks/neighbors/
+receipts counts). `chunk inspect --bundle <id>` verifies a published
+bundle against the retained original without loading a profile or
+running tokenizers or PDF parsing. Exit semantics: 0 on successful
+preparation/inspection; 1 on an empty native result (status
+`no_native_chunks`, a `source_status` of `complete_text` or the PDF
+`partial_visual_needed` partial visual truth, no bundle ID) or a typed
+ingestion failure (`{"error": "ingestion_failed"}`, carrying
+`published_bundle_id` when publication completed before a later
+verification, deadline or cleanup failure; if no ID is known the commit
+state is unknown; no rollback is implied); 2 on invalid input
+(`{"error": "invalid_input"}`). The overview is bounded JSON with no
+source text or query; output over 65,536 bytes or a deadline expiry
+refuses. The overall 180-second budget is cooperative and cannot
+interrupt a blocked filesystem or stdout operation; interruptions
+propagate and owned stores are closed on every exit path. Canonical
+retries with unchanged verified inputs converge to the same container
+ID; a coherently re-published container bound to another revision is
+refused by semantic validation (more than a changed manifest hash);
+corrupted members, altered stored originals, invalid profiles/hashes/
+backends/policies and oversized queries are refused input-free.
+The corrected derived-store member read (006-d) discards a changed
+attempt and re-admits the file at most four fresh times within the
+existing deadline; only stable bytes reach the size/hash checks. Finite
+retries are not a universal convergence guarantee under persistent
+churn, and a successful read does not attest to changes outside its
+observation interval. The independent root witnesses (link-race,
+closed-FD, deadline, corruption) run unchanged against the merged
+module and all pass (the link-race witness failed before the fix).
+After the 006-d integration the six combined extraction/count
+integration composition suites of T13/T14
+(test_text_extraction_composition.py,
+test_structured_text_composition.py,
+test_pdf_extraction_composition.py, test_extraction_combined.py,
+test_native_chunking_composition.py,
+test_native_extraction_counts.py; 49 cases; observed 28.53 s) re-run
+unchanged with no skip or fallback, and the 84 derived-store unit and
+composition tests (observed 0.64 s) pass unchanged.
+Root-reproduced residual: a 23-all-text PDF table under a VALID reduced
+policy (target 12 / soft 20 / representation 80 / pair 100 / reserve 8)
+produces eight chunks in which only the first retains the actual column
+header while every source code point, anchor and the tail are preserved
+(header-relationship loss, not dropped text; no default-512 failure
+claim). The bounded D0 causal repair is isolated in
+PAR-006-PDF-STRUCTURE-A and is not patched in this round. All synthetic
+and offline; real qualification NOT RUN.

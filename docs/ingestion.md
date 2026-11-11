@@ -1,9 +1,12 @@
 # Ingestion — native extraction and observed-count chunking (canonical 006)
 
 This document describes the integrated extraction behavior of order 006-a,
-the observed native count/chunk integration of order 006-b, and the 006-c
-durable component record integration on the accepted 005 record/store
-foundation. It is the routine projection of the detailed per-adapter
+the observed native count/chunk integration of order 006-b, the 006-c
+durable component record integration, and the 006-d final native operator
+(corrected concurrent derived-store reads, the complete typed text/PDF
+semantic bundle with its durable publisher and verified fresh loader, the
+operator profile and the installed private chunk/inspect route) on the
+accepted 005 record/store foundation. It is the routine projection of the detailed per-adapter
 contracts in `docs/parallel/text-extraction-api.md`,
 `docs/parallel/structured-text-api.md` and
 `docs/parallel/pdf-extraction-api.md` and of the native count/chunk contracts
@@ -217,9 +220,66 @@ decoded original, tail, role order and deterministic chunk IDs. Identical
 republication is idempotent (same container ID); a corrupted container
 member or altered stored original bytes are refused. This is component
 storage composition: a successful opaque store load is NOT a trusted
-complete native ingestion bundle, and the full typed bundle loader, PDF
-semantic composition and private installed chunk command remain separate
-required same-PR 006 work.
+complete native ingestion bundle; the 006-d round then adds that complete
+semantic bundle, its durable publisher/verified fresh loader and the
+installed private operator below.
+
+### Complete semantic bundle, durable publisher and installed operator (006-d)
+
+`ingestion_bundle.validate` is the complete semantic fresh validator: it
+accepts an actual trusted `OriginalStore`, immutable metadata bytes and the
+five ordered members (`blocks`, `coverage`, `chunks`, `neighbors`,
+`receipts`), re-extracts the verified source, binds each chunk to its exact
+source fragments in contiguous first-exposure original order, checks the
+complete neighbor chain and native receipt consistency, and returns one
+frozen `Validated` value; structured text and PDF source records are
+supported. It refuses the whole input with input-free errors; it does not
+publish, invoke tokenizers or execute a document-supplied path.
+`ingestion_store.publish` verifies the complete bundle against the original
+and publishes the canonical bytes as ONE opaque immutable derived container,
+returning its raw SHA-256 ID; `ingestion_store.load` first checks storage
+integrity and then always revalidates the complete bundle against the
+current verified original, returning the immutable `Validated` value. A
+successful store load alone does not establish native ingestion trust: the
+complete semantic bundle (validator + publisher + fresh loader) is the
+trusted complete unit, while the opaque derived store remains the lower
+component container of the 006-c composition. Both operations are bounded
+by cooperative deadlines and clean up owned resources on every exit path.
+`ingestion_profile.parse_profile`/`load_profile` admit ONE operator-selected
+exact JSON profile (native runtime, BGE and reranker tokenizer records,
+optional PDF runtime, and the complete explicit chunk policy; no defaults
+are inserted) under a cooperative five-second deadline. The installed
+private `raggedized chunk` (prepare + durable publication) and
+`raggedized chunk inspect` (verified fresh load against the retained
+original, no profile load, tokenizer or PDF parsing) routes use that
+profile; usage, the bounded JSON overview (revision/bundle IDs, adapter,
+status, coverage kind and blocks/chunks/neighbors/receipts counts), exit
+0/1/2 semantics, the `no_native_chunks` + `source_status` partial visual
+truth, the known `published_bundle_id` retained on a later failure,
+idempotent canonical retries that can converge to the same ID, and the
+cooperative 180-second overall budget are documented in
+`docs/ingestion-operator.md`. Source admission approval remains metadata,
+never current serving authentication or rights clearance.
+
+The corrected derived-store read (006-d): if descriptor metadata changes
+during a member read, that attempt is discarded and the file is reopened
+and rechecked, at most four fresh attempts within the existing deadline;
+only bytes from a stable, secure attempt reach the normal size and hash
+checks. Persistent churn can still cause failure, and a successful read
+does not attest to changes outside its observation interval; this is not a
+universal convergence guarantee.
+
+Residual native-structure gap (root-reproduced on the merged source): for
+a 23-all-text PDF table under a VALID reduced policy (target 12 / soft 20 /
+representation 80 / pair 100 / reserve 8), eight chunks were produced in
+which only the first chunk retains the actual column header, while every
+source code point, anchor and the tail are preserved. This is a
+header-relationship loss, not dropped text, and no default 512-policy
+failure or procedure-proof claim follows from this experiment. The bounded
+causal repair (original architecture 9.2/9.3) is isolated in
+PAR-006-PDF-STRUCTURE-A and is NOT patched in this round; whole-006 native
+coverage remains PARTIAL until that reviewed fix integrates in a later 006
+continuation.
 
 ### Required development test setup (native, DEV only)
 
@@ -253,10 +313,12 @@ isolation and binds the literal `SLAIF_NATIVE_TEST_*` values in GITHUB_ENV
 
 ## Explicitly not in this slice
 
-The full typed ingestion bundle loader, PDF semantic value composition and
-the private installed chunk command remain required following 006 work;
-contextualization, embeddings, snapshots, retrieval, the answer API,
+The reproduced reduced-policy PDF table header-relationship gap is the one
+residual native-structure item of the 006 architecture scope: its bounded
+causal repair is isolated in PAR-006-PDF-STRUCTURE-A and integrates in a
+later 006 continuation before whole-006 native coverage can be claimed.
+Contextualization, embeddings, snapshots, retrieval, the answer API,
 GPU/vision work, real corpus access, legal exception handling and all
-physical/model/domain/license/ICA qualification remain separate open scope.
-Source metadata approval remains distinct from authentication and rights
-clearance.
+physical/model/domain/license/ICA qualification remain separate open
+scope. Source metadata approval remains distinct from authentication and
+rights clearance.

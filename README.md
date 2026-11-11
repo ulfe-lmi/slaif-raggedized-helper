@@ -90,13 +90,23 @@ scale 7876-byte procedure and 9269-byte table sources now complete
 under the current caps; the required native tests are mandatory on
 both product CI legs under a NEW private pinned hash-verified
 engine-only tokenizers 0.21.4 capsule (DEV only; no dependency, lock,
-allowlist or license change). The 006-c slice also composes the
-reviewed source/receipt record validators and the opaque immutable
-derived container store in the same combined journey (validated records
-survive publication and fresh-process revalidation); the full typed
-ingestion bundle loader, PDF semantic value composition and the private
-installed chunk command remain required 006 work before whole-006
-acceptance.
+allowlist or license change). The 006-c slice composes the reviewed source/receipt
+record validators and the opaque immutable derived container store in the
+same combined journey (validated records survive publication and
+fresh-process revalidation). The 006-d continuation corrects concurrent
+derived-store reads (a changed read attempt is discarded and the file is
+re-admitted at most four fresh times within the existing deadline; not a
+universal convergence guarantee), adds the complete typed text/PDF
+semantic bundle with its durable publisher and verified fresh loader, the
+operator profile, and the installed private `raggedized chunk` /
+`chunk inspect` route (bounded JSON overview, exit 0/1/2,
+`no_native_chunks` with partial visual truth, the known published ID
+retained on later failure, idempotent canonical retries, cooperative
+180-second budget); a root-reproduced reduced-policy PDF table
+header-relationship loss (all source code points, anchors and tail
+preserved) is recorded with its bounded causal repair isolated in
+PAR-006-PDF-STRUCTURE-A. Whole-006 acceptance and all real qualification
+remain open.
 Source-to-block anchors, native versus visual-needed page semantics,
 refusal behavior, budgets and observed-count provenance are documented
 in

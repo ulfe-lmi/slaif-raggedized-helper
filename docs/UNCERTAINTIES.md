@@ -469,3 +469,54 @@ human question.
   remain metadata, never authentication or clearance. Real
   tokenization on deployed assets, model, GPU, license and corpus
   qualification all remain NOT RUN.
+
+### 2026-11-11, order 006-d (final native operator)
+
+- U06 narrowed further in software only: the corrected concurrent
+  derived-store member read now discards a changed attempt and
+  re-admits the file at most four fresh times within the existing
+  deadline, with only stable bytes reaching the size/hash checks; the
+  original root race witness passes unchanged and the closed-FD,
+  deadline and corruption witnesses pass, but finite retries are not a
+  universal convergence guarantee and a successful read does not attest
+  to changes outside its observation interval. The complete typed
+  text/PDF semantic bundle (ingestion_bundle.validate) with its durable
+  publisher and verified fresh loader (ingestion_store.publish/load),
+  the operator profile and the installed private `raggedized chunk` /
+  `chunk inspect` routes are implemented and tested with the owned
+  actual CPU tokenizer backend and the isolated PDF worker (25
+  CLI/service tests; the six combined extraction/count composition
+  suites, 49 cases, re-run after integration with no skip or fallback).
+  The root reproduced on the merged source a reduced-policy PDF table
+  header-relationship loss: a 23-all-text PDF table under a VALID
+  reduced policy (target 12 / soft 20 / representation 80 / pair 100 /
+  reserve 8) yields eight chunks in which only the first retains the
+  actual column header while every source code point, anchor and the
+  tail are preserved. This is a header-relationship loss, not dropped
+  text; no default-512 failure or procedure-proof claim follows from
+  this experiment. The bounded D0 causal repair (architecture 9.2/9.3)
+  is isolated in PAR-006-PDF-STRUCTURE-A with no app patch in this
+  round, so whole-006 native coverage stays PARTIAL until that reviewed
+  fix integrates in a later 006 continuation. The retained contrary
+  scale timings (157,312-byte author run 10.79 s, independent peer
+  13.81 s, root run 15.17 s refused at the 15,000 ms deadline) keep
+  target host/model performance 019 OPEN. Observed local tokenization
+  of locally generated fixtures remains not inference preprocessing
+  parity, deployed-model equivalence, serving or quality evidence;
+  representative corpus counts on real assets and human gold questions
+  are still absent; U06 stays OPEN for 006 continuation/009 work.
+- The complete semantic bundle is distinct from the opaque store:
+  ingestion_store.load alone does not establish native ingestion trust;
+  the trusted complete unit is the semantic validator plus durable
+  publisher plus verified fresh loader. Source admission approval and
+  source validation remain metadata, never current serving
+  authentication or rights clearance.
+- U07 unchanged: the required native development backend remains a
+  DEV-only engine-only capsule (pinned hash-verified
+  tokenizers==0.21.4 with --no-deps in a new private 0700 target): it
+  adds no project dependency, lock, allowlist entry, license exception
+  or application graph change and is not upstream complete-app
+  dependency or license clearance; the open MIT-0 and
+  transitive/native/platform/model license questions stay release and
+  redistribution gates. Real tokenization on deployed assets, model,
+  GPU, license and corpus qualification all remain NOT RUN.
