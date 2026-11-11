@@ -173,8 +173,7 @@ blob, source immutability and safe refusals. The required PDF tests fail
 explicitly (never skip) when `PDF_TEST_RUNTIME`/`PDF_TEST_PACKAGES`, the
 backend or the isolation is absent or invalid; product CI provisions the
 DEV-only pinned backend per run. Full command coverage, isolation and
-NOT-RUN distinctions: docs/benchmarks/ingestion-count-storage.md (T13). All
-synthetic and offline; real qualification NOT RUN.
+NOT-RUN distinctions: docs/benchmarks/ingestion-count-storage.md (T13). Order 006-e integrates the conservative literal structure classifier into the PDF adapter (pdf-literal-structure-v3, policy definition v4, shared kind-bound block fingerprint v2; classifier v2 / policy v3 records are immutable and require explicit re-extraction): `tests/unit/test_pdf_structure.py` (grammar, admission bounds, two-second deadline, terminator and incomplete-prefix limits) and `tests/integration/test_native_pdf_structure.py` (owned reduced-policy small and closing, default-policy and fitting-warning PDFs through extraction and native chunking; every row chunk retains the original header; full coverage and tail preserved) join the T13 command under the same backends. All synthetic and offline; real qualification NOT RUN.
 
 T14. Combined canonical 006 observed-count journey (objectives
 006-b/006-c): `uv run pytest tests/unit/test_native_tokenizers.py

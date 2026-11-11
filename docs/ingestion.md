@@ -1,24 +1,29 @@
 # Ingestion — native extraction and observed-count chunking (canonical 006)
 
-This document describes the integrated extraction behavior of order 006-a,
-the observed native count/chunk integration of order 006-b, the 006-c
-durable component record integration, and the 006-d final native operator
-(corrected concurrent derived-store reads, the complete typed text/PDF
-semantic bundle with its durable publisher and verified fresh loader, the
-operator profile and the installed private chunk/inspect route) on the
-accepted 005 record/store foundation. It is the routine projection of the detailed per-adapter
+This document describes the integrated extraction behavior of order
+006-a, the observed native count/chunk integration of order 006-b, the
+006-c durable component record integration, the 006-d final native
+operator (corrected concurrent derived-store reads, the complete typed
+text/PDF semantic bundle with its durable publisher and verified fresh
+loader, the operator profile and the installed private chunk/inspect
+route), and the 006-e bounded native PDF structural correction
+(conservative literal line classifier, PDF policy definition v4 and the
+shared kind-bound block fingerprint v2) on the accepted 005 record/store
+foundation. It is the routine projection of the detailed per-adapter
 contracts in `docs/parallel/text-extraction-api.md`,
-`docs/parallel/structured-text-api.md` and
-`docs/parallel/pdf-extraction-api.md` and of the native count/chunk contracts
-in `docs/parallel/native-tokenizers-api.md`,
+`docs/parallel/structured-text-api.md`,
+`docs/parallel/pdf-extraction-api.md`,
+`docs/parallel/pdf-structure-api.md` and of the native count/chunk
+contracts in `docs/parallel/native-tokenizers-api.md`,
 `docs/parallel/tokenizer-session-api.md`,
 `docs/parallel/native-chunking-api.md`,
 `docs/parallel/bundle-source-records-api.md`,
 `docs/parallel/bundle-native-records-api.md` and
 `docs/parallel/derived-store-api.md`; those files remain the detailed
-contracts. Nothing here is CommonMark parsing, OCR, rasterization, semantic
-reconstruction or a model claim; the counts below are observed local
-tokenization of explicit declared inputs, not inference preprocessing.
+contracts. Nothing here is CommonMark parsing, OCR, rasterization,
+semantic reconstruction or a model claim; the counts below are observed
+local tokenization of explicit declared inputs, not inference
+preprocessing.
 
 ## Supported formats and bounded subset
 
@@ -48,13 +53,32 @@ Admitted source media types: `text/plain`, `text/markdown`, `application/pdf`
   page `visual_needed` and the result `partial_visual_needed`, even when
   other native blocks are present. Nested forms retain their native text
   with actual character boxes without duplication. Images and vector
-  content are never decoded or rendered here.
+  content are never decoded or rendered here. The extracted lines are
+  then classified by the conservative literal structure classifier
+  (`pdf_structure.classify`, version `pdf-literal-structure-v3`): every
+  block kind is `text`, `list` (literal bullet or numbered marker),
+  `table_header` or `table_row` (literal multi-column header, following
+  hyphen rule and at least two same-page rows with matching column
+  starts; the rule line itself is retained as a table row). A following
+  table starts only when its header, rule and two consistent rows form a
+  complete same-page candidate; closing rules, blanks and EOF preserve
+  the preceding last row. The grammar is bounded (at most 4,096 lines,
+  500,000 total characters, 200,000 characters per line, pages 1–32,
+  finite ordered bounding boxes, cooperative two-second budget) and
+  cannot infer arbitrary PDF layout or fidelity: incomplete, multiline
+  or unsupported material stays `text`, and a compatible but incomplete
+  next-table prefix (a header and rule without two consistent same-page
+  rows) is retained in the current table run rather than starting a new
+  table.
 
 ## Source-to-block coverage and anchors
 
 - Every block is a `provenance_records.Block` bound to its exact
   revision/extraction identity, with `origin="native"` and deterministic
-  input-fingerprint `block_id`s.
+  input-fingerprint `block_id`s. PDF block IDs use the shared kind-bound
+  fingerprint (version 2) over revision, extraction, order, page, text
+  SHA-256, geometry and classified kind; producer and stored validators
+  share that one recipe.
 - Text adapters: literal blocks anchor `line:N`; structural blocks anchor
   `section:N/line:M` (section = most recent heading). Structural coverage
   is a contiguous tuple of half-open Unicode code-point ranges that tile
@@ -85,6 +109,11 @@ Admitted source media types: `text/plain`, `text/markdown`, `application/pdf`
   size via `prlimit`. The byte-integrity pass (store hash/size
   verification), the parser limits and the cooperative deadlines are
   separate mechanisms; none is a hard filesystem-interrupt guarantee.
+  The policy definition (version 4) binds the adapter, classifier
+  version, explicit policy fields, geometry and isolation identities;
+  records under policy v3 or classifier v2 remain immutable and
+  incompatible and require explicit re-extraction, never a silent
+  upgrade.
 - Isolation: the launcher requires Linux `/usr/bin/prlimit` and
   `/usr/bin/bwrap`, working user/PID/network/IPC/UTS namespaces, the
   explicitly configured trusted CPython 3.12 runtime and package graph and
@@ -204,10 +233,14 @@ child) are asserted in the combined journey; details in
 
 ### Component storage composition (006-c)
 
-`bundle_source_records.validate` re-extracts the bounded original from the
+`bundle_source_records.validate` re-derives the bounded source from the
 `OriginalStore` and binds the supplied structured-text header, block JSONL
 and coverage bytes to that result, returning canonical bytes; it is private
-source verification, not current serving authentication.
+source verification, not current serving authentication. The PDF
+counterpart (`bundle_pdf_records.validate`) verifies the original
+hash/catalog plus producer-record consistency — including the shared
+classifier re-run over stored block text and the kind-bound block IDs —
+WITHOUT executing a fresh PDF parse or any fidelity attestation.
 `bundle_native_records.validate` checks the policy identity, chunks and
 three receipts per chunk from immutable bytes alone, with no source access
 and no tokenizer execution. The combined journey publishes those canonical
@@ -229,7 +262,9 @@ installed private operator below.
 `ingestion_bundle.validate` is the complete semantic fresh validator: it
 accepts an actual trusted `OriginalStore`, immutable metadata bytes and the
 five ordered members (`blocks`, `coverage`, `chunks`, `neighbors`,
-`receipts`), re-extracts the verified source, binds each chunk to its exact
+`receipts`), re-derives the verified source (structured text) or
+revalidates the stored PDF producer records against the verified original
+without a PDF parse (see above), binds each chunk to its exact
 source fragments in contiguous first-exposure original order, checks the
 complete neighbor chain and native receipt consistency, and returns one
 frozen `Validated` value; structured text and PDF source records are
@@ -269,17 +304,30 @@ checks. Persistent churn can still cause failure, and a successful read
 does not attest to changes outside its observation interval; this is not a
 universal convergence guarantee.
 
-Residual native-structure gap (root-reproduced on the merged source): for
-a 23-all-text PDF table under a VALID reduced policy (target 12 / soft 20 /
-representation 80 / pair 100 / reserve 8), eight chunks were produced in
-which only the first chunk retains the actual column header, while every
-source code point, anchor and the tail are preserved. This is a
-header-relationship loss, not dropped text, and no default 512-policy
-failure or procedure-proof claim follows from this experiment. The bounded
-causal repair (original architecture 9.2/9.3) is isolated in
-PAR-006-PDF-STRUCTURE-A and is NOT patched in this round; whole-006 native
-coverage remains PARTIAL until that reviewed fix integrates in a later 006
-continuation.
+### Native PDF structural correction (006-e)
+
+The root-reproduced structural failures are repaired by the integrated
+bounded literal classifier (`pdf-literal-structure-v3`) under PDF policy
+definition v4 and the shared kind-bound block fingerprint v2. On the
+actual post-merge owned fixtures, every row chunk of the small (20-row)
+and closing reduced-policy tables and of the default-policy 300-row
+table now carries the original header fragment with complete
+interval-union coverage, tail, units and anchors preserved; the
+fitting-warning case (body 14 observed tokens, soft maximum 20, target
+12) keeps the warning and its procedure in one chunk while the
+unrelated prefix stays separate; and the closing-rule and
+trailing-blank cases preserve the last row's header instead of
+dropping it to unclassified text. The unchanged Root terminator and admission
+witnesses and the independent peer boundary witness pass against the
+merged source (recorded in the 006-e report). The grammar's limits stay
+honest and documented: it is a bounded literal grammar, not a PDF layout
+or fidelity solver; a one-character header offset requires two consistent
+rows, and an incomplete or ambiguous next-table prefix keeps the material
+in the preceding run or as `text` rather than guessing. Records produced
+under classifier v2 or policy v3 are immutable and incompatible: they
+require explicit re-extraction, never a silent upgrade. The broader
+PAR-006-PDF-STRUCTURE-A experiment is superseded as the current repair by
+this reviewed correction.
 
 ### Required development test setup (native, DEV only)
 
@@ -313,12 +361,12 @@ isolation and binds the literal `SLAIF_NATIVE_TEST_*` values in GITHUB_ENV
 
 ## Explicitly not in this slice
 
-The reproduced reduced-policy PDF table header-relationship gap is the one
-residual native-structure item of the 006 architecture scope: its bounded
-causal repair is isolated in PAR-006-PDF-STRUCTURE-A and integrates in a
-later 006 continuation before whole-006 native coverage can be claimed.
-Contextualization, embeddings, snapshots, retrieval, the answer API,
-GPU/vision work, real corpus access, legal exception handling and all
-physical/model/domain/license/ICA qualification remain separate open
-scope. Source metadata approval remains distinct from authentication and
-rights clearance.
+The bounded literal classifier is the last 006 native-structure repair
+integrated on this branch; whole-006 native coverage is software-complete
+here subject to the independent Root review after the 006-e report — the
+code queue and green CI alone are not acceptance, and no all-PDF, visual,
+model, license, ICA or MVP claim is made. Contextualization, embeddings,
+snapshots, retrieval, the answer API, GPU/vision work, real corpus access,
+legal exception handling and all physical/model/domain/license/ICA
+qualification remain separate open scope. Source metadata approval remains
+distinct from authentication and rights clearance.

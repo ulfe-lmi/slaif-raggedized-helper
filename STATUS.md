@@ -2,16 +2,17 @@
 
 ## Current state (2026-11-11)
 
-- Active objective: 006, current slice 006-d (final native
-  operator on the 006-a/006-b/006-c slices: the corrected concurrent
-  derived-store reads with at most four fresh re-admission attempts,
-  the complete typed text/PDF semantic bundle with its durable
-  publisher and verified fresh loader, the operator profile and the
-  installed private `raggedized chunk`/`chunk inspect` route; a
-  root-reproduced reduced-policy PDF table header-relationship loss
-  (full text preserved) is recorded and its bounded causal repair is
-  isolated in PAR-006-PDF-STRUCTURE-A, so whole-006 native coverage
-  stays PARTIAL until that reviewed fix integrates), open on
+- Active objective: 006, current slice 006-e (bounded native PDF
+  structural correction on the 006-a/006-b/006-c/006-d slices: the
+  conservative literal line classifier pdf-literal-structure-v3 under
+  PDF policy definition v4 and the shared kind-bound block fingerprint
+  v2, repairing the root-reproduced reduced-policy table
+  header-relationship loss, the fitting-warning separation and the
+  closing-rule last-row loss; classifier v2 / policy v3 records remain
+  immutable and require explicit re-extraction; whole-006 native
+  coverage is software-complete on this branch subject to the
+  independent Root review after the 006-e report — code queue and green
+  CI alone are not acceptance), open on
   the 006 PR, branch
   oap/006-native-extraction-and-chunking from main 4977186;
   live PR/CI/merge state is queried on GitHub, not asserted
@@ -651,3 +652,30 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   embedding, snapshot/retrieval, GPU/vision, real corpus and
   model/license/ICA qualification all remain open; all real
   qualification remains NOT RUN.
+
+- 006-e (bounded native PDF structural correction; same PR 8 branch):
+  ONE authorized local --no-ff merge of the root-reviewed PDF structure
+  correction tip (oap/parallel-006-native-pdf-bridge-c tip
+  275335a068e9f62723d344288240b6571f9d4f8e, implementation
+  b39317a838f7d6d7500be4efb84a586af5b45205; the tip ancestry already
+  includes the reviewed classifier A/B, bridge B and Store D, not
+  merged again), forecast clean with git merge-tree against the actual
+  round-start parent b2b4f100dea96ba2bf0326d59f51f14730c30261, merged
+  tree equal to the forecast 3c2edff8e678fdb6311a6f38656c17ea567f2703
+  (merge head 6582845378a57995039ba278d3cf02d024ddcf38, parents
+  b2b4f100dea96ba2bf0326d59f51f14730c30261 +
+  275335a068e9f62723d344288240b6571f9d4f8e); the strategic 006-e
+  round-start bytes (order, active, 006-d root review, 006-e component
+  index) were committed byte-for-byte unchanged, and all seventeen
+  index source blobs (two changed PDF modules plus new
+  pdf_structure.py, unchanged worker 652fcf6) match the root component
+  index. The classifier v3 / policy v4 / kind-bound block v2 correction
+  repairs the three root-reproduced structural failures (default
+  303-block table second header absent; fitting warning body 14 <=
+  soft 20 > target 12 separated; closing rule/blank losing the last
+  row) on the actual post-merge owned fixtures, every row chunk now
+  retaining the original header fragments with full source coverage,
+  tail, units and anchors preserved; the unchanged Root terminator and
+  admission witnesses and the independent peer boundary witness pass
+  on the merged source. NOT a GitHub PR/default-main merge; whole-006
+  acceptance, 019 and all real qualification remain open and NOT RUN.

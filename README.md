@@ -102,11 +102,19 @@ operator profile, and the installed private `raggedized chunk` /
 `chunk inspect` route (bounded JSON overview, exit 0/1/2,
 `no_native_chunks` with partial visual truth, the known published ID
 retained on later failure, idempotent canonical retries, cooperative
-180-second budget); a root-reproduced reduced-policy PDF table
+180-second budget); the root-reproduced reduced-policy PDF table
 header-relationship loss (all source code points, anchors and tail
-preserved) is recorded with its bounded causal repair isolated in
-PAR-006-PDF-STRUCTURE-A. Whole-006 acceptance and all real qualification
-remain open.
+preserved) is repaired by the 006-e bounded native PDF structural
+correction: the conservative literal line classifier
+(`pdf-literal-structure-v3`) under PDF policy definition v4 and the
+shared kind-bound block fingerprint v2 restores the original header
+relationship, the closing-rule last row and the warning/procedure
+grouping on the actual owned PDF fixtures (reduced-policy small and
+closing tables, default-policy 300-row table, fitting warning) with full
+source coverage, tail, units and anchors preserved; classifier v2 /
+policy v3 records remain immutable and require explicit re-extraction,
+and the literal grammar cannot infer arbitrary PDF layout. Whole-006
+acceptance and all real qualification remain open.
 Source-to-block anchors, native versus visual-needed page semantics,
 refusal behavior, budgets and observed-count provenance are documented
 in

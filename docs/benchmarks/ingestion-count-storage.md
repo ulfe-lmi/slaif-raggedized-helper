@@ -27,6 +27,8 @@ reusing one verified blob, native literal and structural coverage, source
 immutability, and malformed/oversized/wrong-hash/unsupported-media refusal;
 the source byte-integrity pass, parse limits and cooperative parent/worker
 deadlines are separate mechanisms, none a hard filesystem-interrupt guarantee.
+Order 006-e adds the conservative literal structure classifier to this adapter: `tests/unit/test_pdf_structure.py` and
+`tests/integration/test_native_pdf_structure.py` run under the same backend (006-e notes below).
 The required PDF tests fail explicitly (instead of skipping) when
 `PDF_TEST_RUNTIME`/`PDF_TEST_PACKAGES` are absent or the backend or isolation
 is unavailable. Local setup: `uv python install 3.12` plus `python3
@@ -94,8 +96,10 @@ T14a. Durable component record storage composition (objective 006-c): the SAME
 combined journey (tests/integration/test_native_extraction_counts.py,
 test_durable_component_storage_composition) extends the native counts path
 with the accepted component validators and opaque store: actual structured
-text records are bound by `bundle_source_records.validate` (re-extraction
-against the `OriginalStore`; canonical header/blocks/coverage bytes), the
+text records are bound by `bundle_source_records.validate` (re-derivation of the
+bounded source against the `OriginalStore`; canonical header/blocks/coverage bytes); the PDF counterpart
+(`bundle_pdf_records.validate`) verifies the original hash/catalog plus producer-record consistency, including the shared
+classifier re-run over stored block text and the kind-bound block IDs, WITHOUT executing a fresh PDF parse or any fidelity attestation; the
 observed-count chunks and receipts are bound by
 `bundle_native_records.validate` (policy identity, chunk text/fragment
 reconstruction, three receipts per chunk, pure bytes, no source access and no
@@ -175,11 +179,26 @@ test_native_chunking_composition.py,
 test_native_extraction_counts.py; 49 cases; observed 28.53 s) re-run
 unchanged with no skip or fallback, and the 84 derived-store unit and
 composition tests (observed 0.64 s) pass unchanged.
-Root-reproduced residual: a 23-all-text PDF table under a VALID reduced
-policy (target 12 / soft 20 / representation 80 / pair 100 / reserve 8)
-produces eight chunks in which only the first retains the actual column
-header while every source code point, anchor and the tail are preserved
-(header-relationship loss, not dropped text; no default-512 failure
-claim). The bounded D0 causal repair is isolated in
-PAR-006-PDF-STRUCTURE-A and is not patched in this round. All synthetic
-and offline; real qualification NOT RUN.
+006-e structural correction: the root-reproduced failures (default
+303-block table losing the second header relationship, fitting warning
+body 14 <= soft 20 > target 12 separated from its procedure, closing
+rule/blank losing the last row) are repaired by the integrated literal
+classifier pdf-literal-structure-v3 under PDF policy definition v4 and
+the shared kind-bound block fingerprint v2. On the actual post-merge
+owned fixtures — reduced-policy small (20 rows) and closing (same
+table plus a closing hyphen rule), default-policy 300-row table (all
+two-column), and the fitting-warning procedure source — every row
+chunk carries the original header fragments with complete interval-union
+coverage, tail, units and anchors preserved; the warning and its
+procedure stay in one chunk while the unrelated prefix stays separate;
+closing rules and trailing blanks preserve the last row's header. The
+grammar remains a bounded literal heuristic: a one-character header
+offset requires two consistent rows, a compatible but incomplete
+next-table prefix is retained in the current table run rather than
+starting a new table, and other ambiguous or unsupported material stays
+text; it cannot infer arbitrary PDF layout or fidelity. Records under
+classifier v2 or policy v3 are immutable and incompatible: explicit
+re-extraction, never a silent upgrade. The unchanged Root terminator and
+admission witnesses and the independent peer boundary witness pass
+against the merged source. All synthetic and offline; real
+qualification NOT RUN.

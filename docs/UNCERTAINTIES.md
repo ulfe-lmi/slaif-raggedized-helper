@@ -520,3 +520,38 @@ human question.
   transitive/native/platform/model license questions stay release and
   redistribution gates. Real tokenization on deployed assets, model,
   GPU, license and corpus qualification all remain NOT RUN.
+
+### 2026-11-11, order 006-e (bounded native PDF structural correction)
+
+- U06 narrowed further in software only: the integrated conservative
+  literal line classifier (pdf-literal-structure-v3) under PDF policy
+  definition v4 and the shared kind-bound block fingerprint v2 repairs
+  the three root-reproduced structural failures — the default 303-block
+  table losing the second header relationship, the fitting-warning body
+  (14 observed tokens, soft maximum 20, target 12) separated from its
+  procedure, and the closing rule/blank losing the last row's header —
+  on the actual post-merge owned fixtures: every row chunk of the
+  reduced-policy small/closing tables and of the default-policy 300-row
+  table retains the original header fragments with complete
+  interval-union coverage, tail, units and anchors preserved, and the
+  warning stays with its procedure while the unrelated prefix stays
+  separate. The unchanged Root terminator and admission witnesses and
+  the independent peer boundary witness pass against the merged source.
+  The grammar is a bounded literal heuristic, not a PDF layout or
+  fidelity solver: a one-character header offset requires two consistent
+  rows, a compatible but incomplete next-table prefix is retained in the
+  current table run, and other ambiguous or unsupported material stays
+  text; no all-PDF, visual or fidelity claim follows. Records under
+  classifier v2 or policy v3 are immutable and incompatible and require
+  explicit re-extraction, never a silent upgrade. Whole-006 native
+  coverage is software-complete on this branch subject to the
+  independent Root review after the 006-e report (code queue and green
+  CI alone are not acceptance); representative corpus counts on real
+  assets and human gold questions are still absent; U06 stays OPEN for
+  006 continuation/009 work.
+- U07 unchanged: the classifier adds no dependency, asset, runtime or
+  license surface (pure bounded Python over already-extracted lines);
+  the required native and PDF development backends remain DEV-only
+  pinned hash-verified environments as in 006-d. Real tokenization on
+  deployed assets, model, GPU, license and corpus qualification all
+  remain NOT RUN.
