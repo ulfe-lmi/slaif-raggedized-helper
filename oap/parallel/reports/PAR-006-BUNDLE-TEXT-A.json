@@ -1,0 +1,30 @@
+{
+  "lane_id": "PAR-006-BUNDLE-TEXT-A",
+  "result": "PARTIAL",
+  "implementation_head": "1a2d81c801bba35a601fe18755b65d820876bf3f",
+  "report_publication_commit": "SELF",
+  "api": "ingestion_bundle.validate(OriginalStore, metadata bytes, tuple of fixed named bytes) returns immutable validated source, chunks, neighbors, receipts and canonical bytes; BundleError refuses whole input",
+  "commands": [
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages timeout 180s /usr/bin/time -v uv run --isolated --locked --offline --python 3.14 pytest -o addopts='' -q tests/unit tests/integration/test_ingestion_bundle_composition.py tests/integration/test_bundle_source_records_composition.py tests/integration/test_bundle_native_records_composition.py tests/integration/test_provenance_jsonl_composition.py tests/integration/test_native_chunking_composition.py",
+      "result": "782 passed, 56.50s; peak RSS 365004 KiB, user CPU 14.90s, system CPU 4.23s"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/ingestion_bundle.py tests/unit/test_ingestion_bundle.py tests/integration/test_ingestion_bundle_composition.py",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed before commit"
+    }
+  ],
+  "witness_hashes": {
+    "contract": "0f2f91551d5138e872d3f86e03c460321d94d061871f3ba1bbb1e0b8f5a33571",
+    "architecture": "4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a",
+    "order": "bbf716d4df4a34cb6bf558486a9b013b2230691b77b283ccbb4444cbe75de5a7",
+    "implementation": "384ac846de3040410c879643e49730f0e07aa5c9d560fd3c9c34aad98e9a31bf",
+    "integration_test": "da4b45223a4bdd4eb7cecd3e88d72ee3ffa17cee50d028e5d743a0826df25a25"
+  },
+  "limits": "Direct composition tests do not yet cover all ordered boundary, final deadline, overlap, coherently rebound deletion/reordering/heading/neighbor and distinct-rights positive witnesses. Native positive, canonical revalidation, cross-revision refusal, raw types, outer mutations, corruption and coherently rebound source-prefix loss are covered. Two attempts to impose 1 GiB virtual address limit prevented uv thread-pool initialization; successful measured run stayed below 1 GiB peak RSS. Initial test runs briefly overlapped; final measured run was one at a time. PDF composition, durable loader, operator CLI and current CI remain open. Mechanical receipts do not prove execution or query reserve.",
+  "dha": "NONE"
+}
