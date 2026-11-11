@@ -1,4 +1,7 @@
 import hashlib
+import importlib.util
+import sys
+from pathlib import Path
 import json
 import os
 import secrets
@@ -8,7 +11,18 @@ from dataclasses import replace
 import pytest
 
 from slaif_raggedized_helper import embedding_artifacts, embedding_space
-from test_embedding_space import fixture
+spec = importlib.util.spec_from_file_location(
+    "test_embedding_artifacts", Path(__file__).parents[1] / "unit" / "test_embedding_artifacts.py"
+)
+artifact_fixtures = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = artifact_fixtures
+spec.loader.exec_module(artifact_fixtures)
+spec = importlib.util.spec_from_file_location(
+    "space_fixtures", Path(__file__).parents[1] / "unit" / "test_embedding_space.py"
+)
+space_fixtures = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(space_fixtures)
+fixture = space_fixtures.fixture
 
 
 def update_config(root, manifest, role, changes):

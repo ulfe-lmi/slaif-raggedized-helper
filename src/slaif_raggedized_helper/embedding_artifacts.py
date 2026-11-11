@@ -41,6 +41,8 @@ class VerifiedInventory:
     model_revision: str
     files: tuple[VerifiedFile, ...]
     inventory_id: str
+    schema: int = 1
+    checkpoint_format: str = "safetensors"
 
 
 def _fail():
@@ -111,14 +113,23 @@ def _admit(data):
     if not isinstance(data, bytes) or len(data) > 256 * 1024:
         _fail()
     manifest = _json(data)
-    if not isinstance(manifest, dict) or set(manifest) != {
+    if not isinstance(manifest, dict):
+        _fail()
+    schema = manifest.get("schema")
+    if type(schema) is not int or schema not in (1, 2):
+        _fail()
+    expected = {
         "schema",
         "model_name",
         "model_revision",
         "files",
-    }:
+    }
+    if schema == 2:
+        expected.add("checkpoint_format")
+    if set(manifest) != expected:
         _fail()
-    if type(manifest["schema"]) is not int or manifest["schema"] != 1:
+    fmt = manifest.get("checkpoint_format", "safetensors")
+    if fmt not in ("safetensors", "pytorch-state-dict"):
         _fail()
     if manifest["model_name"] != "BAAI/bge-m3" or not _digest(manifest["model_revision"], 40):
         _fail()
@@ -135,8 +146,11 @@ def _admit(data):
             _fail()
         if (role != "weights" and (role in roles or path != _FIXED[role])) or path in paths:
             _fail()
-        if role == "weights" and not path.endswith(".safetensors"):
-            _fail()
+        if role == "weights":
+            if schema == 1 and not path.endswith(".safetensors"):
+                _fail()
+            if schema == 2 and (role in roles or path != {"safetensors": "model.safetensors", "pytorch-state-dict": "pytorch_model.bin"}[fmt]):
+                _fail()
         if not _digest(digest, 64) or type(size) is not int or not 0 <= size <= 4 * 1024**3:
             _fail()
         if role == "tokenizer" and size > 32 * 1024**2:
@@ -151,7 +165,7 @@ def _admit(data):
         result.append(VerifiedFile(role, path, digest, size))
     if roles != set(_FIXED) | {"weights"}:
         _fail()
-    return manifest["model_revision"], tuple(sorted(result, key=lambda f: f.path))
+    return manifest["model_revision"], tuple(sorted(result, key=lambda f: f.path)), schema, fmt
 
 
 def _secure(st, directory):
@@ -279,7 +293,7 @@ def _verify_artifacts(
     if type(timeout) not in (int, float) or not math.isfinite(timeout) or not 0 < timeout <= 30:
         _fail()
     deadline = time.monotonic() + timeout
-    revision, files = _admit(manifest_bytes)
+    revision, files, schema, fmt = _admit(manifest_bytes)
 
     def check_time():
         if time.monotonic() >= deadline:
@@ -344,10 +358,13 @@ def _verify_artifacts(
             "model_revision": revision,
             "files": [vars(f) for f in files],
         }
+        if schema == 2:
+            canonical["schema"] = 2
+            canonical["checkpoint_format"] = fmt
         fingerprint = hashlib.sha256(
             json.dumps(canonical, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
         ).hexdigest()
-        return VerifiedInventory("BAAI/bge-m3", revision, files, fingerprint)
+        return VerifiedInventory("BAAI/bge-m3", revision, files, fingerprint, schema, fmt)
     except ArtifactRefused:
         raise
     except (OSError, ValueError, TypeError, OverflowError, RecursionError):
