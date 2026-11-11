@@ -1,0 +1,28 @@
+{
+  "lane_id": "PAR-007-ARTIFACTS-C",
+  "result": "COMPLETE",
+  "implementation_head": "43dbf431edfe356dc76181aa1ec34c9e8e47b262",
+  "report_publication_commit": "SELF",
+  "API": "verify_artifacts: strict UTF-8 JSON and input-free ArtifactRefused",
+  "commands": [
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 pytest tests/unit/test_embedding_artifacts.py tests/integration/test_embedding_artifacts_composition.py -q",
+      "result": "PASS exit 0, 35 tests (32 existing + 3 parametrized/new)"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-artifact-json-boundary.py",
+      "result": "PASS exit 0, all 3 original cases refused"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/embedding_artifacts.py tests/unit/test_embedding_artifacts.py tests/integration/test_embedding_artifacts_composition.py",
+      "result": "PASS exit 0"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS exit 0"
+    }
+  ],
+  "witness_sha256": "f94d4d4f2a7478457e01a498f828f27e137ca9096e45428415a796ab9dc74a0f",
+  "limits": "Local synthetic fixtures only; no model loading, hardware qualification, provenance or license claim.",
+  "DHA": "NONE"
+}
