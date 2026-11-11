@@ -29,3 +29,11 @@ root and must not mutate the process's descriptors behind the store. Separate in
 processes may publish concurrently. Deadlines are checked after final cleanup and snapshot
 freezing, so an expired operation reports failure even when its manifest is already committed.
 Retry the identical publication or look up its ID; do not assume failure means rollback.
+
+The finite publication fault tests inject before and after the first write, file fsync,
+link, post-link directory fsync, stage unlink, and post-cleanup directory fsync for
+both object and manifest publication. A failed unlink can leave the operation's own
+named `.stage-*` file; other stages must not be removed. A manifest linked before an
+error can be committed, and retry checks existing content before converging. These
+cases do not prove all filesystem behaviors or concurrent interleavings, and the
+cooperative deadline is neither a hard syscall interrupt nor a hard RSS limit.
