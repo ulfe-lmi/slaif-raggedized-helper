@@ -96,8 +96,9 @@ def _build(registry, blocks, counters, query, policy, reuse=False):
     for b in blocks:
         if p.Block.model_validate(b.model_dump(warnings=False)) != b:
             raise ValueError
-    definition = json.dumps({'version': 1, 'policy': policy.__dict__, 'identities': identities,
-                             'provenance': counters.provenance, 'query': query},
+    definition = json.dumps({'version': 2, 'policy': policy.__dict__, 'identities': identities,
+                             'provenance': counters.provenance,
+                             'query_sha256': hashlib.sha256(query.encode('utf-8')).hexdigest()},
                             sort_keys=True, ensure_ascii=True, separators=(',', ':'))
     pid = p.policy_id(definition)
     deadline = time.monotonic() + policy.deadline_ms / 1000

@@ -41,3 +41,8 @@ no blocks and are refused by this builder. Zero-length blocks contribute no frag
 a revision containing only zero-length blocks is refused. Indivisible over-budget
 units are refused. Registry validation happens at construction and its in-memory
 snapshot is used for binding; this is neither persistent storage nor authorization.
+
+Structural policy definitions use version 2, binding `query_sha256` to the exact UTF-8
+query bytes instead of embedding the raw query as in version 1. This changes legacy
+policy and chunk IDs, including for unchanged inputs; queries are neither normalized nor
+truncated. Native final policy definitions retain their separate version 1 format.

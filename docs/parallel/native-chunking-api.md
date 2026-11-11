@@ -32,7 +32,9 @@ fixture default. Caller-supplied smaller values remain strict. The entire pair a
 query-with-empty-passage are measured, so reserve is not a substitute for pair counting.
 The native default builder has a 15000 ms cooperative build budget; explicit policies retain
 their own deadline (legacy default 5000 ms). The deadline is included in the existing version 1
-policy definition and changes policy and chunk IDs; tokenizer definition hashes do not change.
+native policy definition and changes policy and chunk IDs; tokenizer definition hashes do not change.
+The intermediate structural definition uses version 2 and an exact UTF-8 query digest;
+the final native version 1 definition and receipt fingerprints are unchanged.
 The builder has 4096 blocks/chunks, one million
 source characters, 20,000 calls and 20 million work characters; Session limits are
 stricter where applicable: startup five seconds, request two seconds, lifetime 20
