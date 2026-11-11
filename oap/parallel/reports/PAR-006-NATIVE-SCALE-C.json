@@ -1,0 +1,241 @@
+{
+  "lane_id": "PAR-006-NATIVE-SCALE-C",
+  "result": "COMPLETE",
+  "implementation_head": "6ecc0a84c00eecd089ae53e0d719b72585983445",
+  "report_publication_commit": "SELF",
+  "base": "d4a1ed668da655fba2158599c70f83baabb363a4",
+  "control": "EXACT_OK_CONSUMED once",
+  "dha": "NONE",
+  "changes": "Session input cap 32000000; strict policy deadline maximum and native default 15000ms, legacy default 5000ms. Policy serialization includes deadline. Existing native cache and structural algorithm unchanged.",
+  "fixtures": [
+    {
+      "Block": {
+        "count": 2403,
+        "record_max": 649,
+        "record_min": 513,
+        "sha256": "d4df12a9f346136ed3e4a2952167b8f58ce464e436dd824a7b2cb6ba63c90aaa",
+        "total_bytes": 1402255
+      },
+      "Chunk": {
+        "count": 53,
+        "record_max": 14698,
+        "record_min": 3557,
+        "sha256": "9346314674b90bea45221573d6713c5dd3f2a34f6f3e45b5af7c556c982e440f",
+        "total_bytes": 754272
+      },
+      "Dependency": {
+        "count": 1,
+        "record_max": 401,
+        "record_min": 401,
+        "sha256": "c32b93f010e969fb4c16dd434b2f6ab48536fb1b5827de31a671fd78635882af",
+        "total_bytes": 402
+      },
+      "Neighbors": {
+        "count": 53,
+        "record_max": 289,
+        "record_min": 220,
+        "sha256": "079ffa36124159b9f297f0c246ec9eb446411d756c3138b0a57b42cffcf99eb6",
+        "total_bytes": 15232
+      },
+      "artifacts": [
+        {
+          "bytes": 1827,
+          "sha256": "1432b17ab7e9e4214568327a62acb0004515b6d23d920c3c8ed1150041f2ee32"
+        },
+        {
+          "bytes": 1889,
+          "sha256": "36583090527cd1a96fb0e9e576053ebece1a8621a7d788fdef6cb380a7e66153"
+        }
+      ],
+      "backend": "tokenizers 0.21.4",
+      "blocks": 2403,
+      "build_seconds": 10.792323,
+      "chunks": 53,
+      "config": "production",
+      "elapsed_seconds": 11.465417,
+      "fragments": 2403,
+      "independent_repeated_records": 3,
+      "input_bytes": 157312,
+      "input_sha256": "33810770e910bc8cc68906657c93447c034ca83f66fb46150c4d8f4329cb7384",
+      "name": "many_paragraphs",
+      "neighbors_complete": true,
+      "outcome": "success",
+      "precise_fragment_copies": true,
+      "receipt_bytes": 90547,
+      "receipt_roles_correct": true,
+      "receipt_sha256": "6b7c7053c56c8ebe43f75c38180bbca32b6776298e0758464d09f6925ac87fc6",
+      "receipts": 159,
+      "receipts_complete": true,
+      "runtime": "Runtime(root=PosixPath('/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu'), packages=PosixPath('/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages'), python='python3.12')",
+      "session": {
+        "callbacks": 18025,
+        "calls": 14421,
+        "input_bytes": 18145873,
+        "output_bytes": 2704842,
+        "startup_seconds": 0.107202,
+        "work_chars": 16442345
+      },
+      "source_union_complete": true,
+      "structure_seconds": 0.214143,
+      "tail_complete": true
+    },
+    {
+      "Block": {
+        "count": 403,
+        "record_max": 559,
+        "record_min": 513,
+        "sha256": "581fda939ea625fd1a06edff76d8d4ba8e69f66c4e7cb768b888997024bf287c",
+        "total_bytes": 216012
+      },
+      "Chunk": {
+        "count": 81,
+        "record_max": 2657,
+        "record_min": 1382,
+        "sha256": "9da1e551224b8ecea16822e60df93c733a51fd08c353fbd7e0f1aef06a337ae7",
+        "total_bytes": 164389
+      },
+      "Dependency": {
+        "count": 1,
+        "record_max": 401,
+        "record_min": 401,
+        "sha256": "0889ae116a68d1bd56f16bad4b7d3f5094a98c93d12a90169fcc608085d3f02c",
+        "total_bytes": 402
+      },
+      "Neighbors": {
+        "count": 81,
+        "record_max": 289,
+        "record_min": 220,
+        "sha256": "d2e20fea008c546cdcf6c108e0f7ec60abfb9376f2747cd77f27c495deb92bd8",
+        "total_bytes": 23352
+      },
+      "artifacts": [
+        {
+          "bytes": 1827,
+          "sha256": "1432b17ab7e9e4214568327a62acb0004515b6d23d920c3c8ed1150041f2ee32"
+        },
+        {
+          "bytes": 1889,
+          "sha256": "36583090527cd1a96fb0e9e576053ebece1a8621a7d788fdef6cb380a7e66153"
+        }
+      ],
+      "backend": "tokenizers 0.21.4",
+      "blocks": 403,
+      "build_seconds": 0.909101,
+      "chunks": 81,
+      "config": "production",
+      "elapsed_seconds": 1.072744,
+      "fragments": 403,
+      "input_bytes": 7876,
+      "input_sha256": "ec2f1cc41be21683e51178387b1aa005338eb67d2b5cf1b60fce9672d358bc5c",
+      "name": "procedure",
+      "neighbors_complete": true,
+      "outcome": "success",
+      "receipt_bytes": 138128,
+      "receipt_sha256": "a70ed527e89003953796a6e90b34e34d19bd588fa01508859c05b45c03ca7698",
+      "receipts": 243,
+      "receipts_complete": true,
+      "runtime": "Runtime(root=PosixPath('/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu'), packages=PosixPath('/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages'), python='python3.12')",
+      "session": {
+        "calls": 1305,
+        "input_bytes": 271098,
+        "output_bytes": 243970,
+        "startup_seconds": 0.108412
+      },
+      "source_union_complete": true,
+      "structure_seconds": 0.090976,
+      "tail_complete": true
+    },
+    {
+      "Block": {
+        "count": 243,
+        "record_max": 592,
+        "record_min": 513,
+        "sha256": "bb6583c6cd9fd506295cdca6207d5d6d091c4b6fdd1547e07c3007342bc3651f",
+        "total_bytes": 135871
+      },
+      "Chunk": {
+        "count": 25,
+        "record_max": 3625,
+        "record_min": 1391,
+        "sha256": "0d6fa0c07a1a5fa16b04c1f17cbae318c89e24f8bd7fed38db3f97d0ebb973f3",
+        "total_bytes": 83610
+      },
+      "Dependency": {
+        "count": 1,
+        "record_max": 401,
+        "record_min": 401,
+        "sha256": "55b46519b7b41839f9b821c5ad0e05a1acbed95a046f535481fef33312581a4e",
+        "total_bytes": 402
+      },
+      "Neighbors": {
+        "count": 25,
+        "record_max": 289,
+        "record_min": 220,
+        "sha256": "2d6a16f648931fffa3e0c93f47a9904f8271fb21884ccfb626ce9408a33c3463",
+        "total_bytes": 7112
+      },
+      "artifacts": [
+        {
+          "bytes": 1827,
+          "sha256": "1432b17ab7e9e4214568327a62acb0004515b6d23d920c3c8ed1150041f2ee32"
+        },
+        {
+          "bytes": 1889,
+          "sha256": "36583090527cd1a96fb0e9e576053ebece1a8621a7d788fdef6cb380a7e66153"
+        }
+      ],
+      "backend": "tokenizers 0.21.4",
+      "blocks": 243,
+      "build_seconds": 1.086287,
+      "chunks": 25,
+      "config": "production",
+      "elapsed_seconds": 1.207596,
+      "fragments": 243,
+      "input_bytes": 9269,
+      "input_sha256": "e9e8738b346a405683130f0aa307f8fd4f8038ab9057e59fee8b28ee3d07a9f6",
+      "name": "table",
+      "neighbors_complete": true,
+      "outcome": "success",
+      "receipt_bytes": 42720,
+      "receipt_sha256": "4623faa330017775bf500a0e513e6118ed54e87f5f73359e6d40e56ad48dc0f6",
+      "receipts": 75,
+      "receipts_complete": true,
+      "runtime": "Runtime(root=PosixPath('/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu'), packages=PosixPath('/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages'), python='python3.12')",
+      "session": {
+        "calls": 1657,
+        "input_bytes": 455552,
+        "output_bytes": 310347,
+        "startup_seconds": 0.108161
+      },
+      "source_union_complete": true,
+      "structure_seconds": 0.083721,
+      "tail_complete": true
+    }
+  ],
+  "comparison": "Isolated efficiency-A baseline and current builds for manual, unicode, procedure and table: all chunk model fields (including source fragments, text, counts, headings and IDs after positional mapping) and neighbors exactly equal after replacing policy_id and remapping chunk IDs and links. 3, 1, 81 and 25 chunks respectively. Existing integration tests cover units and structural behavior. Small and Unicode completed in both runs.",
+  "validation": {
+    "tests": "578 passed in 57.65s, exit 0; whole tests/unit plus structural, native, session, structured text and native tokenizer composition with actual native backend; no skips",
+    "lint": "uv run --isolated --locked --offline --python 3.14 ruff check src tests: exit 0",
+    "diff": "git diff --check exit 0",
+    "boundary": "new exact 32000000 input and one-over tests; strict deadline 1, 15000, 15001 and invalid policy tests; existing corruption, cache and nondeterminism regressions pass"
+  },
+  "commands": [
+    "python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py wait-control native-manual-fix",
+    "ulimit -v 1048576; ulimit -t 120; timeout 180s /tmp/slaif216-qualification-venv/bin/python /tmp/native-manual-c-experiment.py production CASE (one at a time, many_paragraphs, procedure, table)",
+    "ulimit -v 1048576; ulimit -t 120; timeout 180s /tmp/slaif216-qualification-venv/bin/python /tmp/sem-old.py and /tmp/sem-new.py sequentially; compare serialized fields with explicit ID remapping",
+    "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 pytest tests/unit tests/integration/test_structural_chunking_composition.py tests/integration/test_native_chunking_composition.py tests/integration/test_tokenizer_session_composition.py tests/integration/test_structured_text_composition.py tests/integration/test_native_tokenizers_composition.py",
+    "uv run --isolated --locked --offline --python 3.14 ruff check src tests",
+    "git diff --check"
+  ],
+  "witness_sha256": {
+    "/tmp/native-manual-c-experiment.py": "3aab41d3dcb713ce837f7007ea799fcaac37ab488eb11fc4296e307bce6fb1b3",
+    "/tmp/sem-old.py": "160a1eef131a7fed2e8dcc8f3b51b4c9e154682e5430df15edf6346865485645",
+    "/tmp/sem-new.py": "49ec3e677b236bb44733aa8ad762b2b25451f75dbaad25e7593481c97852fcf7",
+    "/tmp/native-manual-c-large-verified.json": "a4aea52c40f8abf474a6bf62b6b0fb136cf7cd707611f8693c20079784010623",
+    "/tmp/native-manual-c-procedure.json": "94f03573bedb82a1cb4f26e7951601620b3057a030c5054acdddcf052fa596b5",
+    "/tmp/native-manual-c-table.json": "8dedab430691cee9321cd90fe139b4a0cd48e4b2b918b282f6a02facd2debe92",
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/native-manual-fix/order.md": "1b879b9985a4126baaea587e5204839ed7b1f7c4840ba3979b249b012e638d59"
+  },
+  "limits": "Structural 20000 callbacks / 20M work chars, native 16384 calls / 32M input / 4M output / 200k bytes and 100k chars per request / 4096 response / 200k tokens. Worker 20s lifetime / 10 CPU seconds / 1GiB / 5s startup / 2s request; parent 180s wall / 120 CPU / 1GiB one experiment at a time. No fixed worker changes. Cooperative offline bounds, not hardware, model, serving or MVP qualification.",
+  "remaining": "Development acceptance, independent review, integration and qualification remain open."
+}
