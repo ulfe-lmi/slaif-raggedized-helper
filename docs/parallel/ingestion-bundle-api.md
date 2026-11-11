@@ -38,3 +38,7 @@ form a native bundle. The later operator must represent that partial/no-native-c
 This support retains the source producer and pinned storage trust boundary described in
 [bundle PDF records](bundle-pdf-records-api.md). Descriptor Store, fresh verified loader,
 private CLI, 019, model, license, independent audit and full MVP gates remain open.
+
+PDF policy v4 binds the literal classifier; kind is part of the shared block fingerprint v2. Legacy v3 PDF records require explicit re-extraction, not an in-place upgrade. Stored validation rederives kinds without running a PDF parser or tokenizer; the trusted producer assumption and current authorization, visual, license, 019 and independent audit gates remain. The literal grammar is not a general PDF layout solution.
+
+Records bound to classifier `pdf-literal-structure-v2`, including policy v4 records, are incompatible with classifier v3 and require explicit re-extraction.

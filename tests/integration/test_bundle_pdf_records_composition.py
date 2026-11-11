@@ -235,3 +235,25 @@ def test_large_nested_dictionary_refused_before_store(evidence, monkeypatch):
     with pytest.raises(boundary.PdfRecordsError):
         boundary.validate(store, rev.revision_id, json.dumps(header).encode(), packed, coverage,
                           len(result.blocks))
+
+
+def test_coherent_wrong_kind_and_legacy_policy_refused(evidence):
+    from slaif_raggedized_helper import provenance_records as provenance
+
+    _, rev, result, header, blocks, coverage = evidence
+    block = blocks[0]
+    block['kind'] = 'list'
+    block['block_id'] = pdf.block_fingerprint(
+        rev.revision_id, result.dependency.extraction_id, block['order'], 1,
+        block['text_sha256'], block['geometry'], block['kind'])
+    with pytest.raises(boundary.PdfRecordsError):
+        invoke(evidence, header, blocks, coverage)
+    block['kind'] = 'text'
+    definition = json.loads(header['dependency']['definition'])
+    definition['version'] = 3
+    definition.pop('classifier')
+    raw = json.dumps(definition, sort_keys=True, separators=(',', ':'))
+    header['dependency']['definition'] = raw
+    header['dependency']['extraction_id'] = provenance.extraction_id(raw)
+    with pytest.raises(boundary.PdfRecordsError):
+        invoke(evidence, header, blocks, coverage)

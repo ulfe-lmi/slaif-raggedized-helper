@@ -8,8 +8,8 @@ import re
 import time
 
 from . import provenance_jsonl as jl, provenance_records as p
-from .pdf_extraction import PdfPolicy, PdfResult
-from .schema import fingerprint
+from .pdf_extraction import PdfPolicy, PdfResult, block_fingerprint
+from . import pdf_structure as structure
 from .source_admission import OriginalStore
 
 HEADER_BYTES = 65536
@@ -153,7 +153,8 @@ def validate(
             raise ValueError
         definition = _parse(dep.definition.encode("utf-8"))
         policy_names = tuple(f.name for f in fields(PdfPolicy))
-        _fields(definition, (*policy_names, "adapter", "version", "geometry", "isolation"))
+        _fields(definition, (*policy_names, "adapter", "version", "geometry",
+                             "isolation", "classifier"))
         policy = PdfPolicy(**{name: definition[name] for name in policy_names})
         if dep.definition != policy.definition:
             raise ValueError
@@ -220,7 +221,6 @@ def validate(
                 or block.block_id in seen
                 or block.revision_id != revision_id
                 or block.extraction_id != dep.extraction_id
-                or block.kind != "text"
                 or block.origin != "native"
                 or not block.text
                 or chars > policy.max_chars
@@ -235,17 +235,8 @@ def validate(
                 or geometry[1] > geometry[3]
             ):
                 raise ValueError
-            expected_id = fingerprint(
-                {
-                    "kind": "pdf-native-block",
-                    "version": 1,
-                    "revision_id": revision_id,
-                    "extraction_id": dep.extraction_id,
-                    "order": index,
-                    "page": page,
-                    "text_sha256": digest,
-                    "geometry": list(geometry),
-                }
+            expected_id = block_fingerprint(
+                revision_id, dep.extraction_id, index, page, digest, geometry, block.kind
             )
             if block.block_id != expected_id:
                 raise ValueError
@@ -255,6 +246,11 @@ def validate(
         if any(
             not count and status == "native_text" for count, (_, status) in zip(counts, page_values)
         ):
+            raise ValueError
+        expected_kinds = structure.classify(tuple(
+            structure.Line(int(block.page_ref[5:]), block.text, block.geometry) for block in blocks
+        ))
+        if tuple(block.kind for block in blocks) != expected_kinds:
             raise ValueError
         p.Registry((revision,), (dep,), blocks)
         canonical_header = _canonical(header)
