@@ -58,9 +58,25 @@ def _pairs(pairs):
 
 def _json(data):
     try:
-        return json.loads(data, object_pairs_hook=_pairs, parse_constant=lambda _: _fail())
+        value = json.loads(
+            data.decode("utf-8"), object_pairs_hook=_pairs, parse_constant=lambda _: _fail()
+        )
+        _unicode(value)
+        return value
     except (ValueError, UnicodeError, RecursionError):
         _fail()
+
+
+def _unicode(value):
+    if isinstance(value, str):
+        value.encode("utf-8")
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            _unicode(key)
+            _unicode(item)
+    elif isinstance(value, list):
+        for item in value:
+            _unicode(item)
 
 
 def _safe_json(value):
@@ -256,7 +272,7 @@ def _semantics(config):
         _fail()
 
 
-def verify_artifacts(
+def _verify_artifacts(
     manifest_bytes: bytes, artifact_root, *, timeout: float = 30
 ) -> VerifiedInventory:
     """Verify bytes and semantics beneath a trusted root; raise ArtifactRefused on failure."""
@@ -339,3 +355,13 @@ def verify_artifacts(
     finally:
         if root is not None:
             os.close(root)
+
+
+def verify_artifacts(
+    manifest_bytes: bytes, artifact_root, *, timeout: float = 30
+) -> VerifiedInventory:
+    """Verify a local inventory, refusing invalid input without exposing it."""
+    try:
+        return _verify_artifacts(manifest_bytes, artifact_root, timeout=timeout)
+    except Exception:
+        _fail()

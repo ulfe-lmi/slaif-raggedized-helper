@@ -48,3 +48,8 @@ A manifest is an operator's expected inventory, not evidence of publisher origin
 with independently trusted expected digests and provenance. The returned dataclass alone can
 be forged; invoke the verifier on the bytes and files at the relevant trust boundary. This is
 not license clearance, encoder construction, authorization, device qualification or inference.
+
+Manifest and parsed small configuration JSON must be strict UTF-8 without a BOM;
+invalid Unicode, duplicate keys and non-finite numbers are refused. The public
+preflight reports an input-free refusal for invalid input and filesystem errors.
+Tokenizer and weight contents remain streamed and hashed, not JSON parsed.

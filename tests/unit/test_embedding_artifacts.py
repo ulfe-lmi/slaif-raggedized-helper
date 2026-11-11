@@ -278,3 +278,38 @@ def test_timeout_during_stream(tmp_path, monkeypatch):
     monkeypatch.setattr(os, "read", slow_read)
     with pytest.raises(ArtifactRefused):
         check(root, m, timeout=1)
+
+
+@pytest.mark.parametrize("encoding", ["utf-16", "utf-32"])
+def test_reject_non_utf8_json(tmp_path, encoding):
+    root = tmp_path / "tree"
+    m = setup_tree(root)
+    with pytest.raises(ArtifactRefused, match="^artifact verification refused$"):
+        verify_artifacts(json.dumps(m).encode(encoding), root)
+    write_config(root, m, "config", json.dumps(FIXED["config"][1]).encode(encoding))
+    with pytest.raises(ArtifactRefused, match="^artifact verification refused$"):
+        check(root, m)
+
+
+def test_unicode_admission_and_privacy(tmp_path, monkeypatch):
+    root = tmp_path / "tree"
+    m = setup_tree(root)
+    m["files"][-1]["path"] = "\ud800.safetensors"
+    with monkeypatch.context() as patch:
+        patch.setattr(os, "open", lambda *a, **k: pytest.fail("opened before admission"))
+        with pytest.raises(ArtifactRefused, match="^artifact verification refused$"):
+            check(root, m)
+    m["files"][-1]["path"] = "é.safetensors"
+    (root / "synthetic.safetensors").rename(root / "é.safetensors")
+    write_config(
+        root, m, "config", '{"model_type":"xlm-roberta","hidden_size":1024,"é":"é"}'.encode()
+    )
+    check(root, m)
+    for payload, path in [
+        (encoded(m), None),
+        (b"\xff", root),
+        (b"\xef\xbb\xbf{}", root),
+        (b"[" * 2000, root),
+    ]:
+        with pytest.raises(ArtifactRefused, match="^artifact verification refused$"):
+            verify_artifacts(payload, path)
