@@ -1,0 +1,13 @@
+{
+  "lane_id": "PAR-004-RERANK-B",
+  "result": "COMPLETE",
+  "implementation_head": "de1f86fc4cf1ad4672e3899023f36fc992e02e60",
+  "report_publication_commit": "SELF",
+  "summary": "Retain definition, criteria, actual paired scores and identities in parity evidence; record requested and effective k and bind normalized supplied inputs using a permutation-invariant canonical digest. Decision NONE.",
+  "API": "qualification.rerank_parity.analyze_rerank_parity(mapping_or_ParityInput); module docstring defines input, output, limits and digest payload. Result input_binding uses schema.fingerprint over versioned sorted supplied pair identities, digests, scores, definition, executions and criteria.",
+  "tests": [
+    {"command": "uv run --locked --offline pytest tests/unit/test_rerank_parity.py tests/integration/test_rerank_parity_composition.py tests/unit/test_contracts.py -q", "result": "PASSED: 41 tests"},
+    {"command": "uv run --locked --offline ruff check src/slaif_raggedized_helper/qualification/rerank_parity.py tests/unit/test_rerank_parity.py tests/integration/test_rerank_parity_composition.py", "result": "PASSED"}
+  ],
+  "limitations": "SUPPLIED_UNVERIFIED synthetic values only. The digest binds declarations and scores, not actual execution or artifact authenticity. No model, GPU, service or hardware qualification; no CLI/file loader, push, PR or merge."
+}

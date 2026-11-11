@@ -1,0 +1,15 @@
+{
+  "lane_id": "PAR-005-JOBS-A",
+  "result": "COMPLETE",
+  "implementation_head": "b242fdfc372bbff75f1a6258d780ba31c57d5e85",
+  "report_publication_commit": "SELF",
+  "summary": "Implemented bounded versioned inert job identities, logical state snapshots, immutable attempt diagnostics and output references, with pure correlated transitions and input-free admission errors.",
+  "API": "job_records: admit, serialize, transition, JobSpec, InputRef, Configuration, JobState, Attempt, OutputRef and RecordError; documented in docs/parallel/job-records-api.md.",
+  "tests": [
+    {"command": "uv run pytest tests/unit/test_job_records.py tests/integration/test_job_records_composition.py tests/unit/test_source_admission.py tests/integration/test_source_admission_composition.py tests/unit/test_contracts.py", "result": "33 passed before an additional focused negative test was added"},
+    {"command": "uv run pytest tests/unit/test_job_records.py tests/integration/test_job_records_composition.py", "result": "12 passed after the additional negative test"},
+    {"command": "uv run ruff check src/slaif_raggedized_helper/job_records.py tests/unit/test_job_records.py tests/integration/test_job_records_composition.py", "result": "All checks passed"},
+    {"command": "cmp /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/job-records/order.md oap/parallel/orders/PAR-005-JOBS-A.md", "result": "identical"}
+  ],
+  "limitations": "Synthetic local evidence only. Caller-supplied digests and verification availability are assertions, not proof or authentication. Full-history attempt-ID uniqueness requires caller enforcement. No cache decision, worker execution, ownership, output publication, restart reconciliation, real qualification, canonical integration or CLI is implemented. Objective 010 and architecture assessment remain."
+}

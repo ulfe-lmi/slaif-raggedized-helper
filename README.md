@@ -11,9 +11,8 @@ private offline native llama.cpp `/completion` adapter (explicit
 offline-diagnostic policy, server-rendered templates via `/apply-template`,
 truthful native stop/metric mapping), the bounded explicit
 `raggedized probe` qualification probe and real loopback integration tests
-([docs/generator-contract.md](docs/generator-contract.md)); and — open on
-PR #6 (branch `oap/004-qualification-harness`, not merged) — the
-objective 004 finite qualification trial runner (004-a) plus the
+([docs/generator-contract.md](docs/generator-contract.md)); and — merged as
+PR #6 — the objective 004 finite qualification trial runner (004-a) plus the
 004-b/004-c evidence-contract corrections: strict bounded trial
 spec/sample/result contracts with cross-field consistency bindings
 (actual-ledger-driven analysis recomputation, backend/fingerprint
@@ -41,7 +40,34 @@ nvidia-smi fixed-argv metadata query with `--gpu`) and
 returns the plain v1 trial evidence INTACT inside an explicit
 versioned wrapper carrying the strict versioned own-process
 observation (peaks are observed sample peaks; phase events are
-declarations; GPU absence is an exact unavailable, never a zero).
+declarations; GPU absence is an exact unavailable, never a zero; the
+004-e correction enforces the shared-deadline startup admission,
+honest observed-byte aggregate accounting, every-exit-path owned
+observer stop and canonical inner-trial-ledger late-export
+accounting that the telemetry semantics require). The first 005
+slice (open on the 005 PR, branch
+`oap/005-artifact-schema-and-source-scopes`, not merged) adds the
+independently reviewed local original admission/store and a thin
+installed `raggedized source import|inspect` route: a strict
+versioned manifest admits operator-approved local regular files
+beneath an explicit approved root into a private operator store
+with bounded descriptor-verified reads, digest-named immutable
+blobs, metadata-sensitive immutable revisions, byte deduplication
+with distinct rights/ACL/corpus metadata, atomic same-filesystem
+publication and safe input-free failures. The 005-b continuation
+merges the independently reviewed provenance and job record modules:
+versioned block/span/chunk/derived-scope records reconstruct exact
+original text from code-point spans with explicit separators,
+all-label source scopes keep distinct rights and reject
+cross-boundary support, and bounded job/attempt DTOs carry safe
+status transitions without claiming execution, caching or output
+existence; parsing/extraction remain 006 scope and operator
+approval is metadata, not authentication
+([docs/parallel/source-admission-api.md](docs/parallel/source-admission-api.md),
+[docs/parallel/source-cli-api.md](docs/parallel/source-cli-api.md),
+[docs/parallel/provenance-records-api.md](docs/parallel/provenance-records-api.md),
+[docs/parallel/job-records-api.md](docs/parallel/job-records-api.md),
+[docs/data-model.md](docs/data-model.md)).
 
 The target uses CPU query embedding/search and measured co-resident V100 Qwen Q6 + FP16
 reranking, with separate long-context preprocessing and exclusive GPU bulk embedding modes.
@@ -71,6 +97,8 @@ uv run raggedized doctor --config config/examples/example-config.json
 uv run raggedized qualification gates   # offline section 23.2 prerequisite projection
 uv run raggedized qualification plan --config CONFIG.json --spec SPEC.json   # offline, zero I/O
 uv run raggedized resource diagnose --duration-seconds 1 --samples 4   # explicit opt-in, own-process only
+uv run raggedized source import --root ROOT --store STORE --manifest MANIFEST.json   # local operator tool
+uv run raggedized source inspect --store STORE --revision sha256:...   # verified revision read
 uv run pytest tests/unit -q
 uv run pytest tests/integration -q   # 003-b/i/j + 004-a: owned loopback HTTP/SSE, probe and trial composition, synthetic keys
 ```
@@ -97,6 +125,14 @@ fixture; exit 0 complete execution status / 1 not-run-incomplete /
 2 pre-dispatch refusal with zero dispatches / 3 post-work evidence
 export failure). Full reference, spec fields, budget admission/
 accounting semantics, quantile definition and evidence classes:
+`source` is the objective 005-a local operator route: `import`
+admits a bounded manifest (version 1, at most 128 approved sources
+with explicit labels, processing approval and independent
+redistribution rights) from an explicit approved root into a
+private store, and `inspect` verifies and prints a stored
+revision (exit 0 complete / 1 typed safe failure; help and import
+perform zero network/model work; original bytes are never
+printed).
 [docs/benchmarks/qualification-protocol.md](docs/benchmarks/qualification-protocol.md),
 [docs/foundation.md](docs/foundation.md) and
 [docs/generator-contract.md](docs/generator-contract.md).
@@ -109,6 +145,9 @@ in [docs/CI.md](docs/CI.md)). CI produces no hardware evidence; live model and
 gateway qualification remains NOT RUN. The public product CLI currently
 provides `raggedized doctor`, `probe` (explicit opt-in qualification
 probe), `qualification gates|plan|run` (finite qualification trials,
-explicit opt-in execution) and `--help`/`--version`; further API
-commands remain proposed, not available.
+explicit opt-in execution), `resource diagnose` (bounded local
+telemetry diagnostic), `parity embedding|rerank` (supplied-value
+analysis) and `source import|inspect` (local original admission/store
+operator tool), plus `--help`/`--version`; further API commands remain
+proposed, not available.
 Apache-2.0; retain LICENSE and [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).

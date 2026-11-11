@@ -85,129 +85,73 @@ All synthetic and offline: no external network, product services,
 real keys, GPU or model downloads. Real runtime/cache/quality
 qualification remains NOT RUN.
 
-T08. Finite qualification trial composition (objective 004-a, evidence-contract corrections 004-b/004-c): `uv run
-pytest tests/integration/test_qualification_composition.py -q` runs
-the INSTALLED `raggedized qualification` CLI in subprocesses with the
-real gateway/native adapters against owned 127.0.0.1 loopback servers
-(synthetic canaries only): exact total calls across warmups/repetitions
-for both dialects (native template work consumes the shared allowance:
-the budget-3/budget-4 native boundaries), multiple repetitions under
-ONE shared dispatch allowance (never reset per sample), retry
-consumption of the allowance via failed connects at the real transport
-boundary, global deadline exhaustion mid-trial (in-flight closure, no
-replay, honest elapsed bound), accepted-then-closed unknown outcome
-without replay, identity/settings preflight with ZERO dispatch
-(model mismatch, workload-fingerprint mismatch, missing route,
-unmaterialized direct, invalid spec, invalid `--output` destination),
-the honest post-work export-stage failure after actual dispatches
-(exit 3, full safe evidence on stdout with the spent-attempt ledger),
-outcome/metric ambiguity (contradictory reported cache/input counters
-stay raw facts only and cannot become positive evidence; missing usage
-stays null), and the deterministic explicit synthetic route
-(`--synthetic`: owned fixture, evidence labeled MOCK /
-synthetic-owned-fixture, timing-stripped evidence identical across
-runs, configured secrets never read, a configured loopback URL never
-classified synthetic by a boolean), the bounded spec file input typed
-refusals (absent spec, owned TEMP FIFO/special file refused WITHOUT
-blocking, file past the 65536-byte bound, invalid UTF-8, JSON integer
-beyond the fixed decoder bound and deep nesting — all pre-dispatch
-with zero HTTP, fixed safe errors and no input or private-path echo),
-the decoded workload Unicode admission (unpaired-surrogate parent /
-lone-low-surrogate first suffix refused at spec admission with the
-fixed safe reason — zero HTTP, no traceback, no input echo, matched
-fingerprints proving the refusal is the Unicode admission; valid
-escaped-astral and Slovenian Unicode admitted unchanged), and the
-available-stage timing summaries (gateway prefill/TTFT stay
-n=0 all-null unavailable; direct per-stage quartiles hand-computed
-from the sample observations with known-zero/missing/invalid
-bookkeeping). Unit contracts
-(`tests/unit/test_qualification.py`) cover the strict spec refusals
-(unknown settings, named-prerequisite refusals for unimplemented
-context/pair/batch/precision/seed controls, bool-as-number,
-nonfinite/negative/out-of-bounds values), the bounded spec file reader
-(descriptor/type of the actually opened fd, byte/UTF-8/JSON typed
-failures, fixed safe messages, no path echo, no process-global
-decoder-limit change), the strict sample/result evidence contracts
-(frozen extra=forbid fields, strict int/float/bool without coercion,
-envelope relations: requests are the exact leading prefix of the
-declared workload, remaining+attempted ==
-budgets.max_dispatches, status/stop_reason consistency, not_run
-implies zero dispatches, and the analysis section must equal the pure
-recomputation from the recorded samples driven by the ACTUAL
-transport-boundary ledger — an analysis call count that conflicts
-with the ledger is refused), the 004-c cross-field bindings (envelope
-backend vs declared backend; known per-sample backend fingerprint vs
-the observed per-trial binding, an absent binding stays null and is
-allowed; evidence class vs target type provenance pair; output
-reservation total/per-sample vs the declared budget with the floor
-even share over the DECLARED scheduled sample count; cache/input
-consistency claims vs the pure derivation from the actually recorded
-raw usage — every single-field contradiction refused, the unaltered
-envelope admitted), the quartile completeness contract (n=0 iff
-all-null quartiles; n>0 every quartile present, finite, non-negative
-and ordered; partial quartile sets refused), the serialization-
-boundary post-work refusal (fixed safe error with the actual valid
-spent-attempt ledger on stdout, ledger availability marked honestly
-when the ledger itself cannot validate — never assumed zero, no
-crash, the invalid record never exported), the stage metric summaries
-(known-zero counts, missing and invalid-observation exclusions,
-per-stage provenance), preflight consistency, the nearest-rank
-quantile convention and zero-sample nulls, the pure deterministic
-analysis and the complete section 23.2 gate projection (all 14 IDs,
-real trials NOT_RUN, committed
-docs/benchmarks/qualification-gates.json bound to the canonical
-rendering). Plan/gates/help are proven zero model/HTTP/telemetry I/O
-on a closed port. All synthetic and offline: no external network,
-product services, real keys, GPU or model downloads. Real
-target/hardware/model qualification remains NOT RUN (order 004-a live
-authorization: NONE; 004-b/004-c corrections, live authorization also
-NONE).
+T08. Finite qualification trial composition (objective 004-a, evidence-contract corrections
+004-b/004-c): `uv run pytest tests/integration/test_qualification_composition.py -q` runs the
+INSTALLED `raggedized qualification` CLI in subprocesses against owned 127.0.0.1 loopback
+servers (synthetic canaries only): shared dispatch allowance across warmups/repetitions/retries
+for both dialects, bounded spec file input refusals, strict evidence contracts with the analysis
+pure-recomputation driven by the actual transport ledger, honest post-work export-stage failures
+and zero-dispatch plan/gates/help. Unit contracts live in tests/unit/test_qualification.py.
+Full command coverage, stage-metric and NOT-RUN distinctions: docs/benchmarks/
+qualification-testing.md (T08). All synthetic and offline; real qualification NOT RUN.
 
-T09. Bounded local resource telemetry (objective 004-d): `uv run
-pytest tests/unit/test_qualification_resources.py -q` covers the strict
-versioned observation DTOs (boolean-as-number, nonfinite, negative,
-out-of-range and contradictory values refused; unknown fields
-forbidden; absent stays null, known 0 kept; CPU interval deltas from
-the baseline with disclosed utilization normalization, unavailable not
-fabricated when the wall interval is missing/zero; RSS current vs
-ru_maxrss lifetime high-water mark (Linux KiB unit documented) vs
-observed interval sample peak; device-wide memory range checks; exact
-unavailable/error reason vocabulary; phase events structurally
-text-free; the series monotonic/peak/duration bindings; the wrapper
-contract with the INTACT plain v1 trial inside), the own-process
-probes through owned seams (getrusage//proc/self/status failures stay
-unavailable, never zero; own PID scope), the bounded fixed-argv
-nvidia-smi query against owned deterministic collector executables
-(fixed argv, shell=False, exact MiB units, tool_absent vs
-spawn_failed, no_devices, malformed, contradictory, nonzero-exit
-query_failed with raw stderr canaries never kept, timeout with owned
-child stopped, stdout/stderr byte exhaustion at the pipe boundary with
-the byte cap + 1 recorded, invalid budget refusals) and the narrow
-trusted observer (no work before the deadline bind, double-start
-refusal, already-passed deadline samples nothing, phase facts
-recorded then dropped after stop, CPU interval deltas, unavailable
-probes stay null, sample cap and trial-deadline stop reasons, finite
-idempotent cleanup, at most one bounded gpu query, construction-bound
-refusals) plus the zero-telemetry negative (plan/gates/import never
-touch the telemetry seams and create no sampler thread). `uv run
-pytest tests/integration/test_qualification_resources.py -q` runs the
-INSTALLED `raggedized` CLI in subprocesses: `resource diagnose`
-(real own-process measurement on this Linux devhost, D0 bounded
-allowance enforced before work, GPU absence as an exact honest
-unavailable, output destination handling) and the owned deterministic
-`nvidia-smi` executables on PATH (available exact units/values,
-stdout byte exhaustion, actual child timeout without hang, raw output
-never in the evidence), the `qualification run --resources`
-composition over the real gateway/direct application code (plain v1
-trial evidence byte-intact inside the explicit versioned wrapper;
-phase/ordinal/ledger facts exactly with no text; collector accounting
-separate from transport-boundary dispatches; --resource-gpu alone
-refused pre-dispatch; preflight refusal binds no telemetry; slow
-loopback HTTP under ONE shared short deadline with sampling stopped at
-the deadline, finite cleanup and no replay; gpu observation composed
-into the wrapper once, unavailable stays valid) and the
-zero-telemetry import/help/gates/plan/doctor negative. All synthetic
-and owned: no external network, product services, real keys, physical
-GPU requirement, model downloads or sensitive corpus (order 004-d live
-authorization: NONE; the D0 local observational allowance applies).
-Real target/model/GPU qualification remains NOT RUN.
+T09. Bounded local resource telemetry (objectives 004-d, 004-e corrections): `uv run pytest
+tests/unit/test_qualification_resources.py -q` and `uv run pytest
+tests/integration/test_qualification_resources.py -q` cover the strict versioned observation
+DTOs, own-process probes, the bounded fixed-argv nvidia-smi query against owned deterministic
+collector executables, the narrow trusted observer and the zero-telemetry import/help negative,
+plus the installed `raggedized resource diagnose` and `qualification run --resources`
+composition (plain v1 trial byte-intact inside the explicit versioned wrapper, every-exit-path
+observer stop, late-export spent accounting). Full command coverage and NOT-RUN distinctions:
+docs/benchmarks/qualification-testing.md (T09). All synthetic and owned; real GPU/model
+qualification NOT RUN (D0 local observational allowance only).
+
+T10. Supplied-value parity and gate projection (objective 004-f): four parity unit suites
+(embedding, rerank, shared safe file I/O, CLI/gates) cover the pure supplied-value analyzers,
+the shared bounded safe I/O layer and the canonical fourteen-gate projection bound to the
+committed docs/benchmarks/qualification-gates.json; integration suites run the INSTALLED
+`raggedized parity embedding|rerank --input FILE --output FILE` on owned disposable files with
+the exit 0/2/3 matrix. Full command coverage and NOT-RUN distinctions: docs/benchmarks/
+qualification-testing.md (T10). All synthetic and offline; real qualification NOT RUN.
+
+T11. Bounded local source admission and installed source CLI (objective 005-a): `uv run
+pytest tests/unit/test_source_admission.py tests/unit/test_source_cli.py
+tests/integration/test_source_admission_composition.py
+tests/integration/test_source_module_cli.py tests/integration/test_source_installed_cli.py -q`
+runs the strict versioned manifest/store contracts and the INSTALLED `raggedized source
+import|inspect` route (thin delegation to the module entrypoint) in subprocesses on owned
+disposable roots/stores: two synthetic logical documents sharing bytes with distinct
+rights/ACL/corpus produce separate immutable revisions over one verified shared blob, a
+metadata correction publishes a new revision while the unchanged document and blob are reused,
+inspect verifies record/blob binding and read_original returns exact bytes; negatives exercise
+actual descriptors for traversal/symlink/intermediate replacement/special files, oversized and
+growing streams, corrupt stored artifacts, conflicting immutable objects, interrupted
+publication with safe retry, unchecked-copy escape and atime-only changes, all with fixed
+safe input-free errors that never echo source passages or private paths, and guarded
+help/import at zero network/model work. All synthetic and offline: no extraction, parsing,
+network fetch, models, GPU or real corpus; operator approval is metadata, not authentication.
+Source serving, provenance/job records and 006 extraction remain later ordered scope; real
+qualification NOT RUN.
+
+T12. Combined canonical 005 record journey (objective 005-b): `uv run pytest
+tests/integration/test_canonical_records_journey.py -q` composes the actual
+005-a `OriginalStore` with the merged provenance and job record modules in ONE
+owned journey: two synthetic logical documents sharing bytes with distinct
+corpus/labels/rights and a metadata-corrected revision over one verified blob;
+exact byte load via `read_original`; synthetic native Block/Dependency records
+with astral/combining/CRLF content; start-inclusive/end-exclusive code-point
+multi-span chunks with explicit separators and a repeated original table-header
+reference; Registry chunk/neighbor binding with reciprocal links; same-source
+derived support (label union, cross-boundary and cross-revision rejection);
+pure reader grant/restriction intersection with unknown-version fail-closed;
+and `JobSpec`/`JobState`/`Attempt` admission, serialization roundtrip and
+bounded transitions (COMPLETE with an asserted-only verified output reference,
+UNKNOWN_COMPLETION without automatic retry, RETRYABLE_FAILED retry with a fresh
+attempt ID). Forged spans, conflicting copied text, boolean/out-of-range
+offsets, wrong revision/dependency/hash and missing labels are refused with
+input-free errors. The candidate unit suites (`test_provenance_records.py`,
+`test_job_records.py`) and component composition suites cover the remaining
+per-record negative boundaries. All synthetic and offline: no extraction,
+parsing, network, models, GPU or real corpus; supplied text/counts are
+assertions, not executed parsers or qualified tokenizer measurements; DTO
+COMPLETE is not artifact or cache proof. Real qualification NOT RUN.

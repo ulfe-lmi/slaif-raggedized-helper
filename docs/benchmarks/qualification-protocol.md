@@ -1,22 +1,33 @@
 # Qualification trial protocol — finite repeated-parent trials (OAP 004-a)
 
 This document describes the EXECUTED software of objective 004 (the
-004-a finite qualification trial runner and the 004-b/004-c evidence
-contract corrections): one finite qualification trial runner, strict
-bounded trial-spec/sample/result contracts, bounded safe spec file
-input, available-stage latency summaries and actual
-gateway/direct repeated-parent composition. It records the exact 004
-software replan (the D0 replan in order 004-a): authorized real
+004-a finite qualification trial runner, the 004-b/004-c evidence
+contract corrections, the 004-d bounded local resource telemetry and
+its 004-e corrections, and the 004-f supplied-value parity
+integration with the full fourteen-gate prerequisite projection):
+one finite qualification trial runner, strict bounded
+trial-spec/sample/result contracts, bounded safe spec file input,
+available-stage latency summaries and actual
+gateway/direct repeated-parent composition, bounded read-only local
+resource telemetry behind explicit opt-in, and operator-local
+supplied-value embedding/rerank parity analysis behind explicit
+opt-in. It records the exact 004 software replan (the D0 replan in
+order 004-a): authorized real
 gateway/GPU/model/corpus inputs remain absent, so this software
 establishes usable instrumentation and exact prerequisites; actual
 A1/hardware/quality feasibility remains UNPROVEN and is mandatory at
 019/ICA/MVP. The 004-b correction completed the evidence contracts
-and input boundaries of the verified 004-a head, and the 004-c
-correction (this slice) closes the cross-field evidence-consistency,
+and input boundaries of the verified 004-a head, the 004-c
+correction closed the cross-field evidence-consistency,
 metric-completeness, decoded-Unicode and serializer/spent-ledger gaps
-on the verified 004-b head; resource telemetry, vector/rank parity and
-full named gate composition remain required in later proof-sized 004
-continuations (strategic activation required). Whole-004
+on the verified 004-b head, 004-d delivered the bounded local
+resource telemetry, the 004-e correction closed its
+lifecycle/accounting/contract failures, and this 004-f slice
+integrates the reviewed supplied-value parity analysis
+(embedding/rerank), the shared safe file I/O layer, the module and
+installed-CLI routing and the full fourteen-gate prerequisite
+projection. Real model/hardware/quality/vision/license
+qualification remains open (all real trials NOT_RUN); whole-004
 acceptance/merge and 005 selection are not delegated here.
 
 ## Explicit supported CLI commands
@@ -80,10 +91,10 @@ dispatches, and only on explicit opt-in.
 | `purpose` | `"annotation"` | the ONLY supported purpose (visual: 016; answer: 014) |
 | `parent` | 1..4096 chars | constant bounded synthetic parent |
 | `suffixes` | 1..8 entries, 1..256 chars each | deterministic child suffixes; sequence = ordinal mod len |
-| `seed` | int 0..2^32-1 | bound identity only; no seed-driven variation is implemented (prerequisite 004-b) |
+| `seed` | int 0..2^32-1 | bound identity only; no seed-driven variation is implemented (prerequisite: seed-variation implementation) |
 | `warmups` | int 0..16 | warmup samples (kept separate from measured samples) |
 | `repetitions` | int 1..64 | measured samples |
-| `concurrency` | `1` only | concurrency above 1 is unimplemented (prerequisite 004-b / ONLINE-02) |
+| `concurrency` | `1` only | concurrency above 1 is unimplemented (prerequisite: concurrency implementation for ONLINE-02) |
 | `code_version` | plain token | must equal the executing package version |
 | `backend` | `"gateway" \| "direct"` | the actually configured application path |
 | `declared_model` | 1..256 chars | must equal the configured route/native model |
@@ -387,7 +398,7 @@ unqualified: it proves executable bounded composition, wire behavior
 and accounting, never real target, hardware, model, cache or quality
 feasibility.
 
-## Bounded local resource telemetry (004-d)
+## Bounded local resource telemetry (004-d, corrected 004-e)
 
 Read-only, bounded, OWN-PROCESS telemetry on THIS devhost, composed
 with the actual finite repeated-parent trials. It is explicit opt-in
@@ -440,6 +451,15 @@ raggedized qualification run --config PATH --spec PATH [--synthetic]
 - All scalars are STRICT: boolean-as-number, nonfinite, negative and
   contradictory values are refused; unknown fields are forbidden.
   Absent stays unavailable/null; a known 0 remains a known 0.
+- Versioned documents are STRICT on `version`: it must be the exact
+  integer 1 — booleans, floats, strings and other numbers are
+  refused (004-e).
+- The collector record BOUNDS its identity and code source (004-e):
+  `collector_id` (fixed safe token), `collector_source` (the code
+  module), `code_version` (the ACTUAL executing package version) and
+  `source_revision` — explicitly `unavailable` in v1 (no
+  attestation/signing system, no Git subprocess on import or default
+  commands). The binding is disclosed in the provenance/notes.
 
 ### Budgets, units and availability
 
@@ -465,22 +485,63 @@ raggedized qualification run --config PATH --spec PATH [--synthetic]
   --format=csv,noheader,nounits`), `shell=False`; no argument or
   command is selectable by config/spec/caller. The finite timeout and
   the stdout/stderr byte bounds are enforced AT THE PIPE BOUNDARY
-  while the child produces data (never after unbounded capture); only
-  the exact owned collector child is terminated/killed. Memory values
-  are MiB (the `--format=nounits` unit), range-checked
-  (`used <= total`, `free <= total`). Missing tool, no GPU,
-  permission/exit failure, malformed output, timeout or oversize
-  produce the EXACT `unavailable`/`error` reason
-  (`tool_absent`, `no_devices`, `spawn_failed`, `query_failed`,
-  `timeout`, `stdout_oversize`, `stderr_oversize`,
-  `malformed_output`, `contradictory_values`) with byte counts only —
-  never 0 used/full/free, and raw stderr/command output is never
-  dumped into the evidence.
+  while the child produces data (never after unbounded capture): each
+  read requests at most the REMAINING declared allowance, and at the
+  cap takes an explicit bounded one-byte lookahead that distinguishes
+  exact fit from overflow; the reported byte counts are the ACTUAL
+  OBSERVED bytes (an oversize stream reports cap + the one observed
+  lookahead byte), never the configured cap (004-e). Only the exact
+  owned collector child is terminated/killed. Memory values are MiB
+  (the `--format=nounits` unit), range-checked (`used <= total`,
+  `free <= total`). Missing tool or no visible device produces
+  `unavailable` (`tool_absent`, `no_devices`; the fixed vocabulary
+  value `query_budget_exhausted` covers a query refused by the byte
+  budget, and a pre-work refusal leaves no GPU observation at all);
+  a spawn failure, timeout, pipe byte overflow, nonzero child exit,
+  malformed output or contradictory values produces
+  `error` (`spawn_failed`, `timeout`, `stdout_oversize`,
+  `stderr_oversize`, `query_failed`, `malformed_output`,
+  `contradictory_values`) with byte counts only — never
+  0 used/full/free, and raw stderr/command output is never
+  dumped into the evidence (004-e).
 - Library MAX bounds are finite implementation choices (duration up
   to the 86400 s trial-deadline bound, sample/call/byte/query/query-
   wall caps, cleanup bound <= 5 s); the installed CLI diagnostic is
   additionally capped at the bounded local allowance above. The
   order's small execution allowance is not a production hard limit.
+- Time fields are distinct (final 004-e semantics):
+  `ResourceSeries.duration_seconds` is the elapsed OBSERVATION
+  WINDOW — from series start to the admitted final CPU endpoint when
+  one is collected, otherwise to report assembly, intersected with
+  the observer-duration and optional trial-deadline work window — and
+  never represents cleanup elapsed. CPU `wall_seconds` is the actual
+  elapsed time to the admitted CPU endpoint and can exceed the series
+  window when that probe finishes after the cutoff; without an
+  admitted endpoint the CPU values and utilization stay unavailable
+  and its wall is the observation window. Collector `wall_seconds`
+  is the actual COMPLETION WALL — elapsed time through report
+  assembly, including cleanup and finalization — and can exceed the
+  work-window bound. The subsequent lifetime-RSS probe is omitted
+  after the CPU cutoff; no deadline or collection allowance is
+  extended.
+- AGGREGATE accounting (004-e): collection calls, observed bytes and
+  observed time are enforced BEFORE work, across the WHOLE observer
+  lifetime (never reset per phase; the startup t=0 sample and the
+  single final observation count in the documented collection-call
+  allowance, device work in the query allowances). Own-process
+  `bytes_read` and device-pipe `device_query_bytes_read` form ONE
+  conservative combined byte pool against the finite collector cap:
+  before each admitted sample the full status-read cap is RESERVED,
+  and before the single device query both pipe caps plus one
+  lookahead byte per pipe are RESERVED — reservations are never
+  reported as actual reads, so this conservative admission may refuse
+  a sample or a query even when its eventual actual output would
+  have fit. `bytes_read` is the sum of ACTUAL observed read bytes,
+  never the read cap; a permitted finite workload therefore
+  terminates with a VALID honest partial record at exhaustion (stop
+  reason `resource_exhausted`) instead of an over-limit invalid
+  document. Known 0 stays 0; unavailable stays null; collector work
+  never consumes or invents model attempts.
 
 ### Sampler scope and trial composition
 
@@ -491,13 +552,32 @@ raggedized qualification run --config PATH --spec PATH [--synthetic]
   starts NO work; work starts only when it is bound to the ACTUAL
   single trial deadline, which STILL spans all warmups/repetitions/
   retries/template/model calls AND sampling (no extension/reset).
-- On finish/failure/cancellation the observer stops new
-  samples/queries and joins the owned sampler within an explicit
-  finite cleanup bound; no detached sampler survives. The collector
-  activity accounting (samples/calls/wall/bytes/device queries) is
-  separate from the transport-boundary model/template dispatches and
-  from output allowances. A pre-dispatch refusal binds no telemetry
-  at all (the refusal document is unchanged).
+  The single startup metadata query (when opted in) is clipped to
+  the remaining trial AND observer duration; if the deadline is
+  already reached at startup nothing is queried, sampled or started;
+  admission is rechecked after the startup query and before EVERY
+  sample/query, so no sample is admitted late (and none is labelled
+  t=0 when it is not). The standalone diagnostic keeps the query's
+  own documented finite bound (004-e).
+- On finish/failure/cancellation — on EVERY execution exit path,
+  including in-process `KeyboardInterrupt`/`BaseException` with a
+  surviving caller — the runner stops the owned observer work and
+  joins the owned sampler within an explicit finite cleanup bound
+  (idempotent, bounded; the original exception and the trial's
+  model/template deadline/call/output semantics are preserved); no
+  detached sampler survives and explicit bounded cleanup may follow
+  expiry but never authorizes further collection or model dispatch
+  (004-e). The collector activity accounting
+  (samples/calls/wall/bytes/device queries) is separate from the
+  transport-boundary model/template dispatches and from output
+  allowances. A pre-dispatch refusal binds no telemetry at all (the
+  refusal document is unchanged).
+- Late `--output` failures use the CANONICAL inner trial ledger
+  (the wrapped trial's `transport_boundary` for the opt-in wrapper):
+  after real work the error reports the ACTUAL known call count with
+  a replay warning; a missing/invalid ledger is an explicit UNKNOWN
+  (never assumed zero); only genuine pre-dispatch refusal documents
+  carry the true zero-dispatch claim (004-e).
 - Real local CPU/RSS observations are measurements of THIS caller
   process on THIS devhost — NOT embedding/reranker resource evidence
   and not evidence about a remote inference host or an assigned
@@ -535,8 +615,8 @@ raggedized qualification run --config PATH --spec PATH [--synthetic]
   construction/serialization/analysis boundaries, the analysis
   recomputation invariant), the bounded safe spec file input
   (descriptor/type/byte/UTF-8/JSON-decoder typed refusals at zero
-  HTTP) and the available-stage summaries. The 004-c correction (this
-  slice) closes the independently reproduced cross-field evidence
+  HTTP) and the available-stage summaries. The 004-c correction
+  closed the independently reproduced cross-field evidence
   consistency bindings (analysis recomputation driven by the actual
   transport-boundary ledger; envelope/declared backend and per-sample
   backend-fingerprint bindings; evidence-class/target-type provenance
@@ -558,17 +638,65 @@ raggedized qualification run --config PATH --spec PATH [--synthetic]
   in LATER proof-sized 004 continuations (strategic activation
   required); 019/ICA/MVP gate actual feasibility. These corrections
   do not substitute a smaller objective for that scope.
+- The 004-e correction closed the independently
+  reproduced 004-d resource lifecycle/accounting/contract failures:
+  (F01) the startup metadata query is now clipped to the remaining
+  trial AND observer duration and admission is rechecked after the
+  query and before every sample (a 0.08 s deadline can no longer
+  admit a ~0.276 s late startup query and late first sample);
+  (F02) pipe reads enforce the remaining declared allowance plus a
+  bounded one-byte lookahead and report the ACTUAL observed bytes
+  (cap 128 overflow reports the observed 129 instead of reading
+  4096 and claiming cap+1), and aggregate calls/bytes/time are
+  enforced before work across the whole observer lifetime —
+  `bytes_read` is actual observed bytes (never the read cap) with
+  the cap reserved per admitted sample, so a finite workload
+  terminates with a valid honest partial record at
+  `resource_exhausted`; (F03) the runner stops and finitely joins
+  the owned observer on EVERY execution exit path, including
+  in-process `KeyboardInterrupt` with a surviving caller (no
+  detached sampler, no continued samples); (F04) late `--output`
+  failures read the canonical inner trial ledger (wrapper-aware)
+  and report the actual known call count with a replay warning,
+  never a false zero/pre-dispatch claim (missing/invalid ledger
+  stays an explicit unknown); (F05) resource schema versions refuse
+  booleans and wrong numeric types and the collector record binds
+  the bounded collector identity, code source and actual package
+  version with the Git source revision explicitly unavailable. The
+  published 004-d report is immutable; its over-claimed pipe
+  bound, aggregate admission, cancellation and collector/code
+  metadata statements are superseded by this correction, not
+  rewritten.
+- This 004-f slice integrates the independently reviewed
+  supplied-value parity analysis (embedding/rerank analyzers with
+  exact pair/row/definition binding, declared-only space and
+  execution identity and unavailable storage provenance), the shared
+  bounded safe file I/O layer, the `parity` module entrypoint and its
+  thin installed-CLI routing, and the full fourteen-gate
+  prerequisite projection with the available-analysis and
+  partial-instrumentation distinction; it also reconciles these
+  canonical documents with the actual fixed reason vocabulary and the
+  final observation-window / CPU-endpoint / completion-wall
+  semantics (per the 004-e review documentation note; the immutable
+  004-e report is not rewritten). Supplied-value analysis and local
+  instrumentation are partial tools, not execution of any gate
+  experiment; all real statuses stay NOT_RUN.
 - Live target authorization: NONE. No approved actual URL/model/
   secretref/GPU ownership/corpus reply has arrived. ALL real trials
   persist NOT_RUN; no positive topology, cache, speedup, quality,
   VRAM, license or readiness claim follows from this software or from
   any synthetic/configured-unverified evidence.
-- Gate projection: `docs/benchmarks/qualification-gates.json` covers
-  every architecture section 23.2 ID (GATEWAY-01/02/03, DIRECT-01,
-  V100-MEM-01/02, RERANK-01, EMBED-01/02, ONLINE-01/02, OPS-01/02,
-  LICENSE-01) with status NOT_RUN and named pending prerequisites
-  (004-b, 007, 012, 014, 015, 016, 017, 018). Only the text
-  repeated-parent runner entrypoints (GATEWAY-01, GATEWAY-03,
+- Gate projection (004-f): `docs/benchmarks/qualification-gates.json`
+  covers every architecture section 23.2 ID (GATEWAY-01/02/03,
+  DIRECT-01, V100-MEM-01/02, RERANK-01, EMBED-01/02, ONLINE-01/02,
+  OPS-01/02, LICENSE-01) with status NOT_RUN, live target
+  authorization NONE and the exact current named pending
+  prerequisites (007, 010, 012, 014, 015, 016, 017, 018, 019). The
+  projection distinguishes available supplied-value analysis
+  (`parity_cli embedding`/`rerank`, supplied values only) and partial
+  local instrumentation (`resource diagnose`, own-process/devhost
+  only) from the full experiments, which neither executes. Only the
+  text repeated-parent runner entrypoints (GATEWAY-01, GATEWAY-03,
   DIRECT-01) are executable in this slice; LICENSE-01 remains open and
   the certifi (MPL-2.0) exception has not been granted.
 - Startup prompt: the `/goal`-first bounded-goal prompt introduced by
@@ -614,6 +742,31 @@ exclusion semantics, the serialization-boundary post-work refusal
 (fixed safe error with the actual valid spent-attempt ledger on
 stdout, honest ledger availability, the invalid record never
 exported), and all 004-a transport, global-budget, retry, native-
-template, UNKNOWN-outcome, credential and export positives. Synthetic
-and offline only: no external network, product services, real keys,
-GPU or model downloads.
+template, UNKNOWN-outcome, credential and export positives. The T09
+coverage also includes the 004-e correction regressions: the strict
+version/source binding (boolean, float, string and non-1 versions
+refused on both schemas; collector identity/code source/package
+version bound; unavailable revision explicit), the startup deadline
+admission (already-passed deadline queries nothing and samples
+nothing; a slow startup fixture under a 0.08 s shared deadline
+yields the clipped timeout error, zero samples, the exact
+`deadline_reached` reason and a valid section; a fast startup within
+the deadline admits samples), the aggregate admission and honest
+byte accounting (actual observed bytes charged, never the read cap;
+the reserved read cap yields a valid honest partial record at
+`resource_exhausted`; synthetic probes without real reads charge
+zero bytes and still export a valid section; pipe reads honor the
+remaining allowance with the bounded EOF lookahead, including the
+exact-fit-at-cap non-oversize case), the every-exit-path observer
+stop (in-process `KeyboardInterrupt` after one real owned POST: the
+original exception propagates, the caller survives, the owned
+sampler is stopped and finitely joined with no continued samples),
+and the late-export spent accounting (wrapper-aware canonical inner
+ledger: actual call count with the replay warning after real work;
+the genuine pre-dispatch refusal keeps its true zero-dispatch
+claim; missing/invalid ledger stays an explicit unknown, never an
+assumed zero). T10 (004-f) covers the supplied-value parity module
+and installed CLI (shared safe file I/O, analyzer bindings, gate
+projection bytes) as documented in TESTING.md. Synthetic and offline
+only: no external network, product services, real keys, GPU or model
+downloads.

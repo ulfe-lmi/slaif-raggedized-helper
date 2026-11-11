@@ -268,3 +268,89 @@ human question.
   allowance applied, with real unique host/device metadata kept out
   of Git/public reports); the certifi (MPL-2.0) policy gate remains
   an open human question (LICENSE-01).
+
+### 2026-11-10, order 004-e (resource lifecycle and budget corrections)
+
+- The final 004-d review independently reproduced five resource
+  lifecycle/accounting/contract failures (F01-F05), and the
+  published 004-d report's corresponding guarantees were OVERSTATED:
+  the pipe-bound byte bound was claimed from a cap+1 count while a
+  4096-byte read could actually occur; the aggregate byte/call
+  admission was not enforced (an over-limit invalid document could
+  be produced); the owned sampler survived an in-process
+  KeyboardInterrupt with a surviving caller; late export failures
+  mislabelled real spent calls as zero/pre-dispatch for the wrapper
+  document; and the resource schemas admitted boolean versions and
+  carried no collector/code source binding. The 004-e correction
+  closes these on the same PR: shared-deadline startup admission
+  with the query allowance clipped and admission rechecked after the
+  startup query and before every sample; remaining-allowance pipe
+  reads with a bounded one-byte lookahead and ACTUAL observed byte
+  counts; aggregate calls/bytes/time enforced before work across the
+  whole observer lifetime with a valid honest partial record at
+  resource_exhausted (known 0 stays 0, unavailable stays null);
+  every-exit-path stop/finite join of the owned observer with the
+  original exception preserved; canonical inner-trial-ledger
+  late-export accounting (actual known calls with a replay warning,
+  explicit unknown when the ledger is missing/invalid, true zero
+  only for genuine pre-dispatch refusals); and strict integer-1
+  versions plus the bounded collector identity/code-source binding
+  (code_version = actual executing package version; Git source
+  revision explicitly unavailable; no attestation/signing, no Git
+  subprocess on import or default commands). The retained
+  independent 004-d witnesses were rerun unchanged and now
+  demonstrate the corrected behaviors.
+- What this does NOT resolve: the telemetry remains OWN-PROCESS
+  devhost evidence only — no remote inference host, worker or
+  model-process measurement, no true worst-case peaks, no allocator
+  or worker instrumentation; vector/rank parity, the full named
+  gate composition and all real gates/trials stay NOT_RUN; the
+  ~2 GiB margin remains a declared criterion; LICENSE-01 (certifi
+  MPL-2.0) remains an open human question. The immutable 004-d
+  report is not rewritten; this correction supersedes its over-
+  claimed statements.
+### 2026-11-11, order 005-a (canonical source integration)
+
+- U06 narrowed in software only: the integrated admission/store now
+  carries explicit per-revision access labels (empty means public
+  classification), independent redistribution rights, corpus and
+  declared metadata with unknown facts staying unknown, and byte
+  deduplication that preserves distinct rights/ACL/corpus identities.
+  Representative corpus rights/ACL/language/version evidence and human
+  gold questions are still absent; U06 stays OPEN for 005/009 work.
+- U07 unchanged: processing approval is operator metadata, never a
+  redistribution clearance; the open MIT-0/certifi/native-component
+  license questions are unaffected by this slice.
+- Documented local trust assumptions (honest boundary, not a fix):
+  the private operator store and its parent must be protected from
+  untrusted local mutation; the store filesystem must support atomic
+  hard links and directory fsync (same-filesystem POSIX scope);
+  admitted approvals are not authentication, and the store provides no
+  access enforcement, revocation, snapshot isolation, source serving or
+  legal verification. Source bytes/metadata cannot choose output paths,
+  add locations, invoke tools or cause fetches; display URIs are inert
+  data. Extraction/parsing remains 006/016 scope and all real
+  qualification stays NOT RUN.
+
+### 2026-11-11, order 005-b (canonical provenance and job records)
+
+- U06 narrowed further in software only: provenance records now bind
+  exact original block text, code-point spans, extraction/dependency
+  and chunk-policy identities, all-label source-revision
+  classifications (empty = public classification), separate
+  redistribution rights, same-source derived support with label union
+  and cross-boundary rejection, and pure reader grant/restriction
+  intersection that fails closed on unknown versions. The supplied
+  synthetic extraction records are assertions, not real extraction;
+  representative corpus rights/ACL/language/version evidence and human
+  gold questions are still absent; U06 stays OPEN for 005/009 work.
+- Job/attempt DTOs are data-only: a COMPLETE state with an OutputRef
+  is a caller assertion, verified or not, and is not artifact, cache
+  or exactly-once execution proof; UNKNOWN_COMPLETION has no automatic
+  retry path. Claim ownership, output-first publication, bounded
+  retry execution and artifact reconciliation remain 010 scope.
+- U07 unchanged: processing approval and operator grants remain
+  metadata, never authentication or redistribution clearance; the open
+  MIT-0/certifi/native-component license questions are unaffected.
+  Real extraction, tokenization, embedding, model, GPU, license and
+  corpus qualification all remain NOT RUN.

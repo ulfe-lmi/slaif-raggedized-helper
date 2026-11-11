@@ -1,0 +1,17 @@
+{
+  "lane_id": "PAR-006-JSONL-A",
+  "result": "COMPLETE",
+  "implementation_head": "61495739a1a2aafe533b36ca9f6a3701874acf22",
+  "report_publication_commit": "SELF",
+  "api": "provenance_jsonl.encode(kind, tuple[bytes, ...]) -> bytes; decode(kind, bytes, expected_sha256, expected_count) -> tuple[Record, ...]; JsonlError",
+  "commands_and_results": [
+    {"command": "python3 /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/lane_signal.py wait-control provenance-jsonl", "result": "EXACT_OK_CONSUMED; exit 0"},
+    {"command": "uv run --no-sync pytest tests/unit/test_provenance_jsonl.py tests/integration/test_provenance_jsonl_composition.py tests/unit/test_provenance_records.py tests/unit/test_source_admission.py tests/integration/test_provenance_records_composition.py tests/integration/test_source_admission_composition.py", "result": "initial exit 2: uninitialized environment; final exit 0: 38 passed"},
+    {"command": "uv run --no-sync ruff check src tests/unit tests/integration", "result": "initial exit 2: ruff unavailable, then exit 1: line lengths; final exit 0"},
+    {"command": "uv sync --frozen --group dev", "result": "exit 0; isolated worktree environment"},
+    {"command": "uv run --no-sync pytest", "result": "exit 0: 603 passed"},
+    {"command": "git diff --cached --check", "result": "exit 0 before implementation commit"}
+  ],
+  "notes": ["An intermediate new boundary test failed due to an incorrect expected key order; corrected and final checks passed.", "No external publication, integration, GPU, model, service, credentials, or real corpus was used.", "Five-second ceiling is cooperative, not preemptive within a bounded operation. SHA-256 is integrity against a supplied expectation, not authenticity or Registry/source binding.", "No filesystem bundle, publication, loader, CLI, authorization, qualification or objective 006 completion is claimed.", "DHA NONE."
+  ]
+}

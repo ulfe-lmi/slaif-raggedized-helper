@@ -1,13 +1,22 @@
 # Project status
 
-## Current state (2026-11-10)
+## Current state (2026-11-11)
 
-- Active objective: 004 (the 004-b/004-c evidence-contract corrections
-  of
-  the 004-a trial runner and gateway/direct composition, and the
-  004-d bounded read-only local resource telemetry slice), open on PR
-  #6, branch oap/004-qualification-harness; live PR/CI/merge state is
-  queried on GitHub, not asserted here.
+- Active objective: 005, current slice 005-b (canonical provenance
+  and job records on the 005 source foundation), open on the 005 PR,
+  branch oap/005-artifact-schema-and-source-scopes from main bd8e454;
+  first slice 005-a (canonical source integration of the
+  independently reviewed local original admission/store plus a thin
+  installed `raggedized source import|inspect` route) remains in the
+  branch;
+  live PR/CI/merge state is queried on GitHub, not asserted
+  here. Objective 004 is complete: the explicitly replanned 004
+  software scope was root-reviewed and merged to main as PR #6
+  (merge commit bd8e454; final review
+  oap/reviews/004-f-review.json, terminal resolution
+  oap/reviews/004-resolution.json). All fourteen real
+  qualification trials remain NOT_RUN; the development merge is
+  not qualification.
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
   (merged as PR #5) plus the 004-a finite qualification trial runner
@@ -21,11 +30,16 @@
   CPU/RSS diagnostic and `qualification run --resources` wrapper with
   the plain v1 trial evidence intact; at most one bounded nvidia-smi
   metadata query; no remote/worker/model-process measurement), open on
-  PR #6, see history. Hardware/model qualification: NOT RUN. ICA:
+  PR #6, see history, with the 004-e corrections of its resource
+  lifecycle (shared-deadline startup admission, every-exit-path
+  observer stop), honest aggregate byte accounting at the pipe and
+  sample boundaries, late-export spent-ledger handling and strict
+  versioned collector/code-source binding. Hardware/model
+  qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 004 (PR #6), not idle.
-- Current main is the 003 merge commit 2bc320f (PR #5); PR #6 builds
-  from it.
+- The coding client is active on objective 005 (new 005 PR), not idle.
+- Current main is the 004 merge commit bd8e454 (PR #6); the 005
+  branch builds from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
   (strategic, copied unchanged).
@@ -360,3 +374,95 @@ PR #5, branch oap/003-generator-adapters-and-cache-probes from main
   telemetry, vector/rank parity and full named gate composition
   remain required in later proof-sized 004 continuations; no merge;
   004 continuations and 005 selection remain strategy alone.
+- 004-e (resource lifecycle and budget correction of the verified
+  004-d head; amends the same open PR #6, branch
+  oap/004-qualification-harness): the five ordered corrections from
+  the final 004-d review (oap/reviews/004-d-review.json committed
+  byte-unchanged, SHA-256
+  5a8d4dff6a259dc689cf056071091960501ba1ae321a0b3285b611230bf19e10):
+  (F01) the startup nvidia-smi metadata query is clipped to the
+  remaining trial AND observer duration and admission is rechecked
+  after the query and before every sample — an already-passed
+  deadline queries nothing and samples nothing, and no late first
+  sample is admitted past expiry (the 0.08 s deadline case that
+  previously admitted a ~0.276 s late query/sample); (F02) pipe
+  reads enforce the remaining declared allowance plus a bounded
+  one-byte lookahead and report the ACTUAL observed bytes (a cap-128
+  overflow reports the observed 129 instead of requesting 4096 and
+  claiming cap+1), and aggregate collection calls/bytes/time are
+  enforced before work across the whole observer lifetime —
+  bytes_read is actual observed bytes (never the read cap) with the
+  cap reserved per admitted sample, so a finite workload terminates
+  with a valid honest partial record at resource_exhausted instead
+  of an over-limit invalid document; (F03) the runner stops and
+  finitely joins the owned observer on EVERY execution exit path,
+  including in-process KeyboardInterrupt with a surviving caller
+  (no detached sampler, no continued samples, original exception
+  preserved); (F04) late --output failures use the canonical inner
+  trial ledger (wrapper-aware): after real work the error reports
+  the actual known call count with a replay warning, a
+  missing/invalid ledger stays an explicit unknown, and only genuine
+  pre-dispatch refusals keep the true zero-dispatch claim; (F05)
+  resource schema versions refuse booleans and wrong numeric types,
+  and the collector record binds the bounded collector identity,
+  code source and actual executing package version with the Git
+  source revision explicitly unavailable (no attestation/signing, no
+  Git subprocess on import or default commands). The published
+  004-d report is immutable; its over-claimed pipe bound, aggregate
+  admission, cancellation and collector/code metadata statements are
+  superseded by this correction. The retained independent 004-d
+  witnesses now demonstrate the corrected behaviors; the plain trial
+  v1 contract, the 004-a/b/c positives and the D0 bounded allowance
+  are preserved. No live target/model/GPU/corpus work (live
+  authorization NONE); all real qualification gates, vector/rank
+  parity and the full named gate composition, 019/ICA/MVP and
+  LICENSE-01 remain open; no merge; 004 continuations and 005
+  selection remain strategy alone.
+- 005-a (canonical source integration, first 005 slice; new 005 PR,
+  branch oap/005-artifact-schema-and-source-scopes from main bd8e454,
+  the PR #6 merge): ONE authorized local --no-ff merge of the
+  root-reviewed local candidate branch oap/parallel-005-source-cli tip
+  32a2b84d099f2641123d2569b01afe533064ac61 (including the
+  source-admission-b tip
+  0837191198b2b1712445d5ba6ca268d358637866) preserving candidate
+  order/report/implementation histories, plus the thin installed
+  `raggedized source` prefix delegation to the existing source_cli.main,
+  focused installed-CLI source tests and documentation/governance
+  reconciliation. Adds source_admission.py (strict versioned manifest,
+  descriptor-bounded approved-root reads, digest-named immutable blobs,
+  metadata-sensitive immutable revisions, atomic same-filesystem
+  publication) and source_cli.py (bounded import/inspect operator tool);
+  the installed route proves shared-byte blob dedup with distinct
+  rights/ACL/corpus metadata, metadata-revision immutability, verified
+  reuse and safe input-free failures on owned disposable fixtures.
+  Strategic 005-a round-start bytes committed byte-for-byte unchanged.
+  Block/span/chunk, derived-scope and job/attempt records remain REQUIRED
+  same-PR continuations before whole-005 acceptance; no 006 activation or
+  partial 005 merge; all real qualification, provenance, license and MVP
+  gates remain open (NOT RUN).
+- 005-b (canonical provenance and job records; same PR 7 branch):
+  TWO authorized local --no-ff merges of the root-reviewed candidate
+  tips, provenance first (oap/parallel-005-provenance tip
+  3f2ec5768cc07c86c2f0ab663a4e4af23ecac406) then jobs
+  (oap/parallel-005-job-records tip
+  798d92524dfcf4b24bc312712d21453f159b204a), each forecast clean with
+  git merge-tree against the actual parent (purely additive trees, no
+  shared-code change), preserving candidate order/report/implementation
+  histories. Adds provenance_records.py (admit_record/catalog/Registry
+  bind_chunk/bind_neighbors/bind_derived/reader_allows over strict
+  versioned Scope/Dependency/Block/SourceFragment/Separator/Chunk/
+  Neighbors/Derived/Grants/Restrictions DTOs) and job_records.py
+  (admit/serialize/transition over JobSpec/Configuration/InputRef/
+  JobState/Attempt/OutputRef), the ONE combined
+  tests/integration/test_canonical_records_journey.py store-to-record
+  journey (shared-byte two-document store with distinct
+  rights/labels/corpus, metadata revision, code-point multi-span
+  chunks with explicit separators and repeated table-header
+  references, reciprocal neighbors, same-source derived support with
+  label union and cross-boundary rejection, unknown-version
+  fail-closed reader intersection, job/attempt roundtrip and bounded
+  transitions) and docs/data-model.md record protocol. NOT a GitHub
+  PR/default-main merge. Extraction, contextualization, embedding,
+  snapshots, serving/auth and worker execution remain later ordered
+  scope (006/010/007/008/014/017); DTO COMPLETE is not artifact, cache
+  or execution proof; all real qualification remains NOT RUN.

@@ -1,0 +1,64 @@
+{
+  "lane_id": "PAR-004-RESOURCE-E-A",
+  "result": "COMPLETE",
+  "implementation_head": "f506095ed5eb05a3f641b699c20b50bfbe371f19",
+  "report_publication_commit": "SELF",
+  "summary": "Standalone diagnostic stops its owned observer on every exit; all admission uses observer duration and optional trial deadline, including startup device query; baseline, device query, samples and final observation consume a single lifetime call allowance. Shared byte admission includes actual process and device bytes and conservative reservations; expired/exhausted final probes remain unavailable. No runner or CLI edits.",
+  "API": "No signature changes. Collector bytes_read is actual process-status bytes; device_query_bytes_read is actual device-pipe bytes, with non-overlapping sum limited by MAX_COLLECTOR_BYTES. Sample reserves full read cap and device query reserves both pipe caps plus two lookahead bytes. Each baseline, device query, sample, or combined final CPU/lifetime observation counts once. Sample completion wakes standalone wait, allowing an admitted final measurement before expiry. Refused final measurement returns null CPU delta/lifetime RSS. Device cleanup waits at most 0.5 seconds each for terminate and kill.",
+  "tests": [
+    {
+      "command": "uv run --isolated --locked --python 3.12 pytest -q tests/unit/test_qualification_resources.py",
+      "result": "PASS at implementation content"
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -q tests/unit/test_qualification_resources.py",
+      "result": "PASS at implementation content"
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.12 pytest -q tests/integration/test_qualification_resources.py",
+      "result": "PASS at implementation commit"
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -q tests/integration/test_qualification_resources.py",
+      "result": "PASS at implementation commit"
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 ruff check src/slaif_raggedized_helper/qualification/resources.py tests/unit/test_qualification_resources.py tests/integration/test_qualification_resources.py",
+      "result": "PASS"
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized-audit004e-extra.py",
+      "result": "PASS observations: interrupted sampler stopped 3->3; expired start zero probes; standalone 0.05s slow query ~0.052s no sample; synthetic call limit 1 reported 1."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized-004e-combined-byte-corrected-review.py",
+      "result": "PASS observation: conservative full pipe reservation exceeds reduced 32-byte total, so device and sample both refused, zero actual bytes. Focused regression separately admits 31 actual device bytes under 64-byte total and refuses a 40-byte sample reservation."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-process-review.py",
+      "result": "PASS observed: exact MiB 100/25/75; 129 actual cap+lookahead bytes; timeout ~0.081s; trial deadline ~0.081s no late samples; synthetic 1100 sample section valid."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-integration-review.py",
+      "result": "PASS observed two actual owned loopback POSTs, correct wrapped ledger and late export replay warning, invalid-resource safe exit, and surviving trial caller with stopped sampler."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-read-accounting-review.py",
+      "result": "PASS observed actual reads 128+1 equal 129 reported."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-source-binding-review.py",
+      "result": "PASS observed boolean versions refused and real package/collector metadata with unavailable revision."
+    },
+    {
+      "command": "git diff --check; cmp exact copied order to lane order",
+      "result": "PASS before commit"
+    }
+  ],
+  "limitations": [
+    "Local candidate only; no push, PR, merge or integration authorization. CI on this implementation is not run here; original owner handles integration and CI.",
+    "Fixtures and own-process observations do not establish real GPU/model/hardware qualification. Whole 004 parity, 14 gates, 019, ICA, MVP and license acceptance remain outstanding.",
+    "Pipe capacity reservations are deliberately conservative; low synthetic total budgets can refuse a query even if actual output would fit.",
+    "Original lane audit witnesses are observations, not formal tests; the preliminary combined witness changed a bound default incorrectly and is not relied on. No real GPU, service, corpus, credentials, profile or model changes."
+  ]
+}

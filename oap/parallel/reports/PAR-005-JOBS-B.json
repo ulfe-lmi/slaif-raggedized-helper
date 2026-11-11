@@ -1,0 +1,14 @@
+{
+  "lane_id": "PAR-005-JOBS-B",
+  "result": "COMPLETE",
+  "implementation_head": "7b6959ab65e517dd88edb4ce4569c14a813ba451",
+  "report_publication_commit": "SELF",
+  "summary": "Corrected pending cancellation to preserve null or prior attempt identity without inventing an attempt, while retaining correlated attempts for claimed/running cancellation. Byte admission now strictly decodes UTF-8 before JSON parsing.",
+  "API": "Existing job_records.admit, serialize and transition APIs; cancellation and byte-encoding semantics documented in docs/parallel/job-records-api.md.",
+  "tests": [
+    {"command": "uv run --offline pytest -o addopts='' -q tests/unit/test_job_records.py tests/integration/test_job_records_composition.py tests/unit/test_source_admission.py tests/integration/test_source_admission_composition.py tests/unit/test_contracts.py", "result": "36 passed in 0.29s, including owned source-store composition and old regressions"},
+    {"command": "uv run --offline ruff check src/slaif_raggedized_helper/job_records.py tests/unit/test_job_records.py tests/integration/test_job_records_composition.py", "result": "All checks passed"},
+    {"command": "git diff --check and cmp /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/job-records-b/order.md oap/parallel/orders/PAR-005-JOBS-B.md", "result": "passed and order identical"}
+  ],
+  "limitations": "Record fields deliberately allow only bounded ASCII opaque identifiers, digests and enumerations, so Slovenian/astral text is not valid record content; UTF-8 with such caller-controlled unknown keys is safely refused without echo, rather than widening diagnostics to source text. Worker 010 must supply request correlation for submitted calls and implement ownership, output verification, recovery and retry. No live model, hardware, service or corpus qualification, canonical integration or acceptance."
+}

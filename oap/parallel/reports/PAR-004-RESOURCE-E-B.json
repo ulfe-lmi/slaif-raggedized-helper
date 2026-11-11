@@ -1,0 +1,55 @@
+{
+  "lane_id": "PAR-004-RESOURCE-E-B",
+  "result": "COMPLETE",
+  "implementation_head": "20c00cc3547e42b97b68651c72c9106e6a02b75f",
+  "report_publication_commit": "SELF",
+  "summary": "Separate the bounded observation window from actual collector completion elapsed, retaining sample offsets and real admitted CPU endpoint timing. A final CPU probe crossing expiry keeps its measured endpoint; the subsequent lifetime RSS probe is not started after cutoff.",
+  "API": "ResourceSeries.duration_seconds is the interval from start to CPU endpoint if admitted, otherwise report assembly, intersected with the observer duration and optional trial deadline. CollectorAccounting.wall_seconds is actual elapsed through report assembly and may exceed the work window. CPU wall_seconds is actual CPU endpoint elapsed when observed, possibly beyond the window, or the observation window when no final endpoint exists. ResourceSeries validates that CPU wall does not precede its window, rather than requiring equality. Limits and work admission are unchanged.",
+  "tests": [
+    {
+      "command": "uv run --isolated --locked --python 3.12 pytest -q tests/unit/test_qualification_resources.py",
+      "result": "PASS, final implementation content; fake-clock max, late report, sample offsets and CPU endpoint crossing included."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -q tests/unit/test_qualification_resources.py",
+      "result": "PASS, final implementation content; prior cancellation, byte, deadline and read-spy tests included."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.12 pytest -q tests/integration/test_qualification_resources.py",
+      "result": "PASS before final added post-CPU cutoff check, covered by final unit regressions."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 pytest -q tests/integration/test_qualification_resources.py",
+      "result": "PASS before final added post-CPU cutoff check, covered by final unit regressions."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 ruff check src/slaif_raggedized_helper/qualification/resources.py tests/unit/test_qualification_resources.py",
+      "result": "PASS"
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized-004e-max-duration-review.py",
+      "result": "PASS observed valid section with 86400.0 work window, deadline_reached; separate regression checks actual 86400.1 completion elapsed."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized-audit004e-extra.py",
+      "result": "PASS observations: stopped sampler stable 3->3, expired zero probes, 0.05s slow query ~0.052s without sample, call limit 1; before final post-CPU cutoff check."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized-004e-combined-byte-corrected-review.py",
+      "result": "PASS observation: conservative reservation refused both query and sample under synthetic 32-byte cap, zero actual bytes; before final post-CPU cutoff check."
+    },
+    {
+      "command": "uv run --isolated --locked --python 3.14 python /tmp/raggedized004-resource-integration-review.py",
+      "result": "PASS observed two owned loopback POSTs and valid ledger, late export replay warning, invalid-resource safe exit, and cancellation stops sampler with stable samples."
+    },
+    {
+      "command": "git diff --check and cmp copied order to lane order",
+      "result": "PASS"
+    }
+  ],
+  "limitations": [
+    "Local candidate only; no push, integration approval, PR, merge or CI certification. Strategy owns review and original integration gate.",
+    "Fake clocks cover supported maximum window without real daylong work; no real GPU, model, service or corpus qualification. Whole 004 parity, fourteen gates, 019, ICA, MVP and license acceptance remain outstanding.",
+    "A separately recorded CPU endpoint can finish after the work cutoff when its probe was admitted before expiry; collector wall preserves actual completion elapsed."
+  ]
+}

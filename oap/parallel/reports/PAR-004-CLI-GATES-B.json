@@ -1,0 +1,23 @@
+{
+  "lane_id": "PAR-004-CLI-GATES-B",
+  "result": "COMPLETE",
+  "implementation_head": "dca5db6b89c151286187ffc0f318ff1156cd8c71",
+  "report_publication_commit": "SELF",
+  "summary": "Corrected CLI-F01 stale unsupported-control prerequisites and CLI-F02 redundant supplied-input flag. Required input/output arguments are operator opt-in. Unsupported controls remain refused; real qualification remains NOT_RUN. Decision NONE.",
+  "API": "python -m slaif_raggedized_helper.qualification.parity_cli {embedding,rerank} --input INPUT --output OUTPUT; existing bounded parity_io and supplied-value analyzers.",
+  "tests": [
+    {
+      "command": "uv run --offline pytest tests/integration/test_parity_module_cli.py tests/unit/test_parity_cli_gates.py tests/unit/test_embedding_parity.py tests/unit/test_rerank_parity.py tests/unit/test_parity_io.py tests/unit/test_qualification.py tests/integration/test_embedding_parity_composition.py tests/integration/test_qualification_composition.py -q --tb=short",
+      "result": "PASSED, including actual module roundtrips, missing arguments and removed flag refusals, all unsupported control messages and original composition regressions."
+    },
+    {
+      "command": "uv run --offline ruff check src/slaif_raggedized_helper/qualification/parity_cli.py src/slaif_raggedized_helper/qualification/spec.py tests/unit/test_parity_cli_gates.py tests/integration/test_parity_module_cli.py",
+      "result": "PASSED"
+    },
+    {
+      "command": "git diff --cached --check; git diff --cached --name-only; cmp copied order to lane order",
+      "result": "PASSED; scope and copied order verified."
+    }
+  ],
+  "limitations": "Local candidate only; supplied data are unverified, actual target authorization NONE and real model/GPU/corpus/vision/license/019/ICA/MVP remain unqualified. No push, PR, merge, deployment or real service work."
+}

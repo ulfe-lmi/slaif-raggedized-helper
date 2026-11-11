@@ -1,0 +1,10 @@
+{
+  "lane_id": "PAR-004-EMBED-A",
+  "result": "FAILED",
+  "implementation_head": "89251d3c227627e99a18f14b4c73846fd2d9f4fd",
+  "report_publication_commit": "SELF",
+  "summary": "Order recorded; embedding parity implementation was not completed.",
+  "API": "Not implemented.",
+  "tests": [],
+  "limitations": "No analyzer, tests, or qualification evidence produced. No model or GPU execution."
+}

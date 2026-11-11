@@ -1,105 +1,133 @@
 {
   "gates": {
     "DIRECT-01": {
+      "available_analysis": null,
       "executable_in_this_slice": true,
       "experiment": "Repeated parent with different target chunks through direct llama.cpp",
-      "pending": "materialized offline_diagnostic destination on an authorized real build + real target authorization; repeated-parent direct trial entrypoint available (cold/warm physical state stays unknown without cache reset/isolation evidence)",
+      "partial_instrumentation": null,
+      "pending": "Authorized materialized offline_diagnostic destination and tested build; cold/warm physical state requires isolation evidence.",
       "runner_entrypoint": "raggedized qualification run (text repeated-parent trial; explicit opt-in; --synthetic for the owned deterministic MOCK fixture)",
       "status": "NOT_RUN"
     },
     "EMBED-01": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "Short-query BGE-M3 on the actual serving CPU",
-      "pending": "007 (embedding pipeline) + real serving CPU target",
+      "partial_instrumentation": null,
+      "pending": "007 embedding pipeline and authorized real serving CPU; supplied-vector analysis is not an experiment.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "EMBED-02": {
+      "available_analysis": "python -m slaif_raggedized_helper.qualification.parity_cli embedding: supplied vectors only",
       "executable_in_this_slice": false,
       "experiment": "Same checkpoint with corpus GPU FP16 versus CPU FP32",
-      "pending": "007 (embedding pipeline) + authorized real GPU",
+      "partial_instrumentation": null,
+      "pending": "007 embedding pipeline and authorized real CPU/GPU execution; supplied-vector analysis does not execute either.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "GATEWAY-01": {
+      "available_analysis": null,
       "executable_in_this_slice": true,
       "experiment": "Text request through the configured local-Qwen Responses route",
-      "pending": "real target authorization (approved URL/credential/route identity) and 004-b telemetry/parity composition; runner entrypoint available",
+      "partial_instrumentation": null,
+      "pending": "Authorized route, credential and real target; raggedized qualification run is a bounded text trial.",
       "runner_entrypoint": "raggedized qualification run (text repeated-parent trial; explicit opt-in; --synthetic for the owned deterministic MOCK fixture)",
       "status": "NOT_RUN"
     },
     "GATEWAY-02": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "Authorized visual input through that route",
-      "pending": "004-b + 016 (audited vision path) + qualified gateway vision capability + real target authorization",
+      "partial_instrumentation": null,
+      "pending": "016 audited vision path, qualified gateway vision capability and authorized target.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "GATEWAY-03": {
+      "available_analysis": null,
       "executable_in_this_slice": true,
       "experiment": "Equivalent repeated-parent jobs through gateway",
-      "pending": "real target authorization and 004-b composition; repeated-parent gateway trial entrypoint available (no assumed slot reuse: the trial sends no cache-key/slot control)",
+      "partial_instrumentation": null,
+      "pending": "Authorized target; raggedized qualification run sends no cache-key or slot control; measured cache evidence required.",
       "runner_entrypoint": "raggedized qualification run (text repeated-parent trial; explicit opt-in; --synthetic for the owned deterministic MOCK fixture)",
       "status": "NOT_RUN"
     },
     "LICENSE-01": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "Exact dependency/model/renderer inventory",
-      "pending": "018 (packaging and license audit); the certifi (MPL-2.0) policy exception has not been granted",
+      "partial_instrumentation": null,
+      "pending": "018 packaging and license audit; certifi MPL-2.0 exception not granted.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "ONLINE-01": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "Complete authenticated query-to-cited-answer path",
-      "pending": "014 (authenticated answer API) + 004-b composition",
+      "partial_instrumentation": null,
+      "pending": "014 authenticated answer API, 019 held-out quality evaluation and authorized target.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "ONLINE-02": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "Two or more concurrent requests under explicit limits",
-      "pending": "014 + 004-b (concurrency above 1 is unimplemented in this slice)",
+      "partial_instrumentation": null,
+      "pending": "014 authenticated answer API and concurrency implementation; trial concurrency is limited to one.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "OPS-01": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "Interrupt annotation and embedding jobs; restart workers",
-      "pending": "017 (updates/recovery) + 007/010 job implementation",
+      "partial_instrumentation": null,
+      "pending": "007/010 job implementation and 017 updates/recovery with authorized disposable targets.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "OPS-02": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "Online to offline to online transitions",
-      "pending": "015 (GPU mode operations) + real GPU ownership journal",
+      "partial_instrumentation": null,
+      "pending": "015 GPU mode operations and real GPU ownership journal with authorized target.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "RERANK-01": {
+      "available_analysis": "python -m slaif_raggedized_helper.qualification.parity_cli rerank: supplied scores only",
       "executable_in_this_slice": false,
       "experiment": "10/20/40/80 candidates at several pair lengths",
-      "pending": "012 (private reranker worker) + 004-d bounded local resource telemetry (own-process/devhost scope only) + authorized real GPU",
+      "partial_instrumentation": "raggedized resource diagnose: bounded own-process/devhost observations",
+      "pending": "012 private worker, pair/batch controls, authorized real GPU and measured experiments; supplied-score analysis is not an experiment.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "V100-MEM-01": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "Q6 vision 32k alone, then FP16 reranker batches 1/2/4/8",
-      "pending": "015 (GPU ownership/mode operations) + 004-d bounded local resource telemetry (own-process/devhost scope only) + authorized real GPU",
+      "partial_instrumentation": "raggedized resource diagnose: bounded own-process/devhost observations",
+      "pending": "012 worker, 015 GPU ownership/mode operations, authorized GPU and actual model processes; resource diagnose measures own process/devhost only.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     },
     "V100-MEM-02": {
+      "available_analysis": null,
       "executable_in_this_slice": false,
       "experiment": "16k/24k and optionally 48k/64k online contexts",
-      "pending": "015 + 004-d bounded local resource telemetry (own-process/devhost scope only) + authorized real GPU",
+      "partial_instrumentation": "raggedized resource diagnose: bounded own-process/devhost observations",
+      "pending": "015 GPU ownership, context controls and authorized GPU; resource diagnose is local partial instrumentation only.",
       "runner_entrypoint": null,
       "status": "NOT_RUN"
     }
   },
-  "generated_by": "slaif_raggedized_helper.qualification.gates (004-a)",
+  "generated_by": "slaif_raggedized_helper.qualification.gates",
   "live_target_authorization": "NONE",
   "positive_claims": "none: no topology, cache, speedup, quality, VRAM, license or readiness claim follows from this projection or from any synthetic/configured-unverified trial evidence in this slice",
   "real_trials": "NOT_RUN",
