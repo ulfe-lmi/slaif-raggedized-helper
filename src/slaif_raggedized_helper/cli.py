@@ -903,6 +903,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "source",
         help="import approved local originals into the private operator store "
              "or inspect a stored revision (local operator tool)")
+    subparsers.add_parser("chunk", help="prepare or inspect a private native ingestion bundle")
     doctor = subparsers.add_parser(
         "doctor",
         help="validate configuration and inspect model manifests offline "
@@ -1028,6 +1029,10 @@ def main(argv: list[str] | None = None) -> int:
         from .qualification.parity_cli import main as parity_main
 
         return parity_main(arguments[1:])
+    if arguments and arguments[0] == "chunk":
+        from .chunk_cli import main as chunk_main
+
+        return chunk_main(arguments[1:])
     if arguments and arguments[0] == "source":
         # Delegate parsing and all work to the existing source entrypoint.
         from .source_cli import main as source_main

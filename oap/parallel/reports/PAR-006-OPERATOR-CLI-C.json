@@ -1,0 +1,26 @@
+{
+  "lane_id": "PAR-006-OPERATOR-CLI-C",
+  "result": "COMPLETE",
+  "implementation_head": "2012393e768a0db8c7d3f183287f94a04c6f3f97",
+  "report_publication_commit": "SELF",
+  "API": "No production API changes. Installed chunk/inspect proof and operator documentation expanded.",
+  "actualcommands_counts_results": [
+    "wait-control operator-chunk-cli-c: EXACT_OK_CONSUMED once.",
+    "Final: env PYTHONPATH=$PWD/src PATH=/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin:$PATH SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 PDF_TEST_RUNTIME=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu PDF_TEST_PACKAGES=/tmp/raggedized-pdf-dependency-pin-312/lib/python3.12/site-packages timeout 180 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -c [set RLIMIT_CPU=120 and RLIMIT_AS=1073741824; pytest.main([\"-o\",\"addopts=\",\"-q\",\"tests/unit/test_chunk_cli.py\",\"tests/unit/test_ingestion_prepare.py\",\"tests/integration/test_chunk_cli_composition.py\"])]: 25 passed in 36.95s.",
+    "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check .: passed; git diff --check: passed.",
+    "Earlier focused run: 25 passed; initial draft failed on OriginalStore context-manager usage, corrected before final run."
+  ],
+  "witness_hashes": {
+    "order_sha256": "61fe5ef6f63134cbaa9b3ee6a3a47e12885d648e4f46d7d440090b3da43dc040",
+    "unit_test_sha256": "68c6911e50def0b73e28fdc80550fdbfb18615239fd995a09a3cb471110f89da",
+    "integration_test_sha256": "f1f694c6fda9250593a916b498d97486a009352cbd4c9d7ef3a9e62de1741579",
+    "operator_docs_sha256": "17a603f6259a700e33b809823cacd41981a36156afa414239a13aec87c61228e"
+  },
+  "limits": [
+    "Owned synthetic tokenizer artifacts with actual CPU backend; no model equivalence or target hardware qualification.",
+    "Coherent cross-revision re-publication has a valid content-addressed manifest and unchanged verified members; installed inspect refuses the semantic mismatch.",
+    "No generic store concurrency clearance, current serving ACL authorization, 019, license, ICA, full visual MVP, release or deployment claim. Cooperative deadlines cannot interrupt blocked operations.",
+    "Inherited 1053-pass run is historical evidence, not a post-change broad-suite result. No GPU, inference, network or service used."
+  ],
+  "DHA": "NONE"
+}
