@@ -1,0 +1,13 @@
+{
+  "lane_id": "PAR-005-SOURCE-B",
+  "result": "COMPLETE",
+  "implementation_head": "8cb61e2c68e4416bea64f6dee928764054ab531f",
+  "report_publication_commit": "SELF",
+  "summary": "Revalidate a source snapshot before admission and independently check traversal components; use immutable access-label tuples; compare file identity, size and nanosecond modification/change times without access-time false positives.",
+  "API": "parse_manifest and OriginalStore.admit/inspect retain their roles; Source.access_labels is now an immutable tuple. Metadata changes require a freshly validated source and produce a distinct revision.",
+  "tests": [
+    {"command": "uv run pytest tests/unit/test_source_admission.py tests/integration/test_source_admission_composition.py", "result": "8 passed, including forged traversal without publication, immutable ACL, old-atime source and store, and existing positive and negative journeys"},
+    {"command": "uv run ruff check src/slaif_raggedized_helper/source_admission.py tests/unit/test_source_admission.py tests/integration/test_source_admission_composition.py", "result": "passed"}
+  ],
+  "limitations": ["Synthetic local fixtures only; no real corpus, services or hardware qualification.", "A private operator-controlled local POSIX store and filesystem supporting hard links and directory fsync remain required.", "No authentication, rights-authority attestation, extraction, source serving, legal approval or MVP acceptance is claimed."]
+}
