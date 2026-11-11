@@ -1,0 +1,18 @@
+{
+  "lane_id": "PAR-007-ENCODER-BINDING-B",
+  "result": "PARTIAL",
+  "implementation_head": "792a53efa40a1d6afc06997d0fa427fb9b65352b",
+  "report_publication_commit": "SELF",
+  "API": "admit uses real inventory verifier and exact root/tokenizer.json, one weight, legacy definition fingerprint and composite ID",
+  "commands": {
+    "uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit/test_embedding_space.py": "exit 0, 20 passed",
+    "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/embedding_space.py tests/unit/test_embedding_space.py": "exit 0",
+    "git diff --check": "exit 0"
+  },
+  "witness_hashes": {
+    "order_sha256": "1dd1e1f7ceb0a829fef5f0ea178b8a50cbd4561d6e48b547b060ae7e864ea98c",
+    "test_sha256": "ccdfd9271476ffa7751588f47ff5e200efa87fbe5069ffbd175237aee84d11d5"
+  },
+  "limits": "Synthetic fixtures only. Composition test file and full requested negative coverage including changed config and tracebacks remain outstanding. No loaded model, hardware, provenance or license qualification. Initial shard test failed due to file permissions; chmod corrected and rerun passed. No dependency changes.",
+  "DHA": "NONE"
+}

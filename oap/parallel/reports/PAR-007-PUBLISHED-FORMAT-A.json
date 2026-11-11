@@ -1,0 +1,17 @@
+{
+  "lane_id": "PAR-007-PUBLISHED-FORMAT-A",
+  "result": "PARTIAL",
+  "implementation_head": "dade7954d42e3e9cd8d2bc6960ed1127f177b1b0",
+  "report_publication_commit": "SELF",
+  "API": "Preliminary schema 2 verifier fields and fixed weight path; not accepted or qualified. Legacy constructor defaults retained.",
+  "commands": [
+    {
+      "command": "env -u PYTHONPATH timeout 120 uv run --isolated --locked --offline --python 3.14 python -m pytest tests/integration/test_embedding_space_composition.py -q",
+      "exit": 0,
+      "result": "5 passed"
+    }
+  ],
+  "witness_hashes": {},
+  "limits": "Incomplete: no schema 2 synthetic positive or negative tests, old ID comparison, standalone unit suite, full focused suite, ruff, root JSON/trace witnesses, documentation, or complete space API review. Do not merge as complete. No weights downloaded or loaded.",
+  "DHA": "NONE"
+}

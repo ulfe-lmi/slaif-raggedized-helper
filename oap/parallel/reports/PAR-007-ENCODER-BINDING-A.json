@@ -1,0 +1,14 @@
+{
+  "lane_id": "PAR-007-ENCODER-BINDING-A",
+  "result": "PARTIAL",
+  "implementation_head": "3d42f02d75b8977ec9313a926a66ad99333bfbab",
+  "report_publication_commit": "SELF",
+  "API": "Draft admit and AdmittedSpace; not qualified for use.",
+  "commands": [
+    {"command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/embedding_space.py", "exit": 0, "result": "passed after formatting"},
+    {"command": "git diff --check", "exit": 0, "result": "passed; untracked files were not covered"}
+  ],
+  "witness_hashes": {"base": "b83c1ba7af10365dbe6d8aaec86b2d644d421504"},
+  "limits": "Incomplete: native_tokenizers._read_artifact has no cooperative deadline checks during its read; admission checks only after return. Strict bounded preflight, comprehensive unit and composition tests, documentation, and actual verification of behavior remain outstanding. No acceptance or deployment claim.",
+  "DHA": "NONE"
+}

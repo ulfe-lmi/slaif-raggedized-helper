@@ -1,0 +1,17 @@
+{
+  "lane_id": "PAR-007-ENCODER-BINDING-C",
+  "result": "COMPLETE",
+  "implementation_head": "76af155c843c9debbb4d4dee56a9f379b13faecd",
+  "report_publication_commit": "SELF",
+  "API": "embedding_space.admit uses actual local artifact verifier and shared cooperative deadline; no model execution.",
+  "verification": [
+    "PYTHONPATH=tests/unit uv run --isolated --locked --offline --python 3.14 python /tmp/enc_check.py python -m pytest -q tests/unit/test_embedding_space.py tests/integration/test_embedding_space_composition.py: exit 0, 25 passed (20 unit, 5 composition)",
+    "RAYON_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 python /tmp/enc_check.py ruff check tests/unit/test_embedding_space.py tests/integration/test_embedding_space_composition.py: exit 0",
+    "uv run --isolated --locked --offline --python 3.14 python /tmp/enc_check.py git diff --check: exit 0"
+  ],
+  "bounds": "Python wrapper sets RLIMIT_AS=1 GiB, RLIMIT_CPU=30 seconds and subprocess timeout=120 seconds after uv startup. Initial uv-under-limit failed allocation; initial bounded ruff without single worker crashed allocating thread pool; rerun passed.",
+  "proof": "Actual verified safe metadata change changes inventory and space IDs while definition and tokenizer fingerprints remain equal; old inventory refused; identical trees have identical IDs. Canonical claims for coherent wrong pooling/dimensions reach real verifier and are refused. Random missing root reaches os.open without canary in message or formatted traceback. One real verification receives remaining timeout and expiration refuses admission. Existing exception handling unchanged.",
+  "witness_sha256": {"test": "56d459ac07e1e3d36f81725a156411682ecaf39eb4e1d5460fc66d60dd111d9f", "order": "8c26d5d4de25cdbf4a6d3b5ae052270b59bf4f55e963fb9141c96452a7b502f5", "docs": "a8ba0eac24251d24da1ac6bacbe346c979d29a4f41d0d2dad30ddcca2910daae"},
+  "limits": "Synthetic CPU files only; no weights loaded or model run. Cooperative timeout cannot preempt a blocking filesystem operation.",
+  "DHA": "NONE"
+}

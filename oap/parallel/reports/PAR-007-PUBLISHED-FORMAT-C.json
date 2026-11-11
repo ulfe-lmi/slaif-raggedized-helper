@@ -1,0 +1,25 @@
+{
+  "lane_id": "PAR-007-PUBLISHED-FORMAT-C",
+  "result": "COMPLETE",
+  "implementation_head": "2900feafd9d48a4eeb430c6b94b2e2019d03249f",
+  "report_publication_commit": "SELF",
+  "API": "Schema 1 compatibility; schema 2 explicit checkpoint formats and fixed paths, raw hashing only. No weight loading.",
+  "verification": {
+    "environment": "uv run --isolated --locked --offline --python 3.14; RAYON_NUM_THREADS=1; separate processes; env -u PYTHONPATH; Python 1 GiB/30 CPU seconds and outer timeout 120 seconds after uv startup",
+    "unit": "pytest -q tests/unit/test_embedding_artifacts.py tests/unit/test_embedding_space.py: PASS 70",
+    "integration": "pytest -q tests/integration/test_embedding_artifacts_composition.py tests/integration/test_embedding_space_composition.py: PASS 6",
+    "lint": "ruff check src/slaif_raggedized_helper/embedding_artifacts.py src/slaif_raggedized_helper/embedding_space.py tests/unit/test_embedding_artifacts.py tests/unit/test_embedding_space.py tests/integration/test_embedding_artifacts_composition.py tests/integration/test_embedding_space_composition.py: PASS",
+    "diff": "git diff --check: PASS",
+    "witnesses": "python /tmp/raggedized-root-artifact-json-boundary.py and python /tmp/raggedized-root-artifact-trace-privacy.py: PASS"
+  },
+  "witness_hashes": {
+    "old_git_blob_sha256": "43a263c0dae5c4b75f73f51e5134bdc57883b4c14eee9748bc74d1c9c40e52be",
+    "json_boundary_sha256": "f94d4d4f2a7478457e01a498f828f27e137ca9096e45428415a796ab9dc74a0f",
+    "trace_privacy_sha256": "dfa36035c3e5ab798971cf1bb221286a510b8ff6757fa3863b081435e3bdd858",
+    "legacy_inventory_id": "c46798c163e9483e52c9bf81f2caefb13c204b07f68e547dd6d615c419c765ec",
+    "schema2_inventory_id": "ffe98f956ddc343efb248ac3cf76e5a1883f2360756ab110ef98fe29aa708cc1"
+  },
+  "method": "git show b83c1ba7af10365dbe6d8aaec86b2d644d421504:src/slaif_raggedized_helper/embedding_artifacts.py copied to /tmp; compiled as old module and executed on the same synthetic fixture; fixed resulting ID asserted against new reader.",
+  "limits": "Synthetic bytes only; published checkpoint metadata is not acquisition, license, model, runtime, authorization or forward qualification. No weights loaded. Initial attempts limited uv itself and failed allocation; reruns applied limits after uv startup.",
+  "DHA": "NONE"
+}
