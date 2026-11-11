@@ -1,0 +1,166 @@
+{
+  "lane_id": "PAR-006-NATIVE-SCALE-B",
+  "result": "PARTIAL",
+  "implementation_head": "9304000f0121a2559d194496b16c8c0af2b0c752",
+  "report_publication_commit": "SELF",
+  "base": "b27f8c86eed4104772793a6c22b2c57988564828",
+  "control": "EXACT_OK_CONSUMED once",
+  "dha": "NONE",
+  "blocker": "The exact 157312-byte fixture did not complete. With the final optimized native build, the actual Session refused at 16001542 input bytes (limit 16000000), request 12707, output 2383192 bytes, structural callback 15882 and work 14500057 characters. Build 7.805815 seconds, startup 0.111517 seconds. Source union, tail, neighbors, receipts, JSONL and ID-remapped semantic comparison for that case are unproven. Other actual runs reached the 10000 ms deadline at 7402, 8054 and 6960 native requests. The limits were not enlarged.",
+  "investigation": "Reuse complete validated measurements only in native adapter, preserving legacy repeat-call inconsistency detection. Diagnostic copy with 30-second builder time solely to expose subsequent limits (not positive proof) hit original 8192 request cap at 8193 requests, 10239994 input bytes, 13644 callbacks, 9300724 work characters. A subsequent diagnostic with 16384 session cap, before full measurement reuse, hit 20001 callbacks, 13672500 work characters, 15047689 input bytes, 12005 requests. The 16384 cap is retained, with actual boundary test. Remaining candidates use distinct native inputs; further work must find a semantics-preserving reduction in actual wire or explicitly revise the immutable 16 MB policy via authorized replan. No quota avoidance or unobserved native counts proposed.",
+  "fixtures": [
+    {
+      "Block": {
+        "count": 403,
+        "record_max": 559,
+        "record_min": 513,
+        "sha256": "581fda939ea625fd1a06edff76d8d4ba8e69f66c4e7cb768b888997024bf287c",
+        "total_bytes": 216012
+      },
+      "Chunk": {
+        "count": 81,
+        "record_max": 2657,
+        "record_min": 1382,
+        "sha256": "e22697608edbc96776d8293f7ddbfcfb7aff8dfab5e75f4473d66a23314ef1f2",
+        "total_bytes": 164389
+      },
+      "Dependency": {
+        "count": 1,
+        "record_max": 401,
+        "record_min": 401,
+        "sha256": "0889ae116a68d1bd56f16bad4b7d3f5094a98c93d12a90169fcc608085d3f02c",
+        "total_bytes": 402
+      },
+      "Neighbors": {
+        "count": 81,
+        "record_max": 289,
+        "record_min": 220,
+        "sha256": "4c2f320d397de8e88a5813ce6a32430cc2b87dacf852cefc492039f6b7ac286b",
+        "total_bytes": 23352
+      },
+      "artifacts": [
+        {
+          "bytes": 1827,
+          "sha256": "1432b17ab7e9e4214568327a62acb0004515b6d23d920c3c8ed1150041f2ee32"
+        },
+        {
+          "bytes": 1889,
+          "sha256": "36583090527cd1a96fb0e9e576053ebece1a8621a7d788fdef6cb380a7e66153"
+        }
+      ],
+      "backend": "tokenizers 0.21.4",
+      "blocks": 403,
+      "build_seconds": 0.712982,
+      "chunks": 81,
+      "config": "production",
+      "elapsed_seconds": 0.877384,
+      "fragments": 403,
+      "input_bytes": 7876,
+      "input_sha256": "ec2f1cc41be21683e51178387b1aa005338eb67d2b5cf1b60fce9672d358bc5c",
+      "name": "procedure",
+      "neighbors_complete": true,
+      "outcome": "success",
+      "receipt_bytes": 138128,
+      "receipt_sha256": "421713873aba94fa880f38464c281f5930959c0dff2758fba317e94625a93d45",
+      "receipts": 243,
+      "receipts_complete": true,
+      "runtime": "Runtime(root=PosixPath('/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu'), packages=PosixPath('/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages'), python='python3.12')",
+      "session": {
+        "calls": 1305,
+        "input_bytes": 271098,
+        "output_bytes": 243970,
+        "startup_seconds": 0.108284
+      },
+      "source_union_complete": true,
+      "structure_seconds": 0.091528,
+      "tail_complete": true
+    },
+    {
+      "Block": {
+        "count": 243,
+        "record_max": 592,
+        "record_min": 513,
+        "sha256": "bb6583c6cd9fd506295cdca6207d5d6d091c4b6fdd1547e07c3007342bc3651f",
+        "total_bytes": 135871
+      },
+      "Chunk": {
+        "count": 25,
+        "record_max": 3625,
+        "record_min": 1391,
+        "sha256": "aba984bd6b6c48182837739a82583d1a29c7b567288508957a100ecc4bebaae2",
+        "total_bytes": 83610
+      },
+      "Dependency": {
+        "count": 1,
+        "record_max": 401,
+        "record_min": 401,
+        "sha256": "55b46519b7b41839f9b821c5ad0e05a1acbed95a046f535481fef33312581a4e",
+        "total_bytes": 402
+      },
+      "Neighbors": {
+        "count": 25,
+        "record_max": 289,
+        "record_min": 220,
+        "sha256": "6bfafe4ce5a885faaa544e3b810e5b53caa1ee117a714ae5f4745453f4eed6f5",
+        "total_bytes": 7112
+      },
+      "artifacts": [
+        {
+          "bytes": 1827,
+          "sha256": "1432b17ab7e9e4214568327a62acb0004515b6d23d920c3c8ed1150041f2ee32"
+        },
+        {
+          "bytes": 1889,
+          "sha256": "36583090527cd1a96fb0e9e576053ebece1a8621a7d788fdef6cb380a7e66153"
+        }
+      ],
+      "backend": "tokenizers 0.21.4",
+      "blocks": 243,
+      "build_seconds": 0.654107,
+      "chunks": 25,
+      "config": "production",
+      "elapsed_seconds": 0.774855,
+      "fragments": 243,
+      "input_bytes": 9269,
+      "input_sha256": "e9e8738b346a405683130f0aa307f8fd4f8038ab9057e59fee8b28ee3d07a9f6",
+      "name": "table",
+      "neighbors_complete": true,
+      "outcome": "success",
+      "receipt_bytes": 42720,
+      "receipt_sha256": "55adbcb09ed39c4488454817083a316abd60ecddc427351feb959d0b0bfb6279",
+      "receipts": 75,
+      "receipts_complete": true,
+      "runtime": "Runtime(root=PosixPath('/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu'), packages=PosixPath('/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages'), python='python3.12')",
+      "session": {
+        "calls": 1657,
+        "input_bytes": 455552,
+        "output_bytes": 310347,
+        "startup_seconds": 0.106043
+      },
+      "source_union_complete": true,
+      "structure_seconds": 0.083556,
+      "tail_complete": true
+    }
+  ],
+  "comparison": "Procedure and table source, tail, neighbors and receipt completeness pass; chunk/fragment counts and serialized lengths match prior spike. IDs changed as expected with deadline policy field. Full field-by-field ID-remapped comparison to previous successful outputs was not performed and remains open.",
+  "validation": {
+    "final_tests": "577 passed in 55.18s, exit 0, full tests/unit plus structural/native/session/structured-text/native-tokenizer composition; actual native backend configured, no skipped worker",
+    "lint": "ruff check src tests, exit 0",
+    "diff": "git diff --check exit 0 before commits",
+    "initial_test_attempt": "36 failures because required native environment variables were absent, plus legacy inconsistent-counter regression; environment configured and legacy regression corrected before final run"
+  },
+  "commands": [
+    "python3 lane_signal.py wait-control native-scale-fix (exact absolute path as ordered)",
+    "ulimit -v 1048576; ulimit -t 120; timeout 180s /tmp/slaif216-qualification-venv/bin/python /tmp/native-scale-fix-experiment.py production CASE, one case at a time",
+    "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 PYTHONPATH=src /tmp/slaif216-qualification-venv/bin/pytest tests/unit tests/integration/test_structural_chunking_composition.py tests/integration/test_native_chunking_composition.py tests/integration/test_tokenizer_session_composition.py tests/integration/test_structured_text_composition.py tests/integration/test_native_tokenizers_composition.py",
+    "/tmp/slaif216-qualification-venv/bin/ruff check src tests",
+    "git diff --check"
+  ],
+  "witness_hashes": {
+    "order_sha256": "c0f0dac94b609b9510dc22b2977bbdbbb27813e33089a9b8b881e38317a41732",
+    "experiment_sha256": "6b9dda9a6aa3c2bc8b571f2e95326d6e1ee723f4380d811d950f19254f9ef085",
+    "manual_sha256": "33810770e910bc8cc68906657c93447c034ca83f66fb46150c4d8f4329cb7384"
+  },
+  "limits": "Parent one case at a time, 180s wall/120s CPU/1GiB. Worker fixed 20s lifetime/10 CPU/1GiB/5s startup/2s request; 16MB input/4MB output/200k request/100k chars/4096 response/200k tokens unchanged. Structural 20000 calls/20M work unchanged. Session requests raised from 8192 to 16384 following actual diagnostic boundary. No models, GPU, inference, services or real corpus. No full 006/MVP, deployment or qualification claim.",
+  "open": "Full fixture success, exact semantic comparison with remapped IDs, full acceptance and independent review remain open. Do not merge as complete."
+}
