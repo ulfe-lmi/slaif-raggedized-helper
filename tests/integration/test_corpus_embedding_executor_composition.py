@@ -483,7 +483,7 @@ def test_actual_complete_resume_driver(request, tmp_path, monkeypatch):
     if phase:
         for kind, ceiling in ((resource.RLIMIT_CPU, 120), (resource.RLIMIT_AS, 1073741824)):
             soft, hard = resource.getrlimit(kind)
-            limit = min(ceiling, *(x for x in (soft, hard) if x != resource.RLIM_INFINITY))
+            limit = min((ceiling, *(x for x in (soft, hard) if x != resource.RLIM_INFINITY)))
             resource.setrlimit(kind, (limit, hard))
         _actual_creator_phase(tmp_path, monkeypatch)
         return

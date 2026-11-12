@@ -1,5 +1,5 @@
 import json
-import subprocess
+import hashlib
 import sys
 import types
 from pathlib import Path
@@ -15,6 +15,19 @@ from slaif_raggedized_helper import corpus_embedding_program as cp, derived_stor
 from slaif_raggedized_helper import native_chunking, retrieval_representation as rr
 from slaif_raggedized_helper import chunking, native_chunking as nc, provenance_jsonl as jl
 from slaif_raggedized_helper import provenance_records as p, structured_text as st
+
+
+def _base_representation_bytes():
+    data = (
+        Path(__file__).resolve().parents[1]
+        / "fixtures"
+        / "retrieval_representation_b0ca5a68.py.txt"
+    ).read_bytes()
+    assert len(data) == 7049
+    assert hashlib.sha256(data).hexdigest() == (
+        "681bf5145e980f77f67903c2fb5fd153f4694cf33344e208cd6181a5e65947a3"
+    )
+    return data
 
 
 def test_actual_selected_sources(tmp_path):
@@ -144,13 +157,7 @@ def test_actual_selected_sources(tmp_path):
         with pytest.raises(cp.ProgramError):
             cp.validate(originals, derived, candidate)
         # Compare the original module from the base with the factored live implementation.
-        base = subprocess.check_output(
-            [
-                "git",
-                "show",
-                "b0ca5a68f8e55667ada5dd7523903b5585cbe0af:src/slaif_raggedized_helper/retrieval_representation.py",
-            ]
-        )
+        base = _base_representation_bytes()
         old = types.ModuleType("slaif_raggedized_helper._old_representation")
         old.__package__ = "slaif_raggedized_helper"
         sys.modules[old.__name__] = old
@@ -319,13 +326,7 @@ def test_actual_remaining_char_preflight_matches_base(boundary_selected):
     first = rr._format_raw(
         value.revision.source.title, chunks[0].heading_path, chunks[0].text, rr.Policy()
     )[0]
-    base = subprocess.check_output(
-        [
-            "git",
-            "show",
-            "b0ca5a68f8e55667ada5dd7523903b5585cbe0af:src/slaif_raggedized_helper/retrieval_representation.py",
-        ]
-    ).decode()
+    base = _base_representation_bytes().decode()
     module = types.ModuleType("slaif_raggedized_helper._root_before_factor")
     module.__package__ = rr.__package__
     sys.modules[module.__name__] = module
