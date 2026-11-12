@@ -12,7 +12,8 @@ import pytest
 from slaif_raggedized_helper import cpu_embedding_worker as worker
 
 
-def test_profile_actual_metadata():
+def test_profile_selected_metadata():
+    """The selected metadata matches the lock; it does not attest installed code."""
     lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu/uv.lock"
     packages = Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"])
     assert len(worker._lock(lock)) == 28
