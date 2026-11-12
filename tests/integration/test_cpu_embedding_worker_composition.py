@@ -1,5 +1,6 @@
 """Real OS protocol with a test-only fake provider, never real neural loading."""
 
+import errno
 import os
 import socket
 import sys
@@ -65,6 +66,33 @@ sys.modules['transformers'] = SimpleNamespace(__version__='5.22.2', XLMRobertaMo
 sys.exit(m.main())
 """
 
+
+
+def _proc_read(reader):
+    """Return None only when the observed process disappeared during a read."""
+    try:
+        return reader()
+    except OSError as exc:
+        if exc.errno in (errno.ENOENT, errno.ESRCH):
+            return None
+        raise
+
+
+def test_proc_read_disappearance_and_errors():
+    import pytest
+
+    for error in (FileNotFoundError(errno.ENOENT, "gone"),
+                  ProcessLookupError(errno.ESRCH, "gone")):
+        def missing():
+            raise error
+        assert _proc_read(missing) is None
+    assert _proc_read(lambda: "live") == "live"
+    for number in (errno.EACCES, errno.EPERM, errno.EIO):
+        def denied():
+            raise OSError(number, "read failed")
+        with pytest.raises(OSError) as caught:
+            _proc_read(denied)
+        assert caught.value.errno == number
 
 def test_actual_sandbox_protocol(tmp_path, monkeypatch):
     root = tmp_path / "tree"
@@ -237,11 +265,10 @@ p.wait(timeout=10)
             seen, queue = set(), [ancestor]
             while queue:
                 current = queue.pop()
-                try:
-                    children = Path(f"/proc/{current}/task/{current}/children").read_text().split()
-                except FileNotFoundError:
+                children = _proc_read(Path(f"/proc/{current}/task/{current}/children").read_text)
+                if children is None:
                     continue
-                for value in children:
+                for value in children.split():
                     child = int(value)
                     if child not in seen:
                         seen.add(child)
@@ -252,10 +279,9 @@ p.wait(timeout=10)
         assert owned, "no sandbox descendants observed"
         worker_pids = []
         for process in owned:
-            try:
-                command = Path(f"/proc/{process}/cmdline").read_bytes()
-                executable = os.readlink(f"/proc/{process}/exe")
-            except FileNotFoundError:
+            command = _proc_read(Path(f"/proc/{process}/cmdline").read_bytes)
+            executable = _proc_read(lambda: os.readlink(f"/proc/{process}/exe"))
+            if command is None or executable is None:
                 continue
             if b"/worker.py" in command and Path(executable).name.startswith("python3.12"):
                 worker_pids.append(process)
@@ -265,10 +291,8 @@ p.wait(timeout=10)
         pending = owned | {pid}
         while pending and time.monotonic() < deadline:
             for process in tuple(pending):
-                try:
-                    state = Path(f"/proc/{process}/stat").read_text().split()[2]
-                except FileNotFoundError:
-                    state = "gone"
+                stat = _proc_read(Path(f"/proc/{process}/stat").read_text)
+                state = "gone" if stat is None else stat.split()[2]
                 if state in ("Z", "gone"):
                     pending.remove(process)
             time.sleep(0.05)

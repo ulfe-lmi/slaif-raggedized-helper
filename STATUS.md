@@ -278,6 +278,31 @@ open on the 007 PR, branch
   likewise merged as PR #6 (merge commit bd8e454). All real
   qualification trials remain NOT_RUN; the development merges are
   not qualification.
+- 007-s (watchdog observation repair; same PR 9, transcript-first):
+  bounded TEST-harness continuation of 007 — the watchdog test now
+  interprets an owned process disappearing during a /proc read; no
+  production watchdog, timeout or ownership change. Byte-exact
+  TWO-file copy from the root-reviewed candidate SELF 8b09617
+  (implementation 87be2e8, per oap/reviews/007-s-watchdog-components.json,
+  11,871 B): _proc_read returns None only for ENOENT/ESRCH read errors,
+  every other OSError propagates; the children/cmdline/exe/stat consumers
+  keep successful-content parsing and worker identity and treat only
+  absent owned reads as disappearance; the new deterministic
+  default-collected node exercises both disappearance codes, a live value
+  and EACCES/EPERM/EIO; the paused-parent worker ownership, 5-second
+  watchdog, 8-second pending window and final cleanup assertions are
+  unchanged. Scoped local evidence: ONE cached python3.14 process ran
+  exactly the two named nodes once (disappearance/errors plus paused-parent
+  watchdog), 2 passed in 5.88 s under CPU30/AS1GiB/wall120 (wall 6.49 s,
+  user 1.21 s, sys 0.24 s, max RSS 140,672 kB), PYTHONPATH unset, five
+  thread caps 1, private 0700 basetemp, borrowed CPUv2 fixture roots
+  byte-preserved. R distinction preserved: the R report was REJECTED for
+  report format (parenthetical implementation head SHA; Root records under
+  oap/reviews/007-s-prior-*) while current R CI 43315535020 is all 5 jobs /
+  78 steps green — no R report rewrite, no fabricated normal R OK, no
+  replayed FIFO. Whole-007 and actual BGE remain UNRUN/UNQUALIFIED; no 008
+  advance, no merge.
+
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
   (merged as PR #5) plus the 004-a finite qualification trial runner
