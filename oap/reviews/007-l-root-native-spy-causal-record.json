@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-12T12:37:15.343009+00:00",
+  "implementation": "6de7beab5cea24e0bdf03ae60133b223c36fe485",
+  "status": "ROOT_CAUSE_TEST_CLASS_REPLACEMENT_VIOLATES_ACTUAL_NATIVE_GUARD",
+  "artifacts": {
+    "audit/007-l-CI-6de7-failed.log": "b2bb8498931a45cef40d0c6679825d84f3b7c21ed333e2029dbc4ecccecc12ec",
+    "audit/007-l-CI-6de7-terminal.json": "f01e4bd6658df049270d6f9276af7d5458c62ef5dbb290cb1dca512fedd8d7d9",
+    "audit/007-l-root-current-spy-regression-6de7.log": "0a3a8ce028e108c1c72f8ca9464a6cd48f6454ace1bd17b0cb54a7a30ad20459",
+    "audit/007-l-root-corrected-spy-control-6de7.log": "22af610ddbfec47d5a1e0f52f70867012ee8f130d5e75cca93562795d121ce98",
+    "/tmp/raggedized-root-L-corrected-native-spy-6de7.py": "6451092e8892d505600aa2e30518e1cacd7a2cf8cb22be3d4533a5df8998ce9d"
+  },
+  "source_hashes": {
+    "tests/integration/test_cpu_embedding_session_composition.py": "a45301b444da6fc6c64bd018d0d133fb97da5d992711415c16b7b40e6f635ad0",
+    "src/slaif_raggedized_helper/embedding_tokenizer.py": "1c1d0a3ebf6bb3d587cd89aa3dc2270ea6ec745823c990964f715ce8a5bf5094",
+    "src/slaif_raggedized_helper/cpu_embedding_session.py": "375472b71fe308f219bc5e7da559a11a5983df7861bde8f215f2197d9cbf7163"
+  },
+  "CI": "Both Product integration failure, OAP3 success, skipped required followups notsuccess; exact terminal recorded. No waiver.",
+  "original": "Root exact repo case1FAIL expected under originalcaps/privatebasetemp: spyreplaces publicPopen class; native strict identityguard refuses before any child/backendfailure.",
+  "corrected_control": "Temporary fulltestcopy uses sameactualPopen class, __init__spy delegatescapturedoriginal withactual preallocated child; restunchanged besides fixtureunitabsolute path for/tmp.1PASS2.11s actual encoding/renewal/differentvectors/failedneuralfake/childreaping/stagecleanup. No production or guard modification.",
+  "strongest_counterargument": "Spy must observe actual initializer without weakening exact class guard or bypassing real native child; corrected witness retainsboth. Realframework/model notrun.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-12T12:40:13.804907+00:00",
+  "status": "ROOT_PATH_NAME_ERRATUM_SAME_ADDENDUM3_SCOPE",
+  "scope": "Amendment3 currentdoc shorthand contains two Root filename typos. Correct EXISTING original four currentdocs only: README.md, STATUS.md, docs/embedding.md, docs/UNCERTAINTIES.md. Do not create docs/STATUS.md or docs/embedding-pipeline.md. OriginalL order already permits actual names. TESTING/budget/manifest unchanged from6de7 for this repair; allproduction/nativeFILEc2/other22indexed preserved.",
+  "authorship": "Root document error, not coding defect. Original amendment3 immutable, preserve it and this clarification.",
+  "record": "Commit exact this JSON as oap/reviews/007-l-native-spy-path-clarification.json alongside two ordered addendum3 Rootrecords BEFORE testfix; if alreadycommitted append record only, never rewrite pushed commit.",
+  "DHA": "NONE"
+}
