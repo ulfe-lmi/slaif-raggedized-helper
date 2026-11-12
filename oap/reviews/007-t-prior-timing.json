@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-12T23:17:30.254411+00:00",
+  "identifier": "007-s",
+  "event": "STRATEGIC_SCOPED_CONTINUATION_ACCEPTED_WHOLE007_PARTIAL",
+  "report_commit": "1b38443f36ae170a4ee816d392e0294ce8fc4a5f",
+  "review": "audit/007-s-review.json",
+  "review_sha256": "f15b1fefe8233b2d49ffd9477bac8c98f7969874f0f972c02c728d9c6046ccad",
+  "activation_at": "2026-11-12T22:38:35.693700+00:00",
+  "normal_response_verified_at": "2026-11-12T23:16:50.065723+00:00",
+  "activation_to_response_seconds": 2294.372023,
+  "current_report_allCI_success": true,
+  "development_acceptance": "SCOPED_TEST_OBSERVATION_ONLY",
+  "next": "Same007Tafteractualquiet/source/runtime/remote/normalpublishchecks; no merge/numericadvance",
+  "DHA": "NONE"
+}

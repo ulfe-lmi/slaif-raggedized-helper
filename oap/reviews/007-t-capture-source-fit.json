@@ -1,0 +1,2523 @@
+{
+  "at": "2026-11-12T23:05:32.064500+00:00",
+  "status": "INERT_PROSPECTIVE_007T_STATIC_SOURCE_FIT",
+  "current_canonical": "1b38443f36ae170a4ee816d392e0294ce8fc4a5f",
+  "source_report": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+  "candidate_five_bytes": 69098,
+  "new_paths_absent": true,
+  "static_modules": [
+    {
+      "path": "tests/integration/test_embedding_capture_composition.py",
+      "bytes": 12294,
+      "sha256": "dfc9a8c37be11d2af966780f0c70ba98bb3e4cc8de3e8d5762b5a6ee36325425"
+    },
+    {
+      "path": "tests/unit/test_native_tokenizers.py",
+      "bytes": 12647,
+      "sha256": "3249fdc66c90cd96e7d4f0e85de651529f6a6610469aed6ff8f45a96348869a6"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/native_tokenizers.py",
+      "bytes": 10153,
+      "sha256": "a17e7c7a18b33694a495f18c37dc51b50b2050837e01a16c47aa17e4d6e34ae2"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/__init__.py",
+      "bytes": 505,
+      "sha256": "3f1fc68bda1fa2c4ac79e249f755db8d45510a86b16b115aab6877f5774359e0"
+    },
+    {
+      "path": "tests/unit/test_cpu_embedding_backend.py",
+      "bytes": 10067,
+      "sha256": "0485fa75ed517d7dcc7e0550f14ad5456bce13e1bf0d43207a3ef17bb70e0ea2"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/schema.py",
+      "bytes": 19545,
+      "sha256": "9fecd1043f6f62b263a78d5ff0726ce0dcb379ffcdaefa225b3c77dfaee736d2"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/_constraints.py",
+      "bytes": 1811,
+      "sha256": "408286611df60ba2a6747a6375ca05931b7199eb78e86b4bfc143b34929df376"
+    },
+    {
+      "path": "tests/unit/test_embedding_space.py",
+      "bytes": 6048,
+      "sha256": "4910c5b8b50491a1750d3d9fddb1bfcfe14e45c2ac009535348ed41e11c8165d"
+    },
+    {
+      "path": "tests/unit/test_embedding_artifacts.py",
+      "bytes": 13610,
+      "sha256": "36b09df14cee226d440160e4bc8a0ff9212c411c007a4a358bb3a6a4e3f2fe52"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_artifacts.py",
+      "bytes": 12280,
+      "sha256": "f9f52ece4cea2f686d1765b3538ff1e1d52ac79bc55ab62c2f41f73ea0cb2892"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_space.py",
+      "bytes": 4600,
+      "sha256": "2cf63b8dcc5bc081fee174582159c362e6d7f351ba0e0ac74885aee9654a1e2e"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/cpu_embedding_backend.py",
+      "bytes": 8029,
+      "sha256": "0e94b61abbc05556fbb60196080b17593e386b17d69cfbfc2da220d84fb03bf1"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/embedding_capture.py",
+      "bytes": 26978,
+      "sha256": "b3ffad426d08e876a18bef0ac5faae7ea758ff9bead0aaa0207c863f6efb0019"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/retrieval_representation.py",
+      "bytes": 7412,
+      "sha256": "ce48363bc620a941516188777d58d1d3866dd8ac5e9ad0b881702aa1bfeeecbc"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/tokenizer_session.py",
+      "bytes": 9054,
+      "sha256": "ffab92b7e66112dd007083fd1759dddb54bcd448cf34a9ecab980c11d9eb7bda"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/ingestion_bundle.py",
+      "bytes": 7327,
+      "sha256": "666fb65107f88d22846ba5145a723538a520cbd2d12a848cba104656f6294654"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/source_admission.py",
+      "bytes": 14533,
+      "sha256": "d065fdf6787e73f89355ae9e578b53f8bb28d830306fd9dc2a26b90700c93f54"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/provenance_records.py",
+      "bytes": 19936,
+      "sha256": "88d3edfcfbfd7cb44a7d2a3fbd84d6fd01525a11e5c07a4416a6a316a57178a9"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/provenance_jsonl.py",
+      "bytes": 3770,
+      "sha256": "4492436b0ada402d6392a785f21098a0d087c6ab62a2310dcbeff39ac08d62d0"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/bundle_source_records.py",
+      "bytes": 5842,
+      "sha256": "15a1b70f3d2fa37122d7d51e84294f61d9e59e2b3420ffd5b10af25e3605b7e9"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/structured_text.py",
+      "bytes": 7923,
+      "sha256": "9b630ce3f1cc6b1a2cdfc29710a7d3e828c10ac6ca295398eacc5e3115f6882b"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/bundle_native_records.py",
+      "bytes": 10521,
+      "sha256": "97347e4c83e1fffcbdbdb6e7ebe173fee464aa739f5b7805177d6b81e50e9b33"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/native_chunking.py",
+      "bytes": 7282,
+      "sha256": "af9db302738a7cdd014dedf972ea1f21ace9b8b46e906a3fe71929a35f227dbe"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/chunking.py",
+      "bytes": 15544,
+      "sha256": "45c782dac10fa4e4f2f2ba5249e70de31510647a0fcaac3516dbe57f3e094c5b"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/bundle_pdf_records.py",
+      "bytes": 10086,
+      "sha256": "82fd99508ef74cf57449e887760a8e14173aee0516b9bd37ba2d6369a8b26f28"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/pdf_structure.py",
+      "bytes": 5226,
+      "sha256": "983715bc397aab7d8e3b84c7b6232f15c4be301314c846c4b6f1ad3724c1a62f"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/pdf_extraction.py",
+      "bytes": 12199,
+      "sha256": "e4a90a83c10a7767e3f7ccce937bf5177b13c58bcb099b017b1fd88716a8890f"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/isolated_cpu_embedding.py",
+      "bytes": 22074,
+      "sha256": "bae33448cf4d629b6b351031618bb959d0e2baf2b5a5a11977499ad21b1edbc8"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_vectors.py",
+      "bytes": 2029,
+      "sha256": "c69906f3cb4a1239241990d31eb2688fb14712525c5046e93ff07331724b3a67"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_tokenizer.py",
+      "bytes": 14014,
+      "sha256": "1c1d0a3ebf6bb3d587cd89aa3dc2270ea6ec745823c990964f715ce8a5bf5094"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_staging.py",
+      "bytes": 9089,
+      "sha256": "fc321415da73bb974a9429776ce7a1b55b71521026cca5b90e1d4161c363a98e"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/cpu_execution_contract.py",
+      "bytes": 7576,
+      "sha256": "e2e01b1c189036ad7eee036e90625b4aa14c4a33bfdb52d97c8c7d4cd4744c7f"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/cpu_embedding_worker.py",
+      "bytes": 25058,
+      "sha256": "6c9703ca5eea837b588b55c63dde88a6ac5e35c4db3ea192f61e27c27b1127ae"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_embedding_producer.py",
+      "bytes": 26535,
+      "sha256": "7e0cbdb9c1d93c1b1c345da475774707d5a4128e32e3630e7521261258bc7483"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/isolated_gpu_embedding.py",
+      "bytes": 25903,
+      "sha256": "909cc8cc4086250f7a2fdd10956dd8162714f2c14c481451565f850fd3e29533"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_embedding_worker.py",
+      "bytes": 38570,
+      "sha256": "1ac96452e4c32604afb2fe16276046ba48ebe640d596962aeeb1dd1712faf1e0"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_worker_protocol.py",
+      "bytes": 8094,
+      "sha256": "41cd017713a7e4f53f714c96118d26d305c0924080e46517ed2a16141811a089"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_worker_launch.py",
+      "bytes": 41596,
+      "sha256": "89230e00f2e4fca3271c4e60f55a487a186d932fdce142ee9525852c9a49d3b3"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_job_ownership.py",
+      "bytes": 7008,
+      "sha256": "708731cd9a76e41df08c1c07e02b78748f90aca72da0bb6e12e5c7ee1977cafe"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_device_lease.py",
+      "bytes": 7098,
+      "sha256": "e22f6d0d44f8369e85653a3fc9572ed5d17c9942a79def23341b9d55a393ab62"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_worker_identity.py",
+      "bytes": 12373,
+      "sha256": "a570140545088c7042420afe79ba761f1a4068097990d47bd9ce4434274876ab"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_native_identity.py",
+      "bytes": 14659,
+      "sha256": "a7f3eea2b8215d4cd6fb8c2299edc8c38786c9ab9b754c3bd317c0e9bb2aff87"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_embedding_plan.py",
+      "bytes": 7395,
+      "sha256": "8b80a6e00989dba55481f564693be3a0faee4e6a95a39574a12e547c871bb366"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_job_journal.py",
+      "bytes": 20510,
+      "sha256": "9b6331ad2dfedd93f5826ab964bd107f62348daecd607cbfd38586070de3043e"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/job_records.py",
+      "bytes": 11211,
+      "sha256": "7a74be6ae92e046ce35f372a02877a3e9042fc30f46995199cd6c2a43add9625"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_batch_store.py",
+      "bytes": 5893,
+      "sha256": "8e53be2d1a0acb8fc8d6932bdd9c1d5f5b8f9015108de79814fa2a07c6a9f429"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/vector_codec.py",
+      "bytes": 5983,
+      "sha256": "13a923892bba79089d1e1c7282d562eff1fd3fff2ec51c3c6df4a7f5dc52330c"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/derived_store.py",
+      "bytes": 12215,
+      "sha256": "80cb56fcee50aa18df1c291a58e4ea8a0b462fcd614aa480d36605e12916e761"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_batch_plan.py",
+      "bytes": 11302,
+      "sha256": "e7080dad7e4a79189a78e02dad8220d00ee4758396a3bcb67deb64129c02abae"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/embedding_parity.py",
+      "bytes": 13955,
+      "sha256": "b6ca299c8531e9786af40d85f15dbf9214aa040356edb261b0ec4309a2d8e0ef"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/__init__.py",
+      "bytes": 2327,
+      "sha256": "484fb11ece80df19d1b6733ccd114025846bc3ac9f8e2202bd9ba479937c34ce"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/synthetic.py",
+      "bytes": 6856,
+      "sha256": "75a691ba19c22fd00e9b10f018a2688026b0dac7d24b9fdb95f20a850d4bd5dd"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/specio.py",
+      "bytes": 7260,
+      "sha256": "e5de4610000d12fc974654d4bd448e41d8915ccba09882fbd6fb14e291f05edd"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/spec.py",
+      "bytes": 18398,
+      "sha256": "08b7e8d55394cb6f7d496057f9d4e98205ed6f15d51fffdd65e892a738439691"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/runner.py",
+      "bytes": 37034,
+      "sha256": "c5bf86f061259e35f04e2547572432fcec014eaf37bdd50ed4803ab287225d6e"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/contracts.py",
+      "bytes": 34341,
+      "sha256": "bded6d64db9b89c2c393e01e62b1e7dc40f5a9339c28a1b72ead1b12957861ef"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/analysis.py",
+      "bytes": 11532,
+      "sha256": "cee19d2472f7e87ce1008bf7b24e59224dc1f6b8396d9bcfcdb26b8d6b974bfc"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/resources.py",
+      "bytes": 67372,
+      "sha256": "10c8ae4c23f564874ef8999ae6b454e63ae4bf006eedd54fc412bd89e2b7f083"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/qualification/gates.py",
+      "bytes": 7823,
+      "sha256": "60dc079d0e79f50e6f9336876996e2a2bdb70005da91e2cec009b98e9ccdec92"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/probes.py",
+      "bytes": 43985,
+      "sha256": "015a16320ca8eac65d155bc2f44e6b53f758dc78d31221102fb3dbea12072383"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/model_clients/transport.py",
+      "bytes": 33630,
+      "sha256": "9fcdb2c78f320c2c613f2d5932ec5b852f5f112b6b1be1d33c7d2e0b7afcfe1f"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/model_clients/gateway.py",
+      "bytes": 57559,
+      "sha256": "00f0f7c31e7bb8f8197b3279f7dcb5cbc08be5790e68fc8d43f1268a087aaf4c"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/config.py",
+      "bytes": 25702,
+      "sha256": "d060b64750a5e0a1a2161802128b1f97a20ff86c3bd276a6f0162fdf5153c7c2"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/model_clients/direct.py",
+      "bytes": 36519,
+      "sha256": "891b797946b3b6023820f68b17cd1cf137cbd7e51d85980650237f75c3e2f5aa"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/cpu_embedding_producer.py",
+      "bytes": 15798,
+      "sha256": "46102e562da9a722d61033a7e95d4c858dce2065d54530a3c83aa2595daed4a1"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/cpu_embedding_plan.py",
+      "bytes": 4549,
+      "sha256": "4881cea82479223af54124866b479a49803c0c127fbd1d47a05eca61e3580240"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/ingestion_store.py",
+      "bytes": 1938,
+      "sha256": "1799ec8a79bea134e628e44147a9f83405c94640338973c8d557c6b2fdae1c7a"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/query_embedding.py",
+      "bytes": 7907,
+      "sha256": "2042c21387fdb9f5d2c8ed25ce5fe7f06a6bbcadd448baa21e7bc5cb2b4988d4"
+    },
+    {
+      "path": "tests/integration/test_gpu_worker_launch.py",
+      "bytes": 5287,
+      "sha256": "46976b74e15a5bec05e6f7032716d829e69970d8f3b1a2dd374e9e26f0302f78"
+    },
+    {
+      "path": "tests/unit/test_gpu_worker_launch.py",
+      "bytes": 18637,
+      "sha256": "8f2b1f6b0cab592abf83070a0a2a1ca822b214c6b447df310f256a224b2c200c"
+    },
+    {
+      "path": "tests/unit/test_gpu_embedding_backend.py",
+      "bytes": 22261,
+      "sha256": "b76b66a175b1beab60ecdb5498060aec92294956c2213a4a046eef59661e10fb"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_embedding_backend.py",
+      "bytes": 14761,
+      "sha256": "acdd329c88775ddb150f83e9b7ae38cb4ce3e274a9732859e24c0be2a8a859ea"
+    },
+    {
+      "path": "tests/integration/test_embedding_batch_plan_composition.py",
+      "bytes": 14411,
+      "sha256": "b3e8d8d7fa6ee99841c8481878bbc4e3b61a5496962682f468b393714813c153"
+    },
+    {
+      "path": "tests/integration/test_structured_text_composition.py",
+      "bytes": 5631,
+      "sha256": "0812a08722eaf466ef4fe7f101e5a46485fd2936794bdaca5168cf8ae3bd32da"
+    },
+    {
+      "path": "tests/integration/test_retrieval_representation_composition.py",
+      "bytes": 15519,
+      "sha256": "4d4359999b1f8153b05466a3852914c3e88e3ad2043e62aea86c3074cdd9cc3f"
+    },
+    {
+      "path": "tests/integration/test_cpu_embedding_worker_composition.py",
+      "bytes": 10220,
+      "sha256": "303c85687265eac90e8390ce20a218df90973502c5a990465b9f8f7974f0ffae"
+    },
+    {
+      "path": "tests/unit/test_embedding_capture.py",
+      "bytes": 17818,
+      "sha256": "a674177f7fdba1a08f08cc96300f3ae14b1f21440266eb473399cc61bd5359c4"
+    }
+  ],
+  "edges": [
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.cpu_embedding_worker"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.gpu_embedding_producer"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.ingestion_store"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.query_embedding"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "test_cpu_embedding_worker_composition"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "test_embedding_artifacts"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "test_embedding_batch_plan_composition"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "test_gpu_worker_launch"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.cpu_embedding_producer"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.cpu_embedding_producer"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "test_cpu_embedding_backend"
+    ],
+    [
+      "test_embedding_capture_composition",
+      "test_native_tokenizers"
+    ],
+    [
+      "test_native_tokenizers",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_native_tokenizers",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_cpu_embedding_backend",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_cpu_embedding_backend",
+      "slaif_raggedized_helper.cpu_embedding_backend"
+    ],
+    [
+      "test_cpu_embedding_backend",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "test_cpu_embedding_backend",
+      "test_embedding_artifacts"
+    ],
+    [
+      "test_cpu_embedding_backend",
+      "test_embedding_space"
+    ],
+    [
+      "test_cpu_embedding_backend",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_cpu_embedding_backend",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.schema",
+      "slaif_raggedized_helper._constraints"
+    ],
+    [
+      "test_embedding_space",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_space",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "test_embedding_space",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "test_embedding_space",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_embedding_space",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_embedding_space",
+      "test_embedding_artifacts"
+    ],
+    [
+      "test_embedding_artifacts",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "test_embedding_artifacts",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "test_embedding_artifacts",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_space",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_space",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_space",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_space",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_backend",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_backend",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_backend",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.query_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.cpu_embedding_producer"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.cpu_execution_contract"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.gpu_embedding_producer"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.isolated_gpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.cpu_execution_contract"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.ingestion_store"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.cpu_embedding_plan"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.gpu_embedding_plan"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.gpu_embedding_producer"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.cpu_embedding_producer"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.gpu_embedding_producer"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.qualification"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_parity"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.cpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.gpu_embedding_producer"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.retrieval_representation"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_capture",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.retrieval_representation",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.retrieval_representation",
+      "slaif_raggedized_helper.ingestion_bundle"
+    ],
+    [
+      "slaif_raggedized_helper.retrieval_representation",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.retrieval_representation",
+      "slaif_raggedized_helper.tokenizer_session"
+    ],
+    [
+      "slaif_raggedized_helper.tokenizer_session",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.tokenizer_session",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper.bundle_native_records"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper.bundle_pdf_records"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper.bundle_source_records"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper.provenance_jsonl"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_bundle",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "slaif_raggedized_helper.source_admission",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.provenance_records",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.provenance_records",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "slaif_raggedized_helper.provenance_jsonl",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.provenance_jsonl",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_source_records",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_source_records",
+      "slaif_raggedized_helper.bundle_native_records"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_source_records",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_source_records",
+      "slaif_raggedized_helper.provenance_jsonl"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_source_records",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_source_records",
+      "slaif_raggedized_helper.structured_text"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_source_records",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "slaif_raggedized_helper.structured_text",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.structured_text",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.structured_text",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_native_records",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_native_records",
+      "slaif_raggedized_helper.chunking"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_native_records",
+      "slaif_raggedized_helper.native_chunking"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_native_records",
+      "slaif_raggedized_helper.provenance_jsonl"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_native_records",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_native_records",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.native_chunking",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.native_chunking",
+      "slaif_raggedized_helper.chunking"
+    ],
+    [
+      "slaif_raggedized_helper.native_chunking",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.native_chunking",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.native_chunking",
+      "slaif_raggedized_helper.tokenizer_session"
+    ],
+    [
+      "slaif_raggedized_helper.chunking",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.chunking",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_pdf_records",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_pdf_records",
+      "slaif_raggedized_helper.provenance_jsonl"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_pdf_records",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_pdf_records",
+      "slaif_raggedized_helper.pdf_extraction"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_pdf_records",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_pdf_records",
+      "slaif_raggedized_helper.pdf_structure"
+    ],
+    [
+      "slaif_raggedized_helper.bundle_pdf_records",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "slaif_raggedized_helper.pdf_extraction",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "slaif_raggedized_helper.pdf_extraction",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.pdf_extraction",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.pdf_extraction",
+      "slaif_raggedized_helper.pdf_structure"
+    ],
+    [
+      "slaif_raggedized_helper.pdf_extraction",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper.cpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper.cpu_execution_contract"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper.embedding_staging"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_cpu_embedding",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_tokenizer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_tokenizer",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_staging",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_staging",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_staging",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.cpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_execution_contract",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_worker",
+      "slaif_raggedized_helper.cpu_embedding_backend"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_worker",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_worker",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_worker",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_worker",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.vector_codec"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.isolated_gpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.isolated_gpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_batch_plan"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_job_journal"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.gpu_embedding_plan"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.gpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.isolated_gpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.retrieval_representation"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.gpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_producer",
+      "slaif_raggedized_helper.isolated_gpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.embedding_native_identity"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.gpu_worker_identity"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.gpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.isolated_gpu_embedding",
+      "slaif_raggedized_helper.gpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_device_lease"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.cpu_embedding_backend"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.embedding_job_ownership"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_device_lease"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_worker",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_protocol",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_protocol",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_device_lease"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.embedding_job_ownership"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.cpu_embedding_backend"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_launch",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_device_lease",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_device_lease",
+      "slaif_raggedized_helper.embedding_job_ownership"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_device_lease",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper.gpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_worker_identity",
+      "slaif_raggedized_helper.gpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_native_identity",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_native_identity",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_native_identity",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper.embedding_batch_plan"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper.embedding_job_journal"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper.isolated_gpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper.retrieval_representation"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_plan",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.embedding_job_ownership"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.job_records"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.job_records",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_store",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_store",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_store",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_store",
+      "slaif_raggedized_helper.vector_codec"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.embedding_job_journal"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.ingestion_bundle"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.retrieval_representation"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_plan",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.embedding_parity",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.qualification",
+      "slaif_raggedized_helper.qualification.analysis"
+    ],
+    [
+      "slaif_raggedized_helper.qualification",
+      "slaif_raggedized_helper.qualification.gates"
+    ],
+    [
+      "slaif_raggedized_helper.qualification",
+      "slaif_raggedized_helper.qualification.resources"
+    ],
+    [
+      "slaif_raggedized_helper.qualification",
+      "slaif_raggedized_helper.qualification.contracts"
+    ],
+    [
+      "slaif_raggedized_helper.qualification",
+      "slaif_raggedized_helper.qualification.runner"
+    ],
+    [
+      "slaif_raggedized_helper.qualification",
+      "slaif_raggedized_helper.qualification.spec"
+    ],
+    [
+      "slaif_raggedized_helper.qualification",
+      "slaif_raggedized_helper.qualification.specio"
+    ],
+    [
+      "slaif_raggedized_helper.qualification",
+      "slaif_raggedized_helper.qualification.synthetic"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.spec",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.config"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.model_clients.direct"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.model_clients.gateway"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.model_clients.transport"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.probes"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.qualification.analysis"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.qualification.gates"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.qualification.resources"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.qualification.spec"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.qualification.synthetic"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.runner",
+      "slaif_raggedized_helper.qualification.contracts"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.contracts",
+      "slaif_raggedized_helper.qualification.spec"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.contracts",
+      "slaif_raggedized_helper.qualification.analysis"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.analysis",
+      "slaif_raggedized_helper.qualification.contracts"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.resources",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.resources",
+      "slaif_raggedized_helper.qualification.spec"
+    ],
+    [
+      "slaif_raggedized_helper.qualification.resources",
+      "slaif_raggedized_helper.qualification.contracts"
+    ],
+    [
+      "slaif_raggedized_helper.probes",
+      "slaif_raggedized_helper._constraints"
+    ],
+    [
+      "slaif_raggedized_helper.probes",
+      "slaif_raggedized_helper.config"
+    ],
+    [
+      "slaif_raggedized_helper.probes",
+      "slaif_raggedized_helper.model_clients.direct"
+    ],
+    [
+      "slaif_raggedized_helper.probes",
+      "slaif_raggedized_helper.model_clients.gateway"
+    ],
+    [
+      "slaif_raggedized_helper.probes",
+      "slaif_raggedized_helper.model_clients.transport"
+    ],
+    [
+      "slaif_raggedized_helper.probes",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.model_clients.gateway",
+      "slaif_raggedized_helper.config"
+    ],
+    [
+      "slaif_raggedized_helper.model_clients.gateway",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.model_clients.gateway",
+      "slaif_raggedized_helper.model_clients.transport"
+    ],
+    [
+      "slaif_raggedized_helper.config",
+      "slaif_raggedized_helper._constraints"
+    ],
+    [
+      "slaif_raggedized_helper.config",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.model_clients.direct",
+      "slaif_raggedized_helper.config"
+    ],
+    [
+      "slaif_raggedized_helper.model_clients.direct",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.model_clients.direct",
+      "slaif_raggedized_helper.model_clients.transport"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper.cpu_embedding_plan"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_job_journal"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_tokenizer"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_producer",
+      "slaif_raggedized_helper.vector_codec"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper.cpu_embedding_worker"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper.cpu_execution_contract"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper.embedding_batch_plan"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper.embedding_job_journal"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper.retrieval_representation"
+    ],
+    [
+      "slaif_raggedized_helper.cpu_embedding_plan",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_store",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_store",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_store",
+      "slaif_raggedized_helper.ingestion_bundle"
+    ],
+    [
+      "slaif_raggedized_helper.ingestion_store",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "slaif_raggedized_helper.query_embedding",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.query_embedding",
+      "slaif_raggedized_helper.cpu_execution_contract"
+    ],
+    [
+      "slaif_raggedized_helper.query_embedding",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.query_embedding",
+      "slaif_raggedized_helper.isolated_cpu_embedding"
+    ],
+    [
+      "slaif_raggedized_helper.query_embedding",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.query_embedding",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_device_lease"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_launch"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.embedding_job_ownership"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.embedding_job_ownership"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "test_gpu_embedding_backend"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_worker_launch",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "slaif_raggedized_helper.gpu_device_lease"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "slaif_raggedized_helper.gpu_embedding_backend"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_gpu_embedding_backend",
+      "test_embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_backend",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_backend",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_backend",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_backend",
+      "slaif_raggedized_helper.gpu_device_lease"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_backend",
+      "slaif_raggedized_helper.gpu_worker_protocol"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_backend",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_backend",
+      "slaif_raggedized_helper.cpu_embedding_backend"
+    ],
+    [
+      "slaif_raggedized_helper.gpu_embedding_backend",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "test_embedding_artifacts"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "test_native_tokenizers"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "test_retrieval_representation_composition"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "test_structured_text_composition"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.embedding_artifacts"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.embedding_batch_plan"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.embedding_space"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.ingestion_bundle"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.retrieval_representation"
+    ],
+    [
+      "test_embedding_batch_plan_composition",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_structured_text_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_structured_text_composition",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "test_structured_text_composition",
+      "slaif_raggedized_helper.structured_text"
+    ],
+    [
+      "test_structured_text_composition",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "test_native_tokenizers"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "test_structured_text_composition"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.ingestion_bundle"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.chunking"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.native_chunking"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.provenance_jsonl"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.provenance_records"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.structured_text"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.retrieval_representation"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.source_admission"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.tokenizer_session"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_retrieval_representation_composition",
+      "slaif_raggedized_helper.retrieval_representation"
+    ],
+    [
+      "test_cpu_embedding_worker_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_cpu_embedding_worker_composition",
+      "slaif_raggedized_helper.cpu_embedding_worker"
+    ],
+    [
+      "test_cpu_embedding_worker_composition",
+      "slaif_raggedized_helper.native_tokenizers"
+    ],
+    [
+      "test_cpu_embedding_worker_composition",
+      "test_cpu_embedding_backend"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.cpu_embedding_plan"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.cpu_embedding_producer"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.gpu_embedding_producer"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.ingestion_store"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.isolated_gpu_embedding"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.query_embedding"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.query_embedding"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.query_embedding"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ],
+    [
+      "test_embedding_capture",
+      "slaif_raggedized_helper.qualification.embedding_capture"
+    ]
+  ],
+  "changed_existing_dependencies": [
+    {
+      "path": "src/slaif_raggedized_helper/model_clients/gateway.py",
+      "state": "CHANGED",
+      "canonical_sha256": "f8a686590e0b91f0f367327733cb7c0b02131ed2fa650de6695e5a9e717ea5bd",
+      "candidate_sha256": "00f0f7c31e7bb8f8197b3279f7dcb5cbc08be5790e68fc8d43f1268a087aaf4c"
+    },
+    {
+      "path": "tests/integration/test_cpu_embedding_worker_composition.py",
+      "state": "CHANGED",
+      "canonical_sha256": "79b98fb99f30751604b5a31640ab5d31a6dce4e7ebb34ed299a348fee9390c97",
+      "candidate_sha256": "303c85687265eac90e8390ce20a218df90973502c5a990465b9f8f7974f0ffae"
+    }
+  ],
+  "limits": "AST-resolvable named application/test imports, conservatively including both same-basename unit/integration modules where ambiguous, not complete dynamic/external/binary closure. Root graph harness first refused duplicate test_gpu_worker_launch basename; corrected only private harness to retain both variants, no application/test changes. Identity comparison not a new semantic full-source review or runtime proof. Prospective order remains INERT until actual S currentallCI/normalreceipt/Rootresolutiontiming/quiet and full runtime/source recheck. Existing changed dependency APIs require review; never copy predecessor dependencies. Full current773 combined CI driver mandatory.",
+  "DHA": "NONE",
+  "compatibility_review": {
+    "at": "2026-11-12T23:09:18.360405+00:00",
+    "cpu_test_dependency": "Candidate imports ONLY FAKE from changed CPUworker integration helper; actual FAKE literal AST equal, sha256 1ee7a13bbb05e0e05a33b704bc611f55ceaec727bccff102f484d34a3da21277. Current Schanges ownedproc observation outside imported FAKE; prior module imports/sourcepath fixes preserved. Do not copy whole predecessor test.",
+    "gateway_dependency": "Only changed production node in conservative77module static graph. Current gatewayRrole/latchederror fix preserves existing API signatures and actual provider interface; capture uses actualCPU/GPU/queryencoders, not gateway generation. Incidental transitive modelclient/config import retains current f8a source, never old00f source. Source graph is compatibility forecast, not actual execution qualification.",
+    "no_dependency_copy": true
+  }
+}

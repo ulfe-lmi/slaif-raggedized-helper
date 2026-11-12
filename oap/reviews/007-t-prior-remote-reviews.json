@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-12T23:17:30.254075+00:00",
+  "pr": {
+    "autoMergeRequest": null,
+    "baseRefName": "main",
+    "headRefName": "oap/007-embedding-pipeline",
+    "headRefOid": "1b38443f36ae170a4ee816d392e0294ce8fc4a5f",
+    "isDraft": false,
+    "number": 9,
+    "reviews": [],
+    "state": "OPEN",
+    "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/pull/9"
+  },
+  "unique": [
+    {
+      "headRefOid": "1b38443f36ae170a4ee816d392e0294ce8fc4a5f",
+      "number": 9
+    }
+  ],
+  "threads": {
+    "nodes": [],
+    "pageInfo": {
+      "hasNextPage": false
+    }
+  },
+  "main": "11badc7782bed326995d400f5532b63399b91fbd",
+  "workflow": {
+    "id": 43325225173,
+    "workflow_id": 403803560,
+    "path": ".github/workflows/oap.yml",
+    "run_attempt": 1,
+    "head_sha": "1b38443f36ae170a4ee816d392e0294ce8fc4a5f",
+    "event": "pull_request",
+    "conclusion": "success",
+    "status": "completed"
+  }
+}

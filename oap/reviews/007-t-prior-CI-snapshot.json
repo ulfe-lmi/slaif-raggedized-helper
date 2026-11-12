@@ -1,0 +1,534 @@
+{
+  "conclusion": "success",
+  "databaseId": 43325225173,
+  "event": "pull_request",
+  "headSha": "1b38443f36ae170a4ee816d392e0294ce8fc4a5f",
+  "jobs": [
+    {
+      "completedAt": "2026-11-12T23:13:23Z",
+      "conclusion": "success",
+      "databaseId": 131555879101,
+      "name": "Product tests (Python 3.12)",
+      "startedAt": "2026-11-12T23:01:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check out repository",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.12",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Select matrix interpreter",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install uv (pinned, standard registry)",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked lightweight environment",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install and verify PDF isolation tools (runner only)",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision standalone CPython 3.12 worker runtime",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision new private hash-verified PDF test backend",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision new private hash-verified native tokenizer test backend",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision portable synthetic CPU worker test fixture",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision portable synthetic CPU-v2 test fixture",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision portable synthetic GPU worker test fixture",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Lint (product scope)",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Python syntax check",
+          "number": 15,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Product test suite",
+          "number": 16,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Integration test suite (owned loopback HTTP/SSE)",
+          "number": 17,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP test suite",
+          "number": 18,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP governance check",
+          "number": 19,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Console help (offline)",
+          "number": 20,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Doctor example (honest issues, offline)",
+          "number": 21,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.12",
+          "number": 41,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Check out repository",
+          "number": 42,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 43,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43325225173/job/131555879101"
+    },
+    {
+      "completedAt": "2026-11-12T23:02:03Z",
+      "conclusion": "success",
+      "databaseId": 131555879418,
+      "name": "OAP tests (Python 3.12)",
+      "startedAt": "2026-11-12T23:01:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check out repository",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.12",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check required local tools",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Python syntax check",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP test suite",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP governance check",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.12",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Check out repository",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43325225173/job/131555879418"
+    },
+    {
+      "completedAt": "2026-11-12T23:02:07Z",
+      "conclusion": "success",
+      "databaseId": 131555879427,
+      "name": "OAP tests (Python 3.13)",
+      "startedAt": "2026-11-12T23:01:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check out repository",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.13",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check required local tools",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Python syntax check",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP test suite",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP governance check",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.13",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Check out repository",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43325225173/job/131555879427"
+    },
+    {
+      "completedAt": "2026-11-12T23:02:00Z",
+      "conclusion": "success",
+      "databaseId": 131555879523,
+      "name": "OAP tests (Python 3.14)",
+      "startedAt": "2026-11-12T23:01:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check out repository",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.14",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check required local tools",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Python syntax check",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP test suite",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP governance check",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.14",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Check out repository",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43325225173/job/131555879523"
+    },
+    {
+      "completedAt": "2026-11-12T23:13:12Z",
+      "conclusion": "success",
+      "databaseId": 131555879544,
+      "name": "Product tests (Python 3.14)",
+      "startedAt": "2026-11-12T23:01:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check out repository",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python 3.14",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Select matrix interpreter",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install uv (pinned, standard registry)",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install locked lightweight environment",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install and verify PDF isolation tools (runner only)",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision standalone CPython 3.12 worker runtime",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision new private hash-verified PDF test backend",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision new private hash-verified native tokenizer test backend",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision portable synthetic CPU worker test fixture",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision portable synthetic CPU-v2 test fixture",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Provision portable synthetic GPU worker test fixture",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Lint (product scope)",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Python syntax check",
+          "number": 15,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Product test suite",
+          "number": 16,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Integration test suite (owned loopback HTTP/SSE)",
+          "number": 17,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP test suite",
+          "number": 18,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "OAP governance check",
+          "number": 19,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Console help (offline)",
+          "number": 20,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Doctor example (honest issues, offline)",
+          "number": 21,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Set up Python 3.14",
+          "number": 41,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Check out repository",
+          "number": 42,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 43,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43325225173/job/131555879544"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43325225173",
+  "workflowName": "CI"
+}

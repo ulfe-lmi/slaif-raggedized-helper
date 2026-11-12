@@ -1,0 +1,75 @@
+{
+  "at": "2026-11-12T23:19:24.414277+00:00",
+  "status": "FROZEN_ROOT_TRANSCRIPT_INPUTS_007T",
+  "entries": [
+    {
+      "source": "audit/007-s-review.json",
+      "target": "oap/reviews/007-t-prior-review.json",
+      "bytes": 2288,
+      "sha256": "f15b1fefe8233b2d49ffd9477bac8c98f7969874f0f972c02c728d9c6046ccad"
+    },
+    {
+      "source": "audit/007-s-resolution-timing-event.json",
+      "target": "oap/reviews/007-t-prior-timing.json",
+      "bytes": 726,
+      "sha256": "93b75fbfd5f3ee1ba0bb818a2946b9856411865154bc5697b4ccf41adc2216fc"
+    },
+    {
+      "source": "audit/007-s-current-report-CI-terminal.json",
+      "target": "oap/reviews/007-t-prior-CI-snapshot.json",
+      "bytes": 14685,
+      "sha256": "6d0c808c14db816370bbf693540371c71e24d360f3fc726d6afc80eb19280ce7"
+    },
+    {
+      "source": "audit/007-s-current-remote-reviews.json",
+      "target": "oap/reviews/007-t-prior-remote-reviews.json",
+      "bytes": 917,
+      "sha256": "0905adbcbab90dd1787646a7ffb3398928b15b8b0fdf6548f18898fa81870c36"
+    },
+    {
+      "source": "audit/007-t-capture-source-fit-DRAFT.json",
+      "target": "oap/reviews/007-t-capture-source-fit.json",
+      "bytes": 73690,
+      "sha256": "dc25d40d1e7d21f41994eca3b659c81b8b8f08af235f3809494c2fa0053e5593"
+    },
+    {
+      "source": "parallel/parity-capture/local-admission.json",
+      "target": "oap/reviews/007-t-capture-local-admission.json",
+      "bytes": 1359,
+      "sha256": "fd5fa746b31bb417aa10126e7a48ee892e7c4453f2403e0aadd46724d9c394de"
+    },
+    {
+      "source": "audit/007-capture-source-review-773a.json",
+      "target": "oap/reviews/007-t-capture-source-review.json",
+      "bytes": 3719,
+      "sha256": "76ba92df13da96addc421a655ae806731f49f810accaadd9f1bdffeebaf76f1c"
+    },
+    {
+      "source": "audit/007-capture-current-verification-D0-773a.json",
+      "target": "oap/reviews/007-t-capture-proportionate-verification.json",
+      "bytes": 1462,
+      "sha256": "5a06602fe9b37231900524719ccb575238fc91dd9cefe468758a035b51b4b527"
+    },
+    {
+      "source": "parallel/audit-parity-capture/report.json",
+      "target": "oap/reviews/007-t-capture-opposite-report.json",
+      "bytes": 7725,
+      "sha256": "cefe59e237ca825f86a500f96dd3a6e15bac8b40bc8e2868ed06ab4c377b8e21"
+    },
+    {
+      "source": "audit/007-capture-peer-root-review-cefe.json",
+      "target": "oap/reviews/007-t-capture-opposite-Root-review.json",
+      "bytes": 1808,
+      "sha256": "33fc9e970588123a10e42b3cfdba46f33aa3898b2e5032b24727291663b1e52f"
+    },
+    {
+      "source": "audit/007-t-capture-components.json",
+      "target": "oap/reviews/007-t-capture-components.json",
+      "bytes": 2290,
+      "sha256": "f1f554eaec32f9abae7b3a8ee5d4cb3831db33682384b8467238b3a183edd896"
+    }
+  ],
+  "total_source_bytes": 110669,
+  "note": "Rootauthoredorindependentlyreviewedevidenceimmutablecopy, hashesidentitynotfullsemanticread. OldRreportimmutableREJECTED/Sscopedacceptanceonly/captureCIgateopen. Copyindexunchanged.",
+  "DHA": "NONE"
+}
