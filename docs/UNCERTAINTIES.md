@@ -1080,6 +1080,29 @@ human question.
   the H-era host full-unit failure cause remains
   UNRESOLVED as observed history: no causality is
   invented and no failure is hidden.
+- CI portability exception (Root addenda 1/2, oap/reviews/
+  007-l-ci-size-fixture-addendum-1.md /
+  007-l-ci-size-fixture-addendum-2.md): CI run
+  43209043099 at the original c82e608 implementation
+  failed only at the frozen FILE unit's actual
+  32 MiB+1 fixture-file creation (OSError 27), because
+  the earlier CPUv2 setup unit in the same CI test
+  process lowers its hard RLIMIT_FSIZE to 32 MiB (Root
+  isolated sequence evidence oap/reviews/
+  007-l-root-original-sequence-FSIZE-c82e.json). The
+  repaired unit (current 15,779 B, SHA-256
+  c2b483b77c84f304ead4a6ae5c2ef27e5194c1df6ccd6adbb62992a7904a8df6)
+  keeps one owned real small file and simulates the
+  oversized size at the exact device/inode fstat
+  boundary; it proves pre-read refusal with zero reads
+  and the one-guard-omission read-then-consistency-
+  refusal distinction, and passes under an inherited
+  32 MiB FSIZE in an isolated bounded subprocess. This
+  is a unit fixture simulation, not an actual oversized
+  file; it changes no production guard, limit, CI,
+  workflow, helper, pin or skip, and the other 22
+  frozen files plus all production code remain
+  byte-exact.
 - U04 (CPU query latency, CPU/GPU embedding parity) and
   U07 (license/distribution clearance) remain OPEN; the
   required exclusive GPU FP16 corpus encoding path

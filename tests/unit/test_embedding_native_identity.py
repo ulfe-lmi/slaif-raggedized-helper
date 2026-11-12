@@ -145,11 +145,59 @@ def test_limits_and_path_guards(runtime, tmp_path):
     for entry in (runtime.packages / 'tokenizers').iterdir():
         if entry.name != '__init__.py':
             entry.unlink()
-    with (runtime.packages / 'tokenizers/large').open('wb') as output:
-        output.truncate(identity.MAX_FILE + 1)
-    with pytest.raises(identity.IdentityRefused):
-        identity.predict(runtime)
-    (runtime.packages / 'tokenizers/large').unlink()
+    # Baseline: the unmodified small fixture with the actual fstat predicts
+    # successfully.
+    assert identity.predict(runtime).record_bytes
+    # Unit guard test of the production size guard: the owned real file stays
+    # small, so its creation never exceeds an inherited RLIMIT_FSIZE; the
+    # oversized condition is simulated at the fstat boundary for this one
+    # actual device/inode only. The reported-oversized size is a boundary
+    # simulation, not an actual oversized-file claim.
+    large = runtime.packages / 'tokenizers/large'
+    large.write_bytes(b'fixture')
+    target = (os.stat(large).st_dev, os.stat(large).st_ino)
+    original_fstat = os.fstat
+    original_read = os.read
+
+    def bounded_fstat(fd):
+        result = original_fstat(fd)
+        if (result.st_dev, result.st_ino) == target:
+            values = list(result)
+            values[6] = identity.MAX_FILE + 1
+            return os.stat_result(values)
+        return result
+
+    reads = []
+
+    def bounded_read(fd, nbytes):
+        data = original_read(fd, nbytes)
+        st = original_fstat(fd)
+        if (st.st_dev, st.st_ino) == target:
+            reads.append(len(data))
+        return data
+
+    with mock.patch.object(os, 'fstat', bounded_fstat), \
+            mock.patch.object(os, 'read', bounded_read):
+        # The production size guard must refuse before reading that file.
+        with pytest.raises(identity.IdentityRefused):
+            identity.predict(runtime)
+        assert reads == []
+        # One-guard-omission control: with ONLY the initial size guard removed
+        # in an owned temporary in-memory source copy, the actual file IS read
+        # and the intact bytes-read/st_size consistency guard still refuses.
+        # This demonstrates early refusal, not admission of inconsistent stat
+        # data.
+        source = Path(identity.__file__).read_text()
+        needle = 'or before.st_size > limit'
+        assert source.count(needle) == 1
+        namespace = dict(identity.__dict__)
+        exec(compile(source.replace(needle, 'or False'), identity.__file__,
+                     'exec'), namespace)
+        with pytest.raises(namespace['IdentityRefused']):
+            namespace['predict'](runtime)
+        # The actual read observes the 7 fixture bytes then the 0-byte EOF.
+        assert reads == [len(b'fixture'), 0]
+    large.unlink()
     link = tmp_path / 'alias'
     link.symlink_to(runtime.root, target_is_directory=True)
     with pytest.raises(identity.IdentityRefused):

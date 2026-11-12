@@ -150,7 +150,13 @@
   context/error precedence, bounded no-follow artifact
   identity); the held parent K13 hold is remediated at the
   frozen software + fresh peer (hold history preserved, no
-  human DHA waiver); finite model-free software under the
+  human DHA waiver); one authorized unit-fixture
+  portability exception (Root addenda 1/2) replaces the
+  frozen FILE unit's 32 MiB+1 fixture-file creation with
+  an exact device/inode fstat size boundary under the
+  inherited CI FSIZE cap; all other 22 files and all
+  production limits remain byte-exact; finite model-free
+  software under the
   actual offline fixture, fake/null namespaces, synthetic
   copied entries and the actual native 0.21.4 tokenizer
   worker on synthetic strings, actual BGE UNRUN/

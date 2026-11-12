@@ -350,7 +350,12 @@ token work uses the actual native 0.21.4 tokenizer worker on
 synthetic strings — no real GPU, driver, Tensor, model,
 parity, rights or Ready is established; the GPU text bridge,
 producer, controller and durable GPU execution remain
-unimplemented; whole 007 remains PARTIAL
+unimplemented; one authorized unit-fixture portability
+exception (Root addenda 1/2) replaces the frozen FILE
+unit's 32 MiB+1 fixture-file creation with an exact
+device/inode fstat size boundary under the inherited CI
+FSIZE cap while all other 22 files and all production
+limits stay byte-exact; whole 007 remains PARTIAL
 ([docs/parallel/owned-gpu-worker-api.md](docs/parallel/owned-gpu-worker-api.md),
 [docs/parallel/gpu-worker-identity-api.md](docs/parallel/gpu-worker-identity-api.md),
 [docs/parallel/embedding-native-runtime-identity-api.md](docs/parallel/embedding-native-runtime-identity-api.md),

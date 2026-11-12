@@ -1057,6 +1057,32 @@ Root composed review tree (oap/reviews/
 007-l-parent-native-composed-review-tree.json) is forecast
 evidence, not canonical CI/ICA.
 
+Root addenda 1/2 (oap/reviews/
+007-l-ci-size-fixture-addendum-1.md,
+007-l-ci-size-fixture-addendum-2.md,
+007-l-CI-size-fixture-failure.json,
+007-l-root-original-sequence-FSIZE-c82e.json) record ONE
+authorized unit-only portability exception:
+`tests/unit/test_embedding_native_identity.py` (current
+15,779 B, SHA-256
+c2b483b77c84f304ead4a6ae5c2ef27e5194c1df6ccd6adbb62992a7904a8df6;
+frozen d770 original 13,668 B) no longer creates an actual
+32 MiB+1 fixture file, because the earlier CPUv2 setup
+unit in the same CI test process leaves a 32 MiB hard
+RLIMIT_FSIZE inherited by later units (CI run
+43209043099, OSError 27). It now keeps one owned real
+small regular file and reports st_size as MAX_FILE+1 only
+at the exact device/inode fstat boundary (every other
+descriptor delegates to the original fstat), proves the
+production size guard refuses BEFORE any read of that
+file (zero reads observed), and that an owned in-memory
+one-guard-omission source copy reads the actual file (7
+bytes + 0-byte EOF) before the intact consistency guard
+still refuses. The other 22 indexed files and all
+production code/limits remain byte-exact; no
+CI/workflow/helper/pin change, no skip/xfail, no cap
+raised or reset.
+
 ## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
