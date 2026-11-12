@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-12T11:38:55.435476+00:00",
+  "status": "ACTUAL_PREDECESSOR_ORDER_CAUSES_SAME_OLD_FIXTURE_FAILURE",
+  "log": "audit/007-l-root-original-sequence-FSIZE-c82e.log",
+  "log_sha256": "76d10bad9a54bda0deb8767e5873528a2add8fe69090938877bff265bb20d9ec",
+  "sequence": "Real unchangedtest_cpu_worker_backend_setup_v2::test_runtime_facts_refused_before_install3parametercases thenownedcopyoldc82e nativeFILEsizeguardtest; outerAS1GiBCPU30wall120/noexternallyforcedFSIZE; actualfixturehelpermainsets32MiBFSIZE. 3passed+1expectedfailed1.79s exactOSError27ftruncate.",
+  "limits": "No RootTUI limits changed, no productioncodepatch, no retrospective explanationofunrelatedhostfailures."
+}
