@@ -432,3 +432,197 @@ def test_interrupt_during_final_lease_cleanup_retains_owner(fixture, monkeypatch
     assert _state(args, policy) == "COMPLETE"
     assert producer.produce(*args, lambda *_: "a" * 64, worker_policy=policy).reused
     assert len(starts) == 1
+
+
+@pytest.mark.parametrize("operation_interrupt", [False, True])
+@pytest.mark.parametrize("cleanup_interrupt", [False, True])
+def test_operation_and_journal_cleanup_priority(
+    fixture, monkeypatch, operation_interrupt, cleanup_interrupt
+):
+    from slaif_raggedized_helper import embedding_job_journal
+
+    args, policy, starts = fixture
+    operation = KeyboardInterrupt("operation") if operation_interrupt else ValueError("private")
+    cleanup = KeyboardInterrupt("cleanup") if cleanup_interrupt else OSError("private")
+    original = embedding_job_journal._Owned.__exit__
+    calls = []
+
+    def authorization(_plan, boundary):
+        if boundary == "before_encode":
+            raise operation
+        return "a" * 64
+
+    def close(handle, *values):
+        calls.append(1)
+        original(handle, *values)
+        raise cleanup
+
+    monkeypatch.setattr(embedding_job_journal._Owned, "__exit__", close)
+    owner = None
+    try:
+        with pytest.raises(BaseException) as caught:
+            producer.produce(*args, authorization, worker_policy=policy)
+        expected = operation if operation_interrupt else cleanup if cleanup_interrupt else None
+        if expected is None:
+            assert type(caught.value) is producer.ProducerRefused
+            assert str(caught.value) == "CPU producer refused"
+        else:
+            assert caught.value is expected
+        owner = getattr(caught.value, "cleanup_owner", None) or caught.value.owner
+        assert owner is not None and len(starts) == len(calls) == 1
+    finally:
+        monkeypatch.setattr(embedding_job_journal._Owned, "__exit__", original)
+        if owner is not None:
+            owner.close()
+    assert _state(args, policy) == "FAILED"
+
+
+def test_pre_return_ownership_unknown_is_not_session(fixture, monkeypatch):
+    import os
+    from slaif_raggedized_helper import embedding_job_ownership as ownership
+
+    args, policy, starts = fixture
+    original_claim, original_close = ownership.claim, os.close
+    held, attempts = [], []
+
+    def claim(*values):
+        with monkeypatch.context() as patch:
+
+            def fail_token(_):
+                raise OSError("private acquisition")
+
+            def fail_first(fd):
+                attempts.append(fd)
+                if not held:
+                    held.append(fd)  # failure before actual close
+                    raise OSError("private cleanup")
+                original_close(fd)
+
+            patch.setattr(ownership.secrets, "token_hex", fail_token)
+            patch.setattr(os, "close", fail_first)
+            return original_claim(*values)
+
+    monkeypatch.setattr(ownership, "claim", claim)
+    try:
+        with pytest.raises(producer.ProducerRefused) as caught:
+            producer.produce(*args, lambda *_: "a" * 64, worker_policy=policy)
+        owner = caught.value.owner
+        assert caught.value.pending and owner is not None
+        assert owner.session is None and owner.uncertainty and not starts
+        assert len(attempts) == 3
+        with pytest.raises(producer.ProducerRefused) as repeated:
+            owner.close()
+        assert repeated.value.owner is owner and len(attempts) == 3
+    finally:
+        for fd in held:
+            original_close(fd)
+
+
+@pytest.mark.parametrize("operation_interrupt", [False, True])
+def test_session_cleanup_interrupt_retains_lease(fixture, monkeypatch, operation_interrupt):
+    from slaif_raggedized_helper import cpu_embedding_plan, embedding_job_journal
+
+    args, policy, starts = fixture
+    operation = KeyboardInterrupt("operation") if operation_interrupt else ValueError("private")
+    cleanup = KeyboardInterrupt("cleanup")
+    cls = producer.isolated.IsolatedCPUEmbeddingSession
+    original = cls.close
+    calls = []
+
+    def authorization(_plan, boundary):
+        if boundary == "before_encode":
+            raise operation
+        return "a" * 64
+
+    def close(session):
+        calls.append(1)
+        raise cleanup
+
+    monkeypatch.setattr(cls, "close", close)
+    owner = None
+    try:
+        with pytest.raises(KeyboardInterrupt) as caught:
+            producer.produce(*args, authorization, worker_policy=policy)
+        assert caught.value is (operation if operation_interrupt else cleanup)
+        owner = caught.value.cleanup_owner
+        assert len(starts) == len(calls) == 1
+        prepared = cpu_embedding_plan.build(*args[:11], worker_policy=policy)
+        with pytest.raises(embedding_job_journal.JournalError):
+            with embedding_job_journal.Journal(args[12]).own(prepared.plan_bytes):
+                pass
+    finally:
+        monkeypatch.setattr(cls, "close", original)
+        if owner is not None:
+            owner.close()
+    assert _state(args, policy) == "FAILED"
+
+
+def test_journal_pending_owner_is_not_a_worker_session(fixture, monkeypatch):
+    from slaif_raggedized_helper import embedding_job_journal
+
+    args, policy, starts = fixture
+    cls = embedding_job_journal._Owned
+    original_read = cls.read
+    session_cls = producer.isolated.IsolatedCPUEmbeddingSession
+    original_close = session_cls.close
+    armed, closes, owners = [], [], []
+
+    def read(handle):
+        if armed:
+            handle.pending = True
+            owners.append(handle)
+            error = embedding_job_journal.JournalError("journal refused")
+            error.cleanup_owner = handle
+            raise error
+        return original_read(handle)
+
+    def authorization(_plan, boundary):
+        if boundary == "before_encode":
+            armed.append(1)
+            raise ValueError("private")
+        return "a" * 64
+
+    def close(session):
+        closes.append(1)
+        return original_close(session)
+
+    monkeypatch.setattr(cls, "read", read)
+    monkeypatch.setattr(session_cls, "close", close)
+    with pytest.raises(producer.ProducerRefused) as caught:
+        producer.produce(*args, authorization, worker_policy=policy)
+    owner = caught.value.owner
+    assert len(starts) == len(closes) == 1 and owners
+    assert owner.session is None and owners[0] in owner.uncertainty
+    with pytest.raises(embedding_job_journal.JournalError):
+        owner.close()
+
+
+def test_interrupted_success_path_session_close_is_not_retried(fixture, monkeypatch):
+    from slaif_raggedized_helper import cpu_embedding_plan, embedding_job_journal
+
+    args, policy, starts = fixture
+    cls = producer.isolated.IsolatedCPUEmbeddingSession
+    original = cls.close
+    interrupt = KeyboardInterrupt("session cleanup")
+    calls = []
+
+    def close(session):
+        calls.append(1)
+        raise interrupt
+
+    monkeypatch.setattr(cls, "close", close)
+    owner = None
+    try:
+        with pytest.raises(KeyboardInterrupt) as caught:
+            producer.produce(*args, lambda *_: "a" * 64, worker_policy=policy)
+        assert caught.value is interrupt and len(calls) == len(starts) == 1
+        owner = caught.value.cleanup_owner
+        prepared = cpu_embedding_plan.build(*args[:11], worker_policy=policy)
+        with pytest.raises(embedding_job_journal.JournalError):
+            with embedding_job_journal.Journal(args[12]).own(prepared.plan_bytes):
+                pass
+    finally:
+        monkeypatch.setattr(cls, "close", original)
+        if owner is not None:
+            owner.close()
+    assert _state(args, policy) == "UNKNOWN_COMPLETION"

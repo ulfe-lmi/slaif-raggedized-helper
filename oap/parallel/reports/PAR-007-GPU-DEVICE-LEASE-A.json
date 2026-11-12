@@ -1,0 +1,42 @@
+{
+  "lane_id": "PAR-007-GPU-DEVICE-LEASE-A",
+  "result": "COMPLETE",
+  "implementation_head": "6c29b935b08ee1b3401cf5829a64c92cd62cff8e",
+  "report_publication_commit": "SELF",
+  "DHA": "NONE",
+  "API": "gpu_device_lease.acquire(root, host_id, device_uuid) provides a cooperative actual kernel lease and owner identity. Exact fingerprint domain uses host and device only; cleanup uncertainty is retained and same-key reacquisition refused in-process. Ownership prerequisite attempts all acquired descriptor cleanup and exposes cleanup_owner on uncertainty.",
+  "validation": {
+    "environment": "Python 3.14.4 cached existing environment; PYTHONPATH=src, OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1, parent RLIMIT_AS=1GiB RLIMIT_CPU=30s, each subprocess timeout=120s; no install/network/GPU",
+    "commands": [
+      "python -m pytest tests/unit/test_embedding_job_ownership.py: 12 passed",
+      "python -m pytest tests/integration/test_embedding_job_ownership_composition.py: 1 passed",
+      "python -m pytest tests/unit/test_gpu_device_lease.py: 19 passed",
+      "python -m pytest tests/integration/test_gpu_device_lease_composition.py: 2 passed",
+      "python /tmp/raggedized-root-job-ownership-boundaries.py: PASS",
+      "python /tmp/raggedized-root-job-enter-failure.py: PASS",
+      "python /tmp/raggedized-root-job-interrupted-close.py: PASS",
+      "python /tmp/raggedized-root-gpu-lease-registry.py: PASS",
+      "runpy on original /tmp/raggedized-root-gpu-preflight-causality.py: caught AssertionError from strengthened test when validation bypassed, PASS",
+      "RAYON_NUM_THREADS=1 ruff check affected source and tests: PASS",
+      "git diff --check and git diff --cached --check: PASS"
+    ],
+    "base_ownership_sha256": "4eae9bd6fda46e3d5cde15ad654cf54f0a9b56cdbbfe2c8b2d27900773b53eab",
+    "schema_before_after_sha256": "9fecd1043f6f62b263a78d5ff0726ce0dcb379ffcdaefa225b3c77dfaee736d2"
+  },
+  "sha256": {
+    "src/slaif_raggedized_helper/embedding_job_ownership.py": "708731cd9a76e41df08c1c07e02b78748f90aca72da0bb6e12e5c7ee1977cafe",
+    "src/slaif_raggedized_helper/gpu_device_lease.py": "e22f6d0d44f8369e85653a3fc9572ed5d17c9942a79def23341b9d55a393ab62",
+    "tests/unit/test_embedding_job_ownership.py": "79e8aac53ce43341f0bd02c0584d64ae0644b2617a8722d2a319e65d2b18ce70",
+    "tests/unit/test_gpu_device_lease.py": "1e29e3b54392dd038cecce705f0d6d359e83e2b63816eb25b0a0411222a52b99",
+    "tests/integration/test_embedding_job_ownership_composition.py": "e0bfaa9b67c5fafff4e8be424e3f5540dc35d9110de270ddba1daacdb58c5fd4",
+    "tests/integration/test_gpu_device_lease_composition.py": "dd773af29e1748e11a1e3a5f359bccef03c8698260d0a2dc721f35873fae5d67",
+    "docs/parallel/embedding-job-ownership-api.md": "39f9b60127967df3ff5c1799278065f00b86ee53d34dcbedd5f0b7d0d2b79086",
+    "docs/parallel/gpu-device-lease-api.md": "ff12dcbdd5b157597e7038784f7e71a7f442432ae6e63f42bdff4861f7da0b60",
+    "/tmp/raggedized-root-job-ownership-boundaries.py": "e7ebdd6c4fa154d5d8c713df4ace6be068b09edb6e078eba2b1511977c681146",
+    "/tmp/raggedized-root-job-enter-failure.py": "73cc14d2fb8ff2bc465254599756784a7ae03241ebb15a9cc3fcd40dcf0600d8",
+    "/tmp/raggedized-root-job-interrupted-close.py": "f1ab20e4fe3cbcbf88387f0e603ab38312ff5c23d148c3d7a395e9876e657420",
+    "/tmp/raggedized-root-gpu-lease-registry.py": "8fa3a5612c615081a75d38f4774c1886ca9f7baacbdf1d0ca63b4e857db82f97",
+    "/tmp/raggedized-root-gpu-preflight-causality.py": "9c1708aa5435930cde8d1d38ca1094d44c1d9f1cf1496ad951695adfb8fbbe1a"
+  },
+  "limits": "Cooperative shared trusted local root and protected host/device configuration only; other roots, processes after restart and noncooperators are not excluded. Uncertain cleanup is not proof of continued kernel or physical ownership, and no blind descriptor retries occur. No GPU, hardware, runtime, worker lifecycle, ACL/security, license, current rights, ICA, full MVP or production qualification; whole 007 remains PARTIAL. Canonical integration and affected producer/journal review remain open."
+}

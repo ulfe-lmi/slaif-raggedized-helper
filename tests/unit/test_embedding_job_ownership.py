@@ -160,3 +160,129 @@ def test_interrupted_close_closes_descriptors(tmp_path, monkeypatch):
             os.fstat(fd)
     with claim(tmp_path, JOB) as current:
         current.assert_owned()
+
+
+def test_acquisition_cleanup_attempts_all_and_retains_uncertainty(tmp_path, monkeypatch):
+    from slaif_raggedized_helper import embedding_job_ownership as m
+
+    with claim(tmp_path, JOB) as positive:
+        positive.assert_owned()
+    sentinel = os.open(tmp_path / 'sentinel', os.O_CREAT | os.O_RDWR, 0o600)
+    real_close = os.close
+    calls = []
+    def fail_one(fd):
+        calls.append(fd)
+        real_close(fd)
+        if len(calls) == 1:
+            raise OSError('private')
+    def fail_token(_n):
+        raise KeyboardInterrupt('original')
+    try:
+        with monkeypatch.context() as patch:
+            patch.setattr(m.secrets, 'token_hex', fail_token)
+            patch.setattr(m.os, 'close', fail_one)
+            with pytest.raises(KeyboardInterrupt, match='original') as caught:
+                claim(tmp_path, JOB)
+        owner = caught.value.cleanup_owner
+        assert owner.pending and len(calls) == 3 and len(set(calls)) == 3
+        assert sentinel not in calls
+        os.fstat(sentinel)
+        assert [a[2] for a in owner.attempts] == ['unknown', 'done', 'done']
+        with claim(tmp_path, JOB) as positive:
+            positive.assert_owned()
+    finally:
+        real_close(sentinel)
+
+
+def test_new_cleanup_interrupt_has_priority_and_is_sticky(tmp_path, monkeypatch):
+    from slaif_raggedized_helper import embedding_job_ownership as m
+
+    lease = claim(tmp_path, JOB)
+    handles = (lease._fd, lease._dirfd, lease._rootfd)
+    real_close = os.close
+    calls = []
+    def interrupt(fd):
+        calls.append(fd)
+        real_close(fd)
+        if len(calls) == 1:
+            raise KeyboardInterrupt('cleanup interrupt')
+    with monkeypatch.context() as patch:
+        patch.setattr(m.os, 'close', interrupt)
+        with pytest.raises(KeyboardInterrupt, match='cleanup interrupt') as caught:
+            lease.close()
+    assert set(calls) == set(handles)
+    assert caught.value.cleanup_owner is lease.cleanup_owner
+    with pytest.raises(OwnershipRefused) as pending:
+        lease.close()
+    assert pending.value.cleanup_owner is lease.cleanup_owner
+
+
+def test_acquisition_new_cleanup_interrupt_beats_ordinary(tmp_path, monkeypatch):
+    from slaif_raggedized_helper import embedding_job_ownership as m
+
+    with claim(tmp_path, JOB):
+        pass
+    real_close = os.close
+    calls = []
+    def interrupt(fd):
+        calls.append(fd)
+        real_close(fd)
+        if len(calls) == 1:
+            raise KeyboardInterrupt('new interrupt')
+    def fail(_n):
+        raise OSError('private acquisition failure')
+    with monkeypatch.context() as patch:
+        patch.setattr(m.secrets, 'token_hex', fail)
+        patch.setattr(m.os, 'close', interrupt)
+        with pytest.raises(KeyboardInterrupt, match='new interrupt') as caught:
+            claim(tmp_path, JOB)
+    assert len(calls) == 3
+    assert caught.value.cleanup_owner.pending
+    with claim(tmp_path, JOB):
+        pass
+
+
+def test_acquisition_close_fails_before_close_retains_exact_owned_fd(tmp_path, monkeypatch):
+    from slaif_raggedized_helper import embedding_job_ownership as m
+
+    with claim(tmp_path, JOB) as positive:
+        positive.assert_owned()
+    sentinel = os.open(tmp_path / 'sentinel', os.O_CREAT | os.O_RDWR, 0o600)
+    real_close = os.close
+    calls = []
+    retained = []
+    def fail_before_close(fd):
+        calls.append(fd)
+        if len(calls) == 1:
+            st = os.fstat(fd)
+            retained.append((fd, st.st_dev, st.st_ino))
+            raise OSError('before close')
+        real_close(fd)
+    def interrupt(_n):
+        raise KeyboardInterrupt('original interrupt')
+    try:
+        with monkeypatch.context() as patch:
+            patch.setattr(m.os, 'close', fail_before_close)
+            patch.setattr(m.secrets, 'token_hex', interrupt)
+            with pytest.raises(KeyboardInterrupt, match='original interrupt') as caught:
+                claim(tmp_path, JOB)
+        owner = caught.value.cleanup_owner
+        assert owner.pending
+        assert len(calls) == 3 and len(set(calls)) == 3 and sentinel not in calls
+        assert [item[2] for item in owner.attempts] == ['unknown', 'done', 'done']
+        fd, dev, ino = retained[0]
+        st = os.fstat(fd)
+        assert (st.st_dev, st.st_ino) == (dev, ino)
+        os.fstat(sentinel)
+        # No cleanup retry is made by inspection or by the retained owner.
+        assert len(calls) == 3
+    finally:
+        if retained:
+            fd, dev, ino = retained[0]
+            try:
+                st = os.fstat(fd)
+                if (st.st_dev, st.st_ino) == (dev, ino):
+                    real_close(fd)
+            except OSError:
+                pass
+        real_close(sentinel)

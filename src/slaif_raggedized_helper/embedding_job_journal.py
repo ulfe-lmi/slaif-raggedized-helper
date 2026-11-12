@@ -7,6 +7,7 @@ import os
 import re
 import secrets
 import stat
+import sys
 import time
 
 from . import derived_store, embedding_batch_store as batch, embedding_job_ownership as ownership
@@ -23,8 +24,11 @@ def _private(fn):
     def wrapped(*args, **kwargs):
         try:
             return fn(*args, **kwargs)
-        except Exception:
-            raise JournalError("journal refused") from None
+        except Exception as exc:
+            error = JournalError("journal refused")
+            if getattr(exc, "cleanup_owner", None) is not None:
+                error.cleanup_owner = exc.cleanup_owner
+            raise error from None
 
     return wrapped
 
@@ -163,6 +167,10 @@ class _Owned:
         self.pid = os.getpid()
         self.active = False
         self.name = spec.job_id[7:]
+        self.cleanup_attempts = []
+        self.pending_owners = []
+        self.pending = False
+        self._cleanup_started = False
 
     @_private
     def __enter__(self):
@@ -212,11 +220,24 @@ class _Owned:
                 self._commit(initial, None)
             return self
         except BaseException as exc:
+            nested = getattr(exc, "cleanup_owner", None)
+            if nested is not None:
+                if nested is not self:
+                    self.pending_owners.append(nested)
+                self.pending = True
             try:
                 self._close()
-            except BaseException:
+            except BaseException as cleanup:
                 exc.add_note("journal cleanup failed")
+                if isinstance(exc, Exception) and not isinstance(cleanup, Exception):
+                    self._attach(cleanup)
+                    raise cleanup from None
+            self._attach(exc)
             raise
+
+    def _attach(self, error):
+        if self.pending:
+            error.cleanup_owner = self
 
     def __exit__(self, typ, exc, tb):
         try:
@@ -224,55 +245,90 @@ class _Owned:
         except BaseException as failure:
             if exc is not None:
                 exc.add_note("journal cleanup failed")
+                self._attach(exc)
+                if isinstance(exc, Exception) and not isinstance(failure, Exception):
+                    self._attach(failure)
+                    raise failure from None
             elif isinstance(failure, Exception):
-                raise JournalError("journal refused") from None
+                error = JournalError("journal refused")
+                self._attach(error)
+                raise error from None
             else:
+                self._attach(failure)
                 raise
 
     def _close(self):
         self.active = False
-        failure = None
-        try:
-            if self.lease is not None:
+        if self._cleanup_started:
+            if self.pending:
+                error = JournalError("journal cleanup pending or unknown")
+                self._attach(error)
+                raise error
+            return
+        self._cleanup_started = True
+        failures = []
+        if self.lease is not None:
+            try:
                 self.lease.close()
-        except BaseException as exc:
-            failure = exc
+            except BaseException as exc:
+                failures.append(exc)
+                self.cleanup_attempts.append(("lease", "unknown"))
+                nested = getattr(exc, "cleanup_owner", None)
+                if nested is not None:
+                    self.pending_owners.append(nested)
+            else:
+                self.cleanup_attempts.append(("lease", "done"))
+                self.lease = None
         for name in ("dirfd", "rootfd"):
             fd = getattr(self, name)
             if fd is None:
                 continue
-            try:
-                original = os.fstat(fd)
-            except OSError:
-                setattr(self, name, None)
-                continue
+            # A failed close has an unknown outcome. Never retry the number: it
+            # may already identify a different open description of the same inode.
             try:
                 os.close(fd)
             except BaseException as exc:
-                if failure is None or (
-                    isinstance(failure, Exception) and not isinstance(exc, Exception)
-                ):
-                    failure = exc
-                # An interrupted close may or may not have closed the descriptor.
-                # Retry only if it still identifies the same open directory.
-                try:
-                    current = os.fstat(fd)
-                    if (current.st_dev, current.st_ino) == (original.st_dev, original.st_ino):
-                        os.close(fd)
-                except BaseException:
-                    pass
-            try:
-                current = os.fstat(fd)
-            except OSError:
-                setattr(self, name, None)
+                failures.append(exc)
+                self.cleanup_attempts.append((name, fd, "unknown"))
             else:
-                if (current.st_dev, current.st_ino) != (original.st_dev, original.st_ino):
-                    setattr(self, name, None)
-        if failure is not None:
+                self.cleanup_attempts.append((name, fd, "done"))
+            finally:
+                setattr(self, name, None)
+        if failures:
+            self.pending = True
+            failure = next((e for e in failures if not isinstance(e, Exception)), failures[0])
+            self._attach(failure)
             raise failure
+        if self.pending:
+            error = JournalError("journal cleanup pending or unknown")
+            self._attach(error)
+            raise error
+
+    def _close_file(self, fd, label):
+        try:
+            os.close(fd)
+        except BaseException as exc:
+            self.cleanup_attempts.append((label, fd, "unknown"))
+            self.pending = True
+            self._attach(exc)
+            raise
+        else:
+            self.cleanup_attempts.append((label, fd, "done"))
+
+    def _finish_cleanup(self, original, failures):
+        if not failures:
+            return
+        failure = next((e for e in failures if not isinstance(e, Exception)), failures[0])
+        if original is not None:
+            original.add_note("journal cleanup failed")
+            self._attach(original)
+            if not isinstance(original, Exception) or isinstance(failure, Exception):
+                return
+        self._attach(failure)
+        raise failure from None
 
     def _assert(self):
-        if not self.active or os.getpid() != self.pid:
+        if not self.active or self.pending or os.getpid() != self.pid:
             raise JournalError("journal refused")
         self.lease.assert_owned()
         _checked_file(os.fstat(self.rootfd), 0o700, stat.S_ISDIR)
@@ -368,7 +424,13 @@ class _Owned:
             obj = self._validate(raw)
             return obj, hashlib.sha256(raw).hexdigest()
         finally:
-            os.close(fd)
+            original = sys.exception()
+            failures = []
+            try:
+                self._close_file(fd, "read")
+            except BaseException as exc:
+                failures.append(exc)
+            self._finish_cleanup(original, failures)
 
     def _commit(self, envelope, expected):
         raw = _json(envelope)
@@ -393,8 +455,8 @@ class _Owned:
                     raise OSError("short write")
                 view = view[n:]
             os.fsync(fd)
-            os.close(fd)
-            fd = None
+            closing, fd = fd, None
+            self._close_file(closing, "stage")
             self._assert()
             stage_st = os.stat(name, dir_fd=self.dirfd, follow_symlinks=False)
             if (stage_st.st_dev, stage_st.st_ino) != stage_identity:
@@ -409,14 +471,24 @@ class _Owned:
             os.fsync(self.dirfd)
             return self.read()
         finally:
+            original = sys.exception()
+            failures = []
             if fd is not None:
-                os.close(fd)
+                try:
+                    self._close_file(fd, "stage")
+                except BaseException as exc:
+                    failures.append(exc)
             try:
                 st = os.stat(name, dir_fd=self.dirfd, follow_symlinks=False)
                 if stage_identity is not None and (st.st_dev, st.st_ino) == stage_identity:
                     os.unlink(name, dir_fd=self.dirfd)
             except FileNotFoundError:
                 pass
+            except BaseException as exc:
+                self.cleanup_attempts.append(("stage-unlink", "unknown"))
+                self.pending = True
+                failures.append(exc)
+            self._finish_cleanup(original, failures)
 
     def _output(self, store, metadata_bytes, container_id):
         if type(store) is not derived_store.Store:

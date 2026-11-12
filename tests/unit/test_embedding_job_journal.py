@@ -315,10 +315,13 @@ def test_interrupted_and_private_cleanup(tmp_path, monkeypatch):
     monkeypatch.setattr(os, "close", interrupt)
     with pytest.raises(KeyboardInterrupt):
         handle.__exit__(None, None, None)
-    for fd in (directory, root):
-        with pytest.raises(OSError):
-            os.fstat(fd)
+    os.fstat(directory)  # the injected failure occurred before close
+    with pytest.raises(OSError):
+        os.fstat(root)
     monkeypatch.setattr(os, "close", realclose)
+    with pytest.raises(journal.JournalError):
+        handle._close()
+    realclose(directory)
     with journal.Journal(tmp_path).own(wire(plan())):
         pass
     handle = journal.Journal(tmp_path).own(wire(plan()))
@@ -338,9 +341,12 @@ def test_interrupted_and_private_cleanup(tmp_path, monkeypatch):
         assert secret not in traceback.format_exc()
     else:
         pytest.fail("expected cleanup refusal")
-    assert handle.dirfd == directory
+    assert handle.dirfd is None and handle.pending
     monkeypatch.setattr(os, "close", realclose)
-    handle._close()
+    with pytest.raises(journal.JournalError):
+        handle._close()
+    os.fstat(directory)
+    realclose(directory)
     with pytest.raises(OSError):
         os.fstat(directory)
     with journal.Journal(tmp_path).own(wire(plan())):
@@ -364,7 +370,9 @@ def test_body_exception_survives_cleanup_failure(tmp_path, monkeypatch):
             raise RuntimeError("body")
     assert caught.value.__notes__ == ["journal cleanup failed"]
     monkeypatch.setattr(os, "close", realclose)
-    handle._close()
+    with pytest.raises(journal.JournalError):
+        handle._close()
+    realclose(directory)  # the injected failure did not call close
 
 
 def test_valid_history_reaches_event_limit(tmp_path):
@@ -526,6 +534,7 @@ def test_failed_entry_interrupted_close_preserves_interrupt(tmp_path, monkeypatc
     actual_close = os.close
     handle = journal.Journal(tmp_path).own(wire(plan()))
     fired = False
+    held = []
 
     def fail_sync(fd):
         if fd == handle.rootfd:
@@ -536,6 +545,7 @@ def test_failed_entry_interrupted_close_preserves_interrupt(tmp_path, monkeypatc
         nonlocal fired
         if fd == handle.dirfd and not fired:
             fired = True
+            held.append(fd)
             raise OSError("cleanup failure")
         actual_close(fd)
 
@@ -547,5 +557,221 @@ def test_failed_entry_interrupted_close_preserves_interrupt(tmp_path, monkeypatc
     assert handle.rootfd is None and handle.dirfd is None
     monkeypatch.setattr(os, "fsync", actual_fsync)
     monkeypatch.setattr(os, "close", actual_close)
+    assert caught.value.cleanup_owner is handle
+    assert len(held) == 1
+    with pytest.raises(journal.JournalError):
+        handle._close()
+    actual_close(held[0])
     with journal.Journal(tmp_path).own(wire(plan())):
         pass
+
+
+@pytest.mark.parametrize("operation_interrupt", [False, True])
+@pytest.mark.parametrize("cleanup_interrupt", [False, True])
+def test_entry_cleanup_priority_and_attempts(
+    tmp_path, monkeypatch, operation_interrupt, cleanup_interrupt
+):
+    tmp_path.chmod(0o700)
+    with journal.Journal(tmp_path).own(wire(plan())) as positive:
+        assert positive.read()[0]["events"][0]["state"]["status"] == "PENDING"
+    handle = journal.Journal(tmp_path).own(wire(plan()))
+    operation = KeyboardInterrupt("operation") if operation_interrupt else ValueError("private")
+    cleanup = KeyboardInterrupt("cleanup") if cleanup_interrupt else OSError("private")
+    actual_close = os.close
+    attempted, held = [], []
+
+    def fail_sync(fd):
+        if fd == handle.rootfd:
+            raise operation
+
+    def fail_close(fd):
+        if fd == handle.dirfd:
+            attempted.append("directory")
+            held.append(fd)  # fault is known to occur before close
+            raise cleanup
+        if fd == handle.rootfd:
+            attempted.append("root")
+        actual_close(fd)
+
+    monkeypatch.setattr(os, "fsync", fail_sync)
+    monkeypatch.setattr(os, "close", fail_close)
+    try:
+        with pytest.raises(BaseException) as caught:
+            handle.__enter__()
+        expected = operation if operation_interrupt else cleanup if cleanup_interrupt else None
+        if expected is None:
+            assert type(caught.value) is journal.JournalError
+            assert str(caught.value) == "journal refused"
+        else:
+            assert caught.value is expected
+        assert caught.value.cleanup_owner is handle
+        assert attempted == ["directory", "root"]
+        assert handle.cleanup_attempts[-2:] == [
+            ("dirfd", held[0], "unknown"),
+            ("rootfd", handle.cleanup_attempts[-1][1], "done"),
+        ]
+        with pytest.raises(journal.JournalError) as repeated:
+            handle._close()
+        assert repeated.value.cleanup_owner is handle
+        assert attempted == ["directory", "root"]
+    finally:
+        monkeypatch.setattr(os, "close", actual_close)
+        for fd in held:
+            actual_close(fd)
+
+
+def test_same_inode_replacement_is_not_reclosed(tmp_path, monkeypatch):
+    tmp_path.chmod(0o700)
+    handle = journal.Journal(tmp_path).own(wire(plan()))
+    handle.__enter__()
+    handle.read()
+    target, rootfd = handle.dirfd, handle.rootfd
+    actual_close = os.close
+    replacement, calls = [], []
+
+    def replace(fd):
+        calls.append(fd)
+        actual_close(fd)
+        if fd == target:
+            other = os.open(tmp_path / "embedding_job_journals", os.O_RDONLY | os.O_DIRECTORY)
+            if other != target:
+                os.dup2(other, target)
+                actual_close(other)
+            replacement.append(target)
+            raise OSError("close completed")
+
+    try:
+        monkeypatch.setattr(os, "close", replace)
+        with pytest.raises(journal.JournalError) as caught:
+            handle.__exit__(None, None, None)
+        assert caught.value.cleanup_owner is handle
+        assert calls.count(target) == calls.count(rootfd) == 1
+        assert os.fstat(target).st_ino == (tmp_path / "embedding_job_journals").stat().st_ino
+        with pytest.raises(journal.JournalError):
+            handle.__exit__(None, None, None)
+        assert calls.count(target) == 1
+        os.fstat(target)
+    finally:
+        monkeypatch.setattr(os, "close", actual_close)
+        if replacement:
+            actual_close(replacement[0])
+
+
+def test_read_close_interrupt_priority_and_owner(tmp_path, monkeypatch):
+    tmp_path.chmod(0o700)
+    handle = journal.Journal(tmp_path).own(wire(plan()))
+    handle.__enter__()
+    assert handle.read()[0]["events"]
+    actual_read, actual_close = os.read, os.close
+    held, calls = [], []
+    interrupt = KeyboardInterrupt("cleanup")
+
+    def bad_read(fd, size):
+        held.append(fd)
+        raise ValueError("private operation")
+
+    def bad_close(fd):
+        calls.append(fd)
+        if fd in held:
+            raise interrupt
+        actual_close(fd)
+
+    try:
+        monkeypatch.setattr(os, "read", bad_read)
+        monkeypatch.setattr(os, "close", bad_close)
+        with pytest.raises(KeyboardInterrupt) as caught:
+            handle.read()
+        assert caught.value is interrupt and caught.value.cleanup_owner is handle
+        assert calls.count(held[0]) == 1
+        with pytest.raises(journal.JournalError) as exit_error:
+            handle.__exit__(None, None, None)
+        assert exit_error.value.cleanup_owner is handle
+        assert calls.count(held[0]) == 1
+    finally:
+        monkeypatch.setattr(os, "read", actual_read)
+        monkeypatch.setattr(os, "close", actual_close)
+        for fd in held:
+            actual_close(fd)
+
+
+@pytest.mark.parametrize("body_interrupt", [False, True])
+@pytest.mark.parametrize("cleanup_interrupt", [False, True])
+def test_body_and_exit_cleanup_priority(tmp_path, monkeypatch, body_interrupt, cleanup_interrupt):
+    tmp_path.chmod(0o700)
+    handle = journal.Journal(tmp_path).own(wire(plan()))
+    body = KeyboardInterrupt("body") if body_interrupt else ValueError("body")
+    cleanup = KeyboardInterrupt("cleanup") if cleanup_interrupt else OSError("private")
+    actual_close = os.close
+    held, calls = [], []
+    try:
+        with pytest.raises(BaseException) as caught:
+            with handle:
+                assert handle.read()[0]["events"]
+                directory, rootfd = handle.dirfd, handle.rootfd
+
+                def fail(fd):
+                    calls.append(fd)
+                    if fd == directory:
+                        held.append(fd)
+                        raise cleanup
+                    actual_close(fd)
+
+                monkeypatch.setattr(os, "close", fail)
+                raise body
+        assert caught.value is (cleanup if cleanup_interrupt and not body_interrupt else body)
+        assert caught.value.cleanup_owner is handle
+        assert calls.count(directory) == calls.count(rootfd) == 1
+        with pytest.raises(journal.JournalError):
+            handle._close()
+        assert calls.count(directory) == 1
+    finally:
+        monkeypatch.setattr(os, "close", actual_close)
+        for fd in held:
+            actual_close(fd)
+
+
+def test_stage_close_unknown_is_not_retried(tmp_path, monkeypatch):
+    tmp_path.chmod(0o700)
+    handle = journal.Journal(tmp_path).own(wire(plan()))
+    handle.__enter__()
+    _, revision = handle.read()
+    actual_open, actual_close = os.open, os.close
+    stage = []
+    replacement = []
+    calls = []
+
+    def track_open(path, *args, **kwargs):
+        fd = actual_open(path, *args, **kwargs)
+        if isinstance(path, str) and path.startswith(".stage-"):
+            stage.append((fd, path))
+        return fd
+
+    def replace(fd):
+        if stage:
+            calls.append(fd)
+        actual_close(fd)
+        if stage and fd == stage[0][0] and not replacement:
+            other = actual_open(stage[0][1], os.O_RDONLY, dir_fd=handle.dirfd)
+            if other != fd:
+                os.dup2(other, fd)
+                actual_close(other)
+            replacement.append(fd)
+            raise OSError("close completed")
+
+    try:
+        monkeypatch.setattr(os, "open", track_open)
+        monkeypatch.setattr(os, "close", replace)
+        with pytest.raises(journal.JournalError) as caught:
+            handle.append(state(handle.spec.job_id, "CLAIMED", handle.owner_id), None, revision)
+        assert caught.value.cleanup_owner is handle
+        assert len(stage) == len(replacement) == 1 and calls.count(stage[0][0]) == 1
+        os.fstat(replacement[0])
+        with pytest.raises(journal.JournalError):
+            handle.__exit__(None, None, None)
+        assert calls.count(stage[0][0]) == 1
+        os.fstat(replacement[0])
+    finally:
+        monkeypatch.setattr(os, "open", actual_open)
+        monkeypatch.setattr(os, "close", actual_close)
+        for fd in replacement:
+            actual_close(fd)
