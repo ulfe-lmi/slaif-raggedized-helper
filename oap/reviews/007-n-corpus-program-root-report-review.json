@@ -1,0 +1,62 @@
+{
+  "at": "2026-11-12T13:42:20.122896+00:00",
+  "status": "LOCAL_REPORT_RECONCILED_ROOT_SOFTWARE_REVIEW_PASS_PEER_PENDING",
+  "identity": {
+    "lane": "corpus-program",
+    "lane_id": "PAR-007-CORPUS-PROGRAM-A",
+    "implementation": "38db71e4af4fbfce585a241938e331985bf4e661",
+    "base": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+    "effective_base": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+    "preparation_heads": [],
+    "paths": [
+      "docs/parallel/corpus-embedding-program-api.md",
+      "docs/parallel/corpus-embedding-program-design.md",
+      "oap/parallel/orders/PAR-007-CORPUS-PROGRAM-A.md",
+      "src/slaif_raggedized_helper/corpus_embedding_program.py",
+      "src/slaif_raggedized_helper/retrieval_representation.py",
+      "tests/integration/test_corpus_embedding_program_composition.py",
+      "tests/unit/test_corpus_embedding_program.py"
+    ],
+    "order_sha256": "ebc28e5d87b3964fe187fdcc0a31f380ccc6e353abb78f965d3550fe72811c75",
+    "at": "2026-11-12T13:42:20.120567+00:00",
+    "reader_pid": 3454217,
+    "scope": "Implementation checkpoint only. Root review required; no acceptance or report yet."
+  },
+  "source_hashes": {
+    "docs/parallel/corpus-embedding-program-api.md": "2e397c9c113710c9c36fcb9d37bda2ba294484a8a097cf2a1e2ea0207a243e4f",
+    "docs/parallel/corpus-embedding-program-design.md": "241a318126c3f72c22556335c9d392527b8718dce6c487c30cdd5edb78f29d04",
+    "oap/parallel/orders/PAR-007-CORPUS-PROGRAM-A.md": "ebc28e5d87b3964fe187fdcc0a31f380ccc6e353abb78f965d3550fe72811c75",
+    "src/slaif_raggedized_helper/corpus_embedding_program.py": "5d5302d56f76f348a1e96c5fe8c9ea02e44b4321d4c76e039de2ed7a92b721aa",
+    "src/slaif_raggedized_helper/retrieval_representation.py": "ce48363bc620a941516188777d58d1d3866dd8ac5e9ad0b881702aa1bfeeecbc",
+    "tests/integration/test_corpus_embedding_program_composition.py": "598045f52e24b2199bdee5f8b3f93219764cff5932d0745e1cdb5206fb961c59",
+    "tests/unit/test_corpus_embedding_program.py": "f826b8fed217898abeb6d0c1888eafc7d7c3e13986167b407ff8d32706236dfd"
+  },
+  "review": "Previous complete8077 source/API/tests/contract review retained; entire38db source/test/API delta independently read. CP1 remaining chars before join restored; CP2 minimum next source plus required row/batch budget checked before actual load; pending batch exact serialized delta reserved before retained row. Minimum is budget lower bound only. Source DATA only, no rights/native/model/Ready claim. No other scope or production guard change.",
+  "tests": {
+    "007-corpus-program-root-units-38db.log": {
+      "sha256": "ce14544b7226ea913fc18a7cd41aa33b89886433100a208cd02546c066bd488f",
+      "output": "............................\n"
+    },
+    "007-corpus-program-root-byte-boundary-38db.log": {
+      "sha256": "10c5dfbb8bb45193cd6190b0da7160e22f2c2944909aae443418bea077385261",
+      "output": "next source refused before load at byte boundary\n.\n"
+    },
+    "007-corpus-program-root-char-boundary-38db.log": {
+      "sha256": "07948e4e33af4ede8a6839713c0d0626d61e3c4948274b08107d6d8b035e8fda",
+      "output": "old and factored both join once before refusal\n.\n"
+    },
+    "007-corpus-program-root-large-38db.log": {
+      "sha256": "aed970bee16bbde7cbb095152283c7b277433e80fa68836795512648ee851f46",
+      "output": "actual rows/batches: 642 14\n.\n"
+    },
+    "007-corpus-program-root-normal-38db.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    }
+  },
+  "strongest_counterargument": "Program is DATA and does not execute or authorize corpus work; current 642-row/14batch actual test and exact two repaired negative boundaries support bounded planner only. Peer/canonical integration/current CI remain before integration acceptance.",
+  "DHA": "NONE",
+  "report_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+  "report_sha256": "705ad6d2b32efd628ed4b02813b0741dd8654399a861a28d1b2dbd858de2da91",
+  "report_review": "All7 exact source hashes/all5Rootlog hashes/witnessidentity verified. SELF/reportonly/soleimplementation38db/baseb0ca/order/cleanbranch verified bypurelaneverify. Fullreportread, boundedclaims/previousfailure/currentrights/NOT_RUN/nohardware/noMVP accurate. No remoteCIclaim. Need opposite-agent finite peer before integration."
+}

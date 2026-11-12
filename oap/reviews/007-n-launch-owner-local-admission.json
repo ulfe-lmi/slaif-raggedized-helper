@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-12T13:00:05.996519+00:00",
+  "decision": "ACCEPT_LOCAL_CANDIDATE_AS_EXACT_PRODUCER_PREREQUISITE",
+  "candidate_report_commit": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+  "candidate_implementation": "5a1bbff4321502240ecbe0c3cd1ae689426458ef",
+  "peer": "parallel/audit-launch-preparation-owner/review.json cba97e61 finaloppositeagent",
+  "Root": "audit/007-launch-owner-source-review-5a1b.json and audit/007-launch-owner-peer-root-review-cba9.json",
+  "scope": "ONE exact clean preparation merge into unfinishedproducerd100 after scoped reader refresh; no canonicalintegration/CIacceptance/mainmerge/modelGPU/rights/license/ICA/MVP grant",
+  "DHA": "NONE"
+}

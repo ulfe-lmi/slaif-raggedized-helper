@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-12T16:58:00.084322+00:00",
+  "status": "EXACT_CURRENT_M_PLUS_PROPOSED_N_SOURCE_EQUIVALENCE_VERIFIED_NOT_ACTIVATION_OR_EXECUTION",
+  "current_M_report": "e9ee12568fdfbfd9f122ceb3ed0d15690b4dbbfa",
+  "executor_reference": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+  "shared_production_modules": 83,
+  "shared_equal": true,
+  "canonical_only_retained": [
+    "src/slaif_raggedized_helper/raw_snapshot_manifest.py",
+    "src/slaif_raggedized_helper/raw_snapshot_rows.py"
+  ],
+  "indexed_existing_source_replacements": [
+    "src/slaif_raggedized_helper/gpu_worker_launch.py",
+    "src/slaif_raggedized_helper/retrieval_representation.py"
+  ],
+  "indexed_files": 21,
+  "indexed_bytes": 335687,
+  "both_L_test_exceptions_verified_unchanged": true,
+  "Root_preflight_correction": "Earlier inert draft named only retrieval_representation as existing replacement. Actual M tree shows gpu_worker_launch also existing; N must explicitly name BOTH exact reviewed extensions. Root initial precheck used too restrictive only-one assertion and stopped before any mutation; all83 common production blobs actually equal. Module census counts Python modules only. No product failure.",
+  "limits": "Source correspondence only, not current execution/CI or neural/hardware/current-rights qualification. FinalMresolution/normalresponse/livepreflight required.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-12T15:58:02.463066+00:00",
+  "implementation": "c74407f10ebaf429b233a6d9f6da67a0f367e5e4",
+  "status": "ROOT_FOCUSED_LOCAL_CHECKS_PASS_CURRENT_REPORT_CI_PENDING",
+  "checks": [
+    "13 current unit cases: bridge7+sourceplan2+normalization4",
+    "actual native instance-shadow dispatch refusal",
+    "actual source-bound GPU plan space guard original control"
+  ],
+  "limits": "Each existing invocation CPU30/AS1GiB/wall120, all five thread variables1; cached native tokenizer/copied GPU fake only. No entire suite, actual neural/FP16/rights/hardware/security/quality proof or report/CI acceptance. Prior-turn tools observed exit0; dot-only raw pytest logs retained, not invented summary counts.",
+  "logs": [
+    {
+      "path": "audit/007-m-root-units-c744.log",
+      "bytes": 14,
+      "sha256": "6427721df8927df3f8c982527a937aacfa93daafc513c776af919f70e092e5b7"
+    },
+    {
+      "path": "audit/007-m-root-bridge-shadow-c744.log",
+      "bytes": 82,
+      "sha256": "d3a89d186d7bdc0b633d04330dc8e81b1f3ede4386a1e62369796536d00b40aa"
+    },
+    {
+      "path": "audit/007-m-root-plan-space-c744.log",
+      "bytes": 89,
+      "sha256": "9d38e3e699c4718faf843c0acd029e1336f2b8449da173ce40118114c584e0d4"
+    }
+  ],
+  "source_review": "audit/007-m-current-source-review-c744.json",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

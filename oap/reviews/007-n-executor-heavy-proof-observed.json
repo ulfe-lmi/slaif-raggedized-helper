@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T14:15:16.385351+00:00",
+  "status": "AUTHOR_ONE_APPROVED_ACTUAL_SYNTHETIC_DRIVER_PASS_OBSERVED_NOT_IMPLEMENTATION_ACCEPTANCE",
+  "approved_budget": "parallel/corpus-executor/root-heavy-budget-decision.json",
+  "logs": {
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/corpus-executor/heavy-proof.log": "b3caaf5dd57ba505a45c96a72b4088389fa5fa5d5773eceaa09fa8751518b924",
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/corpus-executor/heavy-proof-time.txt": "ac20e5290b838c755b0264e092c8ce1d231e7b80c759d6495cedca35b4803c0b"
+  },
+  "Root_inspection": "Fullheavylogandtime read, hashes verified. Actual5rows/2batches3,2, realfirstCOMPLETEthenStop, freshcreator actualfirstreuse+remainingnew, thenactualallreusewithparentforbidden; samefirstjob/output preserved. ActualCPU/nativefullrecords shared. Fakebackendharness hash9ce60f40 matches existing approved synthetic worker. Perphase childcommands printed, exit0.",
+  "measures": "DriverstopSELFdelta0.053+CHILDREN40.249/wall41.114; finalSELF0.134+CHILDREN102.581=102.715CPU/wall104.983. GNUtimeuser96.31+sys7.59/wall106.18/peakRSS82348KiB/exit0 includesstartup/harness; distinctscopesnotlatencyqualification. Perprocess120 andpostphasemeasurementguardNOT hardaggregatecap; actualworkers30unchanged.",
+  "next": "No anotherheavyretry/repeat needed absent changedrelevantcode/failure; ordinarynegativecases/checkpointawaited. Exactfinalimplementation source/testhash/diff andfullreview stillrequired. No neural/FP16/physicalGPU/currentpolicy/controller/efficient20k/license/security/ICA/MVPclaim.",
+  "DHA": "NONE"
+}

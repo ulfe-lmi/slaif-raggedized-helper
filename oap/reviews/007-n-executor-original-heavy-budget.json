@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-12T14:10:36.134804+00:00",
+  "decision": "APPROVED_ONE_EXACT_SYNTHETIC_HEAVY_DRIVER_ATTEMPT",
+  "DHA": "NONE",
+  "lane_id": "PAR-007-CORPUS-EXECUTOR-A",
+  "approved_plan_sha256": "9a3c209cbf449c1c8c119c80ab7064a44e802c614e234943ed0c2b412bfe7e8b",
+  "approved_plan": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/corpus-executor/approved-heavy-proof-plan-9a3c209cbf449c1c8c119c80ab7064a44e802c614e234943ed0c2b412bfe7e8b.json",
+  "executor_sha256": "ee09ec140db4da72248a3c79e0073ed98b806c070368be2a82aa24da8e481f9d",
+  "test_sha256": "f098cd6c1f54d8bfa0461bfd4a70ecb12dbb2c6248236a12723d408e753d18ba",
+  "fixture_sha256": "0e148754cea0b51e8d0f5f80f2f0d780c5e707fb00a568bf5d87cce45d5b31b0",
+  "program_sha256": "7e5ebce26b83eb41fddb97feb0ff149c3c9f366aa66f6dcf85015d814db7aa9b",
+  "selector": "tests/integration/test_corpus_embedding_executor_composition.py::test_actual_complete_resume_driver",
+  "command": "env PYTHONPATH=src:tests/unit:tests/integration PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PYTHON=python3.12 SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_GPU_TEST_ROOT=/tmp/raggedized-root-cpython312-portability SLAIF_GPU_TEST_PACKAGES=/tmp/raggedized-root-gpu-fixture-c0e14e2c/packages SLAIF_CORPUS_PROOF_ROOT=/tmp/corpus-executor-proof-20261112 timeout 180s prlimit --cpu=120 --as=1073741824 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest -s -q tests/integration/test_corpus_embedding_executor_composition.py::test_actual_complete_resume_driver --basetemp=/tmp/corpus-executor-heavy-driver-20261112",
+  "limits": "ExactlyONE driver timeout180/prlimitCPU120perprocess/AS1GiB/fivethreads1. ActualGPU/native/productworker30 andallotherlimitsunchanged. Freshcreatorphases inherit/reassertminexistingsoft/hardcaps; sharedwallremaining. ObservedSELF+waitedCHILDRENCPUdelta checkedafterphases<=120, NOT hardaggregatepreemption. Fixturecreatedseparately30; defaultCI includesfixture in driver-entrydeltas.",
+  "inspection": "Entireoriginalexecutor andfixture/phase/harness/stop/resume assertions read. Revisednormaldefaultdriver andcurrentcheapinputpreflight reviewed. Fix1 no env-dependentdefaulttests; fix2 SELF/CHILDREN/wall baselinebeforedefaultfixture toavoid priorwholepytest CPU. Rawfixture/program hashes verified actual5rows batches3,2. Validactualsource/journal/producer calls, actualknownPopenclass init syntheticbackend only. No wholeResultfake/model/GPU.",
+  "conditions": "Run exactcurrenthashes/command ONCE, preserve fullstdout/stderr/exittiming/peakRSS/perphasecommands/drivercaps/waitedCPUmeasurements. OnANYfailurestopheavy/no capraise/no automaticretry; notifyRootexactfacts whileindependentordinaryworkcontinues. Ifexecutor/driverhashchanges BEFORErunnotifyRootforreconciliation. No additional120invocation or actualmodel/service/physicalGPU authority. Finalimplementationcheckpoint/source/tests/docs/privacy/completeness review stillmandatory; thisisbudgetchoiceonly.",
+  "strongest_counterargument": "Actual five-row reference repeatedlyprepares, knownonebatch34CPU plus3reuse~24CPUmakesrough92CPUbeforeextra source checks. Explicit120/180boundedproof needed; hidden expensive validation may stillfail, mustreportratherthanretry/waive. No throughput/performance/Ready/wholeMVP acceptance."
+}

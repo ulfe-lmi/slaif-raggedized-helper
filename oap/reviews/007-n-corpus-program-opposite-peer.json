@@ -1,0 +1,44 @@
+{
+  "lane_id": "AUDIT-007-CORPUS-PROGRAM-A",
+  "target_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+  "implementation": "38db71e4af4fbfce585a241938e331985bf4e661",
+  "base": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "provenance": "Opposite-agent software review; GPU producer depends on future execution and historical shared predecessor authorship. Not independent human or merged-SHA ICA.",
+  "identity": "Clean exact HEAD; report-only commit sole parent implementation, implementation sole parent base; seven implementation paths and hashes match report; design matches contract bytewise.",
+  "readset": "Full planner, representation and base delta, new unit and composition tests, API/design/order/contract, implementation report, Root audits and review; targeted ingestion_store, ingestion_bundle, source/native validation, provenance chunk binding and schema fingerprint. Existing representation unit and composition exercised. Seven implementation files and report hashes verified against report; design cmp exact contract.",
+  "tests": [
+    "28 focused program and representation unit tests passed",
+    "7 actual-source corpus and existing representation composition tests passed",
+    "Original private actual-store parser witness passed in 3.80s: duplicate revision rejected, removing only duplicate revision predicate in isolated module admits structurally consistent candidate, original again rejects and baseline parses. This demonstrates parser predicate, not source authority or validation bypass."
+  ],
+  "witness": {
+    "path": "/tmp/peer_corpus_witness.py",
+    "sha256": "fd0eb8439dfd548588028749c09f1dbfb576e2f59f278f0b13e8d19983fda651"
+  },
+  "commands": "pytest invocations with requested environment, timeout 120, ulimit -v 1048576, ulimit -t 30, five thread limits and separate private basetemps: tests/unit/test_corpus_embedding_program.py tests/unit/test_retrieval_representation.py; tests/integration/test_corpus_embedding_program_composition.py tests/integration/test_retrieval_representation_composition.py; /tmp/peer_corpus_witness.py. All exit 0.",
+  "findings": [],
+  "counterargument": "Synthetic tests and bounded source inspection cannot establish every corruption, deadline race, numeric boundary or real workload; actual 642 rows and 14 batches are not actual 20k throughput. Current integration and CI remain gates.",
+  "limits": "Source DATA only; no current rights, native token eligibility, execution, completion, real model, hardware, license, current canonical CI or milestone ICA claim. Deadlines are cooperative, not hard filesystem preemption or RAM guarantees. DHA NONE.",
+  "review": "Selected IDs sorted/unique, actual load validates originals and complete bundle; chunk sort and global/revision checks precede greedy per-source packing. Parser enforces canonical form, closed fields, bounds, ordered partition, exact sums and greedy closure; validate compares whole fresh build. CP1 checks remaining chars before join. CP2 minimum fixed-length identifiers and minimum numeric values provide a lower bound before load; commas account for existing arrays; pending batch delta recalculates encoded size including digit transitions and comma, then retains row. Batch flush retains already reserved bytes. Final serialize checks size. No additional in-scope defect found in finite review.",
+  "hashes": {
+    "api": "2e397c9c113710c9c36fcb9d37bda2ba294484a8a097cf2a1e2ea0207a243e4f",
+    "design_and_contract": "241a318126c3f72c22556335c9d392527b8718dce6c487c30cdd5edb78f29d04",
+    "order": "ebc28e5d87b3964fe187fdcc0a31f380ccc6e353abb78f965d3550fe72811c75",
+    "planner": "5d5302d56f76f348a1e96c5fe8c9ea02e44b4321d4c76e039de2ed7a92b721aa",
+    "representation": "ce48363bc620a941516188777d58d1d3866dd8ac5e9ad0b881702aa1bfeeecbc",
+    "unit": "f826b8fed217898abeb6d0c1888eafc7d7c3e13986167b407ff8d32706236dfd",
+    "composition": "598045f52e24b2199bdee5f8b3f93219764cff5932d0745e1cdb5206fb961c59",
+    "report": "705ad6d2b32efd628ed4b02813b0741dd8654399a861a28d1b2dbd858de2da91",
+    "root_logs_units_normal_large_byte_char": [
+      "ce14544b7226ea913fc18a7cd41aa33b89886433100a208cd02546c066bd488f",
+      "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "aed970bee16bbde7cbb095152283c7b277433e80fa68836795512648ee851f46",
+      "10c5dfbb8bb45193cd6190b0da7160e22f2c2944909aae443418bea077385261",
+      "07948e4e33af4ede8a6839713c0d0626d61e3c4948274b08107d6d8b035e8fda"
+    ],
+    "root_witness": "043cfbe7e266206b58fbbb895a05df1d221bceb66197f52380ed4f27a1550acf"
+  },
+  "root_provenance": "Root 38db log names audit/007-corpus-program-root-{units,normal,large,byte-boundary,char-boundary}-38db.log; Root witness /tmp/raggedized-root-corpus-8077-boundaries.py. Root evidence includes prior failures and repaired controls; committed actual omission control and old/new source equivalence independently rerun within composition suite."
+}

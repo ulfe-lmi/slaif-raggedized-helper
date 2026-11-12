@@ -1,0 +1,194 @@
+{
+  "at": "2026-11-12T16:52:38.080100+00:00",
+  "status": "ACTUAL_ALL17_SEPARATE_CURRENT_CASES_PASS_RAW_LOGS_ARCHIVED",
+  "implementation": "c74407f10ebaf429b233a6d9f6da67a0f367e5e4",
+  "report_commit": "e9ee12568fdfbfd9f122ceb3ed0d15690b4dbbfa",
+  "cases": [
+    {
+      "case": "bridge-1",
+      "exit": 0,
+      "wall_seconds": 29.91
+    },
+    {
+      "case": "bridge-2",
+      "exit": 0,
+      "wall_seconds": 8.62
+    },
+    {
+      "case": "bridge-3",
+      "exit": 0,
+      "wall_seconds": 6.63
+    },
+    {
+      "case": "bridge-4",
+      "exit": 0,
+      "wall_seconds": 8.11
+    },
+    {
+      "case": "bridge-5",
+      "exit": 0,
+      "wall_seconds": 12.54
+    },
+    {
+      "case": "bridge-6",
+      "exit": 0,
+      "wall_seconds": 10.08
+    },
+    {
+      "case": "bridge-7",
+      "exit": 0,
+      "wall_seconds": 9.8
+    },
+    {
+      "case": "bridge-8",
+      "exit": 0,
+      "wall_seconds": 17.39
+    },
+    {
+      "case": "bridge-9",
+      "exit": 0,
+      "wall_seconds": 17.24
+    },
+    {
+      "case": "plan-1",
+      "exit": 0,
+      "wall_seconds": 18.58
+    },
+    {
+      "case": "plan-2",
+      "exit": 0,
+      "wall_seconds": 9.87
+    },
+    {
+      "case": "plan-3",
+      "exit": 0,
+      "wall_seconds": 8.28
+    },
+    {
+      "case": "plan-4",
+      "exit": 0,
+      "wall_seconds": 4.85
+    },
+    {
+      "case": "plan-5",
+      "exit": 0,
+      "wall_seconds": 5.2
+    },
+    {
+      "case": "plan-6",
+      "exit": 0,
+      "wall_seconds": 10.11
+    },
+    {
+      "case": "plan-7",
+      "exit": 0,
+      "wall_seconds": 5.1
+    },
+    {
+      "case": "plan-8",
+      "exit": 0,
+      "wall_seconds": 6.9
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/run-cases.sh",
+      "bytes": 2914,
+      "sha256": "379d6159e1a997e7d187b3989c853066c0d6f501505c16cfda85078d5416ef3f"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/cases-exit.log",
+      "bytes": 455,
+      "sha256": "18cc5b9d639c709543cc97fbef49de5ee25b806d29c047cd64a32857c4fae269"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-1.log",
+      "bytes": 99,
+      "sha256": "e6d311c0f2b81e648574cf5c600b842726c50bec7e8361ffb5e2da3631f1c795"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-2.log",
+      "bytes": 98,
+      "sha256": "e2cc916c5679ef868a3ee62da1c10c69c5de4e19d8d1a07b17c2ad5b517edabd"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-3.log",
+      "bytes": 98,
+      "sha256": "7a5710da8aca5dcc01d26b5a2412761abd96b666f13d03aa5b4cafd7f949d7e4"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-4.log",
+      "bytes": 98,
+      "sha256": "c1d65b625c09ced0952eb6e4c713ea58fc78b86347db04f17c5d7b5866795f12"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-5.log",
+      "bytes": 99,
+      "sha256": "d02cb3880977d758e014062cc7fe7b7325ed25db7826c68dbce4c5441746c6bf"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-6.log",
+      "bytes": 98,
+      "sha256": "07106f3b91d8fb999cfaf6f365e211735aa72f34f295c93d4932f28f3167ce34"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-7.log",
+      "bytes": 98,
+      "sha256": "0451b840bec9aa51e2c216e8e66e02d41d57cdf8e63dd90316e549e92a215e50"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-8.log",
+      "bytes": 99,
+      "sha256": "a85d1e77e71d9576443e0ac8d81e5bb1acc20d0eea98b22e1bc541570f9e3eb5"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/bridge-9.log",
+      "bytes": 99,
+      "sha256": "6acf808aa49d56acf09a5d56a33f2316164948600c90207f3d54f9499a2009a4"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/plan-1.log",
+      "bytes": 99,
+      "sha256": "2d00ce37b95851281024492cc927217aba31ab3b010d8071a6c43e0e0cd12e2f"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/plan-2.log",
+      "bytes": 98,
+      "sha256": "2e3af261afec01b62649b538da2b3eba48cc17a593c53f5a2ec61e9c657db256"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/plan-3.log",
+      "bytes": 98,
+      "sha256": "6c3ef9ae319bd6dcce4d2df6a5c8f2e12df6c0d10d769deeabba4403eefd36a8"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/plan-4.log",
+      "bytes": 98,
+      "sha256": "4c26c72e87dd3191ec40fcfbdba332e794c7ceeb81792cead9a500ec5a38e6e9"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/plan-5.log",
+      "bytes": 98,
+      "sha256": "b11fe566595402793b378ab8ca557a708f399166ed42c0d2d0d943c913c17c46"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/plan-6.log",
+      "bytes": 98,
+      "sha256": "806a034c2ece95da7c673eb7d252e209f04573c5894b3252b12cb012b30438fc"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/plan-7.log",
+      "bytes": 98,
+      "sha256": "9e473887857eb0b504d1212f37313f47f0c4393eca92d0e5c566ece1f2781e83"
+    },
+    {
+      "path": "audit/007-m-author-current-17-case-evidence/plan-8.log",
+      "bytes": 98,
+      "sha256": "d17a795189925d12cc1bc6f3da9e912519aa74e15050b03a8a26d5a9f0b63e69"
+    }
+  ],
+  "review": "Actual runner read: each explicit nodeID is a separate prlimit CPU30/AS1GiB timeout120 process, five thread caps1/cached fixtures/private0700 root. Seventeen stdout files contain actual passing completion with no failures/skips; original per-case exit/time log complete. No passing test repeated for count. Prior 0775 parent refusal and earlier aggregate CPU137 archives retained separately. Raw current min/max values control over inaccurate ancillary report prose.",
+  "limits": "Observed per-process test wall; not aggregate CPU/hardcap or real model/hardware/rights/quality proof. Root independent13units+2actual separate. Current report CI and normal response still required.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

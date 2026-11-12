@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-12T16:48:13.091927+00:00",
+  "status": "CURRENT_REPORT_STRICT_REMOTE_IDENTITY_SOURCE_REVIEWED_PENDING_FULL_CI_NORMAL_RESPONSE",
+  "verified": {
+    "identifier": "007-m",
+    "pr": 9,
+    "implementation": "c74407f10ebaf429b233a6d9f6da67a0f367e5e4",
+    "report_commit": "e9ee12568fdfbfd9f122ceb3ed0d15690b4dbbfa",
+    "report_sha256": "de3cf8164f79d95f52a9a3aaea886863ada3fa41b33561b6239b1a7e4ee6aa11",
+    "verified_at": "2026-11-12T16:48:12.990404+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "bytes": 8064,
+  "header": {
+    "Identifier": "007-m",
+    "Result": "PARTIAL",
+    "Repository": "ulfe-lmi/slaif-raggedized-helper",
+    "PR number": "9",
+    "Branch": "oap/007-embedding-pipeline",
+    "Base branch": "main",
+    "Round base commit": "63958c436428aebfc5f58247f4eb9119740e35c6",
+    "PR main base": "11badc7782bed326995d400f5532b63399b91fbd",
+    "Transcript commit": "3cd39ce6f77540f06ec660703b0d62f31c2ea329",
+    "Implementation head SHA": "c74407f10ebaf429b233a6d9f6da67a0f367e5e4",
+    "Report publication commit": "SELF"
+  },
+  "source_exact": {
+    "indexed_files": 10,
+    "bytes": 95773,
+    "Root_records": 17,
+    "indices": 2,
+    "transcript_parent": "63958c436428aebfc5f58247f4eb9119740e35c6",
+    "both_L_exceptions_exact": true
+  },
+  "source_review": "audit/007-m-current-source-review-c744.json",
+  "Root_current_checks": "audit/007-m-root-current-checks-c744.json 13units+2actual independentPASS",
+  "author17checks": "Actualauthorarchive17separatecasesALL0 andownoriginalprivateparentdiagnosis/recovery observed; finalarchivehashreviewnextrecord.",
+  "report_accuracy_limits": "Ancillarytimingprose haswrongbridgewalllowerbound5.1 (actual6.63), setupfailuresnotalleach0.68 (planfixtures1.5-1.9pytestsec pluswrapper), and beforeanychild overbroad: actualplanjourney createsnativechunkbundlebeforeGPUlaunchrefuses; noGPUchild/modeldispatch fromfailedlaunch. RootdoesNOTacceptthosefigures/nochildclaimasproof. Rawlogs/source andactualall17PASS arecontrolling; correctiondurableherewithouteditingimmutableSELF. TESTING17448B;49999B isaggregate6filecodingreadset, reportT16parentheticalnotindividualsize. No materiallyfalsecurrentpass/model/hardwareclaimusedforacceptance.",
+  "strongest_reason_not_to_merge": "Whole007/MVP incomplete, currentreportproductCI andnormalresponse pending; knownunmergedgatewayF2 repair futureintegrationgate. ActualBGE/GPUprecision/hardware/currentrights/license/security/eval/visual/fullICA remainUNPROVEN.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

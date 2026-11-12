@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-12T13:53:57.182580+00:00",
+  "status": "EXACT_LOCAL_SOFTWARE_COMPONENT_ACCEPTED_FOR_FUTURE_GATED_INTEGRATION",
+  "implementation": "38db71e4af4fbfce585a241938e331985bf4e661",
+  "report": "6f5b31123d080376b6b0c09a803bd67033694484",
+  "report_sha256": "705ad6d2b32efd628ed4b02813b0741dd8654399a861a28d1b2dbd858de2da91",
+  "Root_review": "parallel/corpus-program/review.json",
+  "peer": "parallel/audit-corpus-program/review.json",
+  "peer_draft_sha256": "0d27a6824e4e7fc237be38bfed88331db8a594bed8b24522dee5ee5d08955d00",
+  "scope": "SourceDATAonly, actual allselectedchunks/stablegroups/sharedformatter/sourcevalidation/budgetbounds with actual finite642rows andtwo repairedpreadmissioncases. Not currentrights/native/model/execution/completion/Ready. Oppositeagent sharedpredecessorauthorship/dependency disclosed, no fullICA.",
+  "strongest_counterargument": "Finite source/parser controls and currenttestlogs support bounded software, not actual20k throughput or efficientbulk execution; future exactcomposition and currentcanonicalCI mandatory.",
+  "open": "Canonicalintegration/currentreportCI, completecorpusexecutor/resume/operator and actualparitycapture, model/hardware/currentpolicy/license/security/quality/visual/fullICA/MVP.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

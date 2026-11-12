@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-12T13:53:15.814184+00:00",
+  "target": "6f5b31123d080376b6b0c09a803bd67033694484",
+  "draft_sha256": "0d27a6824e4e7fc237be38bfed88331db8a594bed8b24522dee5ee5d08955d00",
+  "review": "Fullsubstantiverevisedpeerreportread;8source/report+5Rootlog+Rootwitnesshashverified. Report fullreadset and CP1/CP2 accounting/parser/freshvalidation argument substantive, finitecomponentonly. Sameaccount/historicalsharedpredecessor/dependency provenance explicit; notmilestoneICA. No in-scope finding. Root own exactsource/28units/actual642rows14batches/old-newformatter+twoactualbudgetcontrols alreadyindependent.",
+  "original_peer_control": {
+    "archive": "/tmp/AUDIT-007-CORPUS-PROGRAM-A-witness-fd0eb843.py",
+    "sha256": "fd0eb8439dfd548588028749c09f1dbfb576e2f59f278f0b13e8d19983fda651",
+    "source_review": "Entirecontrolread: actual privateOriginal/derived ingestion program2sources; candidate changesONLYsecondrevisionIDtofirst. Originalparserrefuses; isolatedmodule removesONLYduplicaterevisionpredicate and admitsDATA; originalrefusesagain/baselineparses. DoesNOTclaimfreshsourcevalidationorforgedoutput. Actualstoresstillreal, noauthorityfake/productdiskpatch.",
+    "Root_rerun": {
+      "log": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-corpus-peer-root-duplicate-revision-0d27.log",
+      "sha256": "40f652f8eee327d33afbfe0bfcaa36eeacfe1c816bac2c98ece12711ec4ec44e",
+      "output": ".\n1 passed in 3.92s\n",
+      "caps": "AS1GiBCPU30wall120fiveThreads1/privatebasetemp"
+    }
+  },
+  "evidence_limit": "Peer28+7 owntestcounts/commands are attributable assertions in report; no archived ownrawstdout provided. Root actualsource/currenttestlogs and independent causalrerun substantiate finiteconclusion; do not relabel peerclaimed counts as Root executed or universalcoverage.",
+  "strongest_counterargument": "Finiteactual642rows is not actual20k throughput; corpus DATA is not execution/rights/Ready. Peer/currentcanonicalintegrationCI and wholeprogram executor/parity/realmodel gates remain distinct.",
+  "decision": "FINALIZE_FINITE_REVIEW_ONLY_PENDING_NORMALRECEIPT",
+  "DHA": "NONE",
+  "normal_response": {
+    "lane": "audit-corpus-program",
+    "lane_id": "AUDIT-007-CORPUS-PROGRAM-A",
+    "result": "COMPLETE",
+    "target_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+    "report_sha256": "0d27a6824e4e7fc237be38bfed88331db8a594bed8b24522dee5ee5d08955d00",
+    "verified_at": "2026-11-12T13:53:19.266197+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "status": "FINITE_OPPOSITE_AGENT_REVIEW_ACCEPTED_EXACT_LOCAL_TARGET_ONLY"
+}

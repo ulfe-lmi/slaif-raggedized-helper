@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-12T14:32:17.762663+00:00",
+  "status": "EXACT_SELF_REPORT_RECONCILED_ROOT_SOFTWARE_PASS_PEER_PENDING",
+  "identity": {
+    "lane": "corpus-executor",
+    "lane_id": "PAR-007-CORPUS-EXECUTOR-A",
+    "implementation": "ff6ea5c0a095e46ba65b37a6908ffe3518136d90",
+    "base": "6f5b31123d080376b6b0c09a803bd67033694484",
+    "effective_base": "272b9ead62e500fa847e93eb2ad7dd03f9d3f95d",
+    "preparation_heads": [
+      "272b9ead62e500fa847e93eb2ad7dd03f9d3f95d"
+    ],
+    "paths": [
+      "docs/parallel/corpus-embedding-executor-api.md",
+      "docs/parallel/corpus-embedding-executor-design.md",
+      "oap/parallel/orders/PAR-007-CORPUS-EXECUTOR-A.md",
+      "src/slaif_raggedized_helper/corpus_embedding_executor.py",
+      "tests/integration/test_corpus_embedding_executor_composition.py",
+      "tests/unit/test_corpus_embedding_executor.py"
+    ],
+    "order_sha256": "40418f96c6d0dd170d65ee9719c0eec2b284f642e206a89dfe7788de993408ee",
+    "at": "2026-11-12T14:28:46.456806+00:00",
+    "reader_pid": 3487799,
+    "scope": "Implementation checkpoint only. Root review required; no acceptance or report yet."
+  },
+  "source_hashes": {
+    "docs/parallel/corpus-embedding-executor-api.md": "2bb3c00dc9721825c986c3b64cbd3e4f8b2c8a7ad1bf984e826975ca5a002284",
+    "docs/parallel/corpus-embedding-executor-design.md": "51e32fd0803b838f5cfa2537938fcd5f10f1fa2d7ef28bddbd5f6e12b711c5a2",
+    "oap/parallel/orders/PAR-007-CORPUS-EXECUTOR-A.md": "40418f96c6d0dd170d65ee9719c0eec2b284f642e206a89dfe7788de993408ee",
+    "src/slaif_raggedized_helper/corpus_embedding_executor.py": "ee09ec140db4da72248a3c79e0073ed98b806c070368be2a82aa24da8e481f9d",
+    "tests/integration/test_corpus_embedding_executor_composition.py": "31ae037e500ab4671d7d7f0bceaec2c63b7725f2f61a6bae2284ea956ace146e",
+    "tests/unit/test_corpus_embedding_executor.py": "5ff0e7b4e24e0bdb1d868f45c7302fd1a8570d2116c8cb4b07423c9a23093aa0"
+  },
+  "review": "Entire9011Bexecutor currentmodule, allunit/API/design andactualintegrationfixture/creator/driver/10negativeparametercases read. Exact6paths/cleanmerge272b parents6f5b+880de/actualmergetree/soleimplparent/order/design verified. Actualfreshwholeprogram validation +perbatchactualsource/metadata/scope/rows/classproducer/configsnapshots/globalepoch/currentjob/output/fullrecords/lightweightcompletecoverage+finalsourcevalidation andborrowedowner rules inspected. No userResultfactory ornewjobformat/CLI/controller.",
+  "Root_current_checks": {
+    "007-corpus-executor-root-test_actual_provider_refusal_stops_before_later_batch-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    },
+    "007-corpus-executor-root-test_actual_complete_reuse_refuses_changed_epoch_or_output-output-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    },
+    "007-corpus-executor-root-test_actual_complete_reuse_refuses_changed_epoch_or_output-cross_epoch-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    },
+    "007-corpus-executor-root-test_actual_changed_launch_after_validation_refuses_before_producer-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    },
+    "007-corpus-executor-root-test_actual_whole_program_rowfit_refuses_before_dispatch-ff6e.log": {
+      "sha256": "af24bceaf6df1fab922914bbf9030da0a1e92da346aa2dd8f043942d1d9a4c53",
+      "output": "rowfit_control_sha256=12b9ae6fc22c09750e0c43fd2b7250fdfa39c24408b7050c021f8dc311fca7b9\n.\n"
+    },
+    "007-corpus-executor-root-test_actual_terminal_journal_stops_corpus-UNKNOWN_COMPLETION-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    },
+    "007-corpus-executor-root-test_actual_complete_reuse_refuses_changed_epoch_or_output-epoch-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    },
+    "007-corpus-executor-root-units-ff6e.log": {
+      "sha256": "f44599e69d732ed8dee0e717f36e0ee98cd5c0c2ea518926a89974e68da39217",
+      "output": "...............\n"
+    },
+    "007-corpus-executor-root-test_actual_hostile_interrupt_retains_producer_cleanup-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    },
+    "007-corpus-executor-root-test_actual_changed_source_refuses_before_producer-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    },
+    "007-corpus-executor-root-test_actual_terminal_journal_stops_corpus-FAILED-ff6e.log": {
+      "sha256": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+      "output": ".\n"
+    }
+  },
+  "counts": "Root15units +10actualnegative/source/reuse/unknown/hostilecleanupcases underseparateoriginalCPU30/AS1GiB/wall120/fivethreads1 PASS. Currentrowfitcausalcontrol runsrealstores/actualsource thenonlyentrysentinel, no fakeexecution Result; badSource/consistentomittedrow refused byfreshvalidate; configaftervalidate refused, currentproviderdenial/FAILED/UNKNOWN states no laterbatch, epoch/output/cross-batchepoch refusal preservesCOMPLETE, hostileoriginalsameobject+actualproducerpendingnative/lease remainsreachable/drains. Authorunits/control notrelabeledoriginalRootwitness.",
+  "heavy_positive": "AuthorONEapprovedactualsyntheticstop/freshcreatorresume/allreuse PASS, log/timehash verified andfullactualassertions/driver read. Actualsourcehash ee09 EXACTcurrentff6 matchesapprovedexecution; integrationtestfile expandednegativecases afterheavy so formerfulltesthashf098 ishistorical, not current31ae. Currentfullpositivehelper/driver code inspected; additionalcases do notreplace actualpositive withDATA. No heavyrepeat justified. See parallel/corpus-executor/root-heavy-proof-observed.json for102.715CPUdelta/104.983wall vsGNUtime106.18/82348KiB andnotaggregatehardcap. No trueGPU/model/precision/performanceclaim.",
+  "author_progress_sha256": "a48d4f246692dd6c34c74552163c9072cc545550588dc0d465881bc851a65a67",
+  "author_evidence": "All11named author log/time hashes verified; source/readsetcounts measured withexplicitpartialsections, originalwrongcwdruff/setup/lintfailures preserved, noinventedexacttokens or20kthroughput. DATA-seededtypedvectorsinnegativecasesexplicit, positiveactualsource/native/syntheticGPU producer actuallyexecuted.",
+  "strongest_counterargument": "Expensiveperbatchpreparation/privatecoupling andonefive-rowactualproof cannot qualifyefficient20k/hardware/currentpolicy/security/license/quality/fullICA. The boundedsoftware doeswholefrozenselection/currentproducerchecks/resume withoutunsafeunknownretry. Oppositepeer/currentcanonicalcompositionCI/operatorCLI/actualexecutionparity/controller remaingates, no full007/MVPclaim.",
+  "DHA": "NONE",
+  "report_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+  "report_sha256": "3b87597257447cb81d073554c1fc11ff0d47ced610b2993606bc4ef5bacb2816",
+  "report_review": "FullSELFreportread, source6+log11+progress hashesverified, purehelpernormalreceipt/clean/source/order/soleprep272b/actualmergetree/soleimplff6/reportonlySELFverified. Heavyactualsourceee09 matchescurrentmodule; earlierwholeintegrationf098 vsfinal31ae distinction explicit. Root15unit/10actualordinarycurrentchecks andoneauthorapprovedactual2batchproofhonest. SourceData seed vectorsvs actualsyntheticpositive distinguished, no forbiddenqualification/currentCI claims. Oppositepeerbeforeintegration."
+}

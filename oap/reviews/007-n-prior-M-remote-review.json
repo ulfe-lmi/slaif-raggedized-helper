@@ -1,0 +1,49 @@
+{
+  "at": "2026-11-12T17:05:18.909585+00:00",
+  "pr": {
+    "autoMergeRequest": null,
+    "baseRefName": "main",
+    "headRefName": "oap/007-embedding-pipeline",
+    "headRefOid": "e9ee12568fdfbfd9f122ceb3ed0d15690b4dbbfa",
+    "isDraft": false,
+    "mergeStateStatus": "CLEAN",
+    "number": 9,
+    "reviewDecision": "",
+    "state": "OPEN"
+  },
+  "main": "11badc7782bed326995d400f5532b63399b91fbd",
+  "objective_pr_unique": true,
+  "other_oap_open": false,
+  "reviews_and_threads": {
+    "data": {
+      "repository": {
+        "pullRequest": {
+          "reviewThreads": {
+            "nodes": [],
+            "pageInfo": {
+              "hasNextPage": false
+            }
+          },
+          "reviews": {
+            "nodes": [],
+            "pageInfo": {
+              "hasNextPage": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "coding_head": "e9ee12568fdfbfd9f122ceb3ed0d15690b4dbbfa",
+  "coding_dirty": "",
+  "active": "007-m",
+  "workflow_review": "Full actual279line oap.yml read. Test-only GitHub-hosted, contents:read, pinned checkoutpersistcredentialsfalse, PR/mainpush/dispatch only. Private synthetic fixture provisioning on disposable runners; no model/GPU/secrets/selfhosted/publication/merge/deploy/release side effect. Same bytes as M roundbase63958. Earlier Root equality precheck incorrectly compared main which predates007 authorized setup steps; corrected roundbasecomparison passes, no M workflow change.",
+  "workflows": [
+    {
+      "path": ".github/workflows/oap.yml",
+      "bytes": 14095,
+      "sha256": "a26bda03a81323ed1213b87965c8ec7200da596fb9d5194f1c0b3739522ca1f8"
+    }
+  ],
+  "DHA": "NONE"
+}
