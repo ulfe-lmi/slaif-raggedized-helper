@@ -1,0 +1,99 @@
+{
+  "at": "2026-11-12T00:40:40.135615+00:00",
+  "status": "ACCEPTED_LOCAL_COMPONENTS_FOR_CANONICAL007D",
+  "base": "65f1ab5b2668b418a4a10ee6d83af84322196d12",
+  "candidate_tip": "2b50e6587b5362b3da7d092bf355cdd8153712cd",
+  "receipt": {
+    "lane": "source-plan",
+    "lane_id": "PAR-007-SOURCE-PLAN-A",
+    "result": "COMPLETE",
+    "implementation": "55ea655c35b0aa93753b0c68bcfe08c65ead7e9e",
+    "report_commit": "2b50e6587b5362b3da7d092bf355cdd8153712cd",
+    "report_sha256": "cdcf15f35fc41376344d5e5a29f523cc77ccc7d19df678b6b257c6b94bb70dee",
+    "paths": [
+      "docs/parallel/embedding-batch-plan-api.md",
+      "oap/parallel/orders/PAR-007-SOURCE-PLAN-A.md",
+      "src/slaif_raggedized_helper/embedding_batch_plan.py",
+      "tests/integration/test_embedding_batch_plan_composition.py",
+      "tests/unit/test_embedding_batch_plan.py"
+    ],
+    "verified_at": "2026-11-12T00:10:50.188504+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "files": {
+    "docs/parallel/embedding-batch-plan-api.md": {
+      "blob": "5abb6c5aed3e2370a6a0a451be47ecb9922aa6e2",
+      "sha256": "58b93893374456552859b9fd7d1ded14dbad97d8f4e983da1a21e276e9db2c84"
+    },
+    "docs/parallel/embedding-batch-store-api.md": {
+      "blob": "7ff07db33b4a16e81a3fdb284595b0cc92f9a86a",
+      "sha256": "fa8e73e467f524a0c5070bd61cdf0119e25fd509ecd45f7f4e31aff4c7b6ba53"
+    },
+    "docs/parallel/embedding-job-journal-api.md": {
+      "blob": "0a278e92be0288049ac909fc9e10e90f63a198be",
+      "sha256": "446b5c2252881ce9521658e226e19ec296c11ec06f0ce8be13811835158b46e4"
+    },
+    "docs/parallel/embedding-job-ownership-api.md": {
+      "blob": "b07ddedaf5e6fb071da6b10c8a45473b7aa57201",
+      "sha256": "a4d028dc8715c9a6e3e65518b777cbeec21b509cfc2006d82bddf2c718c177ec"
+    },
+    "src/slaif_raggedized_helper/embedding_batch_plan.py": {
+      "blob": "b14d85d089b6c87bb2fcf0f55c53c3ac0d21b785",
+      "sha256": "e7080dad7e4a79189a78e02dad8220d00ee4758396a3bcb67deb64129c02abae"
+    },
+    "src/slaif_raggedized_helper/embedding_batch_store.py": {
+      "blob": "af130ee67a99c5b74d58baff5f0ecb6510de609b",
+      "sha256": "8e53be2d1a0acb8fc8d6932bdd9c1d5f5b8f9015108de79814fa2a07c6a9f429"
+    },
+    "src/slaif_raggedized_helper/embedding_job_journal.py": {
+      "blob": "7c5df637520b9850dd00001ccd3d0d28cc54b730",
+      "sha256": "6b3b16402e7c5e5d5ea07f17d5841c01aaad52f19bde38b4d1746c74df6452da"
+    },
+    "src/slaif_raggedized_helper/embedding_job_ownership.py": {
+      "blob": "bfc33a981cb1833ac5198c19432b0d6fdc1012e6",
+      "sha256": "4eae9bd6fda46e3d5cde15ad654cf54f0a9b56cdbbfe2c8b2d27900773b53eab"
+    },
+    "tests/integration/test_embedding_batch_plan_composition.py": {
+      "blob": "ed00deb181dabd9cf46437412bbd69aadd773783",
+      "sha256": "b3e8d8d7fa6ee99841c8481878bbc4e3b61a5496962682f468b393714813c153"
+    },
+    "tests/integration/test_embedding_batch_store_composition.py": {
+      "blob": "ef9844b2e66f6bdf84dca203c4f8c802b42af9d6",
+      "sha256": "f9d3ddbe1808cbe7fc9a51097962ae8aaf9e78d9294340b21e96796effa36390"
+    },
+    "tests/integration/test_embedding_job_journal_composition.py": {
+      "blob": "ee533af1b1e8aa5afc25afce7978653e61dd6032",
+      "sha256": "115607bb0fb3d2af413d10f1ab0a40950b7151361f7a73863a828f8316169699"
+    },
+    "tests/integration/test_embedding_job_ownership_composition.py": {
+      "blob": "bd31ff2ae51f9f98c793a03a4438b59775a3de27",
+      "sha256": "e0bfaa9b67c5fafff4e8be424e3f5540dc35d9110de270ddba1daacdb58c5fd4"
+    },
+    "tests/unit/test_embedding_batch_plan.py": {
+      "blob": "ea94baba9b7263a8ebc601d5b2db98ba7d3d1f31",
+      "sha256": "bc3ee1ec5026953e19d6cb6ffef412f671480dadd49ed21528944ff2499f500d"
+    },
+    "tests/unit/test_embedding_batch_store.py": {
+      "blob": "3053c944fd29b0a027ee60932035c72a5e201739",
+      "sha256": "8efee30c265604db3bf8b62f1262a512db28b5992cc5541050aa647c19c75cc9"
+    },
+    "tests/unit/test_embedding_job_journal.py": {
+      "blob": "ca1312d129ba78404b5983b1b5cedb2a89585c86",
+      "sha256": "db367952a2415ce4821b18d7ac406a92be4e614fb04c8005750c16b88c1b34b5"
+    },
+    "tests/unit/test_embedding_job_ownership.py": {
+      "blob": "3733426135dc9d2a76fac9aa71907de9dde31eea",
+      "sha256": "931325f9913c3de8ea8ccded52cdadb79523ff2ca2b71187bc8ea07b8636169a"
+    }
+  },
+  "Root_reviews": [
+    "parallel/embedding-batch-store/review.json",
+    "parallel/job-ownership/review.json",
+    "parallel/job-journal/review.json",
+    "parallel/source-plan/review.json",
+    "parallel/audit-source-plan/review.json",
+    "parallel/audit-source-plan-b/review.json"
+  ],
+  "scope": "16exactdurable/sourceplanfiles; noCPUprofile/producer/GPU/realmodelqualifications",
+  "DHA": "NONE"
+}

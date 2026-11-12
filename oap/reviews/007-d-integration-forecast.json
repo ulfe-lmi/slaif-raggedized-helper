@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-12T00:40:40.135615+00:00",
+  "base": "65f1ab5b2668b418a4a10ee6d83af84322196d12",
+  "candidate_tip": "2b50e6587b5362b3da7d092bf355cdd8153712cd",
+  "merge_tree": "73c99bbe3e5eb817808d6772a728b696345e30c5",
+  "common_bases": [
+    "a7fb1bf0888ffc77c7bfb0c7f9d9f22d56766f10",
+    "b15e56e611214c3ed109bfda8ce6cc52507feec2",
+    "05257d0324f6096166d553305da17221f9fe192c"
+  ],
+  "delta_paths": [
+    "docs/parallel/embedding-batch-plan-api.md",
+    "docs/parallel/embedding-batch-store-api.md",
+    "docs/parallel/embedding-job-journal-api.md",
+    "docs/parallel/embedding-job-ownership-api.md",
+    "oap/parallel/orders/PAR-007-BATCH-STORE-A.md",
+    "oap/parallel/orders/PAR-007-JOB-JOURNAL-A.md",
+    "oap/parallel/orders/PAR-007-JOB-OWNERSHIP-A.md",
+    "oap/parallel/orders/PAR-007-SOURCE-PLAN-A.md",
+    "oap/parallel/reports/PAR-007-BATCH-STORE-A.json",
+    "oap/parallel/reports/PAR-007-JOB-JOURNAL-A.json",
+    "oap/parallel/reports/PAR-007-JOB-OWNERSHIP-A.json",
+    "oap/parallel/reports/PAR-007-SOURCE-PLAN-A.json",
+    "src/slaif_raggedized_helper/embedding_batch_plan.py",
+    "src/slaif_raggedized_helper/embedding_batch_store.py",
+    "src/slaif_raggedized_helper/embedding_job_journal.py",
+    "src/slaif_raggedized_helper/embedding_job_ownership.py",
+    "tests/integration/test_embedding_batch_plan_composition.py",
+    "tests/integration/test_embedding_batch_store_composition.py",
+    "tests/integration/test_embedding_job_journal_composition.py",
+    "tests/integration/test_embedding_job_ownership_composition.py",
+    "tests/unit/test_embedding_batch_plan.py",
+    "tests/unit/test_embedding_batch_store.py",
+    "tests/unit/test_embedding_job_journal.py",
+    "tests/unit/test_embedding_job_ownership.py"
+  ],
+  "exact16source_test_API_blobs": true,
+  "artifact_doc_reference_correction_preserved": true,
+  "method": "Read-onlymerge-tree, no working/index mutation. Actualmerge afternewtranscript mustmatchitsactualparents/tree",
+  "limits": "No activation orCIclaim; finalizeorder/currentreconciliation beforelaunch"
+}

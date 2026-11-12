@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-11T23:38:23.641784+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_ACTUAL_JOB_KERNEL_OWNERSHIP",
+  "receipt": {
+    "lane": "job-ownership",
+    "lane_id": "PAR-007-JOB-OWNERSHIP-A",
+    "result": "COMPLETE",
+    "implementation": "8e637a86adc45c647aeeb459689189a211b56529",
+    "report_commit": "1e78aa1c8cf10ac8366003c3162af0163ec44e9c",
+    "report_sha256": "71b3a17a3e2057136279140a789e56f5b43770e91cd97b55112e7d6f929a8c09",
+    "paths": [
+      "docs/parallel/embedding-job-ownership-api.md",
+      "oap/parallel/orders/PAR-007-JOB-OWNERSHIP-A.md",
+      "src/slaif_raggedized_helper/embedding_job_ownership.py",
+      "tests/integration/test_embedding_job_ownership_composition.py",
+      "tests/unit/test_embedding_job_ownership.py"
+    ],
+    "verified_at": "2026-11-11T23:31:53.648358+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "execution": {
+    "unit": 8,
+    "independent_process_standalone_integration": 1,
+    "lint": "PASS",
+    "witnesses": {
+      "/tmp/raggedized-root-job-ownership-boundaries.py": "e7ebdd6c4fa154d5d8c713df4ace6be068b09edb6e078eba2b1511977c681146",
+      "/tmp/raggedized-root-job-enter-failure.py": "73cc14d2fb8ff2bc465254599756784a7ae03241ebb15a9cc3fcd40dcf0600d8",
+      "/tmp/raggedized-root-job-interrupted-close.py": "f1ab20e4fe3cbcbf88387f0e603ab38312ff5c23d148c3d7a395e9876e657420"
+    },
+    "all_witness_exits": 0
+  },
+  "source_review": "Root whole module/tests/docs and both corrections reviewed; full immutable report read, sole report-only parent/current cleanhead checked. Actual process contention/death/fork/parentidentity and all3 causal recovery witnesses passed.",
+  "strongest_counterargument": "Perjobflock and boundednamespaceidentity check need trustedrootancestry and cooperative sameUIDwriters; unmanagedforkholdersmayprolonglocks. These limits are explicit and no globalGPU/currentauth/durability proof claimed. Kernelownershipprimitive nowpasses actualprocess and causalcleanup/recovery evidence.",
+  "limits": "Perjob kernelownership only; no durablejobstate/retry/globalGPU/currentACL/model/qualification proof. Canonical integration pending.",
+  "DHA": "NONE"
+}
