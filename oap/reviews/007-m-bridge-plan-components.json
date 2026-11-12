@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-12T14:57:34.661543+00:00",
+  "status": "FROZEN_EXACT10_SOURCE_INDEX_ACTIVATION_REQUIRES_FINAL_ORDER_AND_L_RESOLUTION",
+  "entries": [
+    {
+      "source_commit": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+      "path": "src/slaif_raggedized_helper/isolated_gpu_embedding.py",
+      "bytes": 25903,
+      "sha256": "909cc8cc4086250f7a2fdd10956dd8162714f2c14c481451565f850fd3e29533",
+      "blob": "3386af44e59977a4ae97cda55346814ffd3bbc55"
+    },
+    {
+      "source_commit": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+      "path": "tests/unit/test_isolated_gpu_embedding.py",
+      "bytes": 7754,
+      "sha256": "4d8d6f86b4941614ae40c230093492e2cf9797fbba18e10d47661a69429c18aa",
+      "blob": "d1424fad4853ab8649e8396c5d14966fca0bb3a6"
+    },
+    {
+      "source_commit": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+      "path": "tests/integration/test_isolated_gpu_embedding_composition.py",
+      "bytes": 16352,
+      "sha256": "f608c91dbc586043c5f21a9035f16699d24bd74128ed0aaf7758c9890b1f023b",
+      "blob": "4cb446e801701e5e47f8137f6f3d5758961f004e"
+    },
+    {
+      "source_commit": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+      "path": "docs/parallel/isolated-gpu-embedding-api.md",
+      "bytes": 1744,
+      "sha256": "5c33d4e4b1c1296e7c2e752b7e53b593020b3e4c6344341b6be0a4502e252183",
+      "blob": "d53bd67d9a1e0a33f97aae68b23a6495c830d0c9"
+    },
+    {
+      "source_commit": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+      "path": "docs/parallel/isolated-gpu-text-bridge-design.md",
+      "bytes": 16697,
+      "sha256": "e4b58ecc9acb1d6a0c77f300819fc8102607f37b2b4f9b5cb203f37199afeb93",
+      "blob": "c2de0c507bb8760f097fdd99a851de5c846eb84e"
+    },
+    {
+      "source_commit": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+      "path": "src/slaif_raggedized_helper/gpu_embedding_plan.py",
+      "bytes": 7395,
+      "sha256": "8b80a6e00989dba55481f564693be3a0faee4e6a95a39574a12e547c871bb366",
+      "blob": "93b3e454abb619308458672a216a4a87ddade097"
+    },
+    {
+      "source_commit": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+      "path": "tests/unit/test_gpu_embedding_plan.py",
+      "bytes": 806,
+      "sha256": "ee03e7fc581204cb9a6e798360e7b7a6b762b305ad46f42333311223bb81890b",
+      "blob": "ca2ff95bb41688833bc8ce7add6307247fb0a1d4"
+    },
+    {
+      "source_commit": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+      "path": "tests/integration/test_gpu_embedding_plan_composition.py",
+      "bytes": 8739,
+      "sha256": "6d39dfd0be06327cb8629cfc1e718d370a55511cdf49cfad2964f33cfe521c2d",
+      "blob": "3f45e720fce999bec3bcd7cd8ced3884e3028f18"
+    },
+    {
+      "source_commit": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+      "path": "docs/parallel/gpu-embedding-plan-api.md",
+      "bytes": 760,
+      "sha256": "1157660a6b2ec247064bcdee0534823c01089399220a792058320d35ec7e91f4",
+      "blob": "0fec0327e29ee78e3323744f79076bdba0c78e8e"
+    },
+    {
+      "source_commit": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+      "path": "docs/parallel/gpu-embedding-plan-design.md",
+      "bytes": 9623,
+      "sha256": "28d19cc72c94cb1eb8bf820ae8456c2b6f91219af5d2aebb312fbf9bb22c7030",
+      "blob": "57793f4be124a1d1fe84bf6ee2766dca0d29fc37"
+    }
+  ],
+  "total_bytes": 95773,
+  "supersedes_draft": "audit/007-m-gpu-bridge-components-DRAFT.json FIVEonlyindexhistoricalINERTnotactivate",
+  "reason": "Tightlycoupled completedsource/predictedexecutionbridge+plan, bothRoot/freshpeer/reportverified;10immutablefiles remainsproofsized andsavesanothercanonicalCIroundtrip. No newcode/sourceadaptation.",
+  "source_reports": {
+    "bridge": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+    "plan": "d100689ef5582a79a29d78e51a4c5ce860d1552c"
+  },
+  "peers": [
+    "170d56d08f71f1f77335100e133be6c1871fc8ca4db98bebdc0a143f6ac6aa5e",
+    "deebfe94a029e1408fec2b041b421a47ab177498c41ee9e53f1f031227eb3be3"
+  ],
+  "scope": "Retain all current canonical paths including BOTH L test exceptions; exact ten new reviewed files only, plus named current docs. No parallel orders/reports/predecessor wholesale merge.",
+  "round_base": "63958c436428aebfc5f58247f4eb9119740e35c6",
+  "source_validation": "All10 exact frozen Git blobs/bytes/SHA verified and absent from current L report tree; both L exceptions exact. Current common-source composition forecast retained as forecast, not execution/CI."
+}

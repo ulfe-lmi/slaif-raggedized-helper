@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T11:32:49.270455+00:00",
+  "status": "FROZEN_LOCAL_COMPONENT_ROOT_AND_FRESH_AFFECTED_PEER_REVIEWED",
+  "implementation": "45543216bb7af46726a28907d0ccb4a61fa851a8",
+  "report": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+  "report_sha256": "729de70fbcdf0766cc1676d7cad1e03ced47655124e61d5cedc10c8b2e07fbad",
+  "report_bytes": 7967,
+  "scope": "Exact6implementationpaths/solecleaneffectiveprepb682/allsource6+4externalwitnesshashes/soleparentSELFreport-onlydiff verified using originalprivateverifier; Root fullsource/delta/API and current123unit/all9OS/2correctedoriginalcontrols plus ruff/diff PASS. Freshaffectedpeer170d finalresponse exactsource8/35resultentries/16logs verified. Earlierb457faults/c524andfailedCPUattempts preserved, no false all-historical-results-current claim.",
+  "Root_source_review": "audit/007-gpu-bridge-source-review-4554.json",
+  "peer": "parallel/audit-gpu-text-bridge-b/review.json",
+  "report_observation": "Some predecessor suites were run before current narrow dispatch amendment; exact unchanged predecessor source + Root allcurrentbridgecases/affectedpeer current188units/3query/3isolated supports composition. Coder-owned corrected witness filenames useRootprefix; Root own independent4554witnesses separately preserved, nohumanidentityclaimed.",
+  "strongest_counterargument": "Syntheticactualnative/fakeGPU proves selectedsoftwarecall/owner/normalizationbindings, not neural/physicalGPU/FP16/parity/durableproducer/currentrights/security/license/ICA/MVP. Heavyrehashing materialcost/cappedtwo-batchapproach documented. Canonical currentintegration and BOTH exactheadCI mandatory before strongeracceptance.",
+  "DHA": "NONE"
+}

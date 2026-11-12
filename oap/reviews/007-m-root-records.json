@@ -1,0 +1,91 @@
+{
+  "at": "2026-11-12T15:07:30.314890+00:00",
+  "records": [
+    {
+      "source": "audit/007-l-review.json",
+      "target": "oap/reviews/007-l-review.json",
+      "sha256": "e8c068363c45c5a96022865330876646eb6c99889e46744f9dc6ee992f8f75fb"
+    },
+    {
+      "source": "audit/007-l-current-source-review-d1d3.json",
+      "target": "oap/reviews/007-l-current-source-review-d1d3.json",
+      "sha256": "d7c62d913ab491b7bc9dcf0e807c1dd0e95916d1ab0d3055df493f35744c8b35"
+    },
+    {
+      "source": "audit/007-l-final-source-graph-review.json",
+      "target": "oap/reviews/007-l-final-source-graph-review.json",
+      "sha256": "5ad806404087828b55ae1c77f914d4b26ccbc8eef7d7dda5acdbf2cbab8cd40a"
+    },
+    {
+      "source": "audit/007-l-current-report-review-63958.json",
+      "target": "oap/reviews/007-l-current-report-review-63958.json",
+      "sha256": "aae5fdba9cbef549b41d33fac036ecaa6fbe43590099072c1c281eff69ec2d04"
+    },
+    {
+      "source": "audit/007-l-implementation-CI-final.json",
+      "target": "oap/reviews/007-l-implementation-CI-final.json",
+      "sha256": "b392ac791ceb696ce5d0580bc5cccae3f6087fe989bde2673e5aefb3d0850f25"
+    },
+    {
+      "source": "audit/007-l-report-CI-final.json",
+      "target": "oap/reviews/007-l-report-CI-final.json",
+      "sha256": "b0525f115a767bd883448affb617d76f4c13bb3515ebe7e1cb657c6c9e9c17eb"
+    },
+    {
+      "source": "audit/007-l-GitHub-current-final.json",
+      "target": "oap/reviews/007-l-GitHub-current-final.json",
+      "sha256": "6dfc32964a863596eb957f1499b6f9f47f98fc23ad78ae2788f0cbe33b68f707"
+    },
+    {
+      "source": "audit/007-m-current-L-production-composition-forecast.json",
+      "target": "oap/reviews/007-m-current-L-production-composition-forecast.json",
+      "sha256": "d77ac1195b0524d6edd7c068dede70beb08bc6aec0b7c4bc428edcd561face81"
+    },
+    {
+      "source": "audit/007-m-current-head-CI-sequencing-D0.json",
+      "target": "oap/reviews/007-m-current-head-CI-sequencing-D0.json",
+      "sha256": "94acfdacfc8bc314e1754e6d6436476565e59ca7c31728d7258526c8fd4fd9dd"
+    },
+    {
+      "source": "parallel/gpu-text-bridge/review.json",
+      "target": "oap/reviews/007-m-gpu-text-bridge-review.json",
+      "sha256": "3171747a7ca424a05e4be8c7f79c9bd1e88b0d256289f07f1e64bf6d39712223"
+    },
+    {
+      "source": "audit/007-gpu-bridge-source-review-4554.json",
+      "target": "oap/reviews/007-gpu-bridge-source-review-4554.json",
+      "sha256": "ebb7117ccbec536198509c702e5a3cdd9b1e1aecd715d15615270133b14ff9e3"
+    },
+    {
+      "source": "parallel/audit-gpu-text-bridge-b/review.json",
+      "target": "oap/reviews/007-m-audit-gpu-text-bridge-b-review.json",
+      "sha256": "f04975a6adc20bdec7ae77af39cd538194bae3c4800cc6d3d610b227da6bd8ca"
+    },
+    {
+      "source": "audit/007-gpu-bridge-peer-root-review-170d.json",
+      "target": "oap/reviews/007-gpu-bridge-peer-root-review-170d.json",
+      "sha256": "3f98eed6849c26a2e7985792851035af595ff645ad7d85293e3defc553b2f344"
+    },
+    {
+      "source": "parallel/gpu-source-plan/review.json",
+      "target": "oap/reviews/007-m-gpu-source-plan-review.json",
+      "sha256": "b8bc20cea2a1d23a51e80e4020d669d838dceefb5e41bfaa7b8abd84b0bfe172"
+    },
+    {
+      "source": "audit/007-gpu-plan-source-review-fb97.json",
+      "target": "oap/reviews/007-gpu-plan-source-review-fb97.json",
+      "sha256": "8b7d078907eda91357ee2e811e127311b056c7b43891eefda4dabe4ce37827f6"
+    },
+    {
+      "source": "parallel/audit-gpu-source-plan/review.json",
+      "target": "oap/reviews/007-m-audit-gpu-source-plan-review.json",
+      "sha256": "3aaf0debef8f252e64a5684758236eb099d3dc4cc74bce1e8a79f6a7b7017eb0"
+    },
+    {
+      "source": "audit/007-gpu-plan-peer-root-review-deeb.json",
+      "target": "oap/reviews/007-gpu-plan-peer-root-review-deeb.json",
+      "sha256": "1d0777dd540dceb8bc192ae4511f459bec3ee161dd26ef23c93c9f968da4fa9a"
+    }
+  ],
+  "scope": "17 exact sanitized Root source/test/report/currentCI/resolution/finitepeer records for M transcript. Historical pending statuses in source records are resolved by final L review; no mutable register/active/report seed."
+}

@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-12T11:29:29.102658+00:00",
+  "status": "FINAL_AFFECTED_PEER_RECONCILED_FINITE4554_CANDIDATE",
+  "target": "45543216bb7af46726a28907d0ccb4a61fa851a8",
+  "report_sha256": "170d56d08f71f1f77335100e133be6c1871fc8ca4db98bebdc0a143f6ac6aa5e",
+  "Root": "audit/007-gpu-bridge-peer-root-review-170d.json",
+  "scope": "Exactclean4554/source8/35resultentries/16actualpytestlogs; Rootindependent123units/all9OS/2originalcorrectedactualownercontrolsPASS. Fullsoftwarebridgecandidateonly, no canonicalCI/integration/modelGPU/currentrights/ICA/MVPacceptance. Historicalsameauthor/account disclosed.",
+  "DHA": "NONE"
+}

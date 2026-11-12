@@ -1,0 +1,112 @@
+{
+  "at": "2026-11-12T11:23:01.510326+00:00",
+  "status": "ROOT_SOURCE_AND_TESTS_PASS_FRESH_AFFECTED_PEER_PENDING_NO_REPORT_YET",
+  "implementation": "45543216bb7af46726a28907d0ccb4a61fa851a8",
+  "identity": {
+    "lane": "gpu-text-bridge",
+    "lane_id": "PAR-007-GPU-TEXT-BRIDGE-A",
+    "implementation": "45543216bb7af46726a28907d0ccb4a61fa851a8",
+    "base": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+    "effective_base": "b682d75ab928d500b799095f1733fe81d2250966",
+    "preparation_heads": [
+      "b682d75ab928d500b799095f1733fe81d2250966"
+    ],
+    "paths": [
+      "docs/parallel/isolated-gpu-embedding-api.md",
+      "docs/parallel/isolated-gpu-text-bridge-design.md",
+      "oap/parallel/orders/PAR-007-GPU-TEXT-BRIDGE-A.md",
+      "src/slaif_raggedized_helper/isolated_gpu_embedding.py",
+      "tests/integration/test_isolated_gpu_embedding_composition.py",
+      "tests/unit/test_isolated_gpu_embedding.py"
+    ],
+    "order_sha256": "9dc10a4ca24e33d59f94990f7e4cc6585f41f2621e429cf83e146f130d59e1fb",
+    "at": "2026-11-12T11:23:01.506112+00:00",
+    "reader_pid": 3338161,
+    "scope": "Implementation checkpoint only. Root review required; no acceptance or report yet."
+  },
+  "source": {
+    "docs/parallel/isolated-gpu-embedding-api.md": {
+      "sha256": "5c33d4e4b1c1296e7c2e752b7e53b593020b3e4c6344341b6be0a4502e252183",
+      "bytes": 1744
+    },
+    "docs/parallel/isolated-gpu-text-bridge-design.md": {
+      "sha256": "e4b58ecc9acb1d6a0c77f300819fc8102607f37b2b4f9b5cb203f37199afeb93",
+      "bytes": 16697
+    },
+    "oap/parallel/orders/PAR-007-GPU-TEXT-BRIDGE-A.md": {
+      "sha256": "9dc10a4ca24e33d59f94990f7e4cc6585f41f2621e429cf83e146f130d59e1fb",
+      "bytes": 10814
+    },
+    "src/slaif_raggedized_helper/isolated_gpu_embedding.py": {
+      "sha256": "909cc8cc4086250f7a2fdd10956dd8162714f2c14c481451565f850fd3e29533",
+      "bytes": 25903
+    },
+    "tests/integration/test_isolated_gpu_embedding_composition.py": {
+      "sha256": "f608c91dbc586043c5f21a9035f16699d24bd74128ed0aaf7758c9890b1f023b",
+      "bytes": 16352
+    },
+    "tests/unit/test_isolated_gpu_embedding.py": {
+      "sha256": "4d8d6f86b4941614ae40c230093492e2cf9797fbba18e10d47661a69429c18aa",
+      "bytes": 7754
+    }
+  },
+  "review": "Full original733line source and original tests/API read in b457 review; current complete 3file77insertions3deletions delta re-read. Exactly two inference dispatches now actual guarded class methods on retained actualnative/parent; imports before acquire have no process/model sideeffects. Retained owner tuple after native renewal verified by normaltwo-batch lifecycle test. No predecessor changes; guards/cleanup/errorpriority/defaultpolicy/source/record unchanged. API correctly limited to instance-level shadows, not arbitrary class/registry compromise.",
+  "tests": "Current123focusedunits; all9OS EACH separateboundedsubprocess; TWO corrected Root original actualregisteredowner witnesses PASS no callbacks, realnativeIDs/parentcalls. Original BADb457 witnesses unchanged. Perinvocation1GiBAS/30CPU/120wall/5thread1/nobytecode actualnative0.21 synthetic+copiedGPUfake/null/fakeCPU only. No skips/relaxedcaps/fullsuite.",
+  "logs": {
+    "audit/007-gpu-bridge-root-case0-4554.log": {
+      "sha256": "28fd395c1b6c5f91baaf5ee0f93ddfd53abcafbf3f1d323e62ba06e3aadb58d3",
+      "output": ".                                                                        [100%]\n1 passed in 7.88s"
+    },
+    "audit/007-gpu-bridge-root-case1-4554.log": {
+      "sha256": "775d2ef69444525645d89faad70fe0fb42a05344751b27fbdf68e6c2f7524fb6",
+      "output": ".                                                                        [100%]\n1 passed in 5.79s"
+    },
+    "audit/007-gpu-bridge-root-case2-4554.log": {
+      "sha256": "cbcf61cdc1ba1ff3c6e79a9901c83129adf24b7f9b3bf3e3526d7b4cf9c2cf95",
+      "output": ".                                                                        [100%]\n1 passed in 7.29s"
+    },
+    "audit/007-gpu-bridge-root-case3-4554.log": {
+      "sha256": "7e2e4900d1919556a2a1877cfca6fa89d79280db06efc057b28a66b53d313b07",
+      "output": ".                                                                        [100%]\n1 passed in 11.70s"
+    },
+    "audit/007-gpu-bridge-root-case4-4554.log": {
+      "sha256": "6c17f41c5dc01d13b1e04d8267ea28263ac641b65e56c13f68db70171ee33b9b",
+      "output": ".                                                                        [100%]\n1 passed in 8.90s"
+    },
+    "audit/007-gpu-bridge-root-case5-4554.log": {
+      "sha256": "b174aaa54bed6ee2f39a55fbb11f26bcd047483cb815d4c8f4fe66f8ad12149e",
+      "output": ".                                                                        [100%]\n1 passed in 9.12s"
+    },
+    "audit/007-gpu-bridge-root-gpu-fix-4554.log": {
+      "sha256": "7f9ad44b6ea291e3526f6783d831d61bcb0478497b8a16c5597c6049311790a6",
+      "output": ".                                                                        [100%]\n1 passed in 16.51s"
+    },
+    "audit/007-gpu-bridge-root-native-fix-4554.log": {
+      "sha256": "521fd0a3b3ff804c89ba3cb85bd94d63b2f776995207b6502290727fd698be5a",
+      "output": ".                                                                        [100%]\n1 passed in 16.46s"
+    },
+    "audit/007-gpu-bridge-root-normal-4554.log": {
+      "sha256": "2175220a86306885820e8c417ff857c703a9a391162354f3ef6c643450cc0cc4",
+      "output": ".                                                                        [100%]\n1 passed in 29.34s"
+    },
+    "audit/007-gpu-bridge-root-root-gpu-4554.log": {
+      "sha256": "713e9886d0429e235370034ce4eb6f053ed9a8758b06cb96040c0f4cf13e4284",
+      "output": "harness_sha256=9ce60f40cb86f80c3c8e8e5e09620436569b318aa21d1d4af106b5c8670fa955\nFIXED_DISPATCH: callback ignored, retained real parent method forwarded actual IDs\n.\n1 passed in 17.50s"
+    },
+    "audit/007-gpu-bridge-root-root-native-4554.log": {
+      "sha256": "c2673d801072ead1276631246b006e2747765cedbea2dabdc629c5483cd84297",
+      "output": "harness_sha256=9ce60f40cb86f80c3c8e8e5e09620436569b318aa21d1d4af106b5c8670fa955\nFIXED_NATIVE_DISPATCH: callback ignored, actual native encode supplied expected IDs\n.\n1 passed in 17.49s"
+    },
+    "audit/007-gpu-bridge-root-units-4554.log": {
+      "sha256": "40cd268d56ad58d3366a6fd4cf66dcb388fc968a6d440bc12de2edb80bbabbe7",
+      "output": "........................................................................ [ 58%]\n...................................................                      [100%]\n123 passed in 23.77s"
+    }
+  },
+  "Root_controls": {
+    "/tmp/raggedized-root-gpu-dispatch-fixed-4554.py": "bc41cee05bedcc7ccde0220062f53b8484cc834c3cc8e323d41dbdb517e5fb25",
+    "/tmp/raggedized-root-native-dispatch-fixed-4554.py": "ba981360319c686c517b704de55a2bf906d3c04c978a2ec03ffa5006747efa32"
+  },
+  "strongest_counterargument": "Python class/registry compromise, concurrent host changes and arbitrary kernel interruption are not proven safe; actual model/GPU/precision/parity/currentrights/durablejob/controller qualification absent. These tests fix only two reproducible selected inference dispatch substitution paths. Freshaffected4554 peer active is required before REPORT; canonical integration/currentheadCI still separate.",
+  "peer": "parallel/audit-gpu-text-bridge-b/order.md",
+  "DHA": "NONE"
+}
