@@ -33,3 +33,13 @@ interrupted or cannot be confirmed. `close()` makes bounded termination and reap
 retry it on the retained owner after resolving the failure. Constructor or request refusal
 exposes a pending owner as `owner`, and an interrupt exposes it as `cleanup_owner`. A kernel
 that cannot reap the child leaves cleanup pending; no successful drain is assumed.
+
+Actual native process acquisition now retains the owned Popen object before initialization,
+including through interrupted initialization and failed cleanup. Pending owners retain their
+private artifacts until explicit cleanup succeeds; diagnostic failures cannot discard them.
+A forked borrower refuses encode and cleanup before touching the creator's resources. The FILE
+predictor identifies selected source bytes, so its identity changes with the updated helper.
+This is not proof of the complete GPU bridge, model parity, rights, security, licenses, independent
+acceptance, or current canonical CI; those remain separate gates.
+A session cannot be initialized again, including after close. Foreign context cleanup refuses
+without replacing an existing body interruption.

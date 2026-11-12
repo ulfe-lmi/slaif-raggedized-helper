@@ -130,16 +130,41 @@
   codec with canonical partition subsets and fresh-bytes
   bind; pure declared-format data only, no
   payload/source/vector/rights/normalization/publication/
-  retention proof and no activation; the held parent K13
-  plan and the parallel native work remain unintegrated;
+  retention proof and no activation; the 007-l selective
+  integration adds the TWENTY-THREE root-reviewed immutable
+  owned-GPU parent/identity and native runtime-identity
+  files (oap/reviews/
+  007-l-parent-native-components.json, 250,571 bytes,
+  byte-exact from exact source commits 9ac0eabd/d7701a53):
+  the owned GPU embedding worker parent (retained
+  creating-process lock, lock-close race, raw worker
+  identity, single initialization refused before any live
+  owner/process/FD/lock/registry mutation, original Popen
+  pre-return capture), the raw GPU worker-identity
+  predictor/validator (selected-file canonical bytes with
+  domain-separated fingerprint; a record is data, never
+  authorization) and the native runtime-identity leaf plus
+  TokenIDSession acquisition corrections (owned Popen
+  retained before fallible initialization, independent
+  strong pending owner, fork refusal, creator/once/closed/
+  context/error precedence, bounded no-follow artifact
+  identity); the held parent K13 hold is remediated at the
+  frozen software + fresh peer (hold history preserved, no
+  human DHA waiver); finite model-free software under the
+  actual offline fixture, fake/null namespaces, synthetic
+  copied entries and the actual native 0.21.4 tokenizer
+  worker on synthetic strings, actual BGE UNRUN/
+  UNQUALIFIED, GPU text bridge/producer/controller/durable
+  GPU execution still unimplemented;
 open on the 007 PR, branch
   oap/007-embedding-pipeline from main 11badc7; whole-007 remains
   PARTIAL — the CPU reference path (CPUv2 lock selected) plus the 007-f
   cleanup/lease composition, the 007-j GPU child/protocol/launch/
-  assets software, the 007-k pure snapshot declaration codecs
-  and the inert raw GPU backend source are software under
-  trusted neural fakes only (no real GPU, driver,
-  Tensor or model was run); the actual BGE model has
+  assets software, the 007-k pure snapshot declaration
+  codecs, the 007-l owned GPU parent/identity and native
+  runtime-identity software and the inert raw GPU backend
+  source are software under trusted neural fakes only (no
+  real GPU, driver, Tensor or model was run); the actual BGE model has
   never been run, the legacy optional CPU pins are NOT security
   qualified, the archived prior OWNED random CPU toy was historically
   run (toy evidence), the ACTUAL BGE checkpoint/model has NOT been

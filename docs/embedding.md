@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration + 007-k snapshot declarations integration)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration + 007-k snapshot declarations integration + 007-l parent/native identity integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -26,7 +26,12 @@ remain parallel/unintegrated). 007-k selectively integrates the
 reviewed raw snapshot core/row-map declaration codecs (pure
 declared-format software; they establish no actual payload,
 source, vector, term, rights, normalization, publication,
-retention or activation). Objective
+retention or activation). 007-l selectively integrates the
+reviewed owned GPU parent/identity and native runtime-
+identity software (finite model-free software under fake/
+null-namespace fixtures and the actual native 0.21.4
+tokenizer worker on synthetic strings; no real GPU, driver,
+Tensor, model, parity, rights or Ready). Objective
 007 remains PARTIAL until those are implemented and reviewed. No self-advance to 008
 or main merge.
 
@@ -971,7 +976,88 @@ threads 1, no bytecode, exit 0. The Root composed review tree
 (oap/reviews/007-k8-composed-review-tree.json) is forecast
 evidence, not canonical CI/ICA.
 
-## ## Remaining 007 work (not implemented this round)
+## 007-l slice: owned GPU parent/identity + native runtime identity (integrated)
+
+Selective integration of the TWENTY-THREE root-reviewed
+immutable owned-GPU parent/identity and native runtime-
+identity files by byte-exact file copy from the two exact
+source commits 9ac0eabd77bff77101debe9812887993e86a6803 and
+d7701a5329d825eefa2d5f7a2a58b74bc0788b10 (oap/reviews/
+007-l-parent-native-components.json, 250,571 bytes; every
+path verified at this head for blob + SHA-256 + size): no
+branch ancestry, no cherry-pick/rebase/reset/stash/clean,
+no source adaptation, no test weakening. The current I
+fifteen files, the J child/launch/assets files, the K
+declaration codecs, the H installer/fixture helpers, CI,
+locks, requirements, worker-profile READMEs and law are
+unchanged; the parallel GPU text bridge, producer and
+controller work is not integrated.
+
+`src/slaif_raggedized_helper/gpu_embedding_worker.py`
+(parent, 9ac0eabd) retains the actual creating-process
+lock in the strong owner registry before fallible process
+acquisition, binds the parent attribute by object
+identity, releases only the same captured local lock in
+every branch (lock-close race), refuses repeated
+initialization BEFORE any owner/process/FD/lock/registry
+mutation or prepared-input consumption, and keeps the
+original actual Popen pre-return capture, immutable ready
+snapshot indices 9/10, source/dependency/FD/namespace
+guards and exception priority.
+
+`src/slaif_raggedized_helper/gpu_worker_identity.py`
+(9ac0eabd) predicts immutable canonical raw
+worker-identity record bytes with a domain-separated
+fingerprint over selected file bytes, policy, device
+configuration, explicit driver bytes, pinned Python and
+profile metadata (instance values excluded);
+`validate_record` checks the persisted canonical structure
+only; `observe(worker)` validates the actual registered
+live owner. A record is data, never authority, ownership
+or complete GPU execution.
+
+`src/slaif_raggedized_helper/embedding_native_identity.py`
+(d7701a53) is the native runtime-identity leaf: bounded
+scans of the selected executable, complete closed
+tokenizers and distribution trees, fixed embedding policy
+and four application source files, frozen detached
+canonical bytes plus domain-separated SHA-256; descriptor
+cleanup failures stay in private process-local uncertainty
+and an attempted close is never retried.
+
+`src/slaif_raggedized_helper/embedding_tokenizer.py`
+(replaced, d7701a53) corrects TokenIDSession acquisition:
+the actual owned Popen object is captured and retained
+BEFORE fallible initialization can create a process, an
+independent strong same-process pending owner survives
+constructor failure, the creating PID is checked before
+every encode/close/context branch (a forked borrower
+refuses before touching the creator's resources), and
+creator/once/closed/context/error precedence plus bounded
+no-follow artifact identity are preserved. The positive
+FILE test now uses the existing required
+SLAIF_NATIVE_TEST_* CI fixture variables (no hardcoded
+workstation paths).
+
+These are finite model-free software: the parent/identity
+proofs use the actual offline fixture with fake/null
+namespaces and synthetic copied entries, and the token
+work uses the actual native 0.21.4 tokenizer worker on
+synthetic strings. No real GPU, driver, Tensor, model,
+parity, rights, security, license or Ready is established;
+source and package hashes do not establish ABI, publisher
+or semantic identity. Behavior is proven by the focused
+model-free suites at this head: 112 composed units (23
+parent + 7 identity + 58 TokenID + 24 FILE) plus the
+composition/acquisition suites (29 parent OS-disjoint
+11/7/5/5 + 1 new, 1 identity OS, 8 native actual
+acquisition, 3 query, 3 isolated CPU), each 1 GiB AS /
+30 s CPU / 120 s wall, threads 1, no bytecode, exit 0. The
+Root composed review tree (oap/reviews/
+007-l-parent-native-composed-review-tree.json) is forecast
+evidence, not canonical CI/ICA.
+
+## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
 the fixed weights-only CPU worker (the real model has never been run
@@ -983,9 +1069,10 @@ never been run) and CPU exact dot-product search against admitted
 spaces, resumable
 owned GPU encode batches with bounded resource telemetry (the REQUIRED
 exclusive GPU FP16 corpus encoding per the architecture; the corrected
-raw GPU backend source, the GPU child/protocol wire, the worker entry
-and the prepared launch are integrated and inert under trusted fakes —
-no owned GPU parent or controller, no complete native/normalized/
+raw GPU backend source, the GPU child/protocol wire, the worker entry,
+the prepared launch and the owned GPU parent/lock/identity software
+(007-l) are integrated and inert under trusted fakes — no GPU text
+bridge, producer or controller, no complete native/normalized/
 durable GPU execution and no physical drain exists), snapshot/manifest
 binding of vectors, row maps, ACL and space fingerprints (the pure
 declared core/row-map codecs are integrated; actual payload loaders,

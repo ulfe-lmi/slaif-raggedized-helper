@@ -16,6 +16,20 @@ from pathlib import Path
 
 from . import native_tokenizers as native
 
+_POPEN = subprocess.Popen
+_OWNERS = set()
+
+
+def _disarm_inherited_temp_finalizers():
+    # The forked copy must not remove the creator's private directory at exit.
+    for owner in tuple(_OWNERS):
+        tmp = owner._tmp
+        if tmp is not None:
+            tmp._finalizer.detach()
+
+
+os.register_at_fork(after_in_child=_disarm_inherited_temp_finalizers)
+
 
 def _diagnose(error, owner, *, pending, note):
     """Best-effort metadata; the real owner retains its resources."""
@@ -77,9 +91,20 @@ class TokenIDReceipt:
 class TokenIDSession:
     """Own a fixed native worker and its private artifact for a bounded lifetime."""
 
+    def __new__(cls, *args, **kwargs):
+        instance = super().__new__(cls)
+        instance._creator_pid = os.getpid()
+        instance._initialized = False
+        return instance
+
     def __init__(self, definition, runtime, policy=None):
+        self._check_creator()
+        if self._initialized:
+            raise native.TokenizerError('tokenizer session refused')
+        self._initialized = True
         self._child = None
         self._tmp = None
+        _OWNERS.add(self)
         self._buffer = bytearray()
         self._calls = self._input = self._output = 0
         started = time.monotonic()
@@ -115,8 +140,11 @@ class TokenIDSession:
             argv = ['/usr/bin/timeout', '--signal=KILL',
                     str(self._policy.lifetime_seconds) + 's'] + argv
             argv.append('/artifact.json')
-            self._child = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                           stderr=subprocess.DEVNULL, close_fds=True)
+            if subprocess.Popen is not _POPEN:
+                raise ValueError
+            self._child = _POPEN.__new__(_POPEN)
+            _POPEN.__init__(self._child, argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                            stderr=subprocess.DEVNULL, close_fds=True)
             os.set_blocking(self._child.stdin.fileno(), False)
             os.set_blocking(self._child.stdout.fileno(), False)
             startup_deadline = min(self._deadline, started + self._policy.startup_seconds)
@@ -162,7 +190,12 @@ class TokenIDSession:
                 if self._output > self._policy.max_output_bytes:
                     raise ValueError
 
+    def _check_creator(self):
+        if os.getpid() != self._creator_pid:
+            raise native.TokenizerError('tokenizer session refused')
+
     def encode(self, text):
+        self._check_creator()
         try:
             if (self._child is None or self._child.poll() is not None or type(text) is not str
                     or len(text) > self._policy.max_chars):
@@ -209,6 +242,7 @@ class TokenIDSession:
             self._refuse(error)
 
     def _refuse(self, error):
+        self._check_creator()
         cleanup_error = None
         try:
             self.close()
@@ -228,6 +262,7 @@ class TokenIDSession:
         raise selected
 
     def close(self):
+        self._check_creator()
         child = self._child
         first = None
 
@@ -247,7 +282,14 @@ class TokenIDSession:
                 remember(error)
                 return None
 
+        if child is not None and not hasattr(child, '_waitpid_lock'):
+            # The stdlib initializer creates its wait lock before any process creation.
+            self._child = child = None
         if child is not None:
+            # An interrupted Popen initializer can leave creation uncertain. Retain the
+            # exact owner and artifact until the actual handle is known to be usable.
+            if not getattr(child, '_child_created', False):
+                raise native.TokenizerError('tokenizer cleanup pending')
             if child.stdin is not None:
                 attempt(child.stdin.close)
             # Keep the exact handle until wait confirms the child was reaped.
@@ -278,6 +320,8 @@ class TokenIDSession:
                 remember(error)
         if first is not None:
             raise first
+        if self._child is None and self._tmp is None:
+            _OWNERS.discard(self)
 
     def __enter__(self):
         return self

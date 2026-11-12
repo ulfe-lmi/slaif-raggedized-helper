@@ -2,6 +2,7 @@
 import hashlib
 import importlib.util
 import json
+import os
 import socket
 import subprocess
 from dataclasses import FrozenInstanceError, replace
@@ -26,15 +27,14 @@ def make_native(tmp_path):
 
 def test_real_reuse_and_receipts(tmp_path, monkeypatch):
     d, runtime = make_native(tmp_path)
-    actual_popen = subprocess.Popen
+    actual_popen = subprocess.Popen.__init__
     children = []
 
-    def spy(*args, **kwargs):
-        child = actual_popen(*args, **kwargs)
+    def spy(child, *args, **kwargs):
+        actual_popen(child, *args, **kwargs)
         children.append(child)
-        return child
 
-    monkeypatch.setattr(e.subprocess, 'Popen', spy)
+    monkeypatch.setattr(subprocess.Popen, '__init__', spy)
     with e.TokenIDSession(d, runtime) as session:
         child = session._child
         first = session.encode('hello café 世界')
@@ -50,7 +50,7 @@ def test_real_reuse_and_receipts(tmp_path, monkeypatch):
         with pytest.raises(FrozenInstanceError):
             first.count = 0
     assert child.poll() is not None
-    monkeypatch.setattr(e.subprocess, 'Popen', actual_popen)
+    monkeypatch.setattr(subprocess.Popen, '__init__', actual_popen)
     with Session((d,), runtime) as counts:
         assert counts.count(d.role, 'hello café 世界').count == first.count
         assert counts.count(d.role, 'hello ' * 100).count == second.count
@@ -168,14 +168,14 @@ def test_isolation_probe(tmp_path, monkeypatch):
                      'except OSError: pass\n'
                      'print(\'{"ready":"0.21.4"}\', flush=True)\n'
                      'sys.stdin.buffer.readline()\n')
-    original = e.subprocess.Popen
+    original = subprocess.Popen.__init__
 
-    def intercept(argv, **kwargs):
+    def intercept(child, argv, **kwargs):
         argv = list(argv)
         argv[argv.index('/worker.py') - 1] = str(probe)
-        return original(argv, **kwargs)
+        return original(child, argv, **kwargs)
 
-    monkeypatch.setattr(e.subprocess, 'Popen', intercept)
+    monkeypatch.setattr(subprocess.Popen, '__init__', intercept)
     try:
         with e.TokenIDSession(d, runtime) as session:
             assert session._child.poll() is None
@@ -205,14 +205,14 @@ def test_dead_child_and_actual_request_timeout(tmp_path, monkeypatch):
     probe = tmp_path / 'hang.py'
     probe.write_text('import sys, time\nprint(\'{"ready":"0.21.4"}\', flush=True)\n'
                      'sys.stdin.buffer.readline()\ntime.sleep(20)\n')
-    original = e.subprocess.Popen
+    original = subprocess.Popen.__init__
 
-    def intercept(argv, **kwargs):
+    def intercept(child, argv, **kwargs):
         argv = list(argv)
         argv[argv.index('/worker.py') - 1] = str(probe)
-        return original(argv, **kwargs)
+        return original(child, argv, **kwargs)
 
-    monkeypatch.setattr(e.subprocess, 'Popen', intercept)
+    monkeypatch.setattr(subprocess.Popen, '__init__', intercept)
     session = e.TokenIDSession(d, runtime, e.Policy(request_seconds=0.2))
     child = session._child
     with pytest.raises(n.TokenizerError):
@@ -226,14 +226,14 @@ def test_actual_trailing_output_refused(tmp_path, monkeypatch):
     probe.write_text('import sys\nprint(\'{"ready":"0.21.4"}\', flush=True)\n'
                      'sys.stdin.buffer.readline()\n'
                      'sys.stdout.buffer.write(b"{}\\nextra\\n"); sys.stdout.buffer.flush()\n')
-    original = e.subprocess.Popen
+    original = subprocess.Popen.__init__
 
-    def intercept(argv, **kwargs):
+    def intercept(child, argv, **kwargs):
         argv = list(argv)
         argv[argv.index('/worker.py') - 1] = str(probe)
-        return original(argv, **kwargs)
+        return original(child, argv, **kwargs)
 
-    monkeypatch.setattr(e.subprocess, 'Popen', intercept)
+    monkeypatch.setattr(subprocess.Popen, '__init__', intercept)
     with e.TokenIDSession(d, runtime) as session:
         with pytest.raises(n.TokenizerError):
             session.encode('hello')
@@ -261,6 +261,7 @@ def test_owned_process_retained_until_retry_after_wait_failure(tmp_path, monkeyp
     child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
                              stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     session = object.__new__(e.TokenIDSession)
+    session._creator_pid = os.getpid()
     session._child = child
     session._tmp = tempfile.TemporaryDirectory(dir=tmp_path)
     private = Path(session._tmp.name)
@@ -287,16 +288,15 @@ def test_owned_process_retained_until_retry_after_wait_failure(tmp_path, monkeyp
 
 def test_constructor_failure_preserves_original_and_pending_owner(tmp_path, monkeypatch):
     d, runtime = make_native(tmp_path)
-    original_popen = subprocess.Popen
+    original_popen = subprocess.Popen.__init__
     children = []
 
-    def spawn(*args, **kwargs):
-        child = original_popen(*args, **kwargs)
+    def spawn(child, *args, **kwargs):
+        original_popen(child, *args, **kwargs)
         children.append((child, child.wait))
         monkeypatch.setattr(child, 'wait', lambda **kw: (_ for _ in ()).throw(OSError('wait')))
-        return child
 
-    monkeypatch.setattr(e.subprocess, 'Popen', spawn)
+    monkeypatch.setattr(subprocess.Popen, '__init__', spawn)
     monkeypatch.setattr(e.TokenIDSession, '_read', lambda *a: (_ for _ in ()).throw(
         KeyboardInterrupt('startup')))
     try:
@@ -323,6 +323,7 @@ def test_stdout_interruption_retains_owner_and_preserves_exception(tmp_path):
     child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
                              stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     session = object.__new__(e.TokenIDSession)
+    session._creator_pid = os.getpid()
     session._child = child
     session._tmp = tempfile.TemporaryDirectory(dir=tmp_path)
     real_stdout = child.stdout
@@ -354,6 +355,7 @@ def test_operation_refusal_propagates_cleanup_interrupt_with_owner(tmp_path, mon
     child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
                              stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     session = object.__new__(e.TokenIDSession)
+    session._creator_pid = os.getpid()
     session._child = child
     session._tmp = tempfile.TemporaryDirectory(dir=tmp_path)
     private = Path(session._tmp.name)
@@ -392,6 +394,7 @@ def test_later_interrupt_outranks_pipe_error_and_retry_drains(tmp_path, monkeypa
     child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
                              stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     session = object.__new__(e.TokenIDSession)
+    session._creator_pid = os.getpid()
     session._child = child
     session._tmp = tempfile.TemporaryDirectory(dir=tmp_path)
     private = Path(session._tmp.name)
@@ -440,6 +443,7 @@ def test_refuse_selects_primary_before_hostile_diagnostics(diagnostic_failure, c
             raise diagnostic_failure
 
     obj = object.__new__(e.TokenIDSession)
+    obj._creator_pid = os.getpid()
     obj._child, obj._tmp = object(), object()
     primary = Hostile('primary')
 
@@ -462,6 +466,7 @@ def test_refuse_cleanup_interrupt_with_hostile_attributes(diagnostic_failure):
             raise diagnostic_failure
 
     obj = object.__new__(e.TokenIDSession)
+    obj._creator_pid = os.getpid()
     obj._child, obj._tmp = object(), object()
     cleanup = Hostile('cleanup')
     obj.close = lambda: (_ for _ in ()).throw(cleanup)
@@ -478,6 +483,7 @@ def test_refuse_cleanup_interrupt_with_hostile_attributes(diagnostic_failure):
 ])
 def test_native_context_exception_priority(body, cleanup, selected):
     obj = object.__new__(e.TokenIDSession)
+    obj._creator_pid = os.getpid()
     obj._child, obj._tmp = object(), object()
     obj.close = lambda: (_ for _ in ()).throw(cleanup)
     expected = body if selected == 'body' else cleanup
@@ -500,6 +506,7 @@ def test_context_hostile_diagnostics_keep_original(diagnostic_failure):
 
     body = Hostile('body')
     obj = object.__new__(e.TokenIDSession)
+    obj._creator_pid = os.getpid()
     obj._child, obj._tmp = object(), object()
     obj.close = lambda: (_ for _ in ()).throw(KeyboardInterrupt('cleanup'))
     with pytest.raises(Hostile) as caught:

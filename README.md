@@ -327,13 +327,42 @@ parent K13 plan and the parallel native work are not
 integrated; whole 007 remains PARTIAL
 ([docs/parallel/raw-snapshot-manifest-api.md](docs/parallel/raw-snapshot-manifest-api.md),
 [docs/parallel/raw-snapshot-row-map-api.md](docs/parallel/raw-snapshot-row-map-api.md)).
+The 007-l continuation selectively integrates the TWENTY-THREE
+root-reviewed immutable owned-GPU parent/identity and native
+runtime-identity files (oap/reviews/007-l-parent-native-
+components.json, 250,571 bytes, byte-exact from the two exact
+source commits 9ac0eabd and d7701a53): the owned GPU embedding
+worker parent (creating-process retained lock in the strong
+owner registry, lock-close race, raw worker identity, single
+initialization refused before any owner/process/FD/lock/
+registry mutation, original Popen pre-return capture), the raw
+GPU worker-identity predictor/validator (canonical selected-
+file bytes with domain-separated fingerprint; a record is
+data, never authorization) and the native runtime-identity
+leaf plus the TokenIDSession acquisition corrections (owned
+Popen retained before fallible initialization, independent
+strong pending owner, fork refusal, creator/once/closed/
+context/error precedence, bounded no-follow artifact
+identity). They are finite model-free software: parent and
+identity proofs run against the actual offline fixture with
+fake/null namespaces and synthetic copied entries, and the
+token work uses the actual native 0.21.4 tokenizer worker on
+synthetic strings — no real GPU, driver, Tensor, model,
+parity, rights or Ready is established; the GPU text bridge,
+producer, controller and durable GPU execution remain
+unimplemented; whole 007 remains PARTIAL
+([docs/parallel/owned-gpu-worker-api.md](docs/parallel/owned-gpu-worker-api.md),
+[docs/parallel/gpu-worker-identity-api.md](docs/parallel/gpu-worker-identity-api.md),
+[docs/parallel/embedding-native-runtime-identity-api.md](docs/parallel/embedding-native-runtime-identity-api.md),
+[docs/parallel/embedding-tokenizer-api.md](docs/parallel/embedding-tokenizer-api.md)).
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
 lock) plus the cleanup/lease/isolated-exit composition, the 007-j GPU
 child/protocol/launch/assets software, the 007-k pure snapshot
-declaration codecs and the inert raw GPU backend source are
-software under trusted neural fakes only (no real GPU, driver,
-Tensor or model was run).
+declaration codecs, the 007-l owned GPU parent/identity and
+native runtime-identity software and the inert raw GPU backend
+source are software under trusted neural fakes only (no real
+GPU, driver, Tensor or model was run).
 Execution scope is precise: the archived prior OWNED random CPU toy
 was historically executed (toy evidence only); the ACTUAL BGE
 checkpoint/model has NOT been executed or qualified, and a class

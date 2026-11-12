@@ -1026,3 +1026,63 @@ human question.
   exclusive GPU FP16 corpus encoding path execution is still
   unimplemented; real qualification NOT RUN. Whole 007
   remains PARTIAL; no main merge or 008.
+### 2026-11-12, order 007-l (owned GPU parent/identity + native runtime identity integration)
+
+- 007 is PARTIAL after this slice: the TWENTY-THREE
+  root-reviewed immutable owned-GPU parent/identity and
+  native runtime-identity files are selectively
+  integrated by byte-exact file copy from the two exact
+  source commits
+  9ac0eabd77bff77101debe9812887993e86a6803 and
+  d7701a5329d825eefa2d5f7a2a58b74bc0788b10 (oap/reviews/
+  007-l-parent-native-components.json, 250,571 bytes; no
+  branch ancestry, no source adaptation): the owned GPU
+  embedding worker parent (retained creating-process
+  lock, lock-close race, raw worker identity, single
+  initialization refused before any live mutation,
+  original Popen pre-return capture), the raw GPU
+  worker-identity predictor/validator (selected-file
+  canonical bytes, domain-separated fingerprint; a
+  record is data, never authority), the native
+  runtime-identity leaf (bounded scans, frozen canonical
+  bytes, cleanup uncertainty retained) and the
+  TokenIDSession acquisition corrections (owned Popen
+  retained before fallible initialization, independent
+  strong pending owner, fork refusal, creator/once/
+  closed/context/error precedence, bounded no-follow
+  artifact identity).
+- Mock/real distinction: the 112 focused composed units
+  (23 parent + 7 identity + 58 TokenID + 24 FILE) plus
+  the composition/acquisition suites (29 parent
+  OS-disjoint cases 11 normal/7 hostile/5 acquisition/5
+  lock-race + 1 new, 1 identity OS, 8 native actual
+  acquisition, 3 query + 3 isolated CPU compatibility,
+  each bounded 1 GiB AS / 30 s CPU / 120 s wall, threads
+  1, no bytecode, exit 0) are finite model-free software
+  over synthetic strings and synthetic copied/
+  null/fake fixtures; the actual native 0.21.4 tokenizer
+  worker ran on synthetic data only. No real GPU,
+  driver, Tensor, model, neural weights, parity, rights
+  or hardware was loaded, executed or qualified. A
+  predicted/observed identity record, fingerprint or
+  token receipt is not authority, liveness, readiness,
+  neural origin, FP16 precision, physical vacancy,
+  security or license proof.
+- The old parent K13 hold (oap/reviews/
+  007-k-activation-hold-reinit.json) is remediated at the
+  frozen software + fresh peer; the hold history is
+  preserved and no human DHA waiver exists. The
+  parallel GPU text bridge, producer, controller and
+  SourceRows/lexical/dense work remains unintegrated,
+  pending separate gates. The H actual 38
+  setup/class-import/license-fact and the archived
+  random CPU toy distinction are preserved (H history);
+  the H-era host full-unit failure cause remains
+  UNRESOLVED as observed history: no causality is
+  invented and no failure is hidden.
+- U04 (CPU query latency, CPU/GPU embedding parity) and
+  U07 (license/distribution clearance) remain OPEN; the
+  required exclusive GPU FP16 corpus encoding path
+  execution is still unimplemented; real qualification
+  NOT RUN. Whole 007 remains PARTIAL; no main merge or
+  008.
