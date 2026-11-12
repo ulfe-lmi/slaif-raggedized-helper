@@ -38,3 +38,9 @@ The schema-2 execution hash uses `isolated-cpu-embedding-execution-v2`, delibera
 the v1 execution identity while preserving the legacy space and intended CPU FP32 identities.
 See [the pre-model contract and plan API](cpu-embedding-plan-api.md) for prediction and the
 consumer comparison required before content forwarding and output completion.
+
+Native startup is owned before construction begins. If native cleanup remains pending, the
+session retains both that exact tokenizer and its stage; `SessionRefused.owner` or an
+interrupt's `cleanup_owner` provides the owner for a bounded later `close()` retry. CPU startup
+is not attempted after native startup fails. A child that cannot be reaped keeps its borrowed
+artifacts and stage pending.

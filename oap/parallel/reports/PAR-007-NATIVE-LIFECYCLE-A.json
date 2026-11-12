@@ -1,0 +1,51 @@
+{
+  "lane_id": "PAR-007-NATIVE-LIFECYCLE-A",
+  "result": "COMPLETE",
+  "preparation_head": "88acec306c2afddc32f251bdd5dbd49596250b50",
+  "implementation_head": "7dca0ba384bca8b97e94f58ae91acc20cf1de2d2",
+  "report_publication_commit": "SELF",
+  "API": "TokenIDSession retains owned child and private artifact through interrupted or unconfirmed finite drain; pending refusal and interrupt expose owner. Isolated session pre-owns native construction and retains stage while cleanup pending. Interrupts outrank ordinary cleanup errors; original operation interrupt retains priority. Protocol, identities and limits unchanged.",
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest tests/unit/test_embedding_tokenizer.py tests/unit/test_isolated_cpu_embedding.py",
+      "result": "76 passed"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/integration/test_embedding_tokenizer_composition.py",
+      "result": "1 passed"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/integration/test_isolated_cpu_embedding_composition.py",
+      "result": "2 passed; existing multithreaded fork DeprecationWarning"
+    },
+    {
+      "command": "PYTHONPATH=src python3 /tmp/raggedized-root-native-close-ownership.py",
+      "result": "PASS"
+    },
+    {
+      "command": "PYTHONPATH=src python3 /tmp/raggedized-root-native-interrupt-priority.py",
+      "result": "PASS"
+    },
+    {
+      "command": ".venv/bin/ruff check src/slaif_raggedized_helper/embedding_tokenizer.py src/slaif_raggedized_helper/isolated_cpu_embedding.py tests/unit/test_embedding_tokenizer.py tests/unit/test_isolated_cpu_embedding.py tests/integration/test_embedding_tokenizer_composition.py tests/integration/test_isolated_cpu_embedding_composition.py",
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "setup": "Offline locked CPython 3.14 parent; test commands used 1 GiB address space, 30 CPU seconds, timeout 120 seconds and OMP/OPENBLAS/MKL threads 1. Native root /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu, packages /tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages, python3.12; CPU root same and packages /tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages. Trusted fake neural provider in isolated integration. Initial unit invocation without required native variables failed setup; configured rerun passed.",
+  "witness_hashes": {
+    "ownership": "cde42ab88365d21dd190b76eb9ac54f7ee42944ed8267fec36d2147cbbc98694",
+    "priority": "92cd6a25d80ccc9e0673400d3db121b8bff71111e40816988650d9e8ce5d9d73",
+    "embedding_tokenizer.py": "51cfb340d2caac2c7557ef4b8b29acd46c020328fedc5c872bc216406c0f2968",
+    "isolated_cpu_embedding.py": "562c67eca01b407a05b3108f5deda13e33c25041d57b70dfa47f00fbea1c6492",
+    "order": "65dda9fb8508f4630de4b7995cc06fa0852d311a3cbb41bc2d51177941b24c90",
+    "architecture": "4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a",
+    "plan": "6cbb9cba6694ccd435435a7c9e0fdd32444c1d2520e5ffa5194b5e3db749b21b",
+    "update": "fd60fbae2a20b58acecef2f97f550366f7a1160abb385eed42499550a3cfb773"
+  },
+  "limits": "Kernel failure to reap retains pending ownership and borrowed artifacts. No real neural execution, actual model or ABI, hardware, parity, current rights, runtime security, license, ICA, MVP or production qualification. Whole 007 remains PARTIAL. No push, PR, canonical merge, release or deployment. Independent Root checkpoint REPORT applies to this implementation only.",
+  "DHA": "NONE"
+}

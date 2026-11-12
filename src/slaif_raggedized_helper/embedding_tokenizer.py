@@ -110,10 +110,7 @@ class TokenIDSession:
                     or time.monotonic() >= startup_deadline):
                 raise ValueError
         except BaseException as error:
-            self.close()
-            if isinstance(error, (KeyboardInterrupt, SystemExit)):
-                raise
-            raise native.TokenizerError('tokenizer session refused') from None
+            self._refuse(error)
 
     @staticmethod
     def _parse(data):
@@ -195,34 +192,80 @@ class TokenIDSession:
                                   d.backend_version, d.role, d.model_revision, d.preprocessing,
                                   digest, nonce)
         except BaseException as error:
+            self._refuse(error)
+
+    def _refuse(self, error):
+        cleanup_error = None
+        try:
             self.close()
-            if isinstance(error, (KeyboardInterrupt, SystemExit)):
-                raise
-            raise native.TokenizerError('tokenizer session refused') from None
+        except BaseException as caught:
+            cleanup_error = caught
+            error.add_note('tokenizer cleanup pending or interrupted')
+        pending = self._child is not None or self._tmp is not None
+        if not isinstance(error, Exception):
+            if pending:
+                error.cleanup_owner = self
+            raise error
+        if cleanup_error is not None and not isinstance(cleanup_error, Exception):
+            if pending:
+                cleanup_error.cleanup_owner = self
+            raise cleanup_error
+        refused = native.TokenizerError('tokenizer session refused')
+        if pending:
+            refused.owner = self
+        raise refused from None
 
     def close(self):
-        child, self._child = self._child, None
+        child = self._child
+        first = None
+
+        def remember(error):
+            nonlocal first
+            if first is None or (isinstance(first, Exception) and
+                                 not isinstance(error, Exception)):
+                first = error
+
+        def attempt(fn):
+            nonlocal first
+            try:
+                return fn()
+            except ProcessLookupError:
+                return None
+            except BaseException as error:
+                remember(error)
+                return None
+
         if child is not None:
-            if child.stdin:
-                child.stdin.close()
-            if child.poll() is None:
-                try:
-                    child.terminate()
-                except ProcessLookupError:
-                    pass
+            if child.stdin is not None:
+                attempt(child.stdin.close)
+            # Keep the exact handle until wait confirms the child was reaped.
+            attempt(child.terminate)
+            reaped = False
+            try:
+                child.wait(timeout=0.4)
+                reaped = True
+            except BaseException as error:
+                if not isinstance(error, subprocess.TimeoutExpired):
+                    remember(error)
+                attempt(child.kill)
                 try:
                     child.wait(timeout=0.4)
-                except subprocess.TimeoutExpired:
-                    try:
-                        child.kill()
-                    except ProcessLookupError:
-                        pass
-                    child.wait(timeout=0.4)
-            if child.stdout:
-                child.stdout.close()
-        if self._tmp is not None:
-            self._tmp.cleanup()
-            self._tmp = None
+                    reaped = True
+                except BaseException as later:
+                    remember(later)
+            if child.stdout is not None:
+                attempt(child.stdout.close)
+            if reaped and first is None:
+                self._child = None
+        if self._child is None and self._tmp is not None:
+            tmp = self._tmp
+            try:
+                tmp.cleanup()
+                self._tmp = None
+            except BaseException as error:
+                remember(error)
+        if first is not None:
+            raise first
 
     def __enter__(self):
         return self

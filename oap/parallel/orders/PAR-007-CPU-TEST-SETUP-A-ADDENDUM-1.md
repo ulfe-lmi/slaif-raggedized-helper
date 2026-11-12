@@ -1,0 +1,14 @@
+# Root scope addendum 1 — PAR-007-CPU-TEST-SETUP-A
+
+Status: FINAL
+Provenance: E immutable blocker.json identifies real accepted native_tokenizers._argv prerequisite packages/tokenizers/__init__.py before any worker sandbox; I Root inspected exact existing guard and fixed approved wheel in both native-test PIN and CPU lock. D0 normal synthetic package setup under active development mandate. No new objective, control signal, response reader, context replacement or source patch.
+
+Original activated order bytes remain unchanged. This additive strategic instruction replaces only the contradictory five-actual/23-synthetic package allocation with SIX actual/22 explicitly synthetic metadata records. Preserve every other criterion, immutable base f92ed6e, allowed helper/test/doc scope, no production/workflow/package-lock edits, no fake importable ML modules and no actual neural framework/weights/model calls.
+
+Sixth actual package is tokenizers==0.21.4 with ONLY wheel SHA256 51b7eabb104f46c1c50b486520555715457ae833d5aee9ff6ae853d1130506ff, size3115426, fixed lock URL https://files.pythonhosted.org/packages/f2/90/273b6c7ec78af547694eddeea9e05de771278bd20476525ab930cecaf7d8/tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl. This is the already approved project native engine wheel; public PyPI binary-only hash-verified installation under original setup caps is authorized. No huggingface-hub auto-install: --no-deps continues. Five original Pydantic graph pins unchanged.
+
+Setup evidence/docstrings/tests/banners must explicitly record six REAL installed distributions and 22 data-only synthetic metadata records, never 28 actual. Confirm real tokenizers/__init__.py/engine exists; a small owned-generated WordLevel API smoke in selected CPython3.12 is allowed as in native setup, no actual model tokenizer acquisition. Existing synthetic fake-neural worker tests still prove only software/sandbox. No import or install of Torch/Transformers/NumPy/weights.
+
+Preserve blocker.json as historical causal evidence. Write separate blocker-resolution.json with exact original/addendum hashes, actual sixthwheel setup/test results and remaining limits; do not erase the failure or mark the old capsule as six-package success. Create a NEW target for revised actual setup, do not reuse or relabel existing target. All other original rejection/privacy/finite cleanup/51unit+4standalone criteria apply. If another concrete prerequisite appears report it before unauthorized work.
+
+Coding must commit this exact addendum unchanged as oap/parallel/orders/PAR-007-CPU-TEST-SETUP-A-ADDENDUM-1.md alongside original exactorder in the single unpublished implementation. Root has added that path to lane allowed and required files under publication lock, with prior manifest archived. One final checkpoint after all revised criteria, FIX samecontext or REPORT immutableSELF plus ONEresponse/endidle. DHA Decision: NONE.
