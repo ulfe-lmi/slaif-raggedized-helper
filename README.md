@@ -128,6 +128,13 @@ BGE-M3 checkpoint inventory/encoder-space software (schema 1/2 byte-verified
 local artifact admission with fixed safetensors/pytorch-state-dict weight
 names; v1 CLS/1024/normalize/identity space binding; pinned layout evidence
 metadata-only, no deserialization or model execution).
+The 007-c continuation integrates the reviewed composed CPU-session
+software: owned staging with double admission, exact native token IDs
+obtained before any framework construction, bounded 1-128 text and
+native receipt preflight before one ordered CPU CLS forward, and fixed
+binary32 L2 normalization with provenance kept separate from encoder
+identity. The neural framework runs only as trusted fakes; no actual
+model, weights, GPU or network were used.
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — no encoder execution, CPU query, resumable GPU batches
 or qualification yet

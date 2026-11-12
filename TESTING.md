@@ -232,7 +232,7 @@ backend setup, the four-fresh-read derived-store semantics and NOT-RUN
 distinctions: docs/benchmarks/ingestion-count-storage.md (T15). All
 synthetic and offline; real qualification NOT RUN.
 
-T16. Bounded 007-a/b slices: codec plus retrieval-representation and
-artifact/space admission focused suites (synthetic offline, no developer
-PYTHONPATH; command and limit detail in docs/embedding.md). Real
+T16. Bounded 007-a/b/c slices: codec, representation and artifact/space
+admission plus composed CPU-session suites (synthetic offline, trusted
+neural fakes, no PYTHONPATH; detail in docs/embedding.md). Real
 qualification NOT RUN.

@@ -1,12 +1,16 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session)
 
-Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a and 007-b slices.
-007-a integrates the exact reviewed bounded vector codec and the reproducible NumPy 2.5.4
-runtime dependency; 007-b integrates the reviewed source-bound raw retrieval
+Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a, 007-b and 007-c
+slices. 007-a integrates the exact reviewed bounded vector codec and the reproducible
+NumPy 2.5.4 runtime dependency; 007-b integrates the reviewed source-bound raw retrieval
 representation/batch software and the published BGE-M3 checkpoint inventory/encoder-space
-software. Together they establish no encoder execution, no CPU query path, no resumable
-owned GPU batches and no qualification contract. Objective 007 remains PARTIAL until
-those are implemented and reviewed. No self-advance to 008 or main merge.
+software; 007-c integrates the reviewed composed CPU-session software (owned staging,
+exact native token IDs, bounded preflight before one ordered CPU CLS forward, fixed
+binary32 L2 normalization) with the neural framework exercised only through trusted
+fakes. Together they establish no real encoder execution, no CPU query path, no
+resumable owned GPU batches and no qualification contract. Objective 007 remains
+PARTIAL until those are implemented and reviewed. No self-advance to 008 or main
+merge.
 
 ## 007-a slice: bounded normalized FP32 codec (integrated)
 
@@ -130,9 +134,104 @@ oap/reviews/007-b-integration-forecast.json); no 008 ancestry entered.
   2 s request caps unchanged; a 20k corpus uses future multiple bounded
   batches.
 
+## 007-c slice: composed CPU embedding session (integrated)
+
+Merged into the 007 branch as ONE root-reviewed local candidate, `--no-ff`: CPU-session
+tip `a7fb1bf0` (implementation `cb439c15`, immutable SELF report SHA-256
+`a895b1328e7e780a81b66d3de949b311cc56d4fba5940776a4cdbac638176b94`). All twenty-one
+indexed final files hold the exact forecast Git blobs/SHA-256
+(oap/reviews/007-c-components.json, oap/reviews/007-c-integration-forecast.json);
+the candidate histories contain 007 parallel lanes only, no 008 ancestry; the
+Root transcript (order, active and records) was committed first and is
+byte-identical after the merge.
+
+- `embedding_staging.stage` (blob `958aece8` / `fc321415`): a context manager that
+  performs actual source admission, copies each manifest-declared file into an owned
+  0700 private directory (files 0600 during copy, 0500/0400 during use) and performs
+  a SECOND actual admission of the staged copy with the tokenizer rebound to the
+  staged `tokenizer.json`; both admissions must produce the same space. Pinned-parent
+  no-follow checks, 120 s shared deadline (two 30 s admissions plus copy), and
+  inode-identity-verified cleanup; `StagingRefused("staging refused")` is input-free.
+  No weight deserialization anywhere in staging.
+- `embedding_tokenizer.TokenIDSession` (`8aea18f3` / `0da386d2`) plus the data-only
+  worker `embedding_tokenizer_worker.py` (`d7b716c4` / `ce0c2fc1`): one isolated
+  CPython 3.12 child (1 GiB address space / 30 CPU seconds / 2 s per request / 5 s
+  startup / 300 s lifetime / 1,024 calls / 32 MB input / 16 MB output) loads the
+  staged tokenizer once (tokenizers 0.21.4, special tokens, no padding/truncation)
+  and returns exact token IDs with a frozen receipt binding IDs and count to the
+  artifact SHA-256, backend, role `bge_representation`, model revision,
+  preprocessing `identity`, nonce and the SHA-256 of compact ASCII-escaped JSON
+  `[text,null]`. Receipts are tokenizer-operation evidence, not authorization,
+  provenance, parity or license clearance.
+- `embedding_vectors.normalize_rows` (`00b1cfec` / `c69906f3`): 1-128 rows of 1,024
+  exact finite binary32 floats; float64 stable accumulation; norm > 1e-12; binary32
+  little-endian payload with `sha256` and policy
+  `cls-l2-f64-fp32le-d1024-eps1e-12-tol1e-4-v1`. Producer provenance only: it does
+  not change the encoder definition/space fingerprint and does not repair or
+  validate stored vectors on read.
+- `cpu_embedding_backend.CPUEmbeddingBackend` (`a2706ad7` / `cd0f4a3b`): after
+  admission and closed-tree verification it loads ONE fixed XLMRobertaModel;
+  `forward_cls` accepts 1-128 ordered sequences of 2-1,024 IDs and returns
+  immutable raw (not normalized) FP32 CLS rows; `close()` is idempotent and a
+  failed forward closes the instance. `_framework()` requires CPython 3.12 with the
+  exact worker pins (torch 2.10.0+cpu, transformers 4.51.3, tokenizers 0.21.4,
+  safetensors 0.5.3, huggingface-hub 0.30.2, numpy 2.2.6) checked at runtime: that
+  list is a declared fixed direct-pin contract for the isolated worker profile, not
+  a resolved transitive hash lock, and it is separate from the application
+  dependencies (no pyproject/lock change in this slice; no new package installed).
+- `cpu_embedding_session.CPUEmbeddingSession` (`589560a3` / `375472b7`): the owned
+  composition. `embed`/`encode` over 1-128 exact strings (100,000 chars / 200,000
+  wire bytes per text; 1,000,000 / 4,000,000 per batch) run ALL text and native
+  receipt validation before ONE ordered backend forward; a nonblocking guard
+  rejects concurrent/reentrant use; failures close owned resources; the native
+  worker is renewed (never model-reloaded) when its budgets cannot fit the batch
+  with the 2 s/row and 5 s startup margin, and a failed forward is never retried.
+  `encode` returns the frozen `EncodedBatch` (normalized payload, receipts,
+  `space_id`, definition fingerprint, execution fingerprint, policy ID): execution
+  and policy identities are provenance separate from the embedding-space
+  fingerprint.
+
+Python version/process boundary: the canonical app runs on Python 3.12/3.14, while
+the fixed CPU backend runtime check targets the isolated CPython 3.12 worker
+profile. The in-process backend cannot make that 3.12 profile executable inside a
+Python 3.14 application by declaration; the separate neural-worker process bridge
+remains explicitly pending (future work), as do the optional transitive lock for
+the worker profile and real package/model startup. The native tokenizer child is
+already a separate 3.12 process under the existing isolation profile.
+
+Real vs fake vs unqualified: staging, admissions, native token IDs, receipts and
+normalization math are REAL local execution on the approved 3.12 native fixture;
+the neural framework (Torch/model/forward) is a TRUSTED FAKE in every test; no
+actual model, weight, GPU, network or inference evidence exists in this slice.
+Admitted identities (inventory/space IDs, fingerprints, policy IDs) are immutable
+byte identities: they establish neither current rights, publisher provenance,
+license clearance nor deserializer safety. Ownership/trust assumptions: the caller
+establishes rights and current ACL before invoking the API and must trust the
+protected artifact parent ancestry and filesystem; runtime and installed
+tokenizer packages remain trusted. Store caps (64 MiB member / 96 MiB aggregate /
+16 members) and native session 20 s / 2 s request caps are unchanged.
+
+Focused suites: five new unit files (21 session cases plus the backend/staging/
+tokenizer/vectors suites) and five standalone integrations, each run in its own
+`env -u PYTHONPATH` process under the approved
+`SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu`,
+`SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages`,
+`SLAIF_NATIVE_TEST_PYTHON=python3.12` fixture. The two unchanged Root witnesses
+(`/tmp/raggedized-root-cpu-session-boundaries.py`, SHA-256 `8d6cbe2c`;
+`/tmp/raggedized-root-cpu-trace-causality.py`, SHA-256 `b32c48d9`) were re-run at
+the current canonical: the oversized-selection refusal peak stays bounded (no
+unbounded tuple copy before the 128-row admission) and an invalid native runtime
+produces zero framework-load events; the sole-cause-suppression AST mutation is
+caught with the source files unchanged. API contracts:
+docs/parallel/cpu-embedding-backend-api.md, cpu-embedding-session-api.md,
+embedding-staging-api.md, embedding-tokenizer-api.md, embedding-vectors-api.md
+(immutable reviewed bytes).
+
 ## Remaining 007 work (not implemented this round)
 
-CPU FP32 query path and CPU exact dot-product search against admitted spaces;
+The composed CPU-session software now exists (software contract only, trusted
+neural fakes); still open: the CPU FP32 query path and CPU exact dot-product
+search against admitted spaces;
 the resident actual encoder (model execution, a reviewed locked weights-only
 loading policy, execution precision fingerprints); resumable owned GPU encode
 batches with bounded resource telemetry; snapshot/manifest binding of vectors,
@@ -156,5 +255,12 @@ UTF-16/surrogate JSON boundary refusals, dynamic path trace privacy,
 old-reader schema 1 equality). The root-accepted local candidate reviews
 (oap/reviews/007-representation-batch-review.json,
 oap/reviews/007-published-format-review.json) are immutable provenance, not
-current CI or Root approval of this integration. Real qualification remains
-NOT RUN (U04/U07 relevant).
+current CI or Root approval of this integration. 007-c behavior is proven by the merged reviewed suites (five new unit files,
+five standalone integrations in separate processes) and the two unchanged root
+witnesses (oversized-selection bounded peak, invalid-runtime zero framework
+events, sole-cause-suppression AST mutation caught with source unchanged).
+The root-accepted local component reviews (oap/reviews/007-cpu-backend-review.json,
+oap/reviews/007-artifact-staging-review.json, oap/reviews/007-normalization-review.json,
+oap/reviews/007-token-ids-review.json, oap/reviews/007-cpu-session-review.json)
+are immutable provenance, not current CI or Root approval of this integration.
+Real qualification remains NOT RUN (U04/U07 relevant).

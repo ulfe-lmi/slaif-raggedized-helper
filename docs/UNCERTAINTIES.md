@@ -595,3 +595,26 @@ human question.
   CPU worker requires PyTorch >= 2.10.0 per the current weights-only
   advisory. Schema 1 legacy IDs remain equal; schema 2 differs by
   format+schema. Real qualification NOT RUN.
+
+### 2026-11-11, order 007-c (composed CPU-session software integration)
+
+- 007 is PARTIAL after this slice: the reviewed composed CPU-session
+  software is integrated on the 007 branch (PR not merged): owned
+  private staging with double admission and pinned-parent cleanup,
+  exact native token IDs obtained before any framework construction,
+  bounded 1-128 text and native receipt preflight before ONE ordered
+  CPU CLS forward, fixed binary32 L2 normalization
+  (cls-l2-f64-fp32le-d1024-eps1e-12-tol1e-4-v1) with provenance
+  identities kept separate from the encoder/space fingerprint, and a
+  fixed CPU CLS backend contract whose runtime checks declare the
+  isolated worker pins (CPython 3.12, torch 2.10.0+cpu,
+  transformers 4.51.3, tokenizers 0.21.4, safetensors 0.5.3,
+  huggingface-hub 0.30.2, numpy 2.2.6) — a declared fixed direct-pin
+  list, not a resolved transitive hash lock. The neural framework ran
+  only as trusted fakes in tests; no actual model, weight download or
+  execution, GPU, network, private corpus or new package installation
+  occurred. U04 (CPU query latency, CPU/GPU embedding parity) and U07
+  (license/distribution clearance) remain OPEN; a resident real
+  encoder, CPU FP32 query path, isolated neural worker process
+  bridge, typed durable producer/controller, exclusive GPU/resume and
+  hardware qualification all remain NOT RUN.
