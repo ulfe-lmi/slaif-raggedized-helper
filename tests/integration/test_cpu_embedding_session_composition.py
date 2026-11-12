@@ -77,13 +77,17 @@ def test_real_composition(tmp_path, monkeypatch):
     assert last.poll() is not None and not staged.exists()
 
     # A real native worker exists before a failed neural load and is reaped.
+    # Observe the actual preallocated child at the real Popen.__init__
+    # boundary, delegating to the captured actual initializer; the public
+    # subprocess.Popen class identity stays exact (the production
+    # exact-class guard refuses a replaced public class, so a class-
+    # replacement spy would never reach the intended later failure).
     children = []
-    original_popen = subprocess.Popen
-    def spawn(*args, **kwargs):
-        child = original_popen(*args, **kwargs)
+    original_popen = subprocess.Popen.__init__
+    def spawn(child, *args, **kwargs):
+        original_popen(child, *args, **kwargs)
         children.append(child)
-        return child
-    monkeypatch.setattr(session.embedding_tokenizer.subprocess, "Popen", spawn)
+    monkeypatch.setattr(subprocess.Popen, "__init__", spawn)
     failed_paths = []
     original_backend = session.cpu_embedding_backend.CPUEmbeddingBackend
     def backend_with_path(*args):

@@ -1103,6 +1103,27 @@ human question.
   workflow, helper, pin or skip, and the other 22
   frozen files plus all production code remain
   byte-exact.
+- Second test-only exception (Root addendum 3, oap/reviews/
+  007-l-ci-native-spy-addendum-3.md,
+  007-l-root-native-spy-causal-record.json,
+  007-l-native-spy-path-clarification.json): CI run
+  43217061569 at 6de7bea failed both Product integration
+  steps only at the 007-i CPU-session composition
+  `test_real_composition` (children observed 0 expected 1;
+  the skipped required follow-ups are NOT green). Cause:
+  the frozen integrated tokenizer guard refuses a
+  replaced public subprocess.Popen class before any
+  child, so the old class-replacement constructor spy
+  never reached the intended later neural-load failure.
+  The repaired test (current 5,179 B, SHA-256
+  25dc7ed15d77e106033147edfe57a5b62f5821e3f6794a07ee77d312a59fb046;
+  original 4,855 B) spies the actual Popen.__init__ and
+  delegates to the captured actual initializer on the
+  actual preallocated child; public class identity stays
+  exact, the production guard is unchanged, the
+  replaced-class refusal was re-proven locally, and all
+  original encoding/renewal/distinct-vector/reaping/
+  staging-cleanup assertions are preserved.
 - U04 (CPU query latency, CPU/GPU embedding parity) and
   U07 (license/distribution clearance) remain OPEN; the
   required exclusive GPU FP16 corpus encoding path

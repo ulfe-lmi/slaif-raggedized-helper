@@ -1083,6 +1083,31 @@ production code/limits remain byte-exact; no
 CI/workflow/helper/pin change, no skip/xfail, no cap
 raised or reset.
 
+Root addendum 3 (oap/reviews/
+007-l-ci-native-spy-addendum-3.md,
+007-l-root-native-spy-causal-record.json,
+007-l-native-spy-path-clarification.json) records a
+second authorized test-only exception after CI run
+43217061569 at 6de7bea failed both Product integration
+steps only at this test (children observed 0 expected 1;
+skipped required follow-ups are NOT green):
+`tests/integration/test_cpu_embedding_session_composition.py`
+(current 5,179 B, SHA-256
+25dc7ed15d77e106033147edfe57a5b62f5821e3f6794a07ee77d312a59fb046;
+original 4,855 B /
+a45301b444da6fc6c64bd018d0d133fb97da5d992711415c16b7b40e6f635ad0)
+replaces its public-class Popen replacement spy with a
+narrow spy on the actual `subprocess.Popen.__init__`
+(delegating to the captured actual initializer on the
+actual preallocated child), because the integrated
+exact-class guard refuses a replaced public
+`subprocess.Popen` class before any child. Public class
+identity stays exact; the production guard is unchanged
+and the replaced-class refusal negative was re-proven
+locally; all original test behavior (encoding, renewal,
+distinct vectors, worker reaping, staging cleanup) is
+preserved.
+
 ## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
