@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-12T01:27:32.266533+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_NATIVE_RETAINED_OWNERSHIP",
+  "receipt": {
+    "lane": "native-lifecycle",
+    "lane_id": "PAR-007-NATIVE-LIFECYCLE-A",
+    "result": "COMPLETE",
+    "implementation": "7dca0ba384bca8b97e94f58ae91acc20cf1de2d2",
+    "report_commit": "8dae9b681536e965f7df48db97949b9f0076e6ab",
+    "report_sha256": "41a31f71072b9ec78465c1968f395935ce2aa0bbe1cd0cfd1e65ebcf44abc329",
+    "paths": [
+      "docs/parallel/embedding-tokenizer-api.md",
+      "docs/parallel/isolated-cpu-embedding-api.md",
+      "oap/parallel/orders/PAR-007-NATIVE-LIFECYCLE-A.md",
+      "src/slaif_raggedized_helper/embedding_tokenizer.py",
+      "src/slaif_raggedized_helper/isolated_cpu_embedding.py",
+      "tests/unit/test_embedding_tokenizer.py",
+      "tests/unit/test_isolated_cpu_embedding.py"
+    ],
+    "verified_at": "2026-11-12T01:27:06.062545+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "graph": "Exact preparation parents/tree, clean current branch, soleparent SELFreport/reportonly SHA and order/source bytes independently verified",
+  "Root_execution": {
+    "unit": 76,
+    "standalone_integration": 3,
+    "ruff": "PASS",
+    "diff": "PASS",
+    "warning": "Existing multithreaded-fork DeprecationWarning; no generic fork-safety claim",
+    "witnesses": {
+      "raggedized-root-native-close-ownership.py": "cde42ab88365d21dd190b76eb9ac54f7ee42944ed8267fec36d2147cbbc98694",
+      "raggedized-root-native-interrupt-priority.py": "92cd6a25d80ccc9e0673400d3db121b8bff71111e40816988650d9e8ce5d9d73"
+    },
+    "source_hashes": {
+      "src/slaif_raggedized_helper/embedding_tokenizer.py": "51cfb340d2caac2c7557ef4b8b29acd46c020328fedc5c872bc216406c0f2968",
+      "src/slaif_raggedized_helper/isolated_cpu_embedding.py": "562c67eca01b407a05b3108f5deda13e33c25041d57b70dfa47f00fbea1c6492"
+    }
+  },
+  "source_review": "Full original functional+tests/API and priority-fix source/regressions read. Both original direct witnesses pass, including actual owned-child interrupted-close retention and two interrupt-priority cases.",
+  "identity_clarification": "Protocol and legacy semantic identities/limits unchanged. Complete execution fingerprint intentionally changes with actual native/isolated bridge source hashes; report wording identities unchanged does not attest equal execution fingerprints. No ad hoc schema/version change.",
+  "strongest_counterargument": "Finite injected OS failure/interruption and real native/fake-neural compositions do not prove kernel reap availability, actual full neural model/ABI/CPU-GPUparity/security/license/currentrights/ICA/MVP. Unknown cleanup retains owner/artifacts rather than asserting closed; protected path/runtime assumptions remain.",
+  "canonical_integration": "PENDING; closes reproduced native ownership defect for tested paths only, not real model/currentrights/security/license/hardware/ICA/MVP",
+  "DHA": "NONE"
+}

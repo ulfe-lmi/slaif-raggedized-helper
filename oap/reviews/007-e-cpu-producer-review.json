@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-12T01:36:25.626391+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_ONE_BATCH_CPU_REFERENCE_PRODUCER",
+  "receipt": {
+    "lane": "cpu-producer",
+    "lane_id": "PAR-007-CPU-PRODUCER-A",
+    "result": "COMPLETE",
+    "implementation": "e55bc38461ff33b0aac8a457fb6542dfd5331769",
+    "report_commit": "bb6a9335944b499b1ac11dc81818cda7cf7115f2",
+    "report_sha256": "60574ab8a013e6012a6ee86fc54d2711d89534900db100e8fe88695d5088c40d",
+    "paths": [
+      "docs/parallel/cpu-embedding-producer-api.md",
+      "oap/parallel/orders/PAR-007-CPU-PRODUCER-A-ADDENDUM-1.md",
+      "oap/parallel/orders/PAR-007-CPU-PRODUCER-A.md",
+      "src/slaif_raggedized_helper/cpu_embedding_producer.py",
+      "tests/integration/test_cpu_embedding_producer_composition.py",
+      "tests/unit/test_cpu_embedding_producer.py"
+    ],
+    "verified_at": "2026-11-12T01:34:42.152646+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance.",
+    "reader_recovery": {
+      "at": "2026-11-12T01:34:42.155993+00:00",
+      "record": "parallel/cpu-producer/response-reader-recovery.json",
+      "scope": "Original helper stopped before any response existed; one new sole response owner, no control replay or consumed-response reread",
+      "addendum_sha256": "256226b176646273b847ddb5b8ebe5a2d0c48fde3a86dfc4761dc59b7dbef80e"
+    }
+  },
+  "graph": "Exact accepted native8dae preparation5081009 parents/tree independently checked, all4 producer blobs unchanged after preparation, originalorder/addendum exact, clean soleparent SELFreport/reportonly SHA independently checked",
+  "Root_execution": {
+    "unit": 11,
+    "standalone_integration": 21,
+    "ruff": "PASS",
+    "diff": "PASS",
+    "source_review": "Full370 originalsource/87unit/405integration/API, full3lineinterrupt+29lineregression delta, exact4blobunion/nativeprerequisite proof; no functionalsource changes in preparation",
+    "witnesses": {
+      "raggedized-root-producer-lease-interrupt.py": "bfdf4ade9ff01aaacee982f6f5693307ff41723cad6b28f89c947aed75852781",
+      "raggedized-root-native-close-ownership.py": "cde42ab88365d21dd190b76eb9ac54f7ee42944ed8267fec36d2147cbbc98694",
+      "raggedized-root-native-interrupt-priority.py": "92cd6a25d80ccc9e0673400d3db121b8bff71111e40816988650d9e8ce5d9d73"
+    },
+    "source_sha256": {
+      "src/slaif_raggedized_helper/cpu_embedding_producer.py": "ed91f0f3c2974726045ca0bac0c69b9fe06441d9b0d1b31be5c146fde7a09c3a",
+      "tests/unit/test_cpu_embedding_producer.py": "36838b7764fc4cee960f4fe60c98c6baae33724935f024d3e3af70b4f37cf221",
+      "tests/integration/test_cpu_embedding_producer_composition.py": "a5abf12f6fe29eccc05e662755a26498d02ccdd08965a67104f19aaa133d114c",
+      "docs/parallel/cpu-embedding-producer-api.md": "55e10447fe6feff50b76121a78bea455bae5c14b03bb370e0b08a5e8290e2955"
+    }
+  },
+  "source_review": "Full initial source/tests/API and precise cleanupinterrupt+regression delta; no functional adaptation in prerequisite merge. CURRENT combined11unit+21standalone+all3Rootwitnesses/ruff/diff PASS",
+  "strongest_counterargument": "Trusted caller-supplied authorization provider is a deliberately unresolved realcurrentpolicy/principal integration, not actual rights attestation. Fixed neural fakes and current CPUreference do not prove fullBGE/modelquality/CPUquery or exclusiveGPU FP16/parity/security/licenses/hardware/fullICA/MVP; finite crash cases do not establish power-loss durability or universal reaping.",
+  "canonical_integration": "PENDING currentRoot007d reviewedabb all5/all72both; no whole007/ICA/security/currentrights/realmodel/hardware qualification",
+  "DHA": "NONE"
+}

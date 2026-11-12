@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-12T01:40:31.287634+00:00",
+  "records": [
+    {
+      "source": "audit/007-d-review.json",
+      "target": "oap/reviews/007-d-review.json",
+      "sha256": "bbcab98b212adbfc7b17c101c36393a00e889562c121cb092eacb41b185f5500"
+    },
+    {
+      "source": "audit/007-d-implementation-CI-final.json",
+      "target": "oap/reviews/007-d-implementation-CI-final.json",
+      "sha256": "77f2d3ea4c69a1db828a451ead5d1b87be688f737f308d3af5db8f646ac5fee6"
+    },
+    {
+      "source": "audit/007-d-report-CI-final.json",
+      "target": "oap/reviews/007-d-report-CI-final.json",
+      "sha256": "a1e7fad2f04b9fede5688eabfdfc8d1cebc47ac98e3c5e3e88c419a61f0d7ab7"
+    },
+    {
+      "source": "audit/007-e-components.json",
+      "target": "oap/reviews/007-e-components.json",
+      "sha256": "bb057bfa7ec32ecb4b84761886f1611e42e4db21758b945ec72bd74983fd2a58"
+    },
+    {
+      "source": "audit/007-owned-cpu-toy-evidence.json",
+      "target": "oap/reviews/007-owned-cpu-toy-evidence.json",
+      "sha256": "60c63b273f7ddeae64b9d59fdcd4c7d7b28b55866a0cadca8fa1b5d2d0eb5bf2"
+    },
+    {
+      "source": "audit/007-legacy-cpu-profile-security-observation.json",
+      "target": "oap/reviews/007-legacy-cpu-profile-security-observation.json",
+      "sha256": "655e90798ec265c6b5f38605220fda4ae831684320ad9fd4a46aa446cae0e450"
+    },
+    {
+      "source": "parallel/cpu-profile/review.json",
+      "target": "oap/reviews/007-e-cpu-profile-review.json",
+      "sha256": "93ca51435970025f9f4f4c5e1f23449de7e5494fb4144f59523e003dbb48b2a7"
+    },
+    {
+      "source": "parallel/cpu-worker/review.json",
+      "target": "oap/reviews/007-e-cpu-worker-review.json",
+      "sha256": "86be7554e17af57fb5ba43a9bc7479fe1a68d927fb9b81da2ef74d0f6d0ad1f5"
+    },
+    {
+      "source": "parallel/cpu-test-setup/review.json",
+      "target": "oap/reviews/007-e-cpu-test-setup-review.json",
+      "sha256": "9e1c8a8d8b43bf76b41ca240922dbe6d03c18efb413f70cfb851ae0b1ac5fc10"
+    },
+    {
+      "source": "parallel/isolated-cpu-session/review.json",
+      "target": "oap/reviews/007-e-isolated-cpu-session-review.json",
+      "sha256": "4604b647cf268e4c2856d29d2df0df02b3c602f926077eb7c0477878dce82fb9"
+    },
+    {
+      "source": "parallel/execution-plan/review.json",
+      "target": "oap/reviews/007-e-execution-plan-review.json",
+      "sha256": "20b08f7f2d460b3b5a629ccc0481702c4a0077f81d7d234dee7c26c727fda8d1"
+    },
+    {
+      "source": "parallel/cpu-toy-probe/review.json",
+      "target": "oap/reviews/007-e-cpu-toy-probe-review.json",
+      "sha256": "1559de2a1e5f74882c6802eea662c316fca8a26067557cbd494b1fe0ba1f9038"
+    },
+    {
+      "source": "parallel/native-lifecycle/review.json",
+      "target": "oap/reviews/007-e-native-lifecycle-review.json",
+      "sha256": "f15f6d791a662609e36a6ad4abd807617a39f98a5d7f40a1e6604c2dbd5266c5"
+    },
+    {
+      "source": "parallel/cpu-producer/review.json",
+      "target": "oap/reviews/007-e-cpu-producer-review.json",
+      "sha256": "de855b484bdb2246831deb4c417c2310b69e836aa2ee3ca6f8bd18adb2229b78"
+    }
+  ],
+  "scope": "Root-owned exact immutable review/evidence copies; hash proves identity not approval; no mutableSTATE/runtime/FIFOs/credentials"
+}

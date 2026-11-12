@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-11T23:20:58.652487+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_OPTIONAL_CPU_LOCKED_PACKAGE_PROFILE",
+  "receipt": {
+    "lane": "cpu-profile",
+    "lane_id": "PAR-007-CPU-PROFILE-A",
+    "result": "COMPLETE",
+    "implementation": "7ca95227ec3c2a268f70cbf72ed98bd61c06ce6b",
+    "report_commit": "6f6657b75af504cf87d372b02d57bffd63f9d74f",
+    "report_sha256": "89046b70eb73ddcf8643780525370af7fa93f9caff596e8cabf66a148d4957d3",
+    "paths": [
+      "oap/parallel/orders/PAR-007-CPU-PROFILE-A.md",
+      "worker_profiles/cpu/DEPENDENCY-EVIDENCE.json",
+      "worker_profiles/cpu/README.md",
+      "worker_profiles/cpu/pyproject.toml",
+      "worker_profiles/cpu/uv.lock"
+    ],
+    "verified_at": "2026-11-11T23:16:24.766033+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "execution": {
+    "lock": "PASS29offline",
+    "installed_dependency_check": "PASS28",
+    "all_recorded_metadata_fields": "PASS28/noheavyimports",
+    "fresh_root_offline_install": "PASS28 underactualexplicitcaps",
+    "fresh_root_dependency_check": "PASS28",
+    "fresh_capsule_disk_KiB": 892712,
+    "root_setup_record": "audit/007-cpu-profile-root-offline-setup.json",
+    "metadata_witness_sha256": "1664bb3c0147bbd5a0247eebf0ab3e1a8ac9f8f5236c131c9f648c38af229a61"
+  },
+  "inspection": "Root exactprojectpins+fullparsed29-package lock/wheels/sources, full installed28distribution metadata versus record/lock, README and all corrected evidence commands reviewed. Final wholeSELFreport read, report-only parent/clean exacthead verified. No heavy package import/model executed.",
+  "strongest_counterargument": "Metadata-compatible installed wheels may still fail real library/native loading or actual model execution; originalonline networkbytes unmeasured. Root newboundedoffline setup proves reproduciblepackagegraph only, fullsecurity/license/modelphysicalqualification remainsopen.",
+  "limits": "Installed dependency metadata setup only, actual native imports/model/worker/physical/parity/license/security/ICA gates OPEN. Originalonline networkbytes unmeasured; Rootnewexplicitofflineboundedsetup preserved separately. Canonicalintegration pending.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-12T01:02:44.821784+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_PREMODEL_SCHEMA2_CPU_CONTRACT_SOURCE_PLAN",
+  "receipt": {
+    "lane": "execution-plan",
+    "lane_id": "PAR-007-EXECUTION-PLAN-A",
+    "result": "COMPLETE",
+    "implementation": "afffd0b5df387de924b8f51ffeae9ddc5ed1a9e1",
+    "report_commit": "20cc328a87b913d3faa0a78888cee3b2bdab7307",
+    "report_sha256": "4e32ca035f83d15388246d7b6d5e2c55222c0ce03a14c3522b04622742ddff76",
+    "paths": [
+      "docs/parallel/cpu-embedding-plan-api.md",
+      "docs/parallel/isolated-cpu-embedding-api.md",
+      "oap/parallel/orders/PAR-007-EXECUTION-PLAN-A.md",
+      "src/slaif_raggedized_helper/cpu_embedding_plan.py",
+      "src/slaif_raggedized_helper/cpu_execution_contract.py",
+      "src/slaif_raggedized_helper/isolated_cpu_embedding.py",
+      "tests/integration/test_cpu_embedding_plan_composition.py",
+      "tests/integration/test_isolated_cpu_embedding_composition.py",
+      "tests/unit/test_cpu_embedding_plan.py",
+      "tests/unit/test_isolated_cpu_embedding.py"
+    ],
+    "verified_at": "2026-11-12T01:01:55.884283+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "source_review": "Root full newsource/full sharedfactorydelta/newtests/API+full tests-onlycorrection read. Exact31unit+3standalone/ruff/diff independently reproduced; sole maxrows guardremoval now caught at intended assertion. Direct pureprepare zero child/native/model operations and simulatedprofile/code invalidation covered. All initialfunctionalbytesunchanged.",
+  "graph": "ExactcleanreportSELF/reportonly/soleparent/fullreportSHA/order/source hashes independently verified after mechanical receipt",
+  "strongest_counterargument": "Predicted metadata/code/policy records and trusted fake worker equality do not attest actual framework/model files, enforce current rights or prove neural semantics, ABI/security/licenses, real CPU/GPU parity, hardware capacity or full merged-SHA ICA. Future producer must compare observed record BEFORE content forward and revalidate fresh source/current authorization.",
+  "canonical_integration": "PENDING currentcanonical007d; no GitHubCI or wholeobjectiveacceptance",
+  "DHA": "NONE"
+}

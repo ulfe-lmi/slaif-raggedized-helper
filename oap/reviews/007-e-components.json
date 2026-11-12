@@ -1,0 +1,209 @@
+{
+  "at": "2026-11-12T01:37:09.149261+00:00",
+  "status": "ACCEPTED_LOCAL_COMPOSITE_FOR_PROSPECTIVE007E",
+  "base": "abb269c4b7304e8f3be4c63705c01941dbbb8625",
+  "candidate_tip": "bb6a9335944b499b1ac11dc81818cda7cf7115f2",
+  "implementation": "e55bc38461ff33b0aac8a457fb6542dfd5331769",
+  "report_sha256": "60574ab8a013e6012a6ee86fc54d2711d89534900db100e8fe88695d5088c40d",
+  "forecast_tree": "75130a36181256d37b7d6220df36c3c554283069",
+  "files": {
+    "docs/benchmarks/real-cpu-toy.md": {
+      "blob": "486ebd5797fae414d609f0a3cac00c1a516ca35f",
+      "sha256": "1cd3fe79aa7e85652e87a393f04eedf9df06ec6b19217ba0555de35c0ca39ab6",
+      "bytes": 4863
+    },
+    "docs/parallel/cpu-embedding-plan-api.md": {
+      "blob": "1666921fdfbf5e352f166386931be3eaf3c8e150",
+      "sha256": "69c10878815583f063d87292fcbdcde9b67d8c1c9c3f83c8a8f471afb0a5f4e6",
+      "bytes": 2952
+    },
+    "docs/parallel/cpu-embedding-producer-api.md": {
+      "blob": "dae8965078c2590cf05ca04f0ede2dabc623be0d",
+      "sha256": "55e10447fe6feff50b76121a78bea455bae5c14b03bb370e0b08a5e8290e2955",
+      "bytes": 3073
+    },
+    "docs/parallel/cpu-embedding-worker-api.md": {
+      "blob": "c3f2e75f18d7351e49ca22670015ce6783befed7",
+      "sha256": "35f5cac367f0eb8a2e05e4ccc1a2ce2ebd3c97e16f3634c9c3680b3d9e088fea",
+      "bytes": 4490
+    },
+    "docs/parallel/cpu-worker-test-setup.md": {
+      "blob": "ac994069bf154db64ea7599ee302e79a96b59318",
+      "sha256": "5b0a70be751e10624ef68f2201883cb589cfe9ee06f4d286a22b73ca14aa1d7f",
+      "bytes": 2879
+    },
+    "docs/parallel/embedding-tokenizer-api.md": {
+      "blob": "11fa4ad8b36af07f6bbebfaaf37dbb0620c41853",
+      "sha256": "62ae60fe65bb1ac6d2b7a9ab82cbb8fff392bdb874210c37cad67034c5330edd",
+      "bytes": 2602
+    },
+    "docs/parallel/isolated-cpu-embedding-api.md": {
+      "blob": "72fb6eb514b237ee701a644d5c72b5669259e147",
+      "sha256": "bf0570a7a9398c13e665dee7b4091d3660007f1f53aa4355090d1c0427872d1a",
+      "bytes": 3431
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_plan.py": {
+      "blob": "d2f64fee98c42f1fec8703e3f1908baf6d884639",
+      "sha256": "4881cea82479223af54124866b479a49803c0c127fbd1d47a05eca61e3580240",
+      "bytes": 4549
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_producer.py": {
+      "blob": "80b16513403956399fc6418d4a3745a7ef48fa72",
+      "sha256": "ed91f0f3c2974726045ca0bac0c69b9fe06441d9b0d1b31be5c146fde7a09c3a",
+      "bytes": 13489
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_worker.py": {
+      "blob": "b7bef979091dd9a35f5cf88d6333881e85902d44",
+      "sha256": "0a576e96ef8c31ca0ef490b4d4ddb59c04223082d25c87fb416ea1fb9ba719da",
+      "bytes": 23437
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_worker_main.py": {
+      "blob": "96ed127ce560ad8f58dfb53377f055bff19b8d51",
+      "sha256": "df25d670940a0a0d7dbeca5d3d4c42992feb1a801188494f69ef7f7a9236be26",
+      "bytes": 4675
+    },
+    "src/slaif_raggedized_helper/cpu_execution_contract.py": {
+      "blob": "5a365347d2609f9aba0c027c7a4a964e0381ef14",
+      "sha256": "279438b12953e6f000399551e3cab543bcf35b9278097661e2c4f266e4ea395f",
+      "bytes": 7624
+    },
+    "src/slaif_raggedized_helper/embedding_tokenizer.py": {
+      "blob": "933be076eae5a9df89e938a82e99f877da958244",
+      "sha256": "51cfb340d2caac2c7557ef4b8b29acd46c020328fedc5c872bc216406c0f2968",
+      "bytes": 11715
+    },
+    "src/slaif_raggedized_helper/isolated_cpu_embedding.py": {
+      "blob": "82f709d0c944c4bd3ec4ec9564604f250975dcb1",
+      "sha256": "562c67eca01b407a05b3108f5deda13e33c25041d57b70dfa47f00fbea1c6492",
+      "bytes": 21933
+    },
+    "tests/integration/test_cpu_embedding_plan_composition.py": {
+      "blob": "e29dd976d278fe25a94a4b2eee1e7bbc3f0f3e89",
+      "sha256": "a369b7a616386282ab14642941fca23b4a9cd9c982d3e833590e6097fd6cc144",
+      "bytes": 11121
+    },
+    "tests/integration/test_cpu_embedding_producer_composition.py": {
+      "blob": "368d810ec7e884c25b853844afbcfbff7cfb337a",
+      "sha256": "a5abf12f6fe29eccc05e662755a26498d02ccdd08965a67104f19aaa133d114c",
+      "bytes": 16020
+    },
+    "tests/integration/test_cpu_embedding_worker_composition.py": {
+      "blob": "0708f9820b34212e6cafb3de24e9e65de776a1ac",
+      "sha256": "2812ebbc9f798b44d918b0961d20b254695ff500f8c82bc9658943346c7793ba",
+      "bytes": 10112
+    },
+    "tests/integration/test_isolated_cpu_embedding_composition.py": {
+      "blob": "39cd8c0576098b53b29770822d0e3a6a4217bb84",
+      "sha256": "1325f543948d15a8ba283cc0d85e14e608551cc98db7a73d9c53a71b382f832b",
+      "bytes": 12637
+    },
+    "tests/support/cpu-worker-test-requirements.txt": {
+      "blob": "20b5f19a08539a179b5d681e30e9c91bb97c8f19",
+      "sha256": "d20b4d1289574268df2e7bcd046509c7d8f272c0b346ad693153dd25b4e5ce63",
+      "bytes": 606
+    },
+    "tests/support/prepare_cpu_worker_test_backend.py": {
+      "blob": "3a6d093c531012ef8e6243a541ec5fe088d145b4",
+      "sha256": "4b782177c4a339f17fc0400119cab8b3e379b0db0b97ee723cfc303d319cdfb8",
+      "bytes": 14414
+    },
+    "tests/support/real_cpu_toy_probe.py": {
+      "blob": "dd24451d54f89e24a57bae8fbed22b69702729be",
+      "sha256": "be17aab302777d7bdbc39b40a7eae6f0f0f78b9b2aefb46d847a630070dece76",
+      "bytes": 36584
+    },
+    "tests/support/real_cpu_toy_worker.py": {
+      "blob": "06805d58f3ccae4cf6832b64a0b971dae9f5d33a",
+      "sha256": "3441bdbfecd3d7006c98a74cd48da97d46f5c648e549f24b8ef816fae07c326c",
+      "bytes": 6739
+    },
+    "tests/unit/test_cpu_embedding_plan.py": {
+      "blob": "1deef3941106fa335e3fef8b7359527f7998394e",
+      "sha256": "215b41a5c6dcb357380c55758cac47fdaef5fbe0a3d0d1ad72b994e91e3cc3a4",
+      "bytes": 2241
+    },
+    "tests/unit/test_cpu_embedding_producer.py": {
+      "blob": "0f32d68fe2d410cfe6e94b7e583f34c0e1964e5a",
+      "sha256": "36838b7764fc4cee960f4fe60c98c6baae33724935f024d3e3af70b4f37cf221",
+      "bytes": 2501
+    },
+    "tests/unit/test_cpu_embedding_worker.py": {
+      "blob": "f4ac9b060b610cbc29888c48d121ca26e4b66bbf",
+      "sha256": "cf8d26a78e029353c774f6d74c50bae3d6f0d5ce47e7c3cd41b1b580ea6906af",
+      "bytes": 15129
+    },
+    "tests/unit/test_cpu_worker_backend_setup.py": {
+      "blob": "0bd0f238088541fb8aaea7e2afc8af8fcdff40cb",
+      "sha256": "36e3608e6ed42fbe9d5f538ada501e8f913cd6c576af3a4a6e2d151eda2b7e80",
+      "bytes": 8020
+    },
+    "tests/unit/test_embedding_tokenizer.py": {
+      "blob": "7f24190de6651173f248f261bc16d82b4685fd78",
+      "sha256": "8adaa246598d9760c3b0c9e11f5de1c227d86bf81d124d6246476dac718cd134",
+      "bytes": 16141
+    },
+    "tests/unit/test_isolated_cpu_embedding.py": {
+      "blob": "2bd0208c228a3b5b9ef0e226458b91e6ade4cc54",
+      "sha256": "088be8340d2d1acf5d4f7799616883d3a32f19d9b7f6510267882f3b0c7f083c",
+      "bytes": 18795
+    },
+    "tests/unit/test_real_cpu_toy_probe.py": {
+      "blob": "ee57428d1f9ee58e127ff783c87a39c7af984b78",
+      "sha256": "fb8c9d266d7d1613631546d2a1fc2c1b11f44df0da0af219ee0d73dad037cfda",
+      "bytes": 23122
+    },
+    "worker_profiles/cpu/DEPENDENCY-EVIDENCE.json": {
+      "blob": "f89921c27645274c02a24d2a82870527a9c27d3c",
+      "sha256": "bbf8c0d468b16a2f4c0702d394aa9236772588ac19c79ae427434ffc8fdf1e49",
+      "bytes": 46128
+    },
+    "worker_profiles/cpu/README.md": {
+      "blob": "f0722806ae7b298709f3c4bdf310021534e278e0",
+      "sha256": "5c4592929266112136c33d52082c4ab267d1ffdfa85d75d36909e0571277ebea",
+      "bytes": 2744
+    },
+    "worker_profiles/cpu/pyproject.toml": {
+      "blob": "31b20034787f12ddfa71abfb279edc62095547d2",
+      "sha256": "fb9f7e0ebed4febdcf83fa99fef8185ecb6fcde832566ab9728655291d2a17ff",
+      "bytes": 605
+    },
+    "worker_profiles/cpu/uv.lock": {
+      "blob": "58415f2391f2017b7dd126cf1e56b09b3507f30a",
+      "sha256": "e0a2b1be5601e141b1dca46cd054c77850344d5123424ed05f176a9621a41299",
+      "bytes": 25939
+    }
+  },
+  "history_paths": [
+    "oap/parallel/orders/PAR-007-CPU-PRODUCER-A-ADDENDUM-1.md",
+    "oap/parallel/orders/PAR-007-CPU-PRODUCER-A.md",
+    "oap/parallel/orders/PAR-007-CPU-PROFILE-A.md",
+    "oap/parallel/orders/PAR-007-CPU-TEST-SETUP-A-ADDENDUM-1.md",
+    "oap/parallel/orders/PAR-007-CPU-TEST-SETUP-A.md",
+    "oap/parallel/orders/PAR-007-CPU-TOY-PROBE-A-ADDENDUM-1.md",
+    "oap/parallel/orders/PAR-007-CPU-TOY-PROBE-A.md",
+    "oap/parallel/orders/PAR-007-CPU-WORKER-A.md",
+    "oap/parallel/orders/PAR-007-EXECUTION-PLAN-A.md",
+    "oap/parallel/orders/PAR-007-ISOLATED-SESSION-A.md",
+    "oap/parallel/orders/PAR-007-NATIVE-LIFECYCLE-A.md",
+    "oap/parallel/reports/PAR-007-CPU-PRODUCER-A.json",
+    "oap/parallel/reports/PAR-007-CPU-PROFILE-A.json",
+    "oap/parallel/reports/PAR-007-CPU-TEST-SETUP-A.json",
+    "oap/parallel/reports/PAR-007-CPU-TOY-PROBE-A.json",
+    "oap/parallel/reports/PAR-007-CPU-WORKER-A.json",
+    "oap/parallel/reports/PAR-007-EXECUTION-PLAN-A.json",
+    "oap/parallel/reports/PAR-007-ISOLATED-SESSION-A.json",
+    "oap/parallel/reports/PAR-007-NATIVE-LIFECYCLE-A.json"
+  ],
+  "Root_reviews": [
+    "parallel/cpu-profile/review.json",
+    "parallel/cpu-worker/review.json",
+    "parallel/cpu-test-setup/review.json",
+    "parallel/isolated-cpu-session/review.json",
+    "parallel/execution-plan/review.json",
+    "parallel/cpu-toy-probe/review.json",
+    "parallel/native-lifecycle/review.json",
+    "parallel/cpu-producer/review.json"
+  ],
+  "limits": "Exact33 product/source/test/API/profilefiles and19 immutablehistory paths; no currentrealpolicy/GPU/security/whole007 qualification. CPU2.10/Transformers4.51 legacyprofile is NOTsecurity-qualified; advisory triage and patched profile refresh pending. Actual toy proof atold88SHA is distinct, no execution authority transfer.",
+  "DHA": "NONE"
+}
