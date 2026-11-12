@@ -1,0 +1,32 @@
+{
+  "lane_id": "PAR-007-CLEANUP-COMPOSITION-A",
+  "result": "COMPLETE",
+  "implementation_head": "4a929261f9ee6104df5002587d45cd043607a719",
+  "report_publication_commit": "SELF",
+  "DHA": "NONE",
+  "api": "Journal retains finite cleanup attempt history and nested pending owners, never retries an unknown descriptor, and preserves original interruptions over later cleanup interruptions while new cleanup interruptions outrank ordinary errors. Producer preserves those priorities and retains sessions with their journal lease until drained, while low-level unknown descriptor history remains sticky and is not a session or proof of a lock.",
+  "baseline": "At exact base original journal positive succeeded; witness reported entry_cleanup_interrupt JournalError, foreign_same_inode_fd_survives false, acquisition_pending_owner_propagated false. Original producer valid positive published; negative ordinary before_encode failure plus cleanup KeyboardInterrupt surfaced ProducerRefused. Both witnesses failed their original assertions.",
+  "validation_environment": "All Python invocations used bash /tmp/cleanup-composition-env.sh: ulimit -v 1048576, ulimit -t 30, timeout 120; PYTHONDONTWRITEBYTECODE=1, OPENBLAS_NUM_THREADS=1, OMP_NUM_THREADS=1, MKL_NUM_THREADS=1, RAYON_NUM_THREADS=1, TOKENIZERS_PARALLELISM=false; PYTHONPATH=src:tests/unit:tests/integration; parent /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python. Native root /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu, python3.12, packages /tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages; CPU test root same, packages /tmp/raggedized-root-cpu-synthetic-56cdd5b2898d3d17/packages. Fake ML only.",
+  "commands_and_results": [
+    "bash /tmp/cleanup-composition-env.sh -m pytest -o addopts='' -q tests/unit/test_embedding_job_journal.py tests/unit/test_cpu_embedding_producer.py: 38 passed",
+    "bash /tmp/cleanup-composition-env.sh -m pytest -o addopts='' -q tests/integration/test_embedding_job_journal_composition.py: 2 passed",
+    "bash /tmp/cleanup-composition-env.sh -m pytest -o addopts='' -q tests/integration/test_cpu_embedding_producer_composition.py: 30 passed in 73.87s",
+    "bash /tmp/cleanup-composition-env.sh -m pytest -o addopts='' -q tests/unit/test_embedding_job_ownership.py tests/unit/test_gpu_device_lease.py: 31 passed",
+    "for witness in journal-cleanup-boundaries producer-secondary-interrupt producer-lease-interrupt native-close-ownership native-interrupt-priority job-ownership-boundaries job-enter-failure job-interrupted-close gpu-lease-registry; do bash /tmp/cleanup-composition-env.sh /tmp/raggedized-root-${witness}.py; done: all nine passed individually",
+    "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check on the two allowed source modules and four ordered test modules: passed; git diff --check and git diff --cached --check: passed; cmp order to exact final bytes: passed",
+    "68 untouched source files verified individually; before and after sorted sha256 manifest aggregate 151a2dfe9daf891cca00eb9f1f78dff8d5c0480a04bedfabe5759cf79df47456"
+  ],
+  "witness_sha256": {
+    "journal-cleanup-boundaries": "a8283804ef202a3af82fff704b27ba70b7b74e28eb8f000585e1757acebee713",
+    "producer-secondary-interrupt": "ad3ae53635187c7434615b8313e68b05c98a8131c2633611a960c826beca3028",
+    "producer-lease-interrupt": "bfdf4ade9ff01aaacee982f6f5693307ff41723cad6b28f89c947aed75852781",
+    "native-close-ownership": "cde42ab88365d21dd190b76eb9ac54f7ee42944ed8267fec36d2147cbbc98694",
+    "native-interrupt-priority": "92cd6a25d80ccc9e0673400d3db121b8bff71111e40816988650d9e8ce5d9d73",
+    "job-ownership-boundaries": "e7ebdd6c4fa154d5d8c713df4ace6be068b09edb6e078eba2b1511977c681146",
+    "job-enter-failure": "73cc14d2fb8ff2bc465254599756784a7ae03241ebb15a9cc3fcd40dcf0600d8",
+    "job-interrupted-close": "f1ab20e4fe3cbcbf88387f0e603ab38312ff5c23d148c3d7a395e9876e657420",
+    "gpu-lease-registry": "8fa3a5612c615081a75d38f4774c1886ca9f7baacbdf1d0ca63b4e857db82f97"
+  },
+  "checkpoint": "Root exact-commit REPORT consumed for 4a929261f9ee6104df5002587d45cd043607a719; Root reports independent 69 unit, 35 separate standalone, all nine original witnesses, ruff and diff passed.",
+  "limits": "Finite injected software faults, real fake-worker/native capsules, no real models or GPU. Retained uncertainty is not proof of lock, guaranteed cleanup, or automatic retry. Whole 007, current rights, security, licensing, real CPU resident query, exclusive GPU FP16, parity, hardware, ICA and MVP gates remain open. Isolated-exit exact 5225 composition and current canonical CI remain required. No push, merge, release or deploy."
+}
