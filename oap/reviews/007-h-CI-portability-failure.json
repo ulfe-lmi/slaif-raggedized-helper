@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-12T06:45:43.861399+00:00",
+  "run": 43169522375,
+  "head": "eb4739d355337722ecb2a444c3d373bebc641494",
+  "status": "FAILED_REQUIRED_PRODUCT_UNIT_STEP_BOTH_LEGS_NOT_ACCEPTED",
+  "failed_tests": [
+    "Product tests (Python 3.12)\tProduct test suite\t2026-11-12T06:39:22.9713716Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_target_and_early_refusal - FileNotFoundError: [Errno 2] No such file or directory: '/home/janezp'",
+    "Product tests (Python 3.12)\tProduct test suite\t2026-11-12T06:39:22.9714361Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_full_fake_flow_and_no_install_before_verification - FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/tmp/cpu-v2-fake-070e0c5812294b82b7764e6bb2f9f2bd')",
+    "Product tests (Python 3.12)\tProduct test suite\t2026-11-12T06:39:22.9715377Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_existing_direct_target_and_bad_lock_no_operations - FileNotFoundError: [Errno 2] No such file or directory: '/home/janezp'",
+    "Product tests (Python 3.12)\tProduct test suite\t2026-11-12T06:39:22.9716029Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_receipt_failure_priority_and_atomic_partial - FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/tmp/cpu-v2-priority-7c62c949990648789cb18b3329e05d5c')",
+    "Product tests (Python 3.12)\tProduct test suite\t2026-11-12T06:39:22.9716824Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_failed_command_receipt - FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/tmp/cpu-v2-failure-test-44377040e8134c1988e3c669af239c64')",
+    "Product tests (Python 3.14)\tProduct test suite\t2026-11-12T06:39:37.2110867Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_target_and_early_refusal - FileNotFoundError: [Errno 2] No such file or directory: '/home/janezp'",
+    "Product tests (Python 3.14)\tProduct test suite\t2026-11-12T06:39:37.2112266Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_full_fake_flow_and_no_install_before_verification - FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/tmp/cpu-v2-fake-04ed6a90df154161ab6d852d1f9985f0')",
+    "Product tests (Python 3.14)\tProduct test suite\t2026-11-12T06:39:37.2113575Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_existing_direct_target_and_bad_lock_no_operations - FileNotFoundError: [Errno 2] No such file or directory: '/home/janezp'",
+    "Product tests (Python 3.14)\tProduct test suite\t2026-11-12T06:39:37.2114997Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_receipt_failure_priority_and_atomic_partial - FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/tmp/cpu-v2-priority-523bda167e7f4baeb44ba84c31d7adf3')",
+    "Product tests (Python 3.14)\tProduct test suite\t2026-11-12T06:39:37.2116523Z FAILED tests/unit/test_cpu_runtime_setup_v2.py::test_failed_command_receipt - FileNotFoundError: [Errno 2] No such file or directory: PosixPath('/tmp/cpu-v2-failure-test-9983184f7af34a1dbd271bceb1839639')"
+  ],
+  "log_sha256": "8161c756023e777968ed778c01da1c73897307da0ae5ab905811f4e2c501f79b",
+  "Root_cause": "Controlledfakeunitm.RUNTIMEinheritsproductionRootabsolutehostruntimePath andresolvesstrictlybeforefake runner. Rootordering exactimmutabletest transfer overlooked crosshostportability. Fivefailures eachleg, no skip/waiver permitted."
+}
