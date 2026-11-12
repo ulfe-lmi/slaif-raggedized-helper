@@ -11,7 +11,8 @@ import tomllib
 import uuid
 from pathlib import Path
 
-from . import embedding_artifacts, embedding_space, gpu_device_lease, native_tokenizers
+from . import (embedding_artifacts, embedding_space, gpu_device_lease, gpu_worker_protocol,
+               native_tokenizers)
 from .cpu_embedding_backend import _closed_tree
 from .schema import EmbeddingDefinition
 
@@ -30,8 +31,8 @@ _retained = []
 def _framework():
     if platform.python_implementation() != 'CPython' or os.sys.version_info[:2] != (3, 12):
         raise ValueError
-    lock = Path(__file__).resolve().parents[2] / 'worker_profiles/gpu/uv.lock'
-    data = lock.read_bytes()
+    lock = gpu_worker_protocol._profile_path(Path(__file__).resolve().parent)
+    data = native_tokenizers._read_artifact(lock, 65536)
     if hashlib.sha256(data).hexdigest() != _PROFILE_HASH:
         raise ValueError
     packages = tomllib.loads(data.decode())['package']

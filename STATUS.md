@@ -95,12 +95,39 @@
   dependencies and all CPU/GPU/native locks unchanged); finite
   model-free software under trusted neural fakes and the actual
   offline wheel, actual BGE UNRUN/UNQUALIFIED, GPU child/plan/
-  parent resources still parallel/unintegrated;
+  parent resources still parallel/unintegrated; the 007-j selective
+  integration adds the FOURTEEN root-reviewed GPU child/protocol,
+  prepared-launch and packaged-resource files (oap/reviews/
+  007-j-components.json, 136,921 bytes, no branch ancestry, no
+  source adaptation, single exact source commit 5445c03): the GPU
+  worker protocol (child-owned device lease before backend load,
+  fixed closed bounded wire/version/config/startup vocabulary,
+  exact token-ID requests and raw FP32 rows, content-free refusals,
+  immutable ready bindings, no fake serialized PID-bound lease,
+  original non-Exception interruption priority retained), the
+  corrected raw GPU backend finite and inert under trusted fakes,
+  the prepared launch (actual pinned Python/package/config/device
+  inputs with retained FDs, exact closed copied capsule, fixed
+  argv/clearenv/private namespaces, trusted fixed entry,
+  fork-creating-PID check before any close/cleanup, bounded
+  startup) and the packaged GPU profile lock assets (bundled
+  unchanged GPU lock first; fail-closed missing/corrupt/symlinked/
+  whole-bundle-missing refusal under actual installed normal/src-
+  named prefixes even with a matching ambient project/lock;
+  bounded dist-info guards; the /app/src/pkg layout is a data
+  mapping, not authorization); finite model-free software under
+  fake/null namespaces and the actual offline wheel, no real GPU/
+  driver/Tensor/model/framework executed, actual BGE
+  UNRUN/UNQUALIFIED, the actual owned GPU parent + new lock +
+  worker identity still parallel/unintegrated pending affected
+  reviews;
 open on the 007 PR, branch
   oap/007-embedding-pipeline from main 11badc7; whole-007 remains
   PARTIAL — the CPU reference path (CPUv2 lock selected) plus the 007-f
-  cleanup/lease composition and the inert raw GPU backend source are
-  software under trusted neural fakes only; the actual BGE model has
+  cleanup/lease composition, the 007-j GPU child/protocol/launch/
+  assets software and the inert raw GPU backend source are
+  software under trusted neural fakes only (no real GPU, driver,
+  Tensor or model was run); the actual BGE model has
   never been run, the legacy optional CPU pins are NOT security
   qualified, the archived prior OWNED random CPU toy was historically
   run (toy evidence), the ACTUAL BGE checkpoint/model has NOT been

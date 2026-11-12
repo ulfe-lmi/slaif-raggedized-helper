@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -18,7 +18,11 @@ raw GPU backend source). 007-i
 selectively integrates the reviewed resident CPU query encoder,
 the shared diagnostic-priority fixes and the packaged CPU
 profile lock assets (finite model-free software; the actual
-BGE remains UNRUN/UNQUALIFIED). Objective
+BGE remains UNRUN/UNQUALIFIED). 007-j selectively integrates
+the reviewed GPU child/protocol, prepared-launch and packaged-
+resource assets (finite model-free software; the actual owned
+GPU parent, the new lock and the worker-identity resources
+remain parallel/unintegrated). Objective
 007 remains PARTIAL until those are implemented and reviewed. No self-advance to 008
 or main merge.
 
@@ -800,6 +804,110 @@ remains UNRESOLVED as observed H history: no causality is
 invented and no failure is hidden. Whole 007 remains PARTIAL;
 no main merge, 008, release or tag.
 
+## 007-j slice: GPU child/launch/assets integration (integrated)
+
+Selective integration of the FOURTEEN root-reviewed GPU
+child/protocol, prepared-launch and packaged-resource files by
+byte-exact file copy from the single exact source commit
+5445c03bcc85a5cea6ad24f26f137e55f5a806cf (oap/reviews/
+007-j-components.json, 136,921 bytes; every path verified at
+this head for blob + SHA-256 + size): no branch ancestry, no
+cherry-pick/rebase/reset/stash/clean, no source adaptation, no
+test weakening. The current I fifteen files, the H
+installer/fixture helpers, the existing fixtures, CI, locks,
+requirements, worker-profile READMEs and law are unchanged;
+the actual owned GPU parent, the new lock and the worker-
+identity resources remain parallel and unintegrated (pending
+their affected reviews); the old nineteen-file J draft is
+inert and was never used.
+
+`src/slaif_raggedized_helper/gpu_worker_protocol.py` (new) is
+the closed child/parent wire: a fixed bounded vocabulary for
+version, config, startup, token-ID row requests and raw FP32
+row replies; `encode`/`parse` over bounded frames with exact
+length/version checks; `identity`/`policy_id`/`code_id`
+fingerprint the admitted space/definition/tokenizer and the
+copied worker source; `profile` selects the bundled unchanged
+GPU lock before any backend import; `rows_ok`/`output_ok`
+enforce the vocab/1024/raw-FP32 bounds; refusals are
+content-free. No fake serialized PID-bound lease exists: the
+child acquires its actually owned device lease before loading
+the backend, and the parent lease root is a real owned
+directory with real open FDs.
+
+`src/slaif_raggedized_helper/gpu_embedding_worker_main.py`
+(new) is the trusted fixed worker entry: it revalidates the
+copied capsule and runtime, owns the pipe, admits the immutable
+ready binding, serves exact token-ID requests as raw FP32
+rows, preserves the original non-Exception interruption
+priority under foreign/fork/error/interrupt ownership semantics
+and releases actually owned resources honestly on every exit
+path.
+
+`src/slaif_raggedized_helper/gpu_embedding_backend.py`
+(replacement of the 007-g inert copy) keeps the corrected raw
+GPU backend finite and inert under trusted fakes: device UUID
+byte guard, process-owned DeviceLease assertion, no autocast,
+ordered finite CPU FP32 raw CLS output, sticky close and
+original non-Exception identity.
+
+`src/slaif_raggedized_helper/gpu_worker_launch.py` (new) is
+the prepared launch: `prepare` requires actual pinned
+Python/package/config/device inputs with retained FDs, copies
+the exact closed capsule (code, lock, profile) with byte-
+identity revalidation, and builds the fixed argv (prlimit
+AS/CPU bounds, unshare net/pid/ipc/uts, clearenv, private
+mounts, trusted fixed entry `python3.12 -I -S /worker.py`).
+The fork-creating-PID check precedes any close/cleanup;
+bounded startup is checked against the fixed 2 MiB request/
+total input; a tiny admitted cap cannot carry its own
+startup; mutation or revalidation failure refuses the launch.
+No parent or module code execution and no generic process
+callback are added.
+
+`tests/unit/test_gpu_profile_assets.py` and
+`tests/integration/test_gpu_profile_assets.py` (new) prove the
+packaged GPU profile assets: the actual offline wheel bundles
+the unchanged GPU lock (alongside the CPU v2 and legacy CPU
+locks packaged by 007-i) under `_worker_profiles` with
+RECORD/license/entry/source identity; installed-layout
+selection uses the bundled GPU lock first and refuses missing,
+corrupt, symlinked or whole-bundle-missing assets even with a
+matching ambient project/lock under bounded dist-info
+downgrade guards, in both the normal and the src-named
+installed prefix; the exact private /app/src/pkg layout case is
+a data mapping, not authorization; source-checkout support is
+retained.
+
+The five `docs/parallel/*.md` GPU API/design docs are the
+immutable reviewed bytes of this slice
+(`gpu-child-protocol-api.md`, `gpu-worker-launch-api.md`,
+`owned-gpu-parent-design.md`, `gpu-profile-assets-api.md`,
+`gpu-profile-assets-design.md`).
+
+Behavior is proven by the focused model-free suites at this
+head: 103 GPU backend/protocol/launch/assets unit cases,
+SEPARATE invocations of the installed-resource integration
+(8), the project launch namespace witness (1: a real
+bwrap/unshare child under fake/null namespaces with synthetic
+/dev bindings and a fake injected backend) and the current
+offline CPU-wheel integration (1), plus the query (3) and CPU-
+worker (4) affected compatibility invocations; each bounded 1
+GiB AS / 30 s CPU / 120 s wall, threads 1, no bytecode. This
+is finite model-free software: no real GPU, driver, Tensor,
+model or framework import was executed; a prepared capsule is
+not a running parent or GPU exclusivity proof. The actual BGE
+execution, latency, parity, model memory and hardware remain
+UNRUN/UNQUALIFIED; the actual owned GPU parent, the new lock
+and the worker-identity resources remain parallel and
+unintegrated; no complete native/normalized/durable GPU
+execution, controller or snapshot activation exists. The H
+actual 38 setup/class-import/license-fact and the archived
+random CPU toy distinctions are preserved; the H-era host
+full-unit failure cause remains UNRESOLVED (no causality
+invented, no failure hidden). Whole 007 remains PARTIAL; no
+main merge, 008, release or tag.
+
 ## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
@@ -812,8 +920,10 @@ never been run) and CPU exact dot-product search against admitted
 spaces, resumable
 owned GPU encode batches with bounded resource telemetry (the REQUIRED
 exclusive GPU FP16 corpus encoding per the architecture; the corrected
-raw GPU backend source is integrated and inert — no owned GPU process,
-controller or physical drain exists), snapshot/manifest
+raw GPU backend source, the GPU child/protocol wire, the worker entry
+and the prepared launch are integrated and inert under trusted fakes —
+no owned GPU parent or controller, no complete native/normalized/
+durable GPU execution and no physical drain exists), snapshot/manifest
 binding of vectors, row maps, ACL and space fingerprints, query/GPU
 precision qualification (FP16 vs FP32 cosine/ranking/Recall@k), and all
 artifact/encoder/execution/auth gates. The legacy optional CPU profile

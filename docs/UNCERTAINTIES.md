@@ -919,3 +919,62 @@ human question.
   exclusive GPU FP16 corpus encoding path execution is still
   unimplemented; real qualification NOT RUN. Whole 007
   remains PARTIAL; no main merge or 008.
+### 2026-11-12, order 007-j (GPU child/protocol + prepared launch + packaged GPU resource assets integration)
+
+- 007 is PARTIAL after this slice: the FOURTEEN root-reviewed
+  GPU child/protocol, prepared-launch and packaged-resource
+  files are selectively integrated by byte-exact file copy
+  from the single exact source commit 5445c03bcc85a5cea6ad24f26f137e55f5a806cf
+  (oap/reviews/007-j-components.json, 136,921 bytes; no branch
+  ancestry, no source adaptation; the old nineteen-file J
+  draft is inert and was never used): the GPU worker protocol
+  (child-owned device lease acquired before backend load,
+  fixed closed bounded wire/version/config/startup
+  vocabulary, exact token-ID requests and raw FP32 rows,
+  content-free refusals, immutable ready bindings, no fake
+  serialized PID-bound lease), the worker main entry
+  (original non-Exception interruption priority retained
+  under foreign/fork/error/interrupt ownership semantics),
+  the corrected raw GPU backend (finite and inert under
+  trusted fakes), the prepared launch (actual pinned
+  Python/package/config/device inputs with retained FDs,
+  exact closed copied capsule, fixed argv/clearenv/private
+  namespaces, trusted fixed entry, fork-creating-PID check
+  before any close/cleanup, bounded startup checked against
+  the fixed 2 MiB request/total input; no parent/module code
+  execution, no generic process callback) and the packaged
+  GPU profile lock assets (bundled unchanged GPU lock first;
+  fail-closed missing/corrupt/symlinked/whole-bundle-missing
+  refusal under actual installed normal/src-named prefixes
+  even with a matching ambient project/lock; bounded
+  dist-info guards; the exact private /app/src/pkg layout is
+  a data mapping, not authorization; the real offline wheel
+  carries the three exact locks plus RECORD/license/entry/
+  source identity).
+- Mock/real distinction: the 103 focused GPU
+  backend/protocol/launch/assets units and the SEPARATE
+  installed-resource integration (8), project launch
+  namespace (1, real bwrap/unshare child) and offline
+  CPU-wheel (1) invocations use fake/null namespaces,
+  synthetic /dev bindings and the actual offline wheel — no
+  real GPU, driver, Tensor, model or framework import was
+  executed, and a prepared capsule is not a running parent or
+  GPU exclusivity proof. The actual BGE execution, latency,
+  parity, model memory and hardware remain
+  UNRUN/UNQUALIFIED; the actual owned GPU parent, the new
+  lock and the worker-identity resources remain parallel and
+  unintegrated pending their affected reviews; no complete
+  native/normalized/durable GPU execution, controller or
+  snapshot activation exists; no security/license/
+  current-rights/real-GPU-neural/V100/ICA/full-MVP claim is
+  made.
+- The H actual 38 setup/class-import/license-fact and the
+  archived random CPU toy distinction are preserved (H
+  history); the H-era host full-unit failure cause remains
+  UNRESOLVED as observed history: no causality is invented
+  and no failure is hidden.
+- U04 (CPU query latency, CPU/GPU embedding parity) and U07
+  (license/distribution clearance) remain OPEN; the required
+  exclusive GPU FP16 corpus encoding path execution is still
+  unimplemented; real qualification NOT RUN. Whole 007
+  remains PARTIAL; no main merge or 008.

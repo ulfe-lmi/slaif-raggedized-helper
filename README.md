@@ -266,10 +266,56 @@ unchanged; GPU child/plan/parent resources remain parallel and
 unintegrated; whole 007 remains PARTIAL
 ([docs/parallel/query-embedding-api.md](docs/parallel/query-embedding-api.md),
 [docs/parallel/cpu-profile-assets-api.md](docs/parallel/cpu-profile-assets-api.md)).
+The 007-j continuation selectively integrates the FOURTEEN
+root-reviewed GPU child/protocol, prepared-launch and packaged-
+resource files (no branch ancestry, no source adaptation;
+oap/reviews/007-j-components.json, 136,921 bytes, single exact
+source commit 5445c03): the GPU worker protocol (child-owned
+GPU device lease acquired before any backend load, fixed
+closed bounded wire/version/config/startup vocabulary, exact
+token-ID requests and raw FP32 rows, content-free refusals,
+immutable ready bindings and no fake serialized PID-bound
+lease), the worker main entry (the original non-Exception
+interruption priority is retained; foreign/fork/error/
+interrupt ownership semantics keep actually owned resources
+honest), the corrected raw GPU backend (finite and inert under
+trusted fakes: device UUID byte guard, process-owned
+DeviceLease assertion, ordered finite CPU FP32 raw CLS
+output), the prepared launch (actual pinned Python/package/
+config/device inputs with retained FDs, exact closed copied
+capsule, fixed argv/clearenv/private namespaces and trusted
+fixed entry; the fork-creating-PID check precedes any
+close/cleanup and bounded startup is checked against the
+fixed 2 MiB request/total input; no parent or module code
+execution and no generic process callback) and the packaged
+GPU profile assets (bundled unchanged GPU lock first;
+fail-closed for missing, corrupt, symlinked or whole-bundle-
+missing assets under the actual installed normal and src-
+named prefixes even with a matching ambient project/lock;
+bounded dist-info recognition; the exact private /app/src/pkg
+layout case is a data mapping, not authorization; the real
+offline wheel carries the three exact locks plus
+RECORD/license/entry/source identity). This is finite
+model-free software: the focused units and the separate
+installed/launch/wheel invocations use fake/null namespaces,
+synthetic /dev bindings and the actual offline wheel, never a
+real GPU, driver, Tensor, model or framework import. The
+actual BGE execution, latency, parity, model memory and
+hardware remain UNRUN/UNQUALIFIED; the actual owned GPU
+parent, the new lock and the worker-identity resources remain
+parallel and unintegrated (pending their affected reviews);
+the current I fifteen files, the H helpers/fixtures/CI/locks
+and the CPU paths are preserved unchanged; whole 007 remains
+PARTIAL
+([docs/parallel/gpu-child-protocol-api.md](docs/parallel/gpu-child-protocol-api.md),
+[docs/parallel/gpu-worker-launch-api.md](docs/parallel/gpu-worker-launch-api.md),
+[docs/parallel/gpu-profile-assets-api.md](docs/parallel/gpu-profile-assets-api.md)).
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
-lock) plus the cleanup/lease/isolated-exit composition and the inert
-raw GPU backend source are software under trusted neural fakes only.
+lock) plus the cleanup/lease/isolated-exit composition, the 007-j GPU
+child/protocol/launch/assets software and the inert raw GPU backend
+source are software under trusted neural fakes only (no real GPU,
+driver, Tensor or model was run).
 Execution scope is precise: the archived prior OWNED random CPU toy
 was historically executed (toy evidence only); the ACTUAL BGE
 checkpoint/model has NOT been executed or qualified, and a class
