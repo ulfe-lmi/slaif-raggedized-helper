@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-12T05:44:37.157813+00:00",
+  "scope": "ROOT_INDEPENDENT_PORTABLE_GPU_SYNTHETIC_FIXTURE_EVIDENCE_NOT_REAL57_RUNTIME",
+  "source_report": "c65338387be2136e8d85cacc5f4bd65c822121d2",
+  "implementation": "c0e14e2c399e8f5d99b563788c9bc66399118879",
+  "profile_lock_sha256": "d3f47d3d2943759967a95694017f32e20b8a29ee7de4df790465a402bc17c334",
+  "actual_light_distributions": 6,
+  "explicit_DATA_ONLY_metadata_distributions": 51,
+  "runtime": "IndependentlycopiedtrustedCPython3.12.15 underactualdifferentprefix; actualprovidedruntime/root/baseprefixverified.",
+  "receipt_sha256": "c5849c4aca4be567f851d307437eaa6efcb006941933394dbb4ef5f87875cd61",
+  "source_review": "audit/007-gpu-fixture-source-review-c0e1.json",
+  "Root_tests": "14combinednew/legacyunit cases+ruff/diffPASS; laterGPUchildpeer37=33protocol+4GPUsetupchecks onboth3.12/3.14 are separatelyscopedcandidate evidence.",
+  "framework_boundary": "Gate-onlytestusesin-memorytrustedframeworkfacades, neverinstalledfakeMLmodules andnevermodelconstructor/Tensor/CUDA/devicecall. RealPydantic/nativeenginewheelsplusDATAONLYmetadata.",
+  "limits": "Notreal57frameworkinstallation/actualGPUbackend/driver/model/worker/controller/physicalvacancy/parity/license/security/fullICA. NewrequiredCIstepneedsactualcurrentheadverification; no inferenceorproductionpermission.",
+  "DHA": "NONE"
+}

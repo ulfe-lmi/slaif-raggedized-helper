@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T05:05:21.340709+00:00",
+  "status": "FINAL_LOCAL_INSTALLER_ENV_CORRECTION_SOURCE_ACCEPTED_FULLCLI_PENDING",
+  "implementation": "ec9be0e45737baadccf951b66d76ea8963e53df5",
+  "report_commit": "3de83d4a622ba1461c9dc9f58df73189014dc39b",
+  "report_sha256": "b93219aee73a56331a6e3cec8c71256db29575d354c394667c15f21db5ae0521",
+  "report_bytes": 2064,
+  "source_review": "audit/007-installer-D-source-review-ec9b.json",
+  "Root_evidence": "17unit+3priority+2churn/ruff/diffPASS; exactoneenvsource/API/cleanSELF/reportonly/orderverified. NoCodingactualsetup/NNoperations claimed.",
+  "next": "RootnewownedfrozenfullCLImetadata-only validation, no oldcapsules/flags/caps weakened. Sourceacceptance notfullCLI/model/security/license/parity/MVP/ICA.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

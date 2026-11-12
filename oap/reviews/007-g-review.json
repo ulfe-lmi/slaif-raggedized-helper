@@ -1,0 +1,48 @@
+{
+  "at": "2026-11-12T05:41:58.428519+00:00",
+  "head": "999357fe55060212bb081df1bce13b9cfecab921",
+  "implementation": "5d1acfe06aa76521046d600971b01500ae41d4d6",
+  "report_sha256": "ea357e547f48d97f709fe3ac8b7e897bd772173bea674d1679fce2f35bf065fe",
+  "report_bytes": 7045,
+  "status": "REVIEWED_PARTIAL_CONTINUE_SAME007",
+  "SELF_report_only_sole_parent": true,
+  "transcript_parent_then_one_implementation": true,
+  "exact23blobs_2READMEprefixes": true,
+  "README_append_notes": {
+    "worker_profiles/cpu-v2/README.md": "\n## Current selection (order 007-g, 2026-11-12)\n\nOrder 007-g selects this exact candidate lock/graph as the current\nCPUv2 source selection on the 007 branch (PR 9): the CPU source gates\nnow target this graph (Torch 2.14.0+cpu / Transformers 5.22.2 /\nframework tokenizers 0.23.1), and the required CI step provisions the\nportable synthetic fixture from this lock (six exact wheels plus 32\nexplicitly DATA-ONLY metadata distributions). The historical\npreparation evidence above is preserved unchanged. This selection is\nsource and synthetic-fixture integration only: no full 38-package\ninstallation has completed (the latest actual attempt is the recorded\nPARTIAL uv allocation abort under the fixed 2 GiB address space), no\nneural import, and the actual BGE model/checkpoint/hardware remains\nUNRUN/UNQUALIFIED. The legacy CPU profile (Torch 2.10.0+cpu /\nTransformers 4.51.3) and the native 0.21.4 capsule remain intact and\nindependent.\n",
+    "worker_profiles/gpu/README.md": "\n## Current selection (order 007-g, 2026-11-12)\n\nOrder 007-g selects this exact candidate as the current GPU profile\nsource on the 007 branch (PR 9), together with the corrected raw GPU\nbackend source (assigned exact synthetic device UUID byte guard before\nlocal FP16 model loading, actual child/process-owned DeviceLease\nassertion, bounded immutable native-ID input, no autocast, finite\nordered CPU FP32 raw CLS 1024 output, sticky close/owner retention and\noriginal non-Exception identity across hostile backend_owner\nattachment). The historical preparation evidence above is preserved\nunchanged. This is finite inert source integration with controlled\nfakes only: no full 57-package installation, no GPU/driver/device\noperation, no model loading, and the future owned worker/controller\nand physical drain remain absent.\n"
+  },
+  "exact14Rootrecords_index_order_active": true,
+  "scope_only25files_CI_docs_budget": true,
+  "manifest_allfiles_and_installedlaw_identity": true,
+  "budget": "50000/50000 currentT1617449B; tokensUNMEASURED",
+  "workflow": "Fullactualdiffread:ONEnewrequiredCPUv2step;NEWdirect/tmp/runtimeprovided/literalGITHUBENV/pipefail/nofallback retainedlegacy+allothersteps/pins/permissions.",
+  "current_docs_findings": [
+    "Gdocs/report preserve stalefull38CPUv2installationPARTIAL; RootseparateDfullCLIcomplete22.254s/38hashes/metadata andclassimport now recorded, mustcorrectCURRENTdocsinH notimmutablehistory.",
+    "README/STATUS still broad noactualmodelexecution; mustdistinguish archivedoldOWNEDrandomCPUtoy fromactualBGEUNRUN. docsUNCERTAINTIES/embeddingalreadymentiontoy butREADME/STATUSneedunambiguouscurrentwording."
+  ],
+  "parallel_findings": "63f0querycandidateaffectedpeerconfirmedF1/F2 native/CPUdiagpriority andRootcontextpriority defects; heldfromintegration pendingBfix+reaudit. Gsourcebytesunchangedexistingbugnotwaived; whole007no merge.",
+  "strongest_reason_not_to_merge": "Whole007 requiredresidentquery/resumableownedGPU/controller/actualBGE/parity/currentrights/security/license/hardware/heldout/ICA incomplete; knownworkerpriorityfindings/docstalenessawaitsame007continuations.",
+  "next": "SamePR007-h exact6setup/tool/test/API files +ONErequiredGPUfakefixtureCIstep +currentevidencedocs andprecisetoyvsBGEwording. No query/GPUchild integration untilrespectivepeerfindingsresolved. No008/mainmerge/release/deploy.",
+  "DHA": "NONE",
+  "round": "007-g",
+  "CI": "BOTHimplementation43160235569/report43161300102 independentlyALL5_ALL76SUCCESS",
+  "remote_final": "audit/007-g-GitHub-current-final.json",
+  "pr": {
+    "number": 9,
+    "state": "OPEN",
+    "isDraft": false,
+    "headRefName": "oap/007-embedding-pipeline",
+    "headRefOid": "999357fe55060212bb081df1bce13b9cfecab921",
+    "baseRefName": "main",
+    "autoMergeRequest": null,
+    "reviewThreads": {
+      "nodes": [],
+      "pageInfo": {
+        "hasNextPage": false
+      }
+    }
+  },
+  "main": "11badc7782bed326995d400f5532b63399b91fbd",
+  "acceptance_reason": "Acceptexactbounded23blob+2prefix selectivecode/profileandrequiredCI integration aspartialdevelopmentprogress only. Bothcurrentheadsallrequiredjobs/stepsgreen, uniquePR9/mainstable/0unresolvedthreads. Currentdocstaleness/broadno-model-wording explicitlyNOTpassed and mandatoryHcorrection; knownCPU/nativepriorityrepair+reauditstillholdswhole007/mainmerge."
+}
