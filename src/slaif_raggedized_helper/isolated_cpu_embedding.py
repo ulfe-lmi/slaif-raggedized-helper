@@ -419,8 +419,9 @@ class IsolatedCPUEmbeddingSession:
     def __exit__(self, exc_type, exc, tb):
         try:
             self.close()
-        except BaseException:
-            if exc is None:
+        except BaseException as cleanup_error:
+            if exc is None or (isinstance(exc, Exception)
+                               and not isinstance(cleanup_error, Exception)):
                 raise
             exc.add_note("embedding session cleanup pending")
             exc.cleanup_owner = self

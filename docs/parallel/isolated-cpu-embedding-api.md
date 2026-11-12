@@ -26,8 +26,10 @@ No hardware qualification is inferred.
 Close is finite and idempotent after successful release. A `SessionRefused` with `pending` true
 retains its cleanup owner in `owner`; retain it and retry `owner.close()`. A CPU child that has not
 been confirmed released keeps the stage alive. Cleanup refusal after the staging context has
-exhausted remains pending and is not retried as if it succeeded. A body exception or interrupt is
-preserved with a fixed cleanup note and `cleanup_owner` when needed. An uninterruptible kernel task
+exhausted remains pending and is not retried as if it succeeded. An original body interrupt remains primary. A new cleanup interrupt outranks an ordinary body
+exception; ordinary cleanup errors preserve the body exception. With no body error cleanup errors
+propagate. When cleanup fails, the escaping exception carries a fixed note and `cleanup_owner`
+for retained pending ownership. An uninterruptible kernel task
 cannot be guaranteed reaped. The stage never purges foreign replacements.
 
 The synthetic tests use a trusted fake framework in the real process protocol; they do not load a

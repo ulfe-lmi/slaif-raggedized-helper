@@ -76,17 +76,38 @@ def test_stage_cleanup_failure_never_reuses_generator(args):
     assert stage.calls == 1
 
 
-def test_body_exception_kept_when_cleanup_fails(args):
+@pytest.mark.parametrize("body, cleanup, expected", [
+    (RuntimeError("body"), KeyboardInterrupt("cleanup"), "cleanup"),
+    (RuntimeError("body"), ValueError("cleanup"), "body"),
+    (KeyboardInterrupt("body"), KeyboardInterrupt("cleanup"), "body"),
+    (None, KeyboardInterrupt("cleanup"), "cleanup"),
+])
+def test_context_exit_priority_and_owner(args, body, cleanup, expected):
     obj = IsolatedCPUEmbeddingSession(*args)
 
     class Stage:
         def __exit__(self, *args):
-            raise KeyboardInterrupt()
+            raise cleanup
 
-    obj._stage = Stage()
+    stage = Stage()
+    obj._stage = stage
+    winner = cleanup if expected == "cleanup" else body
+    if expected == "body":
+        assert obj.__exit__(type(body), body, None) is False
+    else:
+        with pytest.raises(KeyboardInterrupt) as caught:
+            obj.__exit__(type(body) if body else None, body, None)
+        assert caught.value is winner
+    assert winner.cleanup_owner is obj
+    assert winner.__notes__ == ["embedding session cleanup pending"]
+    assert obj._stage is stage and obj._stage_failed
+
+
+def test_context_exit_success(args):
+    obj = IsolatedCPUEmbeddingSession(*args)
     body = RuntimeError("body")
     assert obj.__exit__(RuntimeError, body, None) is False
-    assert body.cleanup_owner is obj and body.__notes__ == ["embedding session cleanup pending"]
+    assert not hasattr(body, "cleanup_owner")
 
 
 def test_late_bad_receipt_prevents_forward_and_closes(args, monkeypatch):
