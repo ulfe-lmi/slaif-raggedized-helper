@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-12T18:53:09.595919+00:00",
+  "implementation": "d043956033d016e442e9a2fc4b86e65cf3b54d91",
+  "report": "c50213fbbd246adb8d6f89cac601239491974deb",
+  "transcript": "9c3fe0fc8c9702f28c7d4707698fbb45b6f5424b",
+  "status": "EXACT_ONE_FILE_SOURCE_AND_REPORT_TOPOLOGY_REVIEWED_CURRENT_CI_RED",
+  "identities": "Transcript exact8paths/order/active5Rootrecords/index; soleparent transcript915d ->9c3f -> one-file d043 -> sole-report c502; strictremoteverify retained. No unrelated dirty state.",
+  "source": "Only import changed to existing unit test_embedding_batch_store/count1 + plan derived from SAME metadata. All code from metadata=wire through actual commit/interruption/COMPLETE/output/history assertions byte-identical. No helper/mock/CI/path weakening.",
+  "Root_check": {
+    "command": "CPU30 AS1GiB wall120 five threads1 no bytecode PYTHONPATH UNSET installed .venv python ordinary node; private/tmp basetemp",
+    "result": "PASS exit0",
+    "log": "audit/007-o-root-clean-unit-d043.log"
+  },
+  "author_logs": "audit/007-o-author-raw-evidence node1/module23 dots exit0 with exact clean-layout caps",
+  "required_current_CI": "run43283406324 exact c502 all5 completed,3success/2productfailure,66actualstepssuccess/2failure/10skipped. Both integration collection test_gpu_worker_launch unit/integration basename mismatch. Both unit suites now SUCCESS. No acceptance.",
+  "Root_new_failure_reproduction": "audit/007-o-root-integration-collection-c502-with-fixtures.log actualdefaultintegration collect-only, supplied CPUv2 paths, only same basename collision. Earlier audit/007-o-root-integration-collection-c502.log omitted required CPU env and had4additionalKeyErrors; preserved, not counted as isolated target proof. No journey executed.",
+  "cause": "New corpus executor module imports journey first; its fixture module inserts tests/unit into sys.path then immediate generic test_gpu_worker_launch import selects unit. Integration module later collected with same name refuses. New producer has same ordering; fix bounded imports before journey, no workflow change.",
+  "strongest_counterargument": "Unit fix is correct but cannot be accepted as green integration evidence while both product jobs still fail collection. Required CI gate takes precedence over focused passing tests.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

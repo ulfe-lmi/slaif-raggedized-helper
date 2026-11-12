@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-12T19:05:15.652500+00:00",
+  "identifier": "007-o",
+  "decision": "REVIEWED_NOT_ACCEPTED_CI_FAILURE_CONTINUE_SAME007",
+  "implementation": "d043956033d016e442e9a2fc4b86e65cf3b54d91",
+  "report": "c50213fbbd246adb8d6f89cac601239491974deb",
+  "report_sha256": "f6b4c208df817ad8b4387676be60036763422f18e0722012cb4ad3db25b4ea53",
+  "report_bytes": 6304,
+  "source_review": "audit/007-o-implementation-source-review-d043.json",
+  "strict_remote_report": "audit/007-o-current-report-strict-verification.json",
+  "remote_reviews": "audit/007-o-current-remote-review-c502.json exactopenPR9/c502/branchmain/noautomerge/no unresolvedthreads orchange requests/pagination",
+  "required_CI": {
+    "run": 43283406324,
+    "head": "c50213fbbd246adb8d6f89cac601239491974deb",
+    "jobs_success": 3,
+    "jobs_failure": 2,
+    "actual_steps_success": 66,
+    "actual_steps_failure": 2,
+    "actual_steps_skipped": 10,
+    "metadata": "audit/007-o-current-report-CI-full.json",
+    "logs": "audit/007-o-current-report-CI-failed.log",
+    "failure": "BothProduct integration collection import-file mismatch test_gpu_worker_launch unitvsintegration; bothunit suites nowPASS."
+  },
+  "Root_checks": "ActualcleanunitnodePASS, exactoldassertionsbyteequal; realdefaultcompleteintegrationcollectionfailure withrequiredCPUfixtureenv. EarlierRootmissing-envattemptpreservedandnotisolatedtargetproof.",
+  "normal_response": {
+    "identifier": "007-o",
+    "pr": 9,
+    "implementation": "d043956033d016e442e9a2fc4b86e65cf3b54d91",
+    "report_commit": "c50213fbbd246adb8d6f89cac601239491974deb",
+    "report_sha256": "f6b4c208df817ad8b4387676be60036763422f18e0722012cb4ad3db25b4ea53",
+    "verified_at": "2026-11-12T19:09:06.628438+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "strongest_reason_not_to_merge": "Correctunitsetup cannot waive required productCI: two failedintegration jobs and skippedlatersteps prohibitdevelopmentacceptance.",
+  "continuation": "Same007 boundedP2integrationmodule fixtureimport-order correction, no productCIchange; Qgatewayrepair and Rcapture laterinert. N/O software remainsPARTIAL, no numeric008orMVPclosure.",
+  "DHA": "NONE",
+  "rights_privacy_license": "Syntheticexistingtypedfixtureonly, nodependencies/models/GPU/privatecorpus/credentials/currentrightsorReady. No newrelease/legalexception.",
+  "no_FIFO_reread": true,
+  "postpublication_coding_receipt": ".oap-state/007-o-postpublic-coding-receipt.json exacthead/failedgate independently reconciled",
+  "at_final_resolution": "2026-11-12T19:10:50.768196+00:00",
+  "helper_parse_deviation": "Coding first respond invocation lacked --repo-root, argparse refused before any FIFO write; corrected invocation sent ONE valid response, normal sole-wrapper receipt verified. No replay or duplicate reader."
+}

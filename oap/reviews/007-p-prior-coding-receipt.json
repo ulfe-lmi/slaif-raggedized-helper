@@ -1,0 +1,68 @@
+{
+  "identifier": "007-o",
+  "kind": "CODING post-publication execution receipt (local, not a report rewrite)",
+  "at": "2026-11-12T19:08:36.364434+00:00",
+  "round_base": "915dbc53bad866be70f730416806e500cdaa4dad",
+  "pr_main_base": "11badc7782bed326995d400f5532b63399b91fbd",
+  "transcript_commit": "9c3fe0fc8c9702f28c7d4707698fbb45b6f5424b",
+  "implementation_head": "d043956033d016e442e9a2fc4b86e65cf3b54d91",
+  "report_commit": "c50213fbbd246adb8d6f89cac601239491974deb",
+  "report_bytes": 6304,
+  "report_sha256": "f6b4c208df817ad8b4387676be60036763422f18e0722012cb4ad3db25b4ea53",
+  "local_checks_before_publication": {
+    "isolation_node": "prlimit --as=1073741824 --cpu=30 timeout 120 env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 OMP/OPENBLAS/MKL/RAYON/NUMEXPR_NUM_THREADS=1 .venv/bin/python -m pytest 'tests/unit/test_gpu_embedding_producer.py::test_actual_journal_committed_complete_survives_interruption' --basetemp=<private 0700> -q: 1 passed, exit 0",
+    "full_module_regression": "same capped clean unit-only layout, tests/unit/test_gpu_embedding_producer.py: 23 passed, exit 0 (expected 23, actual 23)",
+    "lint_syntax": "ruff check on changed unit file: All checks passed; AST parse OK; compileall -q exit 0",
+    "evidence_archives": "/tmp/007o-checks/{node-evidence.log,module-evidence.log,ci/}"
+  },
+  "ci_gate": {
+    "state": "FAILED-CI (explicit failed-gate receipt; NOT acceptance)",
+    "ordering_note": "Transcript + implementation + report pushed as one push, so the single required run is at the CURRENT REPORT head; no intermediate implementation-head run was awaited.",
+    "report_head": {
+      "run": 43283406324,
+      "head": "c50213fbbd246adb8d6f89cac601239491974deb",
+      "created": "2026-11-12T18:47:00Z",
+      "terminal": "failure (terminal; immutable; no further wait authorized)",
+      "jobs": [
+        "OAP tests (Python 3.12) success (10/10 steps)",
+        "OAP tests (Python 3.13) success (10/10 steps)",
+        "OAP tests (Python 3.14) success (10/10 steps)",
+        "Product tests (Python 3.12) failure (18/24 success, step 16 'Product test suite' SUCCESS, step 17 'Integration test suite (owned loopback HTTP/SSE)' FAILURE, 5 skipped)",
+        "Product tests (Python 3.14) failure (18/24 success, same failed step, 5 skipped)"
+      ],
+      "aggregate_actual_steps": "78 = 66 success / 2 failure / 10 skipped",
+      "dev_gate": "REQUIRES all 5 jobs and every actual step SUCCESS; missing/skipped/pending/cancelled/failed is not green; this run is red",
+      "unit_step_observation": "Previously failing node now passes in CI: step 16 'Product test suite' (uv run pytest tests/unit -q) is SUCCESS on both product legs with uninterrupted dot progress to [100%]; the 'N passed' summary line is not included in the captured step log, so step-level SUCCESS is the recorded evidence",
+      "failed_error_verbatim_excerpt": "ERROR collecting tests/integration/test_gpu_worker_launch.py / import file mismatch: imported module 'test_gpu_worker_launch' has this __file__ attribute: .../tests/unit/test_gpu_worker_launch.py / which is not the same as the test file we want to collect: .../tests/integration/test_gpu_worker_launch.py / Interrupted: 1 error during collection (exit code 2)",
+      "root_diagnosis": "New bare-name import chain from the 007-n integration files resolves test_gpu_worker_launch to the unit copy during integration collection (module-level sys.path insertion of tests/unit by an earlier-collected integration module); surfaced because the repaired unit step now passes and the integration step ran for the first time over the 007-n files; Root reproduced the collection with the required CPU fixture env; first Root missing-env attempt preserved separately",
+      "do_not_patch_in_O": true,
+      "root_owned_remediation": "audit/007-p-two-import-source-forecast-DRAFT.json (prospective two-line P forecast; Root-owned)"
+    },
+    "remote_evidence": {
+      "root_archived": [
+        "audit/007-o-current-report-CI-full.json",
+        "audit/007-o-current-report-CI-failed.log"
+      ],
+      "local_copies": [
+        "/tmp/007o-checks/ci/run-jobs.json",
+        "/tmp/007o-checks/ci/ci-43283406324-product-py312-failed.log",
+        "/tmp/007o-checks/ci/ci-43283406324-product-py314-failed.log",
+        "/tmp/007o-checks/ci/ci-43283406324-product-py312-full.log"
+      ]
+    }
+  },
+  "github_current": {
+    "pr": 9,
+    "head": "c50213fbbd246adb8d6f89cac601239491974deb",
+    "main": "11badc7782bed326995d400f5532b63399b91fbd",
+    "state": "OPEN",
+    "auto_merge": null,
+    "is_draft": false,
+    "mergeable": "MERGEABLE"
+  },
+  "disclosed_deviations": [
+    "The ordered .log record oap/reviews/007-o-unit-isolation-repro.log was committed with git add -f because the protected '*.log' .gitignore would otherwise exclude it; .gitignore itself unchanged (law preserved)",
+    "Local regression command line archived with a duplicated NUMEXPR_NUM_THREADS=1 token (identical value; no behavioral difference)"
+  ],
+  "note": "The immutable report (6,304 B <= 8,192 B ceiling) states current CI truth at publication (PENDING/UNOBSERVED) and does not certify its own future push/CI. This separate receipt records the observed terminal report-head CI (FAILED-CI gate: 3 OAP jobs SUCCESS; both product jobs FAILURE at the integration collection step; 66/2/10 of 78 actual steps) and the remote publication facts (strict verify-report: remote PR head = report commit, sole parent = implementation, report-only diff, exact remote report bytes, exact strategic activation bytes at implementation). ONE report-ready response OK is sent after this receipt via the original helper; OK signifies report ready with this explicit FAILED-CI gate receipt, never acceptance or merge permission. No merge performed; PR 9 remains OPEN, auto-merge off; Root owns independent review, P remediation and next work."
+}
