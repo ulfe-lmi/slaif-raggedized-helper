@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T16:21:17.321149+00:00",
+  "status": "SCOPED_SOURCE_ICA_FINALIZATION_PERMITTED_CHANGES_REQUIRED_F1_ROOT_REPRODUCED",
+  "target": "11badc7782bed326995d400f5532b63399b91fbd",
+  "draft_sha256": "45fc5592dcb13a9cd93e76a757764a075676379ff00de963a7c4e76515d12161",
+  "review": "Fullfinaldraft/revisedcoverage read, revisedtable3df/readsetdb546/command02c hashes verified; earlier16sourcewhole+selectedhashes262562bytes, bothwitnesses+rawlogs+5selectedtests verified. RootEXACToriginalrole/SSEwitnesses bothrerunexit0 underoriginalcaps; F1 usermessageacceptedterminalreproduced. SSEcontrolnowcorrectlythreshold64\u21921024withpredicateunchanged/restored64. Pinnedgatewayassistantrole requirement attributedRootactualgitshowf2df. No sameaccountseparatehuman/fullMVPICA claim.",
+  "finding": "F1 ordinary concrete protocolbug at sharedgateway output collector/message lifecycle. Rootmustauthorboundedrepairsource/tests with currenthead/base review, preserveexactpinneddialect/accounting/deadline/cancellation/safeerrors, independentlyreviewbeforegenerator/developmentmergeacceptance. No CRITentry forbug. O1content-type/status/header observations await exactcontract/evidence, notblanketfinding.",
+  "counterargument": "The configured gateway is expected to emit assistant messages and this finding has not been observed in the real service; existing item, status and byte guards are substantial. Nevertheless a malformed upstream role is promoted to terminal answer in the stated strict semantic boundary, demonstrated end-to-end, so candidate acceptance is not justified before repair.",
+  "open": "No live gateway, model, real secret, corpus, driver/GPU, external network or service was accessed; no latency, prefix reuse, deployed model identity, authorization integration or physical VRAM conclusions. Resource observer and qualification ledger assessed by source inspection, not full-system qualification. Structured output is sent as control but result has no parsed schema-validated object; direct image mode refused. Content-type and header observation is not asserted to violate the pinned gateway contract. Readset records measured selected ranges, not all incidental reads. DHA NONE.",
+  "Root_source_review": "audit/003-ICA-root-review-83e5.json",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

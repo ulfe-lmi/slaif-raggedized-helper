@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-12T16:46:21.672607+00:00",
+  "status": "ROOT_EXACT_B_CORRECTION_SOFTWARE_PASS_REPORT_PERMITTED_PEER_PENDING",
+  "implementation": "786bc25e8aca53c1f754ae64efb35813920d35b3",
+  "base": "cc6985af8192f61a840ebfe5c662bce828b25f62",
+  "review": "Full15line5handlerdiff/fullnew105linetests/API/Rootdesign/orderread; currentAall13rolelines/oldtests/docspredecessorsunchanged. Eachtransportexitnowchecksactualstate.error andusesexistingerror-first_finish_stream; allno-errorbranchesunchanged, no earlybreak/cancellation/accounting/retryrefactor. Exactsolebase/5paths/clean/order/designverified. FAILEDclientsemantic no impliedupstreambilling/cancellation/vacancy asserted.",
+  "Root_checks": "4newactualcases incltimeoutonepredicatecontrol/healthybaseline+actualgenericpostframesfaulthealthy/bad+2latecloseprotocol/refusedfaults PASS; A15units+7actualrole/normalEOFcases and3healthyoldtransport/retry/privacyregressionsPASS. Total29cases across4originalCPU30AS1GiBwall120/fiveThreads1 processesALLexit0. Newmodule8actualrequests, originaltimeoutcontrolledBFAILED/controlUNKNOWN/restoredFAILED/healthyUNKNOWNtext alloneattempt/call, genericfaultlabelsyntheticafteractualparser, actualcloseonce verified.",
+  "logs": [
+    {
+      "path": "audit/003-role-b-root-new-786b.log",
+      "sha256": "17eecbf58c5611ca603e56b7466da14571cd2ed6491326c746ff3f19d5b2ecc0",
+      "bytes": 1147
+    },
+    {
+      "path": "audit/003-role-b-root-old-role-units-786b.log",
+      "sha256": "f44599e69d732ed8dee0e717f36e0ee98cd5c0c2ea518926a89974e68da39217",
+      "bytes": 16
+    },
+    {
+      "path": "audit/003-role-b-root-old-role-stream-786b.log",
+      "sha256": "d47daac27178f4c6d09a21ee77ae11c1f9aefc49d400d76d7bd4f33e9e3a75d5",
+      "bytes": 8
+    },
+    {
+      "path": "audit/003-role-b-root-old-transport-786b.log",
+      "sha256": "a00c3b59d5e9e2d8ad78e29258e13b5cf4807919ebb5a523c199e8da1cda91b9",
+      "bytes": 4
+    }
+  ],
+  "source_hashes": {
+    "docs/parallel/gateway-role-error-precedence-api.md": "7cc260321286e9f59ea82c8138f8f4a34eb951b04db6dc2f0ea5b0be3b618545",
+    "docs/parallel/gateway-role-error-precedence-design.md": "43ee068d50a049371a0c4eccae6d9f068a86e0f3b059d90af5f395a4fc0110a7",
+    "oap/parallel/orders/PAR-003-GATEWAY-ROLE-B.md": "86e5e8a43968993e50f80d1d7468d1e65687a76744826689e83cb4b23d4d60f4",
+    "src/slaif_raggedized_helper/model_clients/gateway.py": "f8a686590e0b91f0f367327733cb7c0b02131ed2fa650de6695e5a9e717ea5bd",
+    "tests/integration/test_gateway_role_error_precedence.py": "33c3801a8cb02f04c7a39ed007c3076ac9f946792c2b69c34f9748b0e787fe04"
+  },
+  "strongest_counterargument": "Sourcefinitefaultcoverageisnotproofeveryactualnetwork/cancel/cleanupfault; genericafteractualframesandlateexitexceptionsarecontrolledinjections, notrealTCPreset. Exactsourceguards+actualreadtimeout/currenthealthycounterparts supportboundedfix, freshoppositepeer/currentcanonicalCI remain.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

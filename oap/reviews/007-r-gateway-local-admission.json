@@ -1,0 +1,14 @@
+{
+  "status": "ACCEPT_LOCAL_A_PLUS_B_CANDIDATE_FOR_FUTURE_CANONICAL_INTEGRATION",
+  "implementation": "786bc25e8aca53c1f754ae64efb35813920d35b3",
+  "report_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+  "report_sha256": "75f23fa55215c4ede63d4ff7311a07b11ed13a58207c368271fa41eb0c7839ff",
+  "Root_source": "audit/003-role-b-source-review-786b.json",
+  "Root_report": "parallel/gateway-message-role-b/review.json",
+  "opposite_peer": "parallel/audit-gateway-message-role-b/review.json",
+  "Root_peer": "audit/003-role-b-peer-root-review-a37d.json",
+  "evidence": "Root29finitecurrentchecks; oppositeB4 actual plus independent realwireUTF8onepredicateandhealthyretry; Rootexactpeerwire1PASS3.67. A normalEOF roles and B allfiveexceptionerrorprecedence together preserve knownfailure/noText andhealthyambiguity/retry. Original ICA003F1 andpeerAF2 repaired inlocalcandidate only.",
+  "strongest_counterargument": "Sourceproof cannot establish actualdeployedgateway/cancellation/billing/vacancy/security; protectedruntime/currentcanonicalfullCI and latermergedICA remain. OriginalA alone is notaccepted.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

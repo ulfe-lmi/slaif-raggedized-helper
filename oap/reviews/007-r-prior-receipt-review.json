@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-12T21:05:38.064850+00:00",
+  "status": "AUTHOR_POSTPUBLIC_RECEIPT_MATCHES_INDEPENDENT_ROOT_SOURCE_REMOTE_ALL78SUCCESS",
+  "receipt_bytes": 4109,
+  "receipt_sha256": "39d59a6cc9729e020f6fb120d4656c59e7d1823d42eb68b2d42bd9b780dd325d",
+  "CI": "Author snapshot5jobs/78success and exacthead43303810176 matches Root fullAPI/jobsteps/logs independently retained. Unchanged heavy actualcreator driver executed normalCI. No report mutation/merge/modelqualification claim.",
+  "DHA": "NONE"
+}

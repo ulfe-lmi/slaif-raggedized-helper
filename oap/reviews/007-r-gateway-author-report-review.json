@@ -1,0 +1,138 @@
+{
+  "at": "2026-11-12T16:52:19.145010+00:00",
+  "status": "EXACT_REPORT_AND_NORMAL_RECEIPT_RECONCILED_ROOT_PASS_FRESH_OPPOSITE_PEER_REQUIRED",
+  "implementation": "786bc25e8aca53c1f754ae64efb35813920d35b3",
+  "report_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+  "report_sha256": "75f23fa55215c4ede63d4ff7311a07b11ed13a58207c368271fa41eb0c7839ff",
+  "report_bytes": 7986,
+  "source_review": "audit/003-role-b-source-review-786b.json",
+  "review": "Entire immutable report read. Sole base/implementation/report-only SELF graph, exact five paths, clean current head, every 16 readset full-file hash/byte entry and four original logs verified. Read scopes remain partial where author says partial; file length is not claimed read length. Original collection error retained and corrected separate-process passes verified. Actual timeout causal control plus synthetic generic/late-close faults clearly distinguished. Root independent 29 cases already passed. No upstream cancellation/billing/vacancy claim; no protected runtime or deployed gateway proof.",
+  "readset": [
+    {
+      "path": "src/slaif_raggedized_helper/model_clients/gateway.py",
+      "bytes": 59033,
+      "sha256": "f8a686590e0b91f0f367327733cb7c0b02131ed2fa650de6695e5a9e717ea5bd",
+      "reported_scope": "_finish_stream and _run_stream exception handlers, diff; not full file"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/model_clients/transport.py",
+      "bytes": 33630,
+      "sha256": "9fcdb2c78f320c2c613f2d5932ec5b852f5f112b6b1be1d33c7d2e0b7afcfe1f",
+      "reported_scope": "error types, SSEStream and stream handle frames/close sections"
+    },
+    {
+      "path": "tests/integration/test_gateway_role_error_precedence.py",
+      "bytes": 4033,
+      "sha256": "33c3801a8cb02f04c7a39ed007c3076ac9f946792c2b69c34f9748b0e787fe04",
+      "reported_scope": "full new file"
+    },
+    {
+      "path": "tests/integration/test_gateway_message_role.py",
+      "bytes": 3739,
+      "sha256": "fd3f021fea95dabe67f42439c75ae1a3f4e244a50ccd02a9d7a669b06110f813",
+      "reported_scope": "full file"
+    },
+    {
+      "path": "tests/unit/test_gateway_message_role.py",
+      "bytes": 1987,
+      "sha256": "73098598c1dd5f9a010a3718f9853d903893d2d273cc10907a4cb8a4ea3236fd",
+      "reported_scope": "full file"
+    },
+    {
+      "path": "tests/integration/test_gateway_generator.py",
+      "bytes": 100021,
+      "sha256": "1ee6de2e6c85dfbc229e6b9a86f911f80e72e27ef5a7ba52b5bb5b71e327ec6f",
+      "reported_scope": "frame builder, scenario, timeout and selected test names/sections"
+    },
+    {
+      "path": "tests/integration/test_generator_transport.py",
+      "bytes": 24592,
+      "sha256": "5fe61996d0d9ac7d42339f2e6c68473b393b1a3a2a42512474a45d303a51dd01",
+      "reported_scope": "selected cancellation test name; executed test"
+    },
+    {
+      "path": "docs/parallel/gateway-role-error-precedence-design.md",
+      "bytes": 6307,
+      "sha256": "43ee068d50a049371a0c4eccae6d9f068a86e0f3b059d90af5f395a4fc0110a7",
+      "reported_scope": "full exact design"
+    },
+    {
+      "path": "docs/parallel/gateway-role-error-precedence-api.md",
+      "bytes": 1459,
+      "sha256": "7cc260321286e9f59ea82c8138f8f4a34eb951b04db6dc2f0ea5b0be3b618545",
+      "reported_scope": "full new API"
+    },
+    {
+      "path": "oap/parallel/orders/PAR-003-GATEWAY-ROLE-B.md",
+      "bytes": 6061,
+      "sha256": "86e5e8a43968993e50f80d1d7468d1e65687a76744826689e83cb4b23d4d60f4",
+      "reported_scope": "full exact order"
+    },
+    {
+      "path": "@/audit/003-role-peer-root-review-47b9.json",
+      "bytes": 2344,
+      "sha256": "d8946f7ba918c345115e891f8e58c84428f179925f21da4221d0d5199ef519c2",
+      "reported_scope": "full Root peer review"
+    },
+    {
+      "path": "@/parallel/gateway-message-role/peer-outcome.json",
+      "bytes": 801,
+      "sha256": "d9f4d7402f4e3ddb6fa4eabd4e3bb89a0cc3451ad82b7ea66831933be155100d",
+      "reported_scope": "full peer outcome"
+    },
+    {
+      "path": "@/parallel/audit-gateway-message-role/review.json",
+      "bytes": 411,
+      "sha256": "6e4f1e84fcc1483e82fea49f0b29233166440c950d7f638c8532a399a70c1aeb",
+      "reported_scope": "full peer receipt"
+    },
+    {
+      "path": "@/parallel/gateway-message-role/response-consumed.json",
+      "bytes": 813,
+      "sha256": "e6641ec79e676ed4ef32bd2ae8617ed8002304cb3a02e9f67e59994477e4fe49",
+      "reported_scope": "full normal receipt"
+    },
+    {
+      "path": "/tmp/AUDIT-003-GATEWAY-ROLE-A-timeout-309d26ce.py",
+      "bytes": 852,
+      "sha256": "309d26ce3f6e18f78744b119601945d10dba30c075b7adb12ff705ae44daada2",
+      "reported_scope": "full original witness"
+    },
+    {
+      "path": "@/audit/003-role-peer-root-timeout-b8e6.log",
+      "bytes": 131,
+      "sha256": "fee6f1c35bbc20fd8dcce6e3326acb4c47e4965c07a4dc08c4d34d2776818650",
+      "reported_scope": "full original witness output"
+    }
+  ],
+  "logs": [
+    {
+      "label": "new",
+      "path": "audit/003-role-b-author-new-786b.log",
+      "sha256": "17eecbf58c5611ca603e56b7466da14571cd2ed6491326c746ff3f19d5b2ecc0",
+      "bytes": 1147
+    },
+    {
+      "label": "regression",
+      "path": "audit/003-role-b-author-regression-786b.log",
+      "sha256": "268df506c0a814ad424a9850b0c482463886b6d18c680ad4073145de52ab68f5",
+      "bytes": 1266
+    },
+    {
+      "label": "unit",
+      "path": "audit/003-role-b-author-unit-786b.log",
+      "sha256": "98fe0ab46f1e87d6df1a2033723afc2edc51748c52c3c04bea414206812ed10b",
+      "bytes": 461
+    },
+    {
+      "label": "integration",
+      "path": "audit/003-role-b-author-integration-786b.log",
+      "sha256": "ba17798078a90e38c8753ab1893182df47fd21298b8cb2a4fbf431bbe43b43f1",
+      "bytes": 621
+    }
+  ],
+  "embedded_stdout_shape": "dict",
+  "strongest_counterargument": "A looked correct on normal EOF yet independent peer exposed a timeout exception path. B covers all five existing exception exits but fresh opposite peer and canonical current CI are still required; do not integrate A alone.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}
