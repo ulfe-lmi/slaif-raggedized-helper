@@ -206,6 +206,30 @@ jobs:
           printf 'SLAIF_CPU_V2_TEST_ROOT=%s\n' "$PDF_TEST_RUNTIME" >> "$GITHUB_ENV"
           printf 'SLAIF_CPU_V2_TEST_PACKAGES=%s/packages\n' "$target" >> "$GITHUB_ENV"
 
+      # Required reproducible synthetic GPU worker distribution fixture
+      # (order 007-h), on these disposable GitHub-hosted runners only.
+      # The helper acquires ONLY six exact hash-pinned wheels (the pinned
+      # Pydantic graph plus tokenizers 0.23.1) over the trusted standalone
+      # CPython 3.12 runtime and writes 51 explicitly DATA-ONLY metadata
+      # distributions matching the fixed GPU lock: no importable fake ML
+      # modules, Torch/Transformers/NumPy model packages, weights, CUDA or
+      # real neural calls. It is a synthetic fixture, not an installed real
+      # ML runtime. Missing or incompatible prerequisites, a setup failure
+      # or a refused target fail this job; there is no skip, fallback or
+      # continue-on-error, and the CPU-v2 fixture above stays intact.
+      - name: Provision portable synthetic GPU worker test fixture
+        run: |
+          set -o pipefail
+          target="/tmp/slaif-gpu-test-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${{ matrix.python-version }}"
+          test ! -e "$target"
+          python3 tests/support/prepare_gpu_worker_test_backend.py \
+            --runtime-dir "$PDF_TEST_RUNTIME" --target "$target" | tee gpu-worker-backend-setup.log
+          # The helper's printed export lines are shell-oriented; GITHUB_ENV
+          # takes literal NAME=value entries only, so bind the known private
+          # paths explicitly (never source or eval helper output).
+          printf 'SLAIF_GPU_TEST_ROOT=%s\n' "$PDF_TEST_RUNTIME" >> "$GITHUB_ENV"
+          printf 'SLAIF_GPU_TEST_PACKAGES=%s/packages\n' "$target" >> "$GITHUB_ENV"
+
       - name: Lint (product scope)
         run: uv run ruff check src tests/unit tests/integration
 

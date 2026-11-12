@@ -771,3 +771,83 @@ human question.
   distribution clearance) remain OPEN; the required exclusive GPU FP16
   corpus encoding path execution is still unimplemented; real
   qualification NOT RUN.
+
+### 2026-11-12, order 007-h (runtime setup integration: CPUv2 installer tooling + GPU synthetic fixture + current evidence docs)
+
+- 007 is PARTIAL after this slice: the SIX exact root-reviewed
+  setup/test/API files are selectively integrated by byte-identical
+  file transfer (70,906 bytes; oap/reviews/007-h-components.json; no
+  branch ancestry, no source adaptation, all six immutable at this
+  head). The fixed CPUv2 runtime installer
+  (tests/support/prepare_cpu_runtime_v2.py) is developer
+  qualification tooling, NOT an implicit deployment/runtime action:
+  it enforces the fixed 38-wheel pinned official graph, status/
+  origin/length/hash checks with the missing-MIME exception for the
+  exact fixed Torch wheel only, offline no-index/no-deps
+  hash-required binary-only install, metadata and dependency
+  verification without framework import, finite owned cleanup with
+  diagnostic interrupt priority, atomic receipts and
+  MALLOC_ARENA_MAX=1 (a documented glibc arena limit that does not
+  increase any cap). It is never run in CI (CI runs only its
+  unit/guard tests); its fixed runtime/binary host qualification
+  does not prove generic deployment portability. The required GPU
+  fixture CI step (six exact hash-pinned wheels plus 51 explicit
+  DATA-ONLY metadata distributions from the fixed GPU lock; no
+  importable fake ML packages, real Torch/Transformers/NumPy,
+  model, CUDA or neural call) is provisioned after the current
+  CPUv2 fixture and before lint on both product legs, with
+  set -o pipefail, a new direct /tmp target refusal guard, teed
+  setup log and literal GITHUB_ENV bindings (never source/eval);
+  expected five jobs, 78 steps, all required current jobs/steps
+  must succeed — missing/skipped/pending is not green. Canonical G
+  source, profiles, locks, requirements, the old helper, native
+  0.21.4 and the existing fixtures remain intact; no candidate
+  ancestry or source adaptation.
+- Current setup status is corrected against the 007-g-era docs:
+  the claim "full 38 still PARTIAL / no framework import" is
+  superseded as current status by separately scoped Root actual
+  development evidence (oap/reviews/007-h-cpu-runtime-evidence.
+  json; public software evidence only, not release qualification):
+  a frozen full-CLI acquisition completed in 22.254 s with
+  252554535 payload bytes over 38 hash-verified wheels, 38
+  metadata and dependency graph, all four commands exit 0, no
+  unresolved owned children and sampled disk 2085087847 B under 2
+  GiB address space / 120 s CPU / 600 s wall (sampling, not quota);
+  a separate actual CPU class import (Torch 2.14.0+cpu plus
+  Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
+  352816 KiB RSS inside the standalone CPython 3.12 namespace,
+  synthetic development, no home, offline, under a separate 4 GiB /
+  30 s CPU / 120 s wall allowance. Do NOT read a class import as
+  loading BGE weights, constructing a model, running a forward
+  pass or measuring query latency, parity, hardware, security or
+  licenses. Prior partial receipts/reports are HISTORY, not latest
+  current setup status; the original unknown full-CLI failure
+  cause is not retroactively invented.
+- The broad "no actual model execution" is replaced with precise
+  scope: the archived prior OWNED random CPU toy was historically
+  run (toy evidence); the ACTUAL BGE checkpoint/model has NOT been
+  executed or qualified; the current 38-dependency and class-level
+  interoperability differs from real BGE forward, and both differ
+  from the controlled neural fakes; child/query parallel prototypes
+  are not canonical here. Original advisory findings and unproven
+  security/parity/real-hardware/rights/license/visual/held-out/ICA
+  gates stay open; newer pins are no clearance.
+- The Root 38-wheel license inventory (oap/reviews/007-h-license-
+  facts.json) is FACTS ONLY: 38 selected wheels, 141 declared
+  license files read and hashed (1,231,200 B), 22 SPDX-expression /
+  11 legacy-header / 5 classifier-only declarations; tokenizers
+  0.23.1 has a notice gap (classifier only, no declared or
+  filename-discovered notice text); ambiguous BSD variants and
+  observed out-of-allowlist labels (MPL-2.0/ISC/PSF/CNRI/LLVM
+  exception/BSL/0BSD/Zlib/CC0 combinations) plus native/model/
+  platform provenance still require proper review. This does not
+  widen the MIT/BSD/Apache policy, choose dual licensing, admit a
+  license exception or clear U07/distribution (architecture
+  SECTION 24 / licensing requirement A04, not requirement A24).
+  Missing/unapproved license and notice scope remains blocked for
+  distribution; no human adjudication is invented (DHA NONE: no
+  provisional exception admitted).
+- U04 (CPU query latency, CPU/GPU embedding parity) and U07
+  (license/distribution clearance) remain OPEN; the required
+  exclusive GPU FP16 corpus encoding path execution is still
+  unimplemented; real qualification NOT RUN.

@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-12)
 
-- Active objective: 007, current slice 007-g (the 007-a reviewed
+- Active objective: 007, current slice 007-h (the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
   extended by the 007-b source-bound raw retrieval representation/batch
   and published BGE-M3 checkpoint inventory/encoder-space software,
@@ -39,16 +39,42 @@
   source finite and inert (device UUID byte guard, process-owned
   DeviceLease assertion, no autocast, ordered finite CPU FP32 raw CLS
   output, sticky close and original non-Exception identity); the actual
-  BGE/checkpoint/hardware remain UNRUN/UNQUALIFIED and the full-38 CPUv2
-  installation remains a separate PARTIAL; open on the 007 PR, branch
+  BGE/checkpoint/hardware remain UNRUN/UNQUALIFIED; the 007-g-era
+  full-38 PARTIAL claim is superseded as current status by separately
+  scoped Root actual development evidence (frozen full-CLI acquisition
+  of all 38 wheels complete: 22.254 s, 252554535 payload bytes, 38
+  hash-verified wheels, 38 metadata and dependency graph, all four
+  commands exit 0, no unresolved owned children, sampled disk
+  2085087847 B under 2 GiB address space / 120 s CPU / 600 s wall,
+  sampling not quota; separate actual CPU class import of Torch
+  2.14.0+cpu plus Transformers 5.22.2 XLMRobertaModel succeeded:
+  14.73 s, 352816 KiB RSS, standalone CPython 3.12 namespace,
+  synthetic development, no home, offline, separate 4 GiB / 30 s CPU /
+  120 s wall — a class import is not BGE weight loading, model
+  construction, forward execution, latency, parity, hardware, security
+  or license qualification; prior partial receipts remain HISTORY);
+  the 007-h selective integration adds the SIX exact root-reviewed
+  setup/test/API files (fixed CPUv2 runtime installer developer
+  qualification tooling: 38-wheel pinned official graph, offline
+  no-index/no-deps hash-required install, MALLOC_ARENA_MAX=1, atomic
+  receipts — never run in CI, not a deployment or runtime grant;
+  portable synthetic GPU worker fixture helper: six exact wheels plus
+  51 DATA-ONLY metadata distributions from the fixed GPU lock; unit
+  suites and API docs) and the required GPU fixture CI step after the
+  CPUv2 fixture and before lint on both matrix legs with literal
+  GITHUB_ENV bindings; open on the 007 PR, branch
   oap/007-embedding-pipeline from main 11badc7; whole-007 remains
   PARTIAL — the CPU reference path (CPUv2 lock selected) plus the 007-f
   cleanup/lease composition and the inert raw GPU backend source are
   software under trusted neural fakes only; the actual BGE model has
   never been run, the legacy optional CPU pins are NOT security
-  qualified, and there is
-  still no actual model execution, CPU query, resumable owned GPU
-  batches or qualification contracts), live PR/CI/merge state is
+  qualified, the archived prior OWNED random CPU toy was historically
+  run (toy evidence), the ACTUAL BGE checkpoint/model has NOT been
+  executed or qualified, the current 38-dependency and class-level
+  interoperability differs from real BGE forward and both differ from
+  the controlled neural fakes, and there is still no CPU query,
+  resumable owned GPU batches or qualification contracts), live
+  PR/CI/merge state is
   queried on GitHub, not asserted here. Objective 006 is complete and merged to
   main as PR #8 (merge commit 11badc7; final slice 006-e bounded native
   PDF structural correction, terminal resolution

@@ -232,8 +232,9 @@ backend setup, the four-fresh-read derived-store semantics and NOT-RUN
 distinctions: docs/benchmarks/ingestion-count-storage.md (T15). All
 synthetic and offline; real qualification NOT RUN.
 
-T16. 007-a..g: codec, representation, space, session, store/
-ownership/journal/plan, producer/worker/cleanup/lease/isolated-
-exit, CPUv2 selection (38 metadata; 2.14.0+cpu/5.22.2/0.23.1),
-legacy+v2 setup, GPU raw CLS backend (synthetic trusted fakes;
-embedding.md). Real qualification NOT RUN.
+T16. 007-a..h: 007-a..g software plus setup
+legacy/v2/GPU fixture (6+32/6+51 DATA-ONLY, 2 legs), GPU raw
+CLS backend (synthetic fakes), fixed CPUv2 installer
+(dev tooling; MALLOC_ARENA_MAX=1; not in CI; no deploy;
+embedding.md). Actual 38 separate; BGE/GPU UNRUN.
+Real qualification NOT RUN.

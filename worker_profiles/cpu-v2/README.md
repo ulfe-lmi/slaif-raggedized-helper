@@ -9,20 +9,34 @@ The independent native tokenizer capsule, engine 0.21.4, definition and semantic
 Actual framework class loading, owned toy and real BGE execution, FP16 parity, host and ABI qualification, security and transitive license audit, and independent completeness audit remain gates. Empty direct advisories or newer versions do not constitute security approval. No hardware, quality, resource, or MVP qualification is claimed.
 
 The published Transformers 5.22.2 metadata requires huggingface-hub >=1.31.0,<3.0, tokenizers >=0.23.1,<0.24.0, safetensors >=0.8.0 and numpy >=1.17; the ordered pins satisfy these constraints. Resolution is metadata evidence, not runtime compatibility or a security clearance.
+## Current selection (order 007-h, 2026-11-12)
 
-## Current selection (order 007-g, 2026-11-12)
-
-Order 007-g selects this exact candidate lock/graph as the current
-CPUv2 source selection on the 007 branch (PR 9): the CPU source gates
-now target this graph (Torch 2.14.0+cpu / Transformers 5.22.2 /
-framework tokenizers 0.23.1), and the required CI step provisions the
-portable synthetic fixture from this lock (six exact wheels plus 32
-explicitly DATA-ONLY metadata distributions). The historical
-preparation evidence above is preserved unchanged. This selection is
-source and synthetic-fixture integration only: no full 38-package
-installation has completed (the latest actual attempt is the recorded
-PARTIAL uv allocation abort under the fixed 2 GiB address space), no
-neural import, and the actual BGE model/checkpoint/hardware remains
-UNRUN/UNQUALIFIED. The legacy CPU profile (Torch 2.10.0+cpu /
-Transformers 4.51.3) and the native 0.21.4 capsule remain intact and
-independent.
+Order 007-g selected this exact candidate lock/graph as the current
+CPUv2 source selection on the 007 branch (PR 9); order 007-h keeps
+that selection and integrates the fixed CPUv2 runtime installer
+source (tests/support/prepare_cpu_runtime_v2.py) as developer
+qualification tooling only: the 38-wheel pinned official graph,
+offline no-index/no-deps hash-required install, MALLOC_ARENA_MAX=1,
+atomic receipts. It is never run in CI and is not an implicit
+deployment or runtime grant. Its fixed runtime/binary host
+qualification does not prove generic deployment portability. The
+007-g statement that no full 38-package installation had completed
+is superseded as current status by separately scoped Root actual
+development evidence: a frozen full-CLI acquisition completed in
+22.254 s with 252554535 payload bytes over 38 hash-verified wheels,
+38 metadata and dependency graph, all four commands exit 0, no
+unresolved owned children and sampled disk 2085087847 B under 2 GiB
+address space / 120 s CPU / 600 s wall (sampling, not quota), and a
+separate actual CPU class import (Torch 2.14.0+cpu plus
+Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
+352816 KiB RSS inside the standalone CPython 3.12 namespace,
+synthetic development, no home, offline, under a separate 4 GiB /
+30 s CPU / 120 s wall allowance. A class import is not loading BGE
+weights, constructing a model, running a forward pass or measuring
+query latency, parity, hardware, security or licenses; the actual
+BGE model, checkpoint and hardware remain UNRUN/UNQUALIFIED, and
+dependency/class interoperability differs from real BGE forward as
+both differ from controlled neural fakes. The historical 007-g-era
+partial receipts remain HISTORY. The legacy CPU profile (Torch
+2.10.0+cpu / Transformers 4.51.3) and the native 0.21.4 capsule
+remain intact and independent.

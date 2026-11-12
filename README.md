@@ -190,12 +190,42 @@ full-38 CPUv2 installation remains a separate PARTIAL (uv allocation
 abort under the fixed 2 GiB address space; no full CLI acceptance or
 neural import), and no owned GPU process/controller or physical drain
 exists.
+The 007-h continuation selectively integrates the SIX exact
+root-reviewed setup/test/API files by byte-identical file transfer
+(no branch ancestry, no source adaptation): the fixed CPUv2 runtime
+installer source — developer qualification tooling with the 38-wheel
+pinned official graph, offline no-index/no-deps hash-required
+install, MALLOC_ARENA_MAX=1 and atomic receipts, never run in CI and
+not an implicit deployment or runtime grant — the portable synthetic
+GPU worker fixture helper (six exact wheels plus 51 DATA-ONLY
+metadata distributions from the fixed GPU lock, no importable fake ML
+packages) and their unit suites and API docs. The ONE required GPU
+fixture CI step is provisioned after the CPUv2 fixture and before
+lint on both matrix legs with literal GITHUB_ENV bindings. The
+007-g-era full-38 PARTIAL claim is superseded as current status by
+separately scoped Root actual development evidence (not release
+qualification): a frozen full-CLI acquisition of all 38 wheels
+completed in 22.254 s (252554535 payload bytes, 38 hash-verified
+wheels, 38 metadata and dependency graph, all four commands exit 0,
+no unresolved owned children, sampled disk 2085087847 B under 2 GiB
+address space / 120 s CPU / 600 s wall, sampling not quota), and a
+separate actual CPU class import (Torch 2.14.0+cpu plus
+Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
+352816 KiB RSS inside the standalone CPython 3.12 namespace,
+synthetic development, no home, offline, under a separate 4 GiB /
+30 s CPU / 120 s wall allowance. A class import is not loading BGE
+weights, constructing a model, running a forward pass or measuring
+query latency, parity, hardware, security or licenses.
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
 lock) plus the cleanup/lease/isolated-exit composition and the inert
 raw GPU backend source are software under trusted neural fakes only; no
-actual model execution, CPU query, resumable GPU batches or
-qualification yet
+actual model execution: the archived prior OWNED random CPU toy was
+historically run (toy evidence), the ACTUAL BGE checkpoint/model has
+NOT been executed or qualified, the current 38-dependency and
+class-level interoperability differs from real BGE forward and both
+differ from the controlled neural fakes; still no CPU query,
+resumable GPU batches or qualification yet
 ([docs/embedding.md](docs/embedding.md),
 [docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
 Source-to-block anchors, native versus visual-needed page semantics,

@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -622,13 +622,83 @@ absent. The original advisory findings and unproven transitive/
 security/license status are preserved; newer pins alone are no
 clearance. Whole 007 remains PARTIAL; no main merge or 008.
 
+## 007-h slice: runtime setup integration (integrated)
+
+Selective byte-exact integration of the SIX root-reviewed
+setup/test/API files (oap/reviews/007-h-components.json, 70,906
+bytes) by file copy from the two exact candidates (3de83d4a CPU
+installer arena correction, c6533838 synthetic GPU test fixture):
+no branch ancestry, no source adaptation, no test weakening. All
+six files are immutable at this head (blob + SHA-256 + size).
+
+`tests/support/prepare_cpu_runtime_v2.py` is the fixed CPUv2
+runtime installer, developer qualification tooling ONLY: the
+38-wheel pinned official graph from the cpu-v2 lock (Torch
+2.14.0+cpu from the exact official PyTorch CPU URL; the remaining
+37 from PyPI), status/origin/length/hash and the missing-MIME
+exception for the exact fixed Torch wheel only, offline
+no-index/no-deps hash-required binary-only install into a new
+private venv, metadata and dependency verification without any
+framework import, finite owned cleanup with diagnostic interrupt
+priority, atomic receipts, and `MALLOC_ARENA_MAX=1` in the
+sanitized child environment (a documented glibc arena limit; it
+does not increase any cap). Per-process limits are 2 GiB address
+space, 120 s CPU, 600 s wall, 600 MiB payload and a 3 GiB disk
+ceiling with 2.5 GiB sampled abort — sampling, not an atomic
+quota. It is never run in CI (CI runs only its unit/guard tests),
+it is not an implicit deployment or runtime action, and its fixed
+runtime/binary host qualification does not prove generic
+deployment portability. Its controlled-fake unit testing does not
+authorize or constitute acquisition or installation.
+
+`tests/support/prepare_gpu_worker_test_backend.py` provisions the
+portable synthetic GPU worker fixture over a trusted standalone
+CPython 3.12 runtime: six exact hash-pinned wheels (the pinned
+Pydantic graph plus tokenizers 0.23.1) installed binary-only,
+no-dependency, hash-required, plus 51 explicitly DATA-ONLY
+metadata distributions matching the fixed GPU lock — no
+importable fake ML packages, no real Torch/Transformers/NumPy,
+model, CUDA or neural call. The required CI step provisions it
+AFTER the current CPUv2 fixture and BEFORE lint on both product
+legs (expected five jobs, 78 steps), with `set -o pipefail`, a
+new direct `/tmp` target, `test ! -e` refusal, teed setup log and
+literal GITHUB_ENV bindings (SLAIF_GPU_TEST_ROOT /
+SLAIF_GPU_TEST_PACKAGES); helper output is never sourced or
+evaluated, and no skip, fallback or continue-on-error exists. All
+existing native/PDF/CPU-legacy/CPUv2 steps, variables, pins,
+permissions, matrices and guard behavior are preserved.
+
+The separate Root actual development evidence (summarized in
+oap/reviews/007-h-cpu-runtime-evidence.json; public software
+evidence only) supersedes the 007-g-era full-38 PARTIAL claim as
+current status: a frozen full-CLI acquisition completed in
+22.254 s with 252554535 payload bytes over 38 hash-verified
+wheels, 38 metadata and dependency graph, all four commands exit
+0, no unresolved owned children and sampled disk 2085087847 B
+under 2 GiB address space / 120 s CPU / 600 s wall (sampling, not
+quota); a separate actual CPU class import (Torch 2.14.0+cpu plus
+Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
+352816 KiB RSS inside the standalone CPython 3.12 namespace,
+synthetic development, no home, offline, under a separate 4 GiB /
+30 s CPU / 120 s wall allowance. A class import is not loading
+BGE weights, constructing a model, running a forward pass or
+measuring query latency, parity, hardware, security or licenses.
+The historical 007-g-era partial receipts remain HISTORY; the
+original unknown full-CLI failure cause is not retroactively
+invented. The actual BGE checkpoint/model remains UNRUN/
+UNQUALIFIED; dependency/class interoperability differs from real
+BGE forward, and both differ from the controlled neural fakes;
+child/query parallel prototypes are not canonical here. The
+legacy CPU profile/helper/fixture, the CPUv2 fixture, the native
+0.21.4 capsule and the app dependencies are preserved intact.
+
 ## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
 the fixed weights-only CPU worker (the real model has never been run
-here; the actual full-38 CPUv2 installation remains PARTIAL — latest
-diagnostic uv allocation abort under the fixed 2 GiB address space, no
-full CLI acceptance or neural import), the CPU FP32 query
+here; the full-38 CPUv2 acquisition has a separately scoped Root
+actual frozen full-CLI completion as developer qualification
+evidence, not a deployment or runtime grant), the CPU FP32 query
 path and CPU exact dot-product search against admitted spaces, resumable
 owned GPU encode batches with bounded resource telemetry (the REQUIRED
 exclusive GPU FP16 corpus encoding per the architecture; the corrected
@@ -738,4 +808,45 @@ and 007-g-root-records.json) are immutable provenance, not current CI
 or Root acceptance of this integration; the independent affected GPU
 re-audit (237e) is COMPLETE_ACCEPT_CANDIDATE for source only, and the
 prior afc5 CHANGES_REQUIRED remains historical, not a false pass.
+Real qualification remains NOT RUN (U04/U07 relevant).
+
+007-h behavior is proven at the current canonical by the focused
+local suites: CPUv2 runtime installer 17 passed (controlled fakes
+plus the bounded real standalone 3.12 process check; no actual
+heavy install, download or network operation), GPU fixture setup 4
+passed (gate-only in-memory trusted framework facades over the
+Root-copied real standalone 3.12 fixture — six actual
+distributions plus 51 DATA-ONLY records — with no model
+constructor, Tensor or CUDA), legacy helper regression 11 passed,
+CPUv2 fixture setup 7 passed and native controls 20 passed
+(15 tokenizer + 5 bounded-capture); the five Root installer
+priority/churn witnesses (receipt, cleanup, note, file churn,
+directory churn) PASS against the canonical unchanged helper, and
+the diagnostic atomic-receipt priority causal bypass is inspected.
+The full local tests/unit sweep exhibits a pre-existing
+environmental fault on this host at BOTH the round base 999357f
+and the current head (one failure in test_derived_store.py then a
+segmentation fault in
+test_embedding_artifacts.py::test_unicode_admission_and_privacy),
+verified identical at base in a throwaway worktree: it is recorded
+as environmental, not caused by this integration; the current full
+GitHub unit/integration/OAP jobs on both matrix legs are the
+mandatory gate (expected five jobs, 78 steps) and are reported as
+observed, with no duplicate local sweep absent failure. The
+fifteen root-accepted records (oap/reviews/007-g-review.json,
+007-g-implementation-CI-final.json, 007-g-report-CI-final.json,
+007-g-GitHub-current-final.json, 007-h-components.json,
+007-h-cpu-install-arena-d-review.json, 007-installer-D-source-
+review-ec9b.json, 007-installer-D-root-tests-ec9b.json,
+007-h-cpu-runtime-evidence.json, 007-h-gpu-test-fixture-review.
+json, 007-gpu-fixture-source-review-c0e1.json,
+007-h-gpu-fixture-evidence.json, 007-h-cpu38-license-inventory-
+report.json, 007-h-cpu38-license-inventory-review.json and
+007-h-license-facts.json, indexed by 007-h-root-records.json) are
+immutable provenance, not current CI or Root acceptance of this
+integration. The Root actual frozen full-CLI completion and the
+separate class import are development qualification evidence for
+the fixed runtime/binary host only; they do not qualify models,
+hardware, security, licenses, parity or deployment, and a test
+fixture or historical Root allowance is not a new runtime grant.
 Real qualification remains NOT RUN (U04/U07 relevant).
