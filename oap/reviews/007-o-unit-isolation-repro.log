@@ -1,0 +1,20 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_actual_journal_committed_complete_survives_interruption _________
+
+tmp_path = PosixPath('/tmp/pytest-of-janezp/pytest-4206/test_actual_journal_committed_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7dbb757b09d0>
+
+    def test_actual_journal_committed_complete_survives_interruption(tmp_path, monkeypatch):
+        """Seeded typed fixture: a post-commit interruption cannot erase COMPLETE."""
+        from types import SimpleNamespace
+    
+        from slaif_raggedized_helper import derived_store, embedding_batch_store
+        from slaif_raggedized_helper import embedding_job_journal
+>       from test_embedding_job_journal_composition import fixture, wire
+E       ModuleNotFoundError: No module named 'test_embedding_job_journal_composition'
+
+tests/unit/test_gpu_embedding_producer.py:198: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/unit/test_gpu_embedding_producer.py::test_actual_journal_committed_complete_survives_interruption
+1 failed in 0.31s

@@ -1,0 +1,36 @@
+{
+  "status": "FROZEN_EXACT_ROOT_CI_REPAIR_TRANSCRIPT_RECORDS",
+  "records": [
+    {
+      "source": "audit/007-n-review.json",
+      "target": "oap/reviews/007-o-prior-review.json",
+      "bytes": 2487,
+      "sha256": "fdc27374c64ed6f8f3c627304f0267a7777d14becc5e8de52e299a29ef3c16b2"
+    },
+    {
+      "source": "audit/007-n-current-report-review-915d.json",
+      "target": "oap/reviews/007-o-prior-report-review.json",
+      "bytes": 413,
+      "sha256": "32d223cd9b602e48f09766d296da4e7b33d2d6d35e52a07b6f3cc62918e302c2"
+    },
+    {
+      "source": "audit/007-n-current-report-CI-full.json",
+      "target": "oap/reviews/007-o-prior-CI-failure.json",
+      "bytes": 9011,
+      "sha256": "6e87007ddb43f9922a78ce9ceef633ae0efba0facfabc3d39221c18a1821d6ca"
+    },
+    {
+      "source": "audit/007-n-root-CI-unit-isolation-repro-915d.log",
+      "target": "oap/reviews/007-o-unit-isolation-repro.log",
+      "bytes": 1217,
+      "sha256": "4ce93e20417bc24449da3e1604e6eb9c1ea8cef3bede7edf356bc4cc1bbb2797"
+    },
+    {
+      "source": "audit/007-n-resolution-timing-event.json",
+      "target": "oap/reviews/007-o-prior-timing.json",
+      "bytes": 562,
+      "sha256": "61753c52ea5907bac734564be6ff92e127a7ee90fd6f4565517dba24f0b2d799"
+    }
+  ],
+  "DHA": "NONE"
+}
