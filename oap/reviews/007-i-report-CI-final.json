@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-12T08:55:02.241672+00:00",
+  "run": 43185691986,
+  "head": "4a4992e9eae85d52aaae093f61030fa14153eaa6",
+  "all5all78success": true,
+  "jobs": [
+    {
+      "name": "Product tests (Python 3.14)",
+      "conclusion": "success",
+      "step_count": 24
+    },
+    {
+      "name": "OAP tests (Python 3.13)",
+      "conclusion": "success",
+      "step_count": 10
+    },
+    {
+      "name": "OAP tests (Python 3.14)",
+      "conclusion": "success",
+      "step_count": 10
+    },
+    {
+      "name": "OAP tests (Python 3.12)",
+      "conclusion": "success",
+      "step_count": 10
+    },
+    {
+      "name": "Product tests (Python 3.12)",
+      "conclusion": "success",
+      "step_count": 24
+    }
+  ],
+  "raw_sha256": "57701bd7ab99bbf03505fb60282364b2070045decd80fbe752ddae09b8d112e4",
+  "no_pending_skipped_cancelled_or_missing": true
+}

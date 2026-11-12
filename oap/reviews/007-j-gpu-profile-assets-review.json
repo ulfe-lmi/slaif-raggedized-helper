@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-12T07:36:21.045919+00:00",
+  "status": "LOCAL_SOURCE_REPORT_REVIEWED_PENDING_FRESH_AFFECTED_PEER",
+  "implementation": "baecf3b65d90a2b08497cef9329f1fc2b31d0ba1",
+  "report_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+  "report_sha256": "b21b625dcbcb88189ab41b788ba7bf4e5cc5ef5bd5f76808d30b6209c7aac39d",
+  "preparation_merge": "7cbab83f41d8da9760cb665a48dd411c72f68589",
+  "graph": "Exact clean HEAD, soleparent reportonly SELF, frozen source/order/design/locks independently verified",
+  "Root_evidence": "audit/007-gpu-assets-source-review-baec.json;103focusedunits+separate8installed+separate1projectnamespace PASS",
+  "strongest_counterargument": "Fresh affected peer and future canonical full composition/current-head required CI still missing. Parent acquisition repair remains separate. No framework/model/GPU/rights/license/security/parity/hardware/fullICA qualification.",
+  "DHA": "NONE",
+  "no_FIFO_read": true,
+  "affected_peer": {
+    "review": "parallel/audit-gpu-profile-assets/review.json",
+    "report_sha256": "11d5d1b639d6070771dd1a668589d165df87ac49b2f30dd11c6440666dd2692b",
+    "decision": "ACCEPT_CANDIDATE",
+    "scope": "Fresh context same historical author disclosed; finiteaffected review, not fullICA"
+  },
+  "current_disposition": "ELIGIBLE_FUTURE_EXPLICIT_CANONICAL_INTEGRATION_WITH_CURRENT_SOURCE_AND_REQUIRED_CI"
+}

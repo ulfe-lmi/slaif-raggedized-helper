@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-12T05:40:31.600193+00:00",
+  "draft_sha256": "0d998a01e2f633ebe3cfb93c1f91cab1d75c29154bcc64a61fd86c50e5b8e4b1",
+  "target": "74a5f700ee428f684531b1defabd2b33b5df6598",
+  "status": "COMPLETE_AFFECTED_SOURCE_PEER_REVIEWED_ACCEPT_FINITE_CANDIDATE",
+  "provenance": "Independent fresh-context review of affected source and model-free OS subset, not independent author identity: historical GPU authoring pane %33. No full merged-SHA ICA, hardware or readiness qualification. DHA NONE.",
+  "Root_review": "Fullpeerreport+originalcausalsource inspected, actualRootcausalrun under1GiBAS30CPU120wall: CLOSE_OWNERchild/validpositive;ownedconstructorfailure;foreignguardPASS; sole_lease_is_guardbypass CLOSE_OWNEROTHER exactlyonce andexpectedassertion. Sameactualmoduleglobals/registries; shallowtestglobalscopy retainsactualmodule references. Narrowbypassnotrealmodelorcode-hashmachineexecutionproof.",
+  "Root_earlier_evidence": "audit/007-gpu-child-root-tests-2419.json 33+33 andactual3.12namespace/fakebackend+reallease/protocolsubset independentlypassed; newpeer37+37setup/protocol/readcoverage/backpressure1.001s scoped evidence, notRootrepeat37 claim.",
+  "strongest_counterargument": "No productionparent/controller/actualGPUdriver/model/occupancy orgeneraldescendantdrain; simulatedforeignbackendcontrolonly. Freshcontextsamehistoricalauthoridentity disclosed; NOTexternalreviewer/fullmergedICA.",
+  "disposition": "Finite child/protocol source eligiblefutureexplicitcanonicalintegration withnewGPUfake57setup+requiredCI andactualcurrent-source identity review; no parent/device/hardware/runtime permission created.",
+  "DHA": "NONE",
+  "final_report_sha256": "0d998a01e2f633ebe3cfb93c1f91cab1d75c29154bcc64a61fd86c50e5b8e4b1",
+  "final_receipt": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/audit-gpu-child/response-consumed.json",
+  "final_verified_at": "2026-11-12T05:58:23.161611+00:00",
+  "verified_source_witness_hashes": 18,
+  "no_FIFO_reread": true
+}

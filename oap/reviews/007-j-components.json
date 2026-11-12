@@ -1,0 +1,110 @@
+{
+  "at": "2026-11-12T08:56:32.145441+00:00",
+  "status": "FINAL_EXACT14_GPU_CHILD_LAUNCH_RESOURCE_INDEX",
+  "base": "4a4992e9eae85d52aaae093f61030fa14153eaa6",
+  "files": 14,
+  "total_bytes": 136921,
+  "entries": [
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "src/slaif_raggedized_helper/gpu_worker_protocol.py",
+      "blob": "1ea446582b6071ed74c51e43b57a80adc695f985",
+      "sha256": "41cd017713a7e4f53f714c96118d26d305c0924080e46517ed2a16141811a089",
+      "bytes": 8094
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "src/slaif_raggedized_helper/gpu_embedding_worker_main.py",
+      "blob": "f625a1acca6fb95eec19d85cdd4855e6d88b7cda",
+      "sha256": "6bca5e2676b8f4730148d9dd90dde4f819c48273b0219a449cfef37514d0c9aa",
+      "bytes": 7610
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "src/slaif_raggedized_helper/gpu_embedding_backend.py",
+      "blob": "ba5b0b7ac6a512b1a5bea64fe5c9bae27199b0ae",
+      "sha256": "acdd329c88775ddb150f83e9b7ae38cb4ce3e274a9732859e24c0be2a8a859ea",
+      "bytes": 14761
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "src/slaif_raggedized_helper/gpu_worker_launch.py",
+      "blob": "0d84e3a60fdf3427e979a8f7c54a377360f78cc9",
+      "sha256": "dd94867a6f22831001f8d1152771f13441cdeaed7b4d8dffb89d9498b87c26c9",
+      "bytes": 37338
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "tests/unit/test_gpu_worker_protocol.py",
+      "blob": "6a62408666a5616797e843bcd1cfc9d03f7a9d09",
+      "sha256": "bda74336bca4c6c7cbc8a563fc645cc457d26229bb749a8b43b874348853e9c4",
+      "bytes": 13869
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "tests/unit/test_gpu_worker_launch.py",
+      "blob": "8528d9aca8d0d11c0448ea8b11b89e5395c1b684",
+      "sha256": "8f2b1f6b0cab592abf83070a0a2a1ca822b214c6b447df310f256a224b2c200c",
+      "bytes": 18637
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "tests/integration/test_gpu_worker_launch.py",
+      "blob": "1504d55557d7fddb91576bda1c3a1886b82fa452",
+      "sha256": "46976b74e15a5bec05e6f7032716d829e69970d8f3b1a2dd374e9e26f0302f78",
+      "bytes": 5287
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "tests/unit/test_gpu_profile_assets.py",
+      "blob": "be8e87adce2c621d328bd868d005a8c75f00d028",
+      "sha256": "ba6675c6e59c8918f778cbbe4574200a28977ba7270b6f51536650f62cc23261",
+      "bytes": 1561
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "tests/integration/test_gpu_profile_assets.py",
+      "blob": "ea741ae2ac56d1f55fba12a6bbf2303c75e55e06",
+      "sha256": "a566673a65db6e87fed8c96c7a3421973416a85d7308eb5f619056792493d37d",
+      "bytes": 9477
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "docs/parallel/gpu-child-protocol-api.md",
+      "blob": "f2b4fc540e4cdb19c50c8f328e45e347fc5e93ac",
+      "sha256": "2e7df244203e4478e642d5e4b7e698b2a7183c2e1df5453ce6556aa565be0007",
+      "bytes": 2956
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "docs/parallel/gpu-worker-launch-api.md",
+      "blob": "0b15865e98aa0d0b151568be73e581bb58c2f97f",
+      "sha256": "87331c196df82da30607a2873ac219afcee22c1767b0bca5f5b0d9aac8e0666c",
+      "bytes": 3673
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "docs/parallel/owned-gpu-parent-design.md",
+      "blob": "f06a2dca07f92545b4a3f1d374b62541deba3934",
+      "sha256": "5178181875ebd64ef16af7b289497865d18c33eee56eb033a47cd5c956ffc202",
+      "bytes": 8085
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "docs/parallel/gpu-profile-assets-api.md",
+      "blob": "6f84bb7f289c29d63d7ca00484d7cb13ea2a8fd4",
+      "sha256": "04b35cfda885e1e8afd049ecd48db13f6be020b17554328613c257dc31976732",
+      "bytes": 710
+    },
+    {
+      "source_commit": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+      "path": "docs/parallel/gpu-profile-assets-design.md",
+      "blob": "486e2da90472e927ae54a6e3c7259621b5cb6cfa",
+      "sha256": "c66bb739fc75a1a89c0d9449e9ceb9dcd4004d68b60c12c842116d15114df896",
+      "bytes": 4863
+    }
+  ],
+  "excluded": "Parent d108 and new lock/identity hold separate affectedpeer/canonicalgates. No broad candidate history copied. CurrentI15 preserved.",
+  "qualification": "Model-free softwareforecast only, notcanonicalCI/ICA/hardware.",
+  "canonical_base": "4a4992e9eae85d52aaae093f61030fa14153eaa6"
+}

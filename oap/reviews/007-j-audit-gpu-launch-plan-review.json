@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-12T07:15:41.431542+00:00",
+  "draft_sha256": "c612f62743a40e61b0f8065b8bfe0329fa3dc7d222657ef7548a09b4c6983850",
+  "target": "581321e7bebcf13f92c99d5bfdae859bb2054eaa",
+  "status": "FINAL_COMPLETE_FINITE_LAUNCH_PLAN_PEER_ACCEPT_CONFIRMED",
+  "Root_review": "Fullfinaldraft/originalactualcontrolsource/log inspected;9source/design/order/report/lockhashes+3witness/controlhashes verified, cleanexacttarget. Rootindependentlyreranoriginalcontrol under1GiBAS30CPU120wall/thread1:actualpreparedpositive,controlledrm failure pending;actualfork23 keepsparentcapsule/reservation;ONLYcopiedobjectPIDchangedtochildPID insecondfork bypassespredicate andwronglyremovesparentcapsule;restore/drain. Strongactualglobalregistry/ownedhandles, notDTO/arbitraryassertion.",
+  "causal_limit": "ScalarPIDforgery is a deliberateprivatepredicatebypass, notproofPIDis unforgeablesecuritycapability or actualGPU/physicalvacancy. EarlierRootcompiledmethod-guardremoval isseparateproof; Rootno productpatch.",
+  "peer_tests": "27launchunit/33protocolunit/SEPARATEactual3.12bwrapOS1; exactnull-device/privateentryfakebackendsubstitutionsandpost-launch_argumentsentrymutationexplicit, no falseproductionrevalidationclaim.",
+  "Root_previous": "audit/007-gpu-launch-source-review-37b9.json 27+OS1+newRootcausal/tinyframeproof/ruff/compile/diff, andfinalsource/reportgraphreview.",
+  "provenance": "Freshreviewcontextpane33,planauthorpane32; historicalsameaccount/contextidentitylimitsdisclosed, NOTfullmergedSHAICA.",
+  "strongest_counterargument": "Simulateddevice/backend andruntime/descriptor/capsulefinitefaultmatrixcannotestablishrealdriver/nativeframework/model,installedGPUlayout,arbitrarykernelcleanup/controller/rights/mode/vacancy orfullICA.",
+  "disposition": "Finiteprelaunchsourceeligiblefutureexplicitcanonicalintegration/currentheadCI; actualParentcodingseparate/unfinished, nomerge/runtimegrant.",
+  "DHA": "NONE",
+  "no_FIFO_read": true,
+  "final_verified_at": "2026-11-12T07:18:54.751746+00:00",
+  "final_report_sha256": "c612f62743a40e61b0f8065b8bfe0329fa3dc7d222657ef7548a09b4c6983850"
+}

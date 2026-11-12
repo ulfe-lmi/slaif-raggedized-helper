@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-12T05:33:37.779601+00:00",
+  "status": "LOCAL_GPU_CHILD_SOURCE_REPORT_REVIEWED_PENDING_FRESH_AFFECTED_PEER_BEFORE_INTEGRATION",
+  "implementation": "2419fe01bd5754d275b5caa87e2e5515860a317d",
+  "report_commit": "74a5f700ee428f684531b1defabd2b33b5df6598",
+  "report_sha256": "bf132d3b1cdafa70cb884ca5a0c5feaf9ee077b78ca0317ca282778edc160074",
+  "report_bytes": 4644,
+  "source_review": "audit/007-gpu-child-source-review-2419.json",
+  "Root_tests": "audit/007-gpu-child-root-tests-2419.json 33unit3.14+SEPARATE33unit3.12, originalforeignownerpositivecount0, actual3.12bwrapfakebackendprotocol+ownlease/cancel/reap/reacquirePASS; ruff/diffPASS.",
+  "graph_report": "ExactSELF/soleparent/reportonly/currentcleanbase/order/addendum and3privatewitnesshashesverified.",
+  "response_recovery": {
+    "at": "2026-11-12T05:31:54.052860+00:00",
+    "reason": "Originalsolecoordinator consumedexactnormalOK thenoldlaunchsnapshotrequired redundantprep. Rootapprovedaddendumprovesd7b9ancestor/basecf23 and removesnoprepfield; exactcurrentclean6pathcandidate/SELF/REPORTreview/send/deadcoordinator/oldlog verifiedREGULARFILESONLY. No FIFOread/replay/resignal/restart/newreader.",
+    "old_coordinator_pid": 2952148,
+    "old_log_sha256": "0ea710839dc13e0a475d12c16bd16d2a207a32e72e24ef3c4b3f9b9feeaf6bdc",
+    "Root_addendum_sha256": "4d87fb277e93dee7f33d5cc5f4393405061ca4a04414def11a723805a3489b57",
+    "scope": "Mechanicalcandidatepublicationreceipt, NOTstrategicacceptance."
+  },
+  "strongest_counterargument": "No productionparent/controller/actualGPUdriver/model/nativecomposition/parity/currentpolicy/security/license/physicaldrain/fullICA; sourcefinitescopedonly. Actualruntimepredicateunitfacadeexplicitseparatefromreal3.12OSproof. Freshaffectedpeerbeforeintegration.",
+  "DHA": "NONE",
+  "no_FIFO_read": true,
+  "affected_peer": {
+    "review": "parallel/audit-gpu-child/review.json",
+    "sha256": "0d998a01e2f633ebe3cfb93c1f91cab1d75c29154bcc64a61fd86c50e5b8e4b1",
+    "decision": "ACCEPT_CANDIDATE",
+    "provenance": "Independent fresh-context review of affected source and model-free OS subset, not independent author identity: historical GPU authoring pane %33. No full merged-SHA ICA, hardware or readiness qualification. DHA NONE."
+  },
+  "current_disposition": "ELIGIBLE_EXPLICIT_FUTURE_CANONICAL_SOURCE_INTEGRATION_ONLY_NOT_H_OR_RUNTIME_QUALIFICATION"
+}
