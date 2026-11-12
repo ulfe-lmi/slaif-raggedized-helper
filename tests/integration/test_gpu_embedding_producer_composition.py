@@ -15,8 +15,8 @@ from slaif_raggedized_helper import gpu_embedding_producer as producer
 from slaif_raggedized_helper import gpu_embedding_worker as parent
 from slaif_raggedized_helper import gpu_worker_launch as launch
 from slaif_raggedized_helper import isolated_gpu_embedding as bridge
-from test_embedding_batch_plan_composition import journey  # noqa: F401
 from test_gpu_worker_launch import _prepared_fixture
+from test_embedding_batch_plan_composition import journey  # noqa: F401
 from test_embedding_artifacts import write_config
 
 

@@ -9,8 +9,8 @@ from slaif_raggedized_helper import corpus_embedding_program as program
 from slaif_raggedized_helper import derived_store, ingestion_store
 from slaif_raggedized_helper import gpu_embedding_producer as producer
 from slaif_raggedized_helper import gpu_worker_protocol as wire
-from test_embedding_batch_plan_composition import journey  # noqa: F401
 from test_gpu_worker_launch import _prepared_fixture
+from test_embedding_batch_plan_composition import journey  # noqa: F401
 
 
 def test_actual_whole_program_rowfit_refuses_before_dispatch(journey, tmp_path, monkeypatch):  # noqa: F811
