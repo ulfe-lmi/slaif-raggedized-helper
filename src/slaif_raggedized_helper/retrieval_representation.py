@@ -50,6 +50,25 @@ class BatchPolicy:
     max_total_request_bytes: int = 4000000
 
 
+def _format_raw(title, heading_path, body, policy, remaining_chars=100000):
+    """Render and preflight the exact native count request; no source authority."""
+    components = [title, *heading_path, body]
+    if any(x is not None and type(x) is not str for x in components):
+        raise ValueError
+    components = [x for x in components[:-1] if x] + [components[-1]]
+    length = sum(len(x) for x in components) + 2 * (len(components) - 1)
+    if length > 100000 or length > remaining_chars:
+        raise ValueError
+    text = policy.separator.join(components)
+    text.encode('utf-8', errors='strict')
+    wire = json.dumps({'text': text, 'pair': None, 'nonce': '0' * 32,
+                       'role': 'bge_representation', 'artifact': 0}, ensure_ascii=True,
+                      separators=(',', ':')).encode() + b'\n'
+    if len(wire) > 200000:
+        raise ValueError
+    return text, len(wire)
+
+
 def build_many(store, metadata_json_bytes, members, chunk_ids, definition, runtime,
                policy=None, batch_policy=None):
     """Build ordered representations with one source validation and native session."""
@@ -88,20 +107,12 @@ def build_many(store, metadata_json_bytes, members, chunk_ids, definition, runti
             if len(matches) != 1:
                 raise ValueError
             chunk = matches[0]
-            components = [validated.revision.source.title, *chunk.heading_path, chunk.text]
-            if any(x is not None and type(x) is not str for x in components):
-                raise ValueError
-            components = [x for x in components[:-1] if x] + [components[-1]]
-            length = sum(len(x) for x in components) + 2 * (len(components) - 1)
-            if length > 100000 or total_chars + length > bp.max_total_codepoints:
-                raise ValueError
-            text = policy.separator.join(components)
-            wire = json.dumps({'text': text, 'pair': None, 'nonce': '0' * 32,
-                               'role': definition.role, 'artifact': 0}, ensure_ascii=True,
-                              separators=(',', ':')).encode() + b'\n'
-            total_chars += length
-            total_wire += len(wire)
-            if (len(wire) > 200000 or total_chars > bp.max_total_codepoints
+            text, wire_bytes = _format_raw(validated.revision.source.title,
+                                           chunk.heading_path, chunk.text, policy,
+                                           bp.max_total_codepoints - total_chars)
+            total_chars += len(text)
+            total_wire += wire_bytes
+            if (total_chars > bp.max_total_codepoints
                     or total_wire > bp.max_total_request_bytes):
                 raise ValueError
             selected.append((chunk, text))

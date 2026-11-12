@@ -399,15 +399,55 @@ execution and snapshot publication remain unimplemented;
 whole 007 remains PARTIAL
 ([docs/parallel/isolated-gpu-embedding-api.md](docs/parallel/isolated-gpu-embedding-api.md),
 [docs/parallel/gpu-embedding-plan-api.md](docs/parallel/gpu-embedding-plan-api.md)).
+The 007-n continuation selectively integrates the
+TWENTY-ONE root-reviewed immutable corpus-pipeline files
+(oap/reviews/007-n-corpus-pipeline-components.json,
+335,687 bytes, byte-exact from the four exact source
+commits b0ca5a6, 880dedf, 6f5b311 and bac11be; two
+deliberate existing production replacements, nineteen
+new paths): the reviewed owned launch
+preparation/handoff in gpu_worker_launch.py (actual
+cleanup owner on failure, same actual PreparedLaunch
+handed to the existing parent, reservation borrowed),
+the one-batch GPU embedding producer (actual captured
+preparation/native bridge/journal/typed store, fresh
+current-rights epoch checks at every producer
+boundary, fresh-PENDING-only attempts, no stolen
+owners, retries or exactly-once claim), the
+whole-source formatting support in
+retrieval_representation.py with the source embedding
+program (every selected original-backed container
+freshly revalidated, stable ordered source-local
+batches, no silent >128-row truncation or whole-corpus
+row ceiling) and the selected-source corpus executor
+(one operation-wide epoch, stops on failure before
+uncertain later work, journal-gated reuse with
+fresh-creator resume after a clean between-batch
+stop). Exact contracts:
+[docs/parallel/gpu-launch-preparation-owner-api.md](docs/parallel/gpu-launch-preparation-owner-api.md),
+[docs/parallel/gpu-embedding-producer-api.md](docs/parallel/gpu-embedding-producer-api.md),
+[docs/parallel/corpus-embedding-program-api.md](docs/parallel/corpus-embedding-program-api.md),
+[docs/parallel/corpus-embedding-executor-api.md](docs/parallel/corpus-embedding-executor-api.md).
+They are finite model-free software under the actual
+native 0.21.4 tokenizer worker on synthetic strings
+and the approved copied GPU fake/null fixture — no
+real GPU, driver, Tensor, model, parity, rights or
+Ready; the mode controller, current-principal policy,
+inference CLI, snapshot integration and physical
+qualification remain unimplemented; the two preserved
+007-l test-only exceptions remain byte-exact; whole 007
+remains PARTIAL.
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
 lock) plus the cleanup/lease/isolated-exit composition, the 007-j GPU
 child/protocol/launch/assets software, the 007-k pure snapshot
 declaration codecs, the 007-l owned GPU parent/identity and
 native runtime-identity software, the 007-m isolated GPU text
-bridge and source-bound GPU plan software and the inert raw GPU
-backend source are software under trusted neural fakes only (no
-real GPU, driver, Tensor or model was run).
+bridge and source-bound GPU plan software, the 007-n
+launch-preparation/producer/program/executor software and
+the inert raw GPU backend source are software under
+trusted neural fakes only (no real GPU, driver, Tensor
+or model was run).
 Execution scope is precise: the archived prior OWNED random CPU toy
 was historically executed (toy evidence only); the ACTUAL BGE
 checkpoint/model has NOT been executed or qualified, and a class

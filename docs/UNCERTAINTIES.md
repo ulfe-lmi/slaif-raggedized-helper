@@ -1187,3 +1187,63 @@ human question.
   execution is still unimplemented; real qualification
   NOT RUN. Whole 007 remains PARTIAL; no main merge or
   008.
+
+### 2026-11-12, order 007-n (corpus pipeline integration)
+
+- 007 is PARTIAL after this slice: the TWENTY-ONE
+  root-reviewed immutable corpus-pipeline files are
+  selectively integrated by byte-exact file copy from
+  the four exact source commits b0ca5a68/880dedf3/
+  6f5b3112/bac11bee (oap/reviews/
+  007-n-corpus-pipeline-components.json, 335,687 bytes;
+  two deliberate existing production replacements,
+  nineteen new paths; no branch ancestry, no source
+  adaptation): the owned launch preparation/handoff
+  in gpu_worker_launch.py, the one-batch GPU embedding
+  producer, the whole-source formatting support +
+  source embedding program in
+  retrieval_representation.py (every selected
+  original-backed container freshly revalidated;
+  stable ordered source-local batches; no silent
+  >128-row truncation or whole-corpus 128-row ceiling)
+  and the selected-source corpus executor (one
+  operation-wide epoch; stops on failure before
+  uncertain later work; journal-gated reuse;
+  fresh-creator resume after a clean between-batch
+  stop; unknown/failed/claimed/running attempts never
+  retryable by decree).
+- Mock/real distinction: the four new unit modules
+  (static parametrization predicts 51 cases, one
+  capped invocation) and the 13 actual composition
+  cases (each in its OWN capped process, 1 GiB AS / 30
+  s CPU / 120 s wall, threads 1, no bytecode, exit 0)
+  are finite model-free software over synthetic
+  strings and the approved copied GPU fake/null
+  fixture; the actual native 0.21.4 tokenizer worker
+  ran on synthetic data only. No real GPU, driver,
+  Tensor, model, neural weights, parity, rights,
+  security, license or hardware was loaded, executed
+  or qualified. A captured preparation, record,
+  fingerprint, normalized vector or journal entry is
+  not authority, liveness, readiness, neural origin,
+  current authorization, FP16 precision, physical
+  vacancy or hardware qualification.
+- The two preserved 007-l test-only exceptions remain
+  byte-exact (c2b483b7/15,779 B; 275e10d3/5,179 B); no
+  old parallel predecessor overwrote a current
+  canonical test. The operational mode controller,
+  current-principal policy, inference CLI,
+  snapshot/parity integration and physical
+  qualification remain separate local candidates, not
+  this runtime surface. The H actual 38 setup/
+  class-import/license facts and the archived random
+  CPU toy distinction are preserved (H history); the
+  H-era host full-unit failure cause remains
+  UNRESOLVED as observed history.
+- U04 (CPU query latency, CPU/GPU embedding parity)
+  and U07 (license/distribution clearance) remain
+  OPEN; the required exclusive GPU FP16 corpus
+  encoding path exists as integrated inert software
+  under trusted fakes, its real execution remains
+  unqualified; real qualification NOT RUN. Whole 007
+  remains PARTIAL; no main merge or 008.

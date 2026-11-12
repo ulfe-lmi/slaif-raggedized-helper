@@ -6,6 +6,8 @@ This module is not a controller and does not grant permission to use a GPU.
 import dataclasses
 import os
 import re
+import threading
+import weakref
 
 from . import gpu_device_lease
 
@@ -222,6 +224,76 @@ class _Owner:
         if not self.pending and self in _pending:
             _pending.remove(self)
         return errors
+
+
+# The registry binds an exact, unmodifiable capture to its actual owner. It is
+# not used to discover which operation failed. Weak keys avoid retaining drained
+# captures; _pending independently retains owners with uncertain resources.
+_preparation_records = weakref.WeakKeyDictionary()
+_preparation_records_lock = threading.Lock()
+
+
+def _preparation_after_fork():
+    # A lock held by a vanished thread must not block a borrower in the child.
+    global _preparation_records_lock
+    _preparation_records_lock = threading.Lock()
+
+
+os.register_at_fork(after_in_child=_preparation_after_fork)
+
+
+class PreparationOwner:
+    """Caller-held, one-use association with preparation cleanup state."""
+
+    __slots__ = ('__weakref__',)
+
+    def __init__(self):
+        if type(self) is not PreparationOwner:
+            raise LaunchRefused('invalid preparation owner')
+        with _preparation_records_lock:
+            if self in _preparation_records:
+                raise LaunchRefused('preparation owner already initialized')
+            _preparation_records[self] = [os.getpid(), _Owner(), 'unused', threading.Lock(), None]
+
+    def _record(self):
+        if type(self) is not PreparationOwner:
+            raise LaunchRefused('invalid preparation owner')
+        with _preparation_records_lock:
+            record = _preparation_records.get(self)
+        if record is None or record[0] != os.getpid():
+            raise LaunchRefused('invalid preparation owner')
+        return record
+
+    @property
+    def pending(self):
+        return PreparationOwner._record(self)[1].pending
+
+    @property
+    def prepared(self):
+        record = PreparationOwner._record(self)
+        if not record[3].acquire(blocking=False):
+            raise LaunchRefused('preparation owner busy')
+        try:
+            return record[4] if record[2] == 'handoff' else None
+        finally:
+            record[3].release()
+
+    def close(self):
+        record = PreparationOwner._record(self)
+        if not record[3].acquire(blocking=False):
+            raise LaunchRefused('preparation owner busy')
+        try:
+            if record[2] == 'handoff' and record[1].pending:
+                raise LaunchRefused('preparation ownership transferred')
+            if record[2] == 'unused':
+                record[2] = 'closed'
+            errors = record[1].cleanup() if record[1].pending else []
+            if errors:
+                _failure(errors[0], errors[1:])
+            if record[1].pending:
+                raise LaunchRefused('cleanup remains pending')
+        finally:
+            record[3].release()
 
 
 def _failure(original, errors):
@@ -677,7 +749,39 @@ class PreparedLaunch:
 
 def prepare(*, source_root, staging_root, runtime_root, packages_root, artifact_root,
             lease_root, manifest, definition, tokenizer, inventory_id, device, drivers,
-            resource, wire_policy, reservation):
+            resource, wire_policy, reservation, preparation_owner=None):
+    """Prepare with an optional caller-retained cleanup association."""
+    record = None
+    if preparation_owner is not None:
+        record = PreparationOwner._record(preparation_owner)
+        if not record[3].acquire(blocking=False):
+            raise LaunchRefused('preparation owner busy')
+        if record[2] != 'unused':
+            record[3].release()
+            raise LaunchRefused('preparation owner already used')
+        record[2] = 'busy'
+    try:
+        result = _prepare_impl(source_root=source_root, staging_root=staging_root,
+                               runtime_root=runtime_root, packages_root=packages_root,
+                               artifact_root=artifact_root, lease_root=lease_root,
+                               manifest=manifest, definition=definition, tokenizer=tokenizer,
+                               inventory_id=inventory_id, device=device, drivers=drivers,
+                               resource=resource, wire_policy=wire_policy,
+                               reservation=reservation, owner=record[1] if record else None)
+        if record is not None:
+            record[4] = result
+            record[2] = 'handoff'
+        return result
+    finally:
+        if record is not None:
+            if record[2] == 'busy':
+                record[2] = 'failed'
+            record[3].release()
+
+
+def _prepare_impl(*, source_root, staging_root, runtime_root, packages_root, artifact_root,
+                  lease_root, manifest, definition, tokenizer, inventory_id, device, drivers,
+                  resource, wire_policy, reservation, owner):
     """Prepare only; no process is created and no GPU authorization is implied."""
     import secrets
     import stat
@@ -687,7 +791,8 @@ def prepare(*, source_root, staging_root, runtime_root, packages_root, artifact_
     from .cpu_embedding_backend import _closed_tree
     from .schema import EmbeddingDefinition
 
-    owner = _Owner()
+    if owner is None:
+        owner = _Owner()
     try:
         if (type(device) is not DevicePlan or type(resource) is not ResourcePolicy
                 or type(wire_policy) is not wire.Policy or type(manifest) is not bytes

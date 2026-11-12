@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration + 007-k snapshot declarations integration + 007-l parent/native identity integration + 007-m bridge/plan integration)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration + 007-k snapshot declarations integration + 007-l parent/native identity integration + 007-m bridge/plan integration + 007-n corpus pipeline integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -1219,6 +1219,83 @@ slice. Whole 007 remains PARTIAL; the Root records
 index are immutable provenance, not current CI or Root
 acceptance.
 
+## 007-n slice: corpus pipeline integration (integrated)
+
+Selective integration of the TWENTY-ONE root-reviewed
+immutable corpus-pipeline files by byte-exact file copy
+from the four exact source commits
+b0ca5a68f8e55667ada5dd7523903b5585cbe0af (launch
+owner), 880dedf33e7b9eb1da497bf88acb6bb626a7fce3 (GPU
+producer), 6f5b31123d080376b6b0c09a803bd67033694484
+(source program) and
+bac11bee72fa809157b77e21be8bcf8ef17529a9 (executor)
+(oap/reviews/007-n-corpus-pipeline-components.json,
+335,687 bytes; every path verified at this head for
+blob + SHA-256 + size): no branch ancestry, no
+cherry-pick/rebase/reset/stash/clean, no source
+adaptation, no test weakening. TWO deliberate existing
+production replacements (gpu_worker_launch.py,
+retrieval_representation.py); nineteen new paths. All
+preexisting product/test/API/design paths are
+preserved, including BOTH 007-l test-only exceptions
+(tests/unit/test_embedding_native_identity.py,
+SHA-256 c2b483b77c84f304ead4a6ae5c2ef27e5194c1df6ccd6adbb62992a7904a8df6,
+15,779 B; tests/integration/
+test_cpu_embedding_session_composition.py, SHA-256
+275e10d333555f6e02f3261449e6f9becf99e659a352ee9d4464e4837a843fd0,
+5,179 B); no old parallel predecessor overwrites them.
+
+Behavior, concisely (exact contracts in the linked
+API/design docs): the owned launch
+preparation/handoff associates a failed preparation
+with its actual cleanup owner and hands the same
+actual PreparedLaunch to the existing parent on
+success, reservation borrowed; the one-batch GPU
+embedding producer owns each captured preparation,
+journal lease, parent and native session, checks fresh
+current rights at every producer boundary under one
+unmoved epoch, starts attempts only from fresh PENDING
+jobs, and never promises exactly-once; the source
+embedding program freshly revalidates every selected
+original-backed container into stable ordered
+source-local batches with no silent >128-row
+truncation and no whole-corpus row ceiling; the
+corpus executor runs the selected program under one
+operation-wide epoch, stops on failure before
+uncertain later work, keeps lightweight batch
+completions plus one common full execution/native
+record pair, and reuses or resumes only where the
+existing journal decides (fresh-creator resume after
+a clean between-batch stop; unknown/failed/claimed/
+running attempts never retryable by decree).
+
+[docs/parallel/gpu-launch-preparation-owner-api.md](docs/parallel/gpu-launch-preparation-owner-api.md),
+[docs/parallel/gpu-launch-preparation-owner-design.md](docs/parallel/gpu-launch-preparation-owner-design.md),
+[docs/parallel/gpu-embedding-producer-api.md](docs/parallel/gpu-embedding-producer-api.md),
+[docs/parallel/gpu-embedding-producer-design.md](docs/parallel/gpu-embedding-producer-design.md),
+[docs/parallel/corpus-embedding-program-api.md](docs/parallel/corpus-embedding-program-api.md),
+[docs/parallel/corpus-embedding-program-design.md](docs/parallel/corpus-embedding-program-design.md),
+[docs/parallel/corpus-embedding-executor-api.md](docs/parallel/corpus-embedding-executor-api.md),
+[docs/parallel/corpus-embedding-executor-design.md](docs/parallel/corpus-embedding-executor-design.md).
+
+These are finite model-free software: behavior is
+proven by the focused suites at this head — the four
+new unit modules (static parametrization predicts 51
+cases) in one capped invocation plus the 13 actual
+composition cases, each in its OWN capped process (1
+GiB AS / 30 s CPU / 120 s wall, threads 1, no
+bytecode, exit 0), the actual native 0.21.4 tokenizer
+worker on synthetic strings and the approved copied
+GPU fake/null fixture only. No real GPU, driver,
+Tensor, model, parity, rights, security, license or
+Ready is established; no operational mode controller,
+current-principal policy, inference CLI, snapshot/
+parity integration or physical qualification is
+integrated by this slice. Whole 007 remains PARTIAL;
+the Root records (oap/reviews/007-n-root-records.json)
+and the component index are immutable provenance, not
+current CI or Root acceptance.
+
 ## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
@@ -1233,10 +1310,12 @@ owned GPU encode batches with bounded resource telemetry (the REQUIRED
 exclusive GPU FP16 corpus encoding per the architecture; the corrected
 raw GPU backend source, the GPU child/protocol wire, the worker entry,
 the prepared launch, the owned GPU parent/lock/identity software
-(007-l) and the isolated GPU text bridge + source-bound GPU plan
-software (007-m) are integrated and inert under trusted fakes — no
-GPU producer or controller, no complete native/normalized/
-durable GPU execution and no physical drain exists), snapshot/manifest
+(007-l), the isolated GPU text bridge + source-bound GPU plan
+software (007-m) and the 007-n owned launch preparation, one-batch
+GPU producer, source program and corpus executor are integrated
+and inert under trusted fakes — no operational mode controller,
+current-principal policy, inference CLI, snapshot/parity
+integration or physical drain exists), snapshot/manifest
 binding of vectors, row maps, ACL and space fingerprints (the pure
 declared core/row-map codecs are integrated; actual payload loaders,
 stored-byte validation, atomic publication, current-generation CAS,

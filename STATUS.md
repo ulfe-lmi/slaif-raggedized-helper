@@ -193,7 +193,37 @@
   tokenizer worker on synthetic strings and the approved
   copied GPU fake/null fixture, actual BGE UNRUN/
   UNQUALIFIED, GPU producer/controller/durable GPU
-  execution still unimplemented;
+  execution still unimplemented;   the 007-n selective
+  integration adds the TWENTY-ONE root-reviewed
+  immutable corpus-pipeline files (oap/reviews/
+  007-n-corpus-pipeline-components.json, 335,687 bytes,
+  byte-exact from exact source commits b0ca5a6/880dedf/
+  6f5b311/bac11be; two deliberate existing production
+  replacements, nineteen new paths): the owned launch
+  preparation/handoff in gpu_worker_launch.py, the
+  one-batch GPU embedding producer, the whole-source
+  formatting support in retrieval_representation.py
+  with the source embedding program (every selected
+  original-backed container freshly revalidated,
+  stable ordered source-local batches, no silent
+  >128-row truncation or whole-corpus row ceiling) and
+  the selected-source corpus executor (one
+  operation-wide epoch, stops on failure before
+  uncertain later work, journal-gated reuse,
+  fresh-creator resume after a clean between-batch
+  stop); exact contracts under docs/parallel/
+  (gpu-launch-preparation-owner, gpu-embedding-
+  producer, corpus-embedding-program, corpus-
+  embedding-executor API/design docs); the two
+  preserved 007-l test-only exceptions remain
+  byte-exact (c2b483b7/15,779 B, 275e10d3/5,179 B);
+  finite model-free software under synthetic fixtures
+  with the actual native 0.21.4 tokenizer worker on
+  synthetic strings and the approved copied GPU
+  fake/null fixture, actual BGE UNRUN/UNQUALIFIED,
+  mode controller/current-principal policy/inference
+  CLI/snapshot integration/physical qualification
+  still unimplemented;
 
 open on the 007 PR, branch
   oap/007-embedding-pipeline from main 11badc7; whole-007 remains
@@ -202,10 +232,11 @@ open on the 007 PR, branch
   assets software, the 007-k pure snapshot declaration
   codecs, the 007-l owned GPU parent/identity and native
   runtime-identity software, the 007-m isolated GPU text
-  bridge and source-bound GPU plan software and the inert
-  raw GPU backend source are software under trusted neural
-  fakes only (no real GPU, driver, Tensor or model was
-  run); the actual BGE model has
+  bridge and source-bound GPU plan software, the 007-n
+  launch-preparation/producer/program/executor software
+  and the inert raw GPU backend source are software
+  under trusted neural fakes only (no real GPU, driver,
+  Tensor or model was run); the actual BGE model has
   never been run, the legacy optional CPU pins are NOT security
   qualified, the archived prior OWNED random CPU toy was historically
   run (toy evidence), the ACTUAL BGE checkpoint/model has NOT been
