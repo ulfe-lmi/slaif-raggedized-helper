@@ -155,10 +155,26 @@ portable synthetic six-real/22-metadata CPU test fixture provisioned in CI.
 The actual BGE model has never been run and the legacy optional CPU pins
 (Torch 2.10.0+cpu / Transformers 4.51.3) are NOT security qualified; the
 required exclusive GPU FP16 corpus encoding remains unimplemented.
+The 007-f continuation integrates the two exact root-reviewed
+cleanup/ownership composition candidates and the cooperative
+per-device kernel lease: finite owned-descriptor close attempts across
+failures with original non-Exception interruptions preserved (a new
+cleanup interrupt outranks ordinary errors), no blind re-close of a
+reused descriptor number (same-inode included), sticky UNKNOWN cleanup
+retained as a cleanup owner reaching the sanitized journal and producer
+errors even before the claim returns, the producer's pending native/model
+resource and journal lease held until drain, the isolated context-exit
+under the same interrupt priority, and the GPU device lease key binding
+only the versioned host + physical UUID under the trusted common local
+root (cooperative: no physical exclusivity, no granted runtime
+authority, no GPU lifecycle managed). The imported seventeen
+source/test/API files are the immutable reviewed bytes; no actual model,
+GPU operation, profile cutover or runtime change.
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
-007 remains PARTIAL — the CPU reference path is software under trusted
-neural fakes only; no actual model execution, CPU query, resumable GPU
-batches or qualification yet
+007 remains PARTIAL — the CPU reference path plus the cleanup/lease/
+isolated-exit composition is software under trusted neural fakes only; no
+actual model execution, CPU query, resumable GPU batches or
+qualification yet
 ([docs/embedding.md](docs/embedding.md),
 [docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
 Source-to-block anchors, native versus visual-needed page semantics,

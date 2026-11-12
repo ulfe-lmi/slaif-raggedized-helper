@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -439,6 +439,127 @@ cpu-embedding-worker-api.md, isolated-cpu-embedding-api.md,
 cpu-worker-test-setup.md and docs/benchmarks/real-cpu-toy.md (immutable
 reviewed bytes).
 
+## 007-f slice: cleanup/ownership composition and cooperative device lease (integrated)
+
+Merged into the 007 branch as TWO exact root-reviewed local candidates,
+`--no-ff`, in the ordered sequence: cleanup-composition tip `985806af`
+(implementation `4a929261`, whose ancestry already contains the GPU
+device-lease report `692fa53b` / implementation `6c29b935`) and then
+isolated-exit tip `52252484` (implementation `48aafeef`). All seventeen
+indexed source/test/API files hold the exact component-index Git
+blobs/SHA-256 (oap/reviews/007-f-components.json, 195,649 bytes), the Root
+transcript (order, active, fourteen records plus index) was committed first
+and is byte-identical after the merges, and the imported bytes are
+immutable: no source adaptation, conflict resolution, cherry-pick or
+history rewrite.
+
+- `embedding_job_ownership` (blob `57cac3d7`): cleanup is finite — every
+  acquired descriptor receives one close attempt even after an earlier
+  attempt fails or is interrupted. An error with `cleanup_owner` retains
+  the attempt history and marks the descriptor numbers as not blindly
+  retriable because they may already be reused, including a same-inode
+  open description; a failed unlock/close does not prove continued
+  ownership, and a subsequent close on an uncertain lease refuses rather
+  than claiming success. The original non-Exception interruption is
+  preserved; otherwise a new cleanup interrupt outranks an ordinary
+  error. Retention is not guaranteed kernel reaping.
+- `embedding_job_journal` (blob `1a2f384b`): entry and cleanup make one
+  finite close attempt per acquired descriptor, including temporaries,
+  even after another cleanup failure; a failed close is recorded
+  UNKNOWN and its descriptor number is never retried; the retained
+  `cleanup_owner` records attempted resource history and any nested
+  ownership cleanup owner without proving a lock is held; sticky
+  uncertainty refuses subsequent close; a pre-return acquisition failure
+  exposes the retained cleanup owner and propagates it to the producer's
+  error even before the claim returns; ordinary public errors are
+  content-free and preserve any cleanup owner; no automatic reclaim or
+  retry.
+- `cpu_embedding_producer` (blob `770d6c27`): the producer retains its
+  actual pending native/model resource and the journal lease until the
+  child and associated resources are drained; an original interruption
+  is preserved, otherwise a new interruption during reconciliation or
+  cleanup outranks an ordinary refusal; a pre-return low-level descriptor
+  UNKNOWN is sticky (closing that owner continues to refuse and never
+  retries the unknown descriptor); independent safe cleanup is still
+  attempted. The existing current-provider callback, plan, receipt,
+  output-before-COMPLETE, fresh reuse and ambiguous-COMPLETE semantics
+  are preserved; the provider remains a trusted extension point, not an
+  actual current-rights store.
+- `isolated_cpu_embedding` (blob `bf968bd8`): context exit follows the
+  same interrupt priority — the original body interrupt stays primary, a
+  new cleanup interrupt outranks an ordinary body exception, ordinary
+  cleanup errors preserve the body exception, and a failing cleanup
+  escapes with a fixed note plus retained `cleanup_owner`. An
+  uninterruptible kernel task cannot be guaranteed reaped.
+- `gpu_device_lease` (blob `0a5ce44e`, new): a COOPERATIVE per-device
+  kernel lease. The key is `schema.fingerprint` of the structured
+  `gpu-device-lease-v1` object carrying ONLY the versioned host +
+  physical UUID, under the actual trusted common local root; different
+  jobs contend on the same key while owner incarnation identity and
+  kernel exclusion come from the existing ownership module. Forked
+  children cannot use the parent's lease. A close failure is sticky and
+  ownership becomes unknown — descriptors are not blindly closed again,
+  the same key is refused for further acquisition in this process while
+  the pending uncertainty is retained, and there is no automatic
+  reclaim. Cleanly closed wrappers are not strongly retained by the
+  registry. This module does not manage GPU or model lifetime, grant
+  inference/maintenance/service-stop permission, or exclude
+  noncooperating users: a cooperative key does not prove physical
+  exclusivity and does not grant runtime authority. A caller must
+  independently verify the real assigned device, occupancy and current
+  rights, and future workers must be drained before release; different
+  roots, noncooperators and restarts are not coordinated.
+
+Original finding and remediation: the independent producer peer review
+(oap/reviews/007-f-peer-producer-b-report.json and
+oap/reviews/007-f-peer-producer-b-review.json) is the original
+CHANGES_REQUIRED evidence for the journal/producer cleanup composition;
+the Root local remediation records (oap/reviews/007-journal-producer-
+cleanup-findings.json, oap/reviews/007-f-cleanup-composition-review.json,
+oap/reviews/007-f-isolated-exit-review.json,
+oap/reviews/007-f-gpu-device-lease-review.json and
+oap/reviews/007-f-composed-review-tree.json) are immutable provenance —
+they are not a completed new ICA and not human adjudication.
+
+Identities: the selected source hashes and complete execution
+fingerprints changed naturally with the corrected cleanup/lease sources;
+the predicted/observed handshake and source-job matching still work, with
+no hardcoded old value; the semantic, native 0.21.4 and legacy CPU
+intent identities are preserved. The legacy optional CPU profile
+(Torch 2.10.0+cpu / Transformers 4.51.3) remains UNQUALIFIED and
+unchanged; no new CPU/GPU profile cutover or neural permit.
+
+Focused verification at the current canonical: six focused unit files
+(105 cases: ownership 12, lease 19, journal 27, producer 11, isolated
+34, plan 2) and six standalone integrations (39 cases: ownership 1,
+lease 2, journal 2, isolated 3 with the retained multithreaded-fork
+warning, producer 30, plan 1), each standalone in its own
+`env -u PYTHONPATH` process under the approved 3.12 fixtures (producer
+and plan under the lane-accepted `tests/unit:tests/integration`
+PYTHONPATH). The TEN original Root witnesses
+(`/tmp/raggedized-root-isolated-exit-priority.py`,
+`producer-secondary-interrupt.py`, `journal-cleanup-boundaries.py`,
+`producer-lease-interrupt.py`, `native-close-ownership.py`,
+`native-interrupt-priority.py`, `gpu-lease-registry.py`,
+`job-ownership-boundaries.py`, `job-enter-failure.py`,
+`job-interrupted-close.py`) all exit 0 at the current canonical with the
+seventeen indexed sources byte-unchanged before and after.
+
+Advisory severity correction: the earlier high/medium wording on both
+pins is corrected against the committed Root observation
+(oap/reviews/007-legacy-fixed-route-static-observation.json): the GitHub
+TorchScript advisory (GHSA-rrmf-rvhw-rf47) is rated LOW, and the
+Transformers advisory list comprises four HIGH, six MEDIUM and one LOW
+entries — all with UNPROVEN transitive reachability and NOT_EXPLICITLY_
+INVOKED direct fixed routes on the installed pins. This finite static
+observation is not package-wide safety and not a clearance.
+
+Limitations: the finite selected fault coverage is not universal
+cleanup, power-loss or hardware proof; these fixes do not guarantee
+kernel reaping, restart recovery or full ICA; the existing
+multithreaded-fork warning remains without any generic fork-safety
+proof.
+
 ## Remaining 007 work (not implemented this round)
 
 The CPU reference software path now exists (trusted neural fakes only);
@@ -451,11 +572,15 @@ binding of vectors, row maps, ACL and space fingerprints, query/GPU
 precision qualification (FP16 vs FP32 cosine/ranking/Recall@k), and all
 artifact/encoder/execution/auth gates. The legacy optional CPU profile
 (Torch 2.10.0+cpu / Transformers 4.51.3) is NOT security qualified: the
-Root current-advisory observation (oap/reviews/007-legacy-cpu-profile-
-security-observation.json) records high/medium findings on both pins;
-advisory triage, current route reachability and a patched CPU/Volta
-profile refresh are separate pending work — no silent upgrade, no
-vulnerability-absence claim, no legal/security exception. Live
+committed Root observations (oap/reviews/007-legacy-cpu-profile-
+security-observation.json, oap/reviews/007-legacy-fixed-route-static-
+observation.json) record the GitHub TorchScript advisory as LOW and the
+Transformers advisory list as four HIGH, six MEDIUM and one LOW — all
+with UNPROVEN transitive reachability and NOT_EXPLICITLY_INVOKED direct
+fixed routes on the installed pins; advisory triage, current route
+reachability and a patched CPU/Volta profile refresh are separate
+pending work — no silent upgrade, no vulnerability-absence claim, no
+legal/security exception. Live
 authorization remains NONE; no model weights, inference, GPU, services,
 credentials, private corpus, release or deploy in this slice.
 
@@ -504,3 +629,18 @@ observation (oap/reviews/007-legacy-cpu-profile-security-observation.json)
 is a recorded finding set, not a clearance; the old-SHA random toy evidence
 (oap/reviews/007-owned-cpu-toy-evidence.json) is scoped toy evidence, not a
 new neural permit. Real qualification remains NOT RUN (U04/U07 relevant).
+007-f behavior is proven at the current canonical by the six focused unit
+files (105 cases) and the six standalone integrations (39 cases, each in
+its own process) plus the TEN original Root witnesses, all exit 0 with
+the seventeen indexed sources byte-unchanged before and after; the
+twelve root-accepted component/peer/remediation records (oap/reviews/
+007-f-peer-producer-b-report.json, 007-f-peer-producer-b-review.json,
+007-journal-producer-cleanup-findings.json, 007-f-cleanup-composition-
+review.json, 007-f-isolated-exit-review.json, 007-f-gpu-device-lease-
+review.json, 007-f-composed-review-tree.json, 007-f-components.json,
+007-f-root-records.json and the 007-e final review/CI/GitHub records)
+are immutable provenance, not current CI or Root acceptance of this
+integration. The finite fault coverage is not kernel-reaping, restart-
+recovery, power-loss, hardware or ICA proof, and the cooperative device
+key is not physical exclusivity or runtime authority. Real qualification
+remains NOT RUN (U04/U07 relevant).

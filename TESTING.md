@@ -232,7 +232,8 @@ backend setup, the four-fresh-read derived-store semantics and NOT-RUN
 distinctions: docs/benchmarks/ingestion-count-storage.md (T15). All
 synthetic and offline; real qualification NOT RUN.
 
-T16. 007-a/b/c/d/e slices: codec, representation, artifact/space,
-CPU-session, store/ownership/journal/plan, CPU reference
-producer/worker/session (synthetic offline, trusted fakes;
-docs/embedding.md). Real qualification NOT RUN.
+T16. 007-a/b/c/d/e/f: codec, representation,
+artifact/space, CPU-session, store/ownership/journal/plan,
+CPU producer/worker/cleanup/lease/isolated-exit
+(synthetic offline, trusted fakes; embedding.md).
+Real qualification NOT RUN.

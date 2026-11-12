@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-12)
 
-- Active objective: 007, current slice 007-e (the 007-a reviewed
+- Active objective: 007, current slice 007-f (the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
   extended by the 007-b source-bound raw retrieval representation/batch
   and published BGE-M3 checkpoint inventory/encoder-space software,
@@ -18,11 +18,23 @@
   trusted authorization provider, output-before-COMPLETE and verified
   zero-model-start reuse, the resident CPU worker under the actual
   bounded OS isolation protocol, and the portable synthetic
-  six-real/22-metadata CPU test fixture provisioned in CI; open on the
-  007 PR, branch oap/007-embedding-pipeline from main 11badc7;
-  whole-007 remains PARTIAL — the CPU reference path is software under
-  trusted neural fakes only; the actual BGE model has never been run,
-  the legacy optional CPU pins are NOT security qualified, and there is
+  six-real/22-metadata CPU test fixture provisioned in CI; the 007-f
+  continuation adds the two exact root-reviewed cleanup/ownership
+  composition candidates and the cooperative per-device kernel lease:
+  finite owned-descriptor close attempts across failures with original
+  non-Exception interruptions preserved (a new cleanup interrupt
+  outranks ordinary errors), no blind re-close of a reused descriptor
+  number, sticky UNKNOWN cleanup owners retained through the sanitized
+  journal and producer, the producer's pending native/model resource and
+  journal lease held until drain, the isolated context-exit under the
+  same interrupt priority, and the device lease key binding only the
+  versioned host + physical UUID under the trusted common local root
+  (cooperative: no physical exclusivity, no granted runtime authority);
+  open on the 007 PR, branch oap/007-embedding-pipeline from main 11badc7;
+  whole-007 remains PARTIAL — the CPU reference path plus the
+  007-f cleanup/lease composition is software under trusted neural fakes
+  only; the actual BGE model has never been run, the legacy optional CPU
+  pins are NOT security qualified, and there is
   still no actual model execution, CPU query, resumable owned GPU
   batches or qualification contracts), live PR/CI/merge state is
   queried on GitHub, not asserted here. Objective 006 is complete and merged to

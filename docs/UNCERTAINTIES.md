@@ -677,3 +677,51 @@ human question.
   and U07 (license/distribution clearance) remain OPEN; the required
   exclusive GPU FP16 corpus encoding path is still unimplemented; real
   qualification NOT RUN.
+
+### 2026-11-12, order 007-f (cleanup/ownership composition and cooperative device lease)
+
+- 007 is PARTIAL after this slice: the two exact root-reviewed
+  cleanup/ownership composition candidates and the cooperative
+  per-device kernel lease are integrated on the 007 branch (PR not
+  merged): finite owned-descriptor close attempts across failures with
+  original non-Exception interruptions preserved (a new cleanup interrupt
+  outranks an ordinary error), no blind re-close of a reused descriptor
+  number (including a same-inode open description), sticky UNKNOWN
+  cleanup recorded as a retained `cleanup_owner` that reaches the
+  sanitized journal and the producer error even before the claim returns
+  (no automatic reclaim, no false clean idempotence), the producer's
+  actual pending native/model resource and journal lease held until
+  drain, the isolated context-exit under the same interrupt priority,
+  and the `gpu-device-lease-v1` key binding ONLY the versioned host +
+  physical UUID under the actual trusted common local root (different
+  jobs contend on the same key; forked children cannot use the parent's
+  lease; pending uncertainty refuses same-key reacquisition in this
+  process). The cooperative key does NOT prove physical exclusivity,
+  does not grant runtime authority and does not exclude noncooperating
+  GPU users; these finite fixes do not guarantee kernel reaping, restart
+  recovery or full ICA; a caller must independently verify the real
+  assigned device, occupancy and current rights and drain future workers
+  before release. The original peerB CHANGES_REQUIRED finding
+  (oap/reviews/007-f-peer-producer-b-report.json) with the Root local
+  remediation records is immutable provenance, not a completed new ICA
+  or human adjudication. The imported seventeen source/test/API files are
+  the immutable reviewed bytes (oap/reviews/007-f-components.json): the
+  selected source hashes and complete execution fingerprints changed
+  naturally, while the predicted/observed handshake, source-job
+  matching, semantic, native 0.21.4 and legacy CPU intent identities
+  are preserved with no hardcoded old value. The legacy optional CPU
+  profile (Torch 2.10.0+cpu / Transformers 4.51.3) remains UNQUALIFIED
+  and unchanged: the committed Root observation
+  (oap/reviews/007-legacy-fixed-route-static-observation.json) records
+  the GitHub TorchScript advisory (GHSA-rrmf-rvhw-rf47) as LOW and the
+  Transformers advisory list as four HIGH, six MEDIUM and one LOW — all
+  with UNPROVEN transitive reachability and NOT_EXPLICITLY_INVOKED direct
+  fixed routes on the installed pins; this finite static observation is
+  not package-wide safety and not a clearance; advisory triage and a
+  patched profile refresh remain separate pending work — no
+  vulnerability-absence or license claim. The actual BGE model has NOT
+  been run; all neural behavior in the suites remains trusted fakes.
+  U04 (CPU query latency, CPU/GPU embedding parity) and U07
+  (license/distribution clearance) remain OPEN; the required exclusive
+  GPU FP16 corpus encoding path is still unimplemented; real
+  qualification NOT RUN.
