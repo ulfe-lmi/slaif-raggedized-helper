@@ -155,8 +155,16 @@ def test_no_partial_output_or_retry_on_forward_or_normalization_refusal(args, mo
     from slaif_raggedized_helper import embedding_tokenizer as tokenizer
     from slaif_raggedized_helper import isolated_cpu_embedding as session
 
-    bridge = {"test.py": "a" * 64}
-    monkeypatch.setattr(session, "_bridge", lambda: bridge)
+    bridge = {
+        name: "a" * 64
+        for name in (
+            "isolated_cpu_embedding.py",
+            "cpu_execution_contract.py",
+            "embedding_tokenizer.py",
+            "embedding_vectors.py",
+        )
+    }
+    monkeypatch.setattr(session.cpu_execution_contract, "_bridge", lambda: bridge)
     monkeypatch.setattr(session.native_tokenizers, "_read_artifact", lambda path, limit: b"code")
     calls = []
 
@@ -216,14 +224,19 @@ def test_no_partial_output_or_retry_on_forward_or_normalization_refusal(args, mo
         obj.space = obj._worker.space
         obj._identity = obj._worker_identity()
         obj._native_policy_snapshot = session._native_values(obj._tokenizer._policy)
-        record = {
-            "bridge": bridge,
-            "native": {"worker_sha256": hashlib.sha256(b"code").hexdigest()},
-        }
-        obj.execution_record = session._json(record)
+        from slaif_raggedized_helper.embedding_space import AdmittedSpace
+
+        obj.space = AdmittedSpace(
+            "d" * 64, args[2].fingerprint(), args[3].sha256, "identity", 1024, "cls", True, "c" * 64
+        )
+        obj._worker.space = obj.space
+        obj.execution_record, _ = session.cpu_execution_contract._record(
+            obj.space, args[2], args[3], obj._identity, obj._tokenizer._policy
+        )
+        record = json.loads(obj.execution_record)
         obj._record_snapshot = obj.execution_record
         obj.execution_fingerprint = session.fingerprint(
-            {"kind": "isolated-cpu-embedding-execution-v1", **record}
+            {"kind": "isolated-cpu-embedding-execution-v2", **record}
         )
         obj._fingerprint_snapshot = obj.execution_fingerprint
         monkeypatch.setattr(obj, "_renew", lambda sizes: None)

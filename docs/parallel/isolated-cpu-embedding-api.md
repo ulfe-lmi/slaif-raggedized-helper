@@ -17,7 +17,7 @@ forked and closed use. The creator-PID refusal does not make forking a multithre
 application safe. Limits are software bounds, not a throughput qualification.
 
 `intended_execution_fingerprint` identifies the legacy CPU FP32 execution intent. The separate
-canonical `execution_record` and `execution_fingerprint` bind the successful worker handshake,
+canonical schema-2 `execution_record` and `execution_fingerprint` bind the successful worker handshake,
 profile, policies, native identity, normalization and selected code hashes. A future producer must
 explicitly bind and compare both identities. The profile hash selects declared pinned package
 metadata; it does not attest package files, license terms, or distinguish fake from neural execution.
@@ -33,3 +33,8 @@ cannot be guaranteed reaped. The stage never purges foreign replacements.
 The synthetic tests use a trusted fake framework in the real process protocol; they do not load a
 real model or establish security, license clearance, model parity, performance, or hardware
 readiness. The runtime, packages, protected artifact ancestry and caller remain trust boundaries.
+
+The schema-2 execution hash uses `isolated-cpu-embedding-execution-v2`, deliberately changing
+the v1 execution identity while preserving the legacy space and intended CPU FP32 identities.
+See [the pre-model contract and plan API](cpu-embedding-plan-api.md) for prediction and the
+consumer comparison required before content forwarding and output completion.

@@ -94,7 +94,7 @@ def test_owned_composition(tmp_path, monkeypatch):
         )
         record = json.loads(first.execution_record)
         assert first.execution_fingerprint == fingerprint(
-            {"kind": "isolated-cpu-embedding-execution-v1", **record}
+            {"kind": "isolated-cpu-embedding-execution-v2", **record}
         )
         obj._tokenizer._calls = 1024
         second = obj.encode(["hello"])

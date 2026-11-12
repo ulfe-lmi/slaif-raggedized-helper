@@ -11,6 +11,7 @@ import time
 from pathlib import Path
 
 from . import cpu_embedding_worker as cpu
+from . import cpu_execution_contract
 from . import embedding_staging, embedding_tokenizer, embedding_vectors, native_tokenizers
 from .schema import EmbeddingDefinition, EmbeddingExecution, fingerprint
 
@@ -178,14 +179,6 @@ def _json(value):
     return json.dumps(
         value, sort_keys=True, ensure_ascii=True, separators=(",", ":"), allow_nan=False
     ).encode("ascii")
-
-
-def _bridge():
-    directory = Path(__file__).resolve().parent
-    return {
-        name: hashlib.sha256(native_tokenizers._read_artifact(directory / name, 131072)).hexdigest()
-        for name in ("isolated_cpu_embedding.py", "embedding_tokenizer.py", "embedding_vectors.py")
-    }
 
 
 class IsolatedCPUEmbeddingSession:
@@ -373,40 +366,8 @@ class IsolatedCPUEmbeddingSession:
                     raise ValueError
                 self._identity = self._worker_identity()
                 self._native_policy_snapshot = _native_values(self._tokenizer._policy)
-                record = {
-                    "schema": 1,
-                    "contract": "cpu-fp32-cls",
-                    "space": self.space.space_id,
-                    "definition": definition.fingerprint(),
-                    "worker": self._identity,
-                    "normalization": embedding_vectors.POLICY_ID,
-                    "native": {
-                        "artifact_sha256": token.sha256,
-                        "backend": token.backend_version,
-                        "role": token.role,
-                        "revision": token.model_revision,
-                        "preprocessing": token.preprocessing,
-                        "policy": dict(
-                            zip(
-                                _NATIVE_INTS + _NATIVE_TIMES,
-                                self._native_policy_snapshot,
-                                strict=True,
-                            )
-                        ),
-                        "worker_sha256": hashlib.sha256(
-                            native_tokenizers._read_artifact(
-                                Path(__file__).with_name("embedding_tokenizer_worker.py"), 131072
-                            )
-                        ).hexdigest(),
-                    },
-                    "bridge": _bridge(),
-                    "hardware_qualification": "unknown",
-                }
-                self.execution_record = _json(record)
-                if len(self.execution_record) > 16384:
-                    raise ValueError
-                self.execution_fingerprint = fingerprint(
-                    {"kind": "isolated-cpu-embedding-execution-v1", **record}
+                self.execution_record, self.execution_fingerprint = cpu_execution_contract._record(
+                    self.space, definition, token, self._identity, self._tokenizer._policy
                 )
                 self._record_snapshot = self.execution_record
                 self._fingerprint_snapshot = self.execution_fingerprint
@@ -576,12 +537,13 @@ class IsolatedCPUEmbeddingSession:
                     or self.execution_fingerprint
                     != fingerprint(
                         {
-                            "kind": "isolated-cpu-embedding-execution-v1",
+                            "kind": "isolated-cpu-embedding-execution-v2",
                             **json.loads(self.execution_record),
                         }
                     )
                     or cpu._policy_identity(self._worker.policy) != self._identity["policy"]
-                    or _bridge() != json.loads(self._record_snapshot)["bridge"]
+                    or cpu_execution_contract._bridge()
+                    != json.loads(self._record_snapshot)["bridge"]
                 ):
                     raise ValueError
                 return EncodedBatch(
