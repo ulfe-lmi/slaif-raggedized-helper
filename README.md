@@ -310,12 +310,30 @@ PARTIAL
 ([docs/parallel/gpu-child-protocol-api.md](docs/parallel/gpu-child-protocol-api.md),
 [docs/parallel/gpu-worker-launch-api.md](docs/parallel/gpu-worker-launch-api.md),
 [docs/parallel/gpu-profile-assets-api.md](docs/parallel/gpu-profile-assets-api.md)).
+The 007-k continuation selectively integrates the EIGHT
+root-reviewed immutable raw snapshot core/row-map declaration
+codec, test, API and design files (oap/reviews/007-k8-snapshot-
+components.json, 47,707 bytes, byte-exact from the two exact
+source commits b7a2b52 and 09fe0d5): a closed bounded canonical
+ASCII schema-1 core codec with strict types, duplicate-key and
+cross-reference checks and a derived noncircular snapshot ID,
+and an 8-header/17-row row-map codec with canonical partition
+subsets and a fresh-bytes bind checking exact declared
+correspondence. They are pure declared-format data only: they
+validate declarations, never actual payloads, sources,
+vectors, terms, rights, normalization, publication or
+retention, and no snapshot is activated or loaded. The held
+parent K13 plan and the parallel native work are not
+integrated; whole 007 remains PARTIAL
+([docs/parallel/raw-snapshot-manifest-api.md](docs/parallel/raw-snapshot-manifest-api.md),
+[docs/parallel/raw-snapshot-row-map-api.md](docs/parallel/raw-snapshot-row-map-api.md)).
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
 lock) plus the cleanup/lease/isolated-exit composition, the 007-j GPU
-child/protocol/launch/assets software and the inert raw GPU backend
-source are software under trusted neural fakes only (no real GPU,
-driver, Tensor or model was run).
+child/protocol/launch/assets software, the 007-k pure snapshot
+declaration codecs and the inert raw GPU backend source are
+software under trusted neural fakes only (no real GPU, driver,
+Tensor or model was run).
 Execution scope is precise: the archived prior OWNED random CPU toy
 was historically executed (toy evidence only); the ACTUAL BGE
 checkpoint/model has NOT been executed or qualified, and a class

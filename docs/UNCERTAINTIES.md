@@ -978,3 +978,51 @@ human question.
   exclusive GPU FP16 corpus encoding path execution is still
   unimplemented; real qualification NOT RUN. Whole 007
   remains PARTIAL; no main merge or 008.
+### 2026-11-12, order 007-k (raw snapshot core/row-map declaration codecs integration)
+
+- 007 is PARTIAL after this slice: the EIGHT root-reviewed
+  immutable raw snapshot core/row-map declaration codec, test,
+  API and design files are selectively integrated by byte-exact
+  file copy from the two exact source commits
+  b7a2b520ac543d3e78080aa163047b112e0b579f and
+  09fe0d5e02e01b514378facadb7d50cca12ef471 (oap/reviews/
+  007-k8-snapshot-components.json, 47,707 bytes; no branch
+  ancestry, no source adaptation): the closed bounded canonical
+  ASCII schema-1 core codec (strict types, duplicate keys,
+  paths, fields, counts, size, cross-references; 4,096-row /
+  128-partition / 258-file / 96 MiB declared-total format
+  bounds; derived noncircular SHA-256 snapshot ID over frozen
+  core bytes) and the 8-header/17-row row-map codec (canonical
+  data, bare canonical representation IDs, immutable outputs,
+  global/partition ordinals, sort and uniqueness, shared
+  batch/bundle consistency, nonreused batch rows, canonical
+  complete partition subsets without snapshot ID, and a fresh
+  byte-input `bind` checking exact descriptor size/hash/header/
+  count/partition/subset/active-not-withdrawn/corpus-execution-
+  set correspondence).
+- Mock/real distinction: the 50 focused core+row-map unit cases
+  (9 manifest + 41 row-map, one process, bounded 1 GiB AS / 30 s
+  CPU / 120 s wall, threads 1, no bytecode, exit 0) are finite
+  model-free software over synthetic declared bytes only — no
+  actual snapshot directory, file, payload, source, vector,
+  lexical term, model or GPU was loaded, executed or qualified,
+  and no snapshot is activated, published, retained or
+  deleted. A declaration hash, a `bind` pass or a
+  validation-passed declaration establishes declared
+  consistency only; it is not source, vector, rights,
+  normalization, publication, retention, hardware or Ready
+  proof. The legacy dense_index.DenseIndex needs a new
+  source-verified adapter; prefix conversion is insufficient.
+- The held parent K13 plan
+  (oap/reviews/007-k-activation-hold-reinit.json) and the
+  parallel parent-single-init/native-token-acquisition work are
+  NOT integrated and NOT claimed as integrated. The H actual 38
+  setup/class-import/license-fact and the archived random CPU
+  toy distinction are preserved (H history); the H-era host
+  full-unit failure cause remains UNRESOLVED as observed
+  history: no causality is invented and no failure is hidden.
+- U04 (CPU query latency, CPU/GPU embedding parity) and U07
+  (license/distribution clearance) remain OPEN; the required
+  exclusive GPU FP16 corpus encoding path execution is still
+  unimplemented; real qualification NOT RUN. Whole 007
+  remains PARTIAL; no main merge or 008.

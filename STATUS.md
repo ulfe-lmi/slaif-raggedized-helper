@@ -120,13 +120,25 @@
   driver/Tensor/model/framework executed, actual BGE
   UNRUN/UNQUALIFIED, the actual owned GPU parent + new lock +
   worker identity still parallel/unintegrated pending affected
-  reviews;
+  reviews; the 007-k selective integration adds the EIGHT
+  root-reviewed immutable raw snapshot core/row-map
+  declaration codec/test/API/design files (oap/reviews/
+  007-k8-snapshot-components.json, 47,707 bytes, byte-exact
+  from exact source commits b7a2b52/09fe0d5): a closed
+  bounded canonical ASCII schema-1 core codec with derived
+  noncircular snapshot ID and an 8-header/17-row row-map
+  codec with canonical partition subsets and fresh-bytes
+  bind; pure declared-format data only, no
+  payload/source/vector/rights/normalization/publication/
+  retention proof and no activation; the held parent K13
+  plan and the parallel native work remain unintegrated;
 open on the 007 PR, branch
   oap/007-embedding-pipeline from main 11badc7; whole-007 remains
   PARTIAL — the CPU reference path (CPUv2 lock selected) plus the 007-f
   cleanup/lease composition, the 007-j GPU child/protocol/launch/
-  assets software and the inert raw GPU backend source are
-  software under trusted neural fakes only (no real GPU, driver,
+  assets software, the 007-k pure snapshot declaration codecs
+  and the inert raw GPU backend source are software under
+  trusted neural fakes only (no real GPU, driver,
   Tensor or model was run); the actual BGE model has
   never been run, the legacy optional CPU pins are NOT security
   qualified, the archived prior OWNED random CPU toy was historically

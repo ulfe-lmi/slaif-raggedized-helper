@@ -232,4 +232,4 @@ backend setup, the four-fresh-read derived-store semantics and NOT-RUN
 distinctions: docs/benchmarks/ingestion-count-storage.md (T15). All
 synthetic and offline; real qualification NOT RUN.
 
-T16. 007-a..j: 007-a..h per H docs; 007-i resident query + profile locks; 007-j GPU child/launch/assets (fake/null ns, no real GPU/model; 8/1/1). BGE UNRUN/UNQUALIFIED; GPU parent/lock/identity unintegrated; H actual-38 + toy kept; host full-unit fault UNRESOLVED. Real qualification NOT RUN.
+T16. 007-a..k: 007-a..h per H docs; 007-i query + locks; 007-j GPU child/launch/assets; 007-k core/row-map codecs (pure declared; 50 units 9/41). BGE UNRUN/UNQUALIFIED; GPU parent/lock/identity unintegrated; H actual-38 + toy kept; host full-unit fault UNRESOLVED. Real qualification NOT RUN.

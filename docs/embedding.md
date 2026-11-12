@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration + 007-k snapshot declarations integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -22,7 +22,11 @@ BGE remains UNRUN/UNQUALIFIED). 007-j selectively integrates
 the reviewed GPU child/protocol, prepared-launch and packaged-
 resource assets (finite model-free software; the actual owned
 GPU parent, the new lock and the worker-identity resources
-remain parallel/unintegrated). Objective
+remain parallel/unintegrated). 007-k selectively integrates the
+reviewed raw snapshot core/row-map declaration codecs (pure
+declared-format software; they establish no actual payload,
+source, vector, term, rights, normalization, publication,
+retention or activation). Objective
 007 remains PARTIAL until those are implemented and reviewed. No self-advance to 008
 or main merge.
 
@@ -908,7 +912,66 @@ full-unit failure cause remains UNRESOLVED (no causality
 invented, no failure hidden). Whole 007 remains PARTIAL; no
 main merge, 008, release or tag.
 
-## Remaining 007 work (not implemented this round)
+## 007-k slice: raw snapshot declaration codecs (integrated)
+
+Selective integration of the EIGHT root-reviewed immutable raw
+snapshot core/row-map declaration codec, test, API and design
+files by byte-exact file copy from the two exact source commits
+b7a2b520ac543d3e78080aa163047b112e0b579f and
+09fe0d5e02e01b514378facadb7d50cca12ef471 (oap/reviews/
+007-k8-snapshot-components.json, 47,707 bytes; every path
+verified at this head for blob + SHA-256 + size): no branch
+ancestry, no cherry-pick/rebase/reset/stash/clean, no source
+adaptation, no test weakening. The current I fifteen files, the
+J child/launch/assets files, the H installer/fixture helpers,
+CI, locks, requirements, worker-profile READMEs and law are
+unchanged; the held parent K13 plan (oap/reviews/
+007-k-activation-hold-reinit.json) and the parallel native work
+are not integrated.
+
+`src/slaif_raggedized_helper/raw_snapshot_manifest.py` (new) is
+the closed bounded canonical ASCII schema-1 core codec: strict
+types, duplicate keys, paths, fields, counts, size and
+cross-reference checks, fixed analyzer/normalization
+vocabulary, ordered unique lists, 4,096-row / 128-partition /
+258-file / 96 MiB declared-total format bounds, and a derived
+noncircular SHA-256 snapshot ID over the frozen core bytes.
+
+`src/slaif_raggedized_helper/raw_snapshot_rows.py` (new) is the
+8-header/17-row row-map codec: canonical data, bare canonical
+representation IDs, immutable outputs, global/partition
+ordinals, sort and uniqueness, shared batch/bundle
+consistency, nonreused batch rows, canonical complete partition
+subsets (header/global ordinal/source/batch refs, no snapshot
+ID) and a `bind` that freshly parses both byte inputs and
+checks exact descriptor size/hash/header/count/partition/
+subset/active-not-withdrawn/corpus-execution-set
+correspondence.
+
+The four `docs/parallel/*.md` files are the immutable reviewed
+bytes of this slice (`raw-snapshot-manifest-api.md`,
+`raw-snapshot-core-design.md`, `raw-snapshot-row-map-api.md`,
+`raw-snapshot-row-map-design.md`).
+
+These are pure declared-format codecs only: they validate
+declarations, never actual payloads, stored bytes, sources,
+vectors, terms, rights, normalization, publication, retention
+or readiness, and they load nothing, publish nothing and mint
+no authority. A declaration hash, a `bind` pass or a
+validation-passed declaration is not source, vector, rights,
+hardware or Ready proof. The legacy dense_index.DenseIndex
+cannot consume this codec without a new source-verified
+adapter; prefix conversion does not fix the different identity
+semantics.
+
+Behavior is proven by the focused model-free suites at this
+head: 50 core+row-map unit cases (9 manifest + 41 row-map) run
+in one process, bounded 1 GiB AS / 30 s CPU / 120 s wall,
+threads 1, no bytecode, exit 0. The Root composed review tree
+(oap/reviews/007-k8-composed-review-tree.json) is forecast
+evidence, not canonical CI/ICA.
+
+## ## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
 the fixed weights-only CPU worker (the real model has never been run
@@ -924,7 +987,10 @@ raw GPU backend source, the GPU child/protocol wire, the worker entry
 and the prepared launch are integrated and inert under trusted fakes —
 no owned GPU parent or controller, no complete native/normalized/
 durable GPU execution and no physical drain exists), snapshot/manifest
-binding of vectors, row maps, ACL and space fingerprints, query/GPU
+binding of vectors, row maps, ACL and space fingerprints (the pure
+declared core/row-map codecs are integrated; actual payload loaders,
+stored-byte validation, atomic publication, current-generation CAS,
+retention and deletion remain unimplemented), query/GPU
 precision qualification (FP16 vs FP32 cosine/ranking/Recall@k), and all
 artifact/encoder/execution/auth gates. The legacy optional CPU profile
 (Torch 2.10.0+cpu / Transformers 4.51.3) is NOT security qualified: the
