@@ -303,6 +303,29 @@ open on the 007 PR, branch
   replayed FIFO. Whole-007 and actual BGE remain UNRUN/UNQUALIFIED; no 008
   advance, no merge.
 
+- 007-t (parity capture integration; same PR 9, transcript-first):
+  bounded SOFTWARE continuation of 007 — byte-exact FIVE-file copy of
+  the root-reviewed finite1-8 same-source CPU/GPU/query execution DATA
+  capture primitive and its analyzer adapter (source implementation
+  773aacf, per oap/reviews/007-t-capture-components.json, 69,098 B)
+  after the exact eleven frozen Root records plus index transcript
+  (110,669 source bytes). Capture evidence stays
+  OBSERVED_LOCAL_SOFTWARE_PATHS_UNQUALIFIED / NOT_QUALIFIED: verified
+  reuse versus new forward execution is distinguished, and no neural,
+  FP16, hardware or current-rights qualification is claimed. Scoped
+  local evidence: ONE source-only python3.14 process collected and
+  passed 38/38 unit cases; ONE separate cached synthetic process ran
+  the two named boundary nodes — the bad-GPU-root refusal BEFORE CPU
+  entry passed, but the epoch-revocation node FAILED with
+  gpu_embedding_producer.ProducerRefused raised from the _build_plans
+  catch-all before any CPU producer entry (expected
+  cpu_embedding_producer.ProducerRefused at the CPU before_encode
+  authorization); the raw failure is preserved and further actual
+  processes were stopped per order pending Root's revised decision.
+  The full combined driver remains gated on the current report CI
+  (both Product jobs). Whole-007 and actual BGE remain
+  UNRUN/UNQUALIFIED; no 008 advance, no merge.
+
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
   (merged as PR #5) plus the 004-a finite qualification trial runner
