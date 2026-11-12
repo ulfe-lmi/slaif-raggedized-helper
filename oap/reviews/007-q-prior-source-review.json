@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-12T19:40:05.951637+00:00",
+  "implementation": "cd6d22bd640b23298cdedc8970bed495aa982263",
+  "transcript": "Solebasec502 ->63a exactorder/activeLF/7frozenRootrecords22204B+index290792. Parent/diffidentities verified.",
+  "status": "EXACT_TWO_IMPORT_ONLY_SOURCE_AND_TRANSCRIPT_VERIFIED_ROOT_DEFAULT_COLLECTION_PASS_WAIT_SELF_CI_RESPONSE",
+  "source": "Both fullfilebytes matchindependentlypredictedforecasthashes06eec3andb491dc, sizes38234/70160 unchanged. Allotherfunctions/assertions/productbytes untouched by exacttwofilediff. No CI/law/pin change.",
+  "Root_check": {
+    "result": "PASSexit0 defaultintegrationcollect752items, actualmodule resolvesintegration/test_gpu_worker_launch.py, nojourneyexecuted",
+    "log": "audit/007-p-root-default-collection-cd6d.log",
+    "log_sha256": "09fc811e592c78c99e7c48ba79ac050c043d9a78ab8e7369699f070c5851d7a1",
+    "setup": "Installedcanonical.venv/bin/python, PYTHONPATH UNSET, actualpytest.main defaultcollection with read-only observer plugin printing/asserting actualmodule.__file__ and count. ExistingCPUv2env paths supplied for import, no backendexecution; all5threads1/nobytecode/private runtime, CPU30AS1GiBwall120."
+  },
+  "strongest_counterargument": "Localcollectionpass is not actualfullintegration/currentreportCI orfull007acceptance. Need exactSELF/report/currentALL5jobs everyactualstep/normalresponse/reviews/docs/ledger before continuation.",
+  "remaining": "Authornamedactualowner+rowfit checks/reportcurrentCI/normalreceipt; Qgateway/Rcapture/Srepair futurecurrentpreflight. No merge/numericjump/modelqualification.",
+  "DHA": "NONE"
+}

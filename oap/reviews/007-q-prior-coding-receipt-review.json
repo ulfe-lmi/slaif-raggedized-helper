@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-12T20:10:55.638993+00:00",
+  "status": "CODING_POSTPUBLIC_RECEIPT_INDEPENDENTLY_RECONCILED_NO_REPORT_EDIT",
+  "receipt_sha256": "443bf6a2a99cdc456df5c00a593802cf3d7cc07f7f351ade3f184ef35a7172cd",
+  "head": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+  "CI_run": 43293767218,
+  "Root_CI_counts": [
+    {
+      "name": "Product tests (Python 3.12)",
+      "steps": 24,
+      "outcomes": {
+        "success": 18,
+        "failure": 1,
+        "skipped": 5
+      }
+    },
+    {
+      "name": "OAP tests (Python 3.14)",
+      "steps": 10,
+      "outcomes": {
+        "success": 10
+      }
+    },
+    {
+      "name": "OAP tests (Python 3.13)",
+      "steps": 10,
+      "outcomes": {
+        "success": 10
+      }
+    },
+    {
+      "name": "Product tests (Python 3.14)",
+      "steps": 24,
+      "outcomes": {
+        "success": 18,
+        "failure": 1,
+        "skipped": 5
+      }
+    },
+    {
+      "name": "OAP tests (Python 3.12)",
+      "steps": 10,
+      "outcomes": {
+        "success": 10
+      }
+    }
+  ],
+  "limits": "Codingjob prose says18/23 steps; actualAPI24steps perProduct(18success1failure5skip), aggregate78/66success2fail10skip correct. RootusesactualAPI, notprose. Reportedexternal/tmpdeletioncause notindependentlycorroborated; localrecapture/retryhistorynotusedasacceptancegate. Bare/importmissingCPU failures beforeactualcases disclosed; Rootdefaultcollection/actualremoteCI independent. No sourceCIacceptance onfailedchecks.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

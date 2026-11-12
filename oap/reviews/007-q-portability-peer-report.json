@@ -1,0 +1,121 @@
+{
+  "lane_id": "AUDIT-007-Q-PORTABILITY-DESIGN-A",
+  "target_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "scope": "Design forecast only; canonical source 986ab7ef0fa44eced4027fd3aebe9a7bb14e3812, older assigned worktree bac11bee72fa809157b77e21be8bcf8ef17529a9. No acceptance or ICA. DHA NONE.",
+  "findings": [
+    "The min tuple includes the unchanged ceiling and all finite inherited values; both unlimited yields ceiling, finite lower wins, higher is capped. Hard limit remains unchanged. Root mocked admission matrix is harness logic evidence only.",
+    "Historical fixture is byte-for-byte identical to git show b0ca5a68f8e55667ada5dd7523903b5585cbe0af:src/slaif_raggedized_helper/retrieval_representation.py: 7049 bytes, SHA256 681bf5145e980f77f67903c2fb5fd153f4694cf33344e208cd6181a5e65947a3. Fixed-size and SHA assertions fail on corruption; path resolves from tests/integration to tests/fixtures and checkout must contain fixture.",
+    "Normalized full-module AST comparisons pass: executor only tuple change; program only two historical-load substitutions, import replacement and helper. All remaining semantic and causal assertions preserved. Forecast imports hashlib after json; configured Ruff selects E/F/W, not import sorting; actual lint still required."
+  ],
+  "witnesses": {
+    "executor": "38236 bytes sha256 790e4e05063fb433d4d989a288a4c511db17a083166229c9eac0742955fac6b2",
+    "program": "16528 bytes sha256 d8e5700cbb3ac800446d2fc2d79535a1676952ee032c3a21f83a7056792530bc",
+    "fixture": "7049 bytes sha256 681bf5145e980f77f67903c2fb5fd153f4694cf33344e208cd6181a5e65947a3"
+  },
+  "readset": "Full order, design, forecast index, root admission proof, draft work order; full canonical two integration modules via git show and forecast files via diff and AST; full historical Git blob compared bytewise; workflow and pyproject relevant ranges only. Assigned worktree identity and clean status checked.",
+  "commands_results": [
+    "sha256sum all indexed forecasts: matched index",
+    "git show historical blob byte equality: true",
+    "git show canonical modules and diff: only specified changes",
+    "Python ast parse and normalized whole-module comparisons: both equal",
+    "read canonical pyproject Ruff config and workflow ranges; no local ruff executable found"
+  ],
+  "counterargument": "Strongest reason to reject is that this is a private forecast, not the eventual patch, and mock admission cannot demonstrate the actual creator/resume or shallow-checkout CI journey. Accept design only; exact resulting patch and full unchanged current CI must be independently reviewed and all required checks succeed.",
+  "limits": "No actual journeys, workers, tests, installs, network, model, GPU or service. Did not independently rerun mocked matrix or corruption experiment; conclusions on helper corruption follow static source. Fixture inclusion and lint in actual CI remain unproven.",
+  "measured_readset": [
+    {
+      "path": "parallel/audit-q-portability-design/order.md",
+      "ref": null,
+      "bytes": 4859,
+      "sha256": "7e44c33521f6195a729db0efc542a5b55cd1e90743808dc0977655f4dd1c1c90",
+      "coverage": "FULL"
+    },
+    {
+      "path": "audit/007-q-ci-harness-portability-design-DRAFT.json",
+      "ref": null,
+      "bytes": 1703,
+      "sha256": "6ad52751cc6d183c92e433e50005e1eb4d375090b430ec93bca32c7ebe04bc4a",
+      "coverage": "FULL"
+    },
+    {
+      "path": "audit/007-q-ci-harness-portability-forecast-DRAFT.json",
+      "ref": null,
+      "bytes": 1763,
+      "sha256": "c4de01b7447670f6c8e9a6581060fed86c13707aa696772d593c6292f39a2ed9",
+      "coverage": "FULL"
+    },
+    {
+      "path": "audit/007-q-root-cap-admission-proof.json",
+      "ref": null,
+      "bytes": 4830,
+      "sha256": "63bc6ef993770fa4d79f161ef98bb88f35a31a0298a75832d536f7340d13f7a4",
+      "coverage": "FULL"
+    },
+    {
+      "path": "workorders/007-q-ci-harness-portability-DRAFT.md",
+      "ref": null,
+      "bytes": 8747,
+      "sha256": "0a28ccfdc59b150765a17a4cefbf33d2bf0d756e813257b99243140c2d97c4d3",
+      "coverage": "FULL"
+    },
+    {
+      "path": "/tmp/raggedized-root-q-forecast-n2l80i6_/tests/integration/test_corpus_embedding_executor_composition.py",
+      "ref": null,
+      "bytes": 38236,
+      "sha256": "790e4e05063fb433d4d989a288a4c511db17a083166229c9eac0742955fac6b2",
+      "coverage": "FULL"
+    },
+    {
+      "path": "/tmp/raggedized-root-q-forecast-n2l80i6_/tests/integration/test_corpus_embedding_program_composition.py",
+      "ref": null,
+      "bytes": 16528,
+      "sha256": "d8e5700cbb3ac800446d2fc2d79535a1676952ee032c3a21f83a7056792530bc",
+      "coverage": "FULL"
+    },
+    {
+      "path": "/tmp/raggedized-root-q-forecast-n2l80i6_/tests/fixtures/retrieval_representation_b0ca5a68.py.txt",
+      "ref": null,
+      "bytes": 7049,
+      "sha256": "681bf5145e980f77f67903c2fb5fd153f4694cf33344e208cd6181a5e65947a3",
+      "coverage": "FULL"
+    },
+    {
+      "path": "tests/integration/test_corpus_embedding_executor_composition.py",
+      "ref": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+      "bytes": 38234,
+      "sha256": "06eec3c9143aded63deff7b9fc0f64f6c4b08bb85acddac1691f7d1d45060185",
+      "coverage": "FULL"
+    },
+    {
+      "path": "tests/integration/test_corpus_embedding_program_composition.py",
+      "ref": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+      "bytes": 16540,
+      "sha256": "598045f52e24b2199bdee5f8b3f93219764cff5932d0745e1cdb5206fb961c59",
+      "coverage": "FULL"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/retrieval_representation.py",
+      "ref": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+      "bytes": 7049,
+      "sha256": "681bf5145e980f77f67903c2fb5fd153f4694cf33344e208cd6181a5e65947a3",
+      "coverage": "FULL byte comparison"
+    },
+    {
+      "path": ".github/workflows/oap.yml",
+      "ref": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+      "bytes": 14095,
+      "sha256": "a26bda03a81323ed1213b87965c8ec7200da596fb9d5194f1c0b3739522ca1f8",
+      "coverage": "lines 145-180; working-tree rg matches 34,59,65,77,164,179,181"
+    },
+    {
+      "path": "pyproject.toml",
+      "ref": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+      "bytes": 1987,
+      "sha256": "18fe63674747eb6ea4da999fc49d1ab6f170b9a3ed92017772506b8ef30c5010",
+      "coverage": "lines 50-60; working-tree rg matches 35,50,57"
+    }
+  ],
+  "readset_note": "Hashes and byte counts cover entire files even where semantic reading was range-limited. Working-tree rg results are from bac11bee72fa809157b77e21be8bcf8ef17529a9, not canonical 986. AST comparison was inline Python transcript only: parsed complete modules; executor reversed exact tuple expression; program removed helper and changed imports, replaced both historical subprocess.check_output and helper calls with same AST constant; ast.dump without attributes matched. Not a retained independent script."
+}

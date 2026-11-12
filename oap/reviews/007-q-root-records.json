@@ -1,0 +1,72 @@
+{
+  "status": "FROZEN_EXACT_ROOT_PORTABILITY_TRANSCRIPT_RECORDS",
+  "records": [
+    {
+      "source": "audit/007-p-review.json",
+      "target": "oap/reviews/007-q-prior-review.json",
+      "bytes": 2973,
+      "sha256": "4c22adccc3b3f0ee83182facfa7cf1fb2213c0f310af667f29aa70012e3022aa"
+    },
+    {
+      "source": "audit/007-p-current-report-CI-full.json",
+      "target": "oap/reviews/007-q-prior-CI-failure.json",
+      "bytes": 8943,
+      "sha256": "bc0cd32d0fb3b5f0a97ee13f6bc586596e8fdf425978f7af647121e42d9c2782"
+    },
+    {
+      "source": "audit/007-p-coding-postpublic-receipt-root-review.json",
+      "target": "oap/reviews/007-q-prior-coding-receipt-review.json",
+      "bytes": 1511,
+      "sha256": "750e8d4687de88a7065452239380dea4aa7de19f61df4c8193a28dba0941b4a8"
+    },
+    {
+      "source": "audit/007-p-resolution-timing-event.json",
+      "target": "oap/reviews/007-q-prior-timing.json",
+      "bytes": 685,
+      "sha256": "e60e91472e7d7c9d354470bc39cca800f0c6c0507a6c129eccd5b7c7f83df6bc"
+    },
+    {
+      "source": "audit/007-p-current-report-strict-verification.json",
+      "target": "oap/reviews/007-q-prior-report-review.json",
+      "bytes": 345,
+      "sha256": "e6af19ad5122105d4a49c8bd73916e119ca5e2b1000f4f34d315456998bec42a"
+    },
+    {
+      "source": "audit/007-p-implementation-source-review-cd6d.json",
+      "target": "oap/reviews/007-q-prior-source-review.json",
+      "bytes": 1619,
+      "sha256": "9c4475728049e574cdb4a09a9e8612ab32f140436f596c90a7bc5c7eb16590f8"
+    },
+    {
+      "source": "audit/007-q-ci-harness-portability-design-DRAFT.json",
+      "target": "oap/reviews/007-q-portability-design.json",
+      "bytes": 1703,
+      "sha256": "6ad52751cc6d183c92e433e50005e1eb4d375090b430ec93bca32c7ebe04bc4a"
+    },
+    {
+      "source": "audit/007-q-ci-harness-portability-forecast.json",
+      "target": "oap/reviews/007-q-portability-forecast.json",
+      "bytes": 1748,
+      "sha256": "3c8ebb2fe903365d07a0d75ca24f75d2ab1dc17c358ca1fbc6b521cfc6f55e85"
+    },
+    {
+      "source": "audit/007-q-root-cap-admission-proof.json",
+      "target": "oap/reviews/007-q-cap-admission-proof.json",
+      "bytes": 4830,
+      "sha256": "63bc6ef993770fa4d79f161ef98bb88f35a31a0298a75832d536f7340d13f7a4"
+    },
+    {
+      "source": "audit/007-q-portability-design-peer-root-review-6d91.json",
+      "target": "oap/reviews/007-q-portability-peer-root-review.json",
+      "bytes": 951,
+      "sha256": "8ef91bf92cb00e05b393e79c2682dd25582698ce7516fe420d8bc041d2012a61"
+    },
+    {
+      "source": "parallel/audit-q-portability-design/report.json",
+      "target": "oap/reviews/007-q-portability-peer-report.json",
+      "bytes": 6954,
+      "sha256": "6d91f47cd7d65657560d8b9bdf493d0b30a416a9f54b5c4b61769ccc13fda703"
+    }
+  ],
+  "DHA": "NONE"
+}

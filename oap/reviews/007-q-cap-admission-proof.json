@@ -1,0 +1,283 @@
+{
+  "scope": "SOURCE_DERIVED_CREATOR_HARNESS_CAP_ADMISSION_ONLY_NOT_ACTUAL_WORKER_EXECUTION",
+  "source_sha256": "06eec3c9143aded63deff7b9fc0f64f6c4b08bb85acddac1691f7d1d45060185",
+  "forecast_sha256": "790e4e05063fb433d4d989a288a4c511db17a083166229c9eac0742955fac6b2",
+  "result": "PASS10 finite/unlimited source-derivedcases; no workers/OSlimitschanged; actualresourcefunctions replaced onlyforfiniteproof and sentinelphase preventsheavycall.",
+  "cases": [
+    {
+      "source": "original",
+      "cpu": [
+        -1,
+        -1
+      ],
+      "AS": [
+        -1,
+        -1
+      ],
+      "outcome": "ORIGINAL_UNLIMITED_TYPEERROR",
+      "actual_setrlimit_calls": [],
+      "phase_reached": false
+    },
+    {
+      "source": "original",
+      "cpu": [
+        30,
+        -1
+      ],
+      "AS": [
+        700000000,
+        -1
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            30,
+            -1
+          ]
+        ],
+        [
+          9,
+          [
+            700000000,
+            -1
+          ]
+        ]
+      ],
+      "phase_reached": true
+    },
+    {
+      "source": "original",
+      "cpu": [
+        -1,
+        90
+      ],
+      "AS": [
+        -1,
+        900000000
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            90,
+            90
+          ]
+        ],
+        [
+          9,
+          [
+            900000000,
+            900000000
+          ]
+        ]
+      ],
+      "phase_reached": true
+    },
+    {
+      "source": "original",
+      "cpu": [
+        30,
+        60
+      ],
+      "AS": [
+        700000000,
+        900000000
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            30,
+            60
+          ]
+        ],
+        [
+          9,
+          [
+            700000000,
+            900000000
+          ]
+        ]
+      ],
+      "phase_reached": true
+    },
+    {
+      "source": "original",
+      "cpu": [
+        200,
+        300
+      ],
+      "AS": [
+        1500000000,
+        2000000000
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            120,
+            300
+          ]
+        ],
+        [
+          9,
+          [
+            1073741824,
+            2000000000
+          ]
+        ]
+      ],
+      "phase_reached": true
+    },
+    {
+      "source": "private_forecast",
+      "cpu": [
+        -1,
+        -1
+      ],
+      "AS": [
+        -1,
+        -1
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            120,
+            -1
+          ]
+        ],
+        [
+          9,
+          [
+            1073741824,
+            -1
+          ]
+        ]
+      ],
+      "phase_reached": true
+    },
+    {
+      "source": "private_forecast",
+      "cpu": [
+        30,
+        -1
+      ],
+      "AS": [
+        700000000,
+        -1
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            30,
+            -1
+          ]
+        ],
+        [
+          9,
+          [
+            700000000,
+            -1
+          ]
+        ]
+      ],
+      "phase_reached": true
+    },
+    {
+      "source": "private_forecast",
+      "cpu": [
+        -1,
+        90
+      ],
+      "AS": [
+        -1,
+        900000000
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            90,
+            90
+          ]
+        ],
+        [
+          9,
+          [
+            900000000,
+            900000000
+          ]
+        ]
+      ],
+      "phase_reached": true
+    },
+    {
+      "source": "private_forecast",
+      "cpu": [
+        30,
+        60
+      ],
+      "AS": [
+        700000000,
+        900000000
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            30,
+            60
+          ]
+        ],
+        [
+          9,
+          [
+            700000000,
+            900000000
+          ]
+        ]
+      ],
+      "phase_reached": true
+    },
+    {
+      "source": "private_forecast",
+      "cpu": [
+        200,
+        300
+      ],
+      "AS": [
+        1500000000,
+        2000000000
+      ],
+      "outcome": "CAP_ADMISSION_REACHED_PHASE",
+      "actual_setrlimit_calls": [
+        [
+          0,
+          [
+            120,
+            300
+          ]
+        ],
+        [
+          9,
+          [
+            1073741824,
+            2000000000
+          ]
+        ]
+      ],
+      "phase_reached": true
+    }
+  ]
+}
