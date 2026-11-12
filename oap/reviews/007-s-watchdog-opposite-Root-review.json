@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T22:13:15.648952+00:00",
+  "status": "FINITE_OPPOSITE_COMPLETE_ACCEPT_CANDIDATE_FINALIZATION_PERMITTED",
+  "draft_sha256": "f1bc868c72a272a3a7b8e0ee3d8dbb45e0169fa9176e35badb9f79155d7cf1d7",
+  "target": "8b0961736389c0bcd00827e2a48fb31439c99494",
+  "readset_identity_checks": 23,
+  "range_hash_checks": 2,
+  "bytes": 7768,
+  "Root_adjudication": "All5criteria/sourcepolicy/ownershipassertions/caps unchanged supported, concrete5acceptanceclasses, no findings. Staticonly attributionhonest, Rootcheapnode+authorapprovedONEOSprocess complement. No actualESRCHreproductionclaim. Bothdistinctclosedownerrortypesvalid, disallowedpropagate; no native rerunneeded.",
+  "counterargument": "Finite synthetic positive proof and injected errors do not reproduce the nondeterministic GitHub race or prove production watchdog behavior. The repair is bounded to test observation and preserves the prior ownership checks, so affected candidate acceptance is justified.",
+  "limits": "Root decision prose says 95 source IDs; actual index and count are 86. Source index, named and package hashes establish identity only; dynamic runtime/system closure is incomplete. Author cheap raw output was not retained. No native replay, real neural/model/hardware, current CI, canonical R acceptance, rights, full ICA, MVP or release claim. DHA NONE.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

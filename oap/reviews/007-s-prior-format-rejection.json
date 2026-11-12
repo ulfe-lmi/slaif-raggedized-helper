@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T22:03:23.952726+00:00",
+  "status": "STRICT_REPORT_METADATA_REFUSED_UNCHANGED_IMMUTABLE_REPORT_NO_ACCEPTANCE",
+  "report": "c1bcba4666d184689e6d8cdf47e42ceea3667db9",
+  "sha256": "cf716a628f7e51373845bc8151e5907e5684b490135c5675c1cf4afc7f68ddf6",
+  "implementation": "270d4156c4bf813a12e58c32cdd638ddb1ca35d0",
+  "command": "python3 R/oap/bin/verify_report.py --repo-root R --runtime S/runtime.json --role STRATEGIC --identifier 007-r",
+  "observed_exit": 2,
+  "observed_stderr": "REFUSED Full literal Git object ID required",
+  "cause": "Implementation head SHA metadata includes parenthetical explanation, violates exactbare40 grammar. Order6 requiresstrictverification; publishedreportcannotbeedited/amended.",
+  "preserve": "Alloriginalreport/order/helper source/normalFIFO state immutable. No acceptancefrommanualgraphchecks orgreenCI. PendingRootresolution willrecordfailedformat andliteralSELFgraph independently, one-time exactoperationalpublicationrecovery only ifrequired; doNOTweakenpersistentverifier orreportsyntax.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

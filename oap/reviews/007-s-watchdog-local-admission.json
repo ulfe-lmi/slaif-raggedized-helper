@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T22:13:40.246482+00:00",
+  "status": "FINAL_LOCAL_TEST_HARNESS_COMPONENT_ADMITTED_ROOT_AND_OPPOSITE",
+  "implementation": "87be2e8f8558e648790af33201de26536f9f633e",
+  "report": "8b0961736389c0bcd00827e2a48fb31439c99494",
+  "Root": "audit/007-watchdog-root-implementation-review-87be.json",
+  "opposite": "parallel/audit-watchdog-proc/review.json",
+  "limits": "Root decision prose says 95 source IDs; actual index and count are 86. Source index, named and package hashes establish identity only; dynamic runtime/system closure is incomplete. Author cheap raw output was not retained. No native replay, real neural/model/hardware, current CI, canonical R acceptance, rights, full ICA, MVP or release claim. DHA NONE.",
+  "canonical": "NOT integrated. CurrentRformatrejection/CISUCCESSseparate; Sactivation/recovery/newcurrentCIrequired.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

@@ -1,0 +1,27 @@
+{
+  "data": {
+    "repository": {
+      "pullRequest": {
+        "number": 9,
+        "state": "OPEN",
+        "isDraft": false,
+        "headRefName": "oap/007-embedding-pipeline",
+        "headRefOid": "c1bcba4666d184689e6d8cdf47e42ceea3667db9",
+        "baseRefName": "main",
+        "autoMergeRequest": null,
+        "reviews": {
+          "nodes": [],
+          "pageInfo": {
+            "hasNextPage": false
+          }
+        },
+        "reviewThreads": {
+          "nodes": [],
+          "pageInfo": {
+            "hasNextPage": false
+          }
+        }
+      }
+    }
+  }
+}

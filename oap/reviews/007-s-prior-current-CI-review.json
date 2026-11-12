@@ -1,0 +1,39 @@
+{
+  "at": "2026-11-12T22:12:44.306581+00:00",
+  "status": "EXACT_REPORT_ALL5JOBS_ALL78STEPS_SUCCESS_FORMAT_REJECTION_STILL_OPEN",
+  "head": "c1bcba4666d184689e6d8cdf47e42ceea3667db9",
+  "run": 43315535020,
+  "jobs": [
+    {
+      "name": "Product tests (Python 3.14)",
+      "steps": 24,
+      "conclusion": "success"
+    },
+    {
+      "name": "OAP tests (Python 3.14)",
+      "steps": 10,
+      "conclusion": "success"
+    },
+    {
+      "name": "OAP tests (Python 3.12)",
+      "steps": 10,
+      "conclusion": "success"
+    },
+    {
+      "name": "Product tests (Python 3.12)",
+      "steps": 24,
+      "conclusion": "success"
+    },
+    {
+      "name": "OAP tests (Python 3.13)",
+      "steps": 10,
+      "conclusion": "success"
+    }
+  ],
+  "steps": 78,
+  "snapshot": "audit/007-r-current-report-CI-observed-2214.json",
+  "main": "11badc7782bed326995d400f5532b63399b91fbd",
+  "format": "audit/007-r-published-format-rejection.json remainsfailed; CI green doesnotcertifyreportmetadata/sourceclosure/MVP",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-12T22:25:22.098294+00:00",
+  "scope": "READONLYscopeddesignatedcanonicalCodexthreadonly, noauth/config/historycopy/otherthreads",
+  "connector": "mcp__codex_tui__list_threadsfailedtransporthttp127.0.0.1:40849/mcp; no newconnection/authaction",
+  "official_docs": "https://learn.chatgpt.com/docs/app-server documents thread/read runtimestatus withoutresume; connectedstatuscapabilityunavailable, localpersistedterminaleventplusgoal+actualpaneprocessFD identityfallback",
+  "thread_id": "01a1d196-76c7-7f82-829e-37ffda8fe29d",
+  "goal_id": "a25088b1-07fc-4dc3-b08f-ff7496114596",
+  "goal_status": "complete",
+  "objective_sha256": "8b974188fdd09949feaae8715c661494ba778bac70877ea348e90bd51648fa9f",
+  "goal_updated_at_ms": 1794522010112,
+  "model": "qwen3.8-27b",
+  "effort": "xhigh",
+  "rollout_path": "/home/janezp/.codex/sessions/2026/11/12/rollout-2026-11-12T21-07-41-01a1d196-76c7-7f82-829e-37ffda8fe29d.jsonl",
+  "rollout_bytes": 1462554,
+  "rollout_sha256": "b4f3f63b56f2aa26ab3fed23c904ab25fa1be9b6a58dbc0c3f0dfd267f1fcd3c",
+  "lifecycle": [
+    {
+      "timestamp": "2026-11-12T21:07:44.995Z",
+      "type": "task_started",
+      "turn_id": "01a1d196-84da-7872-8a5a-d3ffa9e23969"
+    },
+    {
+      "timestamp": "2026-11-12T22:24:03.880Z",
+      "type": "task_complete",
+      "turn_id": "01a1d196-84da-7872-8a5a-d3ffa9e23969"
+    }
+  ],
+  "pane": "%30",
+  "pane_pid": 2959598,
+  "codex_pid": 2959885,
+  "codex_process_start_ticks": "216425042",
+  "actual_process_has_pinned_rollout_open": true,
+  "limits": "Persistedtaskcompletion+currentgoalcomplete+livepane/processFD identity, notclaimedappserverRPCstatus; re-readfreshsamepinnedrecords/footer/no newturn andsignalstatesunderpublicationlock. Externalfutureuserinputmustabort/re-review.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

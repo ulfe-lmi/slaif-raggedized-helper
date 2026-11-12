@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T22:25:57.381313+00:00",
+  "source": "audit/007-r-coding-terminal-format-failure.json",
+  "source_bytes": 8843,
+  "source_sha256": "fec3e3eac8a3af1fff6bfde13e2b2b332055377af40114f67cc9440c46c47333",
+  "report_commit": "c1bcba4666d184689e6d8cdf47e42ceea3667db9",
+  "strict_format_failed": true,
+  "all_current_jobs_steps_success": true,
+  "review": "Entire8843B codingregularterminalreceipt independentlyread againstRootfrozenSELFgraph/currentrequiredCI78steps+source8exactcomponents/9pathscope/addendum14records. Actualrespond--dry-runREFUSED beforeFIFO, originalreportimmutable, noOKsent. SourcechecksRootpriorrecordsnotmereauthorclaims. Localrawunitlogsnotretainedbyreport, currentcompleteCI+admittedcomponentRoot/oppositefiniteproof complement; noinventedrawcoverage.",
+  "limits": "Authorcallsintermediatefailureflake; actualOSraceandlaterpasssupportintermittenttestharnessdefect butnotarbitraryOSreliabilityproof. No normalRresponse andNOdevelopmentacceptance.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

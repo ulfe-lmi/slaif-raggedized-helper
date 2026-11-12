@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-12T22:25:57.381313+00:00",
+  "identifier": "007-r",
+  "event": "STRATEGIC_REJECTS_REPORT_FORMAT_PRESERVE_HISTORY_SAME007_CONTINUATION_REQUIRED",
+  "report_commit": "c1bcba4666d184689e6d8cdf47e42ceea3667db9",
+  "review": "audit/007-r-review.json",
+  "review_sha256": "310216e4cdae6ad10c1ab1d65751f17d74351f534a268e59169e370fa2c5ae72",
+  "activation_at": "2026-11-12T21:07:38.779740+00:00",
+  "terminal_author_receipt_at": "2026-11-12T22:19:48.328976+00:00",
+  "activation_to_terminal_receipt_seconds": 4329.549236,
+  "normal_response_verified_at": null,
+  "normal_response_sent": false,
+  "current_report_allCI_success": true,
+  "development_acceptance": false,
+  "next": "ExactD0operationalrecoverythen007SsamePR9, nomainmerge/numericadvance",
+  "DHA": "NONE"
+}

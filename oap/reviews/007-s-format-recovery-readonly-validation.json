@@ -1,0 +1,47 @@
+{
+  "at": "2026-11-12T22:33:00.722260+00:00",
+  "status": "READONLY_V3_GATES_PASS_SPLIT_PROOFS_NO_PUBLICATION",
+  "helper_bytes": 19102,
+  "helper_sha256": "47bc852c3d63b6f6f9c00441adeb5f3167dee1e58d9ce12052ea022fe0422f93",
+  "peer": "parallel/report-format-recovery-review/review.json exactae70conditionalSAFEINPRINCIPLE/29identities; noexecutionauthorityfrompeer",
+  "source_review": "Rootauthored/currentcodefullreview frozenbytes/normalvalidator/completeexactoldgraph/currentworkflow5jobs78namedsteps/pinnedGoal+taskcompletion/liveprocessFD/currentfooter+readerstate atstandardlocks; temporaryonlypriorcallback restoresfinally; durableATTEMPTEDbeforewrites/noautoretry; no dryrun; originalSstrictreportresponseunchanged.",
+  "proofs": "Cappedreadonlyv2 .2.83wall: actualpinnedquietPASS, actualcompleteoldgraph+strictREFUSAL/currentnamedCI PASS, FrozenOrder mutation cannotchangeapprovedvalidatorbytesPASS, source symlinkrefusalPASS. Combinedexit1 becauseRootprivatefaultshim wronglyuseduri argumentname collidingSQLiteuri=True; sourcehelperunchanged. SeparateONLYcorrectedgoal-queryfault .24wall/.18u/.05s32528KiB: actualcurrentquietPASS -> onlyqueryrowstatusactiveexactrefusal -> restoredactualPASS. No GH/graph/FrozenOrder repeat afterthatshimfix.",
+  "preserved_failures": "First .52wall readonlyattempt stoppedwhen ghGoCLIcouldnotstartunderAS1GiB/hostdefaultthreads. gh--versionoriginalcap diagnosticpthread_createSIGABRT exit2; GOMAXPROCS1/GOMEMLIMIT64MiBsameCPU/ASstartupPASS, onecorrectedreadonlyattempt. Twohistoricalexit1logs retained, notcalledwholecommandPASS. No product/privatehelperchangesfromharnessfailures orcapraise.",
+  "records": {
+    "007-r-format-recovery-root-readonly-proof-plan.json": {
+      "bytes": 2536,
+      "sha256": "9890b4c56cd1555ee8d390e08c8f1271f8a3bc1f447ce95df4b8422d7afc75bd"
+    },
+    "007-r-format-recovery-root-readonly-proof.log": {
+      "bytes": 2361,
+      "sha256": "bcb4a718f2fbb89f4b05eeaaa3b97e1a0b110376a178c7e54b514a88dcc1dacd"
+    },
+    "007-r-format-recovery-gh-startup-diagnostic.log": {
+      "bytes": 31360,
+      "sha256": "3fe46f7d4abc0bb5558a1796aa47f3816a80a50ff39a487257b47b5ff2bfd4f3"
+    },
+    "007-r-format-recovery-gh-bounded-startup.log": {
+      "bytes": 95,
+      "sha256": "0f615dc2a1cfc94a6480397eabd6eceeb9850cec982cc89fe6d52a890af4aecd"
+    },
+    "007-r-format-recovery-root-readonly-proof-plan-v2.json": {
+      "bytes": 2883,
+      "sha256": "44361f6515d83ef93f7d781f1a72c40dd9844858840e24fb7a456e6aaaec5f68"
+    },
+    "007-r-format-recovery-root-readonly-proof-v2.log": {
+      "bytes": 2243,
+      "sha256": "4dec9ba42e7c472ac9fe5e04d2102a004e43debf11e36a1fe8bbb9fbae7b4d23"
+    },
+    "007-r-format-recovery-root-goal-fault-plan.json": {
+      "bytes": 827,
+      "sha256": "e8a00a0f4212560f61e3dd9ea660d4d6fd19dad5a4c482cb17cdb6306934070d"
+    },
+    "007-r-format-recovery-root-goal-fault.log": {
+      "bytes": 1168,
+      "sha256": "efaa6bb60fc9c779cd9cb35d2942175ba5e5a0113a2dc282b718150b42f3152d"
+    }
+  },
+  "limits": "Publicationprocedure publish_exact_next NEVERcalled; atomicwriteprivateblockedintest. Staticpeer+journal/atomicnormalhelperreview cover transaction, notclaimedactualcrash-runtimeproof/distributedGitHubatomicity. NeedexactfinalSorderbytes+Rootapproval+freshstate atONEoperation; re-reviewanychangedheadbeforesignal/merge. No currentRreportacceptance/newhumanrisk/deploy/modelaction.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

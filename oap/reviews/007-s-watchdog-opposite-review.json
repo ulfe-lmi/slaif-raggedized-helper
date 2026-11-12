@@ -1,0 +1,114 @@
+{
+  "lane_id": "AUDIT-007-WATCHDOG-A",
+  "target_commit": "8b0961736389c0bcd00827e2a48fb31439c99494",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "acceptance": {
+    "1": "IMPLEMENTED: test lines 71-78 handles only ENOENT/ESRCH at read, raises others. Lines 265-304 consume children, cmdline, exe and stat; parse and worker identity still required. Owned descendants and worker PIDs nonempty, SIGSTOP, 5s lifetime, 8s window and cleanup retained. CI retained log lines 675-718 shows ESRCH stat failure.",
+    "2": "IMPLEMENTED: lines 81-95 default-collected injection invokes actual helper with ENOENT, ESRCH, live, EACCES, EPERM and EIO. No unknown PID is added as owned by error.",
+    "3": "IMPLEMENTED: author reports cheap node pass, raw transcript not retained; Root independent cheap node log exit 0, 0.74s wall. No runtime replay by this reviewer.",
+    "4": "IMPLEMENTED: v1 rejected before invocation; v2 approved exact one original-cap attempt. Retained stdout, empty stderr, exit 0 and time show one positive synthetic owned-worker test: 6.19s wall, 1.02s user, .11s system, 55864 KiB. Root proof, not my execution.",
+    "5": "IMPLEMENTED: documentation accurately limits result; implementation 87be sole parent c1bcba, exactly three paths; target 8b096 sole-parent report-only SELF. Clean worktree; order matches published order. No production, profiles, lock, timeout or CI delta. DHA NONE."
+  },
+  "commands_results": [
+    "Read full integration test, complete delta, documentation, order, report, selected failure lines, two bounded argv sections and proof/decision/log records. git status --porcelain empty; git log/show/diff confirm identities and scope. SHA-256 verification: 86 source index, 12 named v2 identities and 282 package entries all match; identity checks are not semantic reads.",
+    "Range hashes: cpu_embedding_worker.py lines 221-250 fcc164b148a893bc09c6db31cb8b28e39b501e65457ea1f63c472b377db80465; native_tokenizers.py lines 152-176 f6708d79607dbaeea27aed64da963b7c9596098c1a3f81a86acbe13c480b8dda (inclusive lines including newlines)."
+  ],
+  "witnesses": {
+    "/home/janezp/codex-work/slaif-raggedized-helper-parallel-watchdog-proc/tests/integration/test_cpu_embedding_worker_composition.py": {
+      "bytes": 11031,
+      "sha256": "79b98fb99f30751604b5a31640ab5d31a6dce4e7ebb34ed299a348fee9390c97"
+    },
+    "/home/janezp/codex-work/slaif-raggedized-helper-parallel-watchdog-proc/docs/parallel/watchdog-proc-disappearance-test.md": {
+      "bytes": 840,
+      "sha256": "3562e4da37e776d8024c58dffdcb8dd905f1b71dd1183f0d368b3d21f8c99d7b"
+    },
+    "/home/janezp/codex-work/slaif-raggedized-helper-parallel-watchdog-proc/oap/parallel/orders/PAR-007-WATCHDOG-A.md": {
+      "bytes": 8002,
+      "sha256": "690c42a670d068e9e5dab87afe95fa91eafb77ae4b2470f4390e4e0e3f905abf"
+    },
+    "/home/janezp/codex-work/slaif-raggedized-helper-parallel-watchdog-proc/oap/parallel/reports/PAR-007-WATCHDOG-A.json": {
+      "bytes": 3395,
+      "sha256": "b041c7dd1387c935c899d270a1dccf60bf03c88bf328e1f6dfa0283b666ee26b"
+    },
+    "/home/janezp/codex-work/slaif-raggedized-helper-parallel-watchdog-proc/src/slaif_raggedized_helper/cpu_embedding_worker.py": {
+      "bytes": 25058,
+      "sha256": "6c9703ca5eea837b588b55c63dde88a6ac5e35c4db3ea192f61e27c27b1127ae"
+    },
+    "/home/janezp/codex-work/slaif-raggedized-helper-parallel-watchdog-proc/src/slaif_raggedized_helper/native_tokenizers.py": {
+      "bytes": 10153,
+      "sha256": "a17e7c7a18b33694a495f18c37dc51b50b2050837e01a16c47aa17e4d6e34ae2"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/audit-watchdog-proc/order.md": {
+      "bytes": 4958,
+      "sha256": "dfd720d385a66e72f94022bf8cf2022aab656ed090ec4695958811281caf31d1"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/watchdog-proc/cheap-plan.json": {
+      "bytes": 1135,
+      "sha256": "81ed8bc97de7e8a93f30a034d8bd1557fde18c5f8eebba87e6108e9d0a3fee90"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/watchdog-proc/proof-plan.json": {
+      "bytes": 3023,
+      "sha256": "a56a32b31c7ace39551b636e1ee93cd197e4a987d759e5bb557acd122b8f2918"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/watchdog-proc/proof-decision.json": {
+      "bytes": 1061,
+      "sha256": "bbf4b7aa351429672af9da6abf1bfcaf54c8bc37e497b804b520df1c8af6cedf"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/watchdog-proc/proof-plan-v2.json": {
+      "bytes": 3388,
+      "sha256": "bfc5c325a0fe6c39f2f16534cb39f41db447499cfd03a342522d702de6c28cc9"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/watchdog-proc/proof-driver-v2.sh": {
+      "bytes": 985,
+      "sha256": "4dbb3f356ddb2b3e8d648512284c4a4e4dbc6783c0090d67d7eea5d836a09a61"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/watchdog-proc/proof-decision-v2.json": {
+      "bytes": 1890,
+      "sha256": "9d09f45126a01246722d37b02b92b33bac7f31a0b324b6abb46a07022522ec1a"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/watchdog-proc/root-actual-proof-source-identities-v2.json": {
+      "bytes": 20091,
+      "sha256": "a2c4b7232b034adae5f56b629d2cc1e306f247239fbfca376e1dac292b266654"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/watchdog-proc/packages-sha256.json": {
+      "bytes": 30660,
+      "sha256": "9e24ed9a244effb0795612c3001e8d4ba0fdeb944a47679b57f8cb3bd702bc1f"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-watchdog-root-implementation-review-87be.json": {
+      "bytes": 2405,
+      "sha256": "c848172d967b9cb65ecaf1be3a9b6b9a0a5e0e630e16c45391a096e68fe22ac1"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-watchdog-root-cheap-proof-plan-87be.json": {
+      "bytes": 1044,
+      "sha256": "3e3104a5570461446cb296256daab084d771102b6d2fce54e489d8af8381c0fc"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-watchdog-root-cheap-87be.log": {
+      "bytes": 1042,
+      "sha256": "7b544c4d0b1723394ac952a608510b12407c31cab134b2c229e82513ec920f8a"
+    },
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-r-intermediate-failed-job-131508152808.log": {
+      "bytes": 113280,
+      "sha256": "6f29c580a2f08209670e135f5ea523ab20b93147f12cd7062a913473665279bb"
+    },
+    "/tmp/watchdog-proc-proof-1001-v2/stdout.txt": {
+      "bytes": 80,
+      "sha256": "423b1d0e014eb1eab96f4420f7b344c2615be505dd574b756ac884826ca74f2d"
+    },
+    "/tmp/watchdog-proc-proof-1001-v2/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/watchdog-proc-proof-1001-v2/exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/tmp/watchdog-proc-proof-1001-v2/time.txt": {
+      "bytes": 990,
+      "sha256": "bf4b2e8c2ab1cb83c4f27cd7570ba26b7554a3799738057a6379b9f5fbe2f02e"
+    }
+  },
+  "findings": [],
+  "counterargument": "Finite synthetic positive proof and injected errors do not reproduce the nondeterministic GitHub race or prove production watchdog behavior. The repair is bounded to test observation and preserves the prior ownership checks, so affected candidate acceptance is justified.",
+  "limits": "Root decision prose says 95 source IDs; actual index and count are 86. Source index, named and package hashes establish identity only; dynamic runtime/system closure is incomplete. Author cheap raw output was not retained. No native replay, real neural/model/hardware, current CI, canonical R acceptance, rights, full ICA, MVP or release claim. DHA NONE."
+}

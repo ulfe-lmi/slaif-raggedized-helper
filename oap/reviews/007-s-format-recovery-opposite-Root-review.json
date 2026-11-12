@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T22:29:27.290358+00:00",
+  "status": "COMPLETE_V3_SAFE_IN_PRINCIPLE_EXACT_SOURCE_REVIEWED_NO_EXECUTION_APPROVAL",
+  "draft_sha256": "ae70c61a219cce5dad1bea236ba567cc4b86e1bdf3eb4e98ac88daa8c31ec249",
+  "bytes": 9853,
+  "identity_checks": 29,
+  "helper": "audit/007-r-format-recovery-publication-v3-DRAFT.py19102B/47bc852c3d63b6f6f9c00441adeb5f3167dee1e58d9ce12052ea022fe0422f93",
+  "Root_adjudication": "Initial6findings/currentturngapaddressed. ActualpinnedprocessFD/GoalID/objectivehash/taskcomplete+currentfooterrecheckedatprotectedboundary, normalCIworkflow/jobs/orderedsteps re-read nearestwrites. FrozenOrder stableapprovalbytes, durableattemptbeforewrites/noautoretry, originaldownstreaminvariants/strictrestoration. ThisisD0failedformatsameobjectiveoperationalrecoverynotpriorreportacceptance ornewmergeauthority. RootmustreadactualfinalSorder/approval/currentstate andownreadonlyvalidationbeforeONEoperation.",
+  "counterargument": "Substituting the prior verifier crosses a strict protocol boundary and could conceal an unrecognized failure; frozen report identity and explicit failed-format resolution mitigate only when every surrounding guard is effective. No source examined yet establishes an explicit human approval requirement for this bounded D0 proposal.",
+  "conditions": "Root must review exact final S order/approval and actual records, reconfirm live state and no changed head before signal; abort on observed change. Interrupted attempt requires separate reconciliation. Review is not authorization to execute, report acceptance, CI qualification or merge. Current evidence is a snapshot and is not an App Server status claim. Strongest counterargument remains exceptional substitution of strict predecessor verifier; scope and independent exact graph checks limit its effect. DHA NONE.",
+  "limits": "Static review of specified draft; prior watchdog familiarity disclosed; no proposal authorship. Evidence snapshots are historical, not live CI qualification. No recovery, activation, acceptance, merge, full 007 or MVP/human gate claim. DHA NONE.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

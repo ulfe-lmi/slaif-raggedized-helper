@@ -1,0 +1,75 @@
+{
+  "at": "2026-11-12T19:41:46.777244+00:00",
+  "status": "FROZEN_EXACT_R_EIGHTFILE_SOURCE_INDEX",
+  "entries": [
+    {
+      "source_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+      "path": "src/slaif_raggedized_helper/model_clients/gateway.py",
+      "bytes": 59033,
+      "sha256": "f8a686590e0b91f0f367327733cb7c0b02131ed2fa650de6695e5a9e717ea5bd",
+      "blob": "4df60e9a9611c0c115b34c93a7e5904e68b96172"
+    },
+    {
+      "source_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+      "path": "tests/unit/test_gateway_message_role.py",
+      "bytes": 1987,
+      "sha256": "73098598c1dd5f9a010a3718f9853d903893d2d273cc10907a4cb8a4ea3236fd",
+      "blob": "fc7c6d0260130348fae6d745901cd84dd02bff77"
+    },
+    {
+      "source_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+      "path": "tests/integration/test_gateway_message_role.py",
+      "bytes": 3739,
+      "sha256": "fd3f021fea95dabe67f42439c75ae1a3f4e244a50ccd02a9d7a669b06110f813",
+      "blob": "df26ef0521589e0d67a33df6b0bbafe09d998ed0"
+    },
+    {
+      "source_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+      "path": "tests/integration/test_gateway_role_error_precedence.py",
+      "bytes": 4033,
+      "sha256": "33c3801a8cb02f04c7a39ed007c3076ac9f946792c2b69c34f9748b0e787fe04",
+      "blob": "b3e16d44613cc6c3e104c440028d814aa9c200a3"
+    },
+    {
+      "source_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+      "path": "docs/parallel/gateway-message-role-api.md",
+      "bytes": 779,
+      "sha256": "6ab2bf1f912cfc8899567a6357f4540753fba918345f10667d3310a8e253b2a8",
+      "blob": "39c785c4882aed5f45c6661822a360e7a94e14ff"
+    },
+    {
+      "source_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+      "path": "docs/parallel/gateway-message-role-design.md",
+      "bytes": 5402,
+      "sha256": "8f13b11d560524a757d92bdce8778a3bd59d7417679941b2195e347ede7c31f1",
+      "blob": "25ff8b0eacf2c66a0923689c13824870c00276a5"
+    },
+    {
+      "source_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+      "path": "docs/parallel/gateway-role-error-precedence-api.md",
+      "bytes": 1459,
+      "sha256": "7cc260321286e9f59ea82c8138f8f4a34eb951b04db6dc2f0ea5b0be3b618545",
+      "blob": "83294fa16a4e91538e5651edaf82c58b145d86d5"
+    },
+    {
+      "source_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+      "path": "docs/parallel/gateway-role-error-precedence-design.md",
+      "bytes": 6307,
+      "sha256": "43ee068d50a049371a0c4eccae6d9f068a86e0f3b059d90af5f395a4fc0110a7",
+      "blob": "7eed525a71f857c7d4b8c89f45edf59d92b15fd9"
+    }
+  ],
+  "total_bytes": 82739,
+  "files": 8,
+  "existing_replacement": "src/slaif_raggedized_helper/model_clients/gateway.py",
+  "gate": "Q boundedrepair accepted audit/007-q-review.json and timing beforeR. Finalpublication still requires actualquiet/runtime/remote source freshness.",
+  "DHA": "NONE",
+  "last_preflight": {
+    "at": "2026-11-12T21:03:17.159550+00:00",
+    "canonical_report": "81159dd0d7278edbd07de904cf94a251a964a5aa",
+    "source_identities": "All8 exact bytes/hash/blobs verified; gateway only28additions/0removals, sevennewpathsabsent",
+    "existing_base_blob": "ee9701807ee177d4dadd2a8e1cf52c6abf664170",
+    "diff": "audit/007-r-gateway-current-Q-diff.patch",
+    "diff_sha256": "d8abd945b1f66f475f3a00fe342884ea1ad648b595d7907b524c3abf45faf6a1"
+  }
+}
