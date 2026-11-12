@@ -1,0 +1,43 @@
+{
+  "lane_id": "PAR-007-ARTIFACT-STAGING-B",
+  "result": "COMPLETE",
+  "scope": "Bounded local staging software only; original objective 007 remains partial.",
+  "implementation_head": "a69a939d9f2762b03a40175961aff5e73e2df061",
+  "report_publication_commit": "SELF",
+  "api": "embedding_staging.stage(manifest_bytes, artifact_root, definition, tokenizer_definition, expected_inventory_id, *, parent=None, timeout=120) yields frozen Staged(path, manifest_bytes, space); pre-yield failures raise StagingRefused.",
+  "evidence": [
+    {
+      "command": "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; exec timeout 120 python -m pytest -o addopts= -q tests/unit/test_embedding_staging.py tests/unit/test_embedding_artifacts.py tests/unit/test_embedding_space.py'",
+      "exit": 0,
+      "result": "96 passed, including 26 staging cases"
+    },
+    {
+      "command": "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; exec timeout 120 python -m pytest -o addopts= -q tests/integration/test_embedding_staging_composition.py'",
+      "exit": 0,
+      "result": "1 passed standalone, owned fake schema-2 bytes, hashes, space, permissions, and lifecycle"
+    },
+    {
+      "command": "RAYON_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/embedding_staging.py tests/unit/test_embedding_staging.py tests/integration/test_embedding_staging_composition.py",
+      "exit": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0,
+      "result": "PASS before implementation amendment"
+    },
+    {
+      "command": "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; timeout 120 python /tmp/raggedized-root-stage-boundaries.py && exec timeout 120 python /tmp/raggedized-root-stage-open-failure.py'",
+      "exit": 0,
+      "result": "Both unchanged witnesses passed: privacy and substituted parent; root and nested directory-open EMFILE cleanup."
+    }
+  ],
+  "witness_sha256": {
+    "/tmp/raggedized-root-stage-boundaries.py": "3a984390e1c4d1421748983b162f29dfb2c5b2c8f3e607ab830f1d91a4acacd5",
+    "/tmp/raggedized-root-stage-open-failure.py": "8d5e66f2d23681d2c5301043246f87796b64750fd0053d32d0dbb07ab52f7ffd",
+    "order": "fdca2830640810cd3f3c394bf241c9668b1f1cdbcc27def0ff891bcfdddd99ef"
+  },
+  "review": "Root reviewed exact implementation and returned REPORT for immutable report only; Root independently reported 26 staging unit and 1 standalone integration passing, changed lint and both unchanged witnesses passing. This is not development acceptance.",
+  "limits_and_counterargument": "Trusted parent ancestry and filesystem, same-UID and privileged writers, and cooperative deadline limit the guarantee; external filesystem failures can prevent cleanup and are surfaced. Private staged bytes are not physically immutable or independent publisher, license, rights, model-loading, runtime, quality, hardware or ICA qualification. No real weights, checkpoint deserialization, model inference, GPU, services, or network were used.",
+  "DHA": "NONE"
+}
