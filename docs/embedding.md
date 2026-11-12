@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration + 007-k snapshot declarations integration + 007-l parent/native identity integration)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration + 007-j GPU child/launch/assets integration + 007-k snapshot declarations integration + 007-l parent/native identity integration + 007-m bridge/plan integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -31,7 +31,14 @@ reviewed owned GPU parent/identity and native runtime-
 identity software (finite model-free software under fake/
 null-namespace fixtures and the actual native 0.21.4
 tokenizer worker on synthetic strings; no real GPU, driver,
-Tensor, model, parity, rights or Ready). Objective
+Tensor, model, parity, rights or Ready). 007-m selectively
+integrates the reviewed isolated GPU text bridge and
+source-bound GPU plan software (finite model-free software
+under synthetic fixtures and the approved copied GPU
+fake/null fixture; the actual native 0.21.4 tokenizer
+worker runs on synthetic strings only; no real GPU, driver,
+Tensor, model, parity, rights or Ready, and no GPU
+producer/controller/durable execution). Objective
 007 remains PARTIAL until those are implemented and reviewed. No self-advance to 008
 or main merge.
 
@@ -1108,6 +1115,110 @@ locally; all original test behavior (encoding, renewal,
 distinct vectors, worker reaping, staging cleanup) is
 preserved.
 
+## 007-m slice: GPU text bridge + source-bound plan (integrated)
+
+Selective integration of the TEN root-reviewed immutable
+GPU text-bridge and source-bound GPU plan files by
+byte-exact file copy from the two exact source commits
+a9a5ef0bcc331cffd0857257f7d6568fce63bac0 (bridge) and
+d100689ef5582a79a29d78e51a4c5ce860d1552c (plan)
+(oap/reviews/007-m-bridge-plan-components.json, 95,773
+bytes; every path verified at this head for blob + SHA-256
++ size): no branch ancestry, no cherry-pick/rebase/reset/
+stash/clean, no source adaptation, no test weakening. All
+preexisting product/test/API/design paths are preserved,
+including BOTH 007-l test-only exceptions (tests/unit/
+test_embedding_native_identity.py, SHA-256
+c2b483b77c84f304ead4a6ae5c2ef27e5194c1df6ccd6adbb62992a7904a8df6,
+15,779 B; tests/integration/
+test_cpu_embedding_session_composition.py, SHA-256
+275e10d333555f6e02f3261449e6f9becf99e659a352ee9d4464e4837a843fd0,
+5,179 B); no old parallel predecessor overwrites them.
+
+`src/slaif_raggedized_helper/isolated_gpu_embedding.py`
+(a9a5ef0) is the isolated GPU embedding bridge: it BORROWS
+an actual current-process GPUEmbeddingWorker, its
+PreparedLaunch and the caller operation reservation,
+owning only its own independent native TokenIDSession and
+private tokenizer copy; it never closes, replaces, reaps,
+signals or releases the caller's parent/launch/reservation
+in any branch. predict() takes the actual PreparedLaunch
+and validates worker identity plus native
+runtime/artifact/source inputs without launching any
+process or importing a framework, emitting the frozen
+isolated-gpu-fp16-cls-v1 execution record (closed
+canonical ASCII JSON, prefixed domain-separated execution
+fingerprint, detached native runtime record, bare
+space/definition/intended-execution identities,
+hardware_qualification unknown). Session admission
+requires the actual registered live parent via
+gpu_worker_identity.observe and exact source guards and
+native runtime checks BEFORE starting or exposing text to
+its own native worker; native IDs come only from the
+actual owned native 0.21.4 TokenIDSession (never supplied
+receipts/IDs/callback, GPU tokenizer or re-tokenization);
+strict bounded UTF-8 preflight precedes any native text
+exposure; every receipt field is validated; the bridge
+renews only its own native session under unchanged
+contract before budget exhaustion and never restarts the
+borrowed GPU parent; forward and encode dispatch reach
+the captured actual class implementations, not selected
+instance shadows; creator/once/closed/busy/fork rules,
+pre-return ownership retention and cleanup priority are
+preserved; returned raw CLS rows are checked for binding/
+cardinality/finite FP32 and normalized with the existing
+embedding_vectors normalizer; a frozen EncodedBatch
+(normalized FP32 vectors, immutable receipts,
+space/definition/intended-execution/execution identities,
+execution record + fingerprint, detached native record) is
+returned only after post-forward re-observation proves the
+parent/identity/native/source state unchanged. A record is
+data: never authority, liveness, readiness or
+qualification.
+
+`src/slaif_raggedized_helper/gpu_embedding_plan.py`
+(d100689) is the source-bound pre-model GPU batch plan:
+build() freshly derives the complete selected rows, source
+scope, independent native token counts and canonical
+order/hash/space/definition/inventory/policy through the
+actual source-plan stack BEFORE any job creation; it calls
+the actual bridge predict and strictly compares every
+predicted field/fingerprint to the bytes, revalidates the
+actual PreparedLaunch startup (manifest/definition/
+inventory/space/tokenizer identity), performs the complete
+source plan, then REPLACES ONLY the legacy CPU intended
+execution dependency with the complete predicted GPU
+execution (bare 64-hex SHA-256 of the execution record,
+distinct from the CPU reference contract's prefixed
+identity), rechecks prediction/prepared identity after
+counting (changed selected runtime/source/artifact/
+preparation refuses), emits the existing
+embedding-job-plan-v1 canonical bytes and freshly calls
+the actual journal make_spec so the job ID derives from
+the actual specification. Forged, detached or stale
+records and any source change refuse; no truncation,
+replaced source proof, callback grant or inference is
+created; the legacy CPU intended identity stays distinct
+from the full GPU execution.
+
+These are finite model-free software: behavior is proven
+by the focused suites at this head — 13 focused units (7
+bridge + 2 plan + 4 normalizer in the existing
+tests/unit/test_embedding_vectors.py) plus all 9 bridge
+actual composition cases and all 8 GPU plan actual
+composition cases in separate capped invocations (1 GiB
+AS / 30 s CPU / 120 s wall, threads 1, no bytecode, exit
+0), the actual native 0.21.4 tokenizer worker on
+synthetic strings and the approved copied GPU fake/null
+fixture only. No real GPU, driver, Tensor, model, parity,
+rights, security, license or Ready is established; no GPU
+producer, corpus controller, runtime promotion, current
+rights or physical qualification is integrated by this
+slice. Whole 007 remains PARTIAL; the Root records
+(oap/reviews/007-m-root-records.json) and the component
+index are immutable provenance, not current CI or Root
+acceptance.
+
 ## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
@@ -1121,9 +1232,10 @@ spaces, resumable
 owned GPU encode batches with bounded resource telemetry (the REQUIRED
 exclusive GPU FP16 corpus encoding per the architecture; the corrected
 raw GPU backend source, the GPU child/protocol wire, the worker entry,
-the prepared launch and the owned GPU parent/lock/identity software
-(007-l) are integrated and inert under trusted fakes — no GPU text
-bridge, producer or controller, no complete native/normalized/
+the prepared launch, the owned GPU parent/lock/identity software
+(007-l) and the isolated GPU text bridge + source-bound GPU plan
+software (007-m) are integrated and inert under trusted fakes — no
+GPU producer or controller, no complete native/normalized/
 durable GPU execution and no physical drain exists), snapshot/manifest
 binding of vectors, row maps, ACL and space fingerprints (the pure
 declared core/row-map codecs are integrated; actual payload loaders,

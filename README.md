@@ -364,14 +364,50 @@ and all production guards/limits stay byte-exact; whole
 [docs/parallel/gpu-worker-identity-api.md](docs/parallel/gpu-worker-identity-api.md),
 [docs/parallel/embedding-native-runtime-identity-api.md](docs/parallel/embedding-native-runtime-identity-api.md),
 [docs/parallel/embedding-tokenizer-api.md](docs/parallel/embedding-tokenizer-api.md)).
+The 007-m continuation selectively integrates the TEN
+root-reviewed immutable GPU text-bridge and source-bound GPU
+plan files (oap/reviews/007-m-bridge-plan-components.json,
+95,773 bytes, byte-exact from the two exact source commits
+a9a5ef0 and d100689): the isolated GPU embedding bridge
+(borrows the actual owned GPU worker parent, PreparedLaunch
+and caller reservation, owning only its own independent
+native TokenIDSession; native 0.21.4 token IDs never
+supplied or re-derived in the GPU worker; strict bounded
+UTF-8 preflight before any native text exposure; full
+receipt-field validation; forward/encode dispatch reaches
+the captured actual class implementations, not selected
+instance shadows; creator/once/closed/busy/fork rules,
+pre-return ownership retention and cleanup priority; raw CLS
+rows checked, then normalized to FP32 via the existing
+codec) and the source-bound GPU plan (freshly derives
+complete selected rows, source scope, independent native
+counts and canonical order/hash/space/definition/
+inventory/policy before any job creation, predicts the
+selected GPU batch execution before execution, replaces only
+the legacy CPU intended execution dependency with the
+complete predicted GPU execution, and refuses
+forged/detached/stale records and source changes, with no
+truncation, replaced source proof or callback grant). They
+are finite model-free software: proofs run on synthetic
+fixtures with the actual native 0.21.4 tokenizer worker on
+synthetic strings and the approved copied GPU fake/null
+fixture — no real GPU, driver, Tensor, model, parity, rights
+or Ready; the two preserved 007-l test-only exceptions
+(SHA-256 c2b483b7/15,779 B and 275e10d3/5,179 B) remain
+byte-exact; the GPU producer, corpus controller, durable GPU
+execution and snapshot publication remain unimplemented;
+whole 007 remains PARTIAL
+([docs/parallel/isolated-gpu-embedding-api.md](docs/parallel/isolated-gpu-embedding-api.md),
+[docs/parallel/gpu-embedding-plan-api.md](docs/parallel/gpu-embedding-plan-api.md)).
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
 lock) plus the cleanup/lease/isolated-exit composition, the 007-j GPU
 child/protocol/launch/assets software, the 007-k pure snapshot
 declaration codecs, the 007-l owned GPU parent/identity and
-native runtime-identity software and the inert raw GPU backend
-source are software under trusted neural fakes only (no real
-GPU, driver, Tensor or model was run).
+native runtime-identity software, the 007-m isolated GPU text
+bridge and source-bound GPU plan software and the inert raw GPU
+backend source are software under trusted neural fakes only (no
+real GPU, driver, Tensor or model was run).
 Execution scope is precise: the archived prior OWNED random CPU toy
 was historically executed (toy evidence only); the ACTUAL BGE
 checkpoint/model has NOT been executed or qualified, and a class
