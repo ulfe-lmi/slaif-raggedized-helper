@@ -1,0 +1,26 @@
+{
+  "lane_id": "PAR-007-CPU-BACKEND-B",
+  "result": "COMPLETE",
+  "scope": "Ordered low-level raw CPU CLS backend software only; objective 007 remains PARTIAL.",
+  "implementation_head": "222e1f9afcef9c0ab443c54d293c29536348ca3f",
+  "report_publication_commit": "SELF",
+  "API": "CPUEmbeddingBackend(manifest_bytes, artifact_root, definition, tokenizer_definition, expected_inventory_id); forward_cls(sequences) returns immutable raw CLS rows; close() is idempotent. Failed forward closes instance.",
+  "commands_results": [
+    "RAYON_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 ruff check on backend and both test files: PASS",
+    "uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; timeout 120s pytest tests/unit/test_cpu_embedding_backend.py tests/unit/test_embedding_space.py tests/unit/test_embedding_artifacts.py tests/integration/test_cpu_embedding_backend_composition.py': 95 passed",
+    "Same bounded invocation with only tests/integration/test_cpu_embedding_backend_composition.py: 1 passed standalone",
+    "uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-cpu-backend-boundaries.py: PASS; no unknown-directory descent; return_dict=False config succeeds; real framework not imported",
+    "git diff --check and git diff --cached --check: PASS"
+  ],
+  "root_review": "REPORT at exact implementation head; Root independently reports 24 unit tests, 1 standalone integration, changed-file lint and unchanged boundary witness PASS. This permits report only and is not development acceptance.",
+  "witness_sha256": {
+    "backend": "cd0f4a3b9dad487d94c9e5944614530432ed07887a5b96744b3a9379cd014937",
+    "unit": "0485fa75ed517d7dcc7e0550f14ad5456bce13e1bf0d43207a3ef17bb70e0ea2",
+    "integration": "e8b016715e67622990d86787f218562e9b6c2d508dc8e99d1e4cdd6402d3fa35",
+    "documentation": "9f3f7c721f04ee65ae208d4db362ee4f181e6aa53b9649cbcb8d63ab1760f343",
+    "order": "780895faa4c707552263f8ace71112a9d52491950412a45a32a54812a35c00b8",
+    "root_boundary_witness": "38eb5f1d6a3f0380735dda8b7e08e5574a6a44e0bb996da5e5c2b0b0a39c2df1"
+  },
+  "limits": "Trusted fake framework tests only; no actual Torch import, model startup, real weights or physical device execution. L2 normalization, native text preflight, owned isolated worker, resolved package graph, weights security, model/device/parity, V100, license and quality qualification remain open. Protected artifact tree and no concurrent mutation are caller assumptions; local-only flags do not provide network or credential isolation. No push, PR, integration, merge, deployment or release.",
+  "DHA": "NONE"
+}

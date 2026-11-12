@@ -1,0 +1,15 @@
+{
+  "lane_id": "PAR-007-ARTIFACT-STAGING-A",
+  "result": "PARTIAL",
+  "implementation_head": "b5a09b5e04e41d71386a23b9df0a417155d2b543",
+  "report_publication_commit": "SELF",
+  "api": "embedding_staging.stage(manifest_bytes, artifact_root, definition, tokenizer_definition, expected_inventory_id, *, parent=None, timeout=120); yields Staged(path, manifest_bytes, space)",
+  "commands": [
+    {"command": "RAYON_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit/test_embedding_staging.py", "result": "PASS", "count": 4, "exit": 0},
+    {"command": "RAYON_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/embedding_staging.py tests/unit/test_embedding_staging.py", "result": "PASS", "exit": 0},
+    {"command": "git diff --check HEAD^ HEAD", "result": "PASS", "exit": 0}
+  ],
+  "witness_sha256": {"src/slaif_raggedized_helper/embedding_staging.py": "0f83dd7a9bfd5a0dfff11ace7d6c7f22b9a3251bee6f68d87c38b8e6485702b1", "tests/unit/test_embedding_staging.py": "46d83426e364ecdf20774bb20db33785c036aefe92b7d22fc6d196749cb6b85a"},
+  "limits": ["Standalone integration composition test and full required negative cases were not completed.", "Parent is checked then reopened by pathname for temporary creation; protected ancestry and replacement races need further review and correction.", "No complete focused composition suite was run; this is not acceptance or model qualification."],
+  "dha": "NONE"
+}

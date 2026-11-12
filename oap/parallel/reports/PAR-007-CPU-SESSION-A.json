@@ -1,0 +1,50 @@
+{
+  "lane_id": "PAR-007-CPU-SESSION-A",
+  "result": "COMPLETE",
+  "preparation_head": "69cb0193415825641f53974019d82a1db3b4d885",
+  "implementation_head": "cb439c1579bcbae66dde9c0d167ddf98756786a8",
+  "report_publication_commit": "SELF",
+  "API": "CPUEmbeddingSession context manager; embed and encode; EncodedBatch; SessionRefused",
+  "commands": [
+    {
+      "command": "env -u PYTHONPATH RAYON_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 sh -c 'ulimit -v 1048576; ulimit -t 30; timeout 120 pytest -q tests/unit/test_cpu_embedding_session.py'",
+      "count": 21,
+      "exit": 0
+    },
+    {
+      "command": "env -u PYTHONPATH SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 RAYON_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 sh -c 'ulimit -v 1048576; ulimit -t 30; timeout 120 pytest -q tests/integration/test_cpu_embedding_session_composition.py'",
+      "count": 1,
+      "exit": 0,
+      "note": "Implementation and integration source unchanged since run; subsequent changes were unit tests only."
+    },
+    {
+      "command": "env -u PYTHONPATH uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/cpu_embedding_session.py tests/unit/test_cpu_embedding_session.py tests/integration/test_cpu_embedding_session_composition.py",
+      "exit": 0,
+      "note": "All three before final test-only correction; changed unit file separately rechecked and passed."
+    },
+    {
+      "command": "git diff --check and git diff --cached --check",
+      "exit": 0
+    },
+    {
+      "command": "env -u PYTHONPATH RAYON_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 sh -c 'ulimit -v 1048576; ulimit -t 30; timeout 120 python /tmp/raggedized-root-cpu-session-boundaries.py'",
+      "exit": 0,
+      "observed": "1141 byte peak for already allocated million-element input; invalid runtime produced no framework events."
+    }
+  ],
+  "witness_hashes": {
+    "src/slaif_raggedized_helper/cpu_embedding_session.py": "375472b71fe308f219bc5e7da559a11a5983df7861bde8f215f2197d9cbf7163",
+    "tests/unit/test_cpu_embedding_session.py": "bad8d8d5a22afb13849a91b65cd51a8c335f5d00145fde00debbcf015b2ca549",
+    "tests/integration/test_cpu_embedding_session_composition.py": "a45301b444da6fc6c64bd018d0d133fb97da5d992711415c16b7b40e6f635ad0",
+    "docs/parallel/cpu-embedding-session-api.md": "21c1f487081b5ead5c72f84108b73a0dc1f3eeba20d42d154b2f17687cb2774d",
+    "oap/parallel/orders/PAR-007-CPU-SESSION-A.md": "e174740f3b4711a80eeb48a8b681adb1e9ac8ff80ce1d1d6f8bec5c3c0d3bea8"
+  },
+  "review_witnesses": {
+    "/tmp/raggedized-root-cpu-session-boundaries.py": "8d6cbe2cacadf12bcd17989380ea306d98b804c6b4ea581b4b7a4617e53e1382",
+    "/tmp/raggedized-root-cpu-trace-causality.py": "b32c48d95fe015bf47e98b96eb4767d5cc1ab3e6d4eeeda905c4a6977c65bb06"
+  },
+  "evidence": "Real source admission, staging, generated tokenizers 0.21.4 native IDs, normalization and renewal; only neural framework uses trusted fake. One model load across batches and native renewal. Preflight, receipt binding, cleanup, failure, guards and caller exception tested. Root checkpoint REPORT reviewed exact implementation; not development acceptance.",
+  "limits": "Original 007 remains PARTIAL. In-process neural backend lacks kernel neural-worker isolation; actual Torch profile/model execution, physical RAM release, CPU/GPU parity, runtime and hardware qualification, current ACL/rights, license, quality, ICA and MVP remain open. No push, PR, canonical merge, release or deployment.",
+  "strongest_counterargument": "Trusted framework fakes and generated native fixtures cannot establish actual model compatibility, mathematical parity or kernel isolation; these are separate gates.",
+  "DHA Decision": "NONE"
+}
