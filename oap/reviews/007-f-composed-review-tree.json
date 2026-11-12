@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-12T02:34:08.480494+00:00",
+  "scope": "DISPOSABLE_ROOT_REVIEW_OF_EXACT_ACCEPTED_COMPOSITE_TREE; not currenthead/ICA/integration/qualification",
+  "tree": "f92f8da765cb3262794e39534c628c2d9fa1cab9",
+  "heads": [
+    "985806afe7c985d8a511261f9384cd1bfebce2f0",
+    "52252484baf733c98e42963ce759c0b5db27b006"
+  ],
+  "path": "/tmp/raggedized-root-007f-composed-q2fu6dsq",
+  "archive_bytes": 5908480,
+  "archive_sha256": "6e774b27862e47bf30a79922c25dd85131993f8c4de710b89a31babd65a255c6",
+  "exact17files": true,
+  "product_patching": false,
+  "tests": {
+    "units": 105,
+    "standalone_integrations": 39,
+    "integration_seconds": 76.96,
+    "original_witnesses": 10,
+    "result": "ALL_PASS",
+    "existing_warning": "multithreaded fork DeprecationWarning, no generic fork-safety proof"
+  },
+  "completed_at": "2026-11-12T02:47:53.769820+00:00",
+  "currenthead_claim": false
+}

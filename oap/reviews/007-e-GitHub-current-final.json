@@ -1,0 +1,27 @@
+{
+  "data": {
+    "repository": {
+      "defaultBranchRef": {
+        "name": "main",
+        "target": {
+          "oid": "11badc7782bed326995d400f5532b63399b91fbd"
+        }
+      },
+      "pullRequest": {
+        "id": "PR_kwDOVfM0B88AAAABOfscmQ",
+        "state": "OPEN",
+        "isDraft": false,
+        "baseRefName": "main",
+        "headRefName": "oap/007-embedding-pipeline",
+        "headRefOid": "52ae2918c09ea939ba7c8694cd6e65e735c1d918",
+        "autoMergeRequest": null,
+        "reviewThreads": {
+          "nodes": [],
+          "pageInfo": {
+            "hasNextPage": false
+          }
+        }
+      }
+    }
+  }
+}

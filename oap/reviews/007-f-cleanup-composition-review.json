@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-12T02:32:28.549803+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_JOURNAL_PRODUCER_CLEANUP_COMPOSITION",
+  "tip": "985806afe7c985d8a511261f9384cd1bfebce2f0",
+  "implementation": "4a929261f9ee6104df5002587d45cd043607a719",
+  "report_sha256": "4d835027c13747084a711ea109c31f28bff42c85337a4ec4ea3a902a42e34f63",
+  "graph": "Exact clean report-only sole-parent/SELF/Root source+order and all9original witness hashes verified; full report read",
+  "source_review": "audit/007-cleanup-composition-source-review-4a92.json",
+  "Root_tests": {
+    "focused_units": 69,
+    "standalone_integrations": 35,
+    "standalone_seconds": 74.64,
+    "original_witnesses": [
+      "producer-secondary-interrupt",
+      "journal-cleanup-boundaries",
+      "producer-lease-interrupt",
+      "native-close-ownership",
+      "native-interrupt-priority",
+      "gpu-lease-registry",
+      "job-ownership-boundaries",
+      "job-enter-failure",
+      "job-interrupted-close"
+    ],
+    "results": "ALL_PASS",
+    "ruff": "PASS threads1",
+    "diff": "PASS"
+  },
+  "strongest_reason_not_to_accept_whole007": "Finite selected fault coverage is not universal cleanup/powerloss or hardware proof; separate isolated-exit candidate must compose at canonical exacthead and current CI. GPU bulk/realmodel/parity/current-policy/security/transitive-license/heldout/ICA/fullMVP incomplete.",
+  "DHA": "NONE"
+}

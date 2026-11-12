@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T02:14:52.158191+00:00",
+  "base": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+  "status": "INDEPENDENTLY_REPRODUCED_OPEN",
+  "producer": "Fully valid producer positive publishes; ordinary before_encode operation failure + new journal cleanup KI yields ProducerRefused, exit1",
+  "journal": "Actual valid positive; entry cleanup KI masked as JournalError; same-inode reused fd closed; pre-return pending owner lost in sanitized exception, exit1",
+  "witnesses": {
+    "/tmp/raggedized-root-producer-secondary-interrupt.py": "ad3ae53635187c7434615b8313e68b05c98a8131c2633611a960c826beca3028",
+    "/tmp/raggedized-root-journal-cleanup-boundaries.py": "a8283804ef202a3af82fff704b27ba70b7b74e28eb8f000585e1757acebee713"
+  },
+  "consequence": "Required bounded D0 correction before whole007 acceptance. Earlier local finite positive component reviews preserved, not universal invariant clearance. No D1 waiver.",
+  "order": "workorders/PAR-007-CLEANUP-COMPOSITION-A-prepared.md",
+  "DHA": "NONE"
+}
