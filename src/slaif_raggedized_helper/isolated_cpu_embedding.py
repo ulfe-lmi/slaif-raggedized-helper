@@ -295,7 +295,8 @@ class IsolatedCPUEmbeddingSession:
                 remember(error)
             if getattr(self._worker, "_child", None) is None:
                 self._worker = None
-        if self._worker is None and self._stage is not None and not self._stage_failed:
+        if (self._worker is None and self._tokenizer is None and self._stage is not None
+                and not self._stage_failed):
             try:
                 self._stage.__exit__(None, None, None)
                 self._stage = None
@@ -344,8 +345,11 @@ class IsolatedCPUEmbeddingSession:
                 self._token_definition = dataclasses.replace(
                     token, artifact=staged.path / "tokenizer.json"
                 )
-                self._tokenizer = embedding_tokenizer.TokenIDSession(
-                    self._token_definition, self._native_runtime
+                self._tokenizer = embedding_tokenizer.TokenIDSession.__new__(
+                    embedding_tokenizer.TokenIDSession
+                )
+                embedding_tokenizer.TokenIDSession.__init__(
+                    self._tokenizer, self._token_definition, self._native_runtime
                 )
                 self._worker = cpu.CPUEmbeddingWorker.__new__(cpu.CPUEmbeddingWorker)
                 cpu.CPUEmbeddingWorker.__init__(
@@ -455,8 +459,11 @@ class IsolatedCPUEmbeddingSession:
         ):
             worker.close()
             self._tokenizer = None
-            self._tokenizer = embedding_tokenizer.TokenIDSession(
-                self._token_definition, self._native_runtime
+            self._tokenizer = embedding_tokenizer.TokenIDSession.__new__(
+                embedding_tokenizer.TokenIDSession
+            )
+            embedding_tokenizer.TokenIDSession.__init__(
+                self._tokenizer, self._token_definition, self._native_runtime
             )
 
     def _receipt(self, receipt, text):

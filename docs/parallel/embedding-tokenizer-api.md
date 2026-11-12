@@ -27,3 +27,9 @@ providing trustworthy runtime/packages and working OS sandbox tools. A receipt i
 this tokenizer operation, not authorization to expose content, model provenance, model/tokenizer
 parity, license clearance or hardware qualification. The actual model and parity gates remain
 open; this fixture proof does not load neural weights.
+
+Cleanup retains the exact child and private artifact whenever drain or descriptor cleanup is
+interrupted or cannot be confirmed. `close()` makes bounded termination and reap attempts;
+retry it on the retained owner after resolving the failure. Constructor or request refusal
+exposes a pending owner as `owner`, and an interrupt exposes it as `cleanup_owner`. A kernel
+that cannot reap the child leaves cleanup pending; no successful drain is assumed.

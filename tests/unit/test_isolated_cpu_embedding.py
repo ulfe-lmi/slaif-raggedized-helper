@@ -518,3 +518,59 @@ def test_mutated_runtime_refused_before_renew_or_dispatch(args, monkeypatch, run
     with pytest.raises(SessionRefused):
         obj.encode(["hello"])
     assert events == []
+
+
+def test_failed_native_constructor_retains_stage_and_exact_owner(args, tmp_path, monkeypatch):
+    import subprocess
+    import sys
+    import tempfile
+    from types import SimpleNamespace
+
+    from slaif_raggedized_helper import embedding_staging, embedding_tokenizer
+
+    obj = IsolatedCPUEmbeddingSession(*args)
+    private = tempfile.TemporaryDirectory(dir=tmp_path)
+    child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    real_wait = child.wait
+    monkeypatch.setattr(child, 'wait', lambda **kw: (_ for _ in ()).throw(OSError('wait')))
+    stage_path = tmp_path / 'stage'
+    stage_path.mkdir()
+    foreign = tmp_path / 'foreign'
+    foreign.write_text('safe')
+
+    class Stage:
+        def __enter__(self):
+            return SimpleNamespace(path=stage_path)
+
+        def __exit__(self, *args):
+            stage_path.rmdir()
+
+    stage = Stage()
+    monkeypatch.setattr(embedding_staging, 'stage', lambda *a, **k: stage)
+    owners = []
+
+    def fail_init(self, *args):
+        self._child = child
+        self._tmp = private
+        owners.append(self)
+        raise ValueError('startup')
+
+    monkeypatch.setattr(embedding_tokenizer.TokenIDSession, '__init__', fail_init)
+    monkeypatch.setattr(cpu.CPUEmbeddingWorker, '__init__',
+                        lambda *a, **k: pytest.fail('CPU constructor started'))
+    try:
+        with pytest.raises(SessionRefused) as caught:
+            obj.__enter__()
+        assert caught.value.owner is obj and obj._tokenizer is owners[0]
+        assert obj._stage is stage and stage_path.exists() and Path(private.name).exists()
+        monkeypatch.setattr(child, 'wait', real_wait)
+        obj.close()
+        assert not stage_path.exists() and not Path(private.name).exists()
+        assert foreign.read_text() == 'safe'
+    finally:
+        monkeypatch.setattr(child, 'wait', real_wait)
+        if child.poll() is None:
+            child.kill()
+        child.wait(timeout=1)
+        obj.close()

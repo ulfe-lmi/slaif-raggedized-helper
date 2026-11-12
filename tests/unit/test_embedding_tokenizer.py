@@ -252,3 +252,178 @@ def test_real_id_limit_and_call_limit(tmp_path):
             assert session.encode('').ids == (1, 2)
         with pytest.raises(n.TokenizerError):
             session.encode('')
+
+
+def test_owned_process_retained_until_retry_after_wait_failure(tmp_path, monkeypatch):
+    import sys
+    import tempfile
+
+    child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    session = object.__new__(e.TokenIDSession)
+    session._child = child
+    session._tmp = tempfile.TemporaryDirectory(dir=tmp_path)
+    private = Path(session._tmp.name)
+    foreign = tmp_path / 'foreign'
+    foreign.write_text('untouched')
+    real_wait = child.wait
+    monkeypatch.setattr(child, 'wait', lambda **kw: (_ for _ in ()).throw(OSError('wait')))
+    try:
+        with pytest.raises(OSError, match='wait'):
+            session.close()
+        assert session._child is child and private.exists()
+        assert child.stdin.closed and child.stdout.closed
+        monkeypatch.setattr(child, 'wait', real_wait)
+        session.close()
+        assert session._child is None and not private.exists()
+        assert foreign.read_text() == 'untouched'
+    finally:
+        monkeypatch.setattr(child, 'wait', real_wait)
+        if child.poll() is None:
+            child.kill()
+        child.wait(timeout=1)
+        session.close()
+
+
+def test_constructor_failure_preserves_original_and_pending_owner(tmp_path, monkeypatch):
+    d, runtime = make_native(tmp_path)
+    original_popen = subprocess.Popen
+    children = []
+
+    def spawn(*args, **kwargs):
+        child = original_popen(*args, **kwargs)
+        children.append((child, child.wait))
+        monkeypatch.setattr(child, 'wait', lambda **kw: (_ for _ in ()).throw(OSError('wait')))
+        return child
+
+    monkeypatch.setattr(e.subprocess, 'Popen', spawn)
+    monkeypatch.setattr(e.TokenIDSession, '_read', lambda *a: (_ for _ in ()).throw(
+        KeyboardInterrupt('startup')))
+    try:
+        with pytest.raises(KeyboardInterrupt, match='startup') as caught:
+            e.TokenIDSession(d, runtime)
+        owner = caught.value.cleanup_owner
+        child, wait = children[0]
+        assert owner._child is child and Path(owner._tmp.name).exists()
+        monkeypatch.setattr(child, 'wait', wait)
+        owner.close()
+        assert owner._child is None and owner._tmp is None
+    finally:
+        for child, wait in children:
+            monkeypatch.setattr(child, 'wait', wait)
+            if child.poll() is None:
+                child.kill()
+            child.wait(timeout=1)
+
+
+def test_stdout_interruption_retains_owner_and_preserves_exception(tmp_path):
+    import sys
+    import tempfile
+
+    child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    session = object.__new__(e.TokenIDSession)
+    session._child = child
+    session._tmp = tempfile.TemporaryDirectory(dir=tmp_path)
+    real_stdout = child.stdout
+
+    class InterruptedOutput:
+        def close(self):
+            raise KeyboardInterrupt('stdout interrupted')
+
+    child.stdout = InterruptedOutput()
+    try:
+        with pytest.raises(KeyboardInterrupt, match='stdout interrupted'):
+            session.close()
+        assert session._child is child and Path(session._tmp.name).exists()
+        child.stdout = real_stdout
+        session.close()
+        assert child.stdin.closed and real_stdout.closed and session._tmp is None
+    finally:
+        child.stdout = real_stdout
+        if child.poll() is None:
+            child.kill()
+        child.wait(timeout=1)
+        session.close()
+
+
+def test_operation_refusal_propagates_cleanup_interrupt_with_owner(tmp_path, monkeypatch):
+    import sys
+    import tempfile
+
+    child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    session = object.__new__(e.TokenIDSession)
+    session._child = child
+    session._tmp = tempfile.TemporaryDirectory(dir=tmp_path)
+    private = Path(session._tmp.name)
+    foreign = tmp_path / 'foreign'
+    foreign.write_text('safe')
+    real_wait = child.wait
+    calls = []
+
+    def wait(**kwargs):
+        calls.append(1)
+        if len(calls) == 1:
+            raise KeyboardInterrupt('cleanup interrupt')
+        return real_wait(**kwargs)
+
+    monkeypatch.setattr(child, 'wait', wait)
+    try:
+        with pytest.raises(KeyboardInterrupt, match='cleanup interrupt') as caught:
+            session._refuse(ValueError('operation'))
+        assert caught.value.cleanup_owner is session and session._child is child
+        assert private.exists() and foreign.read_text() == 'safe'
+        monkeypatch.setattr(child, 'wait', real_wait)
+        session.close()
+        assert not private.exists() and foreign.read_text() == 'safe'
+    finally:
+        monkeypatch.setattr(child, 'wait', real_wait)
+        if child.poll() is None:
+            child.kill()
+        child.wait(timeout=1)
+        session.close()
+
+
+def test_later_interrupt_outranks_pipe_error_and_retry_drains(tmp_path, monkeypatch):
+    import sys
+    import tempfile
+
+    child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(5)'],
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    session = object.__new__(e.TokenIDSession)
+    session._child = child
+    session._tmp = tempfile.TemporaryDirectory(dir=tmp_path)
+    private = Path(session._tmp.name)
+    foreign = tmp_path / 'foreign'
+    foreign.write_text('safe')
+    stdin, real_wait = child.stdin, child.wait
+    calls = []
+
+    class BrokenInput:
+        def close(self):
+            raise OSError('pipe')
+
+    def wait(**kwargs):
+        calls.append(1)
+        if len(calls) == 1:
+            raise KeyboardInterrupt('wait interrupt')
+        return real_wait(**kwargs)
+
+    child.stdin = BrokenInput()
+    monkeypatch.setattr(child, 'wait', wait)
+    try:
+        with pytest.raises(KeyboardInterrupt, match='wait interrupt'):
+            session.close()
+        assert session._child is child and private.exists() and child.stdout.closed
+        child.stdin = stdin
+        monkeypatch.setattr(child, 'wait', real_wait)
+        session.close()
+        assert stdin.closed and not private.exists() and foreign.read_text() == 'safe'
+    finally:
+        child.stdin = stdin
+        monkeypatch.setattr(child, 'wait', real_wait)
+        if child.poll() is None:
+            child.kill()
+        child.wait(timeout=1)
+        session.close()
