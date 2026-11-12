@@ -1,4 +1,17 @@
-"""Controlled-fake tests; never acquire or import framework packages."""
+"""Controlled-fake tests; never acquire or import framework packages.
+
+Root amendment 1 (oap/reviews/007-h-ci-portability-addendum-1.md, same
+active 007-h): the frozen D preflight consumed the production Root
+absolute runtime/UV host paths, which do not exist on clean CI
+runners. Per that amendment, the run_setup fake-flow cases use a
+self-contained controlled-fake preflight in OWN tmp_path (scoped
+m.RUNTIME/m.UV to owned private dummy files plus a narrow test-only
+identity boundary for the designated dummy bytes only; all other
+hashing stays real). Test-only fake identity is NOT actual binary
+qualification; no stub binary is executed, and no test needs Root's
+real fixed path, real UV/interpreter binaries, network or framework
+packages.
+"""
 
 import hashlib
 import importlib.util
@@ -16,6 +29,63 @@ SPEC = importlib.util.spec_from_file_location(
 )
 m = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(m)
+
+PY_DUMMY = b"cpu-v2-fake-python-dummy"
+UV_DUMMY = b"cpu-v2-fake-uv-dummy"
+INTERPRETER_IDENTITY = "708fefcd7df61b1327cb7b9740fafd42cb2f6cd1d387378892d4a28b7479fb78"
+UV_IDENTITY = "b65f23a420c4acc96427efb30e5ed9bc0f7e25d2d712000f6ede77c1a0de5f46"
+
+
+class _Digest:
+    def __init__(self, hexdigest):
+        self._hexdigest = hexdigest
+
+    def hexdigest(self):
+        return self._hexdigest
+
+
+class FakeIdentityBoundary:
+    """Narrow test-only identity boundary (amendment 007-h-1).
+
+    Maps ONLY the designated dummy binary byte sequences to the
+    production identity digests; every other hash is computed by the
+    real hashlib. Test-only fake identity, not actual binary
+    qualification.
+    """
+
+    def __init__(self, mapping):
+        self._mapping = mapping
+
+    def __getattr__(self, name):
+        return getattr(hashlib, name)
+
+    def sha256(self, data=b"", *args, **kwargs):
+        raw = bytes(data) if isinstance(data, (bytes, bytearray)) else None
+        if raw is not None and raw in self._mapping:
+            return _Digest(self._mapping[raw])
+        return hashlib.sha256(data, *args, **kwargs)
+
+
+def install_fake_preflight(monkeypatch, tmp_path, interpreter_bytes=PY_DUMMY, uv_bytes=UV_DUMMY):
+    """Self-contained controlled-fake preflight in OWN tmp_path (amendment
+    007-h-1): scoped m.RUNTIME/m.UV to owned private dummy files with the
+    narrow identity boundary for the designated dummy bytes only. All
+    other hashing is delegated to the real hashlib; no stub binary is
+    executed and production constants are not changed."""
+    runtime = tmp_path / "fake-runtime"
+    (runtime / "bin").mkdir(parents=True, exist_ok=True)
+    (runtime / "bin" / "python3.12").write_bytes(interpreter_bytes)
+    uv = tmp_path / "fake-uv"
+    uv.write_bytes(uv_bytes)
+    monkeypatch.setattr(m, "RUNTIME", runtime)
+    monkeypatch.setattr(m, "UV", uv)
+    mapping = {}
+    if interpreter_bytes == PY_DUMMY:
+        mapping[PY_DUMMY] = INTERPRETER_IDENTITY
+    if uv_bytes == UV_DUMMY:
+        mapping[UV_DUMMY] = UV_IDENTITY
+    monkeypatch.setattr(m, "hashlib", FakeIdentityBoundary(mapping))
+    return runtime
 
 
 class Response:
@@ -130,19 +200,64 @@ def test_target_and_early_refusal(tmp_path, monkeypatch):
     sentinel = tmp_path / "sentinel"
     sentinel.write_text("safe")
     calls = []
-    monkeypatch.delenv("PYTHONPATH", raising=False)
-    monkeypatch.delenv("VIRTUAL_ENV", raising=False)
-    monkeypatch.delenv("CONDA_PREFIX", raising=False)
-    with pytest.raises(ValueError):
+    for name in ("PYTHONPATH", "VIRTUAL_ENV", "CONDA_PREFIX"):
+        monkeypatch.delenv(name, raising=False)
+    install_fake_preflight(monkeypatch, tmp_path)
+    with pytest.raises(ValueError, match="direct /tmp child"):
         m.run_setup(tmp_path, m.RUNTIME, runner=lambda *a: calls.append(a))
     assert calls == [] and sentinel.read_text() == "safe"
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="runtime mismatch"):
         m.run_setup(Path("/tmp/anything"), Path("/bad"), runner=lambda *a: calls.append(a))
     assert calls == []
     monkeypatch.setattr(m.platform, "machine", lambda: "wrong")
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="platform mismatch"):
         m.run_setup(Path("/tmp/anything"), m.RUNTIME, runner=lambda *a: calls.append(a))
     assert calls == []
+
+
+def test_fake_preflight_identity_probe_and_ambient_negatives(tmp_path, monkeypatch):
+    """Wrong interpreter/UV identity and ambient application environment
+    are refused before any runner call, download or target operation;
+    wrong runtime facts are refused before any target operation."""
+    import shutil
+    import uuid
+
+    for name in ("PYTHONPATH", "VIRTUAL_ENV", "CONDA_PREFIX"):
+        monkeypatch.delenv(name, raising=False)
+    target = Path("/tmp") / ("cpu-v2-negative-" + uuid.uuid4().hex)
+    facts_runner_calls = []
+
+    def facts_runner(*args, **kwargs):
+        facts_runner_calls.append(1)
+        return "cpython\n3.12.15\n" + str(m.RUNTIME) + "\n"
+
+    try:
+        install_fake_preflight(monkeypatch, tmp_path, interpreter_bytes=PY_DUMMY + b"-wrong")
+        with pytest.raises(ValueError, match="interpreter identity mismatch"):
+            m.run_setup(target, m.RUNTIME, runner=facts_runner)
+        assert facts_runner_calls == [] and not target.exists()
+
+        install_fake_preflight(monkeypatch, tmp_path, uv_bytes=UV_DUMMY + b"-wrong")
+        with pytest.raises(ValueError, match="uv identity mismatch"):
+            m.run_setup(target, m.RUNTIME, runner=facts_runner)
+        assert facts_runner_calls == [] and not target.exists()
+
+        install_fake_preflight(monkeypatch, tmp_path)
+        with pytest.raises(ValueError, match="interpreter facts mismatch"):
+            m.run_setup(
+                target,
+                m.RUNTIME,
+                runner=lambda *a, **k: "cpython\n3.13.0\n" + str(m.RUNTIME) + "\n",
+            )
+        assert facts_runner_calls == [] and not target.exists()
+
+        monkeypatch.setenv("VIRTUAL_ENV", "/fake/venv")
+        with pytest.raises(ValueError, match="ambient application environment"):
+            m.run_setup(target, m.RUNTIME, runner=facts_runner)
+        assert facts_runner_calls == [] and not target.exists()
+    finally:
+        if target.exists():
+            shutil.rmtree(target)
 
 
 def test_metadata_and_offline_commands(tmp_path):
@@ -189,7 +304,7 @@ def test_real_bounded_process():
     assert not m.UNREAPED
 
 
-def test_full_fake_flow_and_no_install_before_verification(monkeypatch):
+def test_full_fake_flow_and_no_install_before_verification(monkeypatch, tmp_path):
     import json
     import shutil
     import uuid
@@ -214,6 +329,7 @@ def test_full_fake_flow_and_no_install_before_verification(monkeypatch):
     monkeypatch.setattr(m, "select", lambda: items)
     for name in ("PYTHONPATH", "VIRTUAL_ENV", "CONDA_PREFIX"):
         monkeypatch.delenv(name, raising=False)
+    install_fake_preflight(monkeypatch, tmp_path)
 
     class FakeOpener:
         def __init__(self, fail=None):
@@ -264,7 +380,8 @@ def test_full_fake_flow_and_no_install_before_verification(monkeypatch):
                 assert receipt["state"] == "partial" and len(receipt["verified"]) == 10
                 assert len(commands) == 1 and op.count == 11
         finally:
-            shutil.rmtree(target)
+            if target.exists():
+                shutil.rmtree(target)
 
 
 def test_uncertain_cleanup_retains_owned_handle(monkeypatch):
@@ -293,12 +410,13 @@ def test_uncertain_cleanup_retains_owned_handle(monkeypatch):
         m.UNREAPED.clear()
 
 
-def test_existing_direct_target_and_bad_lock_no_operations(monkeypatch):
+def test_existing_direct_target_and_bad_lock_no_operations(monkeypatch, tmp_path):
     import tempfile
     import uuid
 
     for name in ("PYTHONPATH", "VIRTUAL_ENV", "CONDA_PREFIX"):
         monkeypatch.delenv(name, raising=False)
+    install_fake_preflight(monkeypatch, tmp_path)
     calls = []
     with tempfile.TemporaryDirectory(dir="/tmp") as existing:
         target = Path(existing)
@@ -314,7 +432,7 @@ def test_existing_direct_target_and_bad_lock_no_operations(monkeypatch):
     assert calls == [] and not target.exists()
 
 
-def test_receipt_failure_priority_and_atomic_partial(monkeypatch):
+def test_receipt_failure_priority_and_atomic_partial(monkeypatch, tmp_path):
     import json
     import os
     import shutil
@@ -322,6 +440,7 @@ def test_receipt_failure_priority_and_atomic_partial(monkeypatch):
 
     for name in ("PYTHONPATH", "VIRTUAL_ENV", "CONDA_PREFIX"):
         monkeypatch.delenv(name, raising=False)
+    install_fake_preflight(monkeypatch, tmp_path)
 
     class BrokenInterrupt(KeyboardInterrupt):
         def __str__(self):
@@ -371,7 +490,8 @@ def test_receipt_failure_priority_and_atomic_partial(monkeypatch):
             assert json.loads((target / "setup-evidence.json").read_text())["state"] == "partial"
             assert (target / ".setup-evidence.pending").exists()
         finally:
-            shutil.rmtree(target)
+            if target.exists():
+                shutil.rmtree(target)
 
 
 def test_run_cleanup_and_note_interrupt_priority(monkeypatch):
@@ -565,13 +685,14 @@ def test_child_failure_status_and_output_limits():
             m.run([sys.executable, "-I", "-S", "-c", code], env, 5)
 
 
-def test_failed_command_receipt(monkeypatch):
+def test_failed_command_receipt(monkeypatch, tmp_path):
     import json
     import shutil
     import uuid
 
     for name in ("PYTHONPATH", "VIRTUAL_ENV", "CONDA_PREFIX"):
         monkeypatch.delenv(name, raising=False)
+    install_fake_preflight(monkeypatch, tmp_path)
     selected = [
         {"name": f"pkg-{i}", "version": "1", "sha256": "0" * 64, "filename": f"{i}.whl"}
         for i in range(38)
@@ -610,7 +731,8 @@ def test_failed_command_receipt(monkeypatch):
         }
         assert receipt["verification_details"][-1]["actual_bytes"] == 1
     finally:
-        shutil.rmtree(target)
+        if target.exists():
+            shutil.rmtree(target)
 
 
 def test_disk_sampling_directory_disappearance_and_root_errors(tmp_path, monkeypatch):
