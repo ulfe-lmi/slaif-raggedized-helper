@@ -1,0 +1,19 @@
+{
+  "lane_id": "PAR-007-REPRESENTATION-A",
+  "result": "PARTIAL",
+  "preparation_head": "3b1e8ac58b3938ccf83e5221955cd9dcd54bb870",
+  "implementation_head": "420b432f88d4f5a3c89a111bdde7d7d52d3d3e60",
+  "report_publication_commit": "SELF",
+  "API": "Not implemented",
+  "actualcommands": [
+    "wait-control: EXACT_OK_CONSUMED",
+    "git merge --no-ff --no-edit 11badc7782bed326995d400f5532b63399b91fbd: exit 0",
+    "git rev-parse HEAD^{tree}: fc2737840fda964bee2896dbb957366c67671703"
+  ],
+  "counts": "No tests run",
+  "witnesshashes": {
+    "preparation_tree": "fc2737840fda964bee2896dbb957366c67671703"
+  },
+  "limits": "Order recorded only; implementation, native composition proof and all acceptance checks remain outstanding.",
+  "DHA": "NONE"
+}
