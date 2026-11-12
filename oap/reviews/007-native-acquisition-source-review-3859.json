@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-12T09:58:52.246649+00:00",
+  "implementation": "385948256f7e3d0d9a50d03c4e7a6deee7b6f107",
+  "status": "SOURCE_REVIEWED_ALLOW_REPORT_FRESH_NATIVE_AFFECTED_PEER_REQUIRED",
+  "scope_paths": [
+    "docs/parallel/embedding-tokenizer-api.md",
+    "docs/parallel/native-token-id-acquisition-design.md",
+    "oap/parallel/orders/PAR-007-NATIVE-ACQUISITION-A.md",
+    "src/slaif_raggedized_helper/embedding_tokenizer.py",
+    "tests/integration/test_native_token_id_acquisition.py",
+    "tests/unit/test_embedding_native_identity.py",
+    "tests/unit/test_embedding_tokenizer.py"
+  ],
+  "source_review": "Complete original TokenIDSession source,44line acquisition/registry/fork changes,53line existing unit interception changes,128line initialactual integration and final5line creator/initialization/context fix plus46lineactualcases read. Original fixedargv/policy/token semantics intact; actual Popen captured beforeinit, independent strong actualowner retention and child/tmp cleanup, forkfinalizer disarm, no repeated/revived/foreign initialization, primary context interruption preserved. FILEpositive uses requiredexistingCIenv, filehelper production unchanged.",
+  "Root_tests": "82 native+FILEunitsPASS7.91s; actualowned lifecycle8PASS1.24s; correctedRoot pre-return/foreign-context/reinit3PASS3.62s; isolatedCPU3PASS3.63s with retained fork warning. Earlierfa16 query3PASS1.88s. All individual commands exit0 under1GiBAS30CPU120wall/thread1/no bytecode, existing actualnative0.21synthetic data only.",
+  "history": "Initialfa16 primaryacquisition fixed butRoot2actualforeigncontext/reinitbadassertions proved faults; source3859 corrects. Originalbd8d/f a16badwitnesses preserved, corrected expectations separately retained.",
+  "strongest_counterargument": "Actualnative0.21syntheticworker acquisition and finite scheduled faults do not prove allkernel/stdlib-version behavior, real neural/GPU/physicalvacancy, ABI/security/license/quality. Partiallycreated uncertainhandle remains honest pending. Fresh affectednativepeer and currentcanonicalCI required beforeintegration.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-12T10:12:30.254880+00:00",
+  "status": "FINITE_COMBINED_NATIVE_FILE_ACQUISITION_PEER_FINAL_VERIFIED",
+  "candidate": {
+    "lane": "audit-native-acquisition",
+    "lane_id": "AUDIT-007-NATIVE-ACQUISITION-A",
+    "result": "COMPLETE",
+    "target_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+    "report_sha256": "5af358ff0899b31a8c77d374058e0d06655b8020f7d7e2bc20dcaf7141bb57aa",
+    "verified_at": "2026-11-12T10:12:30.254793+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "Root_review": "audit/007-native-acquisition-peer-root-review-5af3.json",
+  "qualification": "Finite exactsource/actualnativefakefixturefork/file checks only; not modelGPU/precision/ABI/security/license/rights/currentcanonicalCI/fullICA.",
+  "DHA": "NONE"
+}
