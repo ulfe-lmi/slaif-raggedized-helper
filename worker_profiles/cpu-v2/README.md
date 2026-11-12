@@ -30,7 +30,7 @@ address space / 120 s CPU / 600 s wall (sampling, not quota), and a
 separate actual CPU class import (Torch 2.14.0+cpu plus
 Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
 352816 KiB RSS inside the standalone CPython 3.12 namespace,
-synthetic development, no home, offline, under a separate 4 GiB /
+synthetic /dev, no home, offline, under a separate 4 GiB /
 30 s CPU / 120 s wall allowance. A class import is not loading BGE
 weights, constructing a model, running a forward pass or measuring
 query latency, parity, hardware, security or licenses; the actual

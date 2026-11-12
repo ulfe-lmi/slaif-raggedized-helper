@@ -774,11 +774,21 @@ human question.
 
 ### 2026-11-12, order 007-h (runtime setup integration: CPUv2 installer tooling + GPU synthetic fixture + current evidence docs)
 
-- 007 is PARTIAL after this slice: the SIX exact root-reviewed
-  setup/test/API files are selectively integrated by byte-identical
-  file transfer (70,906 bytes; oap/reviews/007-h-components.json; no
-  branch ancestry, no source adaptation, all six immutable at this
-  head). The fixed CPUv2 runtime installer
+- 007 is PARTIAL after this slice: the SIX root-reviewed
+  setup/test/API files are selectively integrated (no branch
+  ancestry, no source adaptation): the original byte-identical
+  transfer (70,906 bytes; oap/reviews/007-h-components.json) is
+  historical, and per Root CI-portability amendment 007-h-1
+  (oap/reviews/007-h-ci-portability-addendum-1.md) ONLY the
+  installer unit file now differs from the frozen candidate
+  (23,095 → 28,320 bytes; current SHA-256
+  6038a3b1766f52911f9d15b800d6fe515630b32f03cec52bca39b30ed56d1482;
+  self-contained controlled-fake preflight in its own tmp_path),
+  while the other five files, including the production helper
+  (SHA-256 226a527650083ec3324fcb783354ca47eb8b30884f0db0d3e4df6c044e6ede0c),
+  remain byte-exact (current six-file sum 76,131 bytes;
+  oap/reviews/007-h-components-after-portability.json). The fixed
+  CPUv2 runtime installer
   (tests/support/prepare_cpu_runtime_v2.py) is developer
   qualification tooling, NOT an implicit deployment/runtime action:
   it enforces the fixed 38-wheel pinned official graph, status/
@@ -816,7 +826,7 @@ human question.
   a separate actual CPU class import (Torch 2.14.0+cpu plus
   Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
   352816 KiB RSS inside the standalone CPython 3.12 namespace,
-  synthetic development, no home, offline, under a separate 4 GiB /
+  synthetic /dev, no home, offline, under a separate 4 GiB /
   30 s CPU / 120 s wall allowance. Do NOT read a class import as
   loading BGE weights, constructing a model, running a forward
   pass or measuring query latency, parity, hardware, security or

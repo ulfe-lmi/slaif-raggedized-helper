@@ -1,0 +1,47 @@
+{
+  "status": "FIVE_SOURCEEXACT_ONE_AMENDED_UNIT_PER_ROOT_H1",
+  "files": [
+    {
+      "path": "tests/support/prepare_cpu_runtime_v2.py",
+      "old_bytes": 24137,
+      "bytes": 24137,
+      "sha256": "226a527650083ec3324fcb783354ca47eb8b30884f0db0d3e4df6c044e6ede0c",
+      "original_exact": true
+    },
+    {
+      "path": "tests/unit/test_cpu_runtime_setup_v2.py",
+      "old_bytes": 23095,
+      "bytes": 28320,
+      "sha256": "6038a3b1766f52911f9d15b800d6fe515630b32f03cec52bca39b30ed56d1482",
+      "original_exact": false
+    },
+    {
+      "path": "docs/parallel/cpu-runtime-setup-v2.md",
+      "old_bytes": 5426,
+      "bytes": 5426,
+      "sha256": "c3cc04114c3540e4b3b7781756b147c72d5de92f6bfc771eb6231956930c8aa2",
+      "original_exact": true
+    },
+    {
+      "path": "tests/support/prepare_gpu_worker_test_backend.py",
+      "old_bytes": 9901,
+      "bytes": 9901,
+      "sha256": "ac504fbc6c3cfb06ab58e55baacc83639243712d40f6f539147dcf257449ead6",
+      "original_exact": true
+    },
+    {
+      "path": "tests/unit/test_gpu_worker_backend_setup.py",
+      "old_bytes": 6744,
+      "bytes": 6744,
+      "sha256": "eecc6a145c9e00eac45e6dc76bc7522b76264ea1ba13fe1ba66b7e05a0fda226",
+      "original_exact": true
+    },
+    {
+      "path": "docs/parallel/gpu-worker-test-setup.md",
+      "old_bytes": 1603,
+      "bytes": 1603,
+      "sha256": "a563fe666440572faef9d086f0380fa555ef3b578939d50a4f30cf117feb87ec",
+      "original_exact": true
+    }
+  ]
+}

@@ -190,9 +190,21 @@ full-38 CPUv2 installation remains a separate PARTIAL (uv allocation
 abort under the fixed 2 GiB address space; no full CLI acceptance or
 neural import), and no owned GPU process/controller or physical drain
 exists.
-The 007-h continuation selectively integrates the SIX exact
-root-reviewed setup/test/API files by byte-identical file transfer
-(no branch ancestry, no source adaptation): the fixed CPUv2 runtime
+The 007-h continuation selectively integrates the SIX root-reviewed
+setup/test/API files (no branch ancestry, no source adaptation): the
+original byte-identical transfer (70,906 bytes;
+oap/reviews/007-h-components.json) is historical, and per the Root
+CI-portability amendment 007-h-1
+(oap/reviews/007-h-ci-portability-addendum-1.md) ONLY the installer
+unit file differs from that frozen candidate (23,095 → 28,320 bytes;
+current SHA-256
+6038a3b1766f52911f9d15b800d6fe515630b32f03cec52bca39b30ed56d1482;
+self-contained controlled-fake preflight in its own tmp_path), while
+the other five files, including the production helper (SHA-256
+226a527650083ec3324fcb783354ca47eb8b30884f0db0d3e4df6c044e6ede0c),
+remain byte-exact at this head (current six-file sum 76,131 bytes;
+oap/reviews/007-h-components-after-portability.json): the fixed CPUv2
+runtime
 installer source — developer qualification tooling with the 38-wheel
 pinned official graph, offline no-index/no-deps hash-required
 install, MALLOC_ARENA_MAX=1 and atomic receipts, never run in CI and
@@ -212,20 +224,21 @@ address space / 120 s CPU / 600 s wall, sampling not quota), and a
 separate actual CPU class import (Torch 2.14.0+cpu plus
 Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
 352816 KiB RSS inside the standalone CPython 3.12 namespace,
-synthetic development, no home, offline, under a separate 4 GiB /
+synthetic /dev, no home, offline, under a separate 4 GiB /
 30 s CPU / 120 s wall allowance. A class import is not loading BGE
 weights, constructing a model, running a forward pass or measuring
 query latency, parity, hardware, security or licenses.
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
 lock) plus the cleanup/lease/isolated-exit composition and the inert
-raw GPU backend source are software under trusted neural fakes only; no
-actual model execution: the archived prior OWNED random CPU toy was
-historically run (toy evidence), the ACTUAL BGE checkpoint/model has
-NOT been executed or qualified, the current 38-dependency and
-class-level interoperability differs from real BGE forward and both
-differ from the controlled neural fakes; still no CPU query,
-resumable GPU batches or qualification yet
+raw GPU backend source are software under trusted neural fakes only.
+Execution scope is precise: the archived prior OWNED random CPU toy
+was historically executed (toy evidence only); the ACTUAL BGE
+checkpoint/model has NOT been executed or qualified, and a class
+import is not model construction or a forward pass; the current
+38-dependency and class-level interoperability differs from real BGE
+forward and both differ from the controlled neural fakes; still no
+CPU query, resumable GPU batches or qualification yet
 ([docs/embedding.md](docs/embedding.md),
 [docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
 Source-to-block anchors, native versus visual-needed page semantics,

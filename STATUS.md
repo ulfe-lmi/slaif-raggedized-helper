@@ -49,12 +49,21 @@
   sampling not quota; separate actual CPU class import of Torch
   2.14.0+cpu plus Transformers 5.22.2 XLMRobertaModel succeeded:
   14.73 s, 352816 KiB RSS, standalone CPython 3.12 namespace,
-  synthetic development, no home, offline, separate 4 GiB / 30 s CPU /
+  synthetic /dev, no home, offline, separate 4 GiB / 30 s CPU /
   120 s wall — a class import is not BGE weight loading, model
   construction, forward execution, latency, parity, hardware, security
   or license qualification; prior partial receipts remain HISTORY);
-  the 007-h selective integration adds the SIX exact root-reviewed
-  setup/test/API files (fixed CPUv2 runtime installer developer
+  the 007-h selective integration adds the SIX root-reviewed
+  setup/test/API files (original byte-identical transfer 70,906
+  bytes per historical oap/reviews/007-h-components.json; Root
+  CI-portability amendment 007-h-1 changed ONLY the installer unit
+  file — 23,095 → 28,320 bytes, current SHA-256
+  6038a3b1766f52911f9d15b800d6fe515630b32f03cec52bca39b30ed56d1482 —
+  and the other five files, including the production helper
+  226a527650083ec3324fcb783354ca47eb8b30884f0db0d3e4df6c044e6ede0c,
+  remain byte-exact, current six-file sum 76,131 bytes per
+  oap/reviews/007-h-components-after-portability.json; fixed CPUv2
+  runtime installer developer
   qualification tooling: 38-wheel pinned official graph, offline
   no-index/no-deps hash-required install, MALLOC_ARENA_MAX=1, atomic
   receipts — never run in CI, not a deployment or runtime grant;

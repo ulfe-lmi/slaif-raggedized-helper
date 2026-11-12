@@ -624,12 +624,23 @@ clearance. Whole 007 remains PARTIAL; no main merge or 008.
 
 ## 007-h slice: runtime setup integration (integrated)
 
-Selective byte-exact integration of the SIX root-reviewed
-setup/test/API files (oap/reviews/007-h-components.json, 70,906
-bytes) by file copy from the two exact candidates (3de83d4a CPU
-installer arena correction, c6533838 synthetic GPU test fixture):
-no branch ancestry, no source adaptation, no test weakening. All
-six files are immutable at this head (blob + SHA-256 + size).
+Selective integration of the SIX root-reviewed setup/test/API files
+by file copy from the two exact candidates (3de83d4a CPU installer
+arena correction, c6533838 synthetic GPU test fixture): no branch
+ancestry, no source adaptation, no test weakening. The original
+byte-identical transfer (oap/reviews/007-h-components.json, 70,906
+bytes; all six files blob + SHA-256 + size exact at eb4739d) is
+historical; per the Root CI-portability amendment 007-h-1
+(oap/reviews/007-h-ci-portability-addendum-1.md), ONLY
+tests/unit/test_cpu_runtime_setup_v2.py differs from that frozen
+candidate (23,095 → 28,320 bytes; current SHA-256
+6038a3b1766f52911f9d15b800d6fe515630b32f03cec52bca39b30ed56d1482;
+current blob eabb9b419b0b6f933674580538ef5ef2c282e3a5), and the
+other five files — including the production helper
+tests/support/prepare_cpu_runtime_v2.py (SHA-256
+226a527650083ec3324fcb783354ca47eb8b30884f0db0d3e4df6c044e6ede0c)
+— remain byte-exact at this head (current six-file sum 76,131
+bytes; oap/reviews/007-h-components-after-portability.json).
 
 `tests/support/prepare_cpu_runtime_v2.py` is the fixed CPUv2
 runtime installer, developer qualification tooling ONLY: the
@@ -679,7 +690,7 @@ under 2 GiB address space / 120 s CPU / 600 s wall (sampling, not
 quota); a separate actual CPU class import (Torch 2.14.0+cpu plus
 Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
 352816 KiB RSS inside the standalone CPython 3.12 namespace,
-synthetic development, no home, offline, under a separate 4 GiB /
+synthetic /dev, no home, offline, under a separate 4 GiB /
 30 s CPU / 120 s wall allowance. A class import is not loading
 BGE weights, constructing a model, running a forward pass or
 measuring query latency, parity, hardware, security or licenses.
@@ -811,9 +822,15 @@ prior afc5 CHANGES_REQUIRED remains historical, not a false pass.
 Real qualification remains NOT RUN (U04/U07 relevant).
 
 007-h behavior is proven at the current canonical by the focused
-local suites: CPUv2 runtime installer 17 passed (controlled fakes
-plus the bounded real standalone 3.12 process check; no actual
-heavy install, download or network operation), GPU fixture setup 4
+local suites: CPUv2 runtime installer 18 passed (the 17 original
+controlled-fake cases plus one added identity/ambient negative-
+control case; the controlled-fake binary preflight maps ONLY the
+designated dummy bytes to the production identity digests with all
+other hashing real and no stub binary executed — test-only fake
+identity, not actual binary qualification; the bounded subprocess
+case uses sys.executable, the current test interpreter, and is not
+a real standalone 3.12 test; no actual heavy install, download or
+network operation), GPU fixture setup 4
 passed (gate-only in-memory trusted framework facades over the
 Root-copied real standalone 3.12 fixture — six actual
 distributions plus 51 DATA-ONLY records — with no model
@@ -823,14 +840,15 @@ CPUv2 fixture setup 7 passed and native controls 20 passed
 priority/churn witnesses (receipt, cleanup, note, file churn,
 directory churn) PASS against the canonical unchanged helper, and
 the diagnostic atomic-receipt priority causal bypass is inspected.
-The full local tests/unit sweep exhibits a pre-existing
-environmental fault on this host at BOTH the round base 999357f
-and the current head (one failure in test_derived_store.py then a
-segmentation fault in
+The full local tests/unit sweep fails on this host (one failure in
+test_derived_store.py then a segmentation fault in
 test_embedding_artifacts.py::test_unicode_admission_and_privacy),
-verified identical at base in a throwaway worktree: it is recorded
-as environmental, not caused by this integration; the current full
-GitHub unit/integration/OAP jobs on both matrix legs are the
+reproduced at BOTH the round base 999357f and the current head in
+a throwaway worktree — an observed base/head comparison, not
+proven environmental causality: the cause is UNRESOLVED, and no
+claim is made that this integration does not cause it or that the
+host platform is globally safe; the current full GitHub
+unit/integration/OAP jobs on both matrix legs are the
 mandatory gate (expected five jobs, 78 steps) and are reported as
 observed, with no duplicate local sweep absent failure. The
 fifteen root-accepted records (oap/reviews/007-g-review.json,
