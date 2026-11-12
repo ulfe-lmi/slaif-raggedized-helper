@@ -1,0 +1,25 @@
+{
+  "identifier": "007-h",
+  "pr": 9,
+  "implementation": "8080fec24dc4cbd0c107ece33d379a1b96d7decd",
+  "report_commit": "b982354e117588e5f7a8f8eba157d072ab5507ae",
+  "report_sha256": "8fcd85e64b589791f0218fb4c5ab9aa7f738c3bc1abbeaea52dcbd79a73f9742",
+  "verified_at": "2026-11-12T07:43:10.907049+00:00",
+  "ci": "NOT CERTIFIED BY THIS CHECK",
+  "at": "2026-11-12T07:43:10.909357+00:00",
+  "status": "RECONCILED_WITHOUT_FIFO_SIGNAL",
+  "result": "PARTIAL",
+  "recovery": "Root D0 exact immutable report format reconciliation; prose Result means whole007PARTIAL, normalized ONLY exact SHA in memory for original full verifier. Every remaining original report/remote/uniquePR/soleparent/reportonly/orderactive byte check executed unchanged. Product/law/scaffold source/report untouched.",
+  "original_result_firstline": "COMPLETE for active 007-h (order + Root amendments",
+  "canonical_response_sent": false,
+  "FIFO_read_or_write": false,
+  "normal_response_requirement_disposition": "Superseded by Root regular-file exact report reconciliation under recovery law; no coding retry/replay authorized.",
+  "sole_owned_waiter_retired": {
+    "pid": 3027933,
+    "start_token": "307546147",
+    "method": "verified commandline + actualpidfdSIGTERM + observedexit + readerlockrelease"
+  },
+  "report_erratum": "Immutable report sentence saying ONE normal response was sent is inaccurate: helper refused before FIFO bytes. Coding postpublication notification/receipt and this Root record preserve actual history.",
+  "strongest_counterargument": "Original report metadata violates strict harness format; accepted only fixed exact reviewed bytes as PARTIAL, no broad parser relaxation, false signal receipt or product/CI waiver.",
+  "DHA": "NONE"
+}

@@ -71,7 +71,32 @@
   51 DATA-ONLY metadata distributions from the fixed GPU lock; unit
   suites and API docs) and the required GPU fixture CI step after the
   CPUv2 fixture and before lint on both matrix legs with literal
-  GITHUB_ENV bindings; open on the 007 PR, branch
+  GITHUB_ENV bindings; the 007-i selective integration adds the FIFTEEN
+  root-reviewed resident-query/CPU-asset files (oap/reviews/
+  007-i-components.json, 170,026 bytes, no branch ancestry, no
+  source adaptation): the private resident CPU query encoder
+  (bounded raw Unicode/UTF-8 admission with no prefix/
+  truncation, independent native 0.21.4 tokenizer IDs, one
+  actually owned CPU worker reused across queries with
+  load-once, immutable normalized FP32 result with observed
+  complete execution provenance, content-free refusal before
+  exposure), the shared native/CPU/session diagnostic-priority
+  fixes (selected original non-Exception interruption preserved
+  when cleanup or diagnostic annotation fails; a new cleanup
+  interruption outranks ordinary errors; notes/owner attributes
+  are best effort, never resource ownership) and the packaged
+  CPU profile lock assets (the actual offline wheel bundles
+  byte-identical CPU v2/legacy CPU/GPU locks under
+  _worker_profiles; installed-layout selection refuses
+  missing/corrupt/symlinked or whole-bundle-missing assets even
+  with a matching ambient project/lock under bounded dist-info
+  downgrade guards; source-checkout support retained; pyproject
+  adds only the three reviewed force-include lock mappings,
+  dependencies and all CPU/GPU/native locks unchanged); finite
+  model-free software under trusted neural fakes and the actual
+  offline wheel, actual BGE UNRUN/UNQUALIFIED, GPU child/plan/
+  parent resources still parallel/unintegrated;
+open on the 007 PR, branch
   oap/007-embedding-pipeline from main 11badc7; whole-007 remains
   PARTIAL — the CPU reference path (CPUv2 lock selected) plus the 007-f
   cleanup/lease composition and the inert raw GPU backend source are
@@ -81,7 +106,7 @@
   run (toy evidence), the ACTUAL BGE checkpoint/model has NOT been
   executed or qualified, the current 38-dependency and class-level
   interoperability differs from real BGE forward and both differ from
-  the controlled neural fakes, and there is still no CPU query,
+  the controlled neural fakes, and there is still no actual-model CPU query execution,
   resumable owned GPU batches or qualification contracts), live
   PR/CI/merge state is
   queried on GitHub, not asserted here. Objective 006 is complete and merged to

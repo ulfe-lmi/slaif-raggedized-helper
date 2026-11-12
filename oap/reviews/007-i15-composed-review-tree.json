@@ -1,0 +1,156 @@
+{
+  "at": "2026-11-12T07:33:23.413832+00:00",
+  "status": "DISPOSABLE_REVIEW_TREE_NOT_CANONICAL_CHANGE_OR_ACCEPTANCE",
+  "tree": "/tmp/raggedized-root-i15-composite-_aoy1zh3",
+  "base_report": "b982354e117588e5f7a8f8eba157d072ab5507ae",
+  "index": "audit/007-i-query-assets-components-DRAFT.json",
+  "entries": [
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "src/slaif_raggedized_helper/query_embedding.py",
+      "blob": "502c2e49881252b18f5f9a01af20ef2c5b611ee2",
+      "sha256": "2042c21387fdb9f5d2c8ed25ce5fe7f06a6bbcadd448baa21e7bc5cb2b4988d4",
+      "bytes": 7907,
+      "canonical_G_sha256": null,
+      "canonical_G_identical": false
+    },
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "src/slaif_raggedized_helper/isolated_cpu_embedding.py",
+      "blob": "d09aa55e6e4356d3ef5d31309789553979a50b14",
+      "sha256": "bae33448cf4d629b6b351031618bb959d0e2baf2b5a5a11977499ad21b1edbc8",
+      "bytes": 22074,
+      "canonical_G_sha256": "0a6f48f58d9a036abe990aa84f727abfe5aa6debe19a5ad672abe2b9743e1940",
+      "canonical_G_identical": false
+    },
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "src/slaif_raggedized_helper/embedding_tokenizer.py",
+      "blob": "69f8d8a0adaca4a0a0fee3a1b65885b3d426049f",
+      "sha256": "f0e56a4d9077a9ce86890ec06dd3468f6b9c180c0d61ab5476a3e51557403d18",
+      "bytes": 12342,
+      "canonical_G_sha256": "51cfb340d2caac2c7557ef4b8b29acd46c020328fedc5c872bc216406c0f2968",
+      "canonical_G_identical": false
+    },
+    {
+      "source_commit": "d75baa515e1ff2ed3368442b71db2ac8ac29af50",
+      "path": "src/slaif_raggedized_helper/cpu_embedding_worker.py",
+      "blob": "02cd1bd6c480e987ef3cf898861d8065bb6eb1bf",
+      "sha256": "6c9703ca5eea837b588b55c63dde88a6ac5e35c4db3ea192f61e27c27b1127ae",
+      "bytes": 25058,
+      "scope": "CPU_ASSET_REPAIR;correctedGPUsourceNOTcopiedfromthisbranch"
+    },
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "tests/unit/test_query_embedding.py",
+      "blob": "7acffed4d2772f3ea7b904667e22813eca09f5f9",
+      "sha256": "c9805376ac4573655cb88f37efe64ef6df81e9b0e079e26e70140da1dc2eb77a",
+      "bytes": 8592,
+      "canonical_G_sha256": null,
+      "canonical_G_identical": false
+    },
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "tests/unit/test_isolated_cpu_embedding.py",
+      "blob": "85e42dfa67a418420174aeaf3edb711584a72d6f",
+      "sha256": "d93fdc8a7e51fce1ded31e3f6bb64eea8128f8c45db37123e59aef8516bc21c1",
+      "bytes": 21515,
+      "canonical_G_sha256": "6077be1c6e16490cc46e21882d1cc98a815d0833b32ba3ff306cdb1ed84db36f",
+      "canonical_G_identical": false
+    },
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "tests/unit/test_embedding_tokenizer.py",
+      "blob": "bd4b7bb293f8d36b539df1ac025ddecb2b92cc8f",
+      "sha256": "18191655f864db73d084d5cf968eb69a86dee329dcaae8d64e33e11a06035a6f",
+      "bytes": 19180,
+      "canonical_G_sha256": "8adaa246598d9760c3b0c9e11f5de1c227d86bf81d124d6246476dac718cd134",
+      "canonical_G_identical": false
+    },
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "tests/unit/test_cpu_embedding_worker.py",
+      "blob": "bd135e3fac170ccb8576d8d0f86cec18a3fc3f8b",
+      "sha256": "e005158efee3193b1c34122fda0e6e16c07de2611b55d0046478e524f2987b69",
+      "bytes": 21439,
+      "canonical_G_sha256": "66c75d7374294fe7aab038e8498edcf30586f227525eacc75f70b6284b4794cc",
+      "canonical_G_identical": false
+    },
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "tests/integration/test_query_embedding_composition.py",
+      "blob": "8f6c5f87d5cbf1d445146818d1c5eadd7ba5cd2e",
+      "sha256": "d555d712c24a443479999bf0e8850bf60f40b87c018706f00ddb3268a89ff4be",
+      "bytes": 7043,
+      "canonical_G_sha256": null,
+      "canonical_G_identical": false
+    },
+    {
+      "lane": "query",
+      "source_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+      "path": "docs/parallel/query-embedding-api.md",
+      "blob": "9b2349787d3c4938bd0b780a55f00364d28a65cf",
+      "sha256": "8081aa5884630a9991d32c42ae0085cbcd74fc3d8386b26d741760a9fc9b4f66",
+      "bytes": 4318,
+      "canonical_G_sha256": null,
+      "canonical_G_identical": false
+    },
+    {
+      "source_commit": "d75baa515e1ff2ed3368442b71db2ac8ac29af50",
+      "path": "pyproject.toml",
+      "blob": "057e84a4a09811937c8dd719d78d256a4a1471c7",
+      "sha256": "18fe63674747eb6ea4da999fc49d1ab6f170b9a3ed92017772506b8ef30c5010",
+      "bytes": 1987,
+      "scope": "CPU_ASSET_REPAIR;correctedGPUsourceNOTcopiedfromthisbranch"
+    },
+    {
+      "source_commit": "d75baa515e1ff2ed3368442b71db2ac8ac29af50",
+      "path": "src/slaif_raggedized_helper/cpu_execution_contract.py",
+      "blob": "390b8415def370fd864df96a366e8b5c402eb6cb",
+      "sha256": "e2e01b1c189036ad7eee036e90625b4aa14c4a33bfdb52d97c8c7d4cd4744c7f",
+      "bytes": 7576,
+      "scope": "CPU_ASSET_REPAIR;correctedGPUsourceNOTcopiedfromthisbranch"
+    },
+    {
+      "source_commit": "d75baa515e1ff2ed3368442b71db2ac8ac29af50",
+      "path": "tests/unit/test_cpu_profile_assets.py",
+      "blob": "b782f9996c402e54632781c8b3a0dfa624dfe635",
+      "sha256": "bf5fd795e3e1fb9c9811395ad6493b51a9ea4433cbf3329d9f52b55b2bcab90d",
+      "bytes": 1999,
+      "scope": "CPU_ASSET_REPAIR;correctedGPUsourceNOTcopiedfromthisbranch"
+    },
+    {
+      "source_commit": "d75baa515e1ff2ed3368442b71db2ac8ac29af50",
+      "path": "tests/integration/test_cpu_profile_assets.py",
+      "blob": "3fbb16f7dfcf6cfb6b7d32640c6965a025af0444",
+      "sha256": "e7ffb6556cc3329c4306882241bb5fe1f565b967a89e97db179d560c01626134",
+      "bytes": 8048,
+      "scope": "CPU_ASSET_REPAIR;correctedGPUsourceNOTcopiedfromthisbranch"
+    },
+    {
+      "source_commit": "d75baa515e1ff2ed3368442b71db2ac8ac29af50",
+      "path": "docs/parallel/cpu-profile-assets-api.md",
+      "blob": "c50392e7a8e1837d3dd58278f92d889731304dbb",
+      "sha256": "07268d95c5a23f466ed5453ec2f7f15e68e3d88aed83ad2e03b0ccb6d77c0c6b",
+      "bytes": 948,
+      "scope": "CPU_ASSET_REPAIR;correctedGPUsourceNOTcopiedfromthisbranch"
+    }
+  ],
+  "bytes": 170026,
+  "results": {
+    "focused_unit": "246 passed12.49s",
+    "separate_query": "3 passed1.91s",
+    "separate_isolated": "3 passed3.64s; existing fork-from-multithread deprecation warning",
+    "separate_CPUworker": "4 passed9.10s",
+    "separate_CPUwheel": "1 passed2.09s"
+  },
+  "Root_setup_corrections": "First unit command named nonexistent test_cpu_execution_contract.py (no tests ran); first CPUworker named nonexistent integration basename (no tests), next omittedCPUv2vars (collection error); corrected names/explicitenv produced results above. These were Root invocation errors, retained logs, not hidden product failures."
+}

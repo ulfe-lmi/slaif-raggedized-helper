@@ -25,6 +25,14 @@ class WorkerRefused(ValueError):
     """A worker operation was refused without disclosing input."""
 
 
+def _note_cleanup(error):
+    """Optional diagnostics cannot replace the selected exception."""
+    try:
+        error.add_note("worker cleanup refused")
+    except BaseException:
+        pass
+
+
 @dataclasses.dataclass(frozen=True)
 class Policy:
     max_rows: int = 8
@@ -79,6 +87,36 @@ def _parse(raw):
         raise ValueError
 
     return json.loads(raw.decode("utf-8", "strict"), object_pairs_hook=unique, parse_constant=bad)
+
+
+def _profile_path():
+    """Select the bundled lock, or the fixed source checkout lock."""
+    directory = Path(__file__).resolve().parent
+    assets = directory / "_worker_profiles"
+    bundled = assets / "cpu-v2" / "uv.lock"
+    # Presence of any asset tree commits selection to it, including broken links.
+    if os.path.lexists(assets) or directory.parent.name != "src":
+        for component in (assets, assets / "cpu-v2"):
+            if os.path.islink(component):
+                raise ValueError("symlinked profile directory")
+        return bundled
+    # A wheel may be installed into a directory named "src". Detect its local
+    # distribution metadata before admitting the fixed source layout.
+    with os.scandir(directory.parent) as entries:
+        for count, entry in enumerate(entries, 1):
+            if count > 4096:
+                raise ValueError("source directory too large")
+            if entry.name.lower().startswith("slaif_raggedized_helper-") and (
+                entry.name.lower().endswith(".dist-info")
+            ):
+                raise ValueError("installed profile missing")
+    project = directory.parent.parent
+    config = tomllib.loads(
+        native_tokenizers._read_artifact(project / "pyproject.toml", 65536).decode()
+    )
+    if config.get("project", {}).get("name") != "slaif-raggedized-helper":
+        raise ValueError("unrecognized source layout")
+    return project / "worker_profiles/cpu-v2/uv.lock"
 
 
 def _lock(path):
@@ -324,7 +362,7 @@ class CPUEmbeddingWorker:
             ):
                 raise ValueError
             root = Path(private_artifact_root)
-            lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu-v2/uv.lock"
+            lock = _profile_path()
             if type(runtime) is not native_tokenizers.Runtime or runtime.python != "python3.12":
                 raise ValueError
             self.profile = _profile(lock, runtime.packages)
@@ -399,7 +437,7 @@ class CPUEmbeddingWorker:
                 self._shutdown()
             except BaseException as cleanup_error:
                 if not isinstance(error, Exception):
-                    error.add_note("worker cleanup refused")
+                    _note_cleanup(error)
                 elif not isinstance(cleanup_error, Exception):
                     raise
             if not isinstance(error, Exception):
@@ -493,7 +531,7 @@ class CPUEmbeddingWorker:
                 self._shutdown()
             except BaseException as cleanup_error:
                 if not isinstance(error, Exception):
-                    error.add_note("worker cleanup refused")
+                    _note_cleanup(error)
                 elif not isinstance(cleanup_error, Exception):
                     raise
             if not isinstance(error, Exception):
@@ -573,7 +611,7 @@ class CPUEmbeddingWorker:
                     failed = True
             if first_interrupt is not None:
                 if child is not None and (not reaped or not streams_closed):
-                    first_interrupt.add_note("worker cleanup refused")
+                    _note_cleanup(first_interrupt)
                 raise first_interrupt
             if failed:
                 raise WorkerRefused("worker cleanup refused") from None
@@ -601,5 +639,7 @@ class CPUEmbeddingWorker:
                 if not isinstance(error, Exception):
                     raise
                 raise WorkerRefused("worker cleanup refused") from None
-            exc.add_note("worker cleanup refused")
+            if isinstance(exc, Exception) and not isinstance(error, Exception):
+                raise
+            _note_cleanup(exc)
         return False

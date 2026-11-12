@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-12T06:54:11.904575+00:00",
+  "status": "LOCAL_CPU_ASSETS_SOURCE_REPORT_REVIEWED_PENDING_AFFECTED_PEER",
+  "implementation": "c5e9e98e8e6cd0c3f8af2cdd6a6607de28e7da28",
+  "report_commit": "d75baa515e1ff2ed3368442b71db2ac8ac29af50",
+  "report_sha256": "7976e815690f486f374933e55cfb796b884c463a3401fabec5fefe722c615f4c",
+  "Root_source_review": "audit/007-cpu-assets-source-review-c5e9.json",
+  "Root_hashes": "audit/007-cpu-assets-source-hashes-c5e9.json",
+  "graph": "cleanexactHEAD/soleparent/reportonly/SELF/order/ninesource+lockhashes/correctedwitnesshash verified",
+  "Root_evidence": "89unit;separateofflinewheelnormal+srcprefix1;query3/worker4;oldvsnewsyntheticidentity1PASS. Codercombined44compositionnotrelabeledseparate.",
+  "strongest_counterargument": "Source and installed layout recognition depends on local project and distribution metadata; ambiguous or damaged layouts can be refused. This is a fail-closed tradeoff and does not establish all packaging or runtime behavior.",
+  "disposition": "Freshaffectedpeer beforecanonicalintegration; noGPUlayout/runtime/fullICAacceptance.",
+  "DHA": "NONE",
+  "no_FIFO_read": true,
+  "affected_peer": {
+    "review": "parallel/audit-cpu-profile-assets/review.json",
+    "sha256": "b65ed59008a3a2be43a42af9d20631daff96eb2f64a3c8f6af26b2dbccbea499",
+    "decision": "ACCEPT_CANDIDATE",
+    "scope": "Freshcontextsamehistoricalauthoridentitydisclosed;notfullICA"
+  },
+  "current_disposition": "ELIGIBLE_FUTURE_EXPLICIT_CANONICAL_INTEGRATION_CURRENTHEAD_SOURCE_AND_ALL_REQUIRED_CI"
+}

@@ -17,6 +17,20 @@ from pathlib import Path
 from . import native_tokenizers as native
 
 
+def _diagnose(error, owner, *, pending, note):
+    """Best-effort metadata; the real owner retains its resources."""
+    if note:
+        try:
+            error.add_note('tokenizer cleanup pending or interrupted')
+        except BaseException:
+            pass
+    if pending:
+        try:
+            error.cleanup_owner = owner
+        except BaseException:
+            pass
+
+
 @dataclass(frozen=True)
 class Policy:
     max_artifact_bytes: int = 32_000_000
@@ -200,20 +214,18 @@ class TokenIDSession:
             self.close()
         except BaseException as caught:
             cleanup_error = caught
-            error.add_note('tokenizer cleanup pending or interrupted')
         pending = self._child is not None or self._tmp is not None
         if not isinstance(error, Exception):
+            selected = error
+        elif cleanup_error is not None and not isinstance(cleanup_error, Exception):
+            selected = cleanup_error
+        else:
+            refused = native.TokenizerError('tokenizer session refused')
             if pending:
-                error.cleanup_owner = self
-            raise error
-        if cleanup_error is not None and not isinstance(cleanup_error, Exception):
-            if pending:
-                cleanup_error.cleanup_owner = self
-            raise cleanup_error
-        refused = native.TokenizerError('tokenizer session refused')
-        if pending:
-            refused.owner = self
-        raise refused from None
+                refused.owner = self
+            raise refused from None
+        _diagnose(selected, self, pending=pending, note=cleanup_error is not None)
+        raise selected
 
     def close(self):
         child = self._child
@@ -270,5 +282,12 @@ class TokenIDSession:
     def __enter__(self):
         return self
 
-    def __exit__(self, *args):
-        self.close()
+    def __exit__(self, exc_type, exc, tb):
+        try:
+            self.close()
+        except BaseException as cleanup_error:
+            if exc is None or (isinstance(exc, Exception)
+                               and not isinstance(cleanup_error, Exception)):
+                raise
+            _diagnose(exc, self, pending=True, note=True)
+        return False

@@ -228,6 +228,44 @@ synthetic /dev, no home, offline, under a separate 4 GiB /
 30 s CPU / 120 s wall allowance. A class import is not loading BGE
 weights, constructing a model, running a forward pass or measuring
 query latency, parity, hardware, security or licenses.
+The 007-i continuation selectively integrates the FIFTEEN
+root-reviewed resident-query/CPU-asset files (no branch ancestry,
+no source adaptation; oap/reviews/007-i-components.json,
+170,026 bytes): the private resident CPU query encoder
+(ResidentQueryEncoder over one owned isolated CPU session:
+bounded raw Unicode/UTF-8 query admission of at most 8192
+characters / 32768 strictly encoded bytes with no prefix,
+title, normalization, truncation or padding; independent native
+0.21.4 tokenizer IDs enforcing the 1024 limit; one actually
+owned CPU worker reused across different queries with
+load-once; immutable normalized FP32 result with observed
+complete execution provenance; content-free refusal before
+exposure on invalid input or missing/changed identity), the
+shared native/CPU/session diagnostic-priority fixes (the
+selected original non-Exception interruption is preserved even
+when cleanup or diagnostic annotation fails; a new cleanup
+interruption outranks an ordinary error; exception notes and
+owner attributes are best effort, never resource ownership) and
+the packaged CPU profile lock assets (the actual offline wheel
+bundles byte-identical CPU v2 / legacy CPU / GPU locks under
+_worker_profiles with RECORD/license/entry/source identity
+checks; installed-layout selection refuses missing, corrupt,
+symlinked or whole-bundle-missing assets even with a matching
+ambient project/lock under bounded dist-info downgrade guards;
+source-checkout support retained; pyproject adds only the three
+reviewed force-include lock mappings, with dependencies and all
+CPU/GPU/native locks unchanged). This is finite model-free
+software: the composed tests substitute a trusted in-memory fake
+framework over actual staged artifacts, actual native tokenizer
+0.21.4 and the actual CPU isolation protocol, and the wheel test
+builds and exercises the actual wheel offline in a private
+bounded prefix. The actual BGE execution, latency, parity, model
+memory and hardware remain UNRUN/UNQUALIFIED; the corrected GPU
+backend and the H helpers/fixtures/CI/locks are preserved
+unchanged; GPU child/plan/parent resources remain parallel and
+unintegrated; whole 007 remains PARTIAL
+([docs/parallel/query-embedding-api.md](docs/parallel/query-embedding-api.md),
+[docs/parallel/cpu-profile-assets-api.md](docs/parallel/cpu-profile-assets-api.md)).
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
 lock) plus the cleanup/lease/isolated-exit composition and the inert
@@ -237,8 +275,11 @@ was historically executed (toy evidence only); the ACTUAL BGE
 checkpoint/model has NOT been executed or qualified, and a class
 import is not model construction or a forward pass; the current
 38-dependency and class-level interoperability differs from real BGE
-forward and both differ from the controlled neural fakes; still no
-CPU query, resumable GPU batches or qualification yet
+forward and both differ from the controlled neural fakes; the
+resident CPU query encoder and the packaged CPU profile lock
+assets are finite model-free software, but there is still no
+actual-model CPU query execution, resumable GPU batches or
+qualification yet
 ([docs/embedding.md](docs/embedding.md),
 [docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
 Source-to-block anchors, native versus visual-needed page semantics,

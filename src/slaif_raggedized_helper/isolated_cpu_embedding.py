@@ -25,6 +25,18 @@ class SessionRefused(ValueError):
         self.pending = owner is not None
 
 
+def _annotate_pending(error, owner):
+    """Diagnostics are optional and must never replace the chosen interruption."""
+    try:
+        error.add_note("embedding session cleanup pending")
+    except BaseException:
+        pass
+    try:
+        error.cleanup_owner = owner
+    except BaseException:
+        pass
+
+
 @dataclasses.dataclass(frozen=True)
 class EncodedBatch:
     vectors: embedding_vectors.NormalizedVectors
@@ -311,12 +323,10 @@ class IsolatedCPUEmbeddingSession:
         pending = self._cleanup()
         if not isinstance(error, Exception):
             if pending:
-                error.add_note("embedding session cleanup pending; owner retained")
-                error.cleanup_owner = self
+                _annotate_pending(error, self)
             raise error
         if self._cleanup_interrupt is not None:
-            self._cleanup_interrupt.add_note("embedding session cleanup pending")
-            self._cleanup_interrupt.cleanup_owner = self
+            _annotate_pending(self._cleanup_interrupt, self)
             raise self._cleanup_interrupt
         raise SessionRefused(owner=self if pending else None) from None
 
@@ -408,8 +418,7 @@ class IsolatedCPUEmbeddingSession:
         try:
             pending = self._cleanup()
             if self._cleanup_interrupt is not None:
-                self._cleanup_interrupt.add_note("embedding session cleanup pending")
-                self._cleanup_interrupt.cleanup_owner = self
+                _annotate_pending(self._cleanup_interrupt, self)
                 raise self._cleanup_interrupt
             if pending:
                 raise SessionRefused("embedding session cleanup pending", owner=self)
@@ -423,8 +432,7 @@ class IsolatedCPUEmbeddingSession:
             if exc is None or (isinstance(exc, Exception)
                                and not isinstance(cleanup_error, Exception)):
                 raise
-            exc.add_note("embedding session cleanup pending")
-            exc.cleanup_owner = self
+            _annotate_pending(exc, self)
         return False
 
     def _preflight(self, texts):

@@ -595,3 +595,57 @@ def test_failed_native_constructor_retains_stage_and_exact_owner(args, tmp_path,
             child.kill()
         child.wait(timeout=1)
         obj.close()
+
+
+class AnnotationHostile(BaseException):
+    def add_note(self, note):
+        raise KeyboardInterrupt('secondary diagnostic interruption')
+
+    def __setattr__(self, name, value):
+        raise KeyboardInterrupt('secondary attribute interruption')
+
+
+@pytest.mark.parametrize('operation', ['fail', 'close', 'exit'])
+def test_annotation_failures_cannot_replace_selected_interrupt(args, operation):
+    obj = IsolatedCPUEmbeddingSession(*args)
+    primary = AnnotationHostile('primary')
+
+    class Stage:
+        def __exit__(self, *unused):
+            if operation == 'close':
+                raise primary
+            raise ValueError('ordinary cleanup')
+
+    stage = Stage()
+    obj._stage = stage
+    with pytest.raises(AnnotationHostile) as caught:
+        if operation == 'fail':
+            obj._fail(primary)
+        elif operation == 'close':
+            obj.close()
+        else:
+            assert obj.__exit__(type(primary), primary, None) is False
+            raise primary
+    assert caught.value is primary
+    assert obj._stage is stage and obj._stage_failed
+
+
+@pytest.mark.parametrize('body,cleanup,expected', [
+    (ValueError('body'), AnnotationHostile('cleanup'), 'cleanup'),
+    (AnnotationHostile('body'), ValueError('cleanup'), 'body'),
+    (AnnotationHostile('body'), KeyboardInterrupt('cleanup'), 'body'),
+])
+def test_hostile_context_interrupt_priority(args, body, cleanup, expected):
+    obj = IsolatedCPUEmbeddingSession(*args)
+    class Stage:
+        def __exit__(self, *unused):
+            raise cleanup
+    stage = Stage()
+    obj._stage = stage
+    if expected == 'cleanup':
+        with pytest.raises(AnnotationHostile) as caught:
+            obj.__exit__(type(body), body, None)
+        assert caught.value is cleanup
+    else:
+        assert obj.__exit__(type(body), body, None) is False
+    assert obj._stage is stage and obj._stage_failed

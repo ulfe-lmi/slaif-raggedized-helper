@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration + 007-h runtime setup integration + 007-i resident query assets integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -14,7 +14,11 @@ output-before-COMPLETE). Together they establish no real encoder execution, no C
 query path, no resumable owned GPU batches and no qualification contract. 007-g
 selectively integrates the reviewed CPUv2 profile/portable-fixture and corrected
 GPU raw-backend candidates (CPUv2 lock selection, required v2 CI fixture, inert
-raw GPU backend source). Objective
+raw GPU backend source). 007-i
+selectively integrates the reviewed resident CPU query encoder,
+the shared diagnostic-priority fixes and the packaged CPU
+profile lock assets (finite model-free software; the actual
+BGE remains UNRUN/UNQUALIFIED). Objective
 007 remains PARTIAL until those are implemented and reviewed. No self-advance to 008
 or main merge.
 
@@ -703,14 +707,109 @@ child/query parallel prototypes are not canonical here. The
 legacy CPU profile/helper/fixture, the CPUv2 fixture, the native
 0.21.4 capsule and the app dependencies are preserved intact.
 
+## 007-i slice: resident query assets integration (integrated)
+
+Selective integration of the FIFTEEN root-reviewed
+query/CPU-asset files by file copy from the two exact report
+commits (query 1bb40cc63bf4791631337d102ca508ef17c7bf27, CPU
+assets d75baa515e1ff2ed3368442b71db2ac8ac29af50;
+oap/reviews/007-i-components.json, 170,026 bytes; all fifteen
+blob + SHA-256 + size exact at this head): no branch ancestry,
+no cherry-pick/rebase/reset/stash/clean, no source adaptation,
+no test weakening. The CPU worker file comes from d75 (query
+fixes plus packaging), not the older query worker; the
+corrected GPU backend, the H installer/fixture helpers, the
+existing fixtures, CI, locks, requirements, worker-profile
+READMEs and law are unchanged.
+
+`src/slaif_raggedized_helper/query_embedding.py` (new) is the
+private resident CPU query encoder: `ResidentQueryEncoder` owns
+one `IsolatedCPUEmbeddingSession`; enter it once and call
+`encode_query(text)` for each query. Query policy v1 (the
+SHA-256 of the canonical ASCII JSON record in `_POLICY`)
+accepts exactly a built-in nonblank Unicode string of at most
+8192 characters and 32768 strictly encoded UTF-8 bytes and
+passes the original string unchanged: no prefix, title,
+normalization, truncation or padding. The admitted definition
+must have `query_prefix=None`, CLS pooling, L2 normalization
+and 1024 dimensions; the independent native 0.21.4 tokenizer
+enforces the 1024 ID limit including special tokens before the
+CPU forward. One actually owned CPU worker is reused across
+different queries (load-once; its finite lifetime and call
+limits still apply); an actual session error refuses the
+instance while a malformed raw input does not consume it;
+concurrent use, reuse after fork and missing/changed identity
+refuse before exposure. The frozen `QueryEmbedding` carries the
+immutable 4096-byte little-endian FP32 normalized payload, its
+SHA-256, the admitted space and definition identities, the
+intended CPU FP32 fingerprint, the actual observed execution
+record and fingerprint, and the query policy ID (no query text
+or token IDs); the encoder validates row/payload/digest/norm/
+identity/receipt/observed-record consistency and does not
+renormalize. `QueryRefused` is content-free; the inherited
+session retains actual handles even on refusal and close may be
+retried for pending cleanup.
+
+The shared cleanup/diagnostic priority fixes (
+`isolated_cpu_embedding.py`, `embedding_tokenizer.py`,
+`cpu_embedding_worker.py`): the selected original non-
+Exception interruption is preserved before any diagnostic
+attachment: `add_note` and owner-attribute failures can never
+replace the chosen exception (best-effort `_annotate_pending` /
+`_diagnose` / `_note_cleanup`), a new cleanup interruption
+outranks an ordinary operation or context-body error, and the
+actual session retains its pending tokenizer/worker/staging
+handles independently of any exception notes or attributes.
+The historical F1/F2 failure witnesses asserting a bad
+secondary are regression inputs, not passing proof; the
+corrected copies are verified by the committed hostile-
+diagnostic regressions and the original guard-causality
+evidence.
+
+`pyproject.toml` adds only the three reviewed force-include
+lock-asset wheel mappings
+(`worker_profiles/{cpu-v2,cpu,gpu}/uv.lock` ->
+`slaif_raggedized_helper/_worker_profiles/...`); dependencies
+and metadata are unchanged and the CPU/GPU/native locks remain
+exact. The CPU worker and CPU execution contract now select the
+bundled CPU v2 lock in an installed layout and refuse missing,
+corrupt, symlinked or whole-bundle-missing assets even with a
+matching ambient project/lock; a bounded dist-info scan (first
+4096 entries) detects this package's installed distribution in
+a src-named wheel prefix before admitting the fixed source-
+checkout layout, which additionally requires the exact project
+name and no installed metadata; no external installation-
+relative lock is searched and source-checkout support is
+retained. `tests/integration/test_cpu_profile_assets.py`
+builds and exercises the ACTUAL wheel in an isolated private
+prefix (offline, no-index, bounded 1 GiB address space / 30 s
+CPU / 120 s wall), verifying RECORD/license/entry/source
+identity and the installed-layout downgrade refusals.
+
+Behavior is proven with the composed fake-framework suites
+(trusted in-memory framework over actual staged artifacts,
+actual native tokenizer 0.21.4 and the actual CPU isolation
+protocol) and the actual offline wheel: finite model-free
+software. The actual BGE model, checkpoint and hardware remain
+UNRUN/UNQUALIFIED; no BGE execution, latency, parity, model
+memory or hardware claim; GPU child/plan/parent resources
+remain parallel and unintegrated. The H actual 38 setup/
+class-import facts and the archived random CPU toy distinction
+are preserved; the current host full-unit failure cause
+remains UNRESOLVED as observed H history: no causality is
+invented and no failure is hidden. Whole 007 remains PARTIAL;
+no main merge, 008, release or tag.
+
 ## Remaining 007 work (not implemented this round)
 The CPU reference software path now selects the CPUv2 lock (trusted
 neural fakes only); still open: running the ACTUAL BGE-M3 model under
 the fixed weights-only CPU worker (the real model has never been run
 here; the full-38 CPUv2 acquisition has a separately scoped Root
 actual frozen full-CLI completion as developer qualification
-evidence, not a deployment or runtime grant), the CPU FP32 query
-path and CPU exact dot-product search against admitted spaces, resumable
+evidence, not a deployment or runtime grant), running the resident CPU query path against the ACTUAL model
+(the query encoder is integrated model-free; the real model has
+never been run) and CPU exact dot-product search against admitted
+spaces, resumable
 owned GPU encode batches with bounded resource telemetry (the REQUIRED
 exclusive GPU FP16 corpus encoding per the architecture; the corrected
 raw GPU backend source is integrated and inert — no owned GPU process,
@@ -868,3 +967,49 @@ the fixed runtime/binary host only; they do not qualify models,
 hardware, security, licenses, parity or deployment, and a test
 fixture or historical Root allowance is not a new runtime grant.
 Real qualification remains NOT RUN (U04/U07 relevant).
+007-i behavior is proven at the current canonical by the full
+local unit sweep (1466 collected, all passed, exit 0), the four
+separate integration invocations, each in its own process (query
+composition 3, isolated composition 3 with the retained
+multithreaded-fork deprecation warning, CPU worker composition
+4 under the CPUv2 fixture variables, actual offline wheel 1; all
+exit 0), the full integration sweep (637 cases, exit 0) and
+ruff/compileall/OAP-scaffold/check_state/help/doctor, with the
+fifteen indexed sources byte-unchanged before and after. The
+disposable Root 15-file composed review tree
+(oap/reviews/007-i15-composed-review-tree.json: 246 focused
+unit + separate query 3 / isolated 3 / CPU worker 4 / wheel 1
+PASS; the initial Root invocation errors - nonexistent test
+names and missing CPUv2 env - are retained and corrected in that
+record, not product failures) is forecast evidence, not
+canonical CI or ICA. The root-accepted records
+(oap/reviews/007-h-review.json, 007-h-root-source-final.json,
+007-h-implementation-CI-final.json, 007-h-report-CI-final.json,
+007-h-response-format-reconciliation.json,
+007-i-query-boundary-b-review.json,
+007-i-audit-query-boundary-c-review.json,
+007-query-C-peer-root-review-758f.json,
+007-i-cpu-profile-assets-review.json,
+007-i-audit-cpu-profile-assets-review.json,
+007-cpu-assets-source-review-c5e9.json,
+007-cpu-assets-peer-root-review-b65e.json), the components index
+(oap/reviews/007-i-components.json) and its record index
+(oap/reviews/007-i-root-records.json) are immutable provenance,
+not current CI or Root acceptance of this integration. The
+required exact-head GitHub five jobs / all 78 steps at
+implementation and report head are the mandatory gate and are
+reported as observed. The composed proof substitutes a trusted
+in-memory fake framework over actual staged artifacts, actual
+native tokenizer 0.21.4 and the actual CPU isolation protocol;
+the wheel test exercises the actual offline wheel in a private
+bounded prefix. This is finite model-free software: no BGE
+execution, latency, parity, model memory or hardware claim; GPU
+child/plan/parent resources remain parallel and unintegrated.
+The H actual 38 setup/class-import facts and the archived random
+CPU toy distinction are preserved; the H-era host full-unit
+failure (derived-store failure then embedding-artifacts
+segmentation fault at the H base/head) remains an UNRESOLVED
+observed historical observation: no causality is invented, no
+failure is hidden, and this round's passing local full unit
+sweep does not retroactively clear it. Real qualification
+remains NOT RUN (U04/U07 relevant).

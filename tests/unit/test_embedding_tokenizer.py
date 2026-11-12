@@ -427,3 +427,82 @@ def test_later_interrupt_outranks_pipe_error_and_retry_drains(tmp_path, monkeypa
             child.kill()
         child.wait(timeout=1)
         session.close()
+
+
+@pytest.mark.parametrize('diagnostic_failure', [ValueError('note'), KeyboardInterrupt('note')])
+@pytest.mark.parametrize('cleanup', [ValueError('close'), KeyboardInterrupt('close')])
+def test_refuse_selects_primary_before_hostile_diagnostics(diagnostic_failure, cleanup):
+    class Hostile(BaseException):
+        def add_note(self, note):
+            raise diagnostic_failure
+
+        def __setattr__(self, name, value):
+            raise diagnostic_failure
+
+    obj = object.__new__(e.TokenIDSession)
+    obj._child, obj._tmp = object(), object()
+    primary = Hostile('primary')
+
+    def close():
+        raise cleanup
+
+    obj.close = close
+    with pytest.raises(Hostile) as caught:
+        obj._refuse(primary)
+    assert caught.value is primary and obj._child is not None and obj._tmp is not None
+
+
+@pytest.mark.parametrize('diagnostic_failure', [ValueError('attr'), KeyboardInterrupt('attr')])
+def test_refuse_cleanup_interrupt_with_hostile_attributes(diagnostic_failure):
+    class Hostile(KeyboardInterrupt):
+        def add_note(self, note):
+            raise diagnostic_failure
+
+        def __setattr__(self, name, value):
+            raise diagnostic_failure
+
+    obj = object.__new__(e.TokenIDSession)
+    obj._child, obj._tmp = object(), object()
+    cleanup = Hostile('cleanup')
+    obj.close = lambda: (_ for _ in ()).throw(cleanup)
+    with pytest.raises(Hostile) as caught:
+        obj._refuse(ValueError('primary'))
+    assert caught.value is cleanup and obj._child is not None and obj._tmp is not None
+
+
+@pytest.mark.parametrize('body,cleanup,selected', [
+    (KeyboardInterrupt('body'), ValueError('cleanup'), 'body'),
+    (KeyboardInterrupt('body'), KeyboardInterrupt('cleanup'), 'body'),
+    (ValueError('body'), KeyboardInterrupt('cleanup'), 'cleanup'),
+    (None, ValueError('cleanup'), 'cleanup'),
+])
+def test_native_context_exception_priority(body, cleanup, selected):
+    obj = object.__new__(e.TokenIDSession)
+    obj._child, obj._tmp = object(), object()
+    obj.close = lambda: (_ for _ in ()).throw(cleanup)
+    expected = body if selected == 'body' else cleanup
+    with pytest.raises(type(expected)) as caught:
+        with obj:
+            if body is not None:
+                raise body
+    assert caught.value is expected
+    assert obj._child is not None and obj._tmp is not None
+
+
+@pytest.mark.parametrize('diagnostic_failure', [ValueError('note'), KeyboardInterrupt('note')])
+def test_context_hostile_diagnostics_keep_original(diagnostic_failure):
+    class Hostile(BaseException):
+        def add_note(self, note):
+            raise diagnostic_failure
+
+        def __setattr__(self, name, value):
+            raise diagnostic_failure
+
+    body = Hostile('body')
+    obj = object.__new__(e.TokenIDSession)
+    obj._child, obj._tmp = object(), object()
+    obj.close = lambda: (_ for _ in ()).throw(KeyboardInterrupt('cleanup'))
+    with pytest.raises(Hostile) as caught:
+        with obj:
+            raise body
+    assert caught.value is body and obj._child is not None and obj._tmp is not None

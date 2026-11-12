@@ -451,10 +451,9 @@ def test_body_exception_preserved_on_cleanup_interrupt():
             stream.close()
 
     child.stdin = Once()
-    with pytest.raises(RuntimeError, match="body") as caught:
+    with pytest.raises(KeyboardInterrupt, match="private"):
         with obj:
             raise RuntimeError("body")
-    assert caught.value.__notes__ == ["worker cleanup refused"]
     assert child.poll() is not None and stream.closed
 
 
@@ -489,3 +488,132 @@ def test_profile_refuses_old_lock_and_metadata_mutations(tmp_path):
     shutil.copytree(packages / "torch.dist-info", packages / "TORCH_copy.dist-info")
     with pytest.raises(ValueError):
         worker._profile(lock, packages)
+
+
+@pytest.mark.parametrize("diagnostic_failure", [ValueError("note"), KeyboardInterrupt("note")])
+@pytest.mark.parametrize("cleanup", [ValueError("cleanup"), KeyboardInterrupt("cleanup")])
+def test_forward_preserves_hostile_primary(monkeypatch, diagnostic_failure, cleanup):
+    class Hostile(BaseException):
+        def add_note(self, note):
+            raise diagnostic_failure
+
+        def __setattr__(self, name, value):
+            raise diagnostic_failure
+
+    obj = _protocol_worker("import time; time.sleep(20)")
+    child = obj._child
+    primary = Hostile("primary")
+    shutdown = obj._shutdown
+    monkeypatch.setattr(obj, "_exchange", lambda *args: (_ for _ in ()).throw(primary))
+    monkeypatch.setattr(obj, "_shutdown", lambda: (_ for _ in ()).throw(cleanup))
+    try:
+        with pytest.raises(Hostile) as caught:
+            obj.forward_cls([[1, 2]])
+        assert caught.value is primary and obj._child is child
+    finally:
+        monkeypatch.setattr(obj, "_shutdown", shutdown)
+        obj.close()
+    assert child.poll() is not None
+
+
+@pytest.mark.parametrize("diagnostic_failure", [ValueError("note"), KeyboardInterrupt("note")])
+def test_constructor_preserves_hostile_primary(monkeypatch, diagnostic_failure):
+    class Hostile(BaseException):
+        def add_note(self, note):
+            raise diagnostic_failure
+
+    primary = Hostile("primary")
+    obj = object.__new__(worker.CPUEmbeddingWorker)
+    monkeypatch.setattr(worker, "Policy", lambda: (_ for _ in ()).throw(primary))
+    monkeypatch.setattr(obj, "_shutdown", lambda: (_ for _ in ()).throw(ValueError("cleanup")))
+    with pytest.raises(Hostile) as caught:
+        obj.__init__(None, None, None, None, None, None)
+    assert caught.value is primary
+
+
+@pytest.mark.parametrize("diagnostic_failure", [ValueError("note"), KeyboardInterrupt("note")])
+def test_shutdown_first_interrupt_survives_hostile_note(diagnostic_failure):
+    import threading
+
+    class Hostile(KeyboardInterrupt):
+        def add_note(self, note):
+            raise diagnostic_failure
+
+    primary = Hostile("first")
+
+    class Child:
+        stdin = stdout = None
+        def poll(self):
+            raise primary
+        def terminate(self):
+            raise ValueError("terminate")
+        def wait(self, timeout):
+            raise ValueError("wait")
+        def kill(self):
+            raise KeyboardInterrupt("second")
+
+    obj = object.__new__(worker.CPUEmbeddingWorker)
+    obj._close_guard, obj._timer, obj._child = threading.Lock(), None, Child()
+    child = obj._child
+    with pytest.raises(Hostile) as caught:
+        obj._shutdown()
+    assert caught.value is primary and obj._child is child
+
+
+@pytest.mark.parametrize("body,cleanup,selected", [
+    (KeyboardInterrupt("body"), ValueError("cleanup"), "body"),
+    (KeyboardInterrupt("body"), KeyboardInterrupt("cleanup"), "body"),
+    (ValueError("body"), KeyboardInterrupt("cleanup"), "cleanup"),
+    (None, KeyboardInterrupt("cleanup"), "cleanup"),
+])
+def test_worker_context_priority(body, cleanup, selected):
+    obj = object.__new__(worker.CPUEmbeddingWorker)
+    obj.close = lambda: (_ for _ in ()).throw(cleanup)
+    expected = body if selected == "body" else cleanup
+    with pytest.raises(type(expected)) as caught:
+        with obj:
+            if body is not None:
+                raise body
+    assert caught.value is expected
+
+
+def test_constructor_cleanup_interrupt_outranks_ordinary(monkeypatch):
+    primary = ValueError('startup')
+    cleanup = KeyboardInterrupt('cleanup')
+    obj = object.__new__(worker.CPUEmbeddingWorker)
+    monkeypatch.setattr(worker, 'Policy', lambda: (_ for _ in ()).throw(primary))
+    monkeypatch.setattr(obj, '_shutdown', lambda: (_ for _ in ()).throw(cleanup))
+    with pytest.raises(KeyboardInterrupt) as caught:
+        obj.__init__(None, None, None, None, None, None)
+    assert caught.value is cleanup
+
+
+def test_forward_cleanup_interrupt_outranks_ordinary(monkeypatch):
+    obj = _protocol_worker('import time; time.sleep(20)')
+    child, shutdown = obj._child, obj._shutdown
+    cleanup = KeyboardInterrupt('cleanup')
+    monkeypatch.setattr(obj, '_exchange', lambda *args: (_ for _ in ()).throw(ValueError()))
+    monkeypatch.setattr(obj, '_shutdown', lambda: (_ for _ in ()).throw(cleanup))
+    try:
+        with pytest.raises(KeyboardInterrupt) as caught:
+            obj.forward_cls([[1, 2]])
+        assert caught.value is cleanup and obj._child is child
+    finally:
+        monkeypatch.setattr(obj, '_shutdown', shutdown)
+        obj.close()
+    assert child.poll() is not None
+
+
+@pytest.mark.parametrize('diagnostic_failure', [ValueError('note'), KeyboardInterrupt('note')])
+def test_context_hostile_note_keeps_original(diagnostic_failure):
+    class Hostile(BaseException):
+        def add_note(self, note):
+            raise diagnostic_failure
+
+    body = Hostile('body')
+    obj = object.__new__(worker.CPUEmbeddingWorker)
+    obj.close = lambda: (_ for _ in ()).throw(KeyboardInterrupt('cleanup'))
+    with pytest.raises(Hostile) as caught:
+        with obj:
+            raise body
+    assert caught.value is body

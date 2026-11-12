@@ -861,3 +861,61 @@ human question.
   (license/distribution clearance) remain OPEN; the required
   exclusive GPU FP16 corpus encoding path execution is still
   unimplemented; real qualification NOT RUN.
+### 2026-11-12, order 007-i (resident query + packaged CPU profile lock assets integration)
+
+- 007 is PARTIAL after this slice: the FIFTEEN root-reviewed
+  resident-query/CPU-asset files are selectively integrated by
+  byte-exact file copy from the two exact report commits
+  (query 1bb40cc6, CPU assets d75baa51;
+  oap/reviews/007-i-components.json, 170,026 bytes; no branch
+  ancestry, no source adaptation): the private resident CPU
+  query encoder (bounded raw Unicode/UTF-8 admission: at most
+  8192 characters / 32768 strictly encoded bytes, nonblank,
+  with no prefix, title, normalization, truncation or padding;
+  independent native 0.21.4 tokenizer IDs enforcing the 1024
+  limit; one actually owned CPU worker reused across different
+  queries with load-once; immutable normalized FP32 result
+  plus observed complete execution provenance; content-free
+  QueryRefused before exposure; missing/changed identity and
+  invalid input refuse), the shared native/CPU/session
+  diagnostic-priority fixes (the selected original non-
+  Exception interruption is preserved even when cleanup or
+  diagnostic annotation fails; a new cleanup interruption
+  outranks an ordinary error; exception notes and owner
+  attributes are best effort, never resource ownership; the
+  actual session retains its pending handles) and the packaged
+  CPU profile lock assets (the actual offline wheel bundles
+  byte-identical CPU v2 / legacy CPU / GPU uv.lock files under
+  _worker_profiles with RECORD/license/entry/source identity;
+  installed-layout selection refuses missing/corrupt/symlinked
+  or whole-bundle-missing assets even with a matching ambient
+  project/lock under bounded dist-info downgrade guards; a
+  src-named wheel prefix is detected before admitting the
+  fixed source-checkout layout; source-checkout support
+  retained; pyproject adds only the three reviewed force-
+  include mappings, dependencies and all CPU/GPU/native locks
+  unchanged).
+- Mock/real distinction: the composed query/isolated/CPU-
+  worker tests substitute a trusted in-memory fake framework
+  over actual staged artifacts, actual native tokenizer 0.21.4
+  and the actual CPU isolation protocol; the wheel test builds
+  and installs the actual wheel offline in a private bounded
+  prefix. This is finite model-free software progress: the
+  actual BGE execution, latency, parity, model memory and
+  hardware remain UNRUN/UNQUALIFIED; GPU child/plan/parent
+  resources remain parallel and unintegrated; the corrected GPU
+  backend source is preserved unchanged; no security/license/
+  current-rights/real-CPU-neural/V100/controller/parity/
+  visual/held-out/ICA/full-MVP claim is made.
+- The H actual 38 setup/class-import facts and the archived
+  random CPU toy distinction are preserved (H history); the
+  current host full-unit failure cause remains UNRESOLVED as
+  observed H history: no causality is invented and no failure
+  is hidden; this round's local full unit sweep passed at the
+  current head (1466 collected, exit 0) without retroactively
+  clearing the unresolved H-era observation.
+- U04 (CPU query latency, CPU/GPU embedding parity) and U07
+  (license/distribution clearance) remain OPEN; the required
+  exclusive GPU FP16 corpus encoding path execution is still
+  unimplemented; real qualification NOT RUN. Whole 007
+  remains PARTIAL; no main merge or 008.
