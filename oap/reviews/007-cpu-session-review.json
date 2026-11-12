@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-11T23:14:42.370193+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_COMPOSED_CPU_SESSION_SOFTWARE",
+  "receipt": {
+    "lane": "cpu-session",
+    "lane_id": "PAR-007-CPU-SESSION-A",
+    "result": "COMPLETE",
+    "implementation": "cb439c1579bcbae66dde9c0d167ddf98756786a8",
+    "report_commit": "a7fb1bf0888ffc77c7bfb0c7f9d9f22d56766f10",
+    "report_sha256": "a895b1328e7e780a81b66d3de949b311cc56d4fba5940776a4cdbac638176b94",
+    "paths": [
+      "docs/parallel/cpu-embedding-session-api.md",
+      "oap/parallel/orders/PAR-007-CPU-SESSION-A.md",
+      "src/slaif_raggedized_helper/cpu_embedding_session.py",
+      "tests/integration/test_cpu_embedding_session_composition.py",
+      "tests/unit/test_cpu_embedding_session.py"
+    ],
+    "verified_at": "2026-11-11T23:10:55.234058+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "execution": {
+    "unit": 21,
+    "actual_native_standalone_integration": 1,
+    "lint": "PASS",
+    "witnesses": {
+      "/tmp/raggedized-root-cpu-session-boundaries.py": "8d6cbe2cacadf12bcd17989380ea306d98b804c6b4ea581b4b7a4617e53e1382",
+      "/tmp/raggedized-root-cpu-trace-causality.py": "b32c48d95fe015bf47e98b96eb4767d5cc1ab3e6d4eeeda905c4a6977c65bb06"
+    },
+    "witness_exits": 0,
+    "large_input_refusal_peak_bytes": 1141,
+    "invalidruntime_framework_events": []
+  },
+  "source_review": "Root whole wrapper/allunit/actualnativecomposition/API docs + bothcorrectivedeltas read; full finalSELFreport reviewed; exact report-only parent/cleanSHA/preparation parents+treeverified. Framework calls only trustedfakes, actual sourceadmission/staging/nativeIDs/math are executed.",
+  "strongest_counterargument": "Trustedframeworkfakes and real owned nativefixtures cannot establish optionalTorch runtime compatibility, model quality/mathparity or kernel neural isolation; only composedsoftware contract is accepted locally pendingcanonicalintegration.",
+  "limits": "No actualTorch/profile/model forward/kernel neuralisolation/physicalCPU/GPU/parity/currentrights/license/quality/ICA/MVP qualification; canonical integration pending.",
+  "DHA": "NONE"
+}

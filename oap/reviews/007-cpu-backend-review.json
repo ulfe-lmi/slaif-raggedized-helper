@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-11T22:34:24.165960+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_RAW_CPU_CLS_SOFTWARE",
+  "decision": "ACCEPT_LOCAL_COMPONENT_PENDING_CANONICAL007_INTEGRATION_CURRENT_HEAD_CI",
+  "receipt": {
+    "lane": "cpu-backend-b",
+    "lane_id": "PAR-007-CPU-BACKEND-B",
+    "result": "COMPLETE",
+    "implementation": "222e1f9afcef9c0ab443c54d293c29536348ca3f",
+    "report_commit": "3903a9c9a2870e2532dfea007afc8b5212842144",
+    "report_sha256": "4742d360d2249fb3deb2757d001f66294850eb5490476bcc302d8d30f1bb4101",
+    "paths": [
+      "docs/parallel/cpu-embedding-backend-api.md",
+      "oap/parallel/orders/PAR-007-CPU-BACKEND-B.md",
+      "src/slaif_raggedized_helper/cpu_embedding_backend.py",
+      "tests/integration/test_cpu_embedding_backend_composition.py",
+      "tests/unit/test_cpu_embedding_backend.py"
+    ],
+    "verified_at": "2026-11-11T22:34:24.242901+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "source_review": "Rootwholemodule/allunit/composition/doc andtwo-correctiondelta inspected. Pre-reportFIXcorrectedunboundedtreewalkandvalidFalseconfigreturn_dictfailure; newsourceverifiedbeforeREPORT.",
+  "execution": "Root24unit+1standalonecomposition/wholechangedlintPASS; unchangedprivateCPUboundarywitnessnowPASSbothcases/noactualframeworkimport. Author95relatedcombinedPASSclaimedand1standalonePASSretainedasauthorproof, notRootrun. Finalreportsoleparent/exactfrozenimplementation/report-onlydiff/order/allowedpaths/RootREPORTconsumption/cleantree independentlyverified; reportfullread matchesactualscope.",
+  "strongest_counterargument": "Metadata-pinnedcandidategraphnotinstalledresolvedruntime; allmodelcallsaretrustedfakes. RowsRAWCLS notnormalizedpublicEmbeddingClient; nativeinputIDs/L2/ownedCPUworker/actualmodel/physicalCPUFP32/V100GPU/parity/rights/license/qualityqualificationremainOPEN. Acceptsoftwarelowerlayeronly, noICA/MVP/releaseclaim.",
+  "protocol": "Implementationcheckpointpreservedoldcommitrefs; samecontextFIX followedactualtypedcodeproofandonlythenimmutableSELFreport. No Rootproductpatch/FIFOread.",
+  "DHA": "NONE"
+}

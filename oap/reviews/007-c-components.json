@@ -1,0 +1,112 @@
+{
+  "at": "2026-11-11T23:53:37.191951+00:00",
+  "base": "cdf3125233d9914d91cd38c29e2cf8fb7347793c",
+  "candidate_tip": "a7fb1bf0888ffc77c7bfb0c7f9d9f22d56766f10",
+  "implementation": "cb439c1579bcbae66dde9c0d167ddf98756786a8",
+  "receipt": {
+    "lane": "cpu-session",
+    "lane_id": "PAR-007-CPU-SESSION-A",
+    "result": "COMPLETE",
+    "implementation": "cb439c1579bcbae66dde9c0d167ddf98756786a8",
+    "report_commit": "a7fb1bf0888ffc77c7bfb0c7f9d9f22d56766f10",
+    "report_sha256": "a895b1328e7e780a81b66d3de949b311cc56d4fba5940776a4cdbac638176b94",
+    "paths": [
+      "docs/parallel/cpu-embedding-session-api.md",
+      "oap/parallel/orders/PAR-007-CPU-SESSION-A.md",
+      "src/slaif_raggedized_helper/cpu_embedding_session.py",
+      "tests/integration/test_cpu_embedding_session_composition.py",
+      "tests/unit/test_cpu_embedding_session.py"
+    ],
+    "verified_at": "2026-11-11T23:10:55.234058+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "files": {
+    "docs/parallel/cpu-embedding-backend-api.md": {
+      "blob": "cd8037c3e66e763b1ab2ebf07a05897c5e142d17",
+      "sha256": "9f3f7c721f04ee65ae208d4db362ee4f181e6aa53b9649cbcb8d63ab1760f343"
+    },
+    "docs/parallel/cpu-embedding-session-api.md": {
+      "blob": "25810cb2cabadb9b55796889070153c8ac73d548",
+      "sha256": "21c1f487081b5ead5c72f84108b73a0dc1f3eeba20d42d154b2f17687cb2774d"
+    },
+    "docs/parallel/embedding-staging-api.md": {
+      "blob": "dded8fc6eb52c507cc9076a4936f60694ba41ce5",
+      "sha256": "75797e72596a934886728c34521f218505128250514a536eecb3e31dd08d8175"
+    },
+    "docs/parallel/embedding-tokenizer-api.md": {
+      "blob": "9057b1f1cc2e1e0d9b0a34ac6cf3727058a925cb",
+      "sha256": "bef6790ea4d9dabd4b029e0ecb1a0252fd8ff599cb27eb64aaaae01c133c25d7"
+    },
+    "docs/parallel/embedding-vectors-api.md": {
+      "blob": "be5fdb30ce0255f4bb65da47a3f20e4b8232a6e7",
+      "sha256": "6f7324a56f66f40493584c4bd6c679203e45a8ee08d7f1014488c9cf8de5d8c2"
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_backend.py": {
+      "blob": "a2706ad7094f9de62bb0079f999aa828519b1dec",
+      "sha256": "cd0f4a3b9dad487d94c9e5944614530432ed07887a5b96744b3a9379cd014937"
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_session.py": {
+      "blob": "589560a3a2b4f9bca25061a5d5e7985dc892d233",
+      "sha256": "375472b71fe308f219bc5e7da559a11a5983df7861bde8f215f2197d9cbf7163"
+    },
+    "src/slaif_raggedized_helper/embedding_staging.py": {
+      "blob": "958aece8cc9a61d07cc93dbfcc325aa2d60604cd",
+      "sha256": "fc321415da73bb974a9429776ce7a1b55b71521026cca5b90e1d4161c363a98e"
+    },
+    "src/slaif_raggedized_helper/embedding_tokenizer.py": {
+      "blob": "8aea18f36336969b5e6caf72c914ac6b416c29eb",
+      "sha256": "0da386d2d9631c6ed697879191d2429f3920a0a2c4cd06d5002f17a916a0036b"
+    },
+    "src/slaif_raggedized_helper/embedding_tokenizer_worker.py": {
+      "blob": "d7b716c4843210cbf96e4f1a7520a62498c4ab0d",
+      "sha256": "ce0c2fc12dac3a1fe5053afa85688a0f8a8837b34d0936256ba736dc177a35a3"
+    },
+    "src/slaif_raggedized_helper/embedding_vectors.py": {
+      "blob": "00b1cfec374df7e181801a316d153eff253ec7d0",
+      "sha256": "c69906f3cb4a1239241990d31eb2688fb14712525c5046e93ff07331724b3a67"
+    },
+    "tests/integration/test_cpu_embedding_backend_composition.py": {
+      "blob": "64dcca059ad57eccc418a61907ca4f081c0a391f",
+      "sha256": "e8b016715e67622990d86787f218562e9b6c2d508dc8e99d1e4cdd6402d3fa35"
+    },
+    "tests/integration/test_cpu_embedding_session_composition.py": {
+      "blob": "f8f37eae31bac676ca73dd2cd81c5f5e62dd9c30",
+      "sha256": "a45301b444da6fc6c64bd018d0d133fb97da5d992711415c16b7b40e6f635ad0"
+    },
+    "tests/integration/test_embedding_staging_composition.py": {
+      "blob": "46b0d7d3713617b9e0c7e25da61409edc8309bc0",
+      "sha256": "ca855f8877df05f233af55bb3103cee5b72d2096b2686fd0853fbcd21ebeb19c"
+    },
+    "tests/integration/test_embedding_tokenizer_composition.py": {
+      "blob": "22dfbd72368624243e7cbe4f7f2494143ca27ce8",
+      "sha256": "42d5f8bd041a700c3a7a30d31314a89de6d651cf63a0b653791a7264eabeac14"
+    },
+    "tests/integration/test_embedding_vectors_composition.py": {
+      "blob": "6cde4df1fa3537efb9bc01c05fb994c51781f100",
+      "sha256": "266f884670d90c2a69c6c9db5bc211a1c772884d790fbbd55d005ea814b255f5"
+    },
+    "tests/unit/test_cpu_embedding_backend.py": {
+      "blob": "6f5a8fe76f84a39735756ac4dd403c638e95ad0d",
+      "sha256": "0485fa75ed517d7dcc7e0550f14ad5456bce13e1bf0d43207a3ef17bb70e0ea2"
+    },
+    "tests/unit/test_cpu_embedding_session.py": {
+      "blob": "e33815402e9a60ead85bbfca2c47774641eca0f8",
+      "sha256": "bad8d8d5a22afb13849a91b65cd51a8c335f5d00145fde00debbcf015b2ca549"
+    },
+    "tests/unit/test_embedding_staging.py": {
+      "blob": "f26e5bad8b8dcbb4c738711d5ac1c7365a92a630",
+      "sha256": "f3218eecee8bc041b60b41ec6f698d54c028537601d8cf90d49934299f07d020"
+    },
+    "tests/unit/test_embedding_tokenizer.py": {
+      "blob": "07788e977181ee42180107b8c690c5b4d839e1bb",
+      "sha256": "f85ab28f87c3b913eecb7f96649c2c1db5cdea7dcf1ede1bf96c9381f6fe2095"
+    },
+    "tests/unit/test_embedding_vectors.py": {
+      "blob": "63b5da286682d3381945205a170b984f433cebf4",
+      "sha256": "a92583a39e709bd3b2b1e6b4b829fd6d3f4f39e00867aa8baff94cda7cdbe6bd"
+    }
+  },
+  "review": "parallel/cpu-session/review.json",
+  "scope": "Exact accepted sixmodules/fiveunit/fiveintegration/fivedocs; no actual neural model or optional workerprofile integration",
+  "DHA": "NONE"
+}
