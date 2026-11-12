@@ -1,0 +1,25 @@
+{
+  "identifier": "007-j",
+  "pr": 9,
+  "implementation": "856ecb641d190ffef54f7debe3a176379586b65d",
+  "report_commit": "41b093f5a3961048e9637b85869f8b5cd8567e9b",
+  "report_sha256": "564dd916b01491fd45b3a3c764f85cfab61256fd490d313b7b1b4e22a8e43397",
+  "verified_at": "2026-11-12T09:45:12.315189+00:00",
+  "ci": "NOT CERTIFIED BY THIS CHECK",
+  "at": "2026-11-12T09:45:12.317395+00:00",
+  "status": "RECONCILED_WITHOUT_FIFO_SIGNAL",
+  "result": "PARTIAL",
+  "recovery": "Root D0 exact immutable report SHA metadata recovery. Only its annotated Implementation head SHA is reduced to the already independently verified literal implementation. Original remaining verifier executed unchanged: unique OPENPR9/branch/base/currentremote/soleparent/reportonly/reportbytes/orderactive. Product/law/helper/report source untouched.",
+  "original_implementation_metadata": "856ecb641d190ffef54f7debe3a176379586b65d (sole parent 21c8c9b0abf2759e1dc0a2b1efe421c30726bb0c)",
+  "canonical_response_sent": false,
+  "FIFO_read_or_write": false,
+  "normal_response_requirement_disposition": "Superseded by Root regular-file reconciliation under recovery law; no coding retry, signal or replay allowed.",
+  "sole_owned_waiter_retired": {
+    "pid": 3229205,
+    "start_token": "308691023",
+    "method": "Exact commandline plus actual pidfd SIGTERM/observed exit/reader lock released"
+  },
+  "report_erratum": "Implementation prose diffstat says7M14A; actual implementation8M13A (21paths). Transcript1M15A (16paths). Frozen source bytes and scope exact; preserve report and record actual counts here.",
+  "strongest_counterargument": "Machine header violates strict format and report diffstat prose is inaccurate. Exception is restricted to exact reviewed bytes and already verified graph, no broad parser relaxation or false signal/CI/acceptance claim.",
+  "DHA": "NONE"
+}

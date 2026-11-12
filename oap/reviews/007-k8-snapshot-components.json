@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-12T09:52:52.585353+00:00",
+  "status": "FINAL_EIGHT_CODEC_SOURCE_INDEX_PENDING_LIVE_PUBLICATION",
+  "canonical_base": "41b093f5a3961048e9637b85869f8b5cd8567e9b",
+  "entries": [
+    {
+      "source_commit": "b7a2b520ac543d3e78080aa163047b112e0b579f",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_manifest.py",
+      "bytes": 6462,
+      "sha256": "9a2b27ea2b166952fac7bd3a2e27ba366569fcc48ad7c6473458e6528a3654eb",
+      "blob": "7f4889b9fd85e24e2251102b1206668b8a8ac8ec"
+    },
+    {
+      "source_commit": "b7a2b520ac543d3e78080aa163047b112e0b579f",
+      "path": "tests/unit/test_raw_snapshot_manifest.py",
+      "bytes": 3974,
+      "sha256": "dd31ba9941461e143e2a669d40222d078af806f3a844cf6c18650126baa2db44",
+      "blob": "dd7a3f5d2c29e8d9f5f83223b8a5f656d416f038"
+    },
+    {
+      "source_commit": "b7a2b520ac543d3e78080aa163047b112e0b579f",
+      "path": "docs/parallel/raw-snapshot-manifest-api.md",
+      "bytes": 631,
+      "sha256": "bfbe1d886d2b07fe5c3c981b4c9b38e20b75159c9a947b52f5088d3fc24ffd30",
+      "blob": "cfb82c4587dbd774747797c8edf37965ce3b3502"
+    },
+    {
+      "source_commit": "b7a2b520ac543d3e78080aa163047b112e0b579f",
+      "path": "docs/parallel/raw-snapshot-core-design.md",
+      "bytes": 8129,
+      "sha256": "6de1c2736147a88ba6ea5fba4eaa0f68a5400926efc7d81ae567164add3cd47f",
+      "blob": "5945589e925e9805244039a576fb1cf9309b5446"
+    },
+    {
+      "source_commit": "09fe0d5e02e01b514378facadb7d50cca12ef471",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_rows.py",
+      "bytes": 7582,
+      "sha256": "b828532273e095392d203f2a6dfab2b55ac5c750dce750d41dd5bc1d705471c8",
+      "blob": "2c7658ee5d48f95c5330eae20b66548600551e2c"
+    },
+    {
+      "source_commit": "09fe0d5e02e01b514378facadb7d50cca12ef471",
+      "path": "tests/unit/test_raw_snapshot_rows.py",
+      "bytes": 10075,
+      "sha256": "95cae6b78decad338c428f318629259459c3daad095ffa68430eb9765950cabf",
+      "blob": "f9ff4d94bf036f9a618ebc7a6bcfc5a012505af9"
+    },
+    {
+      "source_commit": "09fe0d5e02e01b514378facadb7d50cca12ef471",
+      "path": "docs/parallel/raw-snapshot-row-map-api.md",
+      "bytes": 1203,
+      "sha256": "98e3d05c3cd0852f13b99219d505848b1cef8476c75214a7869744d924ad5414",
+      "blob": "3ea4397e3f2c2b09f583d7d05bfa86c25e6a4cb1"
+    },
+    {
+      "source_commit": "09fe0d5e02e01b514378facadb7d50cca12ef471",
+      "path": "docs/parallel/raw-snapshot-row-map-design.md",
+      "bytes": 9651,
+      "sha256": "f8987c2752802b5fd64161c0ac584191af7c246e991a2582d1e73687af9a9c9e",
+      "blob": "eacb4d6f6fd922a0c6576673813bc3df629fe043"
+    }
+  ],
+  "total_bytes": 47707,
+  "scope": "Eight immutable pure raw snapshot core and row-map declaration codec/test/API/design files only. Original007 remaining snapshot/vector binding software, no canonical008 activation or Ready/source/vector/rights/model/ICA grant. Parent reinit repair holds oldK13; do not copy its index.",
+  "peers": [
+    "parallel/audit-snapshot-manifest/review.json exactf18e",
+    "parallel/audit-snapshot-row-map/review.json exact889b"
+  ],
+  "forecast_directory": "/tmp/raggedized-root-j-k8-codecs-36_ospg5"
+}

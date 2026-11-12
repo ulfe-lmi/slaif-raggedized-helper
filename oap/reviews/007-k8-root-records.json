@@ -1,0 +1,75 @@
+{
+  "at": "2026-11-12T09:54:35.061205+00:00",
+  "records": [
+    {
+      "source": "audit/007-j-review.json",
+      "target": "oap/reviews/007-j-review.json",
+      "sha256": "855e72f8bb8ed987cf7d3893f9e35602b19ca44c3508ffe039601062d7248e75"
+    },
+    {
+      "source": "audit/007-j-root-source-final.json",
+      "target": "oap/reviews/007-j-root-source-final.json",
+      "sha256": "fbd0ec61e4642bbe6a46a70bd82b5a39bc2ee92ccbcb8903b9a58754505d71ee"
+    },
+    {
+      "source": "audit/007-j-implementation-CI-final.json",
+      "target": "oap/reviews/007-j-implementation-CI-final.json",
+      "sha256": "3002cef90606038521744583c5822949f70ff3fbd68e9256501caa161b44c666"
+    },
+    {
+      "source": "audit/007-j-report-CI-final.json",
+      "target": "oap/reviews/007-j-report-CI-final.json",
+      "sha256": "118c21bbf8c6ad5a8c8fd6c002b95195943ba26a3a794800de607f5b6bfba6a2"
+    },
+    {
+      "source": "audit/007-j-response-format-reconciliation.json",
+      "target": "oap/reviews/007-j-response-format-reconciliation.json",
+      "sha256": "8b0b2c0b8704cb5cfd51ea9cf7fd77f160f452fc3709017b7eccacb23cd8fae7"
+    },
+    {
+      "source": "parallel/snapshot-manifest/review.json",
+      "target": "oap/reviews/007-k-snapshot-manifest-review.json",
+      "sha256": "e8b6eaa9e02e6e257d8e20f96b2bd7cff1321c1019b4ea202541e5344919411b"
+    },
+    {
+      "source": "parallel/audit-snapshot-manifest/review.json",
+      "target": "oap/reviews/007-k-audit-snapshot-manifest-review.json",
+      "sha256": "73c719a6bc904446f48b240e7dec4d0dd5add8dac066bcb18d22d5fda9f1de68"
+    },
+    {
+      "source": "audit/008-manifest-peer-root-review-f18e.json",
+      "target": "oap/reviews/008-manifest-peer-root-review-f18e.json",
+      "sha256": "a23dd3b7181cb91a5a02eb1dd3a47a61c692b3136a875d8bb0a8876e86296c6a"
+    },
+    {
+      "source": "parallel/snapshot-row-map/review.json",
+      "target": "oap/reviews/007-k-snapshot-row-map-review.json",
+      "sha256": "56161050bd76bd61bd43c16c589f04ef5890d161dacd7a9c6172a0c36f95eb23"
+    },
+    {
+      "source": "parallel/audit-snapshot-row-map/review.json",
+      "target": "oap/reviews/007-k-audit-snapshot-row-map-review.json",
+      "sha256": "638d0e152ee928dffaa9faea5ccacb16cf0d2779c7c33c329429447f8f96cc22"
+    },
+    {
+      "source": "audit/008-row-map-peer-root-review-889b.json",
+      "target": "oap/reviews/008-row-map-peer-root-review-889b.json",
+      "sha256": "e33121410fdd186e99621c9fc54895037a11fc6a2e8577f3a561035472a3b95b"
+    },
+    {
+      "source": "audit/007-k8-composed-review-tree.json",
+      "target": "oap/reviews/007-k8-composed-review-tree.json",
+      "sha256": "3d8b452166665840c8f4e31e79a594103b8d87189657fd7be1a3025a8085c837"
+    },
+    {
+      "source": "audit/007-k8-snapshot-components.json",
+      "target": "oap/reviews/007-k8-snapshot-components.json",
+      "sha256": "9e03b62081fcdc95e4cf0738d9acc621e15de7d7978f524b3378c079b5ad5753"
+    },
+    {
+      "source": "audit/007-k-activation-hold-reinit.json",
+      "target": "oap/reviews/007-k-activation-hold-reinit.json",
+      "sha256": "11bbd03dcad333ad768982a3adffa265332b6ee2fe58a002ea849636bc4a3c28"
+    }
+  ]
+}

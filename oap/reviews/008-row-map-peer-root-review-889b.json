@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T09:47:05.184270+00:00",
+  "target": "09fe0d5e02e01b514378facadb7d50cca12ef471",
+  "draft_sha256": "889b1d93bc5d6d4ab12e397f5a399b824474d5ce1de36a0b5ef7f517e43ff0d0",
+  "status": "COMPLETE_FINITE_ROW_MAP_PEER_DRAFT_VERIFIED",
+  "source_artifact_hashes_verified": 12,
+  "Root_review": "Full draft and original reviewer control read. Root exact-target independent rerun exit0 with unchanged bounds: valid three declarations both pass; only shared-bundle consistency predicate removed in temporary source permits changed source_scope hash. Original production predicate retained, no actual source/ACL authority.",
+  "Root_original": "audit/008-row-map-peer-root-control-889b.log",
+  "provenance": "Finite affected review of local declarations only; not canonical 008, full ICA or product readiness. Same pane historical row-map author with fresh context and transitive account context; not independent identity.",
+  "counterargument": "Internally consistent declarations and causal mutation checks can still carry fabricated file hashes and false source/vector relationships. Even a core declaring validation passed provides neither actual file/source integrity nor authorization. The finite candidate is supported only as a pure declared correspondence codec.",
+  "limits": "Canonical CI, actual loader and payload/source/rights/deletion, normalization, lexical terms and vector-row integrity, staged publish CAS and retained handles, model precision/hardware/quality, security, licensing and ICA remain open. No source/model authority, deployment, merge or release. Root corrected earlier frozen JSON claim in row-binding review; no product fault inferred.",
+  "Root_order_erratum": "Original .py3 path was .py followed by count3, corrected via same-context CONTINUE. Partial50e1 retained; no extra reader/context or source mutation."
+}

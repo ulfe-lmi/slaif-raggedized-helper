@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T08:27:28.236806+00:00",
+  "status": "LOCAL_MANIFEST_SOURCE_REPORT_REVIEWED_PENDING_FRESH_AFFECTED_PEER",
+  "implementation": "38ef6dcd047511068f92c2c6d753957f14fbe506",
+  "report_commit": "b7a2b520ac543d3e78080aa163047b112e0b579f",
+  "report_sha256": "48c8d68ceb4feb7e1408113c3be76946b21cbeec310f9dfb55e0f079a0fdcb32",
+  "graph": "Exact clean SELF/soleparent/reportonly/frozen5sourcepaths/orderdesign verified",
+  "Root_evidence": "audit/008-manifest-source-review-38ef.json full225linecodec+tests/API/design;9unit+35originalsyntheticchecksPASS",
+  "strongest_counterargument": "Metadata declarations only; no actual source/files/rows/rights/qualification or Ready/publisher/currentCAS/retention/ICA authority. Future affectedpeer/currentcanonicalCI still required.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}
