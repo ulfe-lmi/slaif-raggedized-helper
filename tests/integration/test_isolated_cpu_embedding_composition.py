@@ -327,3 +327,40 @@ def test_failed_constructor_retains_owned_child_and_stage(tmp_path, monkeypatch)
             child.wait(timeout=2)
         if obj._worker is not None:
             obj.close()
+
+
+def test_context_exit_interrupt_after_actual_encode(tmp_path, monkeypatch):
+    tests = Path(__file__).resolve().parents[1]
+    monkeypatch.syspath_prepend(str(tests / "unit"))
+    producer = load(
+        "exit_producer_fixture", tests / "integration/test_cpu_embedding_producer_composition.py"
+    )
+    fixture = producer.fixture.__wrapped__(tmp_path, monkeypatch)
+    args, policy, _ = next(fixture)
+    obj = IsolatedCPUEmbeddingSession(*args[4:11], worker_policy=policy)
+    interrupt = KeyboardInterrupt("cleanup")
+    try:
+        with pytest.raises(KeyboardInterrupt) as caught:
+            with obj:
+                assert len(obj.encode(["hello"]).vectors.rows) == 1
+                child = obj._worker._child
+                stage = obj._stage.gen.gi_frame.f_locals["stage_path"]
+                original_close = obj._tokenizer.close
+
+                def interrupted_close():
+                    original_close()
+                    raise interrupt
+
+                monkeypatch.setattr(obj._tokenizer, "close", interrupted_close)
+                raise RuntimeError("body")
+        assert caught.value is interrupt and interrupt.cleanup_owner is obj
+        assert obj._tokenizer is not None and obj._stage is not None and stage.exists()
+        assert child.poll() is not None
+        monkeypatch.setattr(obj._tokenizer, "close", original_close)
+        obj.close()
+        assert obj._tokenizer is None and obj._stage is None and not stage.exists()
+    finally:
+        if obj._tokenizer is not None:
+            monkeypatch.setattr(obj._tokenizer, "close", original_close)
+        obj.close()
+        fixture.close()
