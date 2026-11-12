@@ -1093,7 +1093,7 @@ steps only at this test (children observed 0 expected 1;
 skipped required follow-ups are NOT green):
 `tests/integration/test_cpu_embedding_session_composition.py`
 (current 5,179 B, SHA-256
-25dc7ed15d77e106033147edfe57a5b62f5821e3f6794a07ee77d312a59fb046;
+275e10d333555f6e02f3261449e6f9becf99e659a352ee9d4464e4837a843fd0;
 original 4,855 B /
 a45301b444da6fc6c64bd018d0d133fb97da5d992711415c16b7b40e6f635ad0)
 replaces its public-class Popen replacement spy with a

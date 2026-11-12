@@ -85,8 +85,8 @@ def test_real_composition(tmp_path, monkeypatch):
     children = []
     original_popen = subprocess.Popen.__init__
     def spawn(child, *args, **kwargs):
-        original_popen(child, *args, **kwargs)
         children.append(child)
+        original_popen(child, *args, **kwargs)
     monkeypatch.setattr(subprocess.Popen, "__init__", spawn)
     failed_paths = []
     original_backend = session.cpu_embedding_backend.CPUEmbeddingBackend

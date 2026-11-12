@@ -1116,7 +1116,7 @@ human question.
   child, so the old class-replacement constructor spy
   never reached the intended later neural-load failure.
   The repaired test (current 5,179 B, SHA-256
-  25dc7ed15d77e106033147edfe57a5b62f5821e3f6794a07ee77d312a59fb046;
+  275e10d333555f6e02f3261449e6f9becf99e659a352ee9d4464e4837a843fd0;
   original 4,855 B) spies the actual Popen.__init__ and
   delegates to the captured actual initializer on the
   actual preallocated child; public class identity stays
