@@ -83,8 +83,9 @@ def _reuse_metadata(store, ref, p):
 
 
 class _CleanupOwner:
-    def __init__(self, session, lease):
+    def __init__(self, session, lease, uncertainty=None):
         self.session, self.lease = session, lease
+        self.uncertainty = list(uncertainty or ())
 
     def close(self):
         if self.session is not None:
@@ -93,6 +94,14 @@ class _CleanupOwner:
         if self.lease is not None:
             self.lease.__exit__(None, None, None)
             self.lease = None
+        if self.uncertainty:
+            raise ProducerRefused(owner=self)
+
+
+def _prefer(original, later):
+    if isinstance(original, Exception) and not isinstance(later, Exception):
+        return later
+    return original
 
 
 def produce(
@@ -141,6 +150,8 @@ def produce(
     handle = None
     session = None
     entered = False
+    journal_entered = False
+    session_closing = False
     dispatch = False
     started = None
     attempt_id = None
@@ -154,6 +165,7 @@ def produce(
         epoch = _authorize(authorization_provider, prepared.plan_bytes, "before_model")
         handle = journal.Journal(journal_root).own(prepared.plan_bytes)
         handle.__enter__()
+        journal_entered = True
         envelope, revision = handle.read()
         current = envelope["events"][-1]["state"]
         if current["status"] == "COMPLETE":
@@ -281,7 +293,9 @@ def produce(
         if matrix.tobytes() != encoded.vectors.payload:
             raise ValueError
         vector = vector_codec.encode(matrix, batch.POLICY)
+        session_closing = True
         session.close()
+        session_closing = False
         session = None
         entered = False
         fresh = plan.build(*args, **kwargs)
@@ -314,7 +328,20 @@ def produce(
             False,
         )
     except BaseException as error:
+        selected = error
         uncertain = False
+        uncertainty = []
+        pending = getattr(error, "cleanup_owner", None) or getattr(error, "owner", None)
+        # A claim can fail before the journal context is returned. Its retained
+        # descriptor history is not a neural session and cannot be drained.
+        if not journal_entered and handle is not None:
+            if pending is not None:
+                uncertainty.append(pending)
+                pending = None
+            handle = None  # __enter__ already made its finite cleanup attempt
+        elif pending is not None and (session is None or pending is handle):
+            uncertainty.append(pending)
+            pending = None
         if handle is not None and started is not None:
             try:
                 envelope, revision = handle.read()
@@ -328,29 +355,39 @@ def produce(
                         else "FAILED"
                     )
                     append(status, _now(state["updated_ms"]))
-            except BaseException:
+            except BaseException as reconciliation:
                 uncertain = True
-                error.add_note("journal outcome uncertain")
-        pending = getattr(error, "cleanup_owner", None) or getattr(error, "owner", None)
+                selected = _prefer(selected, reconciliation)
+                retained = getattr(reconciliation, "cleanup_owner", None)
+                if retained is not None:
+                    uncertainty.append(retained)
+        if session_closing and pending is None:
+            pending = session
         if session is not None and entered and pending is None:
             try:
                 session.close()
                 session = None
-            except BaseException:
-                pending = session
+            except BaseException as cleanup:
+                selected = _prefer(selected, cleanup)
+                pending = (
+                    getattr(cleanup, "cleanup_owner", None)
+                    or getattr(cleanup, "owner", None)
+                    or session
+                )
         if pending is not None:
-            owner = _CleanupOwner(pending, handle)
-            handle = None
-            if not isinstance(error, Exception):
-                error.cleanup_owner = owner
-                raise
-            refusal = ProducerRefused(owner=owner)
+            owner = _CleanupOwner(pending, handle, uncertainty)
+            handle = None  # hold the journal until the session drains
+        elif uncertainty:
+            owner = _CleanupOwner(None, None, uncertainty)
+        else:
+            owner = None
+        if not isinstance(selected, Exception):
+            if owner is not None:
+                selected.cleanup_owner = owner
             if uncertain:
-                refusal.add_note("journal outcome uncertain")
-            raise refusal from None
-        if not isinstance(error, Exception):
-            raise
-        refusal = ProducerRefused()
+                selected.add_note("journal outcome uncertain")
+            raise selected from None
+        refusal = ProducerRefused(owner=owner)
         if uncertain:
             refusal.add_note("journal outcome uncertain")
         raise refusal from None
@@ -360,7 +397,19 @@ def produce(
             try:
                 handle.__exit__(None, None, None)
             except BaseException as cleanup_error:
-                owner = _CleanupOwner(None, handle)
+                previous = (
+                    (
+                        getattr(active_error, "cleanup_owner", None)
+                        or getattr(active_error, "owner", None)
+                    )
+                    if active_error
+                    else None
+                )
+                if isinstance(previous, _CleanupOwner):
+                    owner = previous
+                    owner.lease = handle
+                else:
+                    owner = _CleanupOwner(None, handle, [previous] if previous else None)
                 if active_error is None:
                     if not isinstance(cleanup_error, Exception):
                         cleanup_error.cleanup_owner = owner
@@ -371,3 +420,6 @@ def produce(
                 if isinstance(active_error, ProducerRefused):
                     active_error.owner = owner
                     active_error.pending = True
+                if isinstance(active_error, Exception) and not isinstance(cleanup_error, Exception):
+                    cleanup_error.cleanup_owner = owner
+                    raise cleanup_error from None
