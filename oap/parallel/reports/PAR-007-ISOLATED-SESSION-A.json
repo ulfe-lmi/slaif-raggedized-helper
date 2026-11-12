@@ -1,0 +1,52 @@
+{
+  "lane_id": "PAR-007-ISOLATED-SESSION-A",
+  "result": "COMPLETE",
+  "implementation_head": "1ffb1c1f1cbeaaf5a8ab936c48c241cd850357ea",
+  "preparation_head": "1505d5bcaffbba178f7bb1dcf428a33351647156",
+  "report_publication_commit": "SELF",
+  "api": "IsolatedCPUEmbeddingSession(manifest_bytes, artifact_root, definition, tokenizer_definition, expected_inventory_id, tokenizer_runtime, cpu_runtime, *, worker_policy=None, parent=None); context manager, encode, embed, close; pending SessionRefused.owner retains cleanup ownership.",
+  "implementation": "Owned stage, native token IDs, one fixed resident CPU worker and normalized CLS composition. Ownership is established before fixed CPU worker initialization. An unreaped CPU child retains the stage and explicit retryable cleanup owner; exhausted staging cleanup refusal remains pending without purging foreign names. Separate intended legacy execution fingerprint and observed canonical record bind handshake, policies, native identity, normalization and bridge code. Native renewal never reloads CPU worker. Source plan still records intent: a future producer must bind and compare planned and observed execution before job identity.",
+  "commands": [
+    {
+      "command": "env -u PYTHONPATH SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --offline --locked timeout 120 prlimit --as=1073741824 --cpu=30 -- python -m pytest -q tests/unit/test_isolated_cpu_embedding.py",
+      "exit": 0,
+      "result": "29 passed"
+    },
+    {
+      "command": "env -u PYTHONPATH SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --offline --locked timeout 120 prlimit --as=1073741824 --cpu=30 -- python -m pytest -q tests/integration/test_isolated_cpu_embedding_composition.py",
+      "exit": 0,
+      "result": "2 passed; fork deprecation warning, owned child waits and cleanup bounded"
+    },
+    {
+      "command": "env -u PYTHONPATH OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --offline --locked timeout 120 prlimit --as=1073741824 --cpu=30 -- python /tmp/raggedized-root-isolated-session-preflight.py",
+      "exit": 0,
+      "result": "path peak 3632 B, policy 1798 B, mutated definition 1704 B, mutated runtime events []"
+    },
+    {
+      "command": "env -u PYTHONPATH OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --offline --locked timeout 120 prlimit --as=1073741824 --cpu=30 -- python /tmp/raggedized-root-isolated-session-unit-causality.py",
+      "exit": 0,
+      "result": "SAME_VALID_FIXTURE_ZERO_NORMALIZATION_GUARD_REMOVAL_CAUGHT"
+    },
+    {
+      "command": "uv run --offline --locked ruff check src/slaif_raggedized_helper/isolated_cpu_embedding.py tests/unit/test_isolated_cpu_embedding.py tests/integration/test_isolated_cpu_embedding_composition.py",
+      "exit": 0,
+      "result": "All checks passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit": 0,
+      "result": "passed before implementation amendment"
+    }
+  ],
+  "sha256": {
+    "order": "3d5d5c26b826d3bdc9cb801ec24985f60a8aa59ec64ccba68137794dcc8c6404",
+    "source": "cbd314a9004c7903bbb4e78ca17166533a810da2e93e14cbb51f5a4e5696aea4",
+    "unit": "3c33cea9064a7b39c96ec4bb5be841f74c3e747df351bc6b4043d752a2a85eb2",
+    "integration": "1d27d3da1f9579bbc214691f04beca2a0cb08d23ca45fbc05ed356dbafb8e131",
+    "documentation": "32c64fe54b59e24a9b93f5da95c4fa830883a9d3f9a82044cc4344c55f0efa59",
+    "root_preflight_witness": "1336033f9df5f26b81d4100ef3a9d40c3c144f91862dd512546a07c7dc2a7fc4",
+    "root_causality_witness": "e8fa995c459ee5729051618030279d5e8c33f2147626cc9c0e4bbf85dcbd7aed"
+  },
+  "limits": "Focused tests use actual stage admission, native 0.21.4 and CPU sandbox protocol with trusted fake neural framework; no real model, tensor, deserialization or inference. Parent cap 1 GiB AS/30 CPU seconds/120 wall seconds after uv startup; fake CPU child 1 GiB/30 CPU/120 wall, tiny owned counterexample child <=5 seconds. Thread counts 1. Runtime and packages are trusted; profile metadata is not installed-file attestation, real-vs-fake proof or license clearance. Current rights, ACL, real-model security and license, capacity, CPU/GPU parity, quality, hardware, ICA, MVP, production and OS reap of uninterruptible tasks are unqualified. No canonical integration/current CI approval, no GPU/network/package acquisition, push, merge or deploy. Whole 007 and full MVP gates remain open.",
+  "dha": "NONE"
+}

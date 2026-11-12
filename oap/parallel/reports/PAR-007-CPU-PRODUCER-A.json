@@ -1,0 +1,48 @@
+{
+  "lane_id": "PAR-007-CPU-PRODUCER-A",
+  "result": "COMPLETE",
+  "original_base": "20cc328a87b913d3faa0a78888cee3b2bdab7307",
+  "preparation_head": "5081009cc379f70bfe148320cd1c4ec50ba96f55",
+  "preparation_tree": "9c648f4c8175221320c978f00f4d7f49eefc6900",
+  "native_report": "8dae9b681536e965f7df48db97949b9f0076e6ab",
+  "implementation_head": "e55bc38461ff33b0aac8a457fb6542dfd5331769",
+  "report_publication_commit": "SELF",
+  "API": "cpu_embedding_producer.produce composes fresh source and predicted schema-2 plan, required current-authorization provider, actual journal lease and isolated CPU session, typed output before COMPLETE and fresh verified reuse. It permits one attempt and refuses non-PENDING/non-COMPLETE states; cleanup owners retain leases when needed.",
+  "setup": "Offline locked Python 3.14 parent; native/CPU Python 3.12 root /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu; native packages /tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages; CPU packages /tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages. Parent and fake child bounded 1 GiB AS, 30 CPU seconds, 120 wall seconds; threads 1. Actual OS protocol uses a trusted fake provider, no real neural execution.",
+  "checks": [
+    {
+      "command": "uv run --offline --locked bash -c 'ulimit -v 1048576; ulimit -t 30; export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; exec timeout 120 pytest tests/unit/test_cpu_embedding_producer.py -ra'",
+      "result": "exit 0; 11 passed"
+    },
+    {
+      "command": "uv run --offline --locked bash -c 'ulimit -v 1048576; ulimit -t 30; export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=tests/unit:tests/integration; exec timeout 120 pytest tests/integration/test_cpu_embedding_producer_composition.py -ra'",
+      "result": "exit 0; 21 passed standalone, 61.18 seconds"
+    },
+    {
+      "command": "same bounded environment: timeout 120 python /tmp/raggedized-root-producer-lease-interrupt.py; timeout 120 python /tmp/raggedized-root-native-close-ownership.py; timeout 120 python /tmp/raggedized-root-native-interrupt-priority.py",
+      "result": "exit 0; all three PASS"
+    },
+    {
+      "command": "uv run --offline --locked ruff check src/slaif_raggedized_helper/cpu_embedding_producer.py tests/unit/test_cpu_embedding_producer.py tests/integration/test_cpu_embedding_producer_composition.py",
+      "result": "exit 0"
+    },
+    {
+      "command": "git diff --check HEAD^ HEAD",
+      "result": "exit 0"
+    }
+  ],
+  "witness_hashes": {
+    "producer": "ed91f0f3c2974726045ca0bac0c69b9fe06441d9b0d1b31be5c146fde7a09c3a",
+    "unit": "36838b7764fc4cee960f4fe60c98c6baae33724935f024d3e3af70b4f37cf221",
+    "integration": "a5abf12f6fe29eccc05e662755a26498d02ccdd08965a67104f19aaa133d114c",
+    "api_doc": "55e10447fe6feff50b76121a78bea455bae5c14b03bb370e0b08a5e8290e2955",
+    "order": "52a8720697884015026fae5ac1a92055a753f022c075488d70a580b148a66549",
+    "addendum": "256226b176646273b847ddb5b8ebe5a2d0c48fde3a86dfc4761dc59b7dbef80e",
+    "producer_lease_interrupt": "bfdf4ade9ff01aaacee982f6f5693307ff41723cad6b28f89c947aed75852781",
+    "native_ownership": "cde42ab88365d21dd190b76eb9ac54f7ee42944ed8267fec36d2147cbbc98694",
+    "native_interrupt_priority": "92cd6a25d80ccc9e0673400d3db121b8bff71111e40816988650d9e8ce5d9d73"
+  },
+  "evidence": "Actual source, native tokenizer, journal and typed store compose with fake worker; tests cover fresh and reused output, epoch changes, source changes, observed and receipt mismatches, timeout, corruption, competing owner, publication and ambiguous COMPLETE failures, and retained cleanup. Root found cleanup interrupt converted to refusal; amended producer preserves interrupt and owner, with regression. Root independently accepted native ownership correction, incorporated by exact preparation; producer blobs unchanged.",
+  "limits": "Provider is a trusted integration boundary, not an implemented current-policy/principal store or rights attestation. No neural semantics, real model, CPU query, GPU bulk FP16, parity, license, security, hardware, full ICA, MVP, production or release qualification. Finite tests do not prove every crash schedule, exactly-once inference or universal reaping. Whole 007 remains PARTIAL. No push, PR, merge, release or deployment.",
+  "DHA": "NONE"
+}

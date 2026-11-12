@@ -1,0 +1,32 @@
+{
+  "lane_id": "PAR-007-CPU-WORKER-A",
+  "result": "COMPLETE",
+  "implementation_head": "7656d6b7c0c3e9ac66341eae4f9d6b86264161b7",
+  "report_publication_commit": "SELF",
+  "base": "6f6657b75af504cf87d372b02d57bffd63f9d74f",
+  "api": "CPUEmbeddingWorker(manifest_bytes, private_artifact_root, definition, tokenizer_definition, expected_inventory_id, runtime, policy=None); space, vocab_size, profile, policy_fingerprint, code_fingerprint; forward_cls, close and context manager. Raw CLS rows only.",
+  "implementation": "Parent independently admits space, inventory and closed protected tree; bounds metadata and verifies exact 28-distribution profile. Fixed child validates profile, policy, canonical filename-to-hash code identity and claimed space before backend construction. Ready binds space, definition, vocab, profile, policy and code. Bounded strict newline JSON binds nonce and canonical batch digest; parent validates complete FP32 reply. Isolated child uses accepted bwrap/prlimit envelope with independent timeout watchdog. Child and parent account cumulative IPC. Cleanup is finite, retains unreaped ownership for retry, and preserves body exceptions and interrupts. Tests install a trusted fake framework before child main; no production injection path.",
+  "commands": [
+    {"command": "SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages env -u PYTHONPATH /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest -o addopts='' -q tests/unit/test_cpu_embedding_worker.py", "exit": 0, "result": "51 passed"},
+    {"command": "SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages env -u PYTHONPATH /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest -o addopts='' -q tests/integration/test_cpu_embedding_worker_composition.py", "exit": 0, "result": "4 passed; sandbox parent/child protocol, synthetic host canary/network/GPU-node denial, timeout and idle lifecycle; paused owned parent with observed sandbox worker and descendants disappearing under independent watchdog"},
+    {"command": "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check src/slaif_raggedized_helper/cpu_embedding_worker.py src/slaif_raggedized_helper/cpu_embedding_worker_main.py tests/unit/test_cpu_embedding_worker.py tests/integration/test_cpu_embedding_worker_composition.py", "exit": 0, "result": "All checks passed"},
+    {"command": "git diff --cached --check", "exit": 0, "result": "passed before implementation commit"},
+    {"command": "SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages PYTHONPATH=src:tests/unit /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/raggedized-root-worker-admission-boundaries.py", "exit": 0, "result": "WORKER_ADMISSION_BOUNDARIES []"},
+    {"command": "SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages PYTHONPATH=src:tests/unit /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/raggedized-root-worker-reply-test-causality.py", "exit": 0, "result": "REPLY_BINDING_GUARD_REMOVAL_CAUGHT_BY_NONCE_TEST True"},
+    {"command": "SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages PYTHONPATH=src:tests/unit /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/raggedized-root-worker-cleanup-interrupt.py", "exit": 0, "result": "CHILD_REAPED_AFTER_CLEANUP_INTERRUPT True"}
+  ],
+  "sha256": {
+    "order": "d4400af455aba8a67ae8eda1f5f6c4f9534a11cbc800f5e4c8df69d612ad2f6b",
+    "parent": "0a576e96ef8c31ca0ef490b4d4ddb59c04223082d25c87fb416ea1fb9ba719da",
+    "child": "df25d670940a0a0d7dbeca5d3d4c42992feb1a801188494f69ef7f7a9236be26",
+    "unit": "f3d033f9b547deb6f6fbfb70d9e4f2fba14f8ff66a2ef44eae94d6c1c923034c",
+    "integration": "2812ebbc9f798b44d918b0961d20b254695ff500f8c82bc9658943346c7793ba",
+    "documentation": "35f5cac367f0eb8a2e05e4ccc1a2ce2ebd3c97e16f3634c9c3680b3d9e088fea",
+    "profile_lock": "e0a2b1be5601e141b1dca46cd054c77850344d5123424ed05f176a9621a41299",
+    "root_admission_witness": "5a8a21b974eae8b609f4cede777454b594a54204cd2584bce163616b9ad436bf",
+    "root_reply_witness": "4ab7b1203c47fe2470a1b39684241a5e13bc120c602b51fb9aedfc158b1e0223",
+    "root_cleanup_witness": "3b041c7f4b9c41d366bd9896360b8447469e8fb6626540fad613f5cb6007d327"
+  },
+  "limits": "No real model, tensor, deserialization or forward, including synthetic weights. The separate Root spike imported the actual transformer class only, without constructing a model. Locked installed metadata is profile selection under trusted runtime and protected artifact-tree assumptions, not installed-file attestation or license clearance. Test runtime and packages are explicit prerequisites; portable canonical CI setup remains missing. No real CPU query, residency or model capacity, CPU/GPU parity, rights/current authorization, full neural security, quality, ICA, MVP, release or deployment qualification. Whole objective 007 remains PARTIAL. No network/package acquisition, push, merge or deployment.",
+  "dha": "NONE"
+}

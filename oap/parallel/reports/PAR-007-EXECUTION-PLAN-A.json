@@ -1,0 +1,48 @@
+{
+  "lane_id": "PAR-007-EXECUTION-PLAN-A",
+  "result": "COMPLETE",
+  "base": "c4b289acf2c481d07c9b438d586f4295c8274546",
+  "implementation_head": "afffd0b5df387de924b8f51ffeae9ddc5ed1a9e1",
+  "report_publication_commit": "SELF",
+  "API": "cpu_execution_contract.prepare predicts a closed schema-2 execution record; cpu_embedding_plan.build binds its fingerprint to fresh source plan before model startup. Observed isolated session derives the same factory record. Legacy space and intended CPU FP32 identities remain unchanged; execution v1 changes to v2.",
+  "checks": [
+    {
+      "command": "uv run --offline --locked bash -c \"ulimit -v 1048576; ulimit -t 30; export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; exec timeout 120 pytest tests/unit/test_cpu_embedding_plan.py tests/unit/test_isolated_cpu_embedding.py\"",
+      "result": "exit 0, 31 passed"
+    },
+    {
+      "command": "uv run --offline --locked bash -c \"ulimit -v 1048576; ulimit -t 30; export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONPATH=tests/unit:tests/integration; exec timeout 120 pytest tests/integration/test_cpu_embedding_plan_composition.py\"",
+      "result": "exit 0, 1 passed"
+    },
+    {
+      "command": "same bounded environment, pytest tests/integration/test_isolated_cpu_embedding_composition.py",
+      "result": "exit 0, 2 passed; existing multithreaded-fork DeprecationWarning"
+    },
+    {
+      "command": "uv run --offline --locked ruff check src/slaif_raggedized_helper/{cpu_execution_contract,cpu_embedding_plan,isolated_cpu_embedding}.py tests/unit/test_{cpu_embedding_plan,isolated_cpu_embedding}.py tests/integration/test_{cpu_embedding_plan_composition,isolated_cpu_embedding_composition}.py",
+      "result": "exit 0"
+    },
+    {
+      "command": "git diff --check",
+      "result": "exit 0"
+    },
+    {
+      "command": "bounded uv run python /tmp/raggedized-root-execution-plan-preflight-causality.py with PYTHONPATH=tests/unit",
+      "result": "exit 1 expected: sole max_rows guard removal fails at invalid row selection reached admission; unmodified positive and negative tests pass"
+    }
+  ],
+  "witness_hashes": {
+    "contract": "279438b12953e6f000399551e3cab543bcf35b9278097661e2c4f266e4ea395f",
+    "plan": "4881cea82479223af54124866b479a49803c0c127fbd1d47a05eca61e3580240",
+    "session": "eaefdc63ce3fee34cce10e3fdae75eb585164fcd69ad2b01663003998bc9ed42",
+    "order": "a724f9411f8b357a4ea9ef490738dcc6c8c3624a86def39aa3e241fba5afe084",
+    "root_causality_witness": "28455d6ca4d55df7d9941a8c739b20086009b34100ddaeeea7f1cef1173fdbcb",
+    "architecture": "4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a",
+    "plan_source": "6cbb9cba6694ccd435435a7c9e0fdd32444c1d2520e5ffa5194b5e3db749b21b",
+    "update_source": "fd60fbae2a20b58acecef2f97f550366f7a1160abb385eed42499550a3cfb773"
+  },
+  "setup": "CPython 3.14 offline locked parent; native CPython 3.12 root /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu, native packages /tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages, CPU packages /tmp/raggedized-cpu-profile-root-repro-860o22xx/venv/lib/python3.12/site-packages. Parent 1GiB address/30 CPU seconds/120 wall seconds, threads 1; trusted fake provider via actual CPU child protocol, no real neural execution.",
+  "evidence": "Actual local source/store/bundle and native counts, admission and fake-worker OS protocol produce equal predicted/observed bytes. Direct prepare forbids subprocess, count/ID sessions, worker, enter and framework; tests cover policy, simulated profile/code, source, model revision, bridge, malformed schema, duplicate keys, foreign source and late mismatch. Simulated identities are test seams, not qualified profiles.",
+  "limits": "No real model, neural semantics, package-file attestation, runtime ABI, hardware, performance, security, license or current rights qualification. Future controller must revalidate source/rights and compare observed contract before content forward and output completion. Frozen DTOs are forgeable. ICA, full MVP, production and whole 007 remain open/PARTIAL. No push, PR, merge, release or deployment.",
+  "DHA": "NONE"
+}

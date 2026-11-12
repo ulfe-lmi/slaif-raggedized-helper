@@ -1,0 +1,33 @@
+{
+  "lane_id": "PAR-007-CPU-TEST-SETUP-A",
+  "result": "COMPLETE",
+  "implementation_head": "dc77b8a9e318fcab936af2d2acc6f5522bbf306f",
+  "report_publication_commit": "SELF",
+  "base": "f92ed6e0637e60559063c9b6e5fa6a553f1683d4",
+  "api": "python3 tests/support/prepare_cpu_worker_test_backend.py --runtime-dir TRUSTED_CPYTHON312 --target NEW_PRIVATE_DIR; prints SLAIF_CPU_WORKER_TEST_ROOT and SLAIF_CPU_WORKER_TEST_PACKAGES exports and writes setup-evidence.json outside packages.",
+  "implementation": "Six locked, hash-verified actual distributions: five Pydantic graph wheels and the approved tokenizers native engine. Exactly 22 remaining locked entries are explicitly synthetic data-only metadata, not installed code. Real Pydantic validation and generated WordLevel smoke precede synthetic metadata. The helper checks the lock and requirements, uses a minimal environment, binary-only public PyPI with no dependency resolution or cache, records bounded evidence, and uses bounded process-group cleanup with unreaped handle retention. The original five-package capsule failed the existing tokenizer isolation prerequisite; Root addendum authorized the already pinned sixth wheel, and a new capsule passed. Original blocker is preserved.",
+  "commands": [
+    {"command": "python3 tests/support/prepare_cpu_worker_test_backend.py --runtime-dir /home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu --target /tmp/slaif-cpu-synthetic-par007-a-addendum1-fix1", "exit": 0, "result": "fresh six-real/22-synthetic setup and Pydantic/tokenizer smoke passed"},
+    {"command": "env -u PYTHONPATH SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/slaif-cpu-synthetic-par007-a-addendum1-fix1/packages /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest -o addopts='' -q tests/unit/test_cpu_embedding_worker.py tests/unit/test_cpu_worker_backend_setup.py", "exit": 0, "result": "61 passed on 3.14: 51 worker and 10 setup tests"},
+    {"command": "env -u PYTHONPATH SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/slaif-cpu-synthetic-par007-a-addendum1-fix1/packages uv run --isolated --locked --offline --python 3.12 python -m pytest -o addopts='' -q tests/unit/test_cpu_embedding_worker.py tests/unit/test_cpu_worker_backend_setup.py", "exit": 0, "result": "61 passed on 3.12 parent, using offline locked environment"},
+    {"command": "env -u PYTHONPATH SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/slaif-cpu-synthetic-par007-a-addendum1-fix1/packages /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest -o addopts='' -q tests/integration/test_cpu_embedding_worker_composition.py", "exit": 0, "result": "4 separate actual OS sandbox tests passed with trusted fake neural provider"},
+    {"command": "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/raggedized-root-cpu-setup-cleanup-bound.py", "exit": 0, "result": "NO_UNBOUNDED_CLEANUP_WAIT True"},
+    {"command": "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check tests/support/prepare_cpu_worker_test_backend.py tests/unit/test_cpu_worker_backend_setup.py tests/unit/test_cpu_embedding_worker.py", "exit": 0, "result": "All checks passed"},
+    {"command": "git diff --cached --check", "exit": 0, "result": "passed before amended implementation commit"}
+  ],
+  "sha256": {
+    "order": "0975195487d9e4be0ffa05ccc0311959bc6b0c6dad2388fc7fb018ac07c3203b",
+    "addendum": "52e5dd7df171772b314dc02fd465e11080aad68f5444b06c616571e917dd40bd",
+    "lock": "e0a2b1be5601e141b1dca46cd054c77850344d5123424ed05f176a9621a41299",
+    "helper": "4b782177c4a339f17fc0400119cab8b3e379b0db0b97ee723cfc303d319cdfb8",
+    "requirements": "d20b4d1289574268df2e7bcd046509c7d8f272c0b346ad693153dd25b4e5ce63",
+    "setup_tests": "36e3608e6ed42fbe9d5f538ada501e8f913cd6c576af3a4a6e2d151eda2b7e80",
+    "worker_tests": "cf8d26a78e029353c774f6d74c50bae3d6f0d5ce47e7c3cd41b1b580ea6906af",
+    "docs": "5b0a70be751e10624ef68f2201883cb589cfe9ee06f4d286a22b73ca14aa1d7f",
+    "setup_evidence": "0d6a27810893744cbf98257c768ac72f489f5d5d40dea618405529b66350ab72",
+    "root_cleanup_witness": "5621aed961d61878b5df447acea34290394f28c9a3b614341cb139e74148371a"
+  },
+  "observations": "Fresh setup observed elapsed 1.670 seconds, self plus reaped-child CPU 1.430 seconds and sampled peak disk 20293431 bytes; network bytes UNMEASURED. Root independently reproduced the exact implementation with another new capsule, 61 unit tests on each parent version and four OS integration tests, as recorded in audit/007-cpu-test-setup-root-reproduction.json.",
+  "limits": "CPU and address-space rlimits are per process, not aggregate tree enforcement; disk accounting is sampled and not a filesystem quota. Observed usage is not a hard aggregate guarantee. Synthetic metadata is neither actual installed code nor file attestation. No actual Torch/Transformers/NumPy neural inference, weights, real corpus, GPU, parity, rights, licenses, full security, physical capacity, ICA, MVP or release qualification. Objective 007 remains partial and canonical CI integration remains open. No push, merge, deployment or release.",
+  "dha": "NONE"
+}

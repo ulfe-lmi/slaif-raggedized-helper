@@ -1,0 +1,24 @@
+{
+  "lane_id": "PAR-007-CPU-PROFILE-A",
+  "result": "COMPLETE",
+  "scope": "Local optional CPU dependency profile and metadata proof only; whole 007 remains PARTIAL.",
+  "implementation_head": "7ca95227ec3c2a268f70cbf72ed98bd61c06ce6b",
+  "report_publication_commit": "SELF",
+  "API": "Standalone nonpackage CPython 3.12 Linux x86_64 profile; exact direct pins and explicit official CPU index for torch only.",
+  "commands_results": [
+    "uv lock --project worker_profiles/cpu --python approved-CPython-3.12 --no-python-downloads: exit 0, 29 resolved.",
+    "uv sync --locked --no-build: first exit 134 with default concurrency under 2 GiB AS; serialized retry exit 0, 28 installed.",
+    "uv lock --check: exit 0, 29 resolved; uv pip check: exit 0, 28 compatible.",
+    "Approved Python -I -S with explicit private site-packages metadata inspection: 28 distributions, no nvidia; no package imports.",
+    "Root independent offline lock check, 28 metadata comparisons, fresh private offline wheel-only install and pip check passed under stated limits. Root evidence: audit/007-cpu-profile-root-offline-setup.json."
+  ],
+  "witnesshashes": {
+    "profile_sha256": "fb9f7e0ebed4febdcf83fa99fef8185ecb6fcde832566ab9728655291d2a17ff",
+    "lock_sha256": "e0a2b1be5601e141b1dca46cd054c77850344d5123424ed05f176a9621a41299",
+    "evidence_sha256": "bbf8c0d468b16a2f4c0702d394aa9236772588ac19c79ae427434ffc8fdf1e49",
+    "official_cpu_wheel_sha256": "ee40b8a4b4b2cf0670c6fd4f35a7ef23871af956fecb238fbf5da15a72650b1d"
+  },
+  "limits": "Original online network byte count unmeasured; capsule observed 886 MiB. Root fresh offline capsule 892712 KiB. Installed metadata and uv lock verification do not independently establish archive provenance or license permission. Actual framework import, model assets, deserialization, inference, CPU and V100 qualification, parity, security and license audit 018, ICA and MVP remain open.",
+  "counterargument": "Metadata-compatible wheels may fail real native loading or model execution; offline reproduction establishes the package graph only, and original online network bytes were not measured.",
+  "DHA": "NONE"
+}
