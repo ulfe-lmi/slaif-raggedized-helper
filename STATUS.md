@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-12)
 
-- Active objective: 007, current slice 007-h (the 007-a reviewed
+- Active objective: 007, current slice 007-r (the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
   extended by the 007-b source-bound raw retrieval representation/batch
   and published BGE-M3 checkpoint inventory/encoder-space software,
@@ -224,6 +224,28 @@
   mode controller/current-principal policy/inference
   CLI/snapshot integration/physical qualification
   still unimplemented;
+  the 007-r selective integration adds the EIGHT
+  root-reviewed gateway role/precedence files (oap/
+  reviews/007-r-component-index.json, 82,739 bytes, byte-exact
+  from exact source commit 77b4e8c; ONE existing production
+  replacement gateway.py with +28/-0 lines versus Q, seven new
+  paths absent at base): exact assistant-role admission at the
+  collector and the stream item-added/done boundaries with the
+  fixed input-free error invalid message role (the hostile role
+  value is never echoed), and latched structural-error
+  precedence across all five stream exception exits so a latched
+  role failure finishes through the existing stream finisher
+  instead of being salvaged by later timeout/protocol/refused/
+  generic handling, while normal assistant output, reasoning,
+  valid refusal, multiple items, cleanup/drain, finite retry and
+  honest UNKNOWN_COMPLETION stay intact; actual scoped local
+  proof: 15 unit + 19 new integration cases (separate processes)
+  plus 3 named regressions all passed once under
+  CPU30/AS1GiB/wall120, with the timeout-guard causal control and
+  controlled late-close faults labelled controlled; finite
+  model-free software under owned synthetic loopback fixtures,
+  actual BGE UNRUN/UNQUALIFIED, live gateway qualification
+  unchanged;
 
 open on the 007 PR, branch
   oap/007-embedding-pipeline from main 11badc7; whole-007 remains

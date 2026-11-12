@@ -200,6 +200,11 @@ def _validate_message_parts(
     return part_texts, refusal, None
 
 
+def _valid_message_role(item: dict) -> bool:
+    role = item.get("role")
+    return isinstance(role, str) and role == "assistant"
+
+
 def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
     """Collect ordered output-text and refusals from a Responses ``output``.
 
@@ -238,6 +243,8 @@ def _collect_output(output: object) -> tuple[list[str], str | None, str | None]:
         item_type = item.get("type")
         status = item.get("status")
         if item_type == "message":
+            if not _valid_message_role(item):
+                return [], None, "invalid message role"
             # Guard the type before set membership: a hostile provider may
             # send status {} or []; that is a structural error, never a
             # TypeError and never a salvaged success.
@@ -515,6 +522,9 @@ class _GatewayAccumulator:
         if item_type not in _SUPPORTED_ITEM_TYPES:
             state.fail("unsupported output item type")
             return
+        if item_type == "message" and not _valid_message_role(item):
+            state.fail("invalid message role")
+            return
         state.item_ids.add(item_id)
         state.item_order.append(item_id)
         state.item_types[item_id] = item_type
@@ -717,6 +727,9 @@ class _GatewayAccumulator:
             return
         status = item.get("status")
         if observed_type == "message":
+            if not _valid_message_role(item):
+                state.fail("invalid message role")
+                return
             # The done boundary is the item's terminal transition: a
             # nonterminal or untyped status followed by a completed final
             # message is contradictory and fails, never tolerated.
@@ -1158,8 +1171,14 @@ class GatewayGenerator:
                 return _finish_stream(acc, request, eof_incomplete=frames.incomplete_trailing,
                                       backend_fingerprint=backend_fingerprint)
         except TransportConnectError:
+            if acc.state.error is not None:
+                return _finish_stream(acc, request, eof_incomplete=False,
+                                      backend_fingerprint=backend_fingerprint)
             raise  # positively pre-dispatch: the outer retry policy decides
         except TransportTimeoutError as exc:
+            if acc.state.error is not None:
+                return _finish_stream(acc, request, eof_incomplete=False,
+                                      backend_fingerprint=backend_fingerprint)
             if exc.retryable:
                 raise  # pre-dispatch timeout: the outer retry policy decides
             text = acc.stream_text()
@@ -1169,17 +1188,26 @@ class GatewayGenerator:
                 text=text, error="deadline exhausted mid-stream",
             )
         except TransportRefusedError as exc:
+            if acc.state.error is not None:
+                return _finish_stream(acc, request, eof_incomplete=False,
+                                      backend_fingerprint=backend_fingerprint)
             # A definitive provider response (redirect/4xx/5xx headers were
             # read): a safe failure, never an ambiguous completion.
             return _terminal_result(request, CompletionOutcome.FAILED,
                                     backend_fingerprint=backend_fingerprint,
                                     error=str(exc))
         except (TransportProtocolError, TransportTruncatedError) as exc:
+            if acc.state.error is not None:
+                return _finish_stream(acc, request, eof_incomplete=False,
+                                      backend_fingerprint=backend_fingerprint)
             return _terminal_result(
                 request, CompletionOutcome.FAILED,
                 backend_fingerprint=backend_fingerprint, error=str(exc),
             )
         except TransportError as exc:
+            if acc.state.error is not None:
+                return _finish_stream(acc, request, eof_incomplete=False,
+                                      backend_fingerprint=backend_fingerprint)
             text = acc.stream_text()
             return _terminal_result(
                 request, CompletionOutcome.UNKNOWN_COMPLETION,
