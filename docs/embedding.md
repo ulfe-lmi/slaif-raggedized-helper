@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -307,21 +307,157 @@ sources byte-unchanged. API contracts:
 docs/parallel/embedding-batch-store-api.md, embedding-job-ownership-api.md,
 embedding-job-journal-api.md, embedding-batch-plan-api.md (immutable reviewed bytes).
 
+## 007-e slice: CPU reference integration (integrated)
+
+Merged into the 007 branch as ONE root-reviewed local candidate, `--no-ff`:
+composite tip `bb6a9335` (implementation `e55bc384`, immutable SELF report
+SHA-256 `60574ab8a013e6012a6ee86fc54d2711d89534900db100e8fe88695d5088c40d`).
+All thirty-three indexed final files hold the exact component-index Git
+blobs/SHA-256 (oap/reviews/007-e-components.json), plus the nineteen
+immutable parallel history additions; the candidate histories contain 007
+parallel lanes only; the Root transcript (order, active and fourteen
+records) was committed first and is byte-identical after the merge.
+
+- `cpu_execution_contract.prepare` (blob `5a365347`): shared factory that
+  predicts the complete execution contract BEFORE model startup — scalar
+  admission, actual model-space file verification, pinned CPU profile
+  metadata plus selected code — returning a frozen `PlannedContract` with
+  the canonical ASCII schema-2 record (exactly `schema`, `contract`,
+  `space`, `definition`, `worker`, `normalization`, `native`, `bridge`,
+  `hardware_qualification`; worker = space/definition/profile/code/policy;
+  native = artifact SHA/backend/role/revision/preprocessing/policy/
+  worker SHA with the fixed ID-session limits; bridge = SHA-256 of the four
+  code files; hardware `unknown`), bounded to 16,384 bytes, hashed under
+  the `isolated-cpu-embedding-execution-v2` domain. The actual worker
+  handshake derives the same canonical bytes. Schema 2 deliberately CHANGES
+  the execution identity from v1: no hardcoded old value, no silent v1/v2
+  mix, while legacy space, definition and intended-CPU-FP32 fingerprints
+  stay distinct and unchanged.
+- `cpu_embedding_plan.build` (blob `d2f64fee`): the source-derived plan is
+  unchanged except that its execution dependency now binds the COMPLETE
+  predicted contract, so the journal job identity can be claimed BEFORE
+  model startup; `predicted_record` and `execution_fingerprint` are
+  returned next to the legacy `intended_execution_fingerprint`. A
+  predicted record is not an observed handshake, authorization,
+  package-file attestation, ABI or hardware qualification.
+- `cpu_embedding_producer.produce` (blob `80b16513`): requires an EXPLICIT
+  trusted current-authorization provider — `provider(canonical_plan_bytes,
+  boundary)` freshly checks current permission for every row and purpose at
+  `before_model`, `before_encode`, `before_publish`, `before_complete` and,
+  on reuse, `before_reuse`, returning a stable 64-hex policy epoch or
+  refusing; there is NO default permissive provider and no caller-supplied
+  epoch. This is an extension point, not an implemented principal/
+  current-policy store or rights attestation. The producer rebuilds the
+  complete plan and predicted contract before owning the job, admits a
+  fresh PENDING job to EXACTLY ONE attempt (CLAIMED then RUNNING with the
+  actual owner before model acquisition), compares the observed execution
+  record and fingerprint to the prediction BEFORE any source text is
+  encoded, rechecks fresh source rows/texts/dependencies before dispatch,
+  publication and completion, publishes and freshly loads the typed output,
+  and records COMPLETE only after that real publish+load. Valid COMPLETE
+  reuse revalidates the current plan/metadata/store and journal again with
+  ZERO model starts. Non-PENDING and non-COMPLETE jobs are refused; no
+  retry, steal, repair or exactly-once claim. A publication failure can
+  leave an immutable orphan; an ambiguous journal COMPLETE may already be
+  committed and is never overwritten with a failure (the journal is
+  reread). While session cleanup is pending, the content-free exception
+  retains an owner whose `close()` must be retried and the lease is held
+  until the child and resources are drained; interrupts propagate with a
+  cleanup owner; the native constructor is pre-owned, not lost on startup
+  failure.
+- `CPUEmbeddingWorker` (blob `b7bef979`, child `cpu_embedding_worker_main`,
+  blob `96ed127c`): one resident CPU model worker under the ACTUAL bounded
+  OS protocol — the parent verifies the 28 locked distribution metadata
+  versions, lock hash, closed staging tree and configuration vocabulary
+  before starting the child; the child repeats admission before `ready`,
+  which binds space, definition, profile, policy and code fingerprints;
+  every call carries a random nonce and SHA-256 of the canonical ID batch
+  and the reply must bind both values plus space/profile with exact
+  finite binary32 CLS rows before anything is returned; defaults/hard
+  ceilings 8/128 rows, 2/2 MiB requests, 8/8 MiB responses, 120/120 s
+  startup, 30/120 s forward, 3600 s lifetime, 600 s CPU, 16 GiB address
+  space, 1024 calls, 32 MiB input / 256 MiB output; nonblocking deadline-
+  bounded I/O; an independent owned `timeout` watchdog enforces lifetime;
+  the child runs in the bubblewrap/prlimit envelope with a cleared
+  environment, no network and synthetic device nodes, with finite
+  shutdown and retained child ownership (no unsandboxed fallback).
+  Metadata and lock SELECT a profile; they do not attest installed files
+  or clear licenses.
+- `IsolatedCPUEmbeddingSession` (blob `82f709d0`): enters the verified
+  artifact stage, native token-ID session and fixed resident CPU worker in
+  that order; all token receipts are checked before ONE CPU forward with no
+  partial batch and no retry; `execution_record`/`execution_fingerprint`
+  (schema 2) are separate from `intended_execution_fingerprint` and must be
+  explicitly bound and compared by a consumer; native startup is owned
+  before construction and a pending native cleanup retains the exact
+  tokenizer and its stage; CPU startup is not attempted after native
+  startup fails; the creator-PID refusal keeps the known multithreaded-fork
+  warning honest — no general fork-safety claim.
+- `embedding_tokenizer` (blob `933be076`) carries the native-lifecycle
+  correction (pre-owned native startup, interrupt-priority and close-
+  ownership fixes) reproduced and corrected in the root-accepted candidate.
+- Portable synthetic CI fixture: `tests/support/
+  prepare_cpu_worker_test_backend.py` (blob `3a6d093c`) acquires ONLY six
+  exact hash-pinned wheels (pinned Pydantic graph plus the native
+  `tokenizers` engine) and writes 22 explicitly DATA-ONLY metadata records
+  under the trusted standalone CPython 3.12 runtime, then validates the
+  profile inventory; there are no importable fake ML modules, no Torch/
+  Transformers/NumPy model packages, no weights and no real neural calls.
+  The product CI job provisions it per run on disposable GitHub-hosted
+  runners with literal `SLAIF_CPU_WORKER_TEST_ROOT` /
+  `SLAIF_CPU_WORKER_TEST_PACKAGES` GITHUB_ENV bindings (helper output never
+  sourced); missing prerequisites fail the job — never skip/fallback/
+  continue-on-error. It is a synthetic fixture, not an installed real ML
+  runtime.
+
+Real vs fake vs separately scoped evidence: worker process protocol, store
+publication/load, lease/journal mechanics, native count sessions and the
+CPU worker test fixture are REAL local/CI execution; the neural framework
+runs only as trusted fakes in the imported suites; the separately scoped
+single owned RANDOM one-layer CPU toy (old-SHA `88e788e...` evidence,
+oap/reviews/007-owned-cpu-toy-evidence.json: 4 native calls/4 forwards, max
+raw error 4.76837158203125e-07, equal normalized payload, ~39 s wall,
+RSS/worker inter-op UNKNOWN) is old-SHA-scoped toy evidence only — not a
+benchmark for BGE/quality/parity/hardware and not permission for any new
+neural call; current source corrections require fresh qualification where
+relevant. The actual BGE model has NOT been run. No model weights, permits
+or credentials enter Git.
+
+Focused suites: seven unit files (worker, backend setup, toy probe, plan,
+producer, native tokenizer, isolated session) and the four standalone
+integrations (worker, isolated, plan, producer) plus the existing native
+composition, each standalone in its own `env -u PYTHONPATH` process under
+the approved 3.12 fixtures (`SLAIF_NATIVE_TEST_*`, `SLAIF_CPU_WORKER_TEST_*`,
+`PDF_TEST_RUNTIME`). The three unchanged Root witnesses
+(`/tmp/raggedized-root-native-close-ownership.py`,
+`/tmp/raggedized-root-native-interrupt-priority.py`,
+`/tmp/raggedized-root-producer-lease-interrupt.py`) were re-run at the
+current canonical, all exit 0 with the indexed sources byte-unchanged
+(fault-injected runs included). API contracts:
+docs/parallel/cpu-embedding-plan-api.md, cpu-embedding-producer-api.md,
+cpu-embedding-worker-api.md, isolated-cpu-embedding-api.md,
+cpu-worker-test-setup.md and docs/benchmarks/real-cpu-toy.md (immutable
+reviewed bytes).
+
 ## Remaining 007 work (not implemented this round)
 
-The composed CPU-session software now exists (software contract only, trusted
-neural fakes); still open: the CPU FP32 query path and CPU exact dot-product
-search against admitted spaces;
-the resident actual encoder (model execution, a reviewed locked weights-only
-loading policy, execution precision fingerprints); resumable owned GPU encode
-batches with bounded resource telemetry; snapshot/manifest binding of vectors,
-row maps, ACL and space fingerprints; query/GPU precision qualification (FP16
-vs FP32 cosine/ranking/Recall@k); the encoder producer/controller wiring that
-drives the plans, store and journal to real execution; and all
-artifact/encoder/execution/auth gates. A future CPU worker
-requires PyTorch >= 2.10.0 per the current weights-only advisory; no unsafe
-fallback. Live authorization remains NONE; no model weights, inference, GPU,
-services, credentials, private corpus, release or deploy in this slice.
+The CPU reference software path now exists (trusted neural fakes only);
+still open: running the ACTUAL BGE-M3 model under the fixed weights-only
+CPU worker (the real model has never been run here), the CPU FP32 query
+path and CPU exact dot-product search against admitted spaces, resumable
+owned GPU encode batches with bounded resource telemetry (the REQUIRED
+exclusive GPU FP16 corpus encoding per the architecture), snapshot/manifest
+binding of vectors, row maps, ACL and space fingerprints, query/GPU
+precision qualification (FP16 vs FP32 cosine/ranking/Recall@k), and all
+artifact/encoder/execution/auth gates. The legacy optional CPU profile
+(Torch 2.10.0+cpu / Transformers 4.51.3) is NOT security qualified: the
+Root current-advisory observation (oap/reviews/007-legacy-cpu-profile-
+security-observation.json) records high/medium findings on both pins;
+advisory triage, current route reachability and a patched CPU/Volta
+profile refresh are separate pending work — no silent upgrade, no
+vulnerability-absence claim, no legal/security exception. Live
+authorization remains NONE; no model weights, inference, GPU, services,
+credentials, private corpus, release or deploy in this slice.
 
 ## Evidence status
 
@@ -351,3 +487,20 @@ boundaries and descriptor cleanup, journal CAS/fsync/interruption boundaries
 and event-bound causality, bounded preflight memory); the candidate/Root
 records are immutable provenance, not current CI or Root acceptance of this
 integration. Real qualification remains NOT RUN (U04/U07 relevant).
+007-e behavior is proven by the merged reviewed suites (seven focused unit
+files; four standalone integrations plus the existing native composition in
+separate processes) and the three unchanged root witnesses (native close
+ownership, native interrupt priority, producer lease interrupt), all exit 0
+with indexed sources byte-unchanged after the private fault injections; the
+portable synthetic CI fixture is verified by the product CI job itself.
+The root-accepted local component records (oap/reviews/007-e-cpu-profile-
+review.json, 007-e-cpu-worker-review.json, 007-e-cpu-test-setup-review.json,
+007-e-isolated-cpu-session-review.json, 007-e-execution-plan-review.json,
+007-e-cpu-toy-probe-review.json, 007-e-native-lifecycle-review.json,
+007-e-cpu-producer-review.json, plus oap/reviews/007-e-components.json and
+oap/reviews/007-e-root-records.json) are immutable provenance, not current
+CI or Root acceptance of this integration; the legacy CPU profile advisory
+observation (oap/reviews/007-legacy-cpu-profile-security-observation.json)
+is a recorded finding set, not a clearance; the old-SHA random toy evidence
+(oap/reviews/007-owned-cpu-toy-evidence.json) is scoped toy evidence, not a
+new neural permit. Real qualification remains NOT RUN (U04/U07 relevant).

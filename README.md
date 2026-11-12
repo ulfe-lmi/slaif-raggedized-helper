@@ -144,9 +144,21 @@ and the owned atomic job journal whose COMPLETE only accepts a freshly
 validated full-plan typed output. Plan, store, lease and journal are
 software contracts; no encoder producer, controller, retry, CPU query,
 GPU or actual model execution exists yet.
+The 007-e continuation integrates the reviewed CPU reference path: a
+pre-model schema-2 execution contract predicted before any model starts,
+job claim before model startup, observed-execution comparison before any
+source text is forwarded, the one-batch CPU producer (explicit trusted
+authorization provider, one attempt, COMPLETE only after actual typed
+publication plus fresh load, verified reuse with zero model starts), the
+resident CPU worker under the actual bounded OS isolation protocol and the
+portable synthetic six-real/22-metadata CPU test fixture provisioned in CI.
+The actual BGE model has never been run and the legacy optional CPU pins
+(Torch 2.10.0+cpu / Transformers 4.51.3) are NOT security qualified; the
+required exclusive GPU FP16 corpus encoding remains unimplemented.
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
-007 remains PARTIAL — no encoder execution, CPU query, resumable GPU batches
-or qualification yet
+007 remains PARTIAL — the CPU reference path is software under trusted
+neural fakes only; no actual model execution, CPU query, resumable GPU
+batches or qualification yet
 ([docs/embedding.md](docs/embedding.md),
 [docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
 Source-to-block anchors, native versus visual-needed page semantics,

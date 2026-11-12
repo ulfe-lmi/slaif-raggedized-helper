@@ -638,3 +638,42 @@ human question.
   unsigned private history is not rollback-proof. U04 (CPU query
   latency, CPU/GPU embedding parity) and U07 (license/distribution
   clearance) remain OPEN; real qualification NOT RUN.
+
+### 2026-11-12, order 007-e (CPU reference integration)
+
+- 007 is PARTIAL after this slice: the reviewed CPU reference path is
+  integrated on the 007 branch (PR not merged): the pre-model schema-2
+  `isolated-cpu-embedding-execution-v2` execution contract predicted
+  before any model starts (the actual handshake derives the same
+  canonical bytes; execution fingerprints change from v1 while legacy
+  space/definition/intended-CPU-FP32 identities stay distinct), the
+  journal job claim before model startup, observed-record/fingerprint
+  comparison before any source text is forwarded, the one-batch producer
+  (explicit trusted current-authorization provider with no default
+  permissive provider — an extension point, not an implemented
+  principal/policy store or rights attestation — one attempt, fresh
+  epoch rechecks at the named boundaries, COMPLETE only after actual
+  typed publication plus fresh load, verified zero-model-start reuse,
+  non-PENDING/non-COMPLETE refusal, no retry/steal/repair/exactly-once),
+  the resident CPU worker under the actual bounded OS isolation
+  protocol with finite shutdown and retained child ownership, the
+  corrected native lifecycle (pre-owned native startup,
+  interrupt/close-ownership fixes) and the portable synthetic
+  six-real/22-metadata CPU test fixture provisioned in the product CI
+  job (synthetic fixture, not an installed real ML runtime; helper
+  output never sourced). The actual BGE model has NOT been run: all
+  neural behavior in the suites is trusted fakes, and the separately
+  scoped old-SHA random one-layer toy evidence is a bounded toy
+  observation, not a benchmark or a new neural permit. The legacy
+  optional CPU profile (Torch 2.10.0+cpu / Transformers 4.51.3) is NOT
+  security qualified: oap/reviews/007-legacy-cpu-profile-security-
+  observation.json records current high/medium advisory findings;
+  advisory triage, current route reachability and a patched CPU/Volta
+  profile refresh are separate pending work — no silent pin change, no
+  vulnerability-absence claim, no PoC, no legal/security exception.
+  Publication failure can leave an immutable orphan; an ambiguous
+  journal COMPLETE may already be committed and is never overwritten
+  with a failure. U04 (CPU query latency, CPU/GPU embedding parity)
+  and U07 (license/distribution clearance) remain OPEN; the required
+  exclusive GPU FP16 corpus encoding path is still unimplemented; real
+  qualification NOT RUN.

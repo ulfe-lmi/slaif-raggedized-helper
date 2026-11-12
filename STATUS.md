@@ -2,20 +2,30 @@
 
 ## Current state (2026-11-12)
 
-- Active objective: 007, current slice 007-d (the 007-a reviewed
+- Active objective: 007, current slice 007-e (the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
   extended by the 007-b source-bound raw retrieval representation/batch
   and published BGE-M3 checkpoint inventory/encoder-space software,
   the 007-c composed CPU-session software: owned staging, exact native
   token IDs, bounded preflight before one ordered CPU CLS forward and
-  fixed FP32 normalization under trusted neural fakes, and the 007-d
+  fixed FP32 normalization under trusted neural fakes, the 007-d
   durable source-plan substrate: fresh source-bound intended CPU/FP32
   batch plans, typed validated batch store, per-job ownership leases
-  and the atomic job journal with output-before-COMPLETE; open on the
+  and the atomic job journal with output-before-COMPLETE, and the
+  007-e CPU reference path: pre-model schema-2 execution contract and
+  job claim before model startup, observed-execution comparison before
+  any content is forwarded, one-attempt producer with an explicit
+  trusted authorization provider, output-before-COMPLETE and verified
+  zero-model-start reuse, the resident CPU worker under the actual
+  bounded OS isolation protocol, and the portable synthetic
+  six-real/22-metadata CPU test fixture provisioned in CI; open on the
   007 PR, branch oap/007-embedding-pipeline from main 11badc7;
-  whole-007 remains PARTIAL — no real encoder execution, CPU query,
-  resumable owned GPU batches or qualification contracts yet), live
-  PR/CI/merge state is queried on GitHub, not asserted here. Objective 006 is complete and merged to
+  whole-007 remains PARTIAL — the CPU reference path is software under
+  trusted neural fakes only; the actual BGE model has never been run,
+  the legacy optional CPU pins are NOT security qualified, and there is
+  still no actual model execution, CPU query, resumable owned GPU
+  batches or qualification contracts), live PR/CI/merge state is
+  queried on GitHub, not asserted here. Objective 006 is complete and merged to
   main as PR #8 (merge commit 11badc7; final slice 006-e bounded native
   PDF structural correction, terminal resolution
   oap/reviews/006-resolution.json). Objective 005 is complete: both slices (005-a canonical
