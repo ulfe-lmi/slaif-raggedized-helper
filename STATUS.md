@@ -1,18 +1,21 @@
 # Project status
 
-## Current state (2026-11-11)
+## Current state (2026-11-12)
 
-- Active objective: 007, current slice 007-c (the 007-a reviewed
+- Active objective: 007, current slice 007-d (the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
   extended by the 007-b source-bound raw retrieval representation/batch
-  and published BGE-M3 checkpoint inventory/encoder-space software, and
+  and published BGE-M3 checkpoint inventory/encoder-space software,
   the 007-c composed CPU-session software: owned staging, exact native
   token IDs, bounded preflight before one ordered CPU CLS forward and
-  fixed FP32 normalization under trusted neural fakes; open on the 007
-  PR, branch oap/007-embedding-pipeline from main 11badc7; whole-007
-  remains PARTIAL — no real encoder execution, CPU query, resumable
-  owned GPU batches or qualification contracts yet), live PR/CI/merge
-  state is queried on GitHub, not asserted here. Objective 006 is complete and merged to
+  fixed FP32 normalization under trusted neural fakes, and the 007-d
+  durable source-plan substrate: fresh source-bound intended CPU/FP32
+  batch plans, typed validated batch store, per-job ownership leases
+  and the atomic job journal with output-before-COMPLETE; open on the
+  007 PR, branch oap/007-embedding-pipeline from main 11badc7;
+  whole-007 remains PARTIAL — no real encoder execution, CPU query,
+  resumable owned GPU batches or qualification contracts yet), live
+  PR/CI/merge state is queried on GitHub, not asserted here. Objective 006 is complete and merged to
   main as PR #8 (merge commit 11badc7; final slice 006-e bounded native
   PDF structural correction, terminal resolution
   oap/reviews/006-resolution.json). Objective 005 is complete: both slices (005-a canonical

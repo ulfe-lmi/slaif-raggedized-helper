@@ -135,6 +135,15 @@ native receipt preflight before one ordered CPU CLS forward, and fixed
 binary32 L2 normalization with provenance kept separate from encoder
 identity. The neural framework runs only as trusted fakes; no actual
 model, weights, GPU or network were used.
+The 007-d continuation integrates the reviewed durable source-plan
+substrate: a fresh original-backed source bundle through ONE native count
+session into a deterministic intended CPU/FP32 embedding batch plan with
+exact dependency and row fingerprints, the typed validated embedding
+batch store with fresh read-back publication, per-job ownership leases
+and the owned atomic job journal whose COMPLETE only accepts a freshly
+validated full-plan typed output. Plan, store, lease and journal are
+software contracts; no encoder producer, controller, retry, CPU query,
+GPU or actual model execution exists yet.
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
 007 remains PARTIAL — no encoder execution, CPU query, resumable GPU batches
 or qualification yet

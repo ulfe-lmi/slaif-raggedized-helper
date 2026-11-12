@@ -618,3 +618,23 @@ human question.
   encoder, CPU FP32 query path, isolated neural worker process
   bridge, typed durable producer/controller, exclusive GPU/resume and
   hardware qualification all remain NOT RUN.
+
+### 2026-11-12, order 007-d (durable source plans and typed batch journal)
+
+- 007 is PARTIAL after this slice: the reviewed durable source-plan
+  substrate is integrated on the 007 branch (PR not merged): a fresh
+  original-backed source bundle through ONE native count session into a
+  deterministic intended CPU/FP32 embedding batch plan (exact
+  dependency/row fingerprints, `embedding-source-scope-v1` scope
+  binding), the typed validated embedding batch store (canonical 128-row
+  declaration plus NPY, fresh read-back publication, forged non-Store
+  refusal), per-job ownership leases (exclusive flock, fork/interrupt
+  descriptor cleanup) and the owned atomic job journal (fresh-read
+  compare-and-set, 64 events / 16 unique attempts, COMPLETE only on a
+  freshly validated full-plan typed output; old/new state honesty after
+  replace failure). CPU/FP32 in the plan is intended, not observed; no
+  encoder producer/controller/retry, CPU query, GPU or actual model
+  execution. A historical verified label is not fresh availability and
+  unsigned private history is not rollback-proof. U04 (CPU query
+  latency, CPU/GPU embedding parity) and U07 (license/distribution
+  clearance) remain OPEN; real qualification NOT RUN.

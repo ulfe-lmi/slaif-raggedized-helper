@@ -1,16 +1,19 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans)
 
-Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a, 007-b and 007-c
-slices. 007-a integrates the exact reviewed bounded vector codec and the reproducible
-NumPy 2.5.4 runtime dependency; 007-b integrates the reviewed source-bound raw retrieval
-representation/batch software and the published BGE-M3 checkpoint inventory/encoder-space
-software; 007-c integrates the reviewed composed CPU-session software (owned staging,
-exact native token IDs, bounded preflight before one ordered CPU CLS forward, fixed
-binary32 L2 normalization) with the neural framework exercised only through trusted
-fakes. Together they establish no real encoder execution, no CPU query path, no
-resumable owned GPU batches and no qualification contract. Objective 007 remains
-PARTIAL until those are implemented and reviewed. No self-advance to 008 or main
-merge.
+Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
+007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
+reproducible NumPy 2.5.4 runtime dependency; 007-b integrates the reviewed
+source-bound raw retrieval representation/batch software and the published BGE-M3
+checkpoint inventory/encoder-space software; 007-c integrates the reviewed composed
+CPU-session software (owned staging, exact native token IDs, bounded preflight before
+one ordered CPU CLS forward, fixed binary32 L2 normalization) with the neural
+framework exercised only through trusted fakes; 007-d integrates the reviewed durable
+source-plan substrate (fresh source-bound intended CPU/FP32 plans, typed validated
+batch store, per-job ownership leases and the owned atomic job journal with
+output-before-COMPLETE). Together they establish no real encoder execution, no CPU
+query path, no resumable owned GPU batches and no qualification contract. Objective
+007 remains PARTIAL until those are implemented and reviewed. No self-advance to 008
+or main merge.
 
 ## 007-a slice: bounded normalized FP32 codec (integrated)
 
@@ -227,6 +230,83 @@ docs/parallel/cpu-embedding-backend-api.md, cpu-embedding-session-api.md,
 embedding-staging-api.md, embedding-tokenizer-api.md, embedding-vectors-api.md
 (immutable reviewed bytes).
 
+## 007-d slice: durable source plans and typed batch journal (integrated)
+
+Merged into the 007 branch as ONE root-reviewed local candidate, `--no-ff`: source-plan
+tip `2b50e658` (implementation `55ea655c`, immutable SELF report SHA-256
+`cdcf15f35fc41376344d5e5a29f523cc77ccc7d19df678b6b257c6b94bb70dee`). All sixteen indexed
+final files hold the exact component-index Git blobs/SHA-256
+(oap/reviews/007-d-components.json, oap/reviews/007-d-integration-forecast.json); the
+candidate histories contain 007 parallel lanes only, no 008 ancestry; the Root
+transcript (order, active and twelve records) was committed first and is byte-identical
+after the merge.
+
+- `embedding_batch_store.publish/load` (blob `af130ee6` / `8e53be2d`): admits a bounded
+  canonical UTF-8 JSON declaration (schema 1 `embedding-batch-v1`; exact root,
+  seven dependency and eight row fields; 1–128 ordered rows; no floats or duplicate
+  keys) plus normalized NPY vectors under the fixed 128-row codec policy, publishes
+  one `vectors` member and validates a fresh read before returning the content ID.
+  `load` revalidates the complete expected declaration before I/O, rereads through the
+  actual `derived_store.Store` (a forged non-Store is refused by the single typed
+  guard) and revalidates vectors: no normalize-on-read and no forged-snapshot
+  availability. A failed publication may leave immutable orphan objects; the same
+  content retries idempotently.
+- `embedding_job_ownership.claim` (`bfc33a98` / `4eae9bd6`): per-job exclusive
+  nonblocking POSIX flock over an euid-owned 0700 root with `sha256:` + 64 lowercase
+  hex job IDs; each lease owns its file and directory descriptors, `assert_owned` at
+  boundaries, idempotent sanitized close; a forked child cannot assert ownership and
+  closing its inherited lease does not unlock the parent. Internal per-job concurrency
+  only: no GPU ownership, ACL enforcement, durable state, retry policy or
+  claim-steal semantics.
+- `embedding_job_journal` (`7c5df637` / `6b3b1640`): `make_spec` revalidates a bounded
+  `embedding-job-plan-v1` declaration into the existing `job_records.JobSpec` (kind
+  `embedding`, no-generator-prompt policy); `Journal(root).own(plan)` takes the actual
+  ownership lease over pinned 0700/0600 digest-named files, records initial PENDING
+  and bounds envelopes at 524,288 bytes / depth 32 / 20,000 nodes / 64 events / 16
+  unique claimed attempts. `append` is a fresh-read compare-and-set whose new envelope
+  is staged exclusively, fsynced, rechecked, atomically replaced, directory-fsynced
+  and freshly read: failures before replacement leave the old envelope; failures after
+  can leave the new one. COMPLETE additionally requires the actual store and
+  full expected plan-equal batch metadata whose container `load` freshly validates,
+  binding the output refs to the loaded container/metadata digests with availability
+  `verified`; `verified_output` reloads on every use. No automatic recovery, retry or
+  pid-based steal; a historical verified label is not fresh proof and unsigned
+  private history is not rollback-proof. A valid 64-event history can hold 16 distinct
+  claims (15 complete retryable-failure cycles plus claim/running/failure), so the
+  17th claim is unreachable under the 64-event cap.
+- `embedding_batch_plan.build` (`b14d85d0` / `e7080dad`): from a fresh original-backed
+  source bundle (one source validation) and ONE native token-counting session it
+  derives the deterministic intended CPU/FP32 plan: admitted space/inventory IDs,
+  definition and intended-execution fingerprints, normalized representation/batch
+  policy fingerprints, and 1–128 ordered rows binding chunk/revision/extraction/
+  representation IDs, rendered and input SHA-256, the observed count and the
+  `embedding-source-scope-v1` scope fingerprint. CPU/FP32 is an INTENDED execution
+  identity, not an observed worker profile or model runtime; a future producer must
+  explicitly bind the complete planned/observed contract. `Prepared` is forgeable: no
+  fresh authorization, current ACL or source proof for a later consumer; revalidate at
+  the relevant boundary.
+
+Real vs fake vs unqualified: store publication/load, flock ownership and descriptor
+cleanup, journal fsync/replace/read mechanics and the native count session are REAL
+local execution on the approved 3.12 native fixture; the plan declares intended (not
+observed) CPU execution; no actual encoder, model, weights, GPU, network,
+producer/controller or retry exists in this slice. Fault injection is software
+semantics, not power-loss qualification. Store caps (64 MiB member / 96 MiB aggregate
+/ 16 members), native session caps and the optional CPU profile are unchanged.
+
+Focused suites: four new unit files (43 cases) and the four standalone integrations
+(13 + 1 + 2 + 6 cases), each run in its own `env -u PYTHONPATH` process under the
+approved `SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu`,
+`SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages`,
+`SLAIF_NATIVE_TEST_PYTHON=python3.12` fixture. The eight unchanged Root witnesses
+(batch-store forged-refusal and guard-causality; job-ownership boundaries,
+enter-failure and interrupted-close; journal boundaries and event-bound causality;
+source-plan preflight memory with bounded 2,208/2,248-byte peaks on 1,000,000-
+character inputs) were re-run at the current canonical, all exit 0 with the indexed
+sources byte-unchanged. API contracts:
+docs/parallel/embedding-batch-store-api.md, embedding-job-ownership-api.md,
+embedding-job-journal-api.md, embedding-batch-plan-api.md (immutable reviewed bytes).
+
 ## Remaining 007 work (not implemented this round)
 
 The composed CPU-session software now exists (software contract only, trusted
@@ -236,8 +316,9 @@ the resident actual encoder (model execution, a reviewed locked weights-only
 loading policy, execution precision fingerprints); resumable owned GPU encode
 batches with bounded resource telemetry; snapshot/manifest binding of vectors,
 row maps, ACL and space fingerprints; query/GPU precision qualification (FP16
-vs FP32 cosine/ranking/Recall@k); typed normalized durable batches wired to
-the store; and all artifact/encoder/execution/auth gates. A future CPU worker
+vs FP32 cosine/ranking/Recall@k); the encoder producer/controller wiring that
+drives the plans, store and journal to real execution; and all
+artifact/encoder/execution/auth gates. A future CPU worker
 requires PyTorch >= 2.10.0 per the current weights-only advisory; no unsafe
 fallback. Live authorization remains NONE; no model weights, inference, GPU,
 services, credentials, private corpus, release or deploy in this slice.
@@ -263,4 +344,10 @@ The root-accepted local component reviews (oap/reviews/007-cpu-backend-review.js
 oap/reviews/007-artifact-staging-review.json, oap/reviews/007-normalization-review.json,
 oap/reviews/007-token-ids-review.json, oap/reviews/007-cpu-session-review.json)
 are immutable provenance, not current CI or Root approval of this integration.
-Real qualification remains NOT RUN (U04/U07 relevant).
+007-d behavior is proven by the merged reviewed suites (four new unit files,
+four standalone integrations in separate processes) and the eight unchanged
+root witnesses (forged non-Store refusal and guard-causality, ownership
+boundaries and descriptor cleanup, journal CAS/fsync/interruption boundaries
+and event-bound causality, bounded preflight memory); the candidate/Root
+records are immutable provenance, not current CI or Root acceptance of this
+integration. Real qualification remains NOT RUN (U04/U07 relevant).
