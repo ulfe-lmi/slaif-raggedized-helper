@@ -1,0 +1,26 @@
+{
+  "lane_id": "PAR-007-SOURCE-PLAN-A",
+  "result": "COMPLETE",
+  "preparation_head": "b32c20cd8a6013365cebec9f0a617a0368553eef",
+  "implementation_head": "55ea655c35b0aa93753b0c68bcfe08c65ead7e9e",
+  "report_publication_commit": "SELF",
+  "API": "embedding_batch_plan.build returns frozen Prepared(plan_bytes, spec, texts); fresh actual inventory admission and one source-bound native representation batch derive canonical journal plan and spec.",
+  "commands_results": [
+    "env -u PYTHONPATH OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --offline --locked prlimit --as=1073741824 --cpu=30 -- timeout 120 python -m pytest -q tests/unit/test_embedding_batch_plan.py: exit 0, 4 passed",
+    "env -u PYTHONPATH SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --offline --locked prlimit --as=1073741824 --cpu=30 -- timeout 120 python -m pytest -q tests/integration/test_embedding_batch_plan_composition.py: exit 0, 6 passed",
+    "env -u PYTHONPATH OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --offline --locked prlimit --as=1073741824 --cpu=30 -- timeout 120 python /tmp/raggedized-root-source-plan-preflight-memory.py: exit 0, 2208 bytes ID and 2248 bytes path peak",
+    "uv run --offline --locked ruff check src/slaif_raggedized_helper/embedding_batch_plan.py tests/unit/test_embedding_batch_plan.py tests/integration/test_embedding_batch_plan_composition.py: exit 0",
+    "git diff --cached --check: exit 0; exact order cmp: exit 0; clean worktree after implementation commit"
+  ],
+  "witness_hashes": {
+    "implementation_source_sha256": "e7080dad7e4a79189a78e02dad8220d00ee4758396a3bcb67deb64129c02abae",
+    "unit_sha256": "bc3ee1ec5026953e19d6cb6ffef412f671480dadd49ed21528944ff2499f500d",
+    "integration_sha256": "b3e8d8d7fa6ee99841c8481878bbc4e3b61a5496962682f468b393714813c153",
+    "docs_sha256": "58b93893374456552859b9fd7d1ded14dbad97d8f4e983da1a21e276e9db2c84",
+    "root_memory_witness_sha256": "f056c6870944730beae4a8784b739e12f92910fbbcb9807e2ebbddf62115ce03",
+    "order_sha256": "a183f967bff2696ea3753fc0b854be0205ea63149844c493b4217fd69def73e5"
+  },
+  "observations": "Owned synthetic tokenizer bytes and manifest bind real admitted inventory; two source-derived rows, recomputed dependencies and journal identities, fresh stable calls, changed source/scope/policy/order and valid revision identity, refusals and count correspondence are exercised. Root implementation checkpoint REPORT applies to the exact implementation head only.",
+  "limits": "Local source-plan software only; whole objective 007 remains partial. Prepared is forgeable, not fresh authorization or source proof. Artifact byte admission and source receipts do not establish license, provenance or current ACL. Native token counts do not establish neural execution. CPU FP32 execution fingerprint declares intent, not observed execution or CPU/GPU equivalence. No model execution, vectors, storage publication, retry, deployment, ICA or MVP qualification was performed. Initial offline locked uv startup created a local environment using cached packages; no network or new dependency was requested.",
+  "DHA": "NONE"
+}
