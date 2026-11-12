@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-12T03:56:26.713462+00:00",
+  "status": "FINAL_LOCAL_GPU_SOURCE_CORRECTION_ACCEPTED_WITH_AFFECTED_INDEPENDENT_REAUDIT",
+  "implementation": "6da14ba514dbadf55c9e4751fed37c5ad8c1ad19",
+  "report_commit": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+  "report_sha256": "a8434c1a60fc6b5cfb120ef0eb8ec8d879bd6b804b8f263de61aa6242eb96a24",
+  "report_bytes": 2145,
+  "source_review": "audit/007-gpu-backend-b-source-review-6da1.json",
+  "evidence": "Root84unit+1standalone+original2scripts+6correctedindependentcases/ruff/diffPASS; narrowhandlers/APIconditionalownerboundaryverified",
+  "graph": "ExactSELF/reportonly/soleparent/currentcleantip/order/reporthash",
+  "strongest_counterargument": "IndependentCHANGES_REQUIREDoriginaltarget remains untilaffectednewSHAre-audit; noactualGPU/framework/parity/occupancy/drain/security/license qualification.",
+  "disposition": "Freeze finite correction. Oppositefreshcontext re-audit at exactd7b9 before rawGPUintegration; no whole007/mainmerge/ICA/MVP.",
+  "DHA": "NONE",
+  "no_FIFO_read": true,
+  "affected_peer": {
+    "review": "parallel/audit-gpu-backend-b/review.json",
+    "report_sha256": "237e199b1a2f6ca44fa4e27c1e51143f412644b6f73fbe279e52d9c0e550b30f",
+    "target": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+    "decision": "COMPLETE_ACCEPT_CANDIDATE_SOURCE_ONLY"
+  }
+}

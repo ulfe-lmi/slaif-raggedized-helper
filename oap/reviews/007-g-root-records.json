@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-12T04:40:11.153020+00:00",
+  "records": [
+    {
+      "source": "audit/007-f-review.json",
+      "target": "oap/reviews/007-f-review.json",
+      "sha256": "d8cf66dcf67542632c42f6a121c889777ae77c2738e127206e23a4d98da36f1a"
+    },
+    {
+      "source": "audit/007-f-implementation-CI-final.json",
+      "target": "oap/reviews/007-f-implementation-CI-final.json",
+      "sha256": "73b0dc5c20cdcf805bd008a794c9b5abe76eb454c4802b52c04814ee0ddc01dc"
+    },
+    {
+      "source": "audit/007-f-report-CI-final.json",
+      "target": "oap/reviews/007-f-report-CI-final.json",
+      "sha256": "8d5907aa918caca94c53214964f7a11229eafaabb9b4fe234ee2545bcda946f4"
+    },
+    {
+      "source": "audit/007-f-GitHub-current-final.json",
+      "target": "oap/reviews/007-f-GitHub-current-final.json",
+      "sha256": "b463cb9e94ad8f06244ad3f54590a3a1a2aa2b92d7bd22c7d2fcd5bb35a03c2d"
+    },
+    {
+      "source": "audit/007-g-components.json",
+      "target": "oap/reviews/007-g-components.json",
+      "sha256": "658f77e0af49c602381215c00c594f8a4dd9e99e92a19eef5853ad629ad48c6a"
+    },
+    {
+      "source": "parallel/cpu-v2-alignment-b/review.json",
+      "target": "oap/reviews/007-g-cpu-v2-alignment-b-review.json",
+      "sha256": "d299bca2558c8b38709f734938222db24e9b120eb59b59fe3286842146b86cba"
+    },
+    {
+      "source": "parallel/cpu-v2-fixture-portable-c/review.json",
+      "target": "oap/reviews/007-g-cpu-v2-fixture-portable-c-review.json",
+      "sha256": "ced4ee47b6ae36280a45b44c2af0a2696952e5f6c37e16ff24bdb4cfe38623a9"
+    },
+    {
+      "source": "audit/007-cpu-v2-portable-source-review-485f.json",
+      "target": "oap/reviews/007-cpu-v2-portable-source-review-485f.json",
+      "sha256": "32233a35e5bda63eb03a9ed1c19866695e10fa81aa8eb7999c221c1eeac1d4d9"
+    },
+    {
+      "source": "audit/007-cpu-v2-portable-root-setup-result.json",
+      "target": "oap/reviews/007-cpu-v2-portable-root-setup-result.json",
+      "sha256": "9fac552edb2ba14c74926a83a75261476648cf46b02f2b2ae0b8fd0563e727b3"
+    },
+    {
+      "source": "parallel/gpu-backend-b/review.json",
+      "target": "oap/reviews/007-g-gpu-backend-b-review.json",
+      "sha256": "89a04f33f2e2d317b1ae5804dd1f6bce86abc13d2469b61eaa8758d4220d9d73"
+    },
+    {
+      "source": "parallel/audit-gpu-backend-b/report.json",
+      "target": "oap/reviews/007-g-audit-gpu-backend-b-report.json",
+      "sha256": "237e199b1a2f6ca44fa4e27c1e51143f412644b6f73fbe279e52d9c0e550b30f"
+    },
+    {
+      "source": "parallel/audit-gpu-backend-b/review.json",
+      "target": "oap/reviews/007-g-audit-gpu-backend-b-review.json",
+      "sha256": "1e21b4e2e9cf4f1f2a3464c3faa9bdc084c5d7bd87761b6ea20f48f11fe37b97"
+    },
+    {
+      "source": "audit/007-gpu-backend-b-source-review-6da1.json",
+      "target": "oap/reviews/007-gpu-backend-b-source-review-6da1.json",
+      "sha256": "62af20ebe540cf88198b67c853e313e66be37b20c75aec3aeaaea4bb71c47493"
+    },
+    {
+      "source": "audit/007-gpu-peer-b-causal-root-reproduction.json",
+      "target": "oap/reviews/007-gpu-peer-b-causal-root-reproduction.json",
+      "sha256": "66b241034e0a5a2796a7ae83150e543e9d13e6f1348e03038b4cdb30ae62a0f7"
+    }
+  ],
+  "scope": "Immutable Root evidence snapshots; no mutableSTATE/runtime/FIFOs/weights/permits; identity is not qualification."
+}

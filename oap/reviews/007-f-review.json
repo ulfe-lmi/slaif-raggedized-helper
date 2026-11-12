@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-12T04:39:19.749480+00:00",
+  "head": "8efacce5a0d300833f021b1e442908fdf7318e9f",
+  "implementation": "0495713119005c911fe3ea659fcbddd783bfc39a",
+  "report_sha256": "2d39209dc2d7b52cebb7be54c0c4e6f96f9d8ae010a5b5aeb937e8fdee089e85",
+  "report_bytes": 7493,
+  "status": "REVIEWED_PARTIAL_CONTINUE_SAME007",
+  "implementation_review": "audit/007-f-implementation-source-review-pending-report.json",
+  "SELF_report_only_sole_parent": true,
+  "exact_order_active_14Rootrecords_index": true,
+  "exact17_blobs": true,
+  "remote_unique_PR9_main11bad_noauto_nodraft_unresolvedthreads0": true,
+  "implementation_CI": "43153296812 RootALL5ALL74",
+  "report_CI": "43154816327 inprogressatlastobservation, NOTacceptance",
+  "strongest_reason_not_to_merge": "Whole007 residentquery/resumableexclusiveGPU/controller/snapshots/currentrights/realmodel/physicalparity/licenses/quality/ICAunfinished; thisslice finitecleanupsoftwareonly.",
+  "DHA": "NONE",
+  "next": "SamePR007-g selective25file CPUv2 profile/source+portablefixture and corrected GPUrawbackend/profile integration plus requiredCI; no actual neural/GPU operation/008/release.",
+  "local_limits": "Reported1341unit andsplitlocalintegration618+13 actualcountretained as split, notsinglesweep. RootactualcurrentCIbothproductfullsuitesimplgreen; reportCIstillrequired.",
+  "round": "007-f",
+  "CI": "BOTH implementation43153296812 and report43154816327 ALL5/ALL74 independently observed",
+  "remote_final": "audit/007-f-GitHub-current-final.json",
+  "acceptance_reason": "Exact17file cleanup/devicelease integration and source/report identities independently reviewed, current requiredCI allgreen. This resolves this finite continuation only; whole007 remainsPARTIAL, no mainmerge."
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python",
+    "/tmp/audit007_b_owner_causal_v2.py"
+  ],
+  "target": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+  "witness_sha256": "474266906f9a26fb11d64d8d3261e111fc1774c19f01da1438380759eb259fac",
+  "exit_code": 0,
+  "stdout": "mutation=False identity=True observed=Locked actual_owner_retained=True lease_live=True\nmutation=True identity=False observed=RuntimeError actual_owner_retained=True lease_live=True\n",
+  "stderr": ""
+}

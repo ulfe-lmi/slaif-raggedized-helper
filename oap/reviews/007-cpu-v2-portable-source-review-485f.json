@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-12T04:19:50.329459+00:00",
+  "implementation": "485fc6877120597ad86a3f70e2b457eaa0d7f3e6",
+  "status": "REPORT_AUTHORIZED_PORTABLE_CPU_LIGHT_FIXTURE",
+  "inspection": "Full3fileRuntime/API/testdelta; fixedpins/lock/requirements/sixwheel graph unchanged. Explicitcanonicaltrustedstandalone3.12 path+facts/baseprefix propagated allprobes/receipt/exports, no hardcodedRootpath/discovery/fallback. Runtime/target/lock/nochildrenrefusal counters reviewed.",
+  "Root_evidence": "ActualNEWtarget helperatdifferentcopiedtrustedprefix:6ACTUAL/32DATAONLY,3.12.15,receipt d92aa04b74a69e9daab681dffb5b5825b2447d3733fc83a7c3f2b77859bfe81d, sampledpeak21377281B networkUNKNOWN;18unit+4separateworker+1separatepremodelintegration/ruff/diffPASS. No realML/GPU.",
+  "strongest_counterargument": "Portablelocalprefixproof isnot currentGitHubrunnerproof or installedMLruntime/security/license/parity; trustoftheprovidedruntime isoperatorprecondition, notversionattestation.",
+  "disposition": "Freeze/report eligiblecanonicalselectiveCPUintegration; requiredCInewstep MUSTuseNEWdirect/tmp target andexplicitprovidedPDF_TEST_RUNTIME, literalV2root/packages env, retainlegacyfixtures. No CI/mainmerge/ICA/MVPclaim.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}
