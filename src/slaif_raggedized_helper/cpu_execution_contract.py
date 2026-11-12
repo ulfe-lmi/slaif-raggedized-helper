@@ -211,7 +211,7 @@ def prepare(
         space = embedding_space.admit(
             manifest_bytes, artifact_root, definition, tokenizer_definition, expected_inventory_id
         )
-        lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu/uv.lock"
+        lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu-v2/uv.lock"
         worker = {
             "space": space.space_id,
             "definition": space.definition_fingerprint,

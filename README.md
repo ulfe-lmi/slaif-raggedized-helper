@@ -170,9 +170,30 @@ root (cooperative: no physical exclusivity, no granted runtime
 authority, no GPU lifecycle managed). The imported seventeen
 source/test/API files are the immutable reviewed bytes; no actual model,
 GPU operation, profile cutover or runtime change.
+The 007-g continuation selectively integrates the TWO exact
+root-reviewed candidates by byte-identical file transfer (twenty-five
+indexed files, no branch ancestry, no source adaptation): the CPU source
+now selects the cpu-v2 lock (Torch 2.14.0+cpu / Transformers 5.22.2 /
+framework tokenizers 0.23.1; 38 locked metadata distributions) with the
+legacy profile/helper/fixture and the native 0.21.4 capsule intact, the
+required portable synthetic CPUv2 CI fixture (six exact wheels plus 32
+DATA-ONLY metadata distributions, no importable fake ML packages) is
+provisioned before lint on both matrix legs with the legacy fixture
+variables retained, and the corrected raw GPU backend source is
+integrated finite and inert (assigned device UUID byte guard, process-
+owned DeviceLease assertion, bounded native-ID input, no autocast,
+ordered finite CPU FP32 raw CLS output, sticky close and original
+non-Exception identity under hostile attachment). This is bounded
+source integration, not model/runtime qualification: the actual BGE
+model, checkpoint and hardware remain UNRUN/UNQUALIFIED, the actual
+full-38 CPUv2 installation remains a separate PARTIAL (uv allocation
+abort under the fixed 2 GiB address space; no full CLI acceptance or
+neural import), and no owned GPU process/controller or physical drain
+exists.
 Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
-007 remains PARTIAL — the CPU reference path plus the cleanup/lease/
-isolated-exit composition is software under trusted neural fakes only; no
+007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
+lock) plus the cleanup/lease/isolated-exit composition and the inert
+raw GPU backend source are software under trusted neural fakes only; no
 actual model execution, CPU query, resumable GPU batches or
 qualification yet
 ([docs/embedding.md](docs/embedding.md),

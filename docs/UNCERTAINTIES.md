@@ -725,3 +725,49 @@ human question.
   (license/distribution clearance) remain OPEN; the required exclusive
   GPU FP16 corpus encoding path is still unimplemented; real
   qualification NOT RUN.
+
+### 2026-11-12, order 007-g (profile source integration: CPUv2 selection + corrected GPU raw backend)
+
+- 007 is PARTIAL after this slice: the TWO exact root-reviewed
+  candidates are selectively integrated by byte-identical file
+  transfer (twenty-five indexed files, oap/reviews/007-g-components.
+  json, 278,431 bytes; 23 byte-exact blobs, the two profile READMEs
+  preserving the exact candidate prefix plus a precise current-
+  selection note; no branch ancestry, no source adaptation). The CPU
+  source now selects the cpu-v2 lock (Torch 2.14.0+cpu / Transformers
+  5.22.2 / framework tokenizers 0.23.1, safetensors 0.8.0,
+  huggingface-hub 1.31.0, NumPy 2.5.4; 38 locked metadata
+  distributions) with the BEFORE-content child handshake and
+  source-fingerprint semantics preserved and complete source/
+  execution/job IDs changed naturally; a legacy pre-cutover COMPLETE
+  with the old profile/code/bridge hashes is refused reuse. The legacy
+  CPU profile (Torch 2.10.0+cpu / Transformers 4.51.3) remains
+  UNQUALIFIED and unchanged, its helper/fixture and the native 0.21.4
+  capsule intact. The required CI step provisions the portable
+  synthetic CPUv2 fixture (six exact wheels plus 32 explicitly
+  DATA-ONLY metadata distributions, no importable fake ML packages)
+  after the existing CPU fixture provisioning and before lint on both
+  matrix legs, with literal GITHUB_ENV bindings and the legacy fixture
+  variables retained. The corrected raw GPU backend source (assigned
+  exact synthetic device UUID byte guard before local FP16 loading,
+  actual child/process-owned DeviceLease assertion, bounded immutable
+  native-ID input, no autocast, finite ordered CPU FP32 raw CLS 1024
+  output, sticky close/owner retention, original non-Exception
+  identity across hostile backend_owner attachment) is integrated
+  finite and inert under trusted in-memory fakes and the cooperative
+  kernel lease; before from_pretrained returns there may be no captured
+  model owner (documented honest unknown boundary), with no
+  parent-owned serialized lease and no caller-lease release. This is
+  bounded source integration, not model/runtime qualification: the
+  archived prior OWNED random CPU toy execution remains historical toy
+  evidence; the actual BGE model, checkpoint and hardware remain
+  UNRUN/UNQUALIFIED; the actual full-38 CPUv2 installation remains a
+  separate PARTIAL (latest diagnostic: uv allocation abort under the
+  fixed 2 GiB address space; no full CLI acceptance or neural import);
+  future owned GPU worker/controller and physical drain remain absent.
+  The original advisory findings and unproven transitive/security/
+  license status are preserved; newer pins alone are no clearance. U04
+  (CPU query latency, CPU/GPU embedding parity) and U07 (license/
+  distribution clearance) remain OPEN; the required exclusive GPU FP16
+  corpus encoding path execution is still unimplemented; real
+  qualification NOT RUN.

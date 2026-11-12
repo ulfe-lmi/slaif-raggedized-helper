@@ -47,8 +47,8 @@ def fixture(tmp_path, monkeypatch):
     metadata, members, _, chunks = make_bundle(source, revisions[0], definitions, runtime)
     ids = [c.chunk_id for c in chunks.chunks[:2]]
     cpu_runtime = nt.Runtime(
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_ROOT"]),
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_ROOT"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_PACKAGES"]),
         "python3.12",
     )
     policy = cpu.Policy(address_bytes=1024**3, cpu_seconds=30, lifetime_seconds=120)
@@ -626,3 +626,57 @@ def test_interrupted_success_path_session_close_is_not_retried(fixture, monkeypa
         if owner is not None:
             owner.close()
     assert _state(args, policy) == "UNKNOWN_COMPLETION"
+
+
+def test_old_source_complete_is_not_reused(fixture, monkeypatch, tmp_path):
+    """The base profile/code and bridge hashes represent the real pre-cutover source."""
+    from slaif_raggedized_helper import cpu_embedding_plan, cpu_execution_contract
+
+    args, policy, starts = fixture
+    old_profile = "7ca03c1a42c7040867f13790371001a912fdae3b90272ff7ba98ed1726848638"
+    old_code = "b650eb650b014a57c58fba85b9b64474c97f0cd21f5a8664fa4123b8b8420d7d"
+    old_bridge = "279438b12953e6f000399551e3cab543bcf35b9278097661e2c4f266e4ea395f"
+    original_argv = cpu._argv
+    bridge = cpu_execution_contract._bridge()
+    fake = tmp_path / "old-identity-fake.py"
+    fake.write_text(
+        FAKE.replace(
+            "sys.exit(m.main())",
+            "from slaif_raggedized_helper import cpu_embedding_worker as w\n"
+            f"w._profile = lambda *a: {old_profile!r}\n"
+            f"w._code_identity = lambda: {old_code!r}\n"
+            "sys.exit(m.main())",
+        )
+    )
+
+    def old_argv(*a):
+        argv = original_argv(*a)
+        argv[argv.index("/worker.py") - 1] = str(fake)
+        return argv
+
+    with monkeypatch.context() as patcher:
+        patcher.setattr(cpu, "_profile", lambda *a: old_profile)
+        patcher.setattr(cpu, "_code_identity", lambda: old_code)
+        patcher.setattr(
+            cpu_execution_contract,
+            "_bridge",
+            lambda: {
+                **bridge,
+                "cpu_execution_contract.py": old_bridge,
+            },
+        )
+        patcher.setattr(cpu, "_argv", old_argv)
+        old_plan = cpu_embedding_plan.build(*args[:11], worker_policy=policy)
+        old_result = producer.produce(*args, lambda *_: "a" * 64, worker_policy=policy)
+        assert not old_result.reused
+    new_plan = cpu_embedding_plan.build(*args[:11], worker_policy=policy)
+    assert new_plan.spec.job_id != old_plan.spec.job_id
+    assert new_plan.execution_fingerprint != old_plan.execution_fingerprint
+    assert new_plan.intended_execution_fingerprint == old_plan.intended_execution_fingerprint
+    assert (
+        json.loads(new_plan.predicted_record)["space"]
+        == json.loads(old_plan.predicted_record)["space"]
+    )
+    new_result = producer.produce(*args, lambda *_: "a" * 64, worker_policy=policy)
+    assert not new_result.reused and new_result.job_id != old_result.job_id
+    assert len(starts) == 2

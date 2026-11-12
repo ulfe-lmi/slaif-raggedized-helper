@@ -10,7 +10,7 @@ and `code_fingerprint` describe the admitted space and execution provenance. The
 are not space identities.
 
 The parent verifies the inventory, space, closed tree, configuration vocabulary, fixed lock hash,
-and exactly the 28 locked distribution metadata versions before starting the child; unknown or
+and exactly the 38 locked distribution metadata versions before starting the child; unknown or
 duplicate distributions are refused, with bounded metadata and directory enumeration. The child repeats
 profile and artifact admission through the existing backend before sending ready. The selected
 runtime and packages are trusted and protected: metadata and lock select a profile, they do not
@@ -50,7 +50,18 @@ connectivity to the host; and synthetic device nodes. There is no unsandboxed fa
 Tests use a test-only fake neural provider and synthetic artifact bytes. They do not establish real
 model readiness, hardware capacity, license clearance, or a complete neural security qualification.
 
-The standalone integration tests require `SLAIF_CPU_WORKER_TEST_ROOT` and
-`SLAIF_CPU_WORKER_TEST_PACKAGES` to name an existing approved CPython 3.12 runtime and its
+The standalone integration tests require `SLAIF_CPU_V2_TEST_ROOT` and
+`SLAIF_CPU_V2_TEST_PACKAGES` to name an existing approved CPython 3.12 runtime and its
 locked profile. Missing prerequisites fail loudly. The tests acquire no dependencies and perform
 no real model loading or inference. A portable CI fixture is a separate setup task.
+
+The parent and pre-model prediction select `worker_profiles/cpu-v2/uv.lock`. The
+38 declared metadata versions select the profile and do not attest actual package
+code. The independent native tokenizer engine, definition, policy and receipts stay
+at 0.21.4; framework tokenizers 0.23.1 is a separate dependency. Semantic space,
+definition and intended CPU FP32 identity remain unchanged; complete execution,
+profile and code fingerprints and dependent job IDs change. Trusted fake protocol
+tests exercise prediction and the staged parent/native/child handshake, not real
+neural behavior. Canonical integration and CI must provision both legacy and v2
+fixtures. Actual class loading, a newly owned toy model, BGE, ABI, security, license,
+numerical parity and independent coverage audit remain future gates.

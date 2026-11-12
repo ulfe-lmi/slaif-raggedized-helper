@@ -85,12 +85,12 @@ def _lock(path):
     raw = native_tokenizers._read_artifact(path, 65536)
     if (
         hashlib.sha256(raw).hexdigest()
-        != "e0a2b1be5601e141b1dca46cd054c77850344d5123424ed05f176a9621a41299"
+        != "7cf4c88943cc2b519ad18c0c28cbc2281f159a98704db172e1696ec5ae20b287"
     ):
         raise ValueError
     packages = tomllib.loads(raw.decode())["package"]
     pins = {p["name"]: p["version"] for p in packages if "registry" in p["source"]}
-    if len(pins) != 28 or any(pins.get(k) != v for k, v in cpu_embedding_backend._PINS.items()):
+    if len(pins) != 38 or any(pins.get(k) != v for k, v in cpu_embedding_backend._PINS.items()):
         raise ValueError
     return pins
 
@@ -324,7 +324,7 @@ class CPUEmbeddingWorker:
             ):
                 raise ValueError
             root = Path(private_artifact_root)
-            lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu/uv.lock"
+            lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu-v2/uv.lock"
             if type(runtime) is not native_tokenizers.Runtime or runtime.python != "python3.12":
                 raise ValueError
             self.profile = _profile(lock, runtime.packages)

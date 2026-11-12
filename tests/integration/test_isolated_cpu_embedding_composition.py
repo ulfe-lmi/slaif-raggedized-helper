@@ -62,8 +62,8 @@ def test_owned_composition(tmp_path, monkeypatch):
 
     monkeypatch.setattr(cpu_embedding_worker, "_argv", intercept)
     cpu_runtime = native_tokenizers.Runtime(
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_ROOT"]),
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_ROOT"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_PACKAGES"]),
         "python3.12",
     )
     policy = cpu_embedding_worker.Policy(
@@ -291,8 +291,8 @@ def test_failed_constructor_retains_owned_child_and_stage(tmp_path, monkeypatch)
 
     monkeypatch.setattr(cpu_embedding_worker.CPUEmbeddingWorker, "_exchange", fail_after_spawn)
     cpu_runtime = native_tokenizers.Runtime(
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_ROOT"]),
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_ROOT"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_PACKAGES"]),
         "python3.12",
     )
     policy = cpu_embedding_worker.Policy(address_bytes=1024**3, cpu_seconds=30, lifetime_seconds=5)

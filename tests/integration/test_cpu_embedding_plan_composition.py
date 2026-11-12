@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import subprocess
+import tomllib
 from dataclasses import replace
 from pathlib import Path
 from unittest.mock import patch
@@ -63,8 +64,8 @@ def test_source_plan_before_worker_and_observed_contract(tmp_path, monkeypatch):
             runtime,
         )
         cpu_runtime = nt.Runtime(
-            Path(os.environ["SLAIF_CPU_WORKER_TEST_ROOT"]),
-            Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"]),
+            Path(os.environ["SLAIF_CPU_V2_TEST_ROOT"]),
+            Path(os.environ["SLAIF_CPU_V2_TEST_PACKAGES"]),
             "python3.12",
         )
         policy = cpu.Policy(address_bytes=1024**3, cpu_seconds=30, lifetime_seconds=120)
@@ -82,6 +83,47 @@ def test_source_plan_before_worker_and_observed_contract(tmp_path, monkeypatch):
                 wrong_runtime,
                 worker_policy=policy,
             )
+        # Old selected metadata must fail prediction before any child or model activity.
+        old_packages = tmp_path / "old-metadata"
+        old_packages.mkdir(mode=0o700)
+        old_lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu/uv.lock"
+        for item in tomllib.loads(old_lock.read_text())["package"]:
+            if "registry" in item["source"]:
+                directory = old_packages / (item["name"] + ".dist-info")
+                directory.mkdir()
+                (directory / "METADATA").write_text(
+                    f"Name: {item['name']}\nVersion: {item['version']}\n"
+                )
+        old_runtime = replace(cpu_runtime, packages=old_packages)
+        calls = []
+        with (
+            patch.object(subprocess, "Popen", side_effect=lambda *a, **k: calls.append("child")),
+            patch.object(
+                cpu_embedding_backend, "_framework", side_effect=lambda: calls.append("model")
+            ),
+        ):
+            with pytest.raises(contract.ContractError):
+                contract.prepare(
+                    raw,
+                    root,
+                    definition,
+                    token,
+                    inv.inventory_id,
+                    runtime,
+                    old_runtime,
+                    worker_policy=policy,
+                )
+            with pytest.raises(cpu.WorkerRefused):
+                cpu.CPUEmbeddingWorker(
+                    raw,
+                    root,
+                    definition,
+                    token,
+                    inv.inventory_id,
+                    old_runtime,
+                    policy,
+                )
+        assert calls == []
         calls = []
 
         def forbidden(name):

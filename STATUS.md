@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-12)
 
-- Active objective: 007, current slice 007-f (the 007-a reviewed
+- Active objective: 007, current slice 007-g (the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
   extended by the 007-b source-bound raw retrieval representation/batch
   and published BGE-M3 checkpoint inventory/encoder-space software,
@@ -30,11 +30,23 @@
   same interrupt priority, and the device lease key binding only the
   versioned host + physical UUID under the trusted common local root
   (cooperative: no physical exclusivity, no granted runtime authority);
-  open on the 007 PR, branch oap/007-embedding-pipeline from main 11badc7;
-  whole-007 remains PARTIAL — the CPU reference path plus the
-  007-f cleanup/lease composition is software under trusted neural fakes
-  only; the actual BGE model has never been run, the legacy optional CPU
-  pins are NOT security qualified, and there is
+  the 007-g selective integration adds the CPUv2 lock selection (Torch
+  2.14.0+cpu / Transformers 5.22.2 / framework tokenizers 0.23.1; 38
+  locked metadata distributions) with the legacy profile/helper/fixture
+  and native 0.21.4 capsule intact, the required portable synthetic CPUv2
+  CI fixture (six exact wheels plus 32 DATA-ONLY metadata distributions)
+  before lint on both matrix legs, and the corrected raw GPU backend
+  source finite and inert (device UUID byte guard, process-owned
+  DeviceLease assertion, no autocast, ordered finite CPU FP32 raw CLS
+  output, sticky close and original non-Exception identity); the actual
+  BGE/checkpoint/hardware remain UNRUN/UNQUALIFIED and the full-38 CPUv2
+  installation remains a separate PARTIAL; open on the 007 PR, branch
+  oap/007-embedding-pipeline from main 11badc7; whole-007 remains
+  PARTIAL — the CPU reference path (CPUv2 lock selected) plus the 007-f
+  cleanup/lease composition and the inert raw GPU backend source are
+  software under trusted neural fakes only; the actual BGE model has
+  never been run, the legacy optional CPU pins are NOT security
+  qualified, and there is
   still no actual model execution, CPU query, resumable owned GPU
   batches or qualification contracts), live PR/CI/merge state is
   queried on GitHub, not asserted here. Objective 006 is complete and merged to

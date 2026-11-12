@@ -143,6 +143,33 @@ def test_cleanup_once_interrupted_retries_and_preserves_interrupt(monkeypatch):
     assert len(calls) == 2 and children[0].poll() == 0
 
 
+def _descendant_gone(stat):
+    try:
+        state = stat.read_text().rsplit(')', 1)[1].split()[0]
+    except FileNotFoundError:
+        return True
+    return state == 'Z'
+
+
+def test_descendant_disappearance_boundary():
+    class Stat:
+        calls = 0
+
+        def read_text(self):
+            self.calls += 1
+            raise FileNotFoundError()
+
+    stat = Stat()
+    assert _descendant_gone(stat)
+    assert stat.calls == 1
+
+    class Live:
+        def read_text(self):
+            return '123 (child) S 1'
+
+    assert not _descendant_gone(Live())
+
+
 def test_timeout_kills_owned_descendant(tmp_path):
     import time
 
@@ -156,7 +183,7 @@ def test_timeout_kills_owned_descendant(tmp_path):
     deadline = time.monotonic() + 2
     while time.monotonic() < deadline:
         stat = Path(f'/proc/{pid}/stat')
-        if not stat.exists() or stat.read_text().rsplit(')', 1)[1].split()[0] == 'Z':
+        if _descendant_gone(stat):
             break
         time.sleep(0.02)
     else:

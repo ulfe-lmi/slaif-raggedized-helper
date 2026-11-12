@@ -1,4 +1,4 @@
-# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition)
+# Embedding pipeline — objective 007 (current: 007-a codec + 007-b source space + 007-c composed CPU session + 007-d durable source plans + 007-e CPU reference integration + 007-f cleanup/lease composition + 007-g profile source integration)
 
 Objective 007 (embedding pipeline) is **PARTIAL** after the 007-a,
 007-b, 007-c and 007-d slices. 007-a integrates the exact reviewed bounded vector codec and the
@@ -11,7 +11,10 @@ framework exercised only through trusted fakes; 007-d integrates the reviewed du
 source-plan substrate (fresh source-bound intended CPU/FP32 plans, typed validated
 batch store, per-job ownership leases and the owned atomic job journal with
 output-before-COMPLETE). Together they establish no real encoder execution, no CPU
-query path, no resumable owned GPU batches and no qualification contract. Objective
+query path, no resumable owned GPU batches and no qualification contract. 007-g
+selectively integrates the reviewed CPUv2 profile/portable-fixture and corrected
+GPU raw-backend candidates (CPUv2 lock selection, required v2 CI fixture, inert
+raw GPU backend source). Objective
 007 remains PARTIAL until those are implemented and reviewed. No self-advance to 008
 or main merge.
 
@@ -560,14 +563,77 @@ kernel reaping, restart recovery or full ICA; the existing
 multithreaded-fork warning remains without any generic fork-safety
 proof.
 
-## Remaining 007 work (not implemented this round)
+## 007-g slice: profile source integration (integrated)
 
-The CPU reference software path now exists (trusted neural fakes only);
-still open: running the ACTUAL BGE-M3 model under the fixed weights-only
-CPU worker (the real model has never been run here), the CPU FP32 query
+Selective byte-exact integration of the two reviewed immutable
+candidates — the CPUv2 alignment/portable-fixture candidate `adfc96e7`
+and the corrected GPU raw-backend candidate `d7b9bdc6` — transferring
+TWENTY-FIVE indexed files (oap/reviews/007-g-components.json,
+278,431 bytes) by file copy, NOT branch merge: no candidate ancestry
+entered, no broad history import, no source adaptation. Twenty-three
+files are byte-identical to the indexed blobs at this head; the two
+`worker_profiles/*/README.md` files preserve the exact candidate
+prefix with only a precise current-selection note appended.
+
+The CPU source now selects the cpu-v2 lock (`worker_profiles/cpu-v2/
+uv.lock`, 38 registry distributions: Torch 2.14.0+cpu, Transformers
+5.22.2, framework tokenizers 0.23.1, safetensors 0.8.0,
+huggingface-hub 1.31.0, NumPy 2.5.4): the backend/worker/execution-
+contract gates verify the full 38-name metadata inventory, and the
+standalone integrations require the v2 fixture variables
+(SLAIF_CPU_V2_TEST_ROOT/PACKAGES). The execution contract and
+BEFORE-content child handshake preserve the reviewed alignment and
+source-fingerprint semantics; complete source/execution/job IDs
+change naturally, and a legacy (pre-cutover) COMPLETE with the old
+profile/code/bridge hashes is refused reuse rather than accepted as
+current identity. The legacy CPU profile, its helper, fixture and the
+native 0.21.4 capsule remain intact; `test_cpu_worker_backend_setup`
+keeps the legacy helper regression plus the narrowed /proc
+descendant-disappearance race boundary. The required CI step
+provisions the portable synthetic CPUv2 fixture (six exact wheels plus
+32 explicitly DATA-ONLY metadata distributions, no importable fake ML
+packages) after the existing CPU fixture provisioning, before lint,
+with literal GITHUB_ENV bindings and the legacy fixture variables
+retained.
+
+The GPU raw backend (`gpu_embedding_backend`, new) admits the existing
+BGE-M3 space over a local closed artifact tree under a caller-supplied
+live DeviceLease and canonical physical UUID: assigned exact synthetic
+device UUID byte guard before any local FP16 load, actual child/
+process-owned DeviceLease assertion, bounded immutable native-ID
+input, no autocast, ordered finite CPU FP32 raw CLS rows of 1024,
+sticky close/owner retention and original non-Exception identity
+across hostile backend_owner attachment. Before `from_pretrained`
+returns there may be no captured model owner: that honest unknown
+boundary is documented, with no parent-owned serialized lease and no
+caller-lease release. All behavior is proven with in-memory trusted
+fakes and the cooperative kernel lease only — no CUDA, driver, device
+or model operation.
+
+This order is bounded source integration, not model/runtime
+qualification. The archived prior OWNED random CPU toy execution
+remains historical toy evidence; the actual BGE model, checkpoint and
+hardware are still UNRUN/UNQUALIFIED; the actual full-38 CPUv2
+installation remains a separate PARTIAL (latest diagnostic: uv
+allocation abort under the fixed 2 GiB address space, no full CLI
+acceptance or neural import); the GPU profile/raw source remains
+finite and inert with future owned worker/controller/physical drain
+absent. The original advisory findings and unproven transitive/
+security/license status are preserved; newer pins alone are no
+clearance. Whole 007 remains PARTIAL; no main merge or 008.
+
+## Remaining 007 work (not implemented this round)
+The CPU reference software path now selects the CPUv2 lock (trusted
+neural fakes only); still open: running the ACTUAL BGE-M3 model under
+the fixed weights-only CPU worker (the real model has never been run
+here; the actual full-38 CPUv2 installation remains PARTIAL — latest
+diagnostic uv allocation abort under the fixed 2 GiB address space, no
+full CLI acceptance or neural import), the CPU FP32 query
 path and CPU exact dot-product search against admitted spaces, resumable
 owned GPU encode batches with bounded resource telemetry (the REQUIRED
-exclusive GPU FP16 corpus encoding per the architecture), snapshot/manifest
+exclusive GPU FP16 corpus encoding per the architecture; the corrected
+raw GPU backend source is integrated and inert — no owned GPU process,
+controller or physical drain exists), snapshot/manifest
 binding of vectors, row maps, ACL and space fingerprints, query/GPU
 precision qualification (FP16 vs FP32 cosine/ranking/Recall@k), and all
 artifact/encoder/execution/auth gates. The legacy optional CPU profile
@@ -644,3 +710,32 @@ integration. The finite fault coverage is not kernel-reaping, restart-
 recovery, power-loss, hardware or ICA proof, and the cooperative device
 key is not physical exclusivity or runtime authority. Real qualification
 remains NOT RUN (U04/U07 relevant).
+
+007-g behavior is proven at the current canonical by the focused unit
+set (269 cases: CPU backend/worker/contract/session/plan/producer,
+batch plan/store, job journal/ownership, isolated CPU, GPU device
+lease and GPU backend under the v2 fixture; plus 11 legacy-fixture
+setup cases and 20 native prerequisite cases) and the five standalone
+integrations (worker 4, plan 1, isolated 3 with the retained
+multithreaded-fork warning, producer 30, GPU raw 1), each in its own
+process, plus the six corrected independent interrupt cases
+(`/tmp/raggedized-root-gpu-interrupt-remediation.py`), all exit 0 with
+the twenty-five indexed sources byte-unchanged before and after (23
+byte-exact blobs; the two profile READMEs byte-exact candidate prefix
+plus appended selection note). The candidate-side evidence (Root CPU
+177 unit + 40 standalone + 5 original witnesses, portable 18 unit + 4
+worker + 1 premodel, GPU 84 unit + 1 standalone + 6 corrected interrupt
+cases) remains candidate evidence, not current canonical CI. The
+root-accepted records (oap/reviews/007-g-cpu-v2-alignment-b-review.json,
+007-g-cpu-v2-fixture-portable-c-review.json,
+007-cpu-v2-portable-source-review-485f.json,
+007-cpu-v2-portable-root-setup-result.json, 007-g-gpu-backend-b-
+review.json, 007-g-audit-gpu-backend-b-report.json,
+007-g-audit-gpu-backend-b-review.json,
+007-gpu-backend-b-source-review-6da1.json,
+007-gpu-peer-b-causal-root-reproduction.json, 007-g-components.json
+and 007-g-root-records.json) are immutable provenance, not current CI
+or Root acceptance of this integration; the independent affected GPU
+re-audit (237e) is COMPLETE_ACCEPT_CANDIDATE for source only, and the
+prior afc5 CHANGES_REQUIRED remains historical, not a false pass.
+Real qualification remains NOT RUN (U04/U07 relevant).

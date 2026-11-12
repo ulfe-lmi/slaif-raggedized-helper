@@ -14,9 +14,9 @@ from slaif_raggedized_helper import cpu_embedding_worker as worker
 
 def test_profile_selected_metadata():
     """The selected metadata matches the lock; it does not attest installed code."""
-    lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu/uv.lock"
-    packages = Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"])
-    assert len(worker._lock(lock)) == 28
+    lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu-v2/uv.lock"
+    packages = Path(os.environ["SLAIF_CPU_V2_TEST_PACKAGES"])
+    assert len(worker._lock(lock)) == 38
     assert len(worker._profile(lock, packages)) == 64
 
 
@@ -204,9 +204,9 @@ def test_partial_construction_and_private_error(tmp_path, monkeypatch, capsys):
 
     root = tmp_path / "private-synthetic-path"
     _, raw, inv, definition, tokenizer = make_tree(root)
-    packages = Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"])
+    packages = Path(os.environ["SLAIF_CPU_V2_TEST_PACKAGES"])
     runtime = native_tokenizers.Runtime(
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_ROOT"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_ROOT"]),
         packages,
         "python3.12",
     )
@@ -287,7 +287,7 @@ def test_child_rejects_bad_digest_before_forward(tmp_path, monkeypatch):
 
 
 def test_profile_rejects_unlisted_metadata(tmp_path):
-    lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu/uv.lock"
+    lock = Path(__file__).resolve().parents[2] / "worker_profiles/cpu-v2/uv.lock"
     for name, version in worker._lock(lock).items():
         directory = tmp_path / (name + ".dist-info")
         directory.mkdir()
@@ -346,8 +346,8 @@ def test_mutated_policy_and_bad_definition_refused_before_profile(tmp_path, monk
     root = tmp_path / "tree"
     _, raw, inv, definition, tokenizer = make_tree(root)
     runtime = native_tokenizers.Runtime(
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_ROOT"]),
-        Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_ROOT"]),
+        Path(os.environ["SLAIF_CPU_V2_TEST_PACKAGES"]),
         "python3.12",
     )
     monkeypatch.setattr(worker, "_profile", lambda *args: pytest.fail("profile scanned"))
@@ -456,3 +456,36 @@ def test_body_exception_preserved_on_cleanup_interrupt():
             raise RuntimeError("body")
     assert caught.value.__notes__ == ["worker cleanup refused"]
     assert child.poll() is not None and stream.closed
+
+
+def test_profile_refuses_old_lock_and_metadata_mutations(tmp_path):
+    import shutil
+
+    root = Path(__file__).resolve().parents[2]
+    lock = root / "worker_profiles/cpu-v2/uv.lock"
+    with pytest.raises(ValueError):
+        worker._lock(root / "worker_profiles/cpu/uv.lock")
+    altered_lock = tmp_path / "altered.lock"
+    altered_lock.write_bytes(lock.read_bytes() + b"\n")
+    with pytest.raises(ValueError):
+        worker._lock(altered_lock)
+    packages = tmp_path / "packages"
+    packages.mkdir()
+    for name, version in worker._lock(lock).items():
+        directory = packages / (name + ".dist-info")
+        directory.mkdir()
+        (directory / "METADATA").write_text(f"Name: {name}\nVersion: {version}\n")
+    assert worker._profile(lock, packages)
+    meta = packages / "torch.dist-info/METADATA"
+    original = meta.read_text()
+    for altered in (
+        original.replace("2.14.0+cpu", "2.10.0+cpu"),
+        original + "Version: 2.14.0+cpu\n",
+    ):
+        meta.write_text(altered)
+        with pytest.raises(ValueError):
+            worker._profile(lock, packages)
+    meta.write_text(original)
+    shutil.copytree(packages / "torch.dist-info", packages / "TORCH_copy.dist-info")
+    with pytest.raises(ValueError):
+        worker._profile(lock, packages)

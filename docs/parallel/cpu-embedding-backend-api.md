@@ -14,11 +14,18 @@ The fixed weight name is `model.safetensors` or schema 2 `pytorch_model.bin`. Ad
 expected inventory identity establish neither operator approval, model provenance nor license.
 The backend does not copy, stage or download artifacts.
 
-The isolated candidate worker profile is CPython 3.12, torch 2.10.0+cpu, transformers 4.51.3,
-tokenizers 0.21.4, safetensors 0.5.3, huggingface-hub 0.30.2 and numpy 2.2.6. Runtime checks
-require those exact versions; this is not a resolved transitive hash lock. Keep this worker
-separate from application dependencies. Local-only flags are not network or credential isolation:
-the future owned worker must enforce both at the operating-system boundary. Real package and
-model startup, checkpoint security, CPU execution, tokenizer parity, quality, memory and latency
-remain unqualified. Trusted fake tests establish the software contract only; no actual model
-or weight execution was performed.
+The source now selects the cpu-v2 lock: CPython 3.12, torch 2.14.0+cpu,
+transformers 5.22.2, framework tokenizers 0.23.1, safetensors 0.8.0,
+huggingface-hub 1.31.0 and numpy 2.5.4, with all 38 locked distribution
+metadata versions required. The independent native tokenizer engine remains 0.21.4;
+the framework tokenizer dependency is not used for native receipts.
+
+This is a source and fake-protocol cutover, not qualification of those packages.
+Actual class loading, a newly owned toy model, BGE, ABI, security, license, numerical
+parity and independent coverage audit remain future gates. Canonical integration and
+CI must provision both the legacy fixture for legacy helpers and the v2 fixture.
+The declared change preserves the semantic space, definition and intended CPU FP32
+identity, while the complete execution and source fingerprints change. Tests use
+trusted fake framework modules in the real worker protocol; local-only flags alone
+are not operating-system network or credential isolation. Real package startup,
+checkpoint security, CPU capacity, quality, memory and latency remain unqualified.

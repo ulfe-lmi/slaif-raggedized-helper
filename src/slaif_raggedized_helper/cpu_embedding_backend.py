@@ -16,12 +16,12 @@ class BackendRefused(ValueError):
 
 
 _PINS = {
-    "torch": "2.10.0+cpu",
-    "transformers": "4.51.3",
-    "tokenizers": "0.21.4",
-    "safetensors": "0.5.3",
-    "huggingface-hub": "0.30.2",
-    "numpy": "2.2.6",
+    "torch": "2.14.0+cpu",
+    "transformers": "5.22.2",
+    "tokenizers": "0.23.1",
+    "safetensors": "0.8.0",
+    "huggingface-hub": "1.31.0",
+    "numpy": "2.5.4",
 }
 
 

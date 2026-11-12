@@ -11,8 +11,8 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "tests/unit")]
 from slaif_raggedized_helper import cpu_embedding_worker as worker, native_tokenizers  # noqa: E402
 from test_cpu_embedding_backend import make_tree  # noqa: E402
 
-PACKAGES = Path(os.environ["SLAIF_CPU_WORKER_TEST_PACKAGES"])
-RUNTIME = Path(os.environ["SLAIF_CPU_WORKER_TEST_ROOT"])
+PACKAGES = Path(os.environ["SLAIF_CPU_V2_TEST_PACKAGES"])
+RUNTIME = Path(os.environ["SLAIF_CPU_V2_TEST_ROOT"])
 
 FAKE = """
 import sys
@@ -31,6 +31,7 @@ class Context:
     def __enter__(self): return self
     def __exit__(self, *args): pass
 class Torch:
+    __version__ = '2.14.0+cpu'
     float32 = 'fp32'
     long = 'long'
     def tensor(self, data, **kw): return Tensor(data, kw['dtype'])
@@ -59,7 +60,8 @@ class Factory:
                           weights_only=True, use_safetensors=True,
                           torch_dtype='fp32', device_map=None)
         return Model()
-b._framework = lambda: (Torch(), Factory)
+sys.modules['torch'] = Torch()
+sys.modules['transformers'] = SimpleNamespace(__version__='5.22.2', XLMRobertaModel=Factory)
 sys.exit(m.main())
 """
 
@@ -206,7 +208,7 @@ p.wait(timeout=10)
             str(RUNTIME),
             str(PACKAGES),
             str(root),
-            str(ROOT / "worker_profiles/cpu/uv.lock"),
+            str(ROOT / "worker_profiles/cpu-v2/uv.lock"),
             str(fake),
         ],
         stdout=subprocess.PIPE,
