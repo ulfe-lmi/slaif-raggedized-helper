@@ -195,10 +195,17 @@ def test_actual_journal_committed_complete_survives_interruption(tmp_path, monke
 
     from slaif_raggedized_helper import derived_store, embedding_batch_store
     from slaif_raggedized_helper import embedding_job_journal
-    from test_embedding_job_journal_composition import fixture, wire
+    from test_embedding_batch_store import fixture, wire
 
     tmp_path.chmod(0o700)
-    plan, metadata_obj, vector = fixture()
+    metadata_obj, vector = fixture(count=1)
+    plan = {
+        "format": "embedding-job-plan-v1",
+        "purpose": "prepare",
+        "dependencies": metadata_obj["dependencies"],
+        "rows": metadata_obj["rows"],
+        "codec_policy_fingerprint": metadata_obj["codec_policy_fingerprint"],
+    }
     metadata = wire(metadata_obj)
     interrupt = KeyboardInterrupt("controlled post-commit interruption")
     with (
