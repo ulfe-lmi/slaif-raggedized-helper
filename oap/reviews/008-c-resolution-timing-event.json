@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T04:56:33.704052+00:00",
+  "identifier": "008-c",
+  "event": "EXACT_SOURCE_REPORT_REVIEWED_CURRENT_CI_FAILED_SAME008_REMEDIATION_REQUIRED_NO_ACCEPTANCE",
+  "activation_at": "2026-11-13T04:21:43.372495+00:00",
+  "normal_response_verified_at": "2026-11-13T04:51:59.102399+00:00",
+  "activation_to_response_seconds": 1815.729904,
+  "report_commit": "322c7fe0f54e3ce53fa4550c914cd73f51525126",
+  "review": "audit/008-c-failed-ci-reconciliation.json",
+  "DHA": "NONE"
+}
