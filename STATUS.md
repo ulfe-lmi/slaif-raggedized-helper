@@ -2,8 +2,8 @@
 
 ## Current state (2026-11-13)
 
-- Current (2026-11-13): active objective 009, current slice 009-a
-  (NEW PR/branch oap/009-evaluation-baseline at exact base 5a7b41cc,
+- Current (2026-11-13): active objective 009, current slice 009-b
+  (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
   29447168, merge tree equal to 2944; implementation-head CI run
@@ -11,18 +11,28 @@
   complete and merged as PR #9 (merge commit 1a8fddf8); the 007-a..007-v
   and 008-a..008-g entries below are historical round records retained
   for traceability, their at-time PARTIAL/no-merge wordings and
-  report limits preserved. Slice 009-a is the first 009 software wave:
+  report limits preserved. Slice 009-a was the first 009 software wave:
   byte-exact 32-file transfer (322,735 B: six production modules, six
   unit suites, twenty docs/parallel contracts) of the reviewed
   structural text-evaluation dataset admission, supplied graded-rank
   metrics and original-source/span support primitives, plus
-  docs/evaluation.md, docs/benchmarks/raw-baseline.md and this
-  current-state correction. Whole 009 remains PARTIAL: this wave is a
-  static transfer plus documentation, not an actual evaluation harness,
-  real-model retrieval quality, human held-out data, rights, source-bound
-  stage-loss acceptance or a real baseline (raw baseline NOT RUN); no
-  010 activation; no merge. Public serving, current principal/current
-  policy, evidence delivery and real qualification remain absent/open.
+  docs/evaluation.md, docs/benchmarks/raw-baseline.md and STATUS
+  current-state corrections. Its report-head CI (run 43395492425 on
+  21a3cbd) failed ONLY the Product 3.12 unit step:
+  test_oracle_and_frozen_private_records expected TypeError from
+  dataclasses.replace(result, qualification="QUALIFIED") but CPython
+  3.12.16 raises ValueError for an init=False field (Product 3.14 and
+  all three OAP jobs succeeded; the production guard refused the
+  replacement on both versions). Slice 009-b is the ordered correction:
+  the one pytest.raises clause immediately around that call now accepts
+  (TypeError, ValueError); every other byte, test, fixture, assertion,
+  import and production blob is unchanged
+  (docs/ci-dataclass-replace-portability.md). Whole 009 remains
+  PARTIAL: no actual evaluation harness, real-model retrieval quality,
+  human held-out data, rights, source-bound stage-loss acceptance or
+  real baseline (raw baseline NOT RUN); no 010 activation; no merge.
+  Public serving, current principal/current policy, evidence delivery
+  and real qualification remain absent/open.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
@@ -678,6 +688,34 @@ open on the 007 PR, branch
   CI at the new report head is the evidence boundary and remains
   pending. Whole 009 remains PARTIAL; no merge; no 010 activation.
 
+- 009-b (dataclasses.replace portability correction; AMEND PR 11, same
+  branch oap/009-evaluation-baseline, transcript-first): the transcript
+  commit carries the unchanged FINAL order, active 009-b+LF, the three
+  exact Root records (4,683 B: 009-a source/report review, 009-a
+  CI-failure reconciliation, 009-b CI-correction replan) and the exact
+  1,085 B index at oap/reviews/009-b-root-records.json (SHA-256
+  0105880d…) — six transcript paths on sole parent 21a3cbd (the 009-a
+  report head). The implementation commit changes ONLY three paths:
+  tests/unit/test_text_evaluation_dataset.py (old SHA-256 901707ff…;
+  the single line 46 `pytest.raises(TypeError)` becomes
+  `pytest.raises((TypeError, ValueError))` immediately around
+  dataclasses.replace(result, qualification="QUALIFIED"); module AST
+  equals base 21a3cbd after normalizing the tuple back to TypeError),
+  docs/ci-dataclass-replace-portability.md (new) and this STATUS.md.
+  Bounded local evidence (Python 3.14.4 only, pinned venv): ONE full
+  dataset unit module pytest run 19 passed / exit 0 (fresh private
+  cache nodeids 1,614 B; max RSS 62,724 KiB; closed env; default
+  assertion rewriting, no --assert=plain; inherited rlimits CPU
+  10 s / AS 1 GiB / FSIZE 16 MiB + CPU 0 affinity; the 60 s wall was a
+  launcher-level backstop, not a descendant wall proof) and ONE Ruff
+  0.17.4 changed-file check All checks passed. Root pre-SELF precision
+  review accepts these as LIMITED evidence with preserved procedural
+  deviations (no backfill, no extra runtime/retry); the 009-a head CI
+  failure (run 43395492425) and all earlier reports/runs are preserved
+  unchanged; the full unchanged five-job CI at the new report head is
+  the evidence boundary and remains PENDING. Whole 009 remains
+  PARTIAL; no merge; no 010 activation.
+
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
   (merged as PR #5) plus the 004-a finite qualification trial runner
@@ -698,9 +736,9 @@ open on the 007 PR, branch
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 009 (new PR, branch
-  oap/009-evaluation-baseline; number assigned by GitHub at
-  publication), not idle; the 008-era wording is historical.
+- The coding client is active on objective 009 (PR 11, branch
+  oap/009-evaluation-baseline; PR number 11 assigned by GitHub at
+  009-a publication), not idle; the 008-era wording is historical.
 - Current main is the 008 merge commit 5a7b41cc (PR #10, parents
   1a8fddf8 + 29447168, merge tree equal to 2944); the 009 branch (new
   PR) builds from it. Historical: while 008 was in flight, current main

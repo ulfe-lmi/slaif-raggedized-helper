@@ -43,7 +43,7 @@ def test_oracle_and_frozen_private_records():
         assert "synthetic" not in repr(record).lower()
         with pytest.raises(dataclasses.FrozenInstanceError):
             record.secret = 1
-    with pytest.raises(TypeError):
+    with pytest.raises((TypeError, ValueError)):
         dataclasses.replace(result, qualification="QUALIFIED")
 
 
