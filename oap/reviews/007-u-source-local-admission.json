@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-12T19:28:41.868574+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_ROOT_AND_OPPOSITE_PEER",
+  "author_receipt": {
+    "lane": "output-repair",
+    "lane_id": "PAR-007-OUTPUT-REPAIR-A",
+    "result": "COMPLETE",
+    "implementation": "e36873090f1bea693823ba2c7b39bb86d880d401",
+    "report_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+    "report_sha256": "846094bd0a75456c22720669e276eeaa16a796a805741c90a88af2c649711dc4",
+    "paths": [
+      "docs/parallel/embedding-output-repair-api.md",
+      "docs/parallel/embedding-output-repair-design.md",
+      "oap/parallel/orders/PAR-007-OUTPUT-REPAIR-A.md",
+      "src/slaif_raggedized_helper/embedding_job_journal.py",
+      "tests/integration/test_embedding_output_repair_composition.py",
+      "tests/unit/test_embedding_output_repair.py"
+    ],
+    "verified_at": "2026-11-12T19:14:26.180754+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "author_Root_review": "parallel/output-repair/review.json",
+  "peer_review": "parallel/audit-output-repair/review.json",
+  "peer_sha256": "3beaa59461c723db4697293e45a5e7bd5849690215d2b4f9039d0a32216ddc8b",
+  "Root_peer_review": "audit/007-output-repair-peer-root-review-3bea.json",
+  "decision": "Eligibleforfutureselectivecanonicalintegrationwithfreshcurrenthead/dependency/sourcefit/docs/requiredCI/review/receipt/timing. No directmerge/qualificationauthority.",
+  "strongest_counterargument": "Snapshotpin isadvisoryandlacksretention/currentrights; outputrepair provesmaterializationonlywithunknownexecution/accounting/drainandnoactualpolicyprovider. Boundaries remainexplicit; notfullproductclosure.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

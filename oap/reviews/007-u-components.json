@@ -1,0 +1,48 @@
+{
+  "at": "2026-11-13T00:27:29.312006+00:00",
+  "status": "FINAL_EXACT_FIVE_OUTPUT_REPAIR_FILES_FOR_GATED_007U",
+  "source_implementation": "e36873090f1bea693823ba2c7b39bb86d880d401",
+  "source_report": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+  "source_report_sha256": "846094bd0a75456c22720669e276eeaa16a796a805741c90a88af2c649711dc4",
+  "current_round_base": "491c570f7a4c3c4a8117e90504d60a688c61515f",
+  "entries": [
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "src/slaif_raggedized_helper/embedding_job_journal.py",
+      "bytes": 25497,
+      "sha256": "2dfd72c88537fee0f6d85b3448212906be0137cdbcac6ba1deb79283b3aec15d",
+      "blob": "54c6d04eaaa46cfcb8157de45d267d366bbc1990"
+    },
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "tests/unit/test_embedding_output_repair.py",
+      "bytes": 4051,
+      "sha256": "dec04628ba1f86c0aeb788768bbf2f630f13f081bf0b64d7ba5ce453c13996c4",
+      "blob": "b1198ed36686b7b8271c798d163dabb832150568"
+    },
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "tests/integration/test_embedding_output_repair_composition.py",
+      "bytes": 20225,
+      "sha256": "d60fc5d09175664ea30bcbd801e70498b19fd54105b236ebea178efa670be0c7",
+      "blob": "95e834f20fc68176a911b030e55cb3635e4e12fc"
+    },
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "docs/parallel/embedding-output-repair-api.md",
+      "bytes": 4553,
+      "sha256": "2ab5cc0a96e328233ae0ceb346ea9521717873df6cc70b73db2d47e467005997",
+      "blob": "bfc0db270a7c0a88fccb3d96f4472176a237e3af"
+    },
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "docs/parallel/embedding-output-repair-design.md",
+      "bytes": 11391,
+      "sha256": "34bfcfff93967d1ffd4e0bdd82eca31b36c31cd2df935e02d563eb7c0fcae0eb",
+      "blob": "b113d49b641fcdf3c957a7ee709ad8d24be7e949"
+    }
+  ],
+  "total_bytes": 65717,
+  "gate": "One existingjournal replacement+4NEWfiles, ONLYSTATUSsiximplementationpaths. LocalcomponentRoot+opposite3bea admitted/currentfitcf0e, notcanonicalacceptance. CurrentreportfullrepairandTcapturebothProductCIrequired. Materializationonly/executionaccountingdrainUNKNOWN/noactualpolicyqualification.",
+  "DHA": "NONE"
+}

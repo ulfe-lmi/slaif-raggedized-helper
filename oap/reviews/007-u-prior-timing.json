@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-13T00:23:42.553453+00:00",
+  "identifier": "007-t",
+  "event": "STRATEGIC_SCOPED_CONTINUATION_ACCEPTED_WHOLE007_PARTIAL",
+  "report_commit": "491c570f7a4c3c4a8117e90504d60a688c61515f",
+  "review": "audit/007-t-review.json",
+  "review_sha256": "32baabad8eb6dabbcbff3b3f4092abc9f8fda0732557a74e9e3390c2b64e3093",
+  "activation_at": "2026-11-12T23:21:36.234467+00:00",
+  "normal_response_verified_at": "2026-11-13T00:22:20.804527+00:00",
+  "activation_to_response_seconds": 3644.57006,
+  "current_report_allCI_success": true,
+  "development_acceptance": "SOURCE_BOUND_PARITY_CAPTURE_SOFTWARE_ONLY_UNQUALIFIED",
+  "next": "Same007Uafteractualquiet/currentfit/originalnormalpublicationchecks; no merge/008advance",
+  "DHA": "NONE"
+}

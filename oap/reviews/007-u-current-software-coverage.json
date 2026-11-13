@@ -1,0 +1,79 @@
+{
+  "lane_id": "AUDIT-007-CURRENT-SOFTWARE-A",
+  "target_commit": "cf7479ee551e01803f7e2e6a8823bc61b3f1fe23",
+  "report_self": "491c570f7a4c3c4a8117e90504d60a688c61515f",
+  "result": "COMPLETE",
+  "decision": "CHANGES_REQUIRED",
+  "scope": "Finite static software source coverage of exact UNMERGED implementation. COMPLETE is this review, not development acceptance, merged ICA, qualification, MVP, release or activation of 008.",
+  "provenance": "Assigned strategic peer context; prior author/peer familiarity and shared account/component lineage disclosed in order and prior opposite report. Not an unfamiliar independent human or merged-source ICA. Earlier 49c5 review is historical at 99249, not current-source proof. No tests or dynamic runtime executed by this reviewer.",
+  "table": [
+    {
+      "criterion": 1,
+      "classification": "PARTIAL",
+      "software": "Space admission binds caller manifest, inventory, revision, weight/tokenizer hashes and configuration; rejects non-BGE-M3, mismatched revisions, non-CLS, non-L2, non-1024 and non-identity query prefix. Artifact verifier reads/checks actual named bytes and config. Raw source template uses trusted title/heading/body; native independent tokenizer and identity query policy are explicit. Source witness contains current selected ranges.",
+      "synthetic": "Earlier component/fixture evidence is synthetic; it does not authenticate an official checkpoint.",
+      "qualification": "Caller-supplied revision, manifest and expected digest establish correspondence, not official origin or legal clearance; actual checkpoint/tokenizer and rights/license remain UNPROVEN."
+    },
+    {
+      "criterion": 2,
+      "classification": "PARTIAL",
+      "software": "ResidentQueryEncoder owns isolated CPU session; CPU backend loads local-only FP32, computes CLS, isolated session uses native token IDs and normalization. GPU path includes source plan, borrowed operation reservation/launch owner, isolated bridge and worker/backend; backend requests CUDA FP16 CLS and bridge normalizes, producer stores validated FP32 rows. Corpus executor calls producer for source-local batches. Locks and reservation cover cooperating owners, not physical vacancy or principal rights.",
+      "synthetic": "Earlier bounded component and fake-worker proofs support interface behavior only; declarations do not verify deployed execution.",
+      "qualification": "Actual neural weights, hardware, FP16 math, exclusive physical vacancy, runtime capacity and CPU/GPU performance remain UNPROVEN; real authorization and service drain/controller remain downstream gates."
+    },
+    {
+      "criterion": 3,
+      "classification": "PARTIAL",
+      "software": "Program validates complete selected bundles, deterministically orders rows and builds bounded source-local batches; executor revalidates source/configuration and common epoch. Producer rebuilds plan and verifies COMPLETE store metadata/bytes before reuse, only starts new work from PENDING, and refuses other states; journal validates COMPLETE and uses revision CAS. Changed source/parent/policy cannot silently reuse a mismatched declared job. No exactly-once or uncertain-attempt retry is claimed. Published matching output cannot currently repair stale RUNNING state: journal exposes read/verified_output/append, with verified_output requiring COMPLETE; this is an actual ARCH8.4 software gap, future U candidate is not in cf.",
+      "synthetic": "Prior Root proof records five fake-backend rows in two batches, interrupted between batches and fresh creator reuse/new work; not proof of all crash windows. Corrupt output rejected by store validation.",
+      "qualification": "Whole production corpus and current policy remain unproven. 65536 rows/128 bundles per source program do not demonstrate 20k capacity through later raw snapshot interface bounded at 4096 rows/128 groups."
+    },
+    {
+      "criterion": 4,
+      "classification": "PARTIAL",
+      "software": "New full capture composes source-bound CPU and GPU producers and resident query, compares plan rows/dependencies excluding execution fingerprint, reloads actual store outputs, checks execution/native records, enforces one epoch and input/source/config rechecks, adapts to analyzer, and records fresh/reused separately. It admits 1\u20138 chunks and queries, excludes raw text/vector payload from bounded evidence, retains producer cleanup ownership and labels capture NOT_QUALIFIED; analyzer remains SUPPLIED_UNVERIFIED and NOT_QUALIFIED with cosine, score/rank and optional gold Recall@k. Cooperative deadline and caller-provided rights are not authority.",
+      "synthetic": "Full current driver is default collected, constructs original/derived sources and actual worker protocol with fake CPU script and injected fake GPU backend, executes fresh and reuse path, and checks unqualified/privacy labels. No positive mock is promoted. Full combined current CI was pending at last cited Root observation, not verified green here.",
+      "qualification": "Actual same-checkpoint neural CPU/GPU comparison, FP16, gold/held-out quality, thresholds, snapshot binding and EMBED-01/02 remain NOT_RUN/UNPROVEN."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "status": "CAPTURE_PRESENT_CURRENT_CI_GATE_OPEN",
+      "detail": "Full new capture module and driver independently read; current author report BLOCKED and full combined exact-report CI pending/unobserved at publication. Root observed 3 OAP successes and 2 product jobs in progress; that is not current green. Historical 57m synthetic proof is different code/runtime evidence."
+    },
+    {
+      "id": "F2",
+      "status": "SOURCE_REPAIR_PRESENT",
+      "detail": "Current gateway SHA256 f8a686590e0b91f0f367327733cb7c0b02131ed2fa650de6695e5a9e717ea5bd. Diff from 99249 validates assistant message role at collection and stream item boundaries, and preserves latched accumulator error through transport exceptions. This agrees with prior R/peer evidence; it is source repair, not a new test or merge approval."
+    },
+    {
+      "id": "F3",
+      "status": "REPAIR_ABSENT_FUTURE_U",
+      "detail": "Current producer and journal source inspected as in criterion 3; no locator-only published-output stale RUNNING repair. Local e368/SELF3fd candidate described in inert replan is future, not current canonical code. Require U integration plus exact-head independent review and required checks before closing this recovery gap; never reopen uncertain terminal attempts or infer ownership."
+    },
+    {
+      "id": "F4",
+      "status": "OLD_IMPORT_REPAIRED_CURRENT_CI_UNPROVEN",
+      "detail": "Current unit diff replaces integration-only fixture import with unit-local test_embedding_batch_store fixture and constructs plan; workflow runs unit and integration separately. Old 99249 import defect is repaired in current source. Only all required jobs and actual steps at exact 491c report head can establish current success; no live CI poll or success claimed."
+    }
+  ],
+  "replan": "The inert draft appropriately places 008 immutable snapshot/publication and scoped hybrid readers, 014 authenticated principal/current-policy boundary, 015 supervised drain/vacancy/restore, 017 discovery/reconciliation, 004/019 actual qualification and 018 license audit in later gates. Existing 007 callable primitives require caller-established rights, original-backed bundle inputs and borrowed reservation. Requiring completed 008 publication to resolve those primitives would cycle because roadmap 008 depends on 007. F3 stays a 007 software gap rather than being deferred as hardware or downstream work. No additional essential missing primitive identified within finite reviewed projection; external/dynamic transitive closure is partial.",
+  "runtime_evidence": "Author immutable 491c report records 38 unit pass, bad-root pass, epoch node failure before CPU boundary and CI unobserved at publication. Root diagnosis attributed refusal to untrusted group-writable ancestor of configured UV runtime. Separately Root reports unchanged epoch node passed 8.86s using existing private 0700 runtime with byte-identical interpreter and libpython. This does not rewrite author failure or establish full combined CI.",
+  "counterargument": "Static slices, prior synthetic results and current capture source cannot show real neural execution, complete crash recovery, current authorization or end-to-end product viability. F3 is a real source gap and current full combined CI remains unproven; therefore CHANGES_REQUIRED for original software scope, not product acceptance.",
+  "limits": "No test, worker, store, model, GPU, install, network, CI action, application import, git mutation, service or credentials used. No current CI success claim. Actual checkpoint origin, licenses, rights, protected host, physical GPU/vacancy, performance, held-out quality, current policy, source discovery, snapshot publication and full ICA remain separate gates. No D1 waiver.",
+  "commands_and_results": [
+    "Read FINAL order, prior 49c5/Root review, inert replan and current Root/peer records; read original 007 and ARCH8.4/11/roadmap ranges.",
+    "Read whole current capture module and integration driver, API/design, selected current public call paths and gateway diff; SHA/range witness records exact coverage.",
+    "git rev-parse HEAD returned cf7479ee551e01803f7e2e6a8823bc61b3f1fe23; git status --short returned empty. Read-only git diff versus 99249: only gateway and capture module changed in product src; verified per-file baseline blobs in witness.",
+    "git show SELF report: sole report-only path; report SHA recorded by Root as abb4dbcb6a722c8fef6c60acacd114dfbb6bdcd3a793c66f60ee17797a33ae50. Read current test import diff and CI default collection command.",
+    "Original draft checkpoint yielded CONTINUE; this replaces the partial draft with finite source assessment. No FIFO replay."
+  ],
+  "witness": {
+    "path": "/tmp/audit-current-007t-software-witness.json",
+    "bytes": 18213,
+    "sha256": "fb1ea76b3b56a7ff6f0deac55613721bd109ee789bd62e9bf4aed201ae827ea4",
+    "meaning": "Full byte sizes and SHA256, git blob IDs at cf and 99249, inclusive LF range SHA256; full hashes do not imply full semantic reads. Dynamic/external closure partial."
+  },
+  "DHA": "NONE"
+}

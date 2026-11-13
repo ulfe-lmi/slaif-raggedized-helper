@@ -1,0 +1,113 @@
+{
+  "lane_id": "AUDIT-007-OUTPUT-REPAIR-A",
+  "target_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "scope": "Finite independent local review only; not merge, CI, release, ICA, hardware, policy or MVP qualification. DHA NONE.",
+  "topology": "HEAD clean and exact SELF 3fd1d9e6d19c47b439b23f53c593a03a16f9b248, sole parent e36873090f1bea693823ba2c7b39bb86d880d401, sole implementation base 880dedf33e7b9eb1da497bf88acb6bb626a7fce3; SELF diff report only. Implementation changes one existing journal module and adds two tests, API/design/order. Design hash 34bfcfff93967d1ffd4e0bdd82eca31b36c31cd2df935e02d563eb7c0fcae0eb, report 3545 bytes hash 846094bd0a75456c22720669e276eeaa16a796a805741c90a88af2c649711dc4.",
+  "semantic_review": [
+    "Journal full lines 1\u2013662, ownership 1\u2013210, job records 1\u2013343, batch store 1\u2013142, derived store 1\u2013363, codec 1\u2013178, vector normalization 1\u201358; new unit and integration tests in full, fixture helper, API, design and implementation order, ARCH 8.3\u20138.4. Relevant compact law and assigned final order applied; no claim to whole source books.",
+    "Exact builtin bounds/canonical expected state, live owner and different stale owner gate RUNNING only. Callback sees captured canonical whole plan twice; exact matching epoch alone does not establish real policy. Typed load checks full dependencies, ordered rows and codec, manifest and vector hashes, shape and normalized finite vectors. After callback current() rechecks live ownership, full validated journal revision/state and typed output. Existing transition validation and staged atomic replace with expected revision append a single same-attempt COMPLETE; CLAIMED start and actual non-regressing wall observation, RECOVERED_VALID_OUTPUT and null request/tokens. Result fixes origin unverified, accounting/drain unknown and qualification absent. No retry/discovery/reopening, borrowed owners remain.",
+    "Postcommit checks refuse expired cooperative deadline while preserving COMPLETE; ordinary exceptions become input-free JournalError, BaseException identity passes through; verified_output is separate reuse. Existing append and other production methods unchanged in diff. Actual local path/inode witness specifically tests ownership recheck, not policy or model provenance."
+  ],
+  "proofs": {
+    "index": {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/output-repair/proof-index.json",
+      "bytes": 13947,
+      "sha256": "36c4eca18874aa42d8abf1ebf715f34fba049f19d71e00ba8dbcacb72f127c99"
+    },
+    "indexed_files": "All 89 files verified byte sizes and SHA256 against index; indexed per-file absolute paths resolved under /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/output-repair. Individual sizes, hashes, source/driver plans, raw output/time and exits are in index; hash verification is not a claim of semantically rereading all bytes.",
+    "historical": "Positive, process, causal, six logical negatives plus two supplemental groups exit 0 in retained logs on journal 074928ccbc156ae1646bc4ca7bb1b6c4565ed286f5a5b372a0a8810b1a621651; earlier complete test bytes not retained and test hashes vary as cases were added. No claim these ran on current source. Causal control printed original 074928..., control cce8898433981ba3a6e9639984294198454be50ac60c302aac5d6871a009c59e, predicate f66bd02cec5b8d32f1a522115c180275bb6ee7a2f7d3a5f3eadea3b6247e23a7.",
+    "failures": "Original positive system Python missing pydantic exit 4, no journey; unsupported mktemp documented in decision but separate raw stderr not identified. Initial missing fixture wrong path exit 1 before repair, corrected retry exit 0. Preflight stopped before edits because original vs derived retry driver identities differed; clarified decision preserves original and authorizes exact derived edit. Initial collection missing import-time env exit 2, later placeholders collection exit 0 only; no runnable backend claim. Clock rollback test logged.",
+    "current": "Current journal 2dfd72c88537fee0f6d85b3448212906be0137cdbcac6ba1deb79283b3aec15d; separately planned commit-delay and verification-delay cases each exit 0, preserving COMPLETE and verified reuse. Root b940 real postcommit witness failed (returned success past deadline), e368 counterpart refused and kept COMPLETE; Root current positive 1 and focused unit 11 observed in logs. No historical journey replayed by this peer."
+  },
+  "own_witness": {
+    "driver": {
+      "path": "/tmp/audit007-peer-3703571/witness.py",
+      "bytes": 1512,
+      "sha256": "c6647c493876e61a5d1976d6f23f84ab1ca733703a26bef7479a1f71ff699672"
+    },
+    "command_reconstructed_from_tool_transcript": "ulimit -t 30 -v 1048576; export PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 PYTHONPATH=/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/src; timeout 120 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/audit007-peer-3703571/witness.py",
+    "outcome": "Tool output, not retained as separate raw log: exit 0, wall 0.377846587 s; stdout: refused JournalError; original inode restored; fd live; history unchanged; no COMPLETE. CPU and peak memory actual values not measured. Driver and source identities were hashed before invocation. Private 0700 owned temp root. Original real lease pathname renamed to saved own inode during second callback, same-mode owned new inode created, different inode asserted, original FD fstat and flock live, no mocks; restored before context cleanup and full envelope/revision unchanged.",
+    "qualification": "RAYON_NUM_THREADS was not explicitly set or recorded; OMP, OPENBLAS, MKL, NUMEXPR and VECLIB were set to 1. Therefore prescribed five-variable environment not established; no Rayon backend was invoked by witness. No repeat authorized. This limits resource-protocol evidence but does not negate observed kernel inode/lease refusal."
+  },
+  "readset_identities": [
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/src/slaif_raggedized_helper/embedding_job_journal.py",
+      "bytes": 25497,
+      "sha256": "2dfd72c88537fee0f6d85b3448212906be0137cdbcac6ba1deb79283b3aec15d"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/src/slaif_raggedized_helper/embedding_job_ownership.py",
+      "bytes": 7008,
+      "sha256": "708731cd9a76e41df08c1c07e02b78748f90aca72da0bb6e12e5c7ee1977cafe"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/src/slaif_raggedized_helper/job_records.py",
+      "bytes": 11211,
+      "sha256": "7a74be6ae92e046ce35f372a02877a3e9042fc30f46995199cd6c2a43add9625"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/src/slaif_raggedized_helper/embedding_batch_store.py",
+      "bytes": 5893,
+      "sha256": "8e53be2d1a0acb8fc8d6932bdd9c1d5f5b8f9015108de79814fa2a07c6a9f429"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/src/slaif_raggedized_helper/derived_store.py",
+      "bytes": 12215,
+      "sha256": "80cb56fcee50aa18df1c291a58e4ea8a0b462fcd614aa480d36605e12916e761"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/src/slaif_raggedized_helper/vector_codec.py",
+      "bytes": 5983,
+      "sha256": "13a923892bba79089d1e1c7282d562eff1fd3fff2ec51c3c6df4a7f5dc52330c"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/src/slaif_raggedized_helper/embedding_vectors.py",
+      "bytes": 2029,
+      "sha256": "c69906f3cb4a1239241990d31eb2688fb14712525c5046e93ff07331724b3a67"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/tests/integration/test_embedding_output_repair_composition.py",
+      "bytes": 20225,
+      "sha256": "d60fc5d09175664ea30bcbd801e70498b19fd54105b236ebea178efa670be0c7"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/tests/unit/test_embedding_output_repair.py",
+      "bytes": 4051,
+      "sha256": "dec04628ba1f86c0aeb788768bbf2f630f13f081bf0b64d7ba5ce453c13996c4"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/tests/unit/test_embedding_batch_store.py",
+      "bytes": 4063,
+      "sha256": "8efee30c265604db3bf8b62f1262a512db28b5992cc5541050aa647c19c75cc9"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/docs/parallel/embedding-output-repair-api.md",
+      "bytes": 4553,
+      "sha256": "2ab5cc0a96e328233ae0ceb346ea9521717873df6cc70b73db2d47e467005997"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/docs/parallel/embedding-output-repair-design.md",
+      "bytes": 11391,
+      "sha256": "34bfcfff93967d1ffd4e0bdd82eca31b36c31cd2df935e02d563eb7c0fcae0eb"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/oap/parallel/orders/PAR-007-OUTPUT-REPAIR-A.md",
+      "bytes": 9247,
+      "sha256": "07ddea35b6d8e9782960119a2e0b258c436635c6fbb4b9faa9a04c01ffc4c567"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-output-repair/oap/parallel/reports/PAR-007-OUTPUT-REPAIR-A.json",
+      "bytes": 3545,
+      "sha256": "846094bd0a75456c22720669e276eeaa16a796a805741c90a88af2c649711dc4"
+    }
+  ],
+  "findings": "No candidate blocking defect found in reviewed finite scope. Historical run bytes are incomplete and own witness environment has the disclosed RAYON omission; these are evidence limitations, not current CI success.",
+  "strongest_counterargument": "COMPLETE can be mistaken for original neural success or physical vacancy, and historical complete test bytes cannot be independently reconstructed. Acceptance is limited to this explicit local data-materialization primitive, justified by diagnostic and fixed unknown labels, full current code/contract review, retained historical and separate current evidence, plus the actual inode witness. Operator integration must preserve these boundaries.",
+  "limits": [
+    "No real current rights/source policy provider or original authorization proof; no neural invocation provenance, accounting, physical drain, dispatch authority, automatic discovery, terminal reopen, controller, model/hardware qualification, canonical CI, broader 007 or full MVP qualification. Future integration/CI and independent milestone audit remain gates. Deadline cooperative, not hard preemption.",
+    "Own witness stdout and runtime were reported by tool, not saved as separate immutable raw file; exact shell command above is reconstructed from transcript. No inferred RAYON setting."
+  ],
+  "dha": "NONE"
+}

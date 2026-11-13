@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-13T00:02:23.321954+00:00",
+  "status": "UNCHANGED_CURRENT_EPOCH_NODE_PASS_WITH_PROTECTED_SAME_CORE_BYTES_RUNTIME",
+  "implementation": "cf7479ee551e01803f7e2e6a8823bc61b3f1fe23",
+  "plan": "audit/007-t-root-protected-epoch-plan.json",
+  "readset": "audit/007-t-root-protected-epoch-readset.json",
+  "result": "ONEpytestprocess/ONEoriginalunchanged epoch nodePASS;6.42user.48sys8.86wall82992KiBparentRSS. CPUbefore_encode refusal reached, noCPUforward/GPUproduce asserted. Same original CPU30AS1GiBwall120/five1; no productguard/source/sharedmodes/settings changed.",
+  "proof": {
+    "stdout.txt": {
+      "path": "/tmp/raggedized-root-007t-protected-epoch/stdout.txt",
+      "bytes": 80,
+      "sha256": "423b1d0e014eb1eab96f4420f7b344c2615be505dd574b756ac884826ca74f2d"
+    },
+    "stderr.txt": {
+      "path": "/tmp/raggedized-root-007t-protected-epoch/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "time.txt": {
+      "path": "/tmp/raggedized-root-007t-protected-epoch/time.txt",
+      "bytes": 1036,
+      "sha256": "9654eb7e503a38b78a61e627f100f39580e9769c284b9c952a98b20d71b096a4"
+    },
+    "exit.txt": {
+      "path": "/tmp/raggedized-root-007t-protected-epoch/exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    }
+  },
+  "history": "Original unsafe GPU runtime path Tfailed +Root transparentdiagnostic failed retained. This currentproof closes only that named local boundary, not a passing entirecapturecombineddriver. Immutableauthorreport maytruthfully retainfailure; externalRootproof is separatelyattributed.",
+  "gates": "Currentreportexacthead fullnormalCIbothProductjobs andall5/allsteps, normalresponse/report/source/remote review andtiming required; all actualneural/hardware/currentrights/quality/ICA/MVP gates retained.",
+  "DHA": "NONE"
+}
