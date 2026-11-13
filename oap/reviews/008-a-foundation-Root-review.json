@@ -1,0 +1,162 @@
+{
+  "at": "2026-11-13T01:50:43.912993+00:00",
+  "state": "ROOT_REPORT_AND_ORIGINAL_RECEIPT_VERIFIED_PENDING_OPPOSITE_PEER_AND_INTEGRATION",
+  "receipt": {
+    "lane": "raw-foundation",
+    "lane_id": "PAR-008-FOUNDATION-A",
+    "result": "PARTIAL",
+    "implementation": "3eac764f522c63e69b02d75635207c2b4ec5b13b",
+    "report_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+    "report_sha256": "ee847866e8729c16bcde93c261ff2d5b4955dcf537840311652fb5c69cb51666",
+    "paths": [
+      "docs/parallel/raw-foundation-integration-notes.md",
+      "docs/parallel/raw-snapshot-dense-api.md",
+      "docs/parallel/raw-snapshot-dense-design.md",
+      "docs/parallel/raw-snapshot-lexical-api.md",
+      "docs/parallel/raw-snapshot-lexical-design.md",
+      "docs/parallel/raw-snapshot-membership-api.md",
+      "docs/parallel/raw-snapshot-membership-design.md",
+      "docs/parallel/raw-snapshot-payload-format-map.md",
+      "docs/parallel/raw-snapshot-source-rows-api.md",
+      "docs/parallel/raw-snapshot-source-rows-design.md",
+      "docs/parallel/technical-analyzer-api.md",
+      "oap/parallel/orders/PAR-008-FOUNDATION-A.md",
+      "src/slaif_raggedized_helper/raw_snapshot_dense.py",
+      "src/slaif_raggedized_helper/raw_snapshot_lexical.py",
+      "src/slaif_raggedized_helper/raw_snapshot_membership.py",
+      "src/slaif_raggedized_helper/raw_snapshot_source_rows.py",
+      "src/slaif_raggedized_helper/technical_analyzer.py",
+      "tests/integration/test_raw_snapshot_dense_composition.py",
+      "tests/integration/test_raw_snapshot_lexical_composition.py",
+      "tests/integration/test_raw_snapshot_membership_composition.py",
+      "tests/integration/test_raw_snapshot_source_rows_composition.py",
+      "tests/integration/test_technical_analyzer_composition.py",
+      "tests/unit/test_raw_snapshot_dense.py",
+      "tests/unit/test_raw_snapshot_lexical.py",
+      "tests/unit/test_raw_snapshot_membership.py",
+      "tests/unit/test_raw_snapshot_source_rows.py",
+      "tests/unit/test_technical_analyzer.py"
+    ],
+    "verified_at": "2026-11-13T01:50:24.410342+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "report_bytes": 7306,
+  "witnesses_verified": [
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/order.md",
+      "bytes": 11300,
+      "sha256": "27a24f64d367c2254adc9153e1d52d828815cb033a05531621e4edcf4cd1be2a"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/root-test-layout-addendum-v1.md",
+      "bytes": 2761,
+      "sha256": "063cda2b309836ea51bb416d785e573592baed5cd6fd6e7a123579ddd761959e"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/unit-preflight.json",
+      "bytes": 197709,
+      "sha256": "ebac965cc6427d4bf056f6f1f6108e8a3bec1dfe0ad8983b1b1943080d72b4ce"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/unit-stdout.txt",
+      "bytes": 973,
+      "sha256": "cf8ad4ad395dedee92994dddb8e8363b8aec2313c2dcf32638082078792e115a"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/unit-rerun-preflight.json",
+      "bytes": 200852,
+      "sha256": "f92bf1dd4d43f88e07540227da7c4c12aae3ff4e6f75f1e42be7d33b1f766fad"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/unit-rerun-stdout.txt",
+      "bytes": 99,
+      "sha256": "c6b12a7de72a6dcb67a2b4dfc8cd8dff88813e3d62f50b992af4afc1b2f7f828"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/unit-rerun-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/unit-rerun-time.txt",
+      "bytes": 58,
+      "sha256": "91e1a593ad475b17389172d249d073f081efa718dd5cecee6ea3b18a3a2c9be1"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/planned-proof-v2.json",
+      "bytes": 36019,
+      "sha256": "d850754b10e4ec4c4b6d661a4f24be7ded8cdab42eb6e11b23a0e046066014c2"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/root-proof-decision-v2.json",
+      "bytes": 4088,
+      "sha256": "f795307a8e605b97153363d89a15e5cec149373ec4670ab3457d7ef50c3ccf80"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/root-approved-proof-runner-v2.sh",
+      "bytes": 2079,
+      "sha256": "ed4a8e370845ad8f201ea6aff18e55a8afa5b7b11977a3220587b8d7187ad18e"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/planned-proof-driver-v2.py",
+      "bytes": 2535,
+      "sha256": "308912cb74e8a03ed39862173a37620c66d4018d17cdce494891ece4671cecae"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/actual-proof-v2-result.json",
+      "bytes": 2137,
+      "sha256": "62dde37214f680585f136c649e2a4b66fa834d691e4dc36947cd5f03a6898571"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/actual-proof-v2-author-preflight.json",
+      "bytes": 1115,
+      "sha256": "c6ebaf32f22ca4bb597183292b4d77c763b9dc5abc0e5134628fd14e06a82cd7"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/static-current-fit.json",
+      "bytes": 1858,
+      "sha256": "e3ea4e5e1333c89571c3814e9f6c92b6ed5f24e02f71d857180001ab8f3b385c"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-foundation-root-implementation-review-3eac.json",
+      "bytes": 6552,
+      "sha256": "279fed43df223413c1170c644ddbc4af68d8aa71665d1f175b2f1706bcb79134"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-foundation-root-actual-proof-v2-review.json",
+      "bytes": 8106,
+      "sha256": "08df2ada982fd1021be93eb36b445bcedd6fbeef990377e06f5dc2ce04636d78"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-foundation-checkpoint-helper-correction.json",
+      "bytes": 1462,
+      "sha256": "8600f43050a8ffad22121073f098bc96e48ec45702d17368c18b9235e629e072"
+    },
+    {
+      "path": "/tmp/raw-foundation-actual-proof-v2/stdout.txt",
+      "bytes": 141,
+      "sha256": "3c663dcc0212db2998a0e1fb9f238e6e0d72eaa01015e078ee9a2cb165421065"
+    },
+    {
+      "path": "/tmp/raw-foundation-actual-proof-v2/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/tmp/raw-foundation-actual-proof-v2/time.txt",
+      "bytes": 58,
+      "sha256": "614616f7d8a679f73e9c36d39d353641dee2db9378d8618c0dae44de0f3473a3"
+    },
+    {
+      "path": "/tmp/raw-foundation-actual-proof-v2/exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    }
+  ],
+  "source_review": "audit/008-foundation-root-implementation-review-3eac.json",
+  "proof_review": "audit/008-foundation-root-actual-proof-v2-review.json",
+  "review": "CleanSELFsoleparent3eac;reportonlydiff;exact27newimplementationpathsverifiedearlierandcommittedheadunchanged. ReporthonestlyPARTIAL/currentUunmerged/unaccepted, allfailed/fixedrunseparate,current49units+ONEtoySourceRowactualscope/caps andopposite/CI/MVPgatesretained. Noextraactualtests needed.",
+  "strongest_reason_not_to_integrate": "Separateoppositepeerandcurrentcanonical008fit/wholeCIpending; boundedactualonlySourceRows, otherfullcompositionsunproven.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

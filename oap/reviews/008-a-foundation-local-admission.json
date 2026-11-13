@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T02:07:56.233779+00:00",
+  "state": "LOCAL_COMPONENT_ROOT_AND_OPPOSITE_COMPOSITION_REVIEWED_ELIGIBLE_FOR_FUTURE_INTEGRATION_ONLY",
+  "implementation": "3eac764f522c63e69b02d75635207c2b4ec5b13b",
+  "SELF": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+  "Root_review": "parallel/raw-foundation/review.json",
+  "opposite": "parallel/audit-raw-foundation/review.json",
+  "gate": "FullMember/Dense/Lexicalphysicalcomposition/currentcanonical008CI/rights/qualification/ICA/MVPopen",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

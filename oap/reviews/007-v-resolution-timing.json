@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-13T02:45:50.554458+00:00",
+  "identifier": "007-v",
+  "event": "STRATEGIC_BOUNDED_SOFTWARE_ACCEPTED_MERGED_VERIFIED",
+  "activation_at": "2026-11-13T02:14:17.885621+00:00",
+  "normal_response_verified_at": "2026-11-13T02:24:43.743988+00:00",
+  "activation_to_response_seconds": 625.858367,
+  "merged_at": "2026-11-13T02:44:58Z",
+  "report_commit": "c5248f0790e7c4cb61422d79b9ae1a8b083aa494",
+  "merge_commit": "1a8fddf8c1448ad9e76b6b8194984877c4c21a95",
+  "review": "audit/007-v-final-development-review.json",
+  "resolution": "audit/007-resolution.json",
+  "DHA": "NONE"
+}
