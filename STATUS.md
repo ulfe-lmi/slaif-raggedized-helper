@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-13)
 
-- Current (2026-11-13): active objective 009, current slice 009-c
+- Current (2026-11-13): active objective 009, current slice 009-d
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -51,16 +51,41 @@
   binding, source Recall@20/60/multi-source/stage-loss aggregation and
   total/defined/undefined/refused denominators with private report
   provenance (an operator loop is not harness software; separately
-  ordered same-009 continuation). Whole 009 remains
-  PARTIAL: the cohort harness, source metric aggregation and private
-  split/report integration are absent; no real-model retrieval quality,
+  ordered same-009 continuation). Slice 009-d is the
+  declared-cohort-metrics wave: byte-exact 5-file transfer
+  (89,811 B: one production module — 32,800 B — one unit suite —
+  22,772 B — three docs/parallel contract/oracle/API documents —
+  34,239 B) from the reviewed source SELF b33da381 (implementation
+  b15adaf) per oap/reviews/009-d-components.json (SHA-256
+  665c7118…): five NEW blobs verified absent at the round base b87e264d,
+  copied by immutable Git object and re-verified by blob ID/size/SHA-256
+  — the pure declared-cohort aggregation (exact normalized rationals,
+  six prefix summaries and seven transition summaries over 1–256
+  supplied cases, source-macro vs pooled denominators distinguished,
+  explicit OR/no-Gold undefined reasons, content-free whole-call
+  refusal, chunk MRR/nDCG UNAVAILABLE without an explicit chunk
+  relevance mapping) completing the ten private module API families.
+  Attributed local proof (oap/reviews/009-d-local-admission.json): ONE
+  approved current Ruff format/check and 33 complete unit tests PASS
+  under Python 3.14 (CPU 15 s/AS 1 GiB/wall 90 s/FSIZE 32 MiB/CPU 0,
+  plain assertions/cache enabled) at source 743a8949…/unit
+  5a60130f…; GNU 1.81 s wall waited-process observation only; the
+  earlier 19/22 passes predate corrected semantics/metering; the final
+  API-only amendment did not rerun tests (source/test identical). The
+  callable SOURCE-RUNNING cohort pipeline, joined private split report
+  and actual cohort composition proof remain ABSENT (separately scoped
+  source-runner lane at immutable b33da381 after normal quiet per
+  oap/reviews/009-d-replan.json). Whole 009 remains
+  PARTIAL: the source-running cohort harness, joined private
+  split/report integration and actual cohort proof are absent; no
+  real-model retrieval quality,
   human held-out data, corpus rights/current principal-policy authority
   or qualified encoder, and no real baseline (raw baseline NOT RUN); the
   512-row catalog diagnostic bound (≤ 512 rows / 256 cases / 512 global
   Gold occurrences in the joined components; 512 cases / 16 MiB at
   standalone admission) and the synthetic three-revision fixtures are
   not 20k qualification. Hardware/visual/license/ICA/full-MVP gates
-  retained; historical 009-a/b at-time evidence and the 008 accepted
+  retained; historical 009-a/b/c at-time evidence and the 008 accepted
   state preserved; no 010 activation; no merge. Public serving, current
   principal/current policy, evidence delivery and real qualification
   remain absent/open.

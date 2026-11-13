@@ -1,14 +1,15 @@
-# Canonical text evaluation foundations (objective 009, slices 009-a and 009-c)
+# Canonical text evaluation foundations (objective 009, slices 009-a, 009-c and 009-d)
 
 This document is the nonroutine evaluation reference for the 009
 software waves: the byte-exact transfer of the reviewed structural
 text-evaluation dataset contract, the supplied graded-rank metrics and the
-original-source/span support primitives (slice 009-a), plus the three
+original-source/span support primitives (slice 009-a), the three
 source-backed stage components — raw text stage support, declared stage
 geometry and source-bound stage loss — with their actual synthetic
-source-backed composition proofs (slice 009-c). Together they are the
-nine private module API families — the nine callable private evaluation
-primitives. The routine coding context
+source-backed composition proofs (slice 009-c), and the pure
+declared-cohort metrics aggregation over supplied geometry (slice
+009-d). Together they are the ten private module API families — the ten
+callable private evaluation primitives. The routine coding context
 remains unchanged; the exact per-component contracts live in the byte-exact
 transferred documents under [docs/parallel/](parallel/)
 (`text-evaluation-dataset-api.md`/`-design.md`/`-oracle.json`,
@@ -21,8 +22,9 @@ transferred documents under [docs/parallel/](parallel/)
 `-contract.md`/`-composition.md`, `declared-stage-geometry-api.md`/
 `-contract.md`, `source-bound-raw-stage-loss-api.md`/`-contract.md`,
 `source-bound-stage-proof-composition.md`/`-inputs.json`,
-`raw-text-stage-composition-inputs.json` and
-`source-bound-support-ci-preparation.md`).
+`raw-text-stage-composition-inputs.json`,
+`source-bound-support-ci-preparation.md`, and the 009-d
+`declared-cohort-metrics-api.md`/`-contract.md`/`-oracle.json`).
 
 ## Provenance of the 009-a slice
 
@@ -66,6 +68,25 @@ carries the local Root records retained in the 009-c transcript
 `oap/reviews/009-c-source-base-compatibility.json`,
 `oap/reviews/009-c-peer-driver.json`) and the Root replan
 (`oap/reviews/009-c-replan.json`).
+
+## Provenance of the 009-d slice
+
+Five files (89,811 bytes: one production module — 32,800 B — one unit
+suite — 22,772 B — and three docs/parallel contract/oracle/API
+documents — 34,239 B) were transferred byte-exact by Git-object read from
+the reviewed source SELF `b33da381` (implementation `b15adaf`) of the
+parallel 009 cohort-metrics worktree, per the Root-owned index
+`oap/reviews/009-d-components.json` (identical to
+`audit/009-d-components-FINAL.json`, SHA-256 `665c7118…d656`). All five
+targets were verified NEW (absent at the round base `b87e264d`) and every
+blob was verified by Git blob ID, size and SHA-256 against immutable Git
+objects before and after copy; no cherry-pick, merge or branch-ancestry
+transfer; no lower adaptation. The ten local Root records (including this
+components index) are retained in the 009-d transcript with the exact
+Root index `oap/reviews/009-d-root-records.json` (SHA-256
+`a1d85c6a…a4`): prior resolution, source-base compatibility, the two
+checkpoint implementation reviews, the peer Root review and peer metrics,
+local admission, the coding component report and the transfer replan.
 
 ## The six private evaluation APIs (slice 009-a)
 
@@ -233,9 +254,11 @@ publish result data or use it as a serving route.
 
 ## The three source-backed stage APIs (slice 009-c)
 
-These three complete the nine callable private evaluation primitives. Two
-borrow the original/derived stores plus an active same-root snapshot pin;
-one is pure geometry over supplied rows and stage relations.
+These three complete the nine callable private per-case evaluation
+primitives; the tenth family (slice 009-d) is a cohort-level pure
+aggregation over such supplied geometries, described after this section.
+Two borrow the original/derived stores plus an active same-root snapshot
+pin; one is pure geometry over supplied rows and stage relations.
 
 ### `raw_text_stage_support.evaluate_case(originals, derived, store_root, pin_owner, dataset_bytes, case_id, gold_bundle_ids, query_payload, *, query_space_id, query_definition_fingerprint, query_policy_id, query_execution_fingerprint, grants, restrictions=None, deadline_ms=120000)`
 
@@ -314,13 +337,95 @@ only sequential consistency of the supplied trace with observed source
 metadata — not that the declared model/scorer produced the ranking, that
 policy remains current after the last observation, or any user quality.
 
+## The declared cohort metrics API (slice 009-d)
+
+The tenth callable private module family is a pure COHORT-LEVEL
+aggregation: no stores, dataset parsing, producer, source binder, files,
+network or model calls — it consumes already-borrowed immutable supplied
+geometry only.
+
+### `declared_cohort_metrics.aggregate(cases, *, deadline_ms=10000, max_work=134217728, max_payload=268435456)`
+
+Pure aggregation over a sorted nonempty tuple of 1–256 supplied
+`(case_id, diagnosis)` pairs (case IDs: the existing ASCII 1–128 dataset
+grammar, sorted unique); each `diagnosis` must be the EXACT existing
+`declared_stage_geometry.Diagnosis` type (ten named stages, six @20/@60
+prefixes over dense/lexical/fusion returned, seven removal transitions),
+and the sum of first-full-stage Gold atom occurrences across the selected
+cases stays ≤ 512. Malformed or internally inconsistent DTOs refuse the
+ENTIRE call — no per-case refusal, no clamping, no partial cohort output.
+
+Each of the six prefix summaries (dense/lexical/fusion returned at the 20
+and 60 caps) retains every case's covered/required revision counts or its
+explicit source-undefined reason, and reports:
+
+- source Recall@20/60 as the MACRO mean of per-case covered/required
+  fractions over source-defined cases, including defined zeros — a
+  distinct denominator from pooled (micro) revision recall; only the
+  macro is the reported rate;
+- the complete-evidence rate as the mean of meaningful
+  complete-evidence Booleans over cases with meaningful Gold requirements
+  (including false); an OR requirement can be meaningful-complete while
+  source recall stays undefined, and no-Gold cases carry the explicit
+  `NO_GOLD_REQUIREMENTS` / `NO_GOLD_SOURCES` /
+  `AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE` reasons. Empty denominators are
+  explicitly undefined (`None` with reason), never a silent zero.
+
+Each of the seven transition summaries (the existing dense/lexical
+0→1→2→3 and fusion 8→9 removal edges) partitions loss separately:
+complete-evidence loss (true-before/false-after cases over meaningful
+true-before; `NO_ELIGIBLE_COMPLETED` at zero eligible), source macro loss
+(mean before-minus-after over cases defined at both endpoints;
+`NO_DEFINED_SOURCE` when none), and separate requirement and alternative
+loss records (raw lost/before counts, eligible case counts, pooled
+lost/before and case-macro lost/before; `NO_ELIGIBLE_BEFORE` at zero
+eligible). Gained identities, changing universes or undefined-status
+changes refuse.
+
+All computed rates are normalized EXACT rationals (immutable `Ratio`:
+gcd-1 nonnegative integers, bit length ≤ 8,192) derived from validated
+integer counts — no float participates in report identity. The private
+identity is domain-separated SHA-256 under `slaif-declared-cohort-
+metrics-v1` over closed canonical ASCII (decimal rational strings, sorted
+case order, a pre-final logical accounting checkpoint; final work/payload
+totals are reported outside identity under a 1 MiB emission limit). The
+one cooperative 1–10,000 ms deadline and cumulative logical
+work/payload reservations (≤ 134,217,728 / 268,435,456, reserved before
+each operation) are logical accounting — not CPU, RSS or physical I/O
+guarantees. Ordinary refusal is the content-free `CohortMetricsError`;
+`BaseException` propagates.
+
+Markers: source binding UNVERIFIED, input origin
+SUPPLIED_DECLARED_GEOMETRY_ONLY, execution NOT_ATTESTED, qualification
+NOT_QUALIFIED; chunk MRR/nDCG are UNAVAILABLE under
+NO_EXPLICIT_CHUNK_RELEVANCE_MAPPING — requirement grades never become
+chunk grades, and the separate meaningfulness/mapping gate (original 009
+criterion 3: reviewed typed mapping, independent oracles, source-bound
+evidence) still applies before any chunk metric is treated as meaningful.
+The supplied geometry and the private linkable case/geometry IDs are
+unverified declarations — not source, encoder, rights or held-out
+attestation, and not a 20k, throughput or baseline claim.
+
+Attributed local proof (exact records in
+`oap/reviews/009-d-local-admission.json` and the API doc): ONE approved
+current Ruff format/check pass and 33 complete unit tests PASS under
+Python 3.14 (CPU 15 s, address space 1 GiB, wall 90 s, file size 32 MiB,
+CPU 0, plain assertions, builtin cache enabled) at source SHA-256
+`743a8949…529e4` and unit SHA-256 `5a60130f…e78aa8`; GNU 1.81 s wall /
+1.76 s user / 0.04 s system, 44,384 KiB max RSS is a waited-process
+observation only. The earlier 19- and 22-test passes predate the
+corrected semantics/metering and are not evidence for the current bytes;
+the final API-only amendment did not rerun tests (source and test
+identical); the other-author review is not whole-project ICA or an
+independent test rerun.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
-running operation) and is an int in 1–30,000 ms except gold binding
-(1–120,000 ms) and the three 009-c stage APIs (raw text stage support and
-source-bound stage loss 1–120,000 ms; declared stage geometry
-1–10,000 ms). All refusals are content-free; `BaseException`
+running operation) and is an int in 1–30,000 ms except gold binding, raw
+text stage support and source-bound stage loss (1–120,000 ms), and
+declared stage geometry plus the 009-d declared cohort metrics
+(1–10,000 ms). All refusals are content-free; `BaseException`
 subclasses propagate. Fingerprints are domain-separated sha256 over
 canonical sorted ASCII JSON of the exact supplied inputs. Ordinary
 dataclass constructors are not admission APIs and results are forgeable
@@ -439,30 +544,35 @@ their corrections are preserved in the transcript records.
 ## Absent cohort harness (independent coverage 2624)
 
 The nine callable private per-case primitives and the actual per-case
-source-backed seam above are components, not a harness. The independent
-COMPLETE software-coverage audit (SHA-256 `262440e2…54f139`, Root
-adjudicated and retained as
+source-backed seam above are components, not a harness. Slice 009-d
+implements only the PURE supplied-geometry cohort aggregation (the tenth
+module family above); the SOURCE-RUNNING cohort harness remains ABSENT
+from production. The independent COMPLETE software-coverage audit
+(SHA-256 `262440e2…54f139`, Root adjudicated and retained as
 `oap/reviews/009-c-software-coverage-adjudication.json`) confirms what
-remains ABSENT from production: a callable cohort pipeline joining
-frozen split selection, per-case producer traces/source binding,
-original source Recall@20/60/full multi-source and stage-loss
-aggregation, and total/defined/undefined/refused denominators with
-private report provenance. Source-linked chunk grades are absent: the
-existing generic MRR/nDCG oracle is valid over supplied units and is not
-grounds to infer requirement-to-chunk grades. No CLI is invented as a
-requirement, but an operator still writing a loop around the generic
-aggregate is not implemented harness software. This is an ordinary
-missing implementation — not D1 and not an external human blocker — and
-requires another bounded same-009 continuation (a separately ordered
-read-only cohort contract/oracle design may proceed at the immutable
-source; bounded implementation only after a new explicit Root FINAL
-order).
+remains ABSENT: a callable source-running cohort pipeline joining frozen
+split selection, per-case producer traces/source binding and actual
+cohort composition, the joined private split report, and total/defined/
+undefined/refused denominators with private report provenance over ACTUAL
+source Recall@20/60/full multi-source and stage-loss aggregation; an
+actual cohort composition proof is likewise absent. Source-linked chunk
+grades are absent: the existing generic MRR/nDCG oracle is valid over
+supplied units and is not grounds to infer requirement-to-chunk grades.
+No CLI is invented as a requirement, but an operator still writing a
+loop around the generic aggregate is not implemented harness software.
+This is an ordinary missing implementation — not D1 and not an external
+human blocker — and requires another bounded same-009 continuation; the
+Root replan (`oap/reviews/009-d-replan.json`) scopes the separately
+ordered source-cohort runner lane at the immutable source SELF
+`b33da381` after normal quiet, which cannot alter this worktree or PR.
 
 ## Unit oracles versus real held-out and actual queries
 
-The nine unit suites (six 009-a plus the three 009-c slices) exercise the
-copied synthetic fixtures and the `docs/parallel/*-oracle.json` vectors:
-they prove the mathematics, the admission boundaries and the negative
+The ten unit suites (six 009-a, three 009-c and one 009-d) exercise the
+copied synthetic fixtures and the `docs/parallel/*-oracle.json` vectors
+(the 009-d suite: 33 tests against the frozen cohort oracle and genuine
+lower geometry): they prove the mathematics, the admission boundaries and
+the negative
 paths, not retrieval quality; the 009-c integration suites are the
 synthetic source-backed composition proofs described above and are
 likewise not a baseline. The
