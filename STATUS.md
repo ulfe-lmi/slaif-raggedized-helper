@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-13)
 
-- Current (2026-11-13): active objective 009, current slice 009-d
+- Current (2026-11-13): active objective 009, current slice 009-e
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -71,22 +71,75 @@
   plain assertions/cache enabled) at source 743a8949…/unit
   5a60130f…; GNU 1.81 s wall waited-process observation only; the
   earlier 19/22 passes predate corrected semantics/metering; the final
-  API-only amendment did not rerun tests (source/test identical). The
-  callable SOURCE-RUNNING cohort pipeline, joined private split report
-  and actual cohort composition proof remain ABSENT (separately scoped
-  source-runner lane at immutable b33da381 after normal quiet per
-  oap/reviews/009-d-replan.json). Whole 009 remains
-  PARTIAL: the source-running cohort harness, joined private
-  split/report integration and actual cohort proof are absent; no
-  real-model retrieval quality,
-  human held-out data, corpus rights/current principal-policy authority
-  or qualified encoder, and no real baseline (raw baseline NOT RUN); the
-  512-row catalog diagnostic bound (≤ 512 rows / 256 cases / 512 global
-  Gold occurrences in the joined components; 512 cases / 16 MiB at
-  standalone admission) and the synthetic three-revision fixtures are
-  not 20k qualification. Hardware/visual/license/ICA/full-MVP gates
-  retained; historical 009-a/b/c at-time evidence and the 008 accepted
-  state preserved; no 010 activation; no merge. Public serving, current
+  API-only amendment did not rerun tests (source/test identical). At
+  009-d time the callable SOURCE-RUNNING cohort pipeline, joined
+  private split report and actual cohort composition proof were ABSENT
+  (separately scoped source-runner lane at immutable b33da381 after
+  normal quiet per oap/reviews/009-d-replan.json — the lane whose
+  reviewed output is the 009-e transfer below). Slice 009-e is the
+  source-cohort-runner wave: byte-exact 9-file transfer (167,455 B: one
+  production module — 43,767 B — one unit suite — 31,638 B — one
+  integration suite — 27,711 B — five docs/parallel contract/proof
+  documents — 64,339 B) from the reviewed source SELFs 91f31182 (runner
+  lane; implementation 3c92a59d) and 5ffef4c1 (proof lane;
+  implementation 60b17137 over preparation 657fbf57) per
+  oap/reviews/009-e-components.json (SHA-256 b73448cf…c55c8e6): five
+  runner blobs and four proof blobs, all nine NEW and verified absent at
+  the round base 598d6dc6, copied by immutable Git object and
+  re-verified by blob ID/size/SHA-256 (the 117 shared production files
+  plus pyproject/uv.lock/workflow byte-identical at both source SELFs
+  and the canonical base; no lower adaptation). It implements the
+  source-running cohort pipeline source_cohort_runner.run_cohort —
+  full canonical dataset admission before selection (1–256-case and
+  512-Gold software bounds), declared split/subset selection
+  (FULL_ADMITTED_SPLIT/DECLARED_SUBSET, no omitted or failed cases),
+  per-case effective-authority intersection before the traced producer
+  with original authority at the source-bound binder, the borrowed
+  old-generation snapshot pin, full dataset and all Gold bundles for
+  every binder, one pure aggregate only after complete success, the
+  joined private split report with stable private linkable identities,
+  and whole-cohort refusal with
+  intended/attempted/completed/refused/pending prefixes and no
+  surviving-subset report — the eleventh private module API family,
+  closing the coverage-2624 harness gap as software. The canonical
+  round was static transfer plus documentation (no local source run)
+  and corrected the three 009-d documentation precision findings in the
+  current docs (lexical 4→5→6→7 removal edges; OR
+  AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE versus the no-Gold
+  NO_GOLD_REQUIREMENTS/NO_GOLD_SOURCES reasons; the pure 13-tuple /
+  declared-field-insertion-order identity encoding versus generic
+  sorted-key JSON, distinct from the runner wrapper encoding).
+  Attributed source-lane evidence, not rerun: 54 controlled units and
+  the focused Ruff check PASS at the corrected runner source
+  96e69714…/unit 4d01ca5c…; ONE actual synthetic composition proof
+  against the exact driver/source/oracle (full 5-case dataset, four
+  selected cases, 6 selected/7 full Gold occurrences, three bundles for
+  every binder; four outer attempts; seven producer / six binder / one
+  aggregate direct calls; no surviving subset; success pins
+  5/producer 4/binder 4/aggregate 1; missing query zero delegates;
+  changed space 4/3/2/0 with PRODUCER 4/3/2/1/1; closed pin zero
+  delegates with PREFLIGHT 4/0/0/0/4); one generator observed exit 0
+  and six captured session wrappers deliberately closed/reaped 143 —
+  not six zero exits nor whole-tree containment; observed pytest
+  59.29 s, launcher 62.39849 s, SELF 2.707422 plus waited CHILDREN
+  58.910207 CPU s, sampled scratch 286,066 B/74 entries (observations,
+  not aggregate hard bounds); the first inventory and first collection
+  guard failures were retained with the separately corrected checks
+  passing; Root independently ran ten controlled cleanup cases once
+  (PASS; coding author did not rerun). Whole 009 remains PARTIAL: the
+  source-running cohort harness and joined private split report are now
+  implemented software (009-e) and ONE tiny synthetic composition proof
+  exists — a weaker substitute for the required representative real
+  baseline; no real-model retrieval quality, human held-out data,
+  corpus rights/current principal-policy authority or qualified
+  encoder, and no real baseline (raw baseline NOT RUN); the 1–256-case
+  / 512-Gold runner admission and the 512-row catalog diagnostic bound
+  (≤ 512 rows / 256 cases / 512 global Gold occurrences in the joined
+  components; 512 cases / 16 MiB at standalone admission) and the
+  synthetic three-revision fixtures are software bounds, not 20k
+  qualification. Hardware/visual/license/ICA/full-MVP gates retained;
+  historical 009-a/b/c/d at-time evidence and the 008 accepted state
+  preserved; no 010 activation; no merge. Public serving, current
   principal/current policy, evidence delivery and real qualification
   remain absent/open.
 - Historical 007 record (active objective at the time: 007,

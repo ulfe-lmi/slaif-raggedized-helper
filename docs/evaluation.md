@@ -1,4 +1,4 @@
-# Canonical text evaluation foundations (objective 009, slices 009-a, 009-c and 009-d)
+# Canonical text evaluation foundations (objective 009, slices 009-a, 009-c, 009-d and 009-e)
 
 This document is the nonroutine evaluation reference for the 009
 software waves: the byte-exact transfer of the reviewed structural
@@ -8,10 +8,15 @@ source-backed stage components — raw text stage support, declared stage
 geometry and source-bound stage loss — with their actual synthetic
 source-backed composition proofs (slice 009-c), and the pure
 declared-cohort metrics aggregation over supplied geometry (slice
-009-d). Together they are the ten private module API families — the ten
-callable private evaluation primitives. The routine coding context
-remains unchanged; the exact per-component contracts live in the byte-exact
-transferred documents under [docs/parallel/](parallel/)
+009-d), and the private source cohort runner — the source-running cohort
+pipeline that joins frozen split/subset selection, per-case traced raw
+hybrid producer and source-bound stage binding, and the pure cohort
+aggregation into one joined private split report (slice 009-e). Together
+they are the eleven private module API families: the nine callable
+private per-case evaluation primitives, the pure cohort-level
+aggregation and the source-running cohort runner. The routine coding
+context remains unchanged; the exact per-component contracts live in the
+byte-exact transferred documents under [docs/parallel/](parallel/)
 (`text-evaluation-dataset-api.md`/`-design.md`/`-oracle.json`,
 `supplied-rank-metrics-api.md`/`-design.md`/`-oracle.json`,
 `text-evaluation-gold-binding-api.md`/`-design.md`/`-oracle.json`/
@@ -24,7 +29,9 @@ transferred documents under [docs/parallel/](parallel/)
 `source-bound-stage-proof-composition.md`/`-inputs.json`,
 `raw-text-stage-composition-inputs.json`,
 `source-bound-support-ci-preparation.md`, and the 009-d
-`declared-cohort-metrics-api.md`/`-contract.md`/`-oracle.json`).
+`declared-cohort-metrics-api.md`/`-contract.md`/`-oracle.json`, and the
+009-e `source-cohort-runner-api.md`/`-contract.md`/`-binding.json`/
+`-composition.md`/`-proof-inputs.json`/`-tiny-oracle.json`).
 
 ## Provenance of the 009-a slice
 
@@ -87,6 +94,35 @@ Root index `oap/reviews/009-d-root-records.json` (SHA-256
 `a1d85c6a…a4`): prior resolution, source-base compatibility, the two
 checkpoint implementation reviews, the peer Root review and peer metrics,
 local admission, the coding component report and the transfer replan.
+
+## Provenance of the 009-e slice
+
+Nine files (167,455 bytes: one production module — 43,767 B — one unit
+suite — 31,638 B — one integration suite — 27,711 B — and five
+docs/parallel contract/proof documents — 64,339 B) were transferred
+byte-exact by Git-object read from the two reviewed source SELFs
+`91f31182` (source-cohort-runner lane; report-only SELF over
+implementation `3c92a59d`) and `5ffef4c1` (cohort-proof lane; report-only
+SELF over implementation `60b17137`, whose sole parent is the
+preparation `657fbf57` with parents `e687b862` and `91f31182`), per the
+Root-owned index `oap/reviews/009-e-components.json` (identical to
+`audit/009-e-components-FINAL.json`, SHA-256 `b73448cf…e6`): five runner
+blobs from SELF `91f31182` and four proof blobs from SELF `5ffef4c1`.
+All nine targets were verified NEW (absent at the round base `598d6dc6`)
+and every blob was verified by Git blob ID, size and SHA-256 against
+immutable Git objects before and after copy. The 117 shared production
+files plus pyproject.toml, uv.lock and the actual
+.github/workflows/oap.yml are byte-identical at both source SELFs and the
+canonical base, so no lower adaptation, cherry-pick, merge or
+branch-ancestry transfer was needed (`oap/reviews/009-e-source-base-
+compatibility.json`); the source topology is evidence only, not merged
+history. The ten local Root records (including this components index) are
+retained in the 009-e transcript with the exact Root index
+`oap/reviews/009-e-root-records.json` (SHA-256 `709edd08…0092`): prior
+009-d resolution, source-base compatibility, the public component
+evidence, the peer driver correction, the coding proof report, the two
+local Root admissions (runner and proof), the 009-d documentation
+precision findings and the transfer replan.
 
 ## The six private evaluation APIs (slice 009-a)
 
@@ -256,9 +292,12 @@ publish result data or use it as a serving route.
 
 These three complete the nine callable private per-case evaluation
 primitives; the tenth family (slice 009-d) is a cohort-level pure
-aggregation over such supplied geometries, described after this section.
-Two borrow the original/derived stores plus an active same-root snapshot
-pin; one is pure geometry over supplied rows and stage relations.
+aggregation over such supplied geometries, and the eleventh (slice
+009-e) is the source-running cohort runner that drives one of these
+source-bound stage binders per case and joins the results into the pure
+aggregation — both described after this section. Two borrow the
+original/derived stores plus an active same-root snapshot pin; one is
+pure geometry over supplied rows and stage relations.
 
 ### `raw_text_stage_support.evaluate_case(originals, derived, store_root, pin_owner, dataset_bytes, case_id, gold_bundle_ids, query_payload, *, query_space_id, query_definition_fingerprint, query_policy_id, query_execution_fingerprint, grants, restrictions=None, deadline_ms=120000)`
 
@@ -365,14 +404,20 @@ explicit source-undefined reason, and reports:
   macro is the reported rate;
 - the complete-evidence rate as the mean of meaningful
   complete-evidence Booleans over cases with meaningful Gold requirements
-  (including false); an OR requirement can be meaningful-complete while
-  source recall stays undefined, and no-Gold cases carry the explicit
-  `NO_GOLD_REQUIREMENTS` / `NO_GOLD_SOURCES` /
-  `AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE` reasons. Empty denominators are
-  explicitly undefined (`None` with reason), never a silent zero.
+  (including false). The explicit undefined reasons are distinct classes:
+  the no-Gold cases carry `NO_GOLD_REQUIREMENTS` (no declared
+  requirements) or `NO_GOLD_SOURCES` (no Gold atoms, so the required
+  source universe is empty); `AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE` is
+  the OR (multi-alternative) source-universe ambiguity reason, NOT a
+  no-Gold reason — that case has Gold, its complete evidence can be
+  meaningful-complete while source recall stays undefined, and the
+  denominators are explicit. Empty denominators are explicitly undefined
+  (`None` with reason), never a silent zero.
 
-Each of the seven transition summaries (the existing dense/lexical
-0→1→2→3 and fusion 8→9 removal edges) partitions loss separately:
+Each of the seven transition summaries — the exact stage edges dense
+0→1, 1→2, 2→3, lexical 4→5, 5→6, 6→7 and fusion 8→9 (the literal
+`_EDGES` tuple (0,1),(1,2),(2,3),(4,5),(5,6),(6,7),(8,9)) — partitions
+loss separately:
 complete-evidence loss (true-before/false-after cases over meaningful
 true-before; `NO_ELIGIBLE_COMPLETED` at zero eligible), source macro loss
 (mean before-minus-after over cases defined at both endpoints;
@@ -419,17 +464,128 @@ the final API-only amendment did not rerun tests (source and test
 identical); the other-author review is not whole-project ICA or an
 independent test rerun.
 
+## The source cohort runner API (slice 009-e)
+
+The eleventh callable private module family is the SOURCE-RUNNING cohort
+pipeline that closes the harness gap the 009-c coverage audit named: it
+joins frozen split/subset selection, per-case actual producer and
+source-bound stage binding, and the pure cohort aggregation into one
+joined private split report.
+
+### `source_cohort_runner.run_cohort(originals, derived, root, pin_owner, dataset_bytes, cohort, queries, gold_bundle_ids, *, grants, restrictions, config, budget, deadline_ms)`
+
+Private operator-only composition (schema
+`slaif-source-cohort-runner-v1`). It borrows the original/derived stores
+and the snapshot pin and never acquires, closes, replaces or publishes
+them. Admission happens BEFORE any source work: the FULL canonical
+dataset is admitted once (1–1,048,576 B; after admission ≤ 256 cases and
+≤ 512 global Gold occurrences — software admission bounds, not physical
+permission and not an invented pilot reduction), the explicit sorted
+split selection `Cohort(split, case_ids)` (1–256 dataset-grammar IDs,
+each present exactly once in that split; a complete admitted split is
+permitted and reported as `selection_kind FULL_ADMITTED_SPLIT`,
+otherwise `DECLARED_SUBSET`) is frozen, and the queries (exactly one
+4,096-byte float32-1024 vector plus four declared query identifiers per
+selected case) and the complete Gold bundle tuple (≤ 128, adequate to
+the full dataset) are validated as whole tuples — duplicate, missing or
+extra queries refuse before any source I/O, and no case is ever omitted
+or filtered. The original caller grants/restrictions are validated and
+snapshotted; the case scope is the allowlist intersection of the
+original grants with the case corpora/versions/labels (restrictions
+preserved), computed before each producer. Under the held pin it performs
+per case one traced `raw_hybrid_search.search` (dense_k=lexical_k=
+partition_cap=k=60, trace=True) with the per-case EFFECTIVE grants and
+the original restrictions, then exactly one
+`source_bound_stage_loss.bind_stages` with the ORIGINAL grants and
+restrictions (the binder performs its own intersection) over the FULL
+unchanged dataset and ALL Gold bundles, including for no-Gold cases.
+The pin is borrowed and observed (initial and before every case)
+against the captured old-generation pointer, not the current selection,
+so a captured old generation can remain valid after a pointer advance;
+the observations are sequential, not an atomic lease. Every selected
+binder must succeed before exactly one pure
+`declared_cohort_metrics.aggregate` over the sorted `(case_id,
+geometry)` pairs; there is no surviving-subset report. One monotonic
+cooperative 1–1,200,000 ms deadline covers admission, every delegate
+(clipped to 5,000 / 120,000 / 10,000 ms) and final construction; the
+frozen 22-field `Budget` of nonnegative ceilings keeps independent
+cumulative ledgers whose large reservations are logical worst-case
+envelopes, not physical I/O authorization, and whose binder and geometry
+ledgers overlap (never added); the initial dataset parser's internal
+work and copied bytes are `UNMEASURED_BY_RUNNER`.
+
+A success is the exact frozen `CohortReport`: schema/formula IDs,
+dataset/split IDs, config/declaration IDs, chosen split,
+`selection_kind`, full dataset case and Gold occurrence counts, selected
+N, progress `(intended=N, attempted=N, completed=N, refused=0,
+pending=0)`, the captured pointer SHA/generation/snapshot, and one
+private identity payload per case — paired actual-result identities
+(question SHA, payload SHA, original and effective authority SHAs,
+filter/catalog/query IDs, Gold/ranking binding and binder/geometry
+invocation IDs, dataset/case/atom counts and eligible row count) — plus
+one pure aggregate report with its own pure identity. The runner
+identity is a domain-separated SHA-256 under `slaif-source-cohort-
+runner-v1\n` over its own fixed ordered canonical ASCII wrapper that
+embeds the exact pure cohort identity payload once (a distinct wrapper
+encoding, not a reuse of the pure encoder); final logical work/payload
+totals sit outside identity. All IDs and hashes are STABLE PRIVATE
+LINKABLE, not anonymous. No question, source/Gold plaintext, vector,
+path, trace/hit or exception detail is retained. Statuses freeze the
+declaration: STRUCTURAL_ONLY split, authorship/rights
+DECLARED_UNVERIFIED, current rights/policy NOT_CHECKED, producer
+COMPLETED as an observed algorithm call only, encoder/model
+NOT_QUALIFIED, baseline NOT_RUN, source sequential/not atomic; chunk
+MRR/nDCG stay UNAVAILABLE under NO_EXPLICIT_CHUNK_RELEVANCE_MAPPING
+(no inferred chunk grades).
+
+Every ordinary failure after valid admission refuses the WHOLE cohort
+— no partial metrics, no surviving-subset report — raising exactly
+`CohortRunnerError('cohort runner refused') from None` with a read-only
+`progress`: `None` until admission completes, then the exact frozen
+`FailurePrefix(phase, intended, attempted, completed, refused,
+pending)` with fixed phases `PREFLIGHT`, `CASE_PIN`, `PRODUCER`,
+`BINDER`, `AGGREGATE`, `SERIALIZE` and only bounded counters (attempted
+increments immediately before a case's pin check; completed only after
+the binder and identity checks; `completed + refused = attempted`).
+`BaseException` propagates as an interruption; borrowed resources are
+never closed and no traceback or payload is exported.
+
+Attributed source-lane evidence (exact records in
+`oap/reviews/009-e-local-runner-admission.json`,
+`oap/reviews/009-e-peer-driver-correction.json` and the API doc): the
+corrected runner (source SHA-256
+`96e6971435a3a2f639e7ba3d101248c8eb3fb6bc34b35fedbebdd40d673b4f29`) and
+unit (SHA-256 `4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b`)
+passed the focused Ruff check and 54 controlled units (the original 35
+plus 19 scalar-admission variants) in their source lane, both checks
+exit zero with empty stderr and identical pre/post read sets; the
+earlier wrong-origin collection failure and the 35-case evidence are
+retained, not passes of the current bytes. The scalar correction
+requires exact bounded integers for the aggregate case count and the
+binder's dataset/atom-occurrence/chosen-occurrence counts before
+independent comparison; no normal-run metrics error or privacy leak was
+observed.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
 running operation) and is an int in 1–30,000 ms except gold binding, raw
 text stage support and source-bound stage loss (1–120,000 ms), and
 declared stage geometry plus the 009-d declared cohort metrics
-(1–10,000 ms). All refusals are content-free; `BaseException`
-subclasses propagate. Fingerprints are domain-separated sha256 over
-canonical sorted ASCII JSON of the exact supplied inputs. Ordinary
-dataclass constructors are not admission APIs and results are forgeable
-DTOs, not later admission credentials.
+(1–10,000 ms) and the 009-e source cohort runner (1–1,200,000 ms). All
+refusals are content-free; `BaseException` subclasses propagate. The
+pre-009-d family fingerprints are domain-separated sha256 over canonical
+sorted-key ASCII JSON of the exact supplied inputs, per component
+contract. The 009-d pure cohort identity is different: it serializes its
+closed 13-element payload tuple in DECLARED dataclass field insertion
+order (not lexicographically sorted object keys) as actual ASCII ending
+LF under its `slaif-declared-cohort-metrics-v1\n` domain prefix,
+preserving the source-specific canonicalization ordering and the
+pre-final/final accounting split. The 009-e runner wrapper encoding is
+yet another fixed canonical schema that embeds that exact pure identity
+payload rather than reusing the pure encoder. Ordinary dataclass
+constructors are not admission APIs and results are forgeable DTOs, not
+later admission credentials.
 
 ## Split discipline
 
@@ -541,41 +697,103 @@ loss; Ruff7 passed on the same Python bytes) and 45 geometry unit cases
 (declared stage geometry; final Ruff passed); earlier partial runs and
 their corrections are preserved in the transcript records.
 
-## Absent cohort harness (independent coverage 2624)
+## Source-running cohort harness and synthetic proof (coverage 2624 closed as software)
 
 The nine callable private per-case primitives and the actual per-case
-source-backed seam above are components, not a harness. Slice 009-d
-implements only the PURE supplied-geometry cohort aggregation (the tenth
-module family above); the SOURCE-RUNNING cohort harness remains ABSENT
-from production. The independent COMPLETE software-coverage audit
-(SHA-256 `262440e2…54f139`, Root adjudicated and retained as
-`oap/reviews/009-c-software-coverage-adjudication.json`) confirms what
-remains ABSENT: a callable source-running cohort pipeline joining frozen
-split selection, per-case producer traces/source binding and actual
-cohort composition, the joined private split report, and total/defined/
-undefined/refused denominators with private report provenance over ACTUAL
-source Recall@20/60/full multi-source and stage-loss aggregation; an
-actual cohort composition proof is likewise absent. Source-linked chunk
-grades are absent: the existing generic MRR/nDCG oracle is valid over
-supplied units and is not grounds to infer requirement-to-chunk grades.
-No CLI is invented as a requirement, but an operator still writing a
-loop around the generic aggregate is not implemented harness software.
-This is an ordinary missing implementation — not D1 and not an external
-human blocker — and requires another bounded same-009 continuation; the
-Root replan (`oap/reviews/009-d-replan.json`) scopes the separately
-ordered source-cohort runner lane at the immutable source SELF
-`b33da381` after normal quiet, which cannot alter this worktree or PR.
+source-backed seam above are components, not a harness. The independent
+COMPLETE software-coverage audit (SHA-256 `262440e2…54f139`, Root
+adjudicated and retained as
+`oap/reviews/009-c-software-coverage-adjudication.json`) was accurate at
+009-c time: the callable source-running cohort pipeline, the joined
+private split report and the actual cohort composition proof were
+ABSENT. Slice 009-e implements exactly that missing software:
+`source_cohort_runner.run_cohort` (the eleventh module family above)
+joins frozen split/subset selection, per-case actual producer and
+source-bound stage binding, and one pure cohort aggregation only after
+all cases succeed, emitting the joined private split report with
+total/defined/undefined/refused denominators and private report
+provenance over actual source Recall@20/60/full multi-source and
+stage-loss aggregation. The gap is therefore closed as software; what
+it does NOT establish is unchanged:
+
+- The actual cohort composition proof is ONE bounded synthetic run: an
+  owned fixture with three synthetic source revisions, a canonical
+  dataset of five cases (four selected structural held-out cases —
+  one-source, three-source AND, alternative-source OR and no-Gold —
+  plus an unrelated tuning case with Gold), six selected / seven full
+  Gold occurrences and all three bundles retained for EVERY binder.
+  Four sequential outer attempts: the successful cohort (five pin
+  checks, four producer, four binder, one aggregate); a
+  missing-query admission refusal with progress `None` and zero
+  delegated calls; a valid changed-space query refused in the third
+  producer after two completed cases (four pin, three producer, two
+  binder, no aggregate; prefix `PRODUCER` 4/3/2/1/1); and a
+  closed-pin preflight refusal with zero delegated calls (prefix
+  `PREFLIGHT` 4/0/0/0/4). Direct observed totals across attempts:
+  seven producer, six binder, one aggregate; no surviving-subset
+  aggregate was made. The fixture's one generator process was observed
+  to exit zero; six captured session wrapper processes were
+  deliberately closed and reaped with return code 143 — not six zero
+  exits and not a whole-descendant-tree containment proof.
+- The synthetic declared `held_out` is a structural declaration, not
+  representative human held-out discipline or rights attestation; the
+  real raw baseline remains NOT RUN (missing approved human held-out
+  data, corpus rights, current principal-policy authority and a
+  qualified encoder).
+- Source-linked chunk grades are absent: the existing generic MRR/nDCG
+  oracle is valid over supplied units and is not grounds to infer
+  requirement-to-chunk grades (no chunk MRR/nDCG without an explicit
+  relevance mapping).
+
+Retained failures are not deleted: the first inventory exhausted its cap
+on a deduplication defect and the first collection attempt failed its
+origin/output guard; both evidences are preserved privately, and the
+separately corrected bounded checks passed (corrected inventory
+reviewed; collection-only correction passed with exactly one node, no
+skips, deselections or test execution; the prior formatter passed with
+identical syntax and constants and Ruff check passed). Root
+independently ran a separate controlled cleanup witness once against the
+frozen cleanup definitions (ten cases PASS, including hostile exception
+behavior and interruption identity); the coding author did not rerun it,
+and an other-author review is not a second actual run or full ICA.
+
+Actual resource accounting for the synthetic proof: limits CPU 120 s,
+address space 2 GiB, per-file FSIZE 16 MiB, CORE 0, CPU affinity 0,
+wall 240 s; observed pytest 59.29 s, launcher 62.39849 s, SELF
+2.707422 s plus waited CHILDREN 58.910207 s CPU; sampled scratch peak
+286,066 bytes / 74 entries. Per-file FSIZE, sampled log/storage
+thresholds, waited CPU/RSS and captured process handles are
+observations — not aggregate hard CPU/RSS/storage or full-descendant
+guarantees. Logical source reservations, direct observations, callee
+reports and the overlapping binder/geometry ledgers are different
+quantities; the dataset parser's internal work remains unmeasured by the
+runner. Named external files were statically inventoried and dynamically
+observed standard-library identities hashed after the run; those
+observations do not establish full native runtime, linker, operating
+system, network, license or provenance closure. Public component
+evidence retains exact hashes and attribution without raw private input
+(`oap/reviews/009-e-component-evidence.json`).
+
+Original objective 009 remains OPEN/PARTIAL: this continuation is
+static transfer plus documentation in the canonical lane (no local
+source run), and no merge, next numeric objective or whole-MVP claim
+follows from it.
 
 ## Unit oracles versus real held-out and actual queries
 
-The ten unit suites (six 009-a, three 009-c and one 009-d) exercise the
-copied synthetic fixtures and the `docs/parallel/*-oracle.json` vectors
-(the 009-d suite: 33 tests against the frozen cohort oracle and genuine
-lower geometry): they prove the mathematics, the admission boundaries and
-the negative
-paths, not retrieval quality; the 009-c integration suites are the
-synthetic source-backed composition proofs described above and are
-likewise not a baseline. The
+The eleven unit suites (six 009-a, three 009-c, one 009-d and one
+009-e) exercise the copied synthetic fixtures and the
+`docs/parallel/*-oracle.json` vectors (the 009-d suite: 33 tests against
+the frozen cohort oracle and genuine lower geometry; the 009-e suite:
+54 controlled cases — the original 35 plus 19 scalar-admission
+variants — against the exact corrected runner DTOs, with binder
+refusals preceding aggregation and pure-report refusals following one
+real controlled aggregate): they prove the mathematics, the admission
+boundaries and the negative paths, not retrieval quality; the 009-c
+integration suites are the synthetic source-backed composition proofs
+described above and the 009-e integration suite is the one actual
+synthetic composition proof described in the harness section — likewise
+not a baseline. The
 real raw baseline additionally requires human-approved representative
 held-out questions, corpus rights, current principal/policy authorization
 and a qualified real encoder; those gates are missing, so the baseline is
