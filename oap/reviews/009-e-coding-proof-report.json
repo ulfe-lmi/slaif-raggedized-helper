@@ -1,0 +1,109 @@
+{
+  "DHA": "NONE",
+  "actual_commands_and_results": {
+    "actual": "ONE separately authorized pytest synthetic test, --assert=plain and cache enabled: PASS; setup/call/teardown passed, no skip/xfail/deselection; no further actual invocation",
+    "attempts": [
+      {
+        "aggregate": 1,
+        "binder": 4,
+        "case": "full",
+        "pins": 5,
+        "producer": 4
+      },
+      {
+        "aggregate": 0,
+        "binder": 0,
+        "case": "missing_query",
+        "pins": 0,
+        "producer": 0,
+        "progress": null
+      },
+      {
+        "aggregate": 0,
+        "attempted": 3,
+        "binder": 2,
+        "case": "changed_space",
+        "completed": 2,
+        "intended": 4,
+        "pending": 1,
+        "phase": "PRODUCER",
+        "pins": 4,
+        "producer": 3,
+        "refused": 1
+      },
+      {
+        "aggregate": 0,
+        "attempted": 0,
+        "binder": 0,
+        "case": "closed_pin",
+        "completed": 0,
+        "intended": 4,
+        "pending": 4,
+        "phase": "PREFLIGHT",
+        "pins": 0,
+        "producer": 0,
+        "refused": 0
+      }
+    ],
+    "collection_correction": "ONE separately authorized whole-module pytest --collect-only --assert=plain with explicit addopts: PASS; one expected node, no skip/deselection/runtest",
+    "direct_totals": {
+      "aggregate": 1,
+      "binder": 6,
+      "producer": 7
+    },
+    "fixture": "One generator returned 0; six captured session timeout wrappers were closed and reaped with return 143; no whole-descendant-tree claim.",
+    "format": "ONE Ruff format NEW driver: PASS; before/after AST identical excluding locations",
+    "initial_collection": "ONE whole-module collect stopped: sitecustomize origin rejected and inherited quiet output did not match parser; evidence preserved",
+    "ruff": "ONE Ruff check NEW driver: PASS"
+  },
+  "api": "Private source_cohort_runner.run_cohort; full canonical five-case synthetic dataset, four structural held-out selections, six selected/seven full Gold occurrences and three bundles supplied to each binder. Original/effective authority and paired actual result identities observed at delegates; old-generation borrowed pin checked after selection advances. Six prefix and seven transition summaries compared to independent pre-run Root oracle.",
+  "documentation": "New method, proof-input JSON and unchanged independent oracle document evidence, limitations and preserved failure history.",
+  "implementation_head": "60b171379a826d97920378a59109d31869970387",
+  "independent_cleanup_witness": {
+    "attribution": "Root independently ran once; author did not rerun",
+    "cases": 10,
+    "oracle_sha256": "6d4ea47401aa2156815d51c4a180641066502104ab7fdecd57fdaffc31b05c3d",
+    "result": "PASS",
+    "result_sha256": "da956aede1526bf286445751a4e771c48fdba11b6645ac1a1f605d6fa926f0f5",
+    "witness_sha256": "fdbfd405008bb721b393dd35fe55c3f094055e10d8712b93e086c94ee90cbac8"
+  },
+  "lane_id": "PAR-009-COHORT-PROOF-A",
+  "limitations": "Synthetic development evidence only; no human held-out baseline, rights, current policy, encoder/model/domain quality, hardware/20k, visual, license, independent milestone audit, MVP, deployment or release claim. Root owns acceptance and integration. No push, merge of this implementation, tag or deployment.",
+  "limits_and_observations": {
+    "core_bytes": 0,
+    "cpu_affinity": [
+      0
+    ],
+    "fsize_per_file_bytes": 16777216,
+    "launcher_wall_seconds": 62.39849252300337,
+    "pytest_as_bytes": 2147483648,
+    "pytest_cpu_seconds": 120,
+    "pytest_seconds": 59.29,
+    "pytest_wall_limit_seconds": 240,
+    "qualification": "Per-process limits and sampled thresholds are not aggregate hard CPU/RSS/storage or whole-tree guarantees; FSIZE is per-file. Binder includes geometry; logical source reservations are not physical I/O permission. Parser internal work unmeasured.",
+    "sampled_scratch_bytes": 286066,
+    "sampled_scratch_entries": 74,
+    "self_cpu_seconds": 2.707422,
+    "waited_children_cpu_seconds": 58.910207
+  },
+  "preparation_head": "657fbf571751d5b6232e543b2fbd94fba7f7516a",
+  "preparation_parents": [
+    "e687b86264f970b7e4ea93cc6393b34a92cc1232",
+    "91f31182dae31a01d0f0dbf35b272c18ed08a2c8"
+  ],
+  "readsets": "72 selected local files, 265 previously observed supplemental Python origins, 2632 named external files/250534525 bytes pre/post; 11 ambient stdlib files/261726 bytes observed and hashed post-run. Dynamic native stdlib, linker, OS and network closure remain unresolved. Earlier first bounded local inventory failed at cap from deduplication; retained corrected inventory and failure evidence.",
+  "report_publication_commit": "SELF",
+  "result": "COMPLETE",
+  "scope": "One synthetic local source-cohort component proof; original objective 009 PARTIAL/OPEN, real baseline NOT_RUN. No product release or qualification.",
+  "witness_hashes": {
+    "actual_after_sha256": "71117ea0a96b0136a7cfc8e49cf006ff0d3c7e5d19c1a8025dab2b0a2cc3990b",
+    "actual_helper_sha256": "247a596eafacb93ff1daae3762d36194c4a1905235c2266339c3884a731ca973",
+    "driver_sha256": "065b2cb4c2e67c35f4a76987cfeb991d65fd6e039f50de8dcd852cbe08794124",
+    "external_inventory_sha256": "191055bafec00df9be0ed1be5629894683498887ac4243293efb06b8205d0db9",
+    "lifecycle_sha256": "7a4e75528e9c2ba2b78c185898958ac5a42ddf90a52eff5a7c883adbe31e1558",
+    "root_oracle_sha256": "e291137da708b36c2f9af4097bb4f884cc98d2a9ef9dbb0ca4b7f7e91f36ff6d",
+    "runner_sha256": "96e6971435a3a2f639e7ba3d101248c8eb3fb6bc34b35fedbebdd40d673b4f29",
+    "runner_unit_sha256": "4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b",
+    "summary_sha256": "5442d4ea2d6fd593335fcea225f50ddd40f01e8818559e511e4f27d60ddc4872"
+  }
+}

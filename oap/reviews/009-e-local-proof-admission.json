@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-13T14:39:53.075312+00:00",
+  "decision": "LOCAL_CANDIDATE_ADMITTED_FOR_SELECTIVE_CANONICAL_TRANSFER_ONLY",
+  "normal": {
+    "lane": "cohort-proof",
+    "lane_id": "PAR-009-COHORT-PROOF-A",
+    "result": "COMPLETE",
+    "implementation": "60b171379a826d97920378a59109d31869970387",
+    "report_commit": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+    "report_sha256": "f91e1150f672b923a8f6858081761c1099a09fc30ab2dabe4ef1a42915073b72",
+    "paths": [
+      "docs/parallel/source-cohort-runner-composition.md",
+      "docs/parallel/source-cohort-runner-proof-inputs.json",
+      "docs/parallel/source-cohort-runner-tiny-oracle.json",
+      "oap/parallel/orders/PAR-009-COHORT-PROOF-A-addendum-1.md",
+      "oap/parallel/orders/PAR-009-COHORT-PROOF-A.md",
+      "tests/integration/test_source_cohort_runner_composition.py"
+    ],
+    "verified_at": "2026-11-13T14:39:26.465498+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "report_bytes": 5739,
+  "Root_review": "Full exact finalreport read; soleparent60b1/reportonlydiff/SELF/preparation657f andsixpathscope verified. Branchclean. Reportaccuratelyattributespassedsourceproof/Rootindependent10casewitness/failures/byteinventories/actualcapstiming/worker143 andallqualificationlimits. No extraauthorrun/remoteclaim/sourcepatch. Actualevidence independentlyreviewed separately.",
+  "checkpoint": "audit/009-cohort-proof-checkpoint-root-review-60b1.json",
+  "actual": "audit/009-cohort-proof-actual-pass-root-review-065b.json",
+  "admission": "Four exact proof test/docs/oracle blobs may enter nextsame009 selectivecanonicaltransfer alongsidereviewed91f3runner; localorders/addendum/reports/privatehelpers remain outside producttransfer. Canonical currentnewhead fullCI/reviews/docprecisionfixes required before developmentmerge. Original009OPEN; realbaselineNOTRUN.",
+  "strongest_counterargument": "Local synthetic pass and exactreport do not establish allcanonicalCI/currenthead fit, representative domainquality/rights/model/hardware/license/ICA/MVP acceptance. Exacttransfer/newheadCI permitsboundeddevelopmentcontinuationonly.",
+  "DHA": "NONE"
+}

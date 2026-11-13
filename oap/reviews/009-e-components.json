@@ -1,0 +1,84 @@
+{
+  "at": "2026-11-13T14:41:08.438343+00:00",
+  "status": "FINAL_EXACT_LOCAL_ADMITTED_COMPONENTS",
+  "identifier": "009-e",
+  "canonical_base": "598d6dc6d8dd97f711859c1277a08e8bfb606956",
+  "files": [
+    {
+      "path": "src/slaif_raggedized_helper/source_cohort_runner.py",
+      "mode": "NEW",
+      "source_SELF": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+      "git_blob": "b69589c375e12d202c7f065d3b14b7a2b5cff010",
+      "bytes": 43767,
+      "sha256": "96e6971435a3a2f639e7ba3d101248c8eb3fb6bc34b35fedbebdd40d673b4f29"
+    },
+    {
+      "path": "tests/unit/test_source_cohort_runner.py",
+      "mode": "NEW",
+      "source_SELF": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+      "git_blob": "5cd43827c542e1c4c966612fe6fa908faa34ec30",
+      "bytes": 31638,
+      "sha256": "4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b"
+    },
+    {
+      "path": "docs/parallel/source-cohort-runner-contract.md",
+      "mode": "NEW",
+      "source_SELF": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+      "git_blob": "6dc45cb82626850a9808854218877ff2cb8caa3e",
+      "bytes": 20417,
+      "sha256": "704e5cb31808cc9d0b1f8172f5a52210d142270e6c6b3f34269a9d2543e25e61"
+    },
+    {
+      "path": "docs/parallel/source-cohort-runner-binding.json",
+      "mode": "NEW",
+      "source_SELF": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+      "git_blob": "a3f58bd88c964fa32445acaa06983da06688096a",
+      "bytes": 6954,
+      "sha256": "0ba387a03174323e226b8ecbe2cca53ba23c8322c408fcbd6e2612293a11ea1c"
+    },
+    {
+      "path": "docs/parallel/source-cohort-runner-api.md",
+      "mode": "NEW",
+      "source_SELF": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+      "git_blob": "c333503bccb5e5383879a8c81ef1d24b0c476f81",
+      "bytes": 4680,
+      "sha256": "1f0d89d95aad80ca67b071ba397dbea246c8086439d265b3c48b133bffffd301"
+    },
+    {
+      "path": "tests/integration/test_source_cohort_runner_composition.py",
+      "mode": "NEW",
+      "source_SELF": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+      "git_blob": "e385f8fc2500ad34b728cbb2f3ff1436e22109f0",
+      "bytes": 27711,
+      "sha256": "065b2cb4c2e67c35f4a76987cfeb991d65fd6e039f50de8dcd852cbe08794124"
+    },
+    {
+      "path": "docs/parallel/source-cohort-runner-composition.md",
+      "mode": "NEW",
+      "source_SELF": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+      "git_blob": "94dcb23b962a87ff78d2d47b8d788fb9d80bb82b",
+      "bytes": 4470,
+      "sha256": "b338b8ac6155eb417d27cceac542179be8a9a7e4eca64ee4a03ec86a67a3a9ee"
+    },
+    {
+      "path": "docs/parallel/source-cohort-runner-proof-inputs.json",
+      "mode": "NEW",
+      "source_SELF": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+      "git_blob": "fe2a72b72839adacaaac4d261a0ddef555e7b0e3",
+      "bytes": 4187,
+      "sha256": "8002615447ea7fbd339d4fd91a1e3cce09530d936c2f8ca80862d8e751af0f65"
+    },
+    {
+      "path": "docs/parallel/source-cohort-runner-tiny-oracle.json",
+      "mode": "NEW",
+      "source_SELF": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+      "git_blob": "ef4a392d8b92bae11ed499ded9cc108e6568ebf5",
+      "bytes": 23631,
+      "sha256": "e291137da708b36c2f9af4097bb4f884cc98d2a9ef9dbb0ca4b7f7e91f36ff6d"
+    }
+  ],
+  "file_count": 9,
+  "total_bytes": 167455,
+  "scope": "Selective immutableobject copies only. No parallel source history/orders/addendum/reports/private launchers/artifacts transferred as product components.",
+  "DHA": "NONE"
+}

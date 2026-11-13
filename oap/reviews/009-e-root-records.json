@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-13T14:41:08.438343+00:00",
+  "identifier": "009-e",
+  "base": "598d6dc6d8dd97f711859c1277a08e8bfb606956",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-e-components-FINAL.json",
+      "target": "oap/reviews/009-e-components.json",
+      "bytes": 3420,
+      "sha256": "b73448cfc0156d5846324ce5443352e7a413c75385d9fee170ca68626c55c8e6"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-d-resolution.json",
+      "target": "oap/reviews/009-e-prior-resolution.json",
+      "bytes": 3053,
+      "sha256": "67960dfbd2adab429a60688835b8a595a93a0b8072e7624099f5329e1b7fc9fe"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-e-source-base-compatibility-FINAL.json",
+      "target": "oap/reviews/009-e-source-base-compatibility.json",
+      "bytes": 1005,
+      "sha256": "b61dec4192d93142790872baebecf17e659ebe7a2e7ba785cca8c7aa223b8981"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-e-public-component-evidence-FINAL.json",
+      "target": "oap/reviews/009-e-component-evidence.json",
+      "bytes": 10795,
+      "sha256": "6fe9e6dc5f965e77b9ee77ddb330d3b9579e51d33ea35053ca4338954c1e6d9c"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/audit-cohort-proof-b/report.json",
+      "target": "oap/reviews/009-e-peer-driver-correction.json",
+      "bytes": 5046,
+      "sha256": "30d49669332be3b7abbf0adcf65c9522e90b162a77b3841b0043bf6ed04300c1"
+    },
+    {
+      "source": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-cohort-proof/oap/parallel/reports/PAR-009-COHORT-PROOF-A.json",
+      "target": "oap/reviews/009-e-coding-proof-report.json",
+      "bytes": 5739,
+      "sha256": "f91e1150f672b923a8f6858081761c1099a09fc30ab2dabe4ef1a42915073b72"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-cohort-proof-normal-root-review-5ffe.json",
+      "target": "oap/reviews/009-e-local-proof-admission.json",
+      "bytes": 2201,
+      "sha256": "5f22c013a52d716a7a5dfcdc9c5a433efea6564c6b8ce4b680dc28079ddc996c"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-cohort-runner-b-normal-root-review-91f3.json",
+      "target": "oap/reviews/009-e-local-runner-admission.json",
+      "bytes": 2316,
+      "sha256": "a9e2450e003602d8e80fbc30a65c8e24ff578b9fb875b7a7368eee0cc642e0ce"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-d-doc-precision-findings-157f.json",
+      "target": "oap/reviews/009-e-doc-precision-findings.json",
+      "bytes": 2125,
+      "sha256": "414f73aa7b3eb794907cae4f835e07eba4557d1ae82a9f5b7d564c3146ee897c"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-e-transfer-replan-FINAL.json",
+      "target": "oap/reviews/009-e-replan.json",
+      "bytes": 1749,
+      "sha256": "ee323a624e7eb00f0b2250e703e486fb6e2d147595fd9f1b855ff007ca8a02ac"
+    }
+  ],
+  "record_count": 10,
+  "total_record_bytes": 37449,
+  "DHA": "NONE"
+}
