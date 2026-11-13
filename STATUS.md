@@ -362,6 +362,28 @@ open on the 007 PR, branch
   capture/reuse drivers remain gated on the current report CI (both
   Product jobs). Whole-007 and actual BGE remain UNRUN/UNQUALIFIED;
   no 008 advance, no merge.
+- 007-v (evidence correction + software boundary replan; same PR 9,
+  transcript-first): documentation/evidence-only continuation of 007 — no
+  product patch, no local product tests. After the exact thirteen frozen
+  Root records plus index transcript (39,726 source bytes), byte-exact
+  TWO-file copy of the Root-owned FINAL documents (16,538 B, per
+  oap/reviews/007-v-document-components.json):
+  docs/benchmarks/007-u-local-evidence-correction.md (6,400 B) supersedes
+  the U report's local-evidence interpretation only — the published U
+  wording undercounts unit-target invocations, the first unexpected
+  failure should have stopped further actual processes pending Root
+  decision, same-target diagnostics still count, and failed/successful
+  outcomes, known/unknown caps, overwritten first-P1 evidence, discarded
+  loop outputs and the inferred (unproven) cause are recorded without any
+  capped-everywhere claim or fabricated total/date/stdout/proof; the
+  immutable U report, retained attempt records and source stay unchanged.
+  docs/embedding-software-boundary.md (10,138 B) maps all four original 007
+  acceptance criteria to exact callable modules per the independent
+  exact-e92 source assessment while EMBED-01/02, FP16 parity,
+  current-rights and physical-drain gates remain NOT RUN/UNPROVEN and
+  008/010/011/014/015/017/018/019/020/021 obligations stay separately
+  owned. U CI 43342353043 is historical for V; whole-007 and actual BGE
+  remain UNRUN/UNQUALIFIED; no 008 advance, no merge.
 
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
