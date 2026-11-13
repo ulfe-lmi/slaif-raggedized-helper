@@ -1,0 +1,29 @@
+{
+  "status": "ONE_ACTUAL_SYNTHETIC_LOCAL_COMPONENT_RUN_PASS",
+  "original_base": "e687b86264f970b7e4ea93cc6393b34a92cc1232",
+  "accepted_prerequisite_self": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+  "preparation_head": "657fbf571751d5b6232e543b2fbd94fba7f7516a",
+  "runner_sha256": "96e6971435a3a2f639e7ba3d101248c8eb3fb6bc34b35fedbebdd40d673b4f29",
+  "runner_unit_sha256": "4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b",
+  "tested_driver_sha256": "065b2cb4c2e67c35f4a76987cfeb991d65fd6e039f50de8dcd852cbe08794124",
+  "oracle_sha256": "e291137da708b36c2f9af4097bb4f884cc98d2a9ef9dbb0ca4b7f7e91f36ff6d",
+  "oracle_provenance": "Root-authored static expectations with other-author source and arithmetic review; expected values predate execution",
+  "dataset": {"cases": 5, "selected": 4, "selected_gold_occurrences": 6, "full_gold_occurrences": 7, "bundles": 3, "binder_inputs": "full canonical dataset and all three bundles for every case"},
+  "observed_outer_attempts": [
+    {"kind": "full_success", "runner_pins": 5, "producer": 4, "binder": 4, "aggregate": 1},
+    {"kind": "missing_query_admission", "progress": null, "runner_pins": 0, "producer": 0, "binder": 0, "aggregate": 0},
+    {"kind": "changed_space", "phase": "PRODUCER", "intended": 4, "attempted": 3, "completed": 2, "refused": 1, "pending": 1, "runner_pins": 4, "producer": 3, "binder": 2, "aggregate": 0},
+    {"kind": "closed_pin", "phase": "PREFLIGHT", "intended": 4, "attempted": 0, "completed": 0, "refused": 0, "pending": 4, "runner_pins": 0, "producer": 0, "binder": 0, "aggregate": 0}
+  ],
+  "observed_direct_totals": {"producer": 7, "binder": 6, "aggregate": 1},
+  "fixture_lifecycle": {"generator_processes": 1, "generator_returncode": 0, "captured_session_wrappers_reaped": 6, "session_wrapper_returncode": 143, "limitation": "not a detached or whole-descendant-tree guarantee"},
+  "independent_cleanup_witness": {"operator": "Root", "cases": 10, "result": "PASS", "witness_sha256": "fdbfd405008bb721b393dd35fe55c3f094055e10d8712b93e086c94ee90cbac8", "oracle_sha256": "6d4ea47401aa2156815d51c4a180641066502104ab7fdecd57fdaffc31b05c3d", "author_rerun": false},
+  "checks": {"format": "PASS; syntax and constants equivalent", "ruff": "PASS", "first_collection": "FAILED origin and output guard; evidence retained", "collection_correction": "PASS; one node, no skips or deselection, no test execution", "actual": "PASS; one collected and executed synthetic integration test"},
+  "readsets": {"local_named_files": 72, "external_named_files": 2632, "external_named_bytes": 250534525, "dynamic_postrun_stdlib_files": 11, "dynamic_postrun_stdlib_bytes": 261726, "limitations": "named snapshots and post-run identities do not establish full runtime, linker or OS closure"},
+  "limits": {"pytest_cpu_seconds": 120, "pytest_address_space_bytes": 2147483648, "wall_seconds": 240, "fsize_bytes_per_file": 16777216, "core_bytes": 0, "cpu_affinity": [0], "stdout_stderr_sample_threshold_each": 2097152, "scratch_sample_threshold_bytes": 268435456, "scratch_sample_threshold_entries": 4096},
+  "observations": {"launcher_wall_seconds": 62.39849252300337, "self_cpu_seconds": 2.707422, "waited_children_cpu_seconds": 58.910207, "sampled_scratch_max_bytes": 286066, "sampled_scratch_max_entries": 74, "qualification": "sampling and waited usage are not aggregate hard bounds"},
+  "evidence_sha256": {"actual_before": "75d54a8ecbd23a425897c92cd427ce1746cfe9cc840c8f41a9753053a65f0dc6", "actual_after": "71117ea0a96b0136a7cfc8e49cf006ff0d3c7e5d19c1a8025dab2b0a2cc3990b", "lifecycle": "7a4e75528e9c2ba2b78c185898958ac5a42ddf90a52eff5a7c883adbe31e1558", "summary": "5442d4ea2d6fd593335fcea225f50ddd40f01e8818559e511e4f27d60ddc4872"},
+  "accounting": "Own direct observations, callee reports and static worst-case reservations are distinct. Binder includes geometry; do not add those ledgers. Parser-internal work is unmeasured by runner.",
+  "qualification": "Synthetic local component evidence only; real baseline NOT_RUN, original 009 OPEN; no human held-out, rights, current-policy, encoder, model, hardware, 20k, visual, license, independent milestone audit, MVP or release claim.",
+  "DHA": "NONE"
+}

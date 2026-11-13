@@ -1,0 +1,942 @@
+{
+  "at": "2026-11-13T13:39:09.564711+00:00",
+  "status": "FINAL_ROOT_AUTHORED_STATIC_EXPECTATIONS_CONDITIONAL_ON_EXACT_FROZEN_DRIVER_MATCH",
+  "target_lower": "b33da3811d82d651ad711bf5878f4f7159b5fcad",
+  "runner_implementation": "820d817626943d98e660adc19c01054caec1cd57",
+  "source_runner_SELF": "e687b86264f970b7e4ea93cc6393b34a92cc1232",
+  "inputs": "Exact specified v2 prototype fixture: same original raw hybrid make_sources, whitespace native tokenizer no truncation, first short chunk, one-hot rows, queries DistinctiveZephyr one?/three?/either?/none?, original authority (one,two)/(v1)/(secret), effective scopes stated. Any actual driver/fixture/query/source/authority delta requires reconciliation or re-derivation before invocation; final hash binding is a separate gate.",
+  "source_evidence": [
+    "tests/integration/test_raw_hybrid_search_composition.py make_sources39-145: a/b samealpha-beta-gamma text, c additionallyDistinctiveZephyr; a,c corpusone/nolabels,b corpustwo/secret; threeonehotvectorsa=e0,b=e1,c=e2, query(.6,0,.8...).",
+    "retrieval_representation.py _format_raw uses title,headingpath,body only; no corpus/ACLmetadata assearchterms. Proposed suffixtermsone/three/either/none notinrenderedtitleuniquetitle/Heading/body; technicalanalyzer aliases canaddDistinctiveZephyrcomponents butonlyccontainsany. Independentreviewer mustverify noadditionalmatchingaliases orcontext.",
+    "rawhybrid/dense/lex/fusion k60/partition60, only2or3eligibleRows; denseallrows c>a>b byscore .8,.6,0, lexpositiveonlyc, RRF c2/61 > a1/62 > b1/63. No capbinds @20or60. ExactnumericBM25score NOTinferred/required, positive matchset/ranking only."
+  ],
+  "full_data": {
+    "cases": 5,
+    "selected_heldout": [
+      "h1",
+      "h2",
+      "h3",
+      "h4"
+    ],
+    "unselected_tuning": [
+      "t1"
+    ],
+    "gold_occurrences_full": 7,
+    "gold_occurrences_selected": 6,
+    "bundles": [
+      "a",
+      "b",
+      "c"
+    ],
+    "every_binder": "ALLfullData/nonempty3bundleIDs including selectednoGoldh4"
+  },
+  "cases": {
+    "h1": {
+      "requirements": [
+        [
+          "a"
+        ]
+      ],
+      "eligible": [
+        "a",
+        "c"
+      ],
+      "dense": [
+        "c",
+        "a"
+      ],
+      "lexical": [
+        "c"
+      ],
+      "fusion": [
+        "c",
+        "a"
+      ],
+      "source_required": 1,
+      "source_covered": {
+        "dense": 1,
+        "lexical": 0,
+        "fusion": 1
+      },
+      "complete": {
+        "dense": true,
+        "lexical": false,
+        "fusion": true
+      }
+    },
+    "h2": {
+      "requirements": [
+        [
+          "a"
+        ],
+        [
+          "b"
+        ],
+        [
+          "c"
+        ]
+      ],
+      "eligible": [
+        "a",
+        "b",
+        "c"
+      ],
+      "dense": [
+        "c",
+        "a",
+        "b"
+      ],
+      "lexical": [
+        "c"
+      ],
+      "fusion": [
+        "c",
+        "a",
+        "b"
+      ],
+      "source_required": 3,
+      "source_covered": {
+        "dense": 3,
+        "lexical": 1,
+        "fusion": 3
+      },
+      "complete": {
+        "dense": true,
+        "lexical": false,
+        "fusion": true
+      }
+    },
+    "h3": {
+      "requirements": [
+        {
+          "OR_alternatives": [
+            [
+              "a"
+            ],
+            [
+              "c"
+            ]
+          ]
+        }
+      ],
+      "eligible": [
+        "a",
+        "c"
+      ],
+      "dense": [
+        "c",
+        "a"
+      ],
+      "lexical": [
+        "c"
+      ],
+      "fusion": [
+        "c",
+        "a"
+      ],
+      "source_undefined": "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+      "complete": {
+        "dense": true,
+        "lexical": true,
+        "fusion": true
+      }
+    },
+    "h4": {
+      "requirements": [],
+      "eligible": [
+        "a",
+        "c"
+      ],
+      "dense": [
+        "c",
+        "a"
+      ],
+      "lexical": [
+        "c"
+      ],
+      "fusion": [
+        "c",
+        "a"
+      ],
+      "source_undefined": "NO_GOLD_SOURCES",
+      "complete_undefined": "NO_GOLD_REQUIREMENTS"
+    }
+  },
+  "prefixes_each20_and60": {
+    "total": 4,
+    "source_defined": 2,
+    "source_undefined": 2,
+    "complete_defined": 3,
+    "complete_undefined": 1,
+    "dense": {
+      "source_macro": "1/1",
+      "complete_rate": "1/1"
+    },
+    "lexical": {
+      "source_macro": "1/6",
+      "complete_rate": "1/3",
+      "source_pooled_DIAGNOSTIC_NOT_API_RATE": "1/4"
+    },
+    "fusion": {
+      "source_macro": "1/1",
+      "complete_rate": "1/1"
+    }
+  },
+  "nonzero_loss_lexical_eligible_to_ranked_4_5": {
+    "complete_eligible_before": 3,
+    "complete_lost": 2,
+    "complete_rate": "2/3",
+    "source_defined": 2,
+    "source_macro_loss": "5/6",
+    "requirements": {
+      "before": 5,
+      "lost": 3,
+      "eligible_cases": 3,
+      "undefined_cases": 1,
+      "pooled": "3/5",
+      "macro": "5/9"
+    },
+    "alternatives": {
+      "before": 6,
+      "lost": 4,
+      "eligible_cases": 3,
+      "undefined_cases": 1,
+      "pooled": "2/3",
+      "macro": "13/18"
+    }
+  },
+  "other_six_edges": {
+    "dense0_1_1_2_2_3_and_fusion8_9": "zero loss; completeeligible3/source_defined2; requirementbefore5/alternativebefore6, eligiblecases3/undefined1",
+    "lexical5_6_6_7": "zero loss; completeeligible1 (h3), completeincomplete_before2, source_defined2; requirementbefore2/alternativebefore2, eligiblecases2/undefined2"
+  },
+  "actual_gates": [
+    "F1 corrected runner dependency and exact current source identity must be independently reviewed before actual proof. This FINAL oracle does not approve any process.",
+    "Freeze exact driver/fixture/query/render/analyzer/Gold/authority/pin/ABI/readset/assets/launcher/physical caps/lifecycle; reconcile against this entire table before separate Root actual decision.",
+    "Only synthetic development diagnostic; real heldout baseline NOT RUN, no rights/currentpolicy/encoder/20k/visual/hardware/license/ICA/MVP qualification."
+  ],
+  "DHA": "NONE",
+  "independent_review": {
+    "lane": "AUDIT-009-COHORT-RUNNER-A",
+    "normal": "parallel/audit-cohort-runner/response-consumed.json",
+    "report_sha256": "a76ec77c9b502f84630935dd5ca2947b1aa753be46c305e79a811b0e870a9915",
+    "scope": "Other-author review of NEW runner and independent static source/analyzer/ranking/Fraction derivation; prior lower/prototype authorship disclosed, not full ICA. Root confirms exact field mapping against frozen pure DTO/serializer; no product code imported or run."
+  },
+  "api_expectations": {
+    "prefixes": [
+      {
+        "stage": "dense.returned",
+        "cutoff": 20,
+        "total": 4,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_macro": {
+          "num": "1",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_denominator": 3,
+        "complete_rate": {
+          "num": "1",
+          "den": "1"
+        },
+        "complete_empty_reason": null
+      },
+      {
+        "stage": "dense.returned",
+        "cutoff": 60,
+        "total": 4,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_macro": {
+          "num": "1",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_denominator": 3,
+        "complete_rate": {
+          "num": "1",
+          "den": "1"
+        },
+        "complete_empty_reason": null
+      },
+      {
+        "stage": "lexical.returned",
+        "cutoff": 20,
+        "total": 4,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_macro": {
+          "num": "1",
+          "den": "6"
+        },
+        "source_empty_reason": null,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_denominator": 3,
+        "complete_rate": {
+          "num": "1",
+          "den": "3"
+        },
+        "complete_empty_reason": null
+      },
+      {
+        "stage": "lexical.returned",
+        "cutoff": 60,
+        "total": 4,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_macro": {
+          "num": "1",
+          "den": "6"
+        },
+        "source_empty_reason": null,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_denominator": 3,
+        "complete_rate": {
+          "num": "1",
+          "den": "3"
+        },
+        "complete_empty_reason": null
+      },
+      {
+        "stage": "fusion.returned",
+        "cutoff": 20,
+        "total": 4,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_macro": {
+          "num": "1",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_denominator": 3,
+        "complete_rate": {
+          "num": "1",
+          "den": "1"
+        },
+        "complete_empty_reason": null
+      },
+      {
+        "stage": "fusion.returned",
+        "cutoff": 60,
+        "total": 4,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_macro": {
+          "num": "1",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_denominator": 3,
+        "complete_rate": {
+          "num": "1",
+          "den": "1"
+        },
+        "complete_empty_reason": null
+      }
+    ],
+    "transitions": [
+      {
+        "source": "dense.eligible",
+        "target": "dense.ranked",
+        "total": 4,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_eligible": 3,
+        "complete_incomplete_before": 0,
+        "complete_lost": 0,
+        "complete_rate": {
+          "num": "0",
+          "den": "1"
+        },
+        "complete_empty_reason": null,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_loss": {
+          "num": "0",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "requirements": {
+          "lost": 0,
+          "before": 5,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        },
+        "alternatives": {
+          "lost": 0,
+          "before": 6,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        }
+      },
+      {
+        "source": "dense.ranked",
+        "target": "dense.selected",
+        "total": 4,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_eligible": 3,
+        "complete_incomplete_before": 0,
+        "complete_lost": 0,
+        "complete_rate": {
+          "num": "0",
+          "den": "1"
+        },
+        "complete_empty_reason": null,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_loss": {
+          "num": "0",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "requirements": {
+          "lost": 0,
+          "before": 5,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        },
+        "alternatives": {
+          "lost": 0,
+          "before": 6,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        }
+      },
+      {
+        "source": "dense.selected",
+        "target": "dense.returned",
+        "total": 4,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_eligible": 3,
+        "complete_incomplete_before": 0,
+        "complete_lost": 0,
+        "complete_rate": {
+          "num": "0",
+          "den": "1"
+        },
+        "complete_empty_reason": null,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_loss": {
+          "num": "0",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "requirements": {
+          "lost": 0,
+          "before": 5,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        },
+        "alternatives": {
+          "lost": 0,
+          "before": 6,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        }
+      },
+      {
+        "source": "lexical.eligible",
+        "target": "lexical.ranked",
+        "total": 4,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_eligible": 3,
+        "complete_incomplete_before": 0,
+        "complete_lost": 2,
+        "complete_rate": {
+          "num": "2",
+          "den": "3"
+        },
+        "complete_empty_reason": null,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_loss": {
+          "num": "5",
+          "den": "6"
+        },
+        "source_empty_reason": null,
+        "requirements": {
+          "lost": 3,
+          "before": 5,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "3",
+            "den": "5"
+          },
+          "macro": {
+            "num": "5",
+            "den": "9"
+          },
+          "undefined_reason": null
+        },
+        "alternatives": {
+          "lost": 4,
+          "before": 6,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "2",
+            "den": "3"
+          },
+          "macro": {
+            "num": "13",
+            "den": "18"
+          },
+          "undefined_reason": null
+        }
+      },
+      {
+        "source": "lexical.ranked",
+        "target": "lexical.selected",
+        "total": 4,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_eligible": 1,
+        "complete_incomplete_before": 2,
+        "complete_lost": 0,
+        "complete_rate": {
+          "num": "0",
+          "den": "1"
+        },
+        "complete_empty_reason": null,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_loss": {
+          "num": "0",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "requirements": {
+          "lost": 0,
+          "before": 2,
+          "eligible_cases": 2,
+          "undefined_cases": 2,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        },
+        "alternatives": {
+          "lost": 0,
+          "before": 2,
+          "eligible_cases": 2,
+          "undefined_cases": 2,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        }
+      },
+      {
+        "source": "lexical.selected",
+        "target": "lexical.returned",
+        "total": 4,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_eligible": 1,
+        "complete_incomplete_before": 2,
+        "complete_lost": 0,
+        "complete_rate": {
+          "num": "0",
+          "den": "1"
+        },
+        "complete_empty_reason": null,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_loss": {
+          "num": "0",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "requirements": {
+          "lost": 0,
+          "before": 2,
+          "eligible_cases": 2,
+          "undefined_cases": 2,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        },
+        "alternatives": {
+          "lost": 0,
+          "before": 2,
+          "eligible_cases": 2,
+          "undefined_cases": 2,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        }
+      },
+      {
+        "source": "fusion.input",
+        "target": "fusion.returned",
+        "total": 4,
+        "complete_defined": 3,
+        "complete_undefined": 1,
+        "complete_reasons": [
+          [
+            "NO_GOLD_REQUIREMENTS",
+            1
+          ]
+        ],
+        "complete_eligible": 3,
+        "complete_incomplete_before": 0,
+        "complete_lost": 0,
+        "complete_rate": {
+          "num": "0",
+          "den": "1"
+        },
+        "complete_empty_reason": null,
+        "source_defined": 2,
+        "source_undefined": 2,
+        "source_reasons": [
+          [
+            "NO_GOLD_SOURCES",
+            1
+          ],
+          [
+            "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+            1
+          ]
+        ],
+        "source_denominator": 2,
+        "source_loss": {
+          "num": "0",
+          "den": "1"
+        },
+        "source_empty_reason": null,
+        "requirements": {
+          "lost": 0,
+          "before": 5,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        },
+        "alternatives": {
+          "lost": 0,
+          "before": 6,
+          "eligible_cases": 3,
+          "undefined_cases": 1,
+          "pooled": {
+            "num": "0",
+            "den": "1"
+          },
+          "macro": {
+            "num": "0",
+            "den": "1"
+          },
+          "undefined_reason": null
+        }
+      }
+    ]
+  },
+  "api_mapping": {
+    "source": "declared_cohort_metrics.py PrefixSummary/TransitionSummary/CountLossSummary and private serializer at immutable b33/743a",
+    "rationals": "Serializer encodes normalized Ratio as num/den DECIMAL STRINGS; JSON arrays encode tuples, including reason-count pairs. Key comparison is structural, no expected output obtained from implementation.",
+    "zero_edges": "Zero losses remain defined0/1 because before denominators nonzero; incomplete-before differs on lexical5->6->7.",
+    "source_reasons_order": "NO_GOLD_SOURCES before AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE per exact published reason enumeration, not lexical sort.",
+    "OR": "Source universe undefined; requirement complete. Canonical alternative order by atom bytes; no fixed covered alternative index asserted."
+  }
+}

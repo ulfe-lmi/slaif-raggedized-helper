@@ -1,0 +1,54 @@
+{
+  "at": "2026-11-13T08:07:16.654791+00:00",
+  "objective": "008",
+  "round": "008-g",
+  "PR": 10,
+  "head": "2944716817a8c8346ab9196aa3a04a265955d936",
+  "expected_base_main": "1a8fddf8c1448ad9e76b6b8194984877c4c21a95",
+  "decision": "DEVELOPMENT_ACCEPTED_EXPECTED_HEAD_PROTECTED_MERGE_AUTHORIZED",
+  "authority": "StandinghumanfullMVP/concentratedOAP developmentdelegation/previousmakePRandmerge; S03/S06. No newhumanapproval needed forqualifyingreversibledevelopment.",
+  "identity": "OnlyopenPR10 same008branch/baseactualmain1a8f; currenthead2944reportonly->b7e9impl->7632transcript->5509prior; normal/strictremote reporthash5672/7558B; cleanR; ARCH4b419/governance24cec unchanged, sourcearchivesunchanged/CRITICALzero; no unresolvedreviewthreads/reviews/automergerequest.",
+  "criteria": [
+    {
+      "id": 1,
+      "evidence": "Technicalanalyzer/Slovenian-technicaltoken/negation normalization and pinnedactualBM25Lucene oracle fixtures innewfullcanonicalunit/integration bothlegs; no raw-scoreaddition."
+    },
+    {
+      "id": 2,
+      "evidence": "Actualprivatehybriddefault60+60/RRF60, deterministicidentity/versiondedup and boundedstage eligible/ranked/selected/returnedtraces, capflags; actualcurrentcanonicalfullsuites pass. SourceGoldstage-loss remains009 explicitmapping notinferredfromcounts."
+    },
+    {
+      "id": 3,
+      "evidence": "Membership/programcoverage/source rows/vector/lexical/file/catalog/corehash/sourceACL/deletion/modelpolicybindings; constructionlocator/expectedCAS/failclosednegativecorruption/sourcecompositions currentCI passed."
+    },
+    {
+      "id": 4,
+      "evidence": "Lockedatomicpublication/selection plusheldPinOwner whilepointermoves; privatepinnedquery usestrustedbefore-encode/retrieve/return provider andpre-scoringscope/poisonchecks. Authenticatedcurrentprincipal/policyservice isnotclaimed andremains014. Fullnormal source/fs/concurrency/query tests successful."
+    }
+  ],
+  "source_review": [
+    "audit/008-g-normal-source-report-review-2944.json",
+    "audit/008-g-cumulative-production-source-identity-2944.json",
+    "audit/008-f-original-criteria-preactivation-review.json",
+    "audit/008-cumulative-deps-automation-preliminary-5509.json",
+    "audit/008-g-preliminary-source-proof-review.json"
+  ],
+  "changed_production": "All21productionblobs199919B exactly5Rootreviewedcomponentindices; fullpriorRoot/oppositesource/actualcontrolledproof provenanceapplicable toexactunchangedbytes. 008gONLYsixpytestIDs no payload/testbody/ASTsemantics/cap suppression.",
+  "CI": {
+    "run": 43388401267,
+    "head": "2944716817a8c8346ab9196aa3a04a265955d936",
+    "jobs": 5,
+    "steps": 78,
+    "result": "ALL_SUCCESS_ZERO_MISSING_PENDING_SKIPPED_CANCELLED_REQUIRED_STEPS",
+    "raw": "audit/008-g-ci-full-2944.log",
+    "log_sha256": "7b121e38f6d0f34e36dc88a9be75313994863b515a70432afbffa56bcd637360",
+    "unit_integration": "BothPython3.12/3.14 fullunit/integration commands successful/100%progress, no skippedsummary. Quietpytestdoesnotprintstandardtotalpassedcount; no inventedcount. Allthreescaffoldjobs andlint/governance/console/doctor success."
+  },
+  "privacy_dependencies_licenses": "Ownedsyntheticfixtures only/no newpublicendpoint/realcorpus/credentials/modelactions. DependenciesONLYnewexactbm25s0.2.14/scipy1.18.1/alloldversionsretained; artifactMIT/BSD/bundledlicensefacts retained, no requestedlicenseexception. Fullreproducibility/license/distributionaudit staysreadinessgate. Existingreadonlyworkflow identicalmain/no deploy/tag/push/merge automation.",
+  "procedural_limits": "Fourlocalpytestattemptshistorypreserved,A2/Boveroriginalallowance,FfutureRootpermissionwithwrongpriorcount corrected. No retroapproval; source/cache/51caseevidencehonest andcompletecurrentCIindependentlysuccess. Earlier8dproofUNPROVEN metadata andfailed8c/e/fCI preserved; no falsepass/backfill.",
+  "strongest_reason_not_to_merge": "PrivateboundedDATA spine withsuppliedvectors/scopes andcontrolledToyquery/fullsyntheticsuite cannot establish realBGEprecision/currentprincipal-policy/20k/V100rerank/domainquality/visualorreleasefitness. Localattemptbudgetoverrunalsolimitsproceduralconfidence.",
+  "why_development_acceptance_justified": "Explicitsoftwaredevelopmentreplan keepsallrealqualification/currentrights/humanheldout/hardware/20k/visual/licensegatesopen; exactproductionreview+actualprivatecomposition+alloriginalfoursoftwarecriteria+all78currentCIsteps establishusefulboundedrawretrievalspine. No humanintent/invariant/registeredDHAwaiver.",
+  "merge_controls": "ghRESTPUTsha exactexpectedhead, merge_methodmerge; no admin/bypass/automerge/release/tag/deploy. VerifymergedPR/defaultbranch/mergeparents/status independently afterward; changedhead/base ->stopmergeandreconcile.",
+  "next": "Afteractualmergedmain/timingrecord, activatebounded009softwareevaluationwave withcurrentexactmain/source/dependencyreconciliation. Independentmerged-SHAICA beforemilestoneB005-009/fullMVPclosure; thisselfreviewnotICA.",
+  "DHA": "NONE"
+}

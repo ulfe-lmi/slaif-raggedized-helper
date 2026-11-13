@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-13T12:16:56.272309+00:00",
+  "decision": "AMENDED_DOC_ONLY_CURRENT_IMPLEMENTATION_ROOT_REVIEW_COMPLETE_PENDING_FINAL_PEER_REPORT",
+  "implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+  "base": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+  "prior_checkpoint": "e4afb000d04371847c39c6fd87b6b1313e004eef",
+  "paths": {
+    "docs/parallel/declared-cohort-metrics-api.md": {
+      "bytes": 12333,
+      "sha256": "8d169ecfd869d7297bf97006fd9bca8b760eb93bd251536a579e2f65a8a7acce",
+      "git_blob": "67f63871ee051ad5b7734829da7c4b06d32d2a29"
+    },
+    "docs/parallel/declared-cohort-metrics-contract.md": {
+      "bytes": 11411,
+      "sha256": "a5952e630558e7816b3b6c3958e258feeb6001a7594b62d69f93f3172936765e",
+      "git_blob": "55e555e7ff8e9f2018f2d3e8bbb0d5fb240cf38a"
+    },
+    "docs/parallel/declared-cohort-metrics-oracle.json": {
+      "bytes": 10495,
+      "sha256": "d35d6a1977f22843fb47f178b69056c97680a0c280ef4c7d52927942f7c79011",
+      "git_blob": "82dddc05896f7a16401ba3bb62f8b31f5609d01b"
+    },
+    "oap/parallel/orders/PAR-009-COHORT-METRICS-A.md": {
+      "bytes": 13339,
+      "sha256": "ff16b05c4e56376364653bfd9692559970a026f810686a220cf428121d3144bc",
+      "git_blob": "a72fb1f9bd75ae3857dea05a693fc0e08650ef5f"
+    },
+    "src/slaif_raggedized_helper/declared_cohort_metrics.py": {
+      "bytes": 32800,
+      "sha256": "743a8949eb906dbf5564003c6501706f977d1b7e1682568bb81d160d683529e4",
+      "git_blob": "646ad55d190190252bf163a404988635ba050b23"
+    },
+    "tests/unit/test_declared_cohort_metrics.py": {
+      "bytes": 22772,
+      "sha256": "5a60130f655260674178d2f48b9f8bc87ae12db1f905d00a470fc80e25e78aa8",
+      "git_blob": "63bd01e3d9fc8ff28f099a9eefa55f6e45074691"
+    }
+  },
+  "review": "Root read entiredoc-onlydelta, verifiedold->newdiffonlynewAPIdoc historicalpending/unexecutedtenses plus19/22vs33 distinction. All source/unit/contract/oracle/order sameGitblobs, same6NEWpaths soleparente6/clean. Source743a/unit5a60 match33PASS/Ruff, actualproofprepostvalidatedinRoote4afb review; no runtime reruns requestedorperformed. Olde4afbcheckpointpreserved. ExactcurrentotherauthorGitobject/doc/proofreconciliation stillbeforeREPORT.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-13T08:09:55.046349+00:00",
+  "identifier": "008-g",
+  "event": "CURRENT_HEAD_FULL_CI_ALL78SUCCESS_DEVELOPMENT_ACCEPTED_PR10_EXPECTED_HEAD_MERGED_MAIN_VERIFIED",
+  "activation_at": "2026-11-13T07:14:16.404567+00:00",
+  "normal_response_verified_at": "2026-11-13T07:51:11.596946+00:00",
+  "activation_to_response_seconds": 2215.192379,
+  "merge_verified_at": "2026-11-13T08:07:44.679962+00:00",
+  "activation_to_merge_verified_seconds": 3208.275395,
+  "report_commit": "2944716817a8c8346ab9196aa3a04a265955d936",
+  "merge_commit": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "review": "audit/008-g-development-acceptance-2944.json",
+  "DHA": "NONE"
+}

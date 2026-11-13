@@ -1,0 +1,11 @@
+# Supplied ranking metrics
+
+These pure functions calculate synthetic supplied-ID mathematics. Results are SUPPLIED_UNVERIFIED and NOT_QUALIFIED; they do not establish source coverage, actual execution, retrieval quality, or a held-out evaluation. Callers must supply opaque identifiers and govern their use as private data. Fingerprints are linkable, susceptible to dictionary attacks, and are not anonymization. Result fields, equality, hashing and `dataclasses.asdict` can expose data; Python's `hash(result)` is not a stable fingerprint. Repr hides record values.
+
+`score_query(query_id, gold, ranking, *, cutoffs=(20, 60), deadline_ms=5000)` scores a supplied ranking. `aggregate(cases, *, cutoffs=(20, 60), deadline_ms=5000)` calculates macro means over defined queries while retaining every query and count. `compare_stage(gold, before, after, *, deadline_ms=5000)` describes supplied removal identities. See the adjacent frozen contract for exact data fields, input domains and fingerprint serialization.
+
+Recall divides positive hits by all positive gold. Reciprocal rank retains irrelevant rank gaps; aggregate MRR averages defined queries. Graded nDCG uses gain `2**grade-1`, log2 rank discount, and an ideal drawn from all positive gold up to the requested cutoff. Empty positive gold produces None and an explicit reason; a positive-gold query with no hits scores zero. Unknown IDs have grade zero. Stage None means unavailable, while an empty tuple is an observed empty stage; no loss is inferred when identities are unavailable.
+
+One original deadline applies to validation, scoring, sorting, hashing and construction; checks are cooperative and cannot preempt a running operation. Limits include 16 MiB of UTF-8 ID occurrences, 65,536 query/aggregate entries, 2,097,152 work units, and 64 MiB serialized bytes per fingerprint. The exact work formulas and stage allowance are in the contract. Ordinary errors raise `MetricsError("supplied rank metrics refused")` with suppressed context; BaseException subclasses propagate. No I/O or logging occurs in the primitive.
+
+These generic units do not resolve original Unicode-span AND/OR alternatives, overlap, duplicate credit, source coverage or actual stage traces. Those require separate adapters; these outputs do not establish a human quality target, model qualification or milestone closure.

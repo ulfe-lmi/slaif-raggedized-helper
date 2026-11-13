@@ -2,20 +2,146 @@
 
 ## Current state (2026-11-13)
 
-- Current (2026-11-13): active objective 008, current slice 008-g
-  (same PR 10/branch oap/008-raw-hybrid-snapshots, transcript-first).
-  Objective 007 is complete and merged to main as PR #9 (merge commit
-  1a8fddf8); the 007-a..007-v entries below are historical round
-  records retained for traceability. The private
-  completion-locator/construction wrapper join and pinned-query
-  composition exist (008-f); 008-g bounds the diagnostic parameter IDs
-  of the completion-locator invalid-program tests (test metadata only,
-  payloads byte-identical) after the 008-f report-head CI failure
-  (pytest session-finish cache/nodeids write, OSError errno 27; no
-  failed assertion in the logs; later product steps SKIPPED). Public
-  serving, current principal/current policy, evidence delivery and real
-  qualification remain absent/open. Whole 008 remains PARTIAL; no
-  merge.
+- Current (2026-11-13): active objective 009, current slice 009-e
+  (AMEND existing PR 11, branch oap/009-evaluation-baseline,
+  transcript-first). Objective 008 software is MERGED to main as PR #10
+  (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
+  29447168, merge tree equal to 2944; implementation-head CI run
+  43388401267 all five jobs / all 78 steps SUCCESS); objective 007 is
+  complete and merged as PR #9 (merge commit 1a8fddf8); the 007-a..007-v
+  and 008-a..008-g entries below are historical round records retained
+  for traceability, their at-time PARTIAL/no-merge wordings and
+  report limits preserved. Slice 009-a was the first 009 software wave:
+  byte-exact 32-file transfer (322,735 B: six production modules, six
+  unit suites, twenty docs/parallel contracts) of the reviewed
+  structural text-evaluation dataset admission, supplied graded-rank
+  metrics and original-source/span support primitives, plus
+  docs/evaluation.md, docs/benchmarks/raw-baseline.md and STATUS
+  current-state corrections. Its report-head CI (run 43395492425 on
+  21a3cbd) failed ONLY the Product 3.12 unit step:
+  test_oracle_and_frozen_private_records expected TypeError from
+  dataclasses.replace(result, qualification="QUALIFIED") but CPython
+  3.12.16 raises ValueError for an init=False field (Product 3.14 and
+  all three OAP jobs succeeded; the production guard refused the
+  replacement on both versions). Slice 009-b is the ordered correction:
+  the one pytest.raises clause immediately around that call now accepts
+  (TypeError, ValueError); every other byte, test, fixture, assertion,
+  import and production blob is unchanged
+  (docs/ci-dataclass-replace-portability.md). Slice 009-c is the
+  source-backed stage-evaluation wave: byte-exact 22-file transfer
+  (395,115 B: three production modules — 127,064 B — three unit suites —
+  110,520 B — five integration suites — 78,437 B, one of them the exact
+  existing raw-hybrid fixture modification — and eleven docs/parallel
+  contract/proof documents — 79,094 B) from the reviewed source SELF e6b229b1 (implementation
+  748d08b4) per oap/reviews/009-c-components.json (SHA-256
+  6fbeb96c23…): 21 NEW + one MODIFY with exact preimage — the raw text
+  stage support, declared stage geometry and source-bound stage loss
+  components completing the nine private module API families (the nine
+  callable private evaluation primitives), with the actual synthetic
+  source-backed composition proofs (raw bridge
+  V3 eight-attempt pass; stage-loss v2 eight ordered cases — two
+  positive / six expected refusals, six native session wrappers reaped,
+  no close overages; 51 controlled source-binder unit cases and 45
+  geometry unit cases attributed to their exact sources; v1 preflight
+  failure retained with the separately approved v2). The independent
+  COMPLETE software-coverage audit 2624 (Root adjudicated;
+  oap/reviews/009-c-software-coverage-adjudication.json) confirms the
+  remaining ABSENT production software: a callable cohort pipeline
+  joining frozen split selection, per-case producer traces/source
+  binding, source Recall@20/60/multi-source/stage-loss aggregation and
+  total/defined/undefined/refused denominators with private report
+  provenance (an operator loop is not harness software; separately
+  ordered same-009 continuation). Slice 009-d is the
+  declared-cohort-metrics wave: byte-exact 5-file transfer
+  (89,811 B: one production module — 32,800 B — one unit suite —
+  22,772 B — three docs/parallel contract/oracle/API documents —
+  34,239 B) from the reviewed source SELF b33da381 (implementation
+  b15adaf) per oap/reviews/009-d-components.json (SHA-256
+  665c7118…): five NEW blobs verified absent at the round base b87e264d,
+  copied by immutable Git object and re-verified by blob ID/size/SHA-256
+  — the pure declared-cohort aggregation (exact normalized rationals,
+  six prefix summaries and seven transition summaries over 1–256
+  supplied cases, source-macro vs pooled denominators distinguished,
+  explicit OR/no-Gold undefined reasons, content-free whole-call
+  refusal, chunk MRR/nDCG UNAVAILABLE without an explicit chunk
+  relevance mapping) completing the ten private module API families.
+  Attributed local proof (oap/reviews/009-d-local-admission.json): ONE
+  approved current Ruff format/check and 33 complete unit tests PASS
+  under Python 3.14 (CPU 15 s/AS 1 GiB/wall 90 s/FSIZE 32 MiB/CPU 0,
+  plain assertions/cache enabled) at source 743a8949…/unit
+  5a60130f…; GNU 1.81 s wall waited-process observation only; the
+  earlier 19/22 passes predate corrected semantics/metering; the final
+  API-only amendment did not rerun tests (source/test identical). At
+  009-d time the callable SOURCE-RUNNING cohort pipeline, joined
+  private split report and actual cohort composition proof were ABSENT
+  (separately scoped source-runner lane at immutable b33da381 after
+  normal quiet per oap/reviews/009-d-replan.json — the lane whose
+  reviewed output is the 009-e transfer below). Slice 009-e is the
+  source-cohort-runner wave: byte-exact 9-file transfer (167,455 B: one
+  production module — 43,767 B — one unit suite — 31,638 B — one
+  integration suite — 27,711 B — five docs/parallel contract/proof
+  documents — 64,339 B) from the reviewed source SELFs 91f31182 (runner
+  lane; implementation 3c92a59d) and 5ffef4c1 (proof lane;
+  implementation 60b17137 over preparation 657fbf57) per
+  oap/reviews/009-e-components.json (SHA-256 b73448cf…c55c8e6): five
+  runner blobs and four proof blobs, all nine NEW and verified absent at
+  the round base 598d6dc6, copied by immutable Git object and
+  re-verified by blob ID/size/SHA-256 (the 117 shared production files
+  plus pyproject/uv.lock/workflow byte-identical at both source SELFs
+  and the canonical base; no lower adaptation). It implements the
+  source-running cohort pipeline source_cohort_runner.run_cohort —
+  full canonical dataset admission before selection (1–256-case and
+  512-Gold software bounds), declared split/subset selection
+  (FULL_ADMITTED_SPLIT/DECLARED_SUBSET, no omitted or failed cases),
+  per-case effective-authority intersection before the traced producer
+  with original authority at the source-bound binder, the borrowed
+  old-generation snapshot pin, full dataset and all Gold bundles for
+  every binder, one pure aggregate only after complete success, the
+  joined private split report with stable private linkable identities,
+  and whole-cohort refusal with
+  intended/attempted/completed/refused/pending prefixes and no
+  surviving-subset report — the eleventh private module API family,
+  closing the coverage-2624 harness gap as software. The canonical
+  round was static transfer plus documentation (no local source run)
+  and corrected the three 009-d documentation precision findings in the
+  current docs (lexical 4→5→6→7 removal edges; OR
+  AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE versus the no-Gold
+  NO_GOLD_REQUIREMENTS/NO_GOLD_SOURCES reasons; the pure 13-tuple /
+  declared-field-insertion-order identity encoding versus generic
+  sorted-key JSON, distinct from the runner wrapper encoding).
+  Attributed source-lane evidence, not rerun: 54 controlled units and
+  the focused Ruff check PASS at the corrected runner source
+  96e69714…/unit 4d01ca5c…; ONE actual synthetic composition proof
+  against the exact driver/source/oracle (full 5-case dataset, four
+  selected cases, 6 selected/7 full Gold occurrences, three bundles for
+  every binder; four outer attempts; seven producer / six binder / one
+  aggregate direct calls; no surviving subset; success pins
+  5/producer 4/binder 4/aggregate 1; missing query zero delegates;
+  changed space 4/3/2/0 with PRODUCER 4/3/2/1/1; closed pin zero
+  delegates with PREFLIGHT 4/0/0/0/4); one generator observed exit 0
+  and six captured session wrappers deliberately closed/reaped 143 —
+  not six zero exits nor whole-tree containment; observed pytest
+  59.29 s, launcher 62.39849 s, SELF 2.707422 plus waited CHILDREN
+  58.910207 CPU s, sampled scratch 286,066 B/74 entries (observations,
+  not aggregate hard bounds); the first inventory and first collection
+  guard failures were retained with the separately corrected checks
+  passing; Root independently ran ten controlled cleanup cases once
+  (PASS; coding author did not rerun). Whole 009 remains PARTIAL: the
+  source-running cohort harness and joined private split report are now
+  implemented software (009-e) and ONE tiny synthetic composition proof
+  exists — a weaker substitute for the required representative real
+  baseline; no real-model retrieval quality, human held-out data,
+  corpus rights/current principal-policy authority or qualified
+  encoder, and no real baseline (raw baseline NOT RUN); the 1–256-case
+  / 512-Gold runner admission and the 512-row catalog diagnostic bound
+  (≤ 512 rows / 256 cases / 512 global Gold occurrences in the joined
+  components; 512 cases / 16 MiB at standalone admission) and the
+  synthetic three-revision fixtures are software bounds, not 20k
+  qualification. Hardware/visual/license/ICA/full-MVP gates retained;
+  historical 009-a/b/c/d at-time evidence and the 008 accepted state
+  preserved; no 010 activation; no merge. Public serving, current
+  principal/current policy, evidence delivery and real qualification
+  remain absent/open.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
@@ -635,6 +761,97 @@ open on the 007 PR, branch
   3.12/3.14) is the evidence boundary and remains pending. Whole 008
   remains PARTIAL, no merge.
 
+- 009-a (evaluation foundations first software wave; NEW PR, branch
+  oap/009-evaluation-baseline at exact base 5a7b41cc, transcript-first):
+  byte-exact 32-file transfer (322,735 B) of the Root-reviewed donor
+  SELF 8c351a95 (implementations c91a5c2b / 70d3b61f) per
+  oap/reviews/009-a-components.json (SHA-256 f3f65b1b…) — six
+  production modules (text_evaluation_dataset, supplied_rank_metrics,
+  text_evaluation_gold_binding, declared_span_support,
+  source_bound_ranking, source_bound_text_support), six unit suites and
+  twenty docs/parallel API/design/oracle contracts; all 32 paths NEW at
+  the actual base and the 27 shared lower 008 paths byte-identical, so
+  no API adaptation or branch transfer. The transcript commit carries
+  the unchanged FINAL order, active 009-a+LF, the eight exact Root
+  records (26,410 B) and the exact 2,628 B index (11 paths); the
+  implementation commit carries the 32 blobs plus only
+  docs/evaluation.md (new), docs/benchmarks/raw-baseline.md (new) and
+  this STATUS.md (35 paths). Static Git/hash/size/JSON/AST checks only:
+  all 32 donor blobs verified by size + SHA-256 + Git-object identity
+  before copy, all 32 absent at base, all 12 Python files parse after
+  copy; no local product, unit, integration, collection, import, setup,
+  model, store or scorer process, no source fixup/format/deps/workflow
+  change. The six APIs are private evaluation contracts (three pure,
+  three borrowing the original/derived stores): declared (unverified)
+  dataset admission with STRUCTURAL_ONLY splits, supplied graded-rank
+  mathematics (graded MRR/nDCG/Recall, explicit
+  UNDEFINED_EMPTY_POSITIVE_GOLD), bind-time original gold revalidation
+  (not atomic, not current rights), declared span geometry, supplied-rank
+  source binding (SUPPLIED_SCOPE_CHECKS_ONLY, NOT_ATTESTED) and the
+  operator-only composed text-support diagnostic (NOT_CHECKED gold
+  eligibility, SEQUENTIAL_OBSERVATIONS_NOT_ATOMIC). No metrics from
+  requirement grades, no actual source/hybrid join and no real baseline
+  execution in this wave: the raw baseline stays NOT RUN and the
+  human-heldout/corpus-rights/current-auth/qualified-encoder gates remain
+  open (docs/benchmarks/raw-baseline.md). The full unchanged five-job
+  CI at the new report head is the evidence boundary and remains
+  pending. Whole 009 remains PARTIAL; no merge; no 010 activation.
+
+- 009-b (dataclasses.replace portability correction; AMEND PR 11, same
+  branch oap/009-evaluation-baseline, transcript-first): the transcript
+  commit carries the unchanged FINAL order, active 009-b+LF, the three
+  exact Root records (4,683 B: 009-a source/report review, 009-a
+  CI-failure reconciliation, 009-b CI-correction replan) and the exact
+  1,085 B index at oap/reviews/009-b-root-records.json (SHA-256
+  0105880d…) — six transcript paths on sole parent 21a3cbd (the 009-a
+  report head). The implementation commit changes ONLY three paths:
+  tests/unit/test_text_evaluation_dataset.py (old SHA-256 901707ff…;
+  the single line 46 `pytest.raises(TypeError)` becomes
+  `pytest.raises((TypeError, ValueError))` immediately around
+  dataclasses.replace(result, qualification="QUALIFIED"); module AST
+  equals base 21a3cbd after normalizing the tuple back to TypeError),
+  docs/ci-dataclass-replace-portability.md (new) and this STATUS.md.
+  Bounded local evidence (Python 3.14.4 only, pinned venv): ONE full
+  dataset unit module pytest run 19 passed / exit 0 (fresh private
+  cache nodeids 1,614 B; max RSS 62,724 KiB; closed env; default
+  assertion rewriting, no --assert=plain; inherited rlimits CPU
+  10 s / AS 1 GiB / FSIZE 16 MiB + CPU 0 affinity; the 60 s wall was a
+  launcher-level backstop, not a descendant wall proof) and ONE Ruff
+  0.17.4 changed-file check All checks passed. Root pre-SELF precision
+  review accepts these as LIMITED evidence with preserved procedural
+  deviations (no backfill, no extra runtime/retry); the 009-a head CI
+  failure (run 43395492425) and all earlier reports/runs are preserved
+  unchanged; the full unchanged five-job CI at the new report head is
+  the evidence boundary and remains PENDING. Whole 009 remains
+  PARTIAL; no merge; no 010 activation.
+
+- 009-c (source-backed stage evaluation v2; AMEND PR 11, same branch
+  oap/009-evaluation-baseline, transcript-first): the transcript commit
+  ac408fe0 carries the unchanged FINAL order, active 009-c+LF, the
+  eleven exact Root records (52,832 B, including the source component
+  index at oap/reviews/009-c-components.json) and the exact 3,512 B
+  index (SHA-256 659d3856…) — fourteen transcript paths on sole parent
+  aba42a52 (the 009-b report head). The implementation commit changes
+  exactly 25 paths: the 22 indexed byte-exact blobs (395,115 B from
+  source SELF e6b229b1; 21 NEW verified absent at base, one MODIFY
+  against exact preimage d4cdcb97…) plus docs/evaluation.md,
+  docs/benchmarks/raw-baseline.md and this STATUS.md. Static
+  Git/read/hash/AST/JSON identity verification only: every blob verified
+  by size + SHA-256 + Git-object identity before and after copy, changed
+  Python parses, structured copied inputs parse, canonical portable
+  dataset unit b00aa74f… preserved; no local lint, collect, product,
+  unit, integration, native, model, scorer or store run, no setup or
+  download. Prior local evidence attribution preserved (51/45 unit
+  cases, raw bridge V3 eight-attempt, stage-loss v2 eight ordered cases
+  two-positive/six-refusal/six-workers-reaped, v1 preflight failure with
+  separately approved v2; GNU values are waited-process observations,
+  not aggregate tree bounds or encoder performance). Coverage 2624:
+  cohort harness/source aggregation/complete denominators/private
+  split-report integration ABSENT — documented, separately ordered
+  same-009 work. The full unchanged five-job CI at the new report head
+  is the evidence boundary and remains PENDING. Whole 009 remains
+  PARTIAL; no merge; no 010 activation.
+
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
   (merged as PR #5) plus the 004-a finite qualification trial runner
@@ -655,13 +872,15 @@ open on the 007 PR, branch
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 008 (PR 10, branch
-  oap/008-raw-hybrid-snapshots), not idle; the 007-era wording is
-  historical.
-- Current main is the 007 merge commit 1a8fddf8 (PR #9); the 008
-  branch (PR 10) builds from it. Historical: while 007 was in flight,
-  current main was the 006 merge commit 11badc7 (PR #8) and the 007
-  branch built from it.
+- The coding client is active on objective 009 (PR 11, branch
+  oap/009-evaluation-baseline; PR number 11 assigned by GitHub at
+  009-a publication), not idle; the 008-era wording is historical.
+- Current main is the 008 merge commit 5a7b41cc (PR #10, parents
+  1a8fddf8 + 29447168, merge tree equal to 2944); the 009 branch (new
+  PR) builds from it. Historical: while 008 was in flight, current main
+  was the 007 merge commit 1a8fddf8 (PR #9) and the 008 branch built
+  from it; while 007 was in flight, current main was the 006 merge
+  commit 11badc7 (PR #8) and the 007 branch built from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
   (strategic, copied unchanged).

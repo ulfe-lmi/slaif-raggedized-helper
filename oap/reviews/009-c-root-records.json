@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-13T11:04:00.518201+00:00",
+  "identifier": "009-c",
+  "base": "aba42a524bbd6a8f1958b4e6a20430aca7d31ccb",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-c-components-FINAL.json",
+      "target": "oap/reviews/009-c-components.json",
+      "bytes": 8626,
+      "sha256": "6fbeb96c235695c32033a1a4ea031ae63d06495486fbdb5d512e40c5c633af91"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-b-resolution.json",
+      "target": "oap/reviews/009-c-prior-resolution.json",
+      "bytes": 2067,
+      "sha256": "e5b88b22e96cfba389ffa90a35f4a45c9d8542b70474f5013b7121099b24be0a"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-c-source-base-compatibility.json",
+      "target": "oap/reviews/009-c-source-base-compatibility.json",
+      "bytes": 675,
+      "sha256": "abcc8d30675176ee9ccd6059ab34095e2577c256da234a0501debb73c9d9c85b"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-c-local-component-admissions.json",
+      "target": "oap/reviews/009-c-local-admissions.json",
+      "bytes": 3853,
+      "sha256": "657f194f4b3f79e4e3c9622c769fde7f24c9e8c03736dc86ce6d2b5f97319150"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-source-binder-checkpoint-review-9055.json",
+      "target": "oap/reviews/009-c-source-binder-review.json",
+      "bytes": 5007,
+      "sha256": "8b5cf9ba5788b9138f8fcd6fa7d98449ff9b24c5f247e2e4eefdd9865fc84cd4"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-source-stage-proof-checkpoint-review-748d.json",
+      "target": "oap/reviews/009-c-stage-proof-review.json",
+      "bytes": 2442,
+      "sha256": "6725b6f2b29add5b8efb4e04eeadf3c0070af14dc9f869e44b050f34637b4d8c"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/source-stage-proof/Root-v2-success-evidence-review.json",
+      "target": "oap/reviews/009-c-stage-proof-actual-review.json",
+      "bytes": 2537,
+      "sha256": "a0291002c249fc399534fadeb084f35a3d9657afd407a6749877fa1bacf21624"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/audit-source-stage-proof/report.json",
+      "target": "oap/reviews/009-c-peer-driver.json",
+      "bytes": 8878,
+      "sha256": "30cdb17ec4721f17bf39ee44e679ba7ad4be9a8b5f3da893cc463ff0e1e15fb4"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-software-coverage-root-adjudication-2624.json",
+      "target": "oap/reviews/009-c-software-coverage-adjudication.json",
+      "bytes": 2461,
+      "sha256": "f0569c4d318ead431c35eb5d13c1d6697d364a1ead2a270b528d26c40840660c"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/audit-009-software-coverage/report.json",
+      "target": "oap/reviews/009-c-peer-software-coverage.json",
+      "bytes": 11972,
+      "sha256": "262440e2dc149807cfbccd96ab44a519be5c89713772138e303bd5575414f139"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-c-transfer-and-cohort-replan-FINAL.json",
+      "target": "oap/reviews/009-c-replan.json",
+      "bytes": 4314,
+      "sha256": "5f416a66cf5a23d17d2750c9c577aaf5d5896f14c1382a29632a70b9152b2777"
+    }
+  ],
+  "total_record_bytes": 52832,
+  "record_count": 11,
+  "DHA": "NONE"
+}

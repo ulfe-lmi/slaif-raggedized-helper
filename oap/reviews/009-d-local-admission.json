@@ -1,0 +1,39 @@
+{
+  "at": "2026-11-13T12:26:38.969006+00:00",
+  "decision": "COMPLETE_LOCAL_PURE_DEPENDENCY_ADMITTED_ORIGINAL009_PARTIAL",
+  "lane_id": "PAR-009-COHORT-METRICS-A",
+  "implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+  "SELF": "b33da3811d82d651ad711bf5878f4f7159b5fcad",
+  "report_sha256": "67a8335923c1c3968540fb3d5dbb032bd168053086e0fc9e0c6c0fac53edbc48",
+  "report_bytes": 4458,
+  "base": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+  "normal": {
+    "lane": "cohort-metrics",
+    "lane_id": "PAR-009-COHORT-METRICS-A",
+    "result": "COMPLETE",
+    "implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+    "report_commit": "b33da3811d82d651ad711bf5878f4f7159b5fcad",
+    "report_sha256": "67a8335923c1c3968540fb3d5dbb032bd168053086e0fc9e0c6c0fac53edbc48",
+    "paths": [
+      "docs/parallel/declared-cohort-metrics-api.md",
+      "docs/parallel/declared-cohort-metrics-contract.md",
+      "docs/parallel/declared-cohort-metrics-oracle.json",
+      "oap/parallel/orders/PAR-009-COHORT-METRICS-A.md",
+      "src/slaif_raggedized_helper/declared_cohort_metrics.py",
+      "tests/unit/test_declared_cohort_metrics.py"
+    ],
+    "verified_at": "2026-11-13T12:25:37.006836+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "Root_code_reviews": [
+    "audit/009-cohort-metrics-checkpoint-review-e4afb.json",
+    "audit/009-cohort-metrics-checkpoint-review-b15a.json"
+  ],
+  "other_author": "parallel/audit-cohort-metrics/report.json SHA6c8b7192037e41feb72da10a644cc9ab53221e0602676df8fbb5ec23ac277677 /Rootaudit/009-cohort-metrics-peer-root-review-6c8b.json",
+  "report_review": "Root read full immutableJSON. Literalimpl/SELF, exactsource743a/unit5a60/contracta595/oracled35/orderff16, normalizedAST andhistory19/22vs33/caps/metadata/currentfailurecorrections matchindependentreviewedactualevidence. Reportonlysoleparentb15a, implementationsoleparente6/6NEWpaths/cleantree. No reportoracceptedSELF rewritten. No source/model/rights/heldout/hardware/scale/ICA/MVP orcanonicalCI claimed. Localonly/noremotepush/PR/merge.",
+  "proof": "ONEapprovedcurrentformat/Ruff/33wholeunitPASS underCPU15AS1GiBwall90FSIZE32MiBCPU0/plainassert/cache/five1; observedGNU1.81wall1.76user.04sys44384KiBwaitedonly. Currentsource743a (fullhashinreport) andunit5a60 exactlysameGitblobsaschecked. OlduncappedAST/19/22insufficientbytespreserved. Peersemanticcounterexamples fixedwithcausalnegativeandlegitimatecomplementaryfragmentpositive.",
+  "recovery": "REPORTconsumed12:20:41afterautomaticleafgoalstalled12:19; oneverifiedsparsecapture+samecontextpostREPORTnotice restoredonlyremainingpublication, no/new/goalreset/profile/model/auth orreader/control/FIFOreplay. Finishedreportb33normal12:25:37.",
+  "strongest_counterargument": "Pureaggregation ofsuppliedunattestedgeometry isnot the source-runningcohortharness orqualifiedhumanbaseline. Boundedexactrationalmath/necessaryinvariantguardscorrected+independentreview+33PASS justifylocaldependencyonly. FullcurrentcanonicalCI/splitreport/sourceorchestration/actualproof/original009/qualification gatesremainrequired.",
+  "next": "Freezeexact5blobcanonical009dselectivepacketatb33/PR11baseb87e onlyaftercurrentlivegate; launchseparateproofsizedborrowedsource-runner33orderatimmutableb33 afternormalquiet, RootFINALcontract/path/runtimebudget. No newnumeric/merge/deploy/release.",
+  "DHA": "NONE"
+}

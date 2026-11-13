@@ -1,0 +1,65 @@
+{
+  "at": "2026-11-13T12:32:46.444101+00:00",
+  "status": "FINAL_ROOT_BINDING_FOR_SEPARATE_PROOFSIZED_RUNNER_ORDER",
+  "provenance": "H active full-MVP parallel mandate; A original009 ARCH23.4-23.7; I runnerdesignb382/currentpureotherauthor6c8b/Rootsource+normalreviewb33; E missing actual source-cohort orchestration/private split report. PureSELFb33 normal/localadmitted; separate FINAL runner order required.",
+  "dependencies": {
+    "source_runner_design": "parallel/cohort-runner-design/source-runner-contract.md SHA66c61d4f2b3a1fb5009d7f7a2904d6eb86e77a7ff33d82f9e360fb35fc3d7677",
+    "pure_implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+    "pure_source_sha256": "743a8949eb906dbf5564003c6501706f977d1b7e1682568bb81d160d683529e4",
+    "lower_base": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+    "source_SELF": "b33da3811d82d651ad711bf5878f4f7159b5fcad"
+  },
+  "binding": {
+    "pure_entry": "declared_cohort_metrics.aggregate(exacttuple((case_id,binder.geometry),...sorted),deadline_ms<=10000,max_work<=134217728,max_payload<=268435456) exactlyONCE afterALLselectedproducer/binder successes",
+    "pure_types": [
+      "Report",
+      "Ratio",
+      "CaseSummary",
+      "PrefixCase",
+      "LossCase",
+      "PrefixSummary",
+      "CountLossSummary",
+      "TransitionSummary"
+    ],
+    "pure_report_fields": "case_count,cases,prefixes,transitions,identity,checkpoint_work,checkpoint_payload,final_work,final_payload,max_work,max_payload,formula_version,source_binding,input_origin,execution,qualification,chunk_metric_reason. ExactfrozenprivateReport, notducktype/subclass/callerpatchcallback. Report.cases case_id/geometry_id exactlymatchsuccessfullyboundselectedcasepairs.",
+    "canonical_pure_payload": "Exactlytheexistingaggregateidentitytuple: formula_version,source_binding,input_origin,execution,qualification,chunk_metric_reason,max_work,max_payload,checkpoint_work,checkpoint_payload,cases,prefixes,transitions inthatorder. Pure domain is decoded pure_domain_hex below. Runnerclosedstreamencoder mayduplicatefixedprivatepayloadmapping/walk atpinnedversion; no assumedexistingpublicbyteencoder/refactor. HashinnerrawJSONwithpuredomain andverifyidentity; embedrawJSONonceplusidentity/finaltotals<=4096wrapper, noquoted/base64blob/double case summaries. Outer domain is decoded runner_domain_hex below; purecore<=1MiB, percase256*2048+header65536+4096+core <=1642496<2MiB. Finalownmetercountersoutsideouteridentity; nestedpurefinalcountersoutsidepureidentitybutcanbeinsideouter.",
+    "source_inputs": "Fullcanonicaldataset<=1MiB, <=256cases, <=512globalGold. Explicitfrozenchosen split/caseIDsFULL_ADMITTED_SPLIT vsDECLARED_SUBSET; nofailurefiltering. FullunrelatedGold passedtoeachexistingbinder; actualqueriesoneperselectedID, 4096finiteL2FP32bytes+4producerfingerprints, originalauthoritysnapshotandsuppliedcaseintersectionBEFOREproducer, restrictionspreserved, oneactualtracedhybrid(dense/lex/partition/fusionk60) andonebinder/fullData/case percase. Borrowpin/stores neverclose/acquire/publish; capturedPinDataobject/generationimmutable/root/PID/storeassociation/sourceguards retained.",
+    "failure": "Content-freeCohortRunnerError withreadonlyprogress None untilcompletevalidadmission; thenexactfrozenphase/intended/attempted/completed/refused/pending only, no caseIDs/metrics/errorpayload. SuccessN/N/N/0/0. PREFLIGHT0/0/0/Npending; casefailrefused1; aggregate/serializefailurecompletedN/refused0 phase incomplete. BaseExceptionidentityunchanged/borrowedresourcesnotclosed. Pre-reserveconstantboundedemergencyprogressconstruction atadmission beforeanydelegation soexhaustiondoesnotinventunmeteredfallback orreplaceprimary. No surviving-subsetquality."
+  },
+  "accounting_clarification": {
+    "own_vs_delegated": "OWN_OBSERVED directcalls includeinitialdataset1,pin1+N,producerN,binderN,aggregate1. SeparateSTATIC_WORSTCASE_RESERVED source/load/callee-call envelopes; successfulcallee-reportedsource_envelope/final_work/final_payload are CALLEE_REPORTED, not directinstrumentedphysicalI/O. Othertransitive5Npin/11Ncatalog etc maylabelINFERRED_SUCCESS_PATH atfixedsuccessfulABI, neverfakeOWN_OBSERVED. No globalmonkeypatch/IOinstrumentation/newpublicDTOrequired.",
+    "dataset": "Exactlyoneinitialdeadline-onlyadmit (capdeadline5000), input/returnedDTOownpassesprecharged; calleeinternalwork/copiedbytesUNMEASURED_BY_RUNNER. Existingbinder/Gold/geometrydatasetre-admissions disclosed, no inventedmax_work/max_byteskwargs/opaquefixedparserworkallowance.",
+    "source": "ExtraD17N+1,T9600N+384,U10752N+512; binderT5888N/U6400N/bytes4986555627809N/D11N. Maxat256 defaults below; Uderivedmetadata+payloadobservations NOTembeddingAPIcalls. Laterobservations4096rows/128groupsdespiteinitial512guard. LogicalPBbillnotactualresourcepermission.",
+    "domains": "Existingbinderown134Mi/256Mi includesgeometryreservation; percasegeometry67Mi/128Mi separatelylabeloverlap, neverdoublecount. Oneextraaggregate134Mi/256Mi ownreportedwork. Newrunnerlocal134Mi/256Mi independent. No sumacrossheterogeneouswork/sourcebytesasphysicalguarantee; allcapsmaylowernotraiseabovebounded256 defaults."
+  },
+  "max_budget_at_256": {
+    "source_directories": 7169,
+    "source_ingestion_loads": 3965312,
+    "source_derived_batch_loads": 4391424,
+    "source_bytes": 3391111408059907,
+    "pin_calls": 1537,
+    "producer_calls": 256,
+    "binder_calls": 256,
+    "catalog_calls": 2816,
+    "gold_calls": 256,
+    "ranking_calls": 256,
+    "geometry_calls": 256,
+    "aggregate_calls": 1,
+    "local_work": 134217728,
+    "local_payload": 268435456,
+    "binder_work": 34359738368,
+    "binder_payload": 68719476736,
+    "geometry_work": 17179869184,
+    "geometry_payload": 34359738368,
+    "aggregate_work": 134217728,
+    "aggregate_payload": 268435456
+  },
+  "proposed_implementation_scope": "Newprivate source_cohort_runner.py, onefocusedunitmodule andbriefRootcontract/API docs+unchangedinstalledorder; exactpaths/base/setup/checklimitsmustbeRootFINAL beforeactivation. PureunitcontrolledexactlowerDTOs/delegates, no source/native/model/storecalls. Separatelyfrozenactualnative4casecohortdriver/readset/fixture/paths/processbudget laterRootdecision; doNOTreusesource-stageproofallowances.",
+  "qualification": "Private IDs linkable; supplied scope/structural split/declarations/observed algorithm calls do not attest human heldout/rights/currentpolicy/qualifiedencoder/model/20k/hardware/visual/licenses/ICA/MVP. RawbaselineNOTRUN. Whole009OPEN.",
+  "DHA": "NONE",
+  "identity_domains": {
+    "pure_domain_hex": "736c6169662d6465636c617265642d636f686f72742d6d6574726963732d76310a",
+    "runner_domain_hex": "736c6169662d736f757263652d636f686f72742d72756e6e65722d76310a",
+    "interpretation": "Decode hex into actual ASCII bytes ending single LF (0a). Never hash a literal backslash+n. Pure encoding follows exact field insertion/dataclass field order at743a, rationals num/den decimal strings. No assumed public encoder."
+  }
+}

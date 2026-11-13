@@ -12,6 +12,30 @@ from test_raw_snapshot_directory_composition import materialize, restore_owned_d
 from test_raw_snapshot_files_composition import complete
 from test_raw_snapshot_rows import enc
 
+def close_owned_stores(derived, originals, failure=None):
+    """Attempt both closes; preserve a body failure and expose cleanup failures."""
+    first = None
+    failed = False
+    for store in (derived, originals):
+        if store is None:
+            continue
+        try:
+            store.close()
+        except BaseException as exc:
+            failed = True
+            if first is None:
+                first = exc
+    if failed:
+        target = failure if failure is not None else first
+        try:
+            BaseException.add_note(target, "Store close failed; cleanup may be incomplete.")
+        except BaseException:
+            pass
+        if failure is None:
+            raise first
+
+
+
 def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=False):
     from dataclasses import asdict
     from slaif_raggedized_helper import derived_store, embedding_batch_store as bs
@@ -48,9 +72,10 @@ def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=Fals
                               sha256=hashlib.sha256(third_raw).hexdigest()))
     sources = parse_manifest(json.dumps(dict(schema_version=1, sources=manifests)).encode())
     originals = OriginalStore(tmp_path / 'store')
-    revisions = [originals.admit(source_root, source) for source in sources.sources]
-    derived = derived_store.Store(tmp_path / 'store')
+    derived = None
     try:
+        revisions = [originals.admit(source_root, source) for source in sources.sources]
+        derived = derived_store.Store(tmp_path / 'store')
         policy_hash = schema.fingerprint(dict(kind='embedding-representation-policy-v1',
             policy=asdict(rr.Policy()), batch_policy=asdict(rr.BatchPolicy())))[7:]
         deps = dict(space_id='a' * 64, inventory_id='b' * 64, definition_fingerprint='c' * 64,
@@ -115,9 +140,8 @@ def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=Fals
             subset_root, _, subset_id = materialize(subset_dir, enc(subset_core), subset_payloads)
             return originals, derived, root, ident, subset_root, subset_id
         return originals, derived, root, ident
-    except BaseException:
-        derived.close()
-        originals.close()
+    except BaseException as failure:
+        close_owned_stores(derived, originals, failure)
         raise
 
 

@@ -1,0 +1,197 @@
+{
+  "at": "2026-11-13T10:56:35.038427+00:00",
+  "status": "FINAL_EXACT_SOURCE_INDEX_NO_ACTIVATION_AUTHORITY_ALONE",
+  "base": "aba42a524bbd6a8f1958b4e6a20430aca7d31ccb",
+  "source_SELF": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+  "source_implementation": "748d08b4da84a7b603d922b7c2fddececa40573f",
+  "files": [
+    {
+      "path": "docs/parallel/raw-text-stage-composition-inputs.json",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "a734823f9ce6f95c34d2e7aa735858015ecee34e",
+      "bytes": 1764,
+      "sha256": "237d319a3eb1e6e4b3f537d1457c9b4b7cf645ea62678543b5fffd184f23efa0",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/raw-text-stage-support-api.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "f8d62b9763d69fdf6d5ed8b7298a9776048e5de6",
+      "bytes": 2497,
+      "sha256": "a17f120e6a839dfcadc669e69a67cd0e3eb73cf0e1e100204fe0972467c758e7",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/raw-text-stage-support-composition.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "14f24daf45b7a776e8792bcd3f4041195a608fb8",
+      "bytes": 2947,
+      "sha256": "423c36c61bc2b42f9623527ddf59a583de6045202163cef6757364fc3075e8e8",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/raw-text-stage-support-contract.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "c4bd31a4c93a2544dec10569754ebc5a0868d2a1",
+      "bytes": 12459,
+      "sha256": "430da92f548789ef57409d8e38debf5a21f84063bd4505a41029536bfd571e40",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-support-ci-preparation.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "57a137eee33928efc8655ce54262d1d6a3649976",
+      "bytes": 3116,
+      "sha256": "2c35c761cce4caf40b031e06b197342817fe0bee76d7a1727f844e0016d4f554",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/raw_text_stage_support.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "caa2a720f2366e3ae7d16b70e6f7fed243f83b3b",
+      "bytes": 23912,
+      "sha256": "b49506f4dbb3ef5567ddf35fa12af68033141411d7b22c092db057461ccbb81e",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/integration/test_raw_hybrid_search_composition.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "34be1e8a320f9fbb9d55b54ad80aa8d43e1fa507",
+      "bytes": 19567,
+      "sha256": "2454e240155e211313f00862cb9b4a686f2e95e26d269e27a7e7e07cc9272620",
+      "disposition": "MODIFY",
+      "expected_preimage_sha256": "d4cdcb97059330b9650cd4facb0f1840d8cf5fecd4719992077f4912ed45a193"
+    },
+    {
+      "path": "tests/integration/test_raw_text_stage_support_composition.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "4627e8cf23b31edee17a38dd41434c4e3706d5eb",
+      "bytes": 14313,
+      "sha256": "b3a9e55e626955dd06602753d67db446eef4bb79f4f829fb482fc1d3616cbb31",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/integration/test_source_bound_support_ci_cleanup.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "17ac372dd572258d2a3bb3ec3c4d16121715cf48",
+      "bytes": 5984,
+      "sha256": "af68d4076dea8f0e4572aa734d16ff4d19192a35b0869666484bab1ea4036ab9",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/integration/test_source_bound_support_ci_composition.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "6d8496363a284810308be8ca1f00e805e88d2135",
+      "bytes": 10654,
+      "sha256": "ad6d3a1f7a669deb73fd972185dab92ba3938a215c4940363ef48f8b387ad854",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_raw_text_stage_support.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "8eddb61f9d8ed65e61be31239c034521d5478647",
+      "bytes": 24290,
+      "sha256": "1b7c0f837f37134157867226084a288891faffc62f9fa416af9d2f34441e31ca",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/declared-stage-geometry-api.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "b44da930158ecac4699296904970458941c441d5",
+      "bytes": 3424,
+      "sha256": "0914025227a27b40ca09085c536d89ca745c71c79f158096c34b414e90e8b01b",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/declared-stage-geometry-contract.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "05af2d7d44a2afd5537302eb980e80e953b98ffb",
+      "bytes": 12410,
+      "sha256": "6f6eab755faae89e071a39819510523d9986a9a3a89409695e699750c569e82b",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/declared_stage_geometry.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "d640937ff86fb50d486111d73ff6d54e5c4801e4",
+      "bytes": 13646,
+      "sha256": "dab6028be785fdb820b1179fce0998d6ba9fcda20264e42ee699c8d68a5c048f",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_declared_stage_geometry.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "2fb27088a06b129508f3994c573234d6f92c9cd5",
+      "bytes": 22894,
+      "sha256": "eec351ff2a83e473f0a33760f61d3fbf32dba8abecb31a9e0a5903a976d97186",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/source_bound_stage_loss.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "25f5aef639a38859481ef87fd690a2e364e33557",
+      "bytes": 89506,
+      "sha256": "168fca4b151c01c89a66ac1fe50d907758fe8402ea24c0c30303a9aea92773b8",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_source_bound_stage_loss.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "6d2e7aea5919ad6fe45662998eb58c0efee33f26",
+      "bytes": 63336,
+      "sha256": "b6b10890ef8697e47d5b493a5fecbf914144f5124dcc0945f0c43f26e7d0e41a",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-raw-stage-loss-api.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "5e65b72887b8d65b8352ba4d4d8504557e92bd45",
+      "bytes": 2975,
+      "sha256": "fee62ae43b02316ff77e08ab154bdb5f4c94a0baf7b7122c5fd028925715bd7d",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-raw-stage-loss-contract.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "188880491f85696a3102591287c9ee8e0a690ae2",
+      "bytes": 27494,
+      "sha256": "a6508bb44ecf0c4a68d06353b09e1c5c440dc829251bf69032f5706622cffa5f",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/integration/test_source_bound_stage_loss_composition.py",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "f0329749dcb2cf0d55247c7128575196b65d539d",
+      "bytes": 27919,
+      "sha256": "02c19ff566a426ea5e513d022d52f47f63040b0d0d958cdc9a9c2879f1b760c6",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-stage-proof-composition.md",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "3a377444af25ec0ef297189fbdfe06b6558fe38b",
+      "bytes": 3835,
+      "sha256": "b924d5387fbf54d2c1985a7b2fde99b78817f6c1b26d97c81042c681bde20558",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-stage-proof-inputs.json",
+      "source_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "git_blob": "332c790e99adc19c38d742086c4d3487776c193f",
+      "bytes": 6173,
+      "sha256": "1ae8950605c842e37939420df78bc996f56b33fddf5342c3f0704cf71bad7b3d",
+      "disposition": "NEW"
+    }
+  ],
+  "total_bytes": 395115,
+  "file_count": 22,
+  "source_admissions": [
+    "parallel/stage-join/review.json",
+    "parallel/declared-stage-geometry/local-admission.json",
+    "parallel/raw-text-stage-composition/local-admission.json",
+    "parallel/source-bound-stage-loss/local-admission.json",
+    "parallel/source-stage-proof/local-admission.json"
+  ],
+  "scope": "Byte-exact22reviewedproduct/doc/testblobs ONLY; no wholebranch/cherry-pick/ancestry transfer. One existing hybrid fixture MODIFY with exactpreimage;21NEW. Preserve canonical portable datasetunitb00aa74f. Final Rootorder/publication/livegate still needed.",
+  "DHA": "NONE"
+}
