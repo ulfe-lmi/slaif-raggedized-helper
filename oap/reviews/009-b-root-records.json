@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-13T08:56:17.793479+00:00",
+  "identifier": "009-b",
+  "base": "21a3cbd12b8164ec21ba3b6a0b78104d0663c8e1",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-a-source-report-review-21a3.json",
+      "target": "oap/reviews/009-b-prior-source-review.json",
+      "bytes": 1971,
+      "sha256": "bd5ed57379a08fca90ec86eb28597b05ce7c85e48197ee762963179ab57b7e55"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-a-ci-failure-reconciliation-21a3.json",
+      "target": "oap/reviews/009-b-prior-ci-failure.json",
+      "bytes": 1510,
+      "sha256": "4e28e79dd5c7b9f75df97e5cd3600d75b38fc911981199f82f62299b96a3fb2a"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-b-ci-correction-replan.json",
+      "target": "oap/reviews/009-b-replan.json",
+      "bytes": 1202,
+      "sha256": "d18981d058b91b31057b8aae20766b6efc4435ac2ea78aa061dfc5fd68ce187b"
+    }
+  ],
+  "total_record_bytes": 4683,
+  "record_count": 3,
+  "DHA": "NONE"
+}

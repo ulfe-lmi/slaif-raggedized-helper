@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T08:56:17.793479+00:00",
+  "decision": "D0_CORRECT_FAILED009A_SAMEPR11_SAME_NUMERIC_OBJECTIVE_NOT_ACCEPTANCE",
+  "base": "21a3cbd12b8164ec21ba3b6a0b78104d0663c8e1",
+  "evidence": "audit/009-a-ci-failure-reconciliation-21a3.json",
+  "scope": "009-b only dataclasses.replace test expects bothTypeError/ValueError; productsemanticsandallotherassertionsunchanged. Onefocusedexistingdatasetmodule+oneRuffbounded; no setup/capraise/skip/deps/workflow.",
+  "CI_boundary": "009-a Product312 actualunitFAIL andlaterrequiredstepsSKIPPED is decisive nonacceptance evenifotherlegstillpending; no needwaithumans/retryoldrun. Preserveotherleg final independently; allrequirednewhead5jobs/ALLstepsmustsucceed. Futurecanonical9c maynotactivatefrompendingredchecks.",
+  "rescope": "Prior15file173877B008bridge+puregeometryDRAFTtentative009-b neveractivated; defer it to later009-c orsubsequentafterCI. Rootjoinedindex audit/009-b-components-joined-DRAFT.json remainsinertarchivalpreparation, notvalid9border.",
+  "outstanding": "Whole009stage-setloss/meaningfulness/sourcebinder andrealrights/humanheldout/model/hardware/visual/licenses/ICA/MVP remainopen; no010/merge/release.",
+  "DHA": "NONE"
+}
