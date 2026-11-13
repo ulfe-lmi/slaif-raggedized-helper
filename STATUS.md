@@ -466,6 +466,37 @@ open on the 007 PR, branch
   this round and current final-head CI (pending) are the
   evidence boundary; whole 008 remains PARTIAL, no merge.
 
+- 008-d (CI process observation; same PR 10/branch,
+  transcript-first): test-only repair of the narrowly observed
+  actual 3.14 CI failure at the 008-c report head 322c7fe0 (run
+  43368073059, job 131697112168) — the preserved
+  test_timeout_kills_owned_descendant post-kill observer
+  _descendant_gone caught only FileNotFoundError while the
+  runner raised ProcessLookupError/ESRCH; the observer now
+  accepts exactly the two absence classes (ENOENT, ESRCH) and
+  keeps the direct stat read, zombie observation and
+  live-state refusal (no broad except, existence precheck,
+  retry, sleep increase, deadline/cap change, skip or fixture
+  rewrite), with two new deterministic regressions
+  (parameterized errno-bearing ENOENT/ESRCH absence cases, and
+  live S false / zombie Z true / PermissionError-EPERM and
+  OSError-EIO propagate, one read each) and the unchanged real
+  timeout test; no product module, setup.run/cleanup, other
+  test, CI, dependency, profile, architecture, law, prior
+  report or source-book change; one bounded local pytest
+  process (four node IDs, five cases passed, exit 0, 1.18 s
+  elapsed under CPU 10 s / AS 1 GiB / wall 30 s / affinity 0 /
+  five thread vars 1 / closed env, pinned Python 3.14.4 +
+  pytest 8.4.2; private fsync'd preflight/argv/env/caps guard,
+  split stdout/stderr, GNU time and exit records) plus
+  optional static AST/compile checks; new
+  docs/ci-proc-observation.md explains the actual old-3.14
+  failure, the observer-only fix, the exact local evidence and
+  the current final-head CI status; the old failed 3.14
+  artifacts are preserved unchanged (not marked green
+  retrospectively); current final-head CI (pending) is the
+  evidence boundary; whole 008 remains PARTIAL, no merge.
+
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice

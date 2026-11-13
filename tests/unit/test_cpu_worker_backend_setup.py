@@ -146,7 +146,7 @@ def test_cleanup_once_interrupted_retries_and_preserves_interrupt(monkeypatch):
 def _descendant_gone(stat):
     try:
         state = stat.read_text().rsplit(')', 1)[1].split()[0]
-    except FileNotFoundError:
+    except (FileNotFoundError, ProcessLookupError):
         return True
     return state == 'Z'
 
@@ -168,6 +168,71 @@ def test_descendant_disappearance_boundary():
             return '123 (child) S 1'
 
     assert not _descendant_gone(Live())
+
+
+@pytest.mark.parametrize('error', [
+    FileNotFoundError(2, 'No such file or directory'),
+    ProcessLookupError(3, 'No such process'),
+], ids=['enoent', 'esrch'])
+def test_descendant_absence_errors(error):
+    class Stat:
+        calls = 0
+
+        def read_text(self):
+            self.calls += 1
+            raise error
+
+    stat = Stat()
+    assert _descendant_gone(stat)
+    assert stat.calls == 1
+
+
+def test_descendant_observation_rejects_live_and_unexpected_errors():
+    class Live:
+        calls = 0
+
+        def read_text(self):
+            self.calls += 1
+            return '123 (child) S 1'
+
+    live = Live()
+    assert not _descendant_gone(live)
+    assert live.calls == 1
+
+    class Zombie:
+        calls = 0
+
+        def read_text(self):
+            self.calls += 1
+            return '123 (child) Z 1'
+
+    zombie = Zombie()
+    assert _descendant_gone(zombie)
+    assert zombie.calls == 1
+
+    class EPERM:
+        calls = 0
+
+        def read_text(self):
+            self.calls += 1
+            raise PermissionError(1, 'Operation not permitted')
+
+    perm = EPERM()
+    with pytest.raises(PermissionError):
+        _descendant_gone(perm)
+    assert perm.calls == 1
+
+    class EIO:
+        calls = 0
+
+        def read_text(self):
+            self.calls += 1
+            raise OSError(5, 'Input/output error')
+
+    eio = EIO()
+    with pytest.raises(OSError):
+        _descendant_gone(eio)
+    assert eio.calls == 1
 
 
 def test_timeout_kills_owned_descendant(tmp_path):
