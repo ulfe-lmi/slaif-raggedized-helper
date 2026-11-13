@@ -1,4 +1,4 @@
-# Raw retrieval snapshot foundation, source construction and publication reader (objectives 008-a, 008-b, 008-c)
+# Raw retrieval snapshot foundation, source construction, publication reader and raw scoring (objectives 008-a, 008-b, 008-c, 008-e)
 
 This document is the nonroutine retrieval reference for the bounded 008
 foundation, source-construction and publication-reader slices. The routine
@@ -262,6 +262,89 @@ deadlines are cooperative.
   unlink decision; the owners are final (not subclassable); ordinary
   refusals are content-free `PinError`.
 
+## Actual callable scoring layer (008-e, what exists now)
+
+Four private DATA scoring modules import over the 008-c catalog and row
+layers. The lexical and hybrid paths require the exact pinned backends
+(NumPy 2.5.4, bm25s 0.2.14, SciPy 1.18.1) and refuse on absence or
+mismatch. None has a CLI, application or serving entrypoint; all score
+unqualified snapshot DATA and grant no authorization.
+
+- `raw_dense_search.search(originals, derived, store_root, snapshot_id,
+  query_payload, *, query_space_id, query_definition_fingerprint,
+  query_policy_id, query_execution_fingerprint, grants,
+  restrictions=None, k=60, partition_cap=60, deadline_ms=120000)`: the
+  query is exactly 4,096 bytes of finite normalized 1024-D
+  little-endian float32 (norm tolerance 1e-4) and the four declared
+  encoder IDs must equal the snapshot core embedding fields including
+  the exact query execution domain. Authorized partitions select rows
+  before any dot-product scoring; ranking is descending float32 score
+  then chunk/revision/representation ID with per-partition then global
+  caps (exact integers 1-60). Frozen `DenseResult` carries
+  eligible/selected/returned, both cap flags, `SUPPLIED_UNVERIFIED`
+  origin and `NOT_QUALIFIED` qualification; failures are content-free
+  `DenseSearchError` under a cooperative deadline.
+- `raw_lexical_search.search(originals, derived, store_root, snapshot_id,
+  text, *, grants, restrictions=None, k=60, partition_cap=60,
+  deadline_ms=120000)`: one ephemeral Lucene BM25 scorer
+  (method/idf_method=lucene, k1=1.5, b=0.75, delta=0.5, float32/int32,
+  numpy backend) over the stored rendered terms of the authorized union,
+  using the existing default technical analyzer (prefixed ID compared to
+  the core fingerprint); no scorer is retained. Finite limits: 8,192
+  query codepoints, 2,048 query terms, 200,000 stored allowed terms,
+  100,000 vocabulary terms, 200,000 postings, 4,000,000 query-document
+  work units; content-free `LexicalSearchError`.
+- `raw_rank_fusion.fuse(originals, derived, store_root, snapshot_id,
+  query_id, *, dense, lexical, grants, restrictions=None, k=60,
+  deadline_ms=120000)`: independently captured supplied
+  `Ranking`/`Entry` lists (at most 60 contiguous entries per modality,
+  no duplicate row or representation); every candidate must match the
+  actual catalog and pass `reader_allows` before any contribution.
+  Equal-weight RRF sums `1/(60+rank)` per supplied modality; raw scores
+  are never added. Both-unavailable refuses, one-unavailable marks
+  `degraded`; frozen `FusionResult` carries candidate/overlap/returned
+  counts, `ranking_origin` `SUPPLIED_UNVERIFIED`, `NOT_QUALIFIED` and
+  `global_cap_applied`.
+- `raw_hybrid_search.search(originals, derived, store_root, snapshot_id,
+  text, query_payload, *, the four declared encoder IDs, grants,
+  restrictions=None, dense_k=60, lexical_k=60, partition_cap=60, k=60,
+  deadline_ms=120000)`: runs the actual dense, lexical and fusion stages
+  in sequence on one named snapshot under one cooperative deadline,
+  loading the complete catalog before the engines and again after
+  fusion (eight catalog loads per successful journey); any stage failure
+  refuses the whole request with content-free `HybridSearchError`.
+  Frozen `HybridResult` binds kind `raw-hybrid-query/v1`,
+  snapshot/catalog IDs, both query hashes, all four declared encoder
+  IDs, authority SHA-256 over canonical JSON `[grants, restrictions]`
+  and the four cap values.
+
+The keyword-only `trace` parameter (default `False`, exact boolean)
+forwards to the one dense and one lexical search used by fusion; when
+false the nested trace values stay `None`, when true the private lower
+traces are admitted, checked against the actual results, request,
+counts and returned identities and linked before fusion, with no new
+top-level field and unchanged `query_id` preimage. Trace records carry
+fixed defaults `input_origin` `SUPPLIED_UNVERIFIED`, `qualification`
+`NOT_QUALIFIED`, dense `authorization_status`
+`SUPPLIED_SCOPE_CHECKS_ONLY` and `execution_status` `NOT_ATTESTED`:
+supplied origins and unattested execution are not actual
+authentication, neural provenance or current rights.
+
+Query-execution binding is declared data, not observed execution: the
+payload and the four encoder IDs must equal the snapshot core's
+declared embedding fields exactly, and mismatch, source/catalog
+change, invalid or oversize input, deadline overrun or backend mismatch
+refuse the whole request fail-closed. Grants/restrictions are static
+trusted-caller data; None grants or unknown source version deny.
+
+Still absent after 008-e: the completion-locator/construction wrapper
+join, any usable pinned-query or scoped query entrypoint, the
+application/serving constructor and current-service integration,
+principal/current-policy enforcement and every qualification gate.
+The private directory, selected-data, catalog and pin readers remain
+the only readers; nothing here serves, scores an answer or authorizes
+access, and no blanket no-reader claim is made for the private layers.
+
 ## Absent as of 008-c (not implemented, not implied)
 
 No completion-locator or construction wrapper yet, no snapshot
@@ -344,11 +427,16 @@ is introduced.
 
 ## Remaining 008 scope (later same-PR waves, strategy-activated)
 
-Completion-locator/construction wrapper over the 008-c publication-reader
-layer; actual dense/BM25/RRF/hybrid dependencies; usable scoped query,
-operator and current-policy integration; scoring; final whole-008 criteria
-review. The transferred publication-reader modules do not close those
-interfaces. Model/tokenizer/runtime pinning and the independent-tokenizer
-obligation remain architecture invariants; objective 014's authenticated
-principal boundary cannot waive these pre-scoring scope checks. New direct
-or transitive dependencies: NONE (stdlib plus the already locked NumPy).
+Completion-locator/construction wrapper join over the 008-c
+publication-reader layer and the 008-e scoring modules; usable scoped
+query, operator and current-policy integration; the application/serving
+constructor and pinned-query entrypoint; final whole-008 criteria
+review. The transferred scoring modules do not close those interfaces:
+no construction/query join, no current-service path and no current
+principal or policy enforcement exist yet. Model/tokenizer/runtime
+pinning and the independent-tokenizer obligation remain architecture
+invariants; objective 014's authenticated principal boundary cannot
+waive these pre-scoring scope checks. Direct dependencies after 008-e:
+the already locked set plus exactly the two pinned additions bm25s
+0.2.14 and SciPy 1.18.1 (no old package version removed or changed, no
+lock regeneration); otherwise stdlib plus the already locked NumPy.

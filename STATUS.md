@@ -496,7 +496,47 @@ open on the 007 PR, branch
   artifacts are preserved unchanged (not marked green
   retrospectively); current final-head CI (pending) is the
   evidence boundary; whole 008 remains PARTIAL, no merge.
+  Current correction per the Root 008-d evidence replan: the
+  private harness directory reset, check-cat guard and uncapped
+  metadata/fsync/pytest-version probes do not establish one-shot
+  provenance, so LOCAL-008D-ONE-SHOT-ATTESTATION remains UNPROVEN
+  permanently and the harness is never rerun or reused; that round
+  moved 9 paths excluding its own report and 10 including it
+  (immutable report preserved); the old 3.14 failure stays
+  preserved, not green.
 
+- 008-e (raw scoring transfer; same PR 10/branch,
+  transcript-first): byte-exact 37-file transfer (451,715 B) of the
+  Root-reviewed donor SELF b289e8d9 per
+  oap/reviews/008-e-scoring-components.json — four production
+  modules (raw_dense_search, raw_lexical_search, raw_rank_fusion,
+  raw_hybrid_search), seven unit and seven integration suites,
+  seventeen docs/parallel contracts, and two dependency metadata
+  files (only bm25s 0.2.14 + SciPy 1.18.1 added; no old package
+  version removed or changed; no lock regeneration) — with exactly
+  one narrow test-fixture portability adaptation ordered by the Root
+  D0 addendum oap/reviews/008-e-portability-addendum.md:
+  tests/integration/test_raw_hybrid_trace_composition.py calls the
+  inherited test_native_tokenizers.make_native once before its
+  subprocess guard, verifies the two pinned artifact hashes and
+  drops the hard-coded private witness cache, while all other 36
+  indexed files stay byte-exact. Transcript commit carries the
+  unchanged FINAL order, active 008-e+LF, nine exact Root records
+  (29,999 B), the exact index and the unchanged addendum (13
+  paths); three current docs updated (retrieval 008-e scoring
+  section, this STATUS entry, ci-proc-observation corrections and
+  portability note). Static Git/hash/AST/metadata checks only: no
+  local product, unit, integration, collection, import, setup,
+  model, store or scorer process; the full unchanged hosted CI
+  supplies new-head behavior (pending). Authorized partitions,
+  normalized 1024-D CPU vectors, pinned Lucene BM25/technical
+  analyzer, deterministic caps and RRF 60 with no raw-score
+  addition, fail-closed source/catalog/ACL binding and supplied
+  (unverified, not attested) trace origins are preserved; the
+  completion-locator/construction and query joins, the
+  application/serving constructor, pinned-query entrypoint,
+  current-service and current-principal/policy gates remain
+  absent. Whole 008 remains PARTIAL, no merge.
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice

@@ -1,0 +1,128 @@
+{
+  "status": "ROOT_LITERAL_SYMBOLIC_ORACLE_NOT_EXECUTED_MODEL_OR_STORE",
+  "rrf_constant": 60,
+  "ids": {
+    "A1": {
+      "ordinal": 0,
+      "partition": "A",
+      "chunk_id": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "revision_id": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+      "representation_id": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "A2": {
+      "ordinal": 1,
+      "partition": "A",
+      "chunk_id": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "revision_id": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+      "representation_id": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "B1": {
+      "ordinal": 2,
+      "partition": "B",
+      "chunk_id": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "revision_id": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+      "representation_id": "3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "B2": {
+      "ordinal": 3,
+      "partition": "B",
+      "chunk_id": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "revision_id": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+      "representation_id": "4444444444444444444444444444444444444444444444444444444444444444"
+    }
+  },
+  "dense": {
+    "eligible": [
+      "A1",
+      "A2",
+      "B1",
+      "B2"
+    ],
+    "partition_ranked": {
+      "A": [
+        "A1",
+        "A2"
+      ],
+      "B": [
+        "B1",
+        "B2"
+      ]
+    },
+    "partition_cap": 1,
+    "selected": [
+      "A1",
+      "B1"
+    ],
+    "returned": [
+      "A1",
+      "B1"
+    ],
+    "eligible_count": 4,
+    "selected_count": 2
+  },
+  "lexical": {
+    "eligible": [
+      "A1",
+      "A2",
+      "B1",
+      "B2"
+    ],
+    "partition_ranked_matching": {
+      "A": [
+        "A2"
+      ],
+      "B": [
+        "B1"
+      ]
+    },
+    "partition_cap": 1,
+    "selected": [
+      "A2",
+      "B1"
+    ],
+    "returned": [
+      "A2",
+      "B1"
+    ],
+    "eligible_count": 4,
+    "matching_count": 2
+  },
+  "fusion": {
+    "k": 3,
+    "order": [
+      "B1",
+      "A1",
+      "A2"
+    ],
+    "scores_exact_rational": [
+      "1/31",
+      "1/61",
+      "1/61"
+    ],
+    "dense_input": 2,
+    "lexical_input": 2,
+    "unique": 3,
+    "overlap": 1,
+    "returned": 3
+  },
+  "support_followon_math_only": {
+    "requirements": [
+      "A1",
+      "(A2 AND B1) OR B2"
+    ],
+    "denominator": 2,
+    "support_at_cutoffs": {
+      "1": "0/2",
+      "2": "1/2",
+      "3": "2/2"
+    },
+    "warning": "Symbolic single-atom IDs here only; actual original-span requirements need separately source-bound revision/extraction/block intervals. No automatic Gold metrics mapping."
+  },
+  "limits": [
+    "scores here RRF rational only; no BM25/neural claim",
+    "supplied vectors and static grants do not establish current policy",
+    "same question/caps/identities trace toggle must preserve query ID and ranks",
+    "asdict adds nested trace keys; traceNone not omitted",
+    "DHA NONE"
+  ]
+}
