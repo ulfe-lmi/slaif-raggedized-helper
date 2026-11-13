@@ -2,15 +2,20 @@
 
 ## Current state (2026-11-13)
 
-- Current (2026-11-13): active objective 008, current slice 008-f
+- Current (2026-11-13): active objective 008, current slice 008-g
   (same PR 10/branch oap/008-raw-hybrid-snapshots, transcript-first).
   Objective 007 is complete and merged to main as PR #9 (merge commit
   1a8fddf8); the 007-a..007-v entries below are historical round
   records retained for traceability. The private
   completion-locator/construction wrapper join and pinned-query
-  composition now exist (008-f); public serving, current
-  principal/current policy, evidence delivery and real qualification
-  remain absent/open. Whole 008 remains PARTIAL; no merge.
+  composition exist (008-f); 008-g bounds the diagnostic parameter IDs
+  of the completion-locator invalid-program tests (test metadata only,
+  payloads byte-identical) after the 008-f report-head CI failure
+  (pytest session-finish cache/nodeids write, OSError errno 27; no
+  failed assertion in the logs; later product steps SKIPPED). Public
+  serving, current principal/current policy, evidence delivery and real
+  qualification remain absent/open. Whole 008 remains PARTIAL; no
+  merge.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
@@ -584,6 +589,51 @@ open on the 007 PR, branch
   report head (all five jobs, unit + integration on 3.12/3.14) is the
   evidence boundary and remains pending. Whole 008 remains PARTIAL, no
   merge.
+
+- 008-g (bounded pytest parameter IDs; same PR 10/branch,
+  transcript-first): test-metadata-only repair of
+  tests/unit/test_raw_snapshot_completion_locator.py — the
+  test_bad_program_refused parametrize gained six stable unique short
+  IDs (empty, malformed-json, trailing-newline, mutable-bytes,
+  bytes-subclass, oversized-program); all six payload expressions are
+  byte-identical (including b"x" * 16777217), case cardinality is
+  unchanged (6), and the module AST equals the base after removing the
+  one ids keyword. The transcript commit carries the unchanged FINAL
+  order (d3f220b3…), active 008-g+LF, three exact Root records
+  (3,722 B) and the exact index (1,100 B, SHA-256 a2eb1596…; 6 paths);
+  the implementation commit carries the test file plus only
+  docs/ci-parameter-ids.md (new), docs/retrieval.md and STATUS.md
+  (4 paths). Bounded local evidence under owned disposable children
+  (CPU 10 s / AS 1 GiB / wall 60 s / affinity 0 / five thread vars = 1 /
+  closed env / bytecode + third-party plugin autoload disabled, built-in
+  cache provider enabled / deliberately lowered 1 MiB child file-size
+  limit / fresh 0700 scratches): one pre-edit collect-only (51 collected,
+  max node-ID 16,777,295 chars — the serialized oversized payload; no
+  cache/nodeids write under collect-only in pytest 8.4.2, no error), one
+  post-edit full module run (51 passed in 0.42 s, exit 0, session finish
+  and cache write succeeded; cache/v/cache/nodeids 4,601 B, max node-ID
+  95 chars), static AST/hash checks and one ruff 0.17.4 (SHA-256
+  4ef33997…) pass on the changed file. Honest attempt history: FOUR
+  attempted pytest processes (A usage-fail before collection, A2 old
+  collect, B pre-correction full run, F the D0-permitted final run);
+  A2 and B preceded the Root correction records and are preserved
+  without replay; no further runtime is authorized or performed.
+  Preserved 008-f record: report-head CI run 43383127224 at head
+  5509c6ba failed both Product jobs (3.12 job 131745302976, 3.14 job
+  131745303383) in the pytest session-finish cache/nodeids write
+  (OSError errno 27) after unit progress 100%, with no failed assertion
+  in the logs and all later product steps SKIPPED (not pass); three OAP
+  jobs succeeded; the failure, raw logs and immutable 008-f report are
+  preserved unchanged, not accepted or retried. The exact original CI
+  file-size limit value was NOT measured (an inherited RLIMIT_FSIZE
+  remains an unverified inference); no cap was raised or changed. All
+  local evidence is synthetic owned-test-infrastructure proof, not a
+  CI-ceiling measurement and not model evidence; see
+  docs/ci-parameter-ids.md. No merge, no cherry-pick/reset/clean/stash/
+  switch/rebase/force push. The full unchanged hosted CI at the new
+  report head (all five jobs, all steps, unit + integration on
+  3.12/3.14) is the evidence boundary and remains pending. Whole 008
+  remains PARTIAL, no merge.
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice

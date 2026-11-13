@@ -1,4 +1,4 @@
-# Raw retrieval snapshot foundation, source construction, publication reader and raw scoring (objectives 008-a, 008-b, 008-c, 008-e, 008-f)
+# Raw retrieval snapshot foundation, source construction, publication reader and raw scoring (objectives 008-a, 008-b, 008-c, 008-e, 008-f, 008-g)
 
 This document is the nonroutine retrieval reference for the bounded 008
 foundation, source-construction and publication-reader slices. The routine
@@ -472,20 +472,34 @@ composition were later transferred in 008-f (section above).
 
 ## Evidence: current versus historical
 
-- This round (008-f) ran NO local product, unit, integration, native,
-  store, model or diagnostic process: static Git/hash/AST/JSON/metadata and
-  governance checks only, plus the unchanged normal hosted CI triggered by
-  the final-head push (full unit and integration suites on Python 3.12 and
-  3.14 plus the three OAP jobs). The 008-e report-head CI run 43377547440
-  at head 50a85ac is recorded terminal-failed per
-  `oap/reviews/008-f-prior-ci-failure-replan.json`: both Product jobs
-  (3.12 job 131727449278, 3.14 job 131727448752) failed the lint step on
-  the one 101-character docstring line (E501, line 47) of the adapted
-  trace fixture and every later product step was SKIPPED, not pass; the
-  three OAP jobs succeeded. That failure and its raw log are preserved
-  unchanged, not accepted or retried; the single overlong line was
-  repaired format-only (AST-identical) in this 008-f transfer, and
-  new-head CI remains pending.
+- This round (008-g) is a test-metadata-only repair in
+  `tests/unit/test_raw_snapshot_completion_locator.py`: six stable unique
+  short parameter IDs for `test_bad_program_refused`
+  (`empty`, `malformed-json`, `trailing-newline`, `mutable-bytes`,
+  `bytes-subclass`, `oversized-program`) with all six payload expressions
+  byte-identical (including `b"x" * 16777217`) and case cardinality
+  unchanged; plus `docs/ci-parameter-ids.md` (new), this document and
+  STATUS.md. The 008-f report-head CI run 43383127224 at head 5509c6ba is
+  recorded terminal-failed per `oap/reviews/008-g-prior-ci-failure.json`:
+  both Product jobs (3.12 job 131745302976, 3.14 job 131745303383) passed
+  lint/syntax and then failed in the pytest session finish (cache
+  provider) writing `cache/nodeids` with `OSError` errno 27 after unit
+  progress 100%; the logs show no failed test assertion (diagnostic/cache
+  write failure, not a product assertion failure), every later Product
+  step was SKIPPED, not pass, and the three OAP jobs succeeded. That
+  failure, its raw logs and the immutable 008-f report are preserved
+  unchanged, not accepted or retried; new-head CI remains pending. The
+  previous 008-e record (run 43377547440 at head 50a85ac: both Product
+  jobs failed the lint step on the one 101-character docstring line, all
+  later product steps SKIPPED, three OAP jobs succeeded) remains as
+  preserved history. Bounded local evidence for 008-g (old collect-only:
+  51 collected, max node-ID 16,777,295 chars; final full module run:
+  51 passed, cache write 4,601 B, max node-ID 95 chars, under a
+  deliberately lowered 1 MiB child file-size limit; ruff 0.17.4 clean)
+  is recorded in `docs/ci-parameter-ids.md` with its full four-attempt
+  procedural history; it is synthetic owned-test-infrastructure proof,
+  not a measurement of the original CI ceiling and not full CI
+  acceptance.
 - The 008-b report-head CI is recorded terminal at `d9ef6b4c` per
   `oap/reviews/008-b-ci-terminal.json`: run 43362986520, all five jobs / all
   78 steps SUCCESS with the full normal suites on both Product 3.12/3.14

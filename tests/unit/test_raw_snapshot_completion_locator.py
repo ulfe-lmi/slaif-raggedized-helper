@@ -155,6 +155,14 @@ class ResultSubclass(executor.CorpusResult):
 @pytest.mark.parametrize(
     "bad",
     [b"", b"{}", PROGRAM + b"\n", bytearray(PROGRAM), BytesSubclass(PROGRAM), b"x" * 16777217],
+    ids=[
+        "empty",
+        "malformed-json",
+        "trailing-newline",
+        "mutable-bytes",
+        "bytes-subclass",
+        "oversized-program",
+    ],
 )
 def test_bad_program_refused(bad):
     with pytest.raises(locator.CompletionLocatorError, match="^completion locator refused$"):
