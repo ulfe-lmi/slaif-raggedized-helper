@@ -1,0 +1,82 @@
+{
+  "at": "2026-11-13T05:45:37.292060+00:00",
+  "identifier": "008-d",
+  "state": "NARROW_TEST_CODE_BEHAVIOR_ACCEPTED_UNDER_EXPLICIT_REPLAN_SAME008_CONTINUATION_REQUIRED",
+  "PR": {
+    "baseRefName": "main",
+    "headRefName": "oap/008-raw-hybrid-snapshots",
+    "headRefOid": "c3e36dae37966958cf30d8f6bb5df221a26f0d14",
+    "isDraft": false,
+    "number": 10,
+    "reviews": [],
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-13T05:16:59Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43370945412/job/131706290235",
+        "name": "OAP tests (Python 3.12)",
+        "startedAt": "2026-11-13T05:16:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-13T05:16:56Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43370945412/job/131706290462",
+        "name": "OAP tests (Python 3.13)",
+        "startedAt": "2026-11-13T05:16:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-13T05:16:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43370945412/job/131706290547",
+        "name": "OAP tests (Python 3.14)",
+        "startedAt": "2026-11-13T05:16:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-13T05:30:56Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43370945412/job/131706290610",
+        "name": "Product tests (Python 3.12)",
+        "startedAt": "2026-11-13T05:16:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-11-13T05:30:55Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43370945412/job/131706290524",
+        "name": "Product tests (Python 3.14)",
+        "startedAt": "2026-11-13T05:16:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/pull/10"
+  },
+  "review_threads": {
+    "nodes": [],
+    "pageInfo": {
+      "hasNextPage": false
+    }
+  },
+  "source_review": "audit/008-d-root-review-preliminary-c3e3.json",
+  "independent_peer": "parallel/audit-008d-source-evidence/review.json",
+  "current_CI": "audit/008-d-ci-terminal-c3e3.json",
+  "historical_local_attestation": "UNPROVEN permanently; unsafe private harness never rerun. Five inner-capped cases positive only. No evidence actual prior directory data deleted; no such absence claim.",
+  "evidence_replan": "audit/008-d-local-proof-evidence-replan.json",
+  "strongest_reason_not_to_merge": "Unsafe private harness history and inaccurate current procedure/count/kill-dispatch statements remain; full original008 construction/query/criteria not yet satisfied. Green CI cannot repair those facts.",
+  "development_continuation_basis": "Exact exception tuple/deterministic negative cases independently inspected, old real owned-descendant test unchanged; current exact head full unchanged5jobs78steps and both1864unit894integration succeed. Test-only behavior is supported independently of private harness attestation. Next008e must correct currentdocs before any merge; immutable old reports/failedCI preserved.",
+  "whole008": "PARTIAL; no merge/numeric advance; source/model/authorization/scale/fullMVP gates unchanged",
+  "DHA": "NONE"
+}

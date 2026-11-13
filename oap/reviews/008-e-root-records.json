@@ -1,0 +1,61 @@
+{
+  "at": "2026-11-13T05:46:10.527829+00:00",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-e-scoring-components-FINAL.json",
+      "target": "oap/reviews/008-e-scoring-components.json",
+      "bytes": 14135,
+      "sha256": "44e5bcd2e4abfc96af55e568ef38f80533a350737d1125ae88e9678e3b56069b"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-e-root-source-fit.json",
+      "target": "oap/reviews/008-e-root-source-fit.json",
+      "bytes": 1370,
+      "sha256": "0a74951385068466ae377c17dc3a19f4a24bc21c822740b6e113eba03dab4e0e"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-d-scoped-resolution-c3e3.json",
+      "target": "oap/reviews/008-d-scoped-resolution.json",
+      "bytes": 3858,
+      "sha256": "f62cda4014aea3adc79ef0018db6d714b97e9b069b3d960ba035464f691ce64d"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-d-resolution-timing-event.json",
+      "target": "oap/reviews/008-d-resolution-timing-event.json",
+      "bytes": 495,
+      "sha256": "01b85f0f2a8a42bb21abafc4dd85fbf7910ce4e501134dd281a49bb0199fb173"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-d-ci-terminal-summary-c3e3.json",
+      "target": "oap/reviews/008-d-ci-terminal-summary.json",
+      "bytes": 1479,
+      "sha256": "e1fa33e3effdcf23200d756a77c6e205906c01a2ec26d1528781f6f6c8f43164"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-d-local-proof-evidence-replan.json",
+      "target": "oap/reviews/008-d-local-proof-evidence-replan.json",
+      "bytes": 2833,
+      "sha256": "5f4c05b71be092255e6ff3944f63a2c0905ec94889e3125f577559f38a625df1"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/audit-008d-source-evidence/review.json",
+      "target": "oap/reviews/008-d-independent-peer-reconciliation.json",
+      "bytes": 881,
+      "sha256": "453d0c4949d9cd97a2fea159bdd8f319c52a5303fae339108489d2f650693053"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/scoring-assembly/local-preparation-admission.json",
+      "target": "oap/reviews/008-e-scoring-preparation-admission.json",
+      "bytes": 1672,
+      "sha256": "9ebf0b57bf101366dd03242a7a9189c77fffb3205ac2a4a257e5d94cdf6ec392"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/scoring-test-assembly/review.json",
+      "target": "oap/reviews/008-e-scoring-test-preparation-admission.json",
+      "bytes": 3276,
+      "sha256": "303756b25897e84e0eb82b279ff3435ad54be3751ac2caee506f841bcef9e3d8"
+    }
+  ],
+  "total_bytes": 29999,
+  "scope": "Root immutable exact source/evidence/replan/timing/currentCI/independent-peer and local-preparation records. No rawlogs/coding-authored acceptance. Copy before implementation unchanged. All underlying Root evidence paths/hashes retained; no runtime/merge authority."
+}

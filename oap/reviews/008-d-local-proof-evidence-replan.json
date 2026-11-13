@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-13T05:31:17.041979+00:00",
+  "state": "D0_EXPLICIT_EVIDENCE_REPLAN_BEFORE_NEXT008_CONTINUATION_NOT_ACCEPTANCE",
+  "identifier": "008-d",
+  "head": "c3e36dae37966958cf30d8f6bb5df221a26f0d14",
+  "provenance": "E actualprivateharnesssourceexaminedafterreport; I independentexacttestsource/negativecases/designpeer; H activatedfullMVPdevelopment; A preserveevidence/neverreplay/unqualifiednotpass",
+  "finding": "Originallocalcriterion3 fullypolicy-compliantfresh/exclusive/cappedpreflightattestation is NOT MET. Focused5casespassedunderinnercaps, but privateharnessresetdirectory/check-catguard anduncappedmetadata/fsync/pytest-versionprobes do notestablishone-shotprovenance. Noevidenceactualpriorrecordsdeleted, noextraactualtestexecutionestablished. Preserveall artifacts andimmutable report, neverrerunprivateharness.",
+  "replan": "Do not silently accept originallocalcriterion. HistoricalLOCAL-008D-ONE-SHOT-ATTESTATION remainsUNPROVEN permanently. Test-onlyproductbehavior may be developmentaccepted only after Rootexactsource/negativecase review and the unchanged normalhosted CI at exactc3e3 succeedsALL5jobs/everyrequiredstep/fullunit+integrationBOTHversions. These independent current-head checks replace reliance on the nonqualified localharness for behavior; they do not repair or approve its history. No architecture invariant or futureguard rule is waived.",
+  "next_scope": "Nextsame008 canonical scoringtransfer may proceed only after currentcompleteCI/source/report/threads/timing reconciliation. Include currentCI-note/STATUS/retrieval corrections: 10roundpaths includingownreport/9excluding, focused5casepositive vsincompleteharnessattestation, no measuredkill-dispatchclaimfromoldtrace. Do not edit oldreports orclaimoldCIfailuregreen. Scoring37bytescopies only and no localtests/imports/collection/metadata-runtimeprobes/setup are authorized for that transfer; normalhostedCI supplies newheadbehavior.",
+  "operational_mitigation": "Future localruntime requires exactpre-reviewedboundedcontroller+freshno-replaceownedtemp+O_EXCLNOFOLLOWguard/fsync+closedenv+separatelogs/time/exit. No ad-hoc shellharness reuse. Currentparallelquery V5packet underRootreviewimplements that boundary before actualproof; all priorv3/v4rejectionspreserved. No prod/service/credential/realcorpus/deploy action.",
+  "counterargument": "CIgreenalonecannoterase unsafeprocedureor guarantee arbitrarydescendantcleanup. Independentcurrenttestlogicreview plusunchangedreal-timeoutcase andnegativeerrno/live/errorcases canjustifythisnarrowtest-onlycode; historicalunknowns stayvisible andfuturepolicyguardsmandatory.",
+  "decision_class": "D0 ordinary reversible evidence/procedure remediation, not unresolved consequential judgment; DHA admission tests not met. No D1 workaround or human gate closure.",
+  "DHA": "NONE"
+}
