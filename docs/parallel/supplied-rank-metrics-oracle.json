@@ -1,0 +1,203 @@
+{
+  "purpose": "ROOT_PREIMPLEMENTATION_SYNTHETIC_HAND_ARITHMETIC_NOT_REAL_EVALUATION",
+  "cases": [
+    [
+      "q1",
+      [
+        [
+          "A",
+          3
+        ],
+        [
+          "B",
+          2
+        ],
+        [
+          "C",
+          1
+        ]
+      ],
+      [
+        "X",
+        "B",
+        "A",
+        "C"
+      ]
+    ],
+    [
+      "q2",
+      [
+        [
+          "A",
+          3
+        ],
+        [
+          "B",
+          2
+        ],
+        [
+          "C",
+          1
+        ]
+      ],
+      [
+        "A"
+      ]
+    ],
+    [
+      "q3",
+      [],
+      [
+        "X"
+      ]
+    ]
+  ],
+  "cutoffs": [
+    1,
+    3,
+    5
+  ],
+  "query_expected": {
+    "q1": {
+      "1": {
+        "returned_at_k": 1,
+        "relevant_returned": 0,
+        "dcg": 0.0,
+        "idcg": 7.0,
+        "recall": 0.0,
+        "reciprocal_rank": 0.0,
+        "ndcg": 0.0
+      },
+      "3": {
+        "returned_at_k": 3,
+        "relevant_returned": 2,
+        "dcg": 5.392789260714372,
+        "idcg": 9.392789260714373,
+        "recall": 0.6666666666666666,
+        "reciprocal_rank": 0.5,
+        "ndcg": 0.5741414090136012
+      },
+      "5": {
+        "returned_at_k": 4,
+        "relevant_returned": 3,
+        "dcg": 5.823465818787765,
+        "idcg": 9.392789260714373,
+        "recall": 1.0,
+        "reciprocal_rank": 0.5,
+        "ndcg": 0.619993237061603
+      }
+    },
+    "q2": {
+      "1": {
+        "returned_at_k": 1,
+        "relevant_returned": 1,
+        "dcg": 7.0,
+        "idcg": 7.0,
+        "recall": 0.3333333333333333,
+        "reciprocal_rank": 1.0,
+        "ndcg": 1.0
+      },
+      "3": {
+        "returned_at_k": 1,
+        "relevant_returned": 1,
+        "dcg": 7.0,
+        "idcg": 9.392789260714373,
+        "recall": 0.3333333333333333,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.7452525342261976
+      },
+      "5": {
+        "returned_at_k": 1,
+        "relevant_returned": 1,
+        "dcg": 7.0,
+        "idcg": 9.392789260714373,
+        "recall": 0.3333333333333333,
+        "reciprocal_rank": 1.0,
+        "ndcg": 0.7452525342261976
+      }
+    },
+    "q3": {
+      "all_cutoffs": "recall/reciprocal_rank/ndcg=None,dcg=idcg=0,reasonUNDEFINED_EMPTY_POSITIVE_GOLD,returned1,relevant0"
+    }
+  },
+  "aggregate_expected": {
+    "total_queries": 3,
+    "defined_queries": 2,
+    "undefined_empty_gold_queries": 1,
+    "at_k": {
+      "1": {
+        "mean_recall": 0.16666666666666666,
+        "mrr": 0.5,
+        "mean_ndcg": 0.5
+      },
+      "3": {
+        "mean_recall": 0.5,
+        "mrr": 0.75,
+        "mean_ndcg": 0.6596969716198995
+      },
+      "5": {
+        "mean_recall": 0.6666666666666666,
+        "mrr": 0.75,
+        "mean_ndcg": 0.6826228856439003
+      }
+    }
+  },
+  "fingerprints": {
+    "queries": {
+      "q1": "sha256:8073dce14c24a6ea5dacd0e6bff74745cf1546dbb9e9c88febc08021f4f6f9a4",
+      "q2": "sha256:effc9bae62ebcfde075e15c924527999bfc90485aa08e664752ad42c1ebb33b4",
+      "q3": "sha256:53d66b8b661bf20e20c640ab768ac66a3bd5c4dcd36a84c1b38df9cab825e9e7"
+    },
+    "aggregate": "sha256:930d16296f19b3b7daa3d667bd2f8e1413e39236ef79f0acf883478dc0f98c94",
+    "stage": "sha256:f393dfee1d1d96a1da7156e0da814a7afacf07d3426022b4860aece9b67bb662"
+  },
+  "stage": {
+    "input": {
+      "gold": [
+        [
+          "A",
+          3
+        ],
+        [
+          "B",
+          2
+        ],
+        [
+          "C",
+          1
+        ]
+      ],
+      "before": [
+        "A",
+        "B",
+        "X"
+      ],
+      "after": [
+        "B",
+        "X"
+      ]
+    },
+    "expected": {
+      "status": "AVAILABLE",
+      "before_count": 3,
+      "after_count": 2,
+      "removed_ids": [
+        "A"
+      ],
+      "gold_removed_ids": [
+        "A"
+      ],
+      "removed_count": 1,
+      "gold_removed_count": 1,
+      "positive_gold_count": 3,
+      "recall_before": 0.6666666666666666,
+      "recall_after": 0.3333333333333333,
+      "recall_loss": 0.3333333333333333,
+      "retained_fraction": 0.6666666666666666
+    }
+  },
+  "arithmetic": "Explicithandexpressionsonly: IDCG3=7+3/log2(3)+1/log2(4); q1DCG3=3/log2(3)+7/log2(4); q1DCG5 adds1/log2(5); q2DCG3=7 andsameFULLIDCG. Emptygoldq3 excludedfrom2-case macrodenominator butcountedin3total. C wasalreadyabsentbeforestage, notlostbycap.",
+  "limits": "Final supplied-rank-metrics-v1 field names and explicit JSON domains; synthetic supplied-ID arithmetic only, no sourcegold/actualtrace/rights/model/humanheldout/quality claim.",
+  "contract": "supplied-rank-metrics-v1",
+  "contract_status": "FINAL pure supplied-ID formula contract; synthetic oracle, not source or human quality"
+}

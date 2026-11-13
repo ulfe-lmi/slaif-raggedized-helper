@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-13T00:45:51.371304+00:00",
+  "status": "FINAL_ROOT_INPUT_SUPPLIER_PINS",
+  "baseline": "491c570f7a4c3c4a8117e90504d60a688c61515f",
+  "pins": {
+    "text-dataset": {
+      "SELF": "ddc3f1c26b67df15d0ea83d1f5c8b2b65191255e",
+      "implementation": "a5ef3d1ae1da0bebe0579fbb20bb85e7323c94ca"
+    },
+    "text-gold-binding-b": {
+      "SELF": "7a091a8122439f092f3fbed4806cc6659afc09ed",
+      "implementation": "bb35b4fa795debd2a9e160ec9183a665fcfb91bb"
+    },
+    "supplied-ranking-source": {
+      "SELF": "278093895e1b737c693f9cce21a10de4f5212cee",
+      "implementation": "eb2fa14ec79ca496d70742a375e952481a73e8cc"
+    },
+    "declared-span-support": {
+      "SELF": "ef38b5849c3dbea49744b712afe7f7225f732f85",
+      "implementation": "f13a151067061c2245cff364d8419784a424e102"
+    }
+  },
+  "inventory": "parallel/source-metrics-composition/review.json",
+  "source_read": "Root read full4modules including dataset original; refreshed fullARCH23.4-23.7. Exact semantic identities in prior inventory witness. Not dynamic runtime attestation."
+}

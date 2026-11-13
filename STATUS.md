@@ -2,20 +2,27 @@
 
 ## Current state (2026-11-13)
 
-- Current (2026-11-13): active objective 008, current slice 008-g
-  (same PR 10/branch oap/008-raw-hybrid-snapshots, transcript-first).
-  Objective 007 is complete and merged to main as PR #9 (merge commit
-  1a8fddf8); the 007-a..007-v entries below are historical round
-  records retained for traceability. The private
-  completion-locator/construction wrapper join and pinned-query
-  composition exist (008-f); 008-g bounds the diagnostic parameter IDs
-  of the completion-locator invalid-program tests (test metadata only,
-  payloads byte-identical) after the 008-f report-head CI failure
-  (pytest session-finish cache/nodeids write, OSError errno 27; no
-  failed assertion in the logs; later product steps SKIPPED). Public
-  serving, current principal/current policy, evidence delivery and real
-  qualification remain absent/open. Whole 008 remains PARTIAL; no
-  merge.
+- Current (2026-11-13): active objective 009, current slice 009-a
+  (NEW PR/branch oap/009-evaluation-baseline at exact base 5a7b41cc,
+  transcript-first). Objective 008 software is MERGED to main as PR #10
+  (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
+  29447168, merge tree equal to 2944; implementation-head CI run
+  43388401267 all five jobs / all 78 steps SUCCESS); objective 007 is
+  complete and merged as PR #9 (merge commit 1a8fddf8); the 007-a..007-v
+  and 008-a..008-g entries below are historical round records retained
+  for traceability, their at-time PARTIAL/no-merge wordings and
+  report limits preserved. Slice 009-a is the first 009 software wave:
+  byte-exact 32-file transfer (322,735 B: six production modules, six
+  unit suites, twenty docs/parallel contracts) of the reviewed
+  structural text-evaluation dataset admission, supplied graded-rank
+  metrics and original-source/span support primitives, plus
+  docs/evaluation.md, docs/benchmarks/raw-baseline.md and this
+  current-state correction. Whole 009 remains PARTIAL: this wave is a
+  static transfer plus documentation, not an actual evaluation harness,
+  real-model retrieval quality, human held-out data, rights, source-bound
+  stage-loss acceptance or a real baseline (raw baseline NOT RUN); no
+  010 activation; no merge. Public serving, current principal/current
+  policy, evidence delivery and real qualification remain absent/open.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
@@ -635,6 +642,42 @@ open on the 007 PR, branch
   3.12/3.14) is the evidence boundary and remains pending. Whole 008
   remains PARTIAL, no merge.
 
+- 009-a (evaluation foundations first software wave; NEW PR, branch
+  oap/009-evaluation-baseline at exact base 5a7b41cc, transcript-first):
+  byte-exact 32-file transfer (322,735 B) of the Root-reviewed donor
+  SELF 8c351a95 (implementations c91a5c2b / 70d3b61f) per
+  oap/reviews/009-a-components.json (SHA-256 f3f65b1b…) — six
+  production modules (text_evaluation_dataset, supplied_rank_metrics,
+  text_evaluation_gold_binding, declared_span_support,
+  source_bound_ranking, source_bound_text_support), six unit suites and
+  twenty docs/parallel API/design/oracle contracts; all 32 paths NEW at
+  the actual base and the 27 shared lower 008 paths byte-identical, so
+  no API adaptation or branch transfer. The transcript commit carries
+  the unchanged FINAL order, active 009-a+LF, the eight exact Root
+  records (26,410 B) and the exact 2,628 B index (11 paths); the
+  implementation commit carries the 32 blobs plus only
+  docs/evaluation.md (new), docs/benchmarks/raw-baseline.md (new) and
+  this STATUS.md (35 paths). Static Git/hash/size/JSON/AST checks only:
+  all 32 donor blobs verified by size + SHA-256 + Git-object identity
+  before copy, all 32 absent at base, all 12 Python files parse after
+  copy; no local product, unit, integration, collection, import, setup,
+  model, store or scorer process, no source fixup/format/deps/workflow
+  change. The six APIs are private evaluation contracts (three pure,
+  three borrowing the original/derived stores): declared (unverified)
+  dataset admission with STRUCTURAL_ONLY splits, supplied graded-rank
+  mathematics (graded MRR/nDCG/Recall, explicit
+  UNDEFINED_EMPTY_POSITIVE_GOLD), bind-time original gold revalidation
+  (not atomic, not current rights), declared span geometry, supplied-rank
+  source binding (SUPPLIED_SCOPE_CHECKS_ONLY, NOT_ATTESTED) and the
+  operator-only composed text-support diagnostic (NOT_CHECKED gold
+  eligibility, SEQUENTIAL_OBSERVATIONS_NOT_ATOMIC). No metrics from
+  requirement grades, no actual source/hybrid join and no real baseline
+  execution in this wave: the raw baseline stays NOT RUN and the
+  human-heldout/corpus-rights/current-auth/qualified-encoder gates remain
+  open (docs/benchmarks/raw-baseline.md). The full unchanged five-job
+  CI at the new report head is the evidence boundary and remains
+  pending. Whole 009 remains PARTIAL; no merge; no 010 activation.
+
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
   (merged as PR #5) plus the 004-a finite qualification trial runner
@@ -655,13 +698,15 @@ open on the 007 PR, branch
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 008 (PR 10, branch
-  oap/008-raw-hybrid-snapshots), not idle; the 007-era wording is
-  historical.
-- Current main is the 007 merge commit 1a8fddf8 (PR #9); the 008
-  branch (PR 10) builds from it. Historical: while 007 was in flight,
-  current main was the 006 merge commit 11badc7 (PR #8) and the 007
-  branch built from it.
+- The coding client is active on objective 009 (new PR, branch
+  oap/009-evaluation-baseline; number assigned by GitHub at
+  publication), not idle; the 008-era wording is historical.
+- Current main is the 008 merge commit 5a7b41cc (PR #10, parents
+  1a8fddf8 + 29447168, merge tree equal to 2944); the 009 branch (new
+  PR) builds from it. Historical: while 008 was in flight, current main
+  was the 007 merge commit 1a8fddf8 (PR #9) and the 008 branch built
+  from it; while 007 was in flight, current main was the 006 merge
+  commit 11badc7 (PR #8) and the 007 branch built from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
   (strategic, copied unchanged).
