@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-13T10:20:38.453640+00:00",
+  "identifier": "009-b",
+  "decision": "BOUNDED_PORTABILITY_CONTINUATION_RESOLVED_REQUIRED_CHECKS_SUCCESS",
+  "head": "aba42a524bbd6a8f1958b4e6a20430aca7d31ccb",
+  "implementation": "e1af83d90d8d2a39f479db68682399e15c4d9987",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "CI": {
+    "run": 43405683635,
+    "jobs": 5,
+    "steps": 78,
+    "all_required_status": "SUCCESS",
+    "completed_at": "2026-11-13T10:17:52Z",
+    "evidence": "audit/009-b-ci-final-jobs-aba4.json",
+    "full_log": "audit/009-b-ci-full-aba4.log",
+    "full_log_sha256": "00cc4d0e00041571140f7cb052521b6e34f1dbd7431f9ddc25c85c132249c1dc"
+  },
+  "source": "audit/009-b-source-report-review-aba4.json",
+  "normal": "audit/009-b-normal-response-reconciliation-aba4.json",
+  "reviews": "audit/009-b-reviews-threads-aba4.json",
+  "deviations": "Local default assertion rewriting, parent-only wall alarm, inaccurate preflight timestamp and missing separateRuffpreflight recorded as limited sample; initial unacceptedc2e push then preSELF e1af forcewithlease acknowledged order deviation, no acceptedreport rewrite. Exact archiveddocpatch audit/009-b-pre-self-doc-amend-c2e0-e1af.patch and old cancelled run433992 preserved. New final-head fullmatrix passed.",
+  "strongest_counterargument": "Green CI does not cure protocol deviations or complete original009. One-line call still must fail, all other testbytes/production unchanged, and new fullmatrix demonstrates portable expectation; documented limited local evidence is sufficient for this narrow continuation with strict current graph reviewed. It does not admit whole evaluation baseline or protected runtime.",
+  "next": "Original009 remainsPARTIAL/PR11OPEN/unmerged. Same009 source-stage actualproof activeindependently; after proof/peer/current dependencies, regenerate next exact selective order at this head, retain source/human rights/heldout/qualifiedencoder/scale/visual/license/ICA/MVP gates. No merge/nextnumeric/release/deploy from this result.",
+  "DHA": "NONE"
+}

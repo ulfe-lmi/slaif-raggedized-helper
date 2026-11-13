@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-13T10:53:42.332748+00:00",
+  "decision": "BOUNDED_SYNTHETIC_ACTUAL_PROOF_EVIDENCE_REVIEWED_PASS_ALLOW_DOCS_AND_IMPLEMENTATION_CHECKPOINT",
+  "evidence_sha256": "4f2193764b025c41e816dfaf6c3c463c85f1225b0f49801bd513ad9021b8e5f7",
+  "manifest_sha256": "7cc7ab97417020debcffbede4e040b9f2cd531d8f5e8c1f23e808dd17304add2",
+  "launcher_sha256": "3ad7bebc32188f2033166f93dbe30f4308c2846c32033df9a5b7c6ee5e048309",
+  "test_sha256": "6fee2aa7767c4449b01f2fb0d9ac4a988cff1dd3e8bfd44b832bac3915859a38",
+  "verification": "Root compared exact preflight command/env/manifest, log/result/time file identities and entire counts object, every attempted=completed+failed and <=ceiling. Progress8/8, binder2success6expectedrefusal, pure2/lower26, oneproducer, sixdirectworkersreaped/noerrors/nooverages; exact nonzero underlyingfailed bundle/source/privateOriginal/directory/pin each1 expected post-Gold withdrawal, no others. Real passed assertions at plain pytest at reviewed8case source; no skipped checks.",
+  "measured": "GNUtime23.20user/.25sys/24.18wall/92832KiB maximumRSS; launcher24.2056wall. Waited process only, NOTaggregate process tree hardcap or model performance.",
+  "causality": "Source+independent static review establish coherent adversaries and positive/restoration controls. Runtime asserts early three refusals beforeGold, postGoldwithdraw beforeRank/pure, clockbeforepure, closedpin; sanitizederror does not expose exact internal predicate. Controlled clock state expiry is not natural wall-time evidence. Actual counts22catalog/74directory/900bundle/909publicOriginal/912privateOriginal/513batch/510group/1923derived are observations, conservative ceilings unchanged.",
+  "strongest_counterargument": "One synthetic3revision/2eligible-row fixture with supplied vectors does not demonstrate qualified encoder/heldout/current-policy authority/20k/visual behavior or all exceptional cleanup. Detached descendants/aggregate resources/hardkillfinally remain unproven. Evidence supports bounded software integration seam only; full canonical requiredCI/currentreview still gates development merge.",
+  "prior_failure": "v1 failed ancestor775 precondition and retained; Root diagnosis and v2 separately approved, no silent retry. Root omission attribution retained.",
+  "next": "Finish exact allowed docs and only harmless module-docstring/stalecomment cleanup, commit bounded implementation and request exact implementation review. No further runtime/checks yet; no final report until Root REPORT.",
+  "DHA": "NONE"
+}

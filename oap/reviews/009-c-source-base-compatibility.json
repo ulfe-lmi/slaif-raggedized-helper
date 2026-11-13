@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-13T11:00:14.664086+00:00",
+  "status": "STATIC_COMPATIBILITY_INPUT_BLOBS_IDENTICAL",
+  "canonical_base": "aba42a524bbd6a8f1958b4e6a20430aca7d31ccb",
+  "source_SELF": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+  "common_production_files": 113,
+  "common_dependency_workflow_files": [
+    ".github/workflows/oap.yml",
+    "pyproject.toml",
+    "uv.lock"
+  ],
+  "differences": [],
+  "meaning": "Source lower production contracts/locked dependencies/workflow byte-identical at both refs; selective new22blobs require no lower API adaptation. Does not prove new canonical runtime, product qualification, full objective or green new-headCI.",
+  "DHA": "NONE"
+}
