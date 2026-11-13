@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-13T03:10:09.339768+00:00",
+  "status": "LOCAL_SOURCE_PREPARATION_ADMITTED_FOR_FUTURE_SELECTIVE_CANONICAL_TRANSFER_ONLY",
+  "implementation": "5b74a0f2937257244a107ee81f5daf39a03f9a59",
+  "SELF": "9e895fcb60eead3fe1ac735f7a57d154b8b67edc",
+  "report_sha256": "9b585d4a1f296c5a6d069e6acac6b1ba408ca5184e522bd94b1fa8ff92848175",
+  "report_bytes": 2039,
+  "normal": {
+    "lane": "catalog-pin-assembly",
+    "lane_id": "PAR-008-CATALOG-PIN-A",
+    "result": "PARTIAL",
+    "implementation": "5b74a0f2937257244a107ee81f5daf39a03f9a59",
+    "report_commit": "9e895fcb60eead3fe1ac735f7a57d154b8b67edc",
+    "report_sha256": "9b585d4a1f296c5a6d069e6acac6b1ba408ca5184e522bd94b1fa8ff92848175",
+    "paths": [
+      "docs/parallel/raw-catalog-pin-assembly-notes.md",
+      "docs/parallel/raw-snapshot-catalog-api.md",
+      "docs/parallel/raw-snapshot-catalog-design.md",
+      "docs/parallel/raw-snapshot-pin-api.md",
+      "docs/parallel/raw-snapshot-pin-design.md",
+      "oap/parallel/orders/PAR-008-CATALOG-PIN-A.md",
+      "src/slaif_raggedized_helper/raw_snapshot_catalog.py",
+      "src/slaif_raggedized_helper/raw_snapshot_pin.py",
+      "tests/integration/test_raw_snapshot_catalog_composition.py",
+      "tests/integration/test_raw_snapshot_pin_composition.py",
+      "tests/unit/test_raw_snapshot_catalog.py",
+      "tests/unit/test_raw_snapshot_pin.py"
+    ],
+    "verified_at": "2026-11-13T03:08:51.320349+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "Root_checkpoint": "audit/008-catalog-pin-root-checkpoint-review-5b74.json",
+  "report_review": "All10exactsource/12newpaths/currentstaticfit/soleparentreportonly/clean/unchangedRootorder verified. Reportsemantics670LF37079B arithmeticcorrect; explicitlyeightprereqhashASTonly/notfullread, testimportslineinspectiononly. No appimports/tests/native/store/currentphysicalproof claimed.",
+  "prior_peer": "Exactprimitive45ac/8e5f reconciled, no freshcombinedICAclaim. HistoricalmissingRAYON/reconstructedstdout/authorcountlimits retained; Rootfullyboundedkernelproofseparate.",
+  "strongest_counterargument": "Staticassembly/historicalprimitiveevidence do not prove currentcombinedruntime/currentcanonicalCI/currentrights/retention/20k/hardware/license/quality/ICA/MVP.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

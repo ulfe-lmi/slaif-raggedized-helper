@@ -1,0 +1,192 @@
+{
+  "at": "2026-11-13T04:07:25.119753+00:00",
+  "status": "ROOT_FINAL_EXACT_COMPONENT_INDEX_NOT_ACTIVATION",
+  "source_SELF": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+  "entries": [
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_publication.py",
+      "bytes": 11081,
+      "sha256": "4556ade53ae7b8982a8ffb9fad43184bf382d0ed42b1b038fdc2a36b7946cfa1"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/unit/test_raw_snapshot_publication.py",
+      "bytes": 1461,
+      "sha256": "07423aa9e9b93df116694de6be6e88aca98c97cc6ff793786a2a6e4819d0c315"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/integration/test_raw_snapshot_publication_composition.py",
+      "bytes": 19665,
+      "sha256": "46835023b695ad1f26f36e020cc146afff37fc32441a6806de171e9ed8d3a657"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-publication-api.md",
+      "bytes": 2029,
+      "sha256": "88d3962401f0d2a97a91fda9c3ea64d2b191aeddc383b07a9945a941984e8f1e"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-publication-design.md",
+      "bytes": 10299,
+      "sha256": "b007939faf6aac4c9983520614c2f31a5cf0b90a5a023d8910a8225c290d33f4"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_selection.py",
+      "bytes": 11190,
+      "sha256": "8cb52c4d8158831d1da876e0baf9811b5f6462389b8e9e97d75c2f745b04e81f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/unit/test_raw_snapshot_selection.py",
+      "bytes": 3088,
+      "sha256": "d9545cea21e2e0f6af27624b910f566a3c37d201dc89c34ebae37c27ca7e8018"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/integration/test_raw_snapshot_selection_composition.py",
+      "bytes": 22233,
+      "sha256": "7325618ab08fdbf8a83798646dd44306d56ad02c5c9169c9ce9fbcddc6907621"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-selection-api.md",
+      "bytes": 3217,
+      "sha256": "b24e6d9552996c45f49f07b5a0ecbc67541d8ea488349f77d33f59b324078461"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-selection-design.md",
+      "bytes": 9691,
+      "sha256": "8047ac802d6c06ba41f27da1aed87a281081f8c3099bb1110249c0d83127537d"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_catalog.py",
+      "bytes": 8710,
+      "sha256": "027f50ec3c4becd1eb61b96f4ef30feda414c1f7c36fcad4316b77386f7ab73c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/unit/test_raw_snapshot_catalog.py",
+      "bytes": 1732,
+      "sha256": "3e795c1c12066afc3c327443c6996b8d2d5a234dd0b31528172af39e6709ba14"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/integration/test_raw_snapshot_catalog_composition.py",
+      "bytes": 14193,
+      "sha256": "34afb8d30791cfa3eadc8083e2f0f3e896fd0d01cca0bce39867191900694744"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-catalog-api.md",
+      "bytes": 3208,
+      "sha256": "82e74215b39eed83e495cda5338814a59e2efa2c3081e4629c27615515c02135"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-catalog-design.md",
+      "bytes": 10896,
+      "sha256": "29be89a9beb737ed7c792ffe0f2e787787840ff8bda4fc872f0c5d3b7281170b"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_pin.py",
+      "bytes": 9471,
+      "sha256": "3b1677826804ed7a247b48026feb2292a9bc4c05d667afba80206498391643ac"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/unit/test_raw_snapshot_pin.py",
+      "bytes": 3932,
+      "sha256": "9d3ae5b45e7c7cf8626469252e8871f223d0e7ecded99dff21dd634274a92a6f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/integration/test_raw_snapshot_pin_composition.py",
+      "bytes": 7347,
+      "sha256": "c853b975154bfa613ecd321ae14ec605637b82c70f03beae8904b50c23a4e50a"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-pin-api.md",
+      "bytes": 2130,
+      "sha256": "ab13ffec04a795b083871e0cca2c7821e4bd27616a2f7d87b72d848e280f283a"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-pin-design.md",
+      "bytes": 12284,
+      "sha256": "01c22e467a4e8b038e7c8c936003a34b5e79a238f5c0d8c8e303e346e801c8a0"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_file_builder.py",
+      "bytes": 8893,
+      "sha256": "050e645b0ad6f3cec40f1e33d4959414371a6818a86c5de55748c56a008ca32c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/unit/test_raw_snapshot_file_builder.py",
+      "bytes": 4565,
+      "sha256": "0119a6932fefd34b8796a411cdfb7082e75390e6fbf0201aba4933cf22bf0c43"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "tests/integration/test_raw_snapshot_file_builder_composition.py",
+      "bytes": 4075,
+      "sha256": "2b5579167dd69a5f446db9c5417f9806d9925714a3991b218f88d1420485b7e6"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-file-builder-api.md",
+      "bytes": 1254,
+      "sha256": "de70a90a53a35e00ca94d0e772524d02fbe86be0f4e95a2826e989860259536f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-file-builder-assembly",
+      "source_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+      "path": "docs/parallel/raw-snapshot-file-builder-design.md",
+      "bytes": 13383,
+      "sha256": "5959d90084271ebe671e17ce30fd53b7e87a8e387e750f75c3f3253465bddef7"
+    }
+  ],
+  "total_bytes": 200027,
+  "breakdown": {
+    "production": 5,
+    "unit": 5,
+    "integration": 5,
+    "documentation": 10
+  },
+  "sequence": "ExistingFileBuilder5 requirespublication/selection10 beforeitsdefaultintegrationimports; catalog/pin10 completeprivate reader layer. Allfromcurrentpreparedchain, noancestrymerge. No newactualproof fromdraft. Canonical8bexisting4construction+foundation dependencies must remain exact.",
+  "DHA": "NONE",
+  "base": "d9ef6b4ce54fe32486baff70ce318bf4c08f1804"
+}

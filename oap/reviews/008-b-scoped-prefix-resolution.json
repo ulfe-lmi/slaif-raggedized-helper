@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-13T04:20:46.272001+00:00",
+  "identifier": "008-b",
+  "pr": 10,
+  "head": "d9ef6b4ce54fe32486baff70ce318bf4c08f1804",
+  "decision": "BOUNDED_CONSTRUCTION_PREFIX_REVIEWED_CONTINUE_SAME_008_PR_NO_OBJECTIVE_ACCEPTANCE_OR_MERGE",
+  "Root_source_report_review": "audit/008-b-root-preliminary-review-d9ef.json",
+  "CI": "audit/008-b-ci-terminal-d9ef.json",
+  "verified": "Exact21source145034B/13PythonRootAST/8Rootrecords/index/order/active/transcriptfirst+soleparentreport. SameuniquePR10/branch/main/clean/all5jobs78stepsgreen, completebothProductlogs/zero threads/reviews.8a currentdoccountfixed oldreportimmutable.",
+  "report_limitations": "8breport11newPythonASTwhileactual13: Rootall13parse verified, authoractualASTcountnotreconstructed.34diffexcludesownreport/35includes. Keepimmutable, Rootclarificationintranscript, no replay/rewrite/extraevidence-onlyround.",
+  "documentation_note": "Laterdocs wording noCLI/applicationentrypoint ratherthanblanketnocallers, existinginterlibrarycalls explicit.",
+  "strongest_reason_not_to_merge": "Fivewriter/reader layers, actualscoring/query/operator/currentpolicy joins stillnotcanonical; 4096/128limitsnot20kqualified and actualmodel/rights/licenses/quality/ICA/fullMVPgatesopen.",
+  "why_continue": "Reviewedexactsource/currentnormalCI/sourcefit supports nextbounded25sourcewriter-readertransfer; remainingoriginal008criteriaexplicitopen, no falseclosure ordeployment.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}
