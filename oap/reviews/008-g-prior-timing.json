@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T07:12:15.169548+00:00",
+  "identifier": "008-f",
+  "event": "SOURCE_REPORT_NORMAL_REVIEWED_REQUIRED_CI_CACHE_WRITE_FAILED_PRESERVED_NEXT_SAME008_DIAGNOSTIC_ID_REPAIR",
+  "activation_at": "2026-11-13T06:44:44.073009+00:00",
+  "normal_response_verified_at": "2026-11-13T07:05:41.078493+00:00",
+  "activation_to_response_seconds": 1257.005484,
+  "report_commit": "5509c6baa963f06750bc09b425ebdd1f2d577db1",
+  "review": "audit/008-f-failed-ci-reconciliation.json",
+  "DHA": "NONE"
+}

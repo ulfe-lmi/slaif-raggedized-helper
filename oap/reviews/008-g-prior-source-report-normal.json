@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-13T07:08:21.358622+00:00",
+  "state": "ORIGINAL_NORMAL_AND_EXACT_REMOTE_HEAD_RECONCILED_REQUIRED_CI_PENDING",
+  "identifier": "008-f",
+  "normal": {
+    "identifier": "008-f",
+    "pr": 10,
+    "implementation": "0e86613a33231537c591b869f1e18144cdbe63a0",
+    "report_commit": "5509c6baa963f06750bc09b425ebdd1f2d577db1",
+    "report_sha256": "b9f42911f7a057c00ff12d65e05d37bd9c29850b6ef19d8ae9f8236c05bed4f1",
+    "verified_at": "2026-11-13T07:05:41.078493+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "activation_at": "2026-11-13T06:44:44.073009+00:00",
+  "activation_to_normal_seconds": 1257.005484,
+  "source_report_review": "audit/008-f-final-source-report-review-5509.json",
+  "strict_verify_at": "2026-11-13T07:05:06.311538+00:00",
+  "CI_run": 43383127224,
+  "CI_state": "3OAPsuccess, twoProductfullunit_running; lint/syntaxsuccessobserved3.12, currentallrequiredchecksnotgreenyet",
+  "scope": "OneoriginalwrapperconsumedOK/remoteverified; RootreadregularreceiptONLY. NoFIFOread/replay/newreader/merge/nextnumeric. Requiredfullmatrixandoriginalcriteria/source/reviews/docs/license/privacy/DHA gatepending.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-13T07:12:15.169548+00:00",
+  "identifier": "008-f",
+  "head": "5509c6baa963f06750bc09b425ebdd1f2d577db1",
+  "implementation": "0e86613a33231537c591b869f1e18144cdbe63a0",
+  "run": 43383127224,
+  "state": "TERMINAL_FAILURE_PRESERVED_NOT_ACCEPTED",
+  "actual": "BothProductjobs lint+syntaxSUCCESS and unit progressreached100%, but pytest_sessionfinish/cacheprovider.write(cache/nodeids) raisesOSErrorErrno27 FiletooLarge; bothjobsexit1, subsequentintegration/governance/console/doctorstepsSKIPPED. ThreeOAPjobsSUCCESS. No finalfullsuitepass/count/combinedintegration established.",
+  "source_finding": "New completionlocator test_bad_program_refused has b\"x\"*16777217 directlyinpytest.mark.parametrize with no explicitids. Pytestdefault byte IDs can serialize the entireoversizedpayload to nodeids/cache. Existing setupunitcalls may leave a boundedinherited RLIMIT_FSIZE (knownhistorically); precise activevalue and rootcausenot measuredatCI, so interactionis an inference, notprovenlimitvalue. Short stable parameterIDs preserveactualnegativepayload/cases while boundingdiagnosticstorage.",
+  "source_next_scope": "D0 same008-g repairtestdiagnosticIDs only with focused capped before/after collection/cache evidence; no pytestcacheplugin disable, no testskip/deselection/payloadshrink/FSIZEraise/timeout/dependency/workflow/product change. Preservefullfailedrun/report; requirebrandnewfullnormalCIexacthead.",
+  "raw_log": {
+    "path": "audit/008-f-ci-failed-full-5509.log",
+    "bytes": 34862,
+    "sha256": "12d213cf8b67ecd6c7678b5e787192a9d4e7297da02e347b36593ad389372843"
+  },
+  "source_report_review": "audit/008-f-final-source-report-review-5509.json",
+  "normal": "audit/008-f-normal-head-reconciliation-5509.json",
+  "strongest_counterargument": "ShortIDs alone maynotexplaininheritedcapfailure; independentboundedcollection/cardinality/IDsize andfocusedrealcacheproofmustestablishspecificremedy, thencompleteunchangedCIvalidatesactualcombinedbehavior. Anyotherfailurestayssameobjective; no automaticacceptance.",
+  "DHA": "NONE"
+}
