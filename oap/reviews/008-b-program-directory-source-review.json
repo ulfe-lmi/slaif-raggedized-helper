@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-13T02:56:07.755633+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ROOT_AND_OPPOSITE_REVIEWED_ELIGIBLE_FOR_LATER_CANONICAL_TRANSFER",
+  "implementation": "009044a786b0a899b1ea1fd4c8be2b6f78c80909",
+  "SELF": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+  "report_sha256": "38ce66e9bdfa820ce8ee27d5d4e10503507a231c3a94a7d743a0e4ff54193998",
+  "report_bytes": 6485,
+  "normal": {
+    "lane": "program-directory-assembly",
+    "lane_id": "PAR-008-PROGRAM-DIRECTORY-A",
+    "result": "PARTIAL",
+    "implementation": "009044a786b0a899b1ea1fd4c8be2b6f78c80909",
+    "report_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+    "report_sha256": "38ce66e9bdfa820ce8ee27d5d4e10503507a231c3a94a7d743a0e4ff54193998",
+    "paths": [
+      "docs/parallel/raw-program-directory-assembly-notes.md",
+      "docs/parallel/raw-snapshot-directory-api.md",
+      "docs/parallel/raw-snapshot-directory-design.md",
+      "docs/parallel/raw-snapshot-program-coverage-api.md",
+      "docs/parallel/raw-snapshot-program-coverage-design.md",
+      "oap/parallel/orders/PAR-008-PROGRAM-DIRECTORY-A.md",
+      "src/slaif_raggedized_helper/raw_snapshot_directory.py",
+      "src/slaif_raggedized_helper/raw_snapshot_program_coverage.py",
+      "tests/integration/test_raw_snapshot_assembled_composition.py",
+      "tests/integration/test_raw_snapshot_directory_composition.py",
+      "tests/integration/test_raw_snapshot_program_coverage_composition.py",
+      "tests/unit/test_raw_snapshot_directory.py",
+      "tests/unit/test_raw_snapshot_program_coverage.py"
+    ],
+    "verified_at": "2026-11-13T02:55:40.902112+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "verified_report_witnesses": 24,
+  "current_source_review": "audit/008-program-directory-root-checkpoint-peer-review-0090.json",
+  "opposite": "parallel/audit-program-directory-assembly/review.json exact873f/normalverified",
+  "scope": "13NEWpaths;8exactincoming+2authorizedimport-only adaptations+2unchangedprerequisites. One11unit andONEapprovedv2syntheticjourney7rows1batch1partition1group2native0generator29loads/4.90wall/innerouter0. Actualprogram->rowbuilder->files->private-directory+samefixturemismatch/bypass/restoration passes. No additionalactualrun needed.",
+  "named_gate": "008-CORRESPONDENCE-JOURNEY satisfied ONLY for this bounded synthetic current-source composition. Full Membership/Dense/Lexical physical multi-source/canonical CI/full008 rights/currentpolicy/readiness not inferred.",
+  "history": "Earlier rowbuilderpeerpreplanprovenanceUNPROVEN/priorcorrespondenceunitreceiptgap retained. Unit/collection/proofhistory kept. Stale blocker.json preserved as earlier pre-budget state, superseded by exactdecision/guard/result/currentreport; not current authority. AuthorstalledbeforeREPORT then Rootsamegoalresume afteractualconsumedreceipt logged, no FIFOreplay.",
+  "strongest_counterargument": "Onegroup/batchsynthetic journey and inheritedtestprovider import do not prove wider corpus/currentrights/atomicity/deadlinepreemption/neural/GPU/FP16/quality/20k/license/ICA/MVP. Localadmission permits selectivefuturetransferonly, not canonical008 or service acceptance.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

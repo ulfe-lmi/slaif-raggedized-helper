@@ -1,0 +1,56 @@
+{
+  "at": "2026-11-13T03:39:45.662573+00:00",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-a-scoped-prefix-resolution.json",
+      "target": "oap/reviews/008-a-scoped-prefix-resolution.json",
+      "bytes": 1483,
+      "sha256": "eb1f2d3b83a09fb8c6d7ffa813b315ce09ced02a8e8d8fa31715708eb6844efa"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-a-resolution-timing-event.json",
+      "target": "oap/reviews/008-a-resolution-timing-event.json",
+      "bytes": 485,
+      "sha256": "f00d5046f2c7279b17ae0e93bd2f0d519554991bd6f99d8dd99118b8f1819c35"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-a-ci-terminal-0ef3.json",
+      "target": "oap/reviews/008-a-ci-terminal.json",
+      "bytes": 15651,
+      "sha256": "007954d5b2ca5c0499e08ba311c0c367d5d0e7721157c59fccbb83baf8146569"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-b-construction-components-FINAL.json",
+      "target": "oap/reviews/008-b-construction-components.json",
+      "bytes": 8505,
+      "sha256": "bb292ea9521afa66ee172ffbd89a81eeaa02fcb2e917711d6cfd53bdc1b1ddf9"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-correspondence/review.json",
+      "target": "oap/reviews/008-b-correspondence-source-review.json",
+      "bytes": 3156,
+      "sha256": "ad237f1c1c8a793a888675456bb666545692319d0e6ebd0d493e5065a8a28d89"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/program-directory-assembly/review.json",
+      "target": "oap/reviews/008-b-program-directory-source-review.json",
+      "bytes": 3268,
+      "sha256": "cbeec392d6c85447e30e698f99dd428f94ce1a8d7fec17c1bc777cdc3aacb932"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-correspondence-journey-gate-resolution.json",
+      "target": "oap/reviews/008-b-correspondence-journey-gate.json",
+      "bytes": 607,
+      "sha256": "248cf2251a30114a19216bde5d22444aa43ce22e9c43d523459a5aa2dc8284f8"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/audit-program-directory-assembly/review.json",
+      "target": "oap/reviews/008-b-program-directory-peer-review.json",
+      "bytes": 773,
+      "sha256": "9073e601a6d12e883453b166264451bcead254d0f280bb749cb87e33bcdfb8d7"
+    }
+  ],
+  "total_bytes": 33928,
+  "scope": "Root-owned immutable8b transcript input; hashes prove identity, acceptance scopes explicit in sources. No raw environment/prooflogs copied.",
+  "DHA": "NONE"
+}

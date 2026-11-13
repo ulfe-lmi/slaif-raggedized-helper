@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T02:56:07.755633+00:00",
+  "gate": "008-CORRESPONDENCE-JOURNEY",
+  "decision": "SATISFIED_FOR_BOUNDED_SYNTHETIC_CURRENT_SOURCE_COMPOSITION_ONLY",
+  "implementation": "009044a786b0a899b1ea1fd4c8be2b6f78c80909",
+  "SELF": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+  "Root_review": "parallel/program-directory-assembly/review.json",
+  "prior_local_preparation": "parallel/raw-correspondence/local-preparation-admission.json",
+  "scope_limit": "Doesnotbackfilloldpeerprovenance/unitreceipt,proveallphysicalcorpus/currentrights/ABA/neural/20k/canonicalCI/whole008/MVP.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-13T03:37:05.326461+00:00",
+  "identifier": "008-a",
+  "pr": 10,
+  "head": "0ef370696ea4a28e7153977df8c623e27fdad1e7",
+  "decision": "BOUNDED_FOUNDATION_PREFIX_REVIEWED_CONTINUE_SAME_008_PR_NO_OBJECTIVE_ACCEPTANCE_OR_MERGE",
+  "preliminary_source_report_review": "audit/008-a-root-preliminary-review-0ef3.json",
+  "CI": "audit/008-a-ci-terminal-0ef3.json",
+  "required_checks": "5 jobs78steps allSUCCESS, both normal1805unit815integration; complete logs saved/hashrecorded",
+  "identity": "UniqueopenPR10/oap/008-raw-hybrid-snapshots->main, exact0ef370 head/clean local/single report parent verified; zero review threads/reviews at observation",
+  "documentation_correction": "Immutable008a report retained with documented count mistake. Next008b MUST correct current docs/retrieval.md and STATUS: foundation25=5production+5unit+5integration+10docs. Whole008 merge blocked until correction. FullPR41includesreport;40excludesreport.",
+  "strongest_reason_not_to_merge": "Foundation25exactfiles and green CI do not implement remaining008 construction/publication/pinning/scoring/query/operator contracts. Count correction is pending. Real currentpolicy/model/precision/capacity/license/quality/ICA/fullMVP gates remain open.",
+  "why_continue": "Exactreviewedblobs/currentcontractfit and completecurrentnormalCI support adding the next bounded source slice without claiming objective completion or bypassing pending gates.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}
