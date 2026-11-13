@@ -325,6 +325,44 @@ open on the 007 PR, branch
   The full combined driver remains gated on the current report CI
   (both Product jobs). Whole-007 and actual BGE remain
   UNRUN/UNQUALIFIED; no 008 advance, no merge.
+- 007-u (output-repair integration; same PR 9, transcript-first):
+  bounded SOFTWARE continuation of 007 — byte-exact FIVE-file copy
+  of the root-reviewed explicit locator-only stale-RUNNING output
+  repair (source implementation e368730, source report SELF 3fd1d9e,
+  per oap/reviews/007-u-components.json, 65,717 B) after the exact
+  sixteen frozen Root inputs plus index transcript (57,100 source
+  bytes): ONE existing journal replacement (embedding_job_journal.py
+  25,497 B — adds the dataclass import, OutputRepairResult,
+  _observation_ms and repair_running_output; all existing journal
+  definitions preserved) plus FOUR NEW paths (unit + integration
+  tests, API/design docs) and this STATUS paragraph — SIX
+  implementation paths total. repair_running_output repairs only an
+  exact canonical old RUNNING state/revision owned by a distinct old
+  owner under a new live exclusive lease, with full frozen plan/output
+  validation, equal fresh provider epochs at both named stages and
+  revision CAS; it retains the attempt/history/original start,
+  refuses observed wall-clock rollback, rereads the verified output
+  after commit instead of blindly repeating the repair, and its
+  cooperative deadline covers callbacks, commit return and final
+  verification without preempting nested operations. COMPLETE with
+  RECOVERED_VALID_OUTPUT proves materialization only: execution origin
+  SUPPLIED_UNVERIFIED, accounting/physical drain UNKNOWN,
+  qualification NOT_QUALIFIED; no discovery, no terminal
+  UNKNOWN/FAILED/CANCELLED reopening, no guessed retry, no actual
+  policy provider, no model execution; borrowed store/handle remain
+  caller-owned. Scoped local evidence: ONE source-only python3.14
+  process passed 11/11 unit cases (order forecast 11; wall 0.76 s,
+  max RSS 66,440 kB); ONE separate cached synthetic process passed
+  the two named nodes — test_positive plus both postcommit-deadline
+  phases — 3/3 (order forecast 3; wall 1.09 s, max RSS 67,764 kB);
+  both under CPU30/AS1GiB/wall120, PYTHONPATH unset, no bytecode,
+  five thread caps 1, fresh 0700 basetemps, raw stdout/stderr/
+  resource/exit records preserved; the selected nodes require no
+  SLAIF_* fixture environment. The full unchanged repair and T
+  capture/reuse drivers remain gated on the current report CI (both
+  Product jobs). Whole-007 and actual BGE remain UNRUN/UNQUALIFIED;
+  no 008 advance, no merge.
+
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice

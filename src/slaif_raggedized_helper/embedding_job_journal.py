@@ -1,6 +1,7 @@
 """Owned, bounded atomic journal for declared embedding batches."""
 
 import functools
+from dataclasses import dataclass
 import hashlib
 import json
 import os
@@ -17,6 +18,29 @@ from .schema import fingerprint
 
 class JournalError(ValueError):
     """Journal operation refused without exposing input data."""
+
+
+@dataclass(frozen=True, slots=True)
+class OutputRepairResult:
+    output: records.OutputRef
+    revision: str
+    old_attempt_id: str
+    old_owner_id: str
+    repair_owner_id: str
+    epoch: str
+    observation_ms: int
+    materialization: str = "REPAIRED_VALID_OUTPUT"
+    execution_origin: str = "SUPPLIED_UNVERIFIED"
+    accounting: str = "UNKNOWN"
+    physical_drain: str = "UNKNOWN"
+    qualification: str = "NOT_QUALIFIED"
+
+
+def _observation_ms(previous_ms):
+    observed = time.time_ns() // 1000000
+    if observed < previous_ms:
+        raise ValueError
+    return observed
 
 
 def _private(fn):
@@ -517,6 +541,90 @@ class _Owned:
         if output != state.output:
             raise JournalError("journal refused")
         return output
+
+    @_private
+    def repair_running_output(
+        self, metadata_bytes, container_id, expected_revision, expected_state_bytes,
+        *, store, validate_current, deadline_ms=5000,
+    ):
+        """Repair stale RUNNING materialization using an explicitly supplied output."""
+        start = time.monotonic_ns()
+        if (type(metadata_bytes) is not bytes or not 1 <= len(metadata_bytes) <= 131072
+                or type(container_id) is not str
+                or re.fullmatch(r"[0-9a-f]{64}", container_id) is None
+                or type(expected_revision) is not str
+                or re.fullmatch(r"[0-9a-f]{64}", expected_revision) is None
+                or type(expected_state_bytes) is not bytes
+                or not 1 <= len(expected_state_bytes) <= records.MAX_BYTES
+                or type(deadline_ms) is not int or not 1 <= deadline_ms <= 120000
+                or not callable(validate_current)):
+            raise ValueError
+        expected = records.admit(records.JobState, expected_state_bytes)
+        if records.serialize(expected) != expected_state_bytes:
+            raise ValueError
+        plan_bytes = _json(self.plan)
+        def deadline():
+            if time.monotonic_ns() - start >= deadline_ms * 1000000:
+                raise ValueError
+        def current():
+            deadline()
+            envelope, revision = self._read()
+            state = records.admit(records.JobState, envelope["events"][-1]["state"])
+            if (revision != expected_revision or records.serialize(state) != expected_state_bytes
+                    or state.status != "RUNNING" or state.job_id != self.spec.job_id
+                    or not state.attempt_id or not state.owner_id or state.output is not None
+                    or state.owner_id == self.owner_id):
+                raise ValueError
+            return envelope, state
+        def epoch(stage):
+            deadline()
+            value = validate_current(plan_bytes, stage)
+            deadline()
+            if type(value) is not str or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+                raise ValueError
+            return value
+        envelope, state = current()
+        repair_owner = self.owner_id
+        first_epoch = epoch("before_repair_validation")
+        output = self._output(store, metadata_bytes, container_id)
+        second_epoch = epoch("before_repair_commit")
+        if first_epoch != second_epoch:
+            raise ValueError
+        envelope, state = current()
+        if self._output(store, metadata_bytes, container_id) != output:
+            raise ValueError
+        claimed = [event["state"] for event in envelope["events"]
+                   if event["state"]["status"] == "CLAIMED"
+                   and event["state"]["attempt_id"] == state.attempt_id]
+        if len(claimed) != 1:
+            raise ValueError
+        observed = _observation_ms(state.updated_ms)
+        terminal = records.admit(records.JobState, {
+            "version": 1, "job_id": state.job_id, "status": "COMPLETE",
+            "attempt_id": state.attempt_id, "owner_id": None, "updated_ms": observed,
+            "output": output.model_dump(mode="json"),
+        })
+        attempt = records.admit(records.Attempt, {
+            "version": 1, "job_id": state.job_id, "attempt_id": state.attempt_id,
+            "request_id": None, "outcome": "COMPLETE", "started_ms": claimed[0]["updated_ms"],
+            "ended_ms": observed, "input_tokens": None, "output_tokens": None,
+            "diagnostic_code": "RECOVERED_VALID_OUTPUT", "output": output.model_dump(mode="json"),
+        })
+        records.transition(state, terminal, attempt)
+        envelope["events"].append({"state": json.loads(records.serialize(terminal)),
+                                   "attempt": json.loads(records.serialize(attempt))})
+        deadline()
+        self._assert()
+        committed, revision = self._commit(envelope, expected_revision)
+        deadline()
+        if records.admit(records.JobState, committed["events"][-1]["state"]) != terminal:
+            raise ValueError
+        verified = self.verified_output(store, metadata_bytes)
+        deadline()
+        if verified != output:
+            raise ValueError
+        return OutputRepairResult(output, revision, state.attempt_id, state.owner_id,
+                                  repair_owner, first_epoch, observed)
 
     @_private
     def append(
