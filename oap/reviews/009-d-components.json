@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-13T12:30:44.571191+00:00",
+  "status": "FINAL_EXACT_LOCAL_ADMITTED_COMPONENT_PACKET",
+  "base": "b87e264d5b138a7be5e89c3e8820a21697cc0aab",
+  "source_implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+  "source_SELF": "b33da3811d82d651ad711bf5878f4f7159b5fcad",
+  "files": [
+    {
+      "path": "src/slaif_raggedized_helper/declared_cohort_metrics.py",
+      "source_implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+      "git_blob": "646ad55d190190252bf163a404988635ba050b23",
+      "bytes": 32800,
+      "sha256": "743a8949eb906dbf5564003c6501706f977d1b7e1682568bb81d160d683529e4",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_declared_cohort_metrics.py",
+      "source_implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+      "git_blob": "63bd01e3d9fc8ff28f099a9eefa55f6e45074691",
+      "bytes": 22772,
+      "sha256": "5a60130f655260674178d2f48b9f8bc87ae12db1f905d00a470fc80e25e78aa8",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/declared-cohort-metrics-contract.md",
+      "source_implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+      "git_blob": "55e555e7ff8e9f2018f2d3e8bbb0d5fb240cf38a",
+      "bytes": 11411,
+      "sha256": "a5952e630558e7816b3b6c3958e258feeb6001a7594b62d69f93f3172936765e",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/declared-cohort-metrics-oracle.json",
+      "source_implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+      "git_blob": "82dddc05896f7a16401ba3bb62f8b31f5609d01b",
+      "bytes": 10495,
+      "sha256": "d35d6a1977f22843fb47f178b69056c97680a0c280ef4c7d52927942f7c79011",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/declared-cohort-metrics-api.md",
+      "source_implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+      "git_blob": "67f63871ee051ad5b7734829da7c4b06d32d2a29",
+      "bytes": 12333,
+      "sha256": "8d169ecfd869d7297bf97006fd9bca8b760eb93bd251536a579e2f65a8a7acce",
+      "disposition": "NEW"
+    }
+  ],
+  "total_bytes": 89811,
+  "file_count": 5,
+  "scope": "FiveexactNEWpurecohortmath/sourceunit/contract/oracle/APIblobs; no localorder/report/helper/privateharness/oldsourcebranchhistory transfer. Additionalonlycurrentthreeevaluationdocs laterRootFINALorder. Fullsourcecohortrunner/actualprivate splitreportstillrequiredsame009, realbaselineNOTRUN.",
+  "DHA": "NONE"
+}

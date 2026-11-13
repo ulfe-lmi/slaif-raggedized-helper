@@ -1,0 +1,27 @@
+{
+  "lane_id": "AUDIT-009-COHORT-METRICS-A",
+  "target_commit": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+  "candidate_sha256": "482989a8255ff6a8e4475a70e2ee0b08edde917cde2d53f5897387da355efd54",
+  "corrected_candidate_sha256": "5428700914851609ba2617978a3ea8ea0681f419a1f5c8e97f3b836e97412c80",
+  "semantic_module_sha256": "db4599cf37dae0a73c6f6168546a4060f6a5f9a1c351d37093266f217349abaa",
+  "semantic_unit_sha256": "a442b2c89d87cac39405d85a45a89f425a97ad2587f380029e4265c2f6de74ee",
+  "helper_sha256": "295b5b6b0b9b6bcb8a5c202fa5fc60512856a725c5774406d19ea194893ef952",
+  "candidate_status": "Current unpublished Git object b15a; target e6 is lower API base, not implementation commit.",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "findings": [
+    "Earlier semantic admission counterexamples are statically addressed by DB459, whose source AST matches current formatted source 743a.",
+    "A442 causal negatives and complementary-fragment positive are present in formatted unit 5a60; fusion negative may trigger a different new union consistency guard first.",
+    "Helper v4 guards both earlier cleanup-poll holes; three owned staging lists were pre-reserved, retracting earlier list concern.",
+    "Recorded focused Ruff and 33 pure unit tests pass on exact 743a/5a60 bytes; independently reviewed proof logs and identities, no rerun. Current b15a differs from e4afb only in API documentation."
+  ],
+  "evidence": "See findings.md, findings-v1.md and readset.json for exact objects, byte hashes, hand derivations, static review and recorded proof identities. Sole parent e6; six added paths. No code, tests or helper run by peer.",
+  "counterargument": "Unattested supplied geometry and pure synthetic unit proof cannot establish real source binding, quality or resource qualification. The corrected necessary-invariant checks and bounded proof support only the pure candidate scope.",
+  "limits": "Other-author finite static review and recorded local proof only; no independent runtime rerun, hardware, rights, held-out, source execution, whole009, ICA, release or deployment acceptance. Root retains integration and gate authority.",
+  "DHA": "NONE",
+  "implementation_commit": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+  "frozen_preverification_api_sha256": "b8d59ddf3896927358fcf9c5adf58b65fc604214768bbd93afa777064e23775b",
+  "current_api_sha256": "8d169ecfd869d7297bf97006fd9bca8b760eb93bd251536a579e2f65a8a7acce",
+  "current_source_sha256": "743a8949eb906dbf5564003c6501706f977d1b7e1682568bb81d160d683529e4",
+  "current_unit_sha256": "5a60130f655260674178d2f48b9f8bc87ae12db1f905d00a470fc80e25e78aa8"
+}
