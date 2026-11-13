@@ -384,6 +384,25 @@ open on the 007 PR, branch
   008/010/011/014/015/017/018/019/020/021 obligations stay separately
   owned. U CI 43342353043 is historical for V; whole-007 and actual BGE
   remain UNRUN/UNQUALIFIED; no 008 advance, no merge.
+- 008-a (raw snapshot foundation; NEW PR, branch
+  oap/008-raw-hybrid-snapshots, transcript-first, same main base
+  1a8fddf8 as accepted PR9): first bounded slice of objective 008 —
+  byte-exact 25-file transfer (142,322 B) of the Root- and
+  peer-reviewed local assembly per
+  oap/reviews/008-a-foundation-components.json (five production
+  modules: technical_analyzer, raw_snapshot_membership,
+  raw_snapshot_source_rows, raw_snapshot_dense,
+  raw_snapshot_lexical; twenty test files; ten docs/parallel
+  contracts) plus nine exact Root records and the exact index in the
+  transcript commit. Strict token preservation, whole-batch
+  membership, original-backed source rows, normalized finite read-only
+  FP32 dense storage and canonical lexical payloads with 4,096-row/128-
+  group bounded limits; 20k capacity remains NOTQUALIFIED. No
+  writer/reader/query/current-policy/quality interface, no CLI/
+  publisher wiring, existing canonical modules unchanged, no local
+  product tests, no new dependencies; historical exact-source
+  49-unit/source-row proof and current report-head CI (pending) are
+  the evidence boundary; whole 008 remains PARTIAL, no merge.
 
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
