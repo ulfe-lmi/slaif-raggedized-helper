@@ -1,0 +1,32 @@
+{
+  "data": {
+    "repository": {
+      "defaultBranchRef": {
+        "name": "main",
+        "target": {
+          "oid": "11badc7782bed326995d400f5532b63399b91fbd"
+        }
+      },
+      "pullRequests": {
+        "nodes": [
+          {
+            "number": 9,
+            "headRefOid": "491c570f7a4c3c4a8117e90504d60a688c61515f",
+            "baseRefName": "main",
+            "isDraft": false,
+            "autoMergeRequest": null
+          }
+        ]
+      },
+      "pullRequest": {
+        "reviewDecision": null,
+        "reviewThreads": {
+          "nodes": [],
+          "pageInfo": {
+            "hasNextPage": false
+          }
+        }
+      }
+    }
+  }
+}

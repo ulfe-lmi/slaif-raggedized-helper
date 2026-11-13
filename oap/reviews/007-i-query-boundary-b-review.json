@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-12T05:58:36.876865+00:00",
+  "status": "LOCAL_FIX_B_SOURCE_REPORT_REVIEWED_PENDING_AFFECTED_REAUDIT",
+  "implementation": "13ec5825e7e089d5e1c3491ff3e7f5da03abc80c",
+  "report_commit": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+  "report_sha256": "edf9245d718a146ab13f8df3acdd7ce01b4e161d2b9e6d180c9661539ef82380",
+  "graph": "clean exact currentHEAD, soleparent implementation, implementationsoleparent base, reportonlydiff andSELF, Root order exact, six source hashes andfivewitness hashes independentlyverified",
+  "source_review": "audit/007-query-boundary-B-source-review-13ec.json",
+  "Root_tests": "audit/007-query-boundary-B-root-tests-13ec.json",
+  "strongest_counterargument": "Actual native/CPU priority fixes affect shared transitive session code; previous peer CHANGES_REQUIRED stays historical and fresh affected review must verify corrections at this exact report. No real BGE/controller/GPU/license/ICA proof.",
+  "disposition": "No integration before affected re-audit; H excludes these files.",
+  "DHA": "NONE",
+  "no_FIFO_read": true,
+  "affected_peer": {
+    "review": "parallel/audit-query-boundary-c/review.json",
+    "sha256": "758fceb6820566ba22bd09f908824733fcca39cea56992a714c6263e10ffe817",
+    "result": "COMPLETE_ACCEPT_CANDIDATE"
+  },
+  "current_disposition": "ELIGIBLE_EXPLICIT_FUTURE_CANONICAL_SELECTIVE_INTEGRATION_CURRENTHEAD_AND_CI_REQUIRED"
+}

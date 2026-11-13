@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-11T23:08:21.053498+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_TYPED_FRESH_EMBEDDING_BATCH_STORE",
+  "receipt": {
+    "lane": "embedding-batch-store",
+    "lane_id": "PAR-007-BATCH-STORE-A",
+    "result": "COMPLETE",
+    "implementation": "f1f5f3cbeb7546b758f7dc387b9e38f7d4de5259",
+    "report_commit": "ccbb5e601239b40ac337a035668aeb851aa241cd",
+    "report_sha256": "278d9f402ddfb63a73149529e7d3fa30ed60027cf488c95f17f1dd771b14dbb9",
+    "paths": [
+      "docs/parallel/embedding-batch-store-api.md",
+      "oap/parallel/orders/PAR-007-BATCH-STORE-A.md",
+      "src/slaif_raggedized_helper/embedding_batch_store.py",
+      "tests/integration/test_embedding_batch_store_composition.py",
+      "tests/unit/test_embedding_batch_store.py"
+    ],
+    "verified_at": "2026-11-11T23:06:11.795111+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "execution": {
+    "unit": 15,
+    "standalone_integration": 13,
+    "lint": "PASS",
+    "witnesses": {
+      "/tmp/raggedized-root-batch-store-ownership.py": "7b77895d208019bcf537d35b98e2ee64fd2ed02a8ca68b8856467d5bd0e5973f",
+      "/tmp/raggedized-root-batch-store-guard-causality.py": "64dca9f1b1e642a49473f5062c338ef4463fe4f9d5dab4ee5397df2685d69abb"
+    },
+    "both_witness_exit": 0
+  },
+  "source_review": "Root whole module/alltests/docs + both corrective deltas reviewed. Final full SELFreport read, sole report-only parent/current clean target/exactpreparation parents+tree independently checked. Actual Store admission/freshread plus faithful mutation guard proved; no FIFO read.",
+  "strongest_counterargument": "Exact metadata and roworder declarations plus freshhashednormalizedbytes do not independently establish real model/source semantics or authorization; lateractualproducer must compute expectedbindings. Currentstructuralpersistence proof suffices only for this leaf.",
+  "limits": "Actual typedstructuralpersistence only; declared rowmap/dependencies not model/source/ACL/qualification proof. Currentcanonical007integration stillpending.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T15:05:32.724982+00:00",
+  "base": "63958c436428aebfc5f58247f4eb9119740e35c6",
+  "component_index_sha256": "c4d7540e51107e9dacd25bdccb78229ed79eac4947a6b9bba6eb6e8f5adb1eb5",
+  "frozen_plan_target": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+  "shared_source_files": 80,
+  "canonical_only_retained_modules": [
+    "src/slaif_raggedized_helper/raw_snapshot_manifest.py",
+    "src/slaif_raggedized_helper/raw_snapshot_rows.py"
+  ],
+  "verification": "Every SHARED forecast src/**/*.py blob current L+exact10 equals frozen reviewed plan target. Two canonical-only K snapshot declaration modules retained, absent frozen target. Both L test exceptions preserved. Source equivalence supports dependency fit, not current execution or CI. Earlier narrow7+1/2+1 forecast tests retained; no repeats without new concern.",
+  "Root_failed_precheck": "Initial own assertion demanded complete set equality and failed because two legitimate canonical-only K modules exist. No shared source mismatch, product failure, cap/test waiver or code repair. Correct comparison is shared intersection plus explicit canonical-only extras.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,57 @@
+{
+  "at": "2026-11-11T20:36:49.665988+00:00",
+  "status": "FINAL_QUALIFICATION_OBSERVATIONS_ACCEPTED_ONLY",
+  "decision": "ACCEPT_REPRODUCED_FACTS_NO_PRODUCT_INTEGRATION",
+  "target": "275335a068e9f62723d344288240b6571f9d4f8e",
+  "codec": "31bbb86276f288934baed3ba1331cda257584ab0",
+  "report_sha256": "edc27f95e15adf1dd9ac089e804e2d3662dd43dd8e63684414dd2c03a9cd3044",
+  "review": "Entire report, final witness, final/initial output and relevant actual public store/codec/job APIs inspected. Primary/auxiliary exactcleanheads checked and helperverify without FIFO rerun. Initial ownwitness manifestpath error honestly retained and corrected before finalreport.",
+  "independent_root_reproduction": {
+    "script": "/tmp/raggedized-root-batch-interop.py",
+    "script_sha256": "f2d7046fa39c7a174d35b942417ab30072b1b1e8a510a73a664b8bc42df749fd",
+    "changes_from_original": "ONLY fixed store2 allocation replaced with a fresh private mkdtemp path; all assertions/limits/input construction/code imports unchanged. Original script retained.",
+    "original_sha256": "67e12051fecd4a50b3dcd6abe3cac607d598b0a16a6e3bbca04834796528f122",
+    "output": "/tmp/raggedized-root-batch-interop.out",
+    "output_sha256": "18f329f6e4b3ddd9ddfdd6e60ac9ea9abfe2412ed1133333e38e8c5820459d49",
+    "exit": 0,
+    "comparison": "All four JSON result objects exactly equal authorfinalresults; raw uv environment-install timing differs.",
+    "cases": [
+      {
+        "case": "small",
+        "bytes": 524416,
+        "container_sha256": "de37fa8e610cc01ce77e1343f25a47be226acccf5fc10ce758a5b8f334ceb602",
+        "payload_sha256": "eeb70200c5cb549ae3e9c4c2c61798def42a9c0cf3bbf5c8734f145802dbbe2f",
+        "id": "8cc0bfa0bbc03b6d53f8e10d06b620cbead287e946d50939606fe4cb8063a77f",
+        "shape": [
+          128,
+          1024
+        ],
+        "dtype": "float32",
+        "immutable": true,
+        "ordered_bytes_equal": true
+      },
+      {
+        "case": "large_codec",
+        "bytes": 81920128,
+        "sha256": "3d830d657ae73e2d9a28b413a90ad5c666a2afaf0aa759a05fde8867e6c61422"
+      },
+      {
+        "case": "large_store",
+        "refused": true,
+        "manifest_unchanged": true
+      },
+      {
+        "case": "job",
+        "inputs": 128,
+        "serialized_bytes": 24492,
+        "sha256": "e42f0f4a2f19517c3a793a2fa1b04f36ddb3fa1bfba8ab2752ad2eb2293d1906",
+        "job_id": "sha256:0aa0f0fde0ab7c4a63e4b5a54534746acc96ed3e0347f3e600fa3df2e487eae5",
+        "129_refused": true
+      }
+    ]
+  },
+  "authority_clarification": "The specifically ordered cached uv --isolated --locked --offline command installs the18lockedbaseline packages into its isolated temporary environment. This was explicitly authorized by the order; it does not authorize installing new packages/versions into existing environments or changing the dependency graph. No lock/globalpackage/NumPy installation/download occurred. Preserve the report literal disclosure; its broad contrary-to-no-install conclusion is not adopted. No human license/runtime boundary waived.",
+  "interpretation": "128rawvector rows interoperated and128jobrefs admitted;20000rowcodec frame81920128bytes correctlyrefused by64MiBstore member without newmanifest. The reported CHANGES_REQUIRED is a future composition constraint, not a new defect in either accepted component. Root alreadyproposes separate boundedbatches preserving all corpus rows.",
+  "strongest_counterargument": "No typedrowmap/source/representation/encoder qualification or optimalGPUbatch throughput follows from opaque rawbytes/digest/shape/row-order orDTO serialization. Capacity compatibility alone is not the embedding pipeline.",
+  "scope": "Readonly preparation; no app/Git/CI/currentobjective changes,007activation,model/inference/GPU/currentauth/rights/license/MVP/ICA acceptance. DHA NONE. No operationalgoal or furtherpanecapture needed: finite task completed before any goal injection."
+}

@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-12T13:56:45.541350+00:00",
+  "target": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+  "implementation": "617ab621d1dc8fbb6cbfbaff61261d35e1ae2716",
+  "draft_sha256": "81335c3f8fe5fc07502e5ed051c503dc6570e9794a0157623295aab056cf8a94",
+  "status": "FINITE_OPPOSITE_AGENT_REVIEW_ACCEPTED_EXACT_LOCAL_TARGET_ONLY",
+  "review": "Fullsubstantivereview0f7a read, entire newwitness source and actualrawlog inspected. All8source/report/prep and19evidence artifact hashes independentlyverified. Corrected8133 semantically ONLY replaces erroneous72hex functionhash with actual64hex matchingrawlog/Rootrerun; olddraftretained. Complete6path graph/SELF/prep/design/privateactualclass/ownership/receipt/source/journal/metadataargument substantive; sharedpredecessorauthorship/dependency disclosed, not separatehuman/milestoneICA.",
+  "independent_control": {
+    "path": "/tmp/AUDIT-007-GPU-PRODUCER-A-attempt-control-7605074d.py",
+    "sha256": "7605074d7bb45aa588e50f8f6d1ba994b897e96e35c0f956fff426ed523bb4e8",
+    "effect": "Actualsource-derivedplan/native+actualprivateprepared/reservation/realjournalRUNNINGattemptA. ForeignattemptB originalreconcilerefusesBEFOREappend; temporaryisolatedreconcile removesONLYattempt_idmismatch and actualjournal appendisATTEMPTED then independentjournaltransitionguardrefuses. StateRUNNING/Aunchanged; originalagainpre-appendrefuses; actualownerAcleanupreconcilesFAILED andactualpins/capture/reservationdrain. Preciseguardplacementproof, notforgedterminalcommit/security/rights/modelproof.",
+    "Root_rerun": {
+      "log": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-producer-peer-root-attempt-control-0f7a.log",
+      "sha256": "fae571f961b475a8197f634e84e4e406cbd1410f24b51b19640f8cf5f2bfec23",
+      "output": "control_sha256=cdafc2938a477fd069e7f177a04e6a0557bb6363b73d4e5a3c20f370bddc747d\noriginal=refused_before_append control=actual_append_attempted_and_journal_refused restored=refused_before_append\n.\n1 passed in 7.78s\n",
+      "caps": "AS1GiBCPU30wall120/fivethreads1/no bytecode/privatebasetemp"
+    }
+  },
+  "limits": "Peerfirst23unit/Areturn/Breturn invocations omittedexplicitRAYON_NUM_THREADS (VECLIB substituted), disclosed asnotfullyorderedcaps; do not certify those invocations asfiveorderedthreads. Root own23unit/current2return andfullpositive already ran allfivecorrect; peerlateractualsourcecorruption/Bpendinglease/seededreuse/control setRAYON1 and rawlogs verified. First3peerrawstdoutnotarchived, attributablecounts only. No gratuitousrepeat justified. Root/authorpositive andlate60 proofslabeledreused, no independentrealmodel/FP16/physicalGPU/hardware qualification.",
+  "strongest_counterargument": "Privatebridge coupling and repeatedexpensivepreparation remain fragility/performance issues outsideboundedproof; actualcorpus/currentprincipalpolicy/controller/parity/hardware/license/security/quality/canonicalCI/fullICA stillopen. Finiteactualsource/journal/ownercases+Rootcurrentpositive+independentguardcontrol support localcomponent only.",
+  "DHA": "NONE",
+  "normal_response": {
+    "lane": "audit-durable-gpu-producer",
+    "lane_id": "AUDIT-007-GPU-PRODUCER-A",
+    "result": "COMPLETE",
+    "target_commit": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+    "report_sha256": "81335c3f8fe5fc07502e5ed051c503dc6570e9794a0157623295aab056cf8a94",
+    "verified_at": "2026-11-12T13:56:49.998915+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  }
+}

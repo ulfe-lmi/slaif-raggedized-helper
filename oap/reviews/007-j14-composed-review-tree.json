@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-12T08:56:32.145441+00:00",
+  "scope": "Disposable exact canonicalI4a499 +14GPU blobs136921B ONLY; no parent or identity. No canonicalmutation/CI/ICA/physicalGPU proof.",
+  "directory": "/tmp/raggedized-root-i-j14-89haxwyg",
+  "base": "4a4992e9eae85d52aaae093f61030fa14153eaa6",
+  "source_index": "audit/007-j-components.json",
+  "tests": {
+    "unit": "103PASS13.24s",
+    "separate_GPU_installed": "8PASS5.90s",
+    "separate_project_launch_namespace": "1PASS1.25s",
+    "separate_CPU_offline_wheel": "1PASS2.08s"
+  },
+  "exit_codes": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "bounds": "Each1GiBAS30CPU120wall/threads1/no bytecode/fullfixtureENV; fakeframework/null/ownnamespace only. Existing currentIquery/CPU/native files preserved; realBGE/GPU UNRUN.",
+  "logs": {
+    "unit": "3fdcc6342310f261b62510ac5346896fd88ec1499efa3f8a43c7692624e6e176",
+    "installed": "084f46ddaa4f152c2fa07f49f7de5f53aa654c04b44b591c2742b10415ad712a",
+    "launch": "51618742eeb866d8fc291a2afa8556ab2397c1e4d001580e539b09705b91792c",
+    "CPUwheel": "bdc4a033a16622e249556c78c42b2f18fdbdb2bfa4c14d4977c44133effefef7"
+  }
+}

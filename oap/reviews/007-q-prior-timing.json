@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T20:11:31.008142+00:00",
+  "identifier": "007-p",
+  "event": "STRATEGIC_REVIEW_REJECTS_CURRENT_CI_GATE_REQUIRES_SAME007_CONTINUATION",
+  "report_commit": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+  "review": "audit/007-p-review.json",
+  "review_sha256": "4c22adccc3b3f0ee83182facfa7cf1fb2213c0f310af667f29aa70012e3022aa",
+  "normal_response_verified_at": "2026-11-12T20:10:32.625848+00:00",
+  "activation_at": "2026-11-12T19:14:17.338830+00:00",
+  "activation_to_normal_response_seconds": 3375.287018,
+  "current_report_allCI_success": false,
+  "next": "007-q3filetestharnessportability; laterRgateway/Scapture/Trepair, no numericjump/merge.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-12T02:12:19.935507+00:00",
+  "target": "bb6a9335944b499b1ac11dc81818cda7cf7115f2",
+  "report_sha256": "f03d79e2e64bd5827b666e9c77eade3f1d1730f4250df5f3c99b9ca816f55106",
+  "status": "INDEPENDENT_FINDING_RETAINED_CHANGES_REQUIRED",
+  "evidence": "Root read full two drafts, final exact bytes, original nonce witness source and underlying claim/journal/producer call path. Final standard classifications retain finite positive tests and actual original negative nonce causality. Original A immutable.",
+  "blocking": "Producer original criterion7 reaches pre-return ownership.claim failure; old dependency can skip descriptors/mask interruption. Shared prerequisite new6c29 source reviewed/tested for report publication but report/integration/affected-composition review still pending.",
+  "scope": "Affected peer evidence only, not full ICA or candidate/currenthead acceptance.",
+  "DHA": "NONE"
+}

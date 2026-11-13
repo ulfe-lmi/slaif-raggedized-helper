@@ -1,0 +1,183 @@
+{
+  "status": "FROZEN_N_TRANSCRIPT_ROOT_RECORD_INDEX_NOT_ACTIVATION",
+  "records": [
+    {
+      "source": "parallel/launch-preparation-owner/approval.json",
+      "target": "oap/reviews/007-n-launch-owner-local-admission.json",
+      "sha256": "14a48fc1f335cf031cedd9c15282ba36580a2711cae43a0f35a18e25cc12a8c1",
+      "bytes": 679
+    },
+    {
+      "source": "parallel/launch-preparation-owner/review.json",
+      "target": "oap/reviews/007-n-launch-owner-root-report-review.json",
+      "sha256": "56f29836c8b8e077395e66f86007d3593a83c24d368ec9e7368afcaa36baf72a",
+      "bytes": 918
+    },
+    {
+      "source": "audit/007-launch-owner-source-review-5a1b.json",
+      "target": "oap/reviews/007-n-launch-owner-source-review.json",
+      "sha256": "04092b35340e8d82af22f4dc269838001065f3c769cb885077d0a33a5f379bbd",
+      "bytes": 4664
+    },
+    {
+      "source": "parallel/audit-launch-preparation-owner/report.json",
+      "target": "oap/reviews/007-n-launch-owner-opposite-peer.json",
+      "sha256": "cba97e611fe71a49b1a1df4f089ace9eafbf3cdc2c9f1d97fd2e4dc83277f96e",
+      "bytes": 7044
+    },
+    {
+      "source": "audit/007-launch-owner-peer-root-review-cba9.json",
+      "target": "oap/reviews/007-n-launch-owner-peer-root-review.json",
+      "sha256": "91b4b61565265243ef53f5335dc120332f5b7d764128a77786968a83053fa8d1",
+      "bytes": 1580
+    },
+    {
+      "source": "parallel/durable-gpu-producer/review.json",
+      "target": "oap/reviews/007-n-durable-gpu-producer-root-report-review.json",
+      "sha256": "52bda9ad6c277178e21474d913898b55544f76daf99ac851cb806d8b2a905503",
+      "bytes": 8591
+    },
+    {
+      "source": "parallel/durable-gpu-producer/local-admission.json",
+      "target": "oap/reviews/007-n-durable-gpu-producer-local-admission.json",
+      "sha256": "52eff57a2879fbae61ee31e1fd748aa22081c59d4b296bbfea38e51fbdbd667e",
+      "bytes": 1151
+    },
+    {
+      "source": "parallel/audit-durable-gpu-producer/report.json",
+      "target": "oap/reviews/007-n-durable-gpu-producer-opposite-peer.json",
+      "sha256": "81335c3f8fe5fc07502e5ed051c503dc6570e9794a0157623295aab056cf8a94",
+      "bytes": 10487
+    },
+    {
+      "source": "parallel/audit-durable-gpu-producer/review.json",
+      "target": "oap/reviews/007-n-durable-gpu-producer-peer-root-review.json",
+      "sha256": "43a0840a1a27b25c6338737d2bb9f9705c0f4d29aa1ef13635e9b5f7e51b28ee",
+      "bytes": 3501
+    },
+    {
+      "source": "parallel/corpus-program/review.json",
+      "target": "oap/reviews/007-n-corpus-program-root-report-review.json",
+      "sha256": "30d55a7be92a788f94816edcbfa98c62a6da8c597f989e7a36c914872ccd98c0",
+      "bytes": 4303
+    },
+    {
+      "source": "parallel/corpus-program/local-admission.json",
+      "target": "oap/reviews/007-n-corpus-program-local-admission.json",
+      "sha256": "77449e5b9e15b947cd717cd254937f49ffb05a78289c0188e4a6ea58e663dd92",
+      "bytes": 1302
+    },
+    {
+      "source": "parallel/audit-corpus-program/report.json",
+      "target": "oap/reviews/007-n-corpus-program-opposite-peer.json",
+      "sha256": "0d27a6824e4e7fc237be38bfed88331db8a594bed8b24522dee5ee5d08955d00",
+      "bytes": 4983
+    },
+    {
+      "source": "parallel/audit-corpus-program/review.json",
+      "target": "oap/reviews/007-n-corpus-program-peer-root-review.json",
+      "sha256": "b478b222186c8a837d77c4cdcaf2a8a32a238b71fc19c209e423c6f9920c8f10",
+      "bytes": 2647
+    },
+    {
+      "source": "parallel/corpus-executor/review.json",
+      "target": "oap/reviews/007-n-corpus-executor-root-report-review.json",
+      "sha256": "ffcdbfc2954c3cfd995cede193d9284cfad91c8c5e75bf6298f362fc81965b0e",
+      "bytes": 7662
+    },
+    {
+      "source": "parallel/corpus-executor/local-admission.json",
+      "target": "oap/reviews/007-n-corpus-executor-local-admission.json",
+      "sha256": "5b378f1f47436291e83fbfea3200df6fd619b6f85910c4cc2c79767acb9cf969",
+      "bytes": 2368
+    },
+    {
+      "source": "parallel/audit-corpus-executor/report.json",
+      "target": "oap/reviews/007-n-corpus-executor-opposite-peer.json",
+      "sha256": "c87f3685284692541844356169568f8ad6e47ced8aeffb2d290704a96170f318",
+      "bytes": 7375
+    },
+    {
+      "source": "parallel/audit-corpus-executor/review.json",
+      "target": "oap/reviews/007-n-corpus-executor-peer-root-review.json",
+      "sha256": "4f7bda3d247b5178f399266588ee5db6526cca345b2639412c65bfa1ae239b11",
+      "bytes": 4059
+    },
+    {
+      "source": "parallel/corpus-executor/root-heavy-proof-observed.json",
+      "target": "oap/reviews/007-n-executor-heavy-proof-observed.json",
+      "sha256": "0449b960768ec690857d69ffc61e0afe6ea7eeabbb73752eed4f2fd04cfc776d",
+      "bytes": 1627
+    },
+    {
+      "source": "parallel/corpus-executor/root-heavy-budget-decision.json",
+      "target": "oap/reviews/007-n-executor-original-heavy-budget.json",
+      "sha256": "749703fe773821c7a95100254b844905e2149b1e91673dc5fe735135825d8bb9",
+      "bytes": 3520
+    },
+    {
+      "source": "audit/007-n-current-M-source-forecast.json",
+      "target": "oap/reviews/007-n-current-source-forecast.json",
+      "sha256": "2d0d9230d7a081a09351dcd05876b2eaaa32ed8143c5394ba3303889c6f0749c",
+      "bytes": 1380
+    },
+    {
+      "source": "audit/007-m-review.json",
+      "target": "oap/reviews/007-n-prior-M-resolution.json",
+      "sha256": "81d9e4809e2b0ec14130b5b9de4bbf4d1b2f0a7f5cbb462d37cd44476bb2f0ae",
+      "bytes": 3895
+    },
+    {
+      "source": "audit/007-m-current-source-review-c744.json",
+      "target": "oap/reviews/007-n-prior-M-source-review.json",
+      "sha256": "99305fc32533f76354379d59a3e6c0e97f3f9b787f643708065a774e203126a5",
+      "bytes": 2889
+    },
+    {
+      "source": "audit/007-m-current-report-review-e9ee.json",
+      "target": "oap/reviews/007-n-prior-M-report-review.json",
+      "sha256": "276865ce3115586fd01ec2d54b1968315e9b496bbc43896a9fda6688ef4e1eb2",
+      "bytes": 2542
+    },
+    {
+      "source": "audit/007-m-root-current-checks-c744.json",
+      "target": "oap/reviews/007-n-prior-M-root-checks.json",
+      "sha256": "28015d8c4283cdfe0f155c17d2e3d941870174d48de769ac5ea42bc74777ec22",
+      "bytes": 1348
+    },
+    {
+      "source": "audit/007-m-author-current-17-case-review.json",
+      "target": "oap/reviews/007-n-prior-M-author-checks.json",
+      "sha256": "3db3d3552a7dd603a9f92d4a9962bdb4ce9db0d88a651ee98a8e48ab04ac791f",
+      "bytes": 6003
+    },
+    {
+      "source": "audit/007-m-current-report-CI-full.json",
+      "target": "oap/reviews/007-n-prior-M-required-CI.json",
+      "sha256": "5c0ce57534cd5cd64cdb24a957d03d157de2f949898da1b444f826f2463dc0d7",
+      "bytes": 15837
+    },
+    {
+      "source": "audit/007-m-current-remote-review-e9ee.json",
+      "target": "oap/reviews/007-n-prior-M-remote-review.json",
+      "sha256": "b843949fe3f426f9faab41aabd3015747c6546478c0c12288ef271f42145d614",
+      "bytes": 1652
+    },
+    {
+      "source": ".oap-state/response-consumed-007-m.json",
+      "target": "oap/reviews/007-n-prior-M-normal-response.json",
+      "sha256": "d689bca2f70ab955662a79c9c922117260fbd1abc659c9e2426a37c8b75ae880",
+      "bytes": 345
+    },
+    {
+      "source": "audit/007-m-resolution-timing-event.json",
+      "target": "oap/reviews/007-n-prior-M-resolution-timing.json",
+      "sha256": "ac6f8f4937f1cf96a99334e5c67d96ddd90178e3cf69f3f1af6c3ecd33983b88",
+      "bytes": 558
+    }
+  ],
+  "record_count": 29,
+  "total_bytes": 114910,
+  "rule": "Root owns exactbytes. Copy all source->target entries unchanged in first transcript. Historical pending review records followed by final admissions/resolutions; no rewriting reports. CurrentMsource/report/CI/normalresponse/ledger verified; only originalhelpers+livequiescentpreflight activate. DHA NONE.",
+  "DHA": "NONE"
+}

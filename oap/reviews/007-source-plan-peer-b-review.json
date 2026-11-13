@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-12T00:28:51.619800+00:00",
+  "status": "ACCEPT_INDEPENDENT_TWO_GAP_FOLLOWUP_EVIDENCE",
+  "receipt": {
+    "lane": "audit-source-plan-b",
+    "lane_id": "AUDIT-007-SOURCE-PLAN-B",
+    "result": "COMPLETE",
+    "target_commit": "2b50e6587b5362b3da7d092bf355cdd8153712cd",
+    "report_sha256": "d59712183f23e4784adbba71705b86c9bfc69dea73943a4c2982a07e9d835689",
+    "verified_at": "2026-11-12T00:24:26.762029+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "Root_review": "Fullreportandprivatewitnessread. Actual3.12positivecounterpart/Pathrawparts/1MIDsboundedmemory and realjourneypositive+9selectednegativecalls assertedsource/model/outside-sentinel18filehashsnapshotunchanged, exactadmission/build/validatecounters. Witnesshashverified, no sourcepatch/modelwork.",
+  "evidence": "2368BPath/1840BIDpeaks beforeadmission0, baseline4455B/admission1; snapshotaggregate86fd5223d422a5ff8cde661e732b1171bf0b8f3ae6f57fbd876d9b2501c0e688stable",
+  "combined_scope": "Afullread+items2/3/5 currentnative/hashproof andBfinite1/4gaps now supportcompleteaffectedsourceplancomponent assurance. Rootown4unit3.12+4unit3.14+6standalone+memoryseparate. AimmutableUNPROVEN retained historically; Bdoesnotrewriteit.",
+  "counterargument": "Selected18ownedfixturefiles/negativepaths andPythontracedallocation only, notallpaths/allversions/totalRSS/currentrights/license/realML/hardware/ICA/MVP.",
+  "DHA": "NONE"
+}

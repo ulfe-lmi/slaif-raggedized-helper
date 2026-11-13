@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T10:22:35.185945+00:00",
+  "status": "KNOWN_PARENT_REINIT_FAULT_REMEDIATED_AT_FROZEN_LOCAL_SOURCE_FRESH_PEER_NOT_CANONICAL_ACCEPTANCE",
+  "history": "audit/007-k-activation-hold-reinit.json preserves originaloldK13hold and neveractivation",
+  "implementation": "1344e7b2fa29afead4ee630f55f4110246e9ec6f",
+  "report": "9ac0eabd77bff77101debe9812887993e86a6803",
+  "Root_source": "audit/007-parent-single-init-source-review-1344.json",
+  "peer": "parallel/audit-parent-single-init/review.json d31d exactfinal",
+  "Root_peer": "audit/007-parent-single-init-peer-root-review-d31d.json",
+  "disposable_composition": "audit/007-l-parent-native-composed-review-tree.json",
+  "remaining_gate": "New finalizedexplicitnextsame007order afteractualKresolution/currentcanonicalCI. No oldK13activation or human/DHA/qualificationwaiver.",
+  "DHA": "NONE"
+}

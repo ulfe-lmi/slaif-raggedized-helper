@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-12T22:25:57.381313+00:00",
+  "identifier": "007-r",
+  "status": "REJECTED_REPORT_FORMAT_WHOLE007_PARTIAL",
+  "development_acceptance": false,
+  "report": "c1bcba4666d184689e6d8cdf47e42ceea3667db9",
+  "report_sha256": "cf716a628f7e51373845bc8151e5907e5684b490135c5675c1cf4afc7f68ddf6",
+  "implementation": "270d4156c4bf813a12e58c32cdd638ddb1ca35d0",
+  "source": "audit/007-r-implementation-source-review-270d.json exact8components82739B/STATUS9paths/transcript14records/order/addendum preserved",
+  "format": "audit/007-r-published-format-rejection.json; canonicalstrictverifier REFUSED Full literalGitobjectID dueannotatedmetadata. Publishedreportunchanged, no lenientparser orfakeOK.",
+  "CI": "audit/007-r-current-report-CI-root-review.json CURRENT43315535020 all5jobs/all78stepsSUCCESS atc1bc. ActualworkflowID403803560/.github/workflows/oap.yml/attempt1, normalCItestsnecessarybutcannotacceptbadreportcontract.",
+  "author": "audit/007-r-terminal-author-root-reconciliation.json plusactualauthor8843Bregularterminalreceipt; respondsafelyrefusesbeforereceipt/FIFO. No response-consumed claim.",
+  "actual_idle": "audit/007-r-authoritative-idle-observation.json actualcurrentRthread/processFD/goalcomplete+taskcomplete22:24:03.880, settingspreserved, noTUIinterruptionrequired.",
+  "reviews": "audit/007-r-current-reviews.json exactPR9OPENnonDraft/automergeOFF/main11bad, no reviewnodes/threads",
+  "process": "ActualintermediateheadCIwaitcontraryorderpreservedRootaudit007-r-intermediate-CI-wait-recovery, onecorrectionownedobserverstopped. Laterreportbare40mistakepreventedstandardresponse/nextsuffix; failrecordnotconcealedbyCIgreen.",
+  "strongest_reason_not_to_merge": "Reportcontractfailed. Whole007sourcecoverage/actualBGE/precision/hardware/currentauthorization/drain/licenses/PDFvisual/fullICA/heldout/MVP stillPARTIAL; capture/explicitrepair notcanonical. No mainmerge/numericadvance/release.",
+  "next": "Same007S mayintegratereviewedtest-onlywatchdogcandidate afterindependentlyapprovedone-timeFAILED_FORMAToperationalpublicationrecovery preservingoldreport andnewSstrictsyntax/currentCI. CaptureT/repairUresequenceexplicitly, oldaliasesretained. No abandonmentor numericjump.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

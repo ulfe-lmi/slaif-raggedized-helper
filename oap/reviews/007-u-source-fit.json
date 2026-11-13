@@ -1,0 +1,279 @@
+{
+  "at": "2026-11-13T00:27:29.312006+00:00",
+  "status": "FINAL_CURRENT_T_REPORT_SOURCE_FIT_REVIEWED_NOT_RUNTIME_PROOF",
+  "canonical_implementation": "cf7479ee551e01803f7e2e6a8823bc61b3f1fe23",
+  "source_report": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+  "candidate_five_files": [
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "src/slaif_raggedized_helper/embedding_job_journal.py",
+      "bytes": 25497,
+      "sha256": "2dfd72c88537fee0f6d85b3448212906be0137cdbcac6ba1deb79283b3aec15d",
+      "blob": "54c6d04eaaa46cfcb8157de45d267d366bbc1990"
+    },
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "tests/unit/test_embedding_output_repair.py",
+      "bytes": 4051,
+      "sha256": "dec04628ba1f86c0aeb788768bbf2f630f13f081bf0b64d7ba5ce453c13996c4",
+      "blob": "b1198ed36686b7b8271c798d163dabb832150568"
+    },
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "tests/integration/test_embedding_output_repair_composition.py",
+      "bytes": 20225,
+      "sha256": "d60fc5d09175664ea30bcbd801e70498b19fd54105b236ebea178efa670be0c7",
+      "blob": "95e834f20fc68176a911b030e55cb3635e4e12fc"
+    },
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "docs/parallel/embedding-output-repair-api.md",
+      "bytes": 4553,
+      "sha256": "2ab5cc0a96e328233ae0ceb346ea9521717873df6cc70b73db2d47e467005997",
+      "blob": "bfc0db270a7c0a88fccb3d96f4472176a237e3af"
+    },
+    {
+      "source_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+      "path": "docs/parallel/embedding-output-repair-design.md",
+      "bytes": 11391,
+      "sha256": "34bfcfff93967d1ffd4e0bdd82eca31b36c31cd2df935e02d563eb7c0fcae0eb",
+      "blob": "b113d49b641fcdf3c957a7ee709ad8d24be7e949"
+    }
+  ],
+  "static_modules": [
+    {
+      "path": "tests/unit/test_embedding_batch_store.py",
+      "bytes": 4063,
+      "sha256": "8efee30c265604db3bf8b62f1262a512db28b5992cc5541050aa647c19c75cc9"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/vector_codec.py",
+      "bytes": 5983,
+      "sha256": "13a923892bba79089d1e1c7282d562eff1fd3fff2ec51c3c6df4a7f5dc52330c"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_vectors.py",
+      "bytes": 2029,
+      "sha256": "c69906f3cb4a1239241990d31eb2688fb14712525c5046e93ff07331724b3a67"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/derived_store.py",
+      "bytes": 12215,
+      "sha256": "80cb56fcee50aa18df1c291a58e4ea8a0b462fcd614aa480d36605e12916e761"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/__init__.py",
+      "bytes": 505,
+      "sha256": "3f1fc68bda1fa2c4ac79e249f755db8d45510a86b16b115aab6877f5774359e0"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_batch_store.py",
+      "bytes": 5893,
+      "sha256": "8e53be2d1a0acb8fc8d6932bdd9c1d5f5b8f9015108de79814fa2a07c6a9f429"
+    },
+    {
+      "path": "tests/integration/test_embedding_output_repair_composition.py",
+      "bytes": 20225,
+      "sha256": "d60fc5d09175664ea30bcbd801e70498b19fd54105b236ebea178efa670be0c7"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/job_records.py",
+      "bytes": 11211,
+      "sha256": "7a74be6ae92e046ce35f372a02877a3e9042fc30f46995199cd6c2a43add9625"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/schema.py",
+      "bytes": 19545,
+      "sha256": "9fecd1043f6f62b263a78d5ff0726ce0dcb379ffcdaefa225b3c77dfaee736d2"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/_constraints.py",
+      "bytes": 1811,
+      "sha256": "408286611df60ba2a6747a6375ca05931b7199eb78e86b4bfc143b34929df376"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_job_journal.py",
+      "bytes": 25497,
+      "sha256": "2dfd72c88537fee0f6d85b3448212906be0137cdbcac6ba1deb79283b3aec15d"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_job_ownership.py",
+      "bytes": 7008,
+      "sha256": "708731cd9a76e41df08c1c07e02b78748f90aca72da0bb6e12e5c7ee1977cafe"
+    },
+    {
+      "path": "tests/unit/test_embedding_output_repair.py",
+      "bytes": 4051,
+      "sha256": "dec04628ba1f86c0aeb788768bbf2f630f13f081bf0b64d7ba5ce453c13996c4"
+    }
+  ],
+  "static_modules_bytes": 120036,
+  "edges": [
+    [
+      "test_embedding_batch_store",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_batch_store",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "test_embedding_batch_store",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_batch_store",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "test_embedding_batch_store",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "test_embedding_batch_store",
+      "slaif_raggedized_helper.vector_codec"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_store",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_store",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_store",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_batch_store",
+      "slaif_raggedized_helper.vector_codec"
+    ],
+    [
+      "test_embedding_output_repair_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_output_repair_composition",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "test_embedding_output_repair_composition",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "test_embedding_output_repair_composition",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_output_repair_composition",
+      "slaif_raggedized_helper.embedding_job_journal"
+    ],
+    [
+      "test_embedding_output_repair_composition",
+      "slaif_raggedized_helper.job_records"
+    ],
+    [
+      "slaif_raggedized_helper.job_records",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "slaif_raggedized_helper.schema",
+      "slaif_raggedized_helper._constraints"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.derived_store"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.embedding_job_ownership"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.job_records"
+    ],
+    [
+      "slaif_raggedized_helper.embedding_job_journal",
+      "slaif_raggedized_helper.schema"
+    ],
+    [
+      "test_embedding_output_repair",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_output_repair",
+      "slaif_raggedized_helper.embedding_job_journal"
+    ],
+    [
+      "test_embedding_output_repair",
+      "slaif_raggedized_helper"
+    ],
+    [
+      "test_embedding_output_repair",
+      "slaif_raggedized_helper.embedding_batch_store"
+    ],
+    [
+      "test_embedding_output_repair",
+      "slaif_raggedized_helper.embedding_vectors"
+    ],
+    [
+      "test_embedding_output_repair",
+      "slaif_raggedized_helper.job_records"
+    ]
+  ],
+  "changed_existing_dependencies": [],
+  "unchanged_existing_journal_definitions": 24,
+  "added_definitions": [
+    "_Owned.repair_running_output",
+    "_observation_ms"
+  ],
+  "canonical_journal_callers": [
+    {
+      "path": "src/slaif_raggedized_helper/cpu_embedding_plan.py",
+      "bytes": 4549,
+      "sha256": "4881cea82479223af54124866b479a49803c0c127fbd1d47a05eca61e3580240"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/cpu_embedding_producer.py",
+      "bytes": 15798,
+      "sha256": "46102e562da9a722d61033a7e95d4c858dce2065d54530a3c83aa2595daed4a1"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_batch_plan.py",
+      "bytes": 11302,
+      "sha256": "e7080dad7e4a79189a78e02dad8220d00ee4758396a3bcb67deb64129c02abae"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/embedding_job_journal.py",
+      "bytes": 20510,
+      "sha256": "9b6331ad2dfedd93f5826ab964bd107f62348daecd607cbfd38586070de3043e"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_embedding_plan.py",
+      "bytes": 7395,
+      "sha256": "8b80a6e00989dba55481f564693be3a0faee4e6a95a39574a12e547c871bb366"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/gpu_embedding_producer.py",
+      "bytes": 26535,
+      "sha256": "7e0cbdb9c1d93c1b1c345da475774707d5a4128e32e3630e7521261258bc7483"
+    }
+  ],
+  "limits": "Identity/AST static compatibility, not semantic full-read or dynamic/external closure/runtime proof. All existing journal methods preserved, additions only. New capture caller also reviewed for unchanged API use before activation. Current T exact report/CI/normalreceipt/review/timing/idle still required; U remains inert. No sourcecopy/control/activation.",
+  "DHA": "NONE",
+  "canonical_report_base": "491c570f7a4c3c4a8117e90504d60a688c61515f",
+  "semantic_compatibility": "Root + oppositecf0e verified unchanged24methods, newstandarddataclassimport/OutputRepairResult no existingbinding shadow, private newmethod andclockhelper only. 13namedmodules120036B existingdependencies identical; 14selectedcaller/helperranges verified. CurrentTreportonlyadvance fromCF, sourceidentities unchanged."
+}

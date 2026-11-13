@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-12T07:36:54.460328+00:00",
+  "head": "b982354e117588e5f7a8f8eba157d072ab5507ae",
+  "run": 43175624624,
+  "all5all78success": true,
+  "total_steps": 78,
+  "raw_jobs": "audit/007-h-report-CI-43175624624-jobs.json",
+  "raw_sha256": "1f419ab38f04966ca819ec116d80a4f86c0bd05c209a20f3e9c6ca351e08b6c5",
+  "jobs": [
+    {
+      "name": "OAP tests (Python 3.12)",
+      "steps": 10,
+      "conclusion": "success"
+    },
+    {
+      "name": "Product tests (Python 3.14)",
+      "steps": 24,
+      "conclusion": "success"
+    },
+    {
+      "name": "OAP tests (Python 3.13)",
+      "steps": 10,
+      "conclusion": "success"
+    },
+    {
+      "name": "OAP tests (Python 3.14)",
+      "steps": 10,
+      "conclusion": "success"
+    },
+    {
+      "name": "Product tests (Python 3.12)",
+      "steps": 24,
+      "conclusion": "success"
+    }
+  ],
+  "scope": "Independently reconciled all required exact-head jobs/steps; no missing/skipped/pending/cancelled steps. Not source acceptance/full007/MVP/deploy."
+}

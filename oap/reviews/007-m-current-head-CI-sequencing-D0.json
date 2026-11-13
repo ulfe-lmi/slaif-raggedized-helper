@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-12T12:25:38.443568+00:00",
+  "status": "D0_FUTURE_ORDER_CURRENT_REPORT_HEAD_FULL_CI_GATE",
+  "applies_from": "future007-mONLY_after007-lresolved; current007-lBOTHheadgatesunchanged",
+  "decision": "ForfutureM, publishimmutableSELFreporttruthfullyafterlocalchecks withoutwaitingforintermediateimplementationCI. OnlythefinalcurrentreportheadfullCIistherequireddevelopmentgate; all5jobs/everyrequiredactualstepmustsucceed,currentworkflowexpected78. Canceled/non-successintermediateCIisnotclaimedgreenandisnot a requiredgateintheNEWorder. No merge/acceptancebeforecurrentreportheadGreen+Rootexactsource/reportreview.",
+  "evidence": "S06requirescurrentexacthead/everyrequiredcheck, nottwoequivalentsourceheadruns. Actualoaplib.verify_report inspected: soleparentimpl/report-onlydiff/exactactivation/remoteidentity only; explicitlyciNOTCERTIFIED. CurrentworkflowfullchecksrunonPRheadandprotectedexpectedheadmerge unchanged. Reportheadcontainsidenticalimplementationplusreportonly, sofullcurrentCIcoversALLcode/governanceandreport. No workflow/helper/protection/automation change.",
+  "strongest_counterargument": "No separateprepublicationremotepassonintermediateimplementation. Mitigation: actualmeaningfullocalchecks, truthfulreportCIpendingatpublication,currentreportheadfull5/allsteps success independentlyinspected,sourcegraphbyteidentity andRootreviewatthathead; no futuregreenclaim/cancel-as-pass/sourcecoverage reduction.",
+  "rollback": "NextfutureorderrestoreBOTHheadrequirementifanyactualunresolvedconcern; no releasedproduct/data/serviceaffected.",
+  "DHA": "NONE ordinaryreversibleCIsequencing, no waived currentgate orhumanintentchange"
+}

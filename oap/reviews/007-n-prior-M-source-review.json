@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-12T15:50:56.704886+00:00",
+  "status": "CURRENT_SOURCE_DOCS_GRAPH_BYTE_REVIEWED_FOCUSED_CHECKS_REPORT_CI_PENDING",
+  "implementation": "c74407f10ebaf429b233a6d9f6da67a0f367e5e4",
+  "transcript": "3cd39ce6f77540f06ec660703b0d62f31c2ea329",
+  "source_index": "audit/007-m-bridge-plan-components.json",
+  "source_exact": "Exactly10frozenfiles95773B byte/hash/size exact to two reviewed reports. Soletranscriptparent, only16implementationpaths10source+5currentdocs+manifest. Allpreexisting source/test/API/design unchanged including BOTH L exceptions, canonicalKdeclarations;17Rootrecords exact.",
+  "documentation_review": "Full current6docdiff read. Accurate model-free native0.21/copiedGPUfake software vs realBGEUNRUN and no rights/Ready/security/license/hardware grant; full007PARTIAL/producer/controller absentcanonically, source/semantic/domainGPUrecord distinctions correct. TESTINGT1-T15 exact, onlyT16 changed; ACTUAL TESTING17448B and six-file routine coding readsetTOTAL49999B/50000, manifest.files ONLYTESTINGhash changed, all othermanifestfields exact, governanceverified. No dependency/law/ARCH/source/CRITICAL/workflow change.",
+  "doc_followup": "STATUS inline historicalL unimplementedphrase followed byMadds is awkward, not sourcebehavior error. NextN namedcurrentdocrefresh should condense current summaries/linkAPIs rather than anotherlonghistory; no immutable source/report rewrite.",
+  "governance": {
+    "manifest_sha256": "d4edcae75ef40e0c7cc697435fb2ec4b5b01802b40809e87cb1ad486bec221e5",
+    "declared_context_bytes": 49999,
+    "context_files": [
+      {
+        "path": "AGENTS.md",
+        "utf8_bytes": 772
+      },
+      {
+        "path": "oap/coding-instructions/AGENTS.md",
+        "utf8_bytes": 5580
+      },
+      {
+        "path": "ARCHITECTURE-for-agents.md",
+        "utf8_bytes": 19814
+      },
+      {
+        "path": "OAP-COMMUNICATION-coding-agent.md",
+        "utf8_bytes": 4949
+      },
+      {
+        "path": "SECURITY.md",
+        "utf8_bytes": 1436
+      },
+      {
+        "path": "TESTING.md",
+        "utf8_bytes": 17448
+      }
+    ],
+    "exact_model_tokens": "UNMEASURED",
+    "client_injection_overhead": "UNMEASURED"
+  },
+  "Root_precheck_correction": "First own precheck treated MANIFEST as flat and wrongly expected top-level TESTING key; actualhashes nested under files. All10 actualsources/graph/T16prefix alreadypassed. Fixed own check, no product failure. Also clarify routine49999 isAGGREGATE6files, not TESTINGindividualbytes; do not propagate earlier compact-summary ambiguity.",
+  "strongest_counterargument": "Frozen model-free bridge/plan is not durable corpus execution/currentrights/model/hardware/quality/fullMVP. Coding local13+17claims in docs require report/evidence andcurrentreportCI, pending notpass. No acceptance/advance/mainmerge fromsourceonly.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

@@ -1,0 +1,46 @@
+{
+  "lane_id": "PAR-007-TOKEN-IDS-A",
+  "result": "COMPLETE",
+  "implementation_head": "dbac425d0f2e0be08f3ae76bcafd3d33125c26ae",
+  "report_publication_commit": "SELF",
+  "api": "TokenIDSession(definition, runtime, policy=None), encode(text), idempotent close; frozen TokenIDReceipt and downward-only Policy.",
+  "evidence": "Owned generated tokenizers 0.21.4 fixture with saved truncation and padding produced (1,3,4,5,2) for hello caf\u00e9 \u4e16\u754c and 102 IDs for 100 hello tokens, agreeing with existing CountSession. One Popen reused; 1024 IDs and 1024 calls exercised. Tests cover malformed/misbound data, budgets, cleanup, timeout, host-path and loopback denial.",
+  "commands": [
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; timeout 120s pytest tests/unit'",
+      "exit": 0,
+      "result": "1028 passed, 56.79s; run started before final additional limit test was added"
+    },
+    {
+      "command": "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; timeout 120s pytest tests/unit/test_embedding_tokenizer.py tests/unit/test_native_tokenizers.py'",
+      "exit": 0,
+      "result": "56 passed, 11.28s, final implementation"
+    },
+    {
+      "command": "env -u PYTHONPATH SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 bash -c 'ulimit -v 1048576; ulimit -t 30; timeout 120s pytest tests/integration/test_embedding_tokenizer_composition.py'",
+      "exit": 0,
+      "result": "1 passed, 0.61s"
+    },
+    {
+      "command": "RAYON_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 ruff check .",
+      "exit": 0,
+      "result": "All checks passed"
+    },
+    {
+      "command": "git diff --cached --check; cmp oap/parallel/orders/PAR-007-TOKEN-IDS-A.md /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/token-ids/order.md",
+      "exit": 0,
+      "result": "staged diff clean; order identical"
+    }
+  ],
+  "witness_sha256": {
+    "src/slaif_raggedized_helper/embedding_tokenizer.py": "0da386d2d9631c6ed697879191d2429f3920a0a2c4cd06d5002f17a916a0036b",
+    "src/slaif_raggedized_helper/embedding_tokenizer_worker.py": "ce0c2fc12dac3a1fe5053afa85688a0f8a8837b34d0936256ba736dc177a35a3",
+    "tests/unit/test_embedding_tokenizer.py": "f85ab28f87c3b913eecb7f96649c2c1db5cdea7dcf1ede1bf96c9381f6fe2095",
+    "tests/integration/test_embedding_tokenizer_composition.py": "42d5f8bd041a700c3a7a30d31314a89de6d651cf63a0b653791a7264eabeac14",
+    "docs/parallel/embedding-tokenizer-api.md": "bef6790ea4d9dabd4b029e0ecb1a0252fd8ff599cb27eb64aaaae01c133c25d7",
+    "oap/parallel/orders/PAR-007-TOKEN-IDS-A.md": "20507c58a0e2d99ed901575bb7e2109134563b0eff5936959e095bab3578bcb9"
+  },
+  "limits": "Trusted runtime and packages; owned synthetic fixtures only. No actual BGE model, neural encoder, parity, authorization, license, hardware, ICA or MVP proof. New session 300s/30s CPU profile is distinct from unchanged CountSession 20s profile. Local only; no push, PR, integration, merge or release.",
+  "strongest_counterargument": "Trusted host runtime and packages and synthetic fixture proof do not establish actual BGE model compatibility, CPU neural-worker lifecycle, physical CPU/GPU parity or transitive license/security qualification.",
+  "DHA Decision": "NONE"
+}

@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-12T08:55:46.286336+00:00",
+  "round": "007-i",
+  "status": "REVIEWED_PARTIAL_CONTINUE_SAME007",
+  "head": "4a4992e9eae85d52aaae093f61030fa14153eaa6",
+  "implementation": "77ea5b8a3aa9e10ee0c2dfa4cfb7aea9abaade4e",
+  "report_sha256": "92824a1cbef8ad95343b84f25e99ebcd84a2111407e3d54d8906b5c9f989056d",
+  "source_graph_review": "audit/007-i-root-source-final.json",
+  "fifteen_source_bytes": 170026,
+  "source_review": "Actual query/shared priority/CPU assets source and affected peers reviewed; exact fifteen blob/SHA/bytes and fourteen Root records+index, order/active, soleparent SELF report-only graph and all39 implementation paths independently verified. Current docs reviewed in full diff, boundedness/fake-vs-real and unresolved history preserved.",
+  "local_verification": "Root H+I15 composed246focused units and separate query3/isolated3/CPUworker4/actualwheel1 PASS. Coding localfullunit1466 and integration637 documented/retained logs examined; required canonical matrix now allPASS. No unnecessary repeat broad sweep.",
+  "CI": "Implementation43184289399 and report43185691986 BOTH ALL5jobsALL78stepsSUCCESS, exact currentheads, no pending/skipped/cancelled/missing steps. Rawjobs and fullrunlogs independently retrieved.",
+  "governance": "Allmanifestfilehashes verified, routine49995/50000, T1..T15 exact17155B prefix; law/ARCH/sourcebooks/CRITICAL/locks/profiles/requirements/CI/helpers/correctedGPU unchanged; DHA NONE.",
+  "procedure_variance": "D0: ordered transcript-first separate commit was combined with source. Root order+active were published/shared-FS verified beforecontrol, all authored frozen bytes exact; report truthful ONEcommit shape but executed-exactly wording overstates sequencing compliance. No retrospective waiver/history rewrite; record correction and explicit next topology.",
+  "PR": {
+    "autoMergeRequest": null,
+    "baseRefName": "main",
+    "headRefName": "oap/007-embedding-pipeline",
+    "headRefOid": "4a4992e9eae85d52aaae093f61030fa14153eaa6",
+    "isDraft": false,
+    "number": 9,
+    "state": "OPEN"
+  },
+  "main": "11badc7782bed326995d400f5532b63399b91fbd",
+  "unresolved_review_threads": 0,
+  "response_state": "Original sole wrapper exactOK consumed verified at08:47:36; regularreceipt reread only, noFIFOread/replay.",
+  "strongest_reason_not_to_merge": "Whole007 lacks integratedGPUchild/plan/parent/nativebridge/completeGPUproducer/controller/snapshotbinding and actualBGE/precision/parity/currentrights/security/license/physicalV100/heldout/ICA proof. Query fake framework and packagedresources are insufficient for whole007/main merge.",
+  "acceptance_reason": "Accept exact bounded resident-query/shared-priority/CPU-packagedresources software slice as partial development progress after source/peer/SELF/currentremote/allrequiredCI review. No mainmerge/runtime/release or fullMVP qualification.",
+  "next": "Explicit replan same007: J integrates ONLY14 independently reviewedGPUchild/launch/resources files136921B, excluding parent until newlockB affectedpeer and subsequentidentity/completepipeline gates. Prepare exactcurrentI+14 forecast/newRootorder/records and reconcile all livegates before activation. No008jump.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-12T10:01:43.017276+00:00",
+  "status": "FINITE_SOURCE_REPORT_AND_FRESH_AFFECTED_PEER_VERIFIED_ELIGIBLE_EXPLICIT_LOCAL_COMPOSITION",
+  "candidate": {
+    "lane": "native-token-acquisition",
+    "lane_id": "PAR-007-NATIVE-ACQUISITION-A",
+    "result": "COMPLETE",
+    "implementation": "385948256f7e3d0d9a50d03c4e7a6deee7b6f107",
+    "report_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+    "report_sha256": "ebe018eee63d38a7b2b7a143fe8bad0555cd9fe0a159bee932ca0de78c17aabd",
+    "paths": [
+      "docs/parallel/embedding-tokenizer-api.md",
+      "docs/parallel/native-token-id-acquisition-design.md",
+      "oap/parallel/orders/PAR-007-NATIVE-ACQUISITION-A.md",
+      "src/slaif_raggedized_helper/embedding_tokenizer.py",
+      "tests/integration/test_native_token_id_acquisition.py",
+      "tests/unit/test_embedding_native_identity.py",
+      "tests/unit/test_embedding_tokenizer.py"
+    ],
+    "verified_at": "2026-11-12T10:01:43.016283+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "source_review": "audit/007-native-acquisition-source-review-3859.json",
+  "verified_source_historical_hashes": 9,
+  "scope": "Synthetic actual native 0.21.4 tokenizer and fake CPU fixtures only; no real neural/Tensor/BGE, GPU, model parity, physical hardware, kernel/ABI, rights, security, license, ICA or canonical CI qualification. Uncertain partially initialized Popen stays retained with private artifact. Local only; no push, PR, integration, merge, release or deployment.",
+  "strongest_counterargument": "Interrupted Popen creation can leave an uncertain handle that cannot safely be drained without confirmed creation; retaining it can prolong private-resource ownership. Synthetic native tests cannot prove all kernel interruption windows or production model and GPU behavior.",
+  "next": "Fresh combined nativeFILEidentity/helper affectedpeer, currentcanonical selectiveintegration/allrequiredCI; completeGPUbridge still separate.",
+  "DHA": "NONE",
+  "affected_peer": "parallel/audit-native-acquisition/review.json",
+  "qualification_gate": "Canonical selectiveintegration/currentheadCI and completepipeline/realmodelGPU/precision/rights/security/license/quality/fullICA remainOPEN",
+  "updated_at": "2026-11-12T10:12:30.265569+00:00"
+}

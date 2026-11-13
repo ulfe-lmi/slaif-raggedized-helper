@@ -1,0 +1,48 @@
+{
+  "status": "FROZEN_EXACT_ROOT_COLLECTION_REPAIR_TRANSCRIPT_RECORDS",
+  "records": [
+    {
+      "source": "audit/007-o-review.json",
+      "target": "oap/reviews/007-p-prior-review.json",
+      "bytes": 2796,
+      "sha256": "46ff0a91a9908ec92b9f7494a8b4beb97384a33417c64d9e699cb135a4cba01e"
+    },
+    {
+      "source": "audit/007-o-current-report-strict-verification.json",
+      "target": "oap/reviews/007-p-prior-report-review.json",
+      "bytes": 345,
+      "sha256": "ae97339ad6a9c404109be484446771929cdb9edc01e8a9fb7be503dbb6d5884b"
+    },
+    {
+      "source": "audit/007-o-current-report-CI-full.json",
+      "target": "oap/reviews/007-p-prior-CI-failure.json",
+      "bytes": 8943,
+      "sha256": "44c794454bbba8ee3b5685bec42f42c971deacb0a0b662c7a24c1b7dd600eaa1"
+    },
+    {
+      "source": ".oap-state/007-o-postpublic-coding-receipt.json",
+      "target": "oap/reviews/007-p-prior-coding-receipt.json",
+      "bytes": 5884,
+      "sha256": "274ee075331ca66abfde71ab56abaa3e65351f3606f5a3aa0010dce72a9bdb2b"
+    },
+    {
+      "source": "audit/007-o-implementation-source-review-d043.json",
+      "target": "oap/reviews/007-p-prior-source-review.json",
+      "bytes": 2355,
+      "sha256": "84d458eac16d0d0ffa0536e1f60e1d2b99e6dd4cfdf73f83ecef8bcacb1b29b9"
+    },
+    {
+      "source": "audit/007-p-two-import-source-forecast.json",
+      "target": "oap/reviews/007-p-two-import-forecast.json",
+      "bytes": 1278,
+      "sha256": "de8ce27864fa71e66f4a6a1e68bef89deaa005c3eec049fd1cf306a838e8a267"
+    },
+    {
+      "source": "audit/007-o-resolution-timing-event.json",
+      "target": "oap/reviews/007-p-prior-timing.json",
+      "bytes": 603,
+      "sha256": "dc5721dcca31ab28db2f8ef39c9a8411b9925a1fd6665fba7821e7e2a0c5d438"
+    }
+  ],
+  "DHA": "NONE"
+}

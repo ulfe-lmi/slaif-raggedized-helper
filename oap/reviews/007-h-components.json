@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-12T05:44:37.157813+00:00",
+  "status": "FINAL_EXACT6_SETUP_COMPONENT_INDEX_AFTER_G_RESOLUTION",
+  "base_candidate": "999357fe55060212bb081df1bce13b9cfecab921",
+  "files": {
+    "tests/support/prepare_cpu_runtime_v2.py": {
+      "from_candidate": "3de83d4a622ba1461c9dc9f58df73189014dc39b",
+      "blob": "1c263b2714023970380ab0d4430cca0ba31448e8",
+      "sha256": "226a527650083ec3324fcb783354ca47eb8b30884f0db0d3e4df6c044e6ede0c",
+      "bytes": 24137
+    },
+    "tests/unit/test_cpu_runtime_setup_v2.py": {
+      "from_candidate": "3de83d4a622ba1461c9dc9f58df73189014dc39b",
+      "blob": "bb6a6347b419d690858bcb19b56a839b1b290d24",
+      "sha256": "1ac8bce0bd13a6381287c866201b5313af74a9a67815c02b09c411fffa41f733",
+      "bytes": 23095
+    },
+    "docs/parallel/cpu-runtime-setup-v2.md": {
+      "from_candidate": "3de83d4a622ba1461c9dc9f58df73189014dc39b",
+      "blob": "1fca9981d60855e5d2399a73405c881daaf5b197",
+      "sha256": "c3cc04114c3540e4b3b7781756b147c72d5de92f6bfc771eb6231956930c8aa2",
+      "bytes": 5426
+    },
+    "tests/support/prepare_gpu_worker_test_backend.py": {
+      "from_candidate": "c65338387be2136e8d85cacc5f4bd65c822121d2",
+      "blob": "cb38cf06371e788b83833dbc4834b5064a92cf3f",
+      "sha256": "ac504fbc6c3cfb06ab58e55baacc83639243712d40f6f539147dcf257449ead6",
+      "bytes": 9901
+    },
+    "tests/unit/test_gpu_worker_backend_setup.py": {
+      "from_candidate": "c65338387be2136e8d85cacc5f4bd65c822121d2",
+      "blob": "db947b399f81d62bc8ae46376ccb2ea697611d9c",
+      "sha256": "eecc6a145c9e00eac45e6dc76bc7522b76264ea1ba13fe1ba66b7e05a0fda226",
+      "bytes": 6744
+    },
+    "docs/parallel/gpu-worker-test-setup.md": {
+      "from_candidate": "c65338387be2136e8d85cacc5f4bd65c822121d2",
+      "blob": "43300b8ff06892bf64aabf70af552ddfe7812bfd",
+      "sha256": "a563fe666440572faef9d086f0380fa555ef3b578939d50a4f30cf117feb87ec",
+      "bytes": 1603
+    }
+  },
+  "count": 6,
+  "bytes": 70906,
+  "scope": "Selective6immutable setup/test/API files;ONErequiredGPUfake57fixtureCIstep onbothproductlegs expected5jobs78steps, Rootcurrentevidencedocupdates ONLY. NOquery/GPUchildsourceintegration untilaffectedpeersclosed. NoactualheavyMLinstallationinCI/noactualGPU/modelops.",
+  "tests": "Installer17unit+5priority/churn andRootactualfrozenfullCLI COMPLETE/all38metadata;GPUfake14unit+actualRootcopiedruntime6light+51DATAONLY receipt. Existinglegacy/CPUv2/native/PDFfixtures preserved.",
+  "DHA": "NONE",
+  "base": "999357fe55060212bb081df1bce13b9cfecab921",
+  "G_review": "audit/007-g-review.json",
+  "G_CI": "BOTHimplementation43160235569/report43161300102 ALL5ALL76 independentlyverified"
+}

@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-12T16:01:05.366875+00:00",
+  "status": "EXACT_LOCAL_SOFTWARE_CANDIDATE_ACCEPTED_FOR_FUTURE_GATED_INTEGRATION",
+  "implementation": "773aacf2947babd9f00862e0a034cc41e2e76f89",
+  "report": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+  "report_sha256": "22317f1b316a9fae3bc9642778188ad30a1b900cd2b98e0346fd55f30d149797",
+  "Root": "parallel/parity-capture/review.json",
+  "peer": "parallel/audit-parity-capture/review.json",
+  "peer_sha256": "cefe59e237ca825f86a500f96dd3a6e15bac8b40bc8e2868ed06ab4c377b8e21",
+  "scope": "Finite1\u20138same source CPU/GPU/query observed software capture and existing analyzer adapter. Rootcurrent38units+2actual, peeractualquery+admission/epoch andownoriginaldispatchcontrol Rootrerun. Historical73d/822fresh+reuseproof truthful, CAP1/CAP2fixed/currentfull773coupledUNRUNlocally.",
+  "gate": "FutureexactcanonicalcurrentreportfullCI mustnormallyexecuteentirecombineddriver beforedevelopmentintegrationacceptance. No currentpolicy/realneuralFP16/hardware/security/license/heldout/quality/visual/Ready/fullICA/MVP/merge/deploy authority.",
+  "strongest_counterargument": "Journal metadata preflight changed after fullpositiveproof. Currentactualguardchecks and unchangedlowerAST/positivebody plusoppositepeer justifyboundedcandidateonly; no claimfull773alreadyrun.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

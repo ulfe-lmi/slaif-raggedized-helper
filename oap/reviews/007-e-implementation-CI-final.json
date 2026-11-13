@@ -1,0 +1,742 @@
+{
+  "at": "2026-11-12T03:02:54.090097+00:00",
+  "head": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+  "run": 43143641055,
+  "all5all74success": true,
+  "total_steps": 74,
+  "jobs": [
+    {
+      "id": 130936280334,
+      "run_id": 43143641055,
+      "workflow_name": "CI",
+      "head_branch": "oap/007-embedding-pipeline",
+      "run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVfM0B88AAAAefGkVDg",
+      "head_sha": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+      "url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/jobs/130936280334",
+      "html_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055/job/130936280334",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-12T02:45:57Z",
+      "started_at": "2026-11-12T02:45:59Z",
+      "completed_at": "2026-11-12T02:51:25Z",
+      "name": "Product tests (Python 3.14)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-12T02:45:59Z",
+          "completed_at": "2026-11-12T02:46:00Z"
+        },
+        {
+          "name": "Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-12T02:46:00Z",
+          "completed_at": "2026-11-12T02:46:01Z"
+        },
+        {
+          "name": "Set up Python 3.14",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-12T02:46:01Z",
+          "completed_at": "2026-11-12T02:46:02Z"
+        },
+        {
+          "name": "Select matrix interpreter",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-12T02:46:02Z",
+          "completed_at": "2026-11-12T02:46:02Z"
+        },
+        {
+          "name": "Install uv (pinned, standard registry)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-12T02:46:02Z",
+          "completed_at": "2026-11-12T02:46:06Z"
+        },
+        {
+          "name": "Install locked lightweight environment",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-12T02:46:06Z",
+          "completed_at": "2026-11-12T02:46:07Z"
+        },
+        {
+          "name": "Install and verify PDF isolation tools (runner only)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-12T02:46:07Z",
+          "completed_at": "2026-11-12T02:46:10Z"
+        },
+        {
+          "name": "Provision standalone CPython 3.12 worker runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-12T02:46:10Z",
+          "completed_at": "2026-11-12T02:46:11Z"
+        },
+        {
+          "name": "Provision new private hash-verified PDF test backend",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-12T02:46:11Z",
+          "completed_at": "2026-11-12T02:46:12Z"
+        },
+        {
+          "name": "Provision new private hash-verified native tokenizer test backend",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-12T02:46:12Z",
+          "completed_at": "2026-11-12T02:46:12Z"
+        },
+        {
+          "name": "Provision portable synthetic CPU worker test fixture",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-12T02:46:12Z",
+          "completed_at": "2026-11-12T02:46:13Z"
+        },
+        {
+          "name": "Lint (product scope)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-12T02:46:13Z",
+          "completed_at": "2026-11-12T02:46:13Z"
+        },
+        {
+          "name": "Python syntax check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-12T02:46:13Z",
+          "completed_at": "2026-11-12T02:46:13Z"
+        },
+        {
+          "name": "Product test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-12T02:46:13Z",
+          "completed_at": "2026-11-12T02:47:02Z"
+        },
+        {
+          "name": "Integration test suite (owned loopback HTTP/SSE)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-12T02:47:02Z",
+          "completed_at": "2026-11-12T02:51:15Z"
+        },
+        {
+          "name": "OAP test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-12T02:51:15Z",
+          "completed_at": "2026-11-12T02:51:22Z"
+        },
+        {
+          "name": "OAP governance check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-12T02:51:22Z",
+          "completed_at": "2026-11-12T02:51:22Z"
+        },
+        {
+          "name": "Console help (offline)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-12T02:51:22Z",
+          "completed_at": "2026-11-12T02:51:22Z"
+        },
+        {
+          "name": "Doctor example (honest issues, offline)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-12T02:51:22Z",
+          "completed_at": "2026-11-12T02:51:23Z"
+        },
+        {
+          "name": "Post Set up Python 3.14",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-12T02:51:23Z",
+          "completed_at": "2026-11-12T02:51:23Z"
+        },
+        {
+          "name": "Post Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-11-12T02:51:23Z",
+          "completed_at": "2026-11-12T02:51:23Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-11-12T02:51:23Z",
+          "completed_at": "2026-11-12T02:51:23Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/check-runs/130936280334",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000040531,
+      "runner_name": "GitHub Actions 1000040531",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 130936280623,
+      "run_id": 43143641055,
+      "workflow_name": "CI",
+      "head_branch": "oap/007-embedding-pipeline",
+      "run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVfM0B88AAAAefGkWLw",
+      "head_sha": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+      "url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/jobs/130936280623",
+      "html_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055/job/130936280623",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-12T02:45:57Z",
+      "started_at": "2026-11-12T02:45:59Z",
+      "completed_at": "2026-11-12T02:46:19Z",
+      "name": "OAP tests (Python 3.14)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-12T02:46:00Z",
+          "completed_at": "2026-11-12T02:46:01Z"
+        },
+        {
+          "name": "Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-12T02:46:01Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Set up Python 3.14",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Check required local tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Python syntax check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:04Z"
+        },
+        {
+          "name": "OAP test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-12T02:46:04Z",
+          "completed_at": "2026-11-12T02:46:16Z"
+        },
+        {
+          "name": "OAP governance check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-12T02:46:16Z",
+          "completed_at": "2026-11-12T02:46:16Z"
+        },
+        {
+          "name": "Post Set up Python 3.14",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-12T02:46:16Z",
+          "completed_at": "2026-11-12T02:46:16Z"
+        },
+        {
+          "name": "Post Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-12T02:46:16Z",
+          "completed_at": "2026-11-12T02:46:16Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-12T02:46:16Z",
+          "completed_at": "2026-11-12T02:46:16Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/check-runs/130936280623",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000040532,
+      "runner_name": "GitHub Actions 1000040532",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 130936280678,
+      "run_id": 43143641055,
+      "workflow_name": "CI",
+      "head_branch": "oap/007-embedding-pipeline",
+      "run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVfM0B88AAAAefGkWZg",
+      "head_sha": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+      "url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/jobs/130936280678",
+      "html_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055/job/130936280678",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-12T02:45:57Z",
+      "started_at": "2026-11-12T02:45:59Z",
+      "completed_at": "2026-11-12T02:46:12Z",
+      "name": "OAP tests (Python 3.12)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-12T02:45:59Z",
+          "completed_at": "2026-11-12T02:46:00Z"
+        },
+        {
+          "name": "Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-12T02:46:00Z",
+          "completed_at": "2026-11-12T02:46:01Z"
+        },
+        {
+          "name": "Set up Python 3.12",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-12T02:46:01Z",
+          "completed_at": "2026-11-12T02:46:01Z"
+        },
+        {
+          "name": "Check required local tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-12T02:46:01Z",
+          "completed_at": "2026-11-12T02:46:01Z"
+        },
+        {
+          "name": "Python syntax check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-12T02:46:01Z",
+          "completed_at": "2026-11-12T02:46:01Z"
+        },
+        {
+          "name": "OAP test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-12T02:46:01Z",
+          "completed_at": "2026-11-12T02:46:11Z"
+        },
+        {
+          "name": "OAP governance check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-12T02:46:11Z",
+          "completed_at": "2026-11-12T02:46:11Z"
+        },
+        {
+          "name": "Post Set up Python 3.12",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-12T02:46:11Z",
+          "completed_at": "2026-11-12T02:46:11Z"
+        },
+        {
+          "name": "Post Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-12T02:46:11Z",
+          "completed_at": "2026-11-12T02:46:11Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-12T02:46:11Z",
+          "completed_at": "2026-11-12T02:46:11Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/check-runs/130936280678",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000040533,
+      "runner_name": "GitHub Actions 1000040533",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 130936280684,
+      "run_id": 43143641055,
+      "workflow_name": "CI",
+      "head_branch": "oap/007-embedding-pipeline",
+      "run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVfM0B88AAAAefGkWbA",
+      "head_sha": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+      "url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/jobs/130936280684",
+      "html_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055/job/130936280684",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-12T02:45:57Z",
+      "started_at": "2026-11-12T02:45:59Z",
+      "completed_at": "2026-11-12T02:46:20Z",
+      "name": "OAP tests (Python 3.13)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-12T02:46:00Z",
+          "completed_at": "2026-11-12T02:46:01Z"
+        },
+        {
+          "name": "Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-12T02:46:01Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Set up Python 3.13",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Check required local tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Python syntax check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:04Z"
+        },
+        {
+          "name": "OAP test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-12T02:46:04Z",
+          "completed_at": "2026-11-12T02:46:17Z"
+        },
+        {
+          "name": "OAP governance check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-12T02:46:17Z",
+          "completed_at": "2026-11-12T02:46:17Z"
+        },
+        {
+          "name": "Post Set up Python 3.13",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-12T02:46:17Z",
+          "completed_at": "2026-11-12T02:46:17Z"
+        },
+        {
+          "name": "Post Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-12T02:46:17Z",
+          "completed_at": "2026-11-12T02:46:17Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-12T02:46:17Z",
+          "completed_at": "2026-11-12T02:46:17Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/check-runs/130936280684",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000040534,
+      "runner_name": "GitHub Actions 1000040534",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 130936280870,
+      "run_id": 43143641055,
+      "workflow_name": "CI",
+      "head_branch": "oap/007-embedding-pipeline",
+      "run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVfM0B88AAAAefGkXJg",
+      "head_sha": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+      "url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/actions/jobs/130936280870",
+      "html_url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/actions/runs/43143641055/job/130936280870",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-12T02:45:57Z",
+      "started_at": "2026-11-12T02:45:59Z",
+      "completed_at": "2026-11-12T02:52:15Z",
+      "name": "Product tests (Python 3.12)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-12T02:46:00Z",
+          "completed_at": "2026-11-12T02:46:01Z"
+        },
+        {
+          "name": "Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-12T02:46:01Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Set up Python 3.12",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Select matrix interpreter",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:03Z"
+        },
+        {
+          "name": "Install uv (pinned, standard registry)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-12T02:46:03Z",
+          "completed_at": "2026-11-12T02:46:05Z"
+        },
+        {
+          "name": "Install locked lightweight environment",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-12T02:46:05Z",
+          "completed_at": "2026-11-12T02:46:06Z"
+        },
+        {
+          "name": "Install and verify PDF isolation tools (runner only)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-12T02:46:06Z",
+          "completed_at": "2026-11-12T02:46:09Z"
+        },
+        {
+          "name": "Provision standalone CPython 3.12 worker runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-12T02:46:09Z",
+          "completed_at": "2026-11-12T02:46:10Z"
+        },
+        {
+          "name": "Provision new private hash-verified PDF test backend",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-12T02:46:10Z",
+          "completed_at": "2026-11-12T02:46:11Z"
+        },
+        {
+          "name": "Provision new private hash-verified native tokenizer test backend",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-12T02:46:11Z",
+          "completed_at": "2026-11-12T02:46:12Z"
+        },
+        {
+          "name": "Provision portable synthetic CPU worker test fixture",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-12T02:46:12Z",
+          "completed_at": "2026-11-12T02:46:13Z"
+        },
+        {
+          "name": "Lint (product scope)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-12T02:46:13Z",
+          "completed_at": "2026-11-12T02:46:13Z"
+        },
+        {
+          "name": "Python syntax check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-12T02:46:13Z",
+          "completed_at": "2026-11-12T02:46:13Z"
+        },
+        {
+          "name": "Product test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-12T02:46:13Z",
+          "completed_at": "2026-11-12T02:47:08Z"
+        },
+        {
+          "name": "Integration test suite (owned loopback HTTP/SSE)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-12T02:47:08Z",
+          "completed_at": "2026-11-12T02:52:03Z"
+        },
+        {
+          "name": "OAP test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-12T02:52:03Z",
+          "completed_at": "2026-11-12T02:52:12Z"
+        },
+        {
+          "name": "OAP governance check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-12T02:52:12Z",
+          "completed_at": "2026-11-12T02:52:12Z"
+        },
+        {
+          "name": "Console help (offline)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-12T02:52:12Z",
+          "completed_at": "2026-11-12T02:52:12Z"
+        },
+        {
+          "name": "Doctor example (honest issues, offline)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-11-12T02:52:12Z",
+          "completed_at": "2026-11-12T02:52:12Z"
+        },
+        {
+          "name": "Post Set up Python 3.12",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-12T02:52:12Z",
+          "completed_at": "2026-11-12T02:52:12Z"
+        },
+        {
+          "name": "Post Check out repository",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-11-12T02:52:12Z",
+          "completed_at": "2026-11-12T02:52:13Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-11-12T02:52:13Z",
+          "completed_at": "2026-11-12T02:52:13Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/ulfe-lmi/slaif-raggedized-helper/check-runs/130936280870",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000040535,
+      "runner_name": "GitHub Actions 1000040535",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ],
+  "scope": "ActualGitHub job/step observation, no inferredacceptance orfutureCI"
+}

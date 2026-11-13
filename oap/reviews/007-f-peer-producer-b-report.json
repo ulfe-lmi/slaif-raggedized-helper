@@ -1,0 +1,52 @@
+{
+  "lane_id": "AUDIT-007-CPU-PRODUCER-B",
+  "target_commit": "bb6a9335944b499b1ac11dc81818cda7cf7115f2",
+  "implementation_commit": "e55bc38461ff33b0aac8a457fb6542dfd5331769",
+  "result": "COMPLETE",
+  "decision": "CHANGES_REQUIRED",
+  "classifications": {
+    "1": {
+      "status": "IMPLEMENTED",
+      "evidence": "full fresh CPU plan and predicted contract before journal ownership/model; PENDING only, actual CLAIMED/RUNNING precede fixed session."
+    },
+    "2": {
+      "status": "IMPLEMENTED",
+      "evidence": "strict callable and lowercase 64-hex epoch at before_model, before_encode, before_publish, before_complete and before_reuse; equality required. Actual principal/current policy implementation ABSENT at application scope; callback is trusted, not rights attestation."
+    },
+    "3": {
+      "status": "IMPLEMENTED",
+      "evidence": "record and fingerprint checked before encode and after; fresh plan equality; ordered receipt text, hash, count, native identity, nonce and vector shape/payload/normalization checks. Codec validates finiteness/norm. No neural attestation."
+    },
+    "4": {
+      "status": "IMPLEMENTED",
+      "evidence": "typed publish and fresh load precede COMPLETE; journal checks plan-bound typed output and CAS; reuse freshly rebuilds and validates. Failure rereads journal and does not overwrite an already committed COMPLETE; no exactly-once claim."
+    },
+    "5": {
+      "status": "PARTIAL",
+      "evidence": "Finite tested session/native and lease interrupt cases: owners retain session and lease on pending close; original interrupt preserved. Existing ownership claim/acquisition cleanup limitation remains separate GPU prerequisite investigation; claim finally and journal enter cleanup can themselves fail, and no universal cleanup guarantee is established. Producer invokes these paths, so application-level resource cleanup remains unproven under those faults. Blocking dependency: produce -> Journal.own -> _Owned.__enter__ -> ownership.claim; claim finally loops over fd, dirfd and rootfd with unguarded os.close. If an earlier close raises, subsequent descriptors are not closed and the cleanup exception can mask the original interruption. Failure before claim returns leaves _Owned without the lease object; producer cannot retain that missing owner. Root independently confirmed the reachable fault; bounded prerequisite fix authorized in gpu-device-lease ADDENDUM-1 is not yet accepted. This is a dependency invariant gap affecting original criterion 7, not a newly demonstrated defect in the producer algorithm itself."
+    },
+    "6": {
+      "status": "IMPLEMENTED",
+      "evidence": "prior A independently ran 11 unit and 21 standalone integration at unchanged target, plus new three root witnesses and original positive/negative causality probe. No exhaustive fault schedule."
+    },
+    "7": {
+      "status": "IMPLEMENTED",
+      "evidence": "CPU reference and fake neural provider, not real BGE, real rights/security, qualified hardware, exclusive GPU bulk, license audit, full ICA, MVP or production."
+    }
+  },
+  "read_set": "Paths relative to exact target; line ranges and bytes actually read: src/slaif_raggedized_helper/cpu_embedding_producer.py 1-373 13489; tests/unit/test_cpu_embedding_producer.py 1-87 2501; tests/integration/test_cpu_embedding_producer_composition.py 1-434 16020; docs/parallel/cpu-embedding-producer-api.md 1-11 3073; oap/parallel/orders/PAR-007-CPU-PRODUCER-A.md 1-26 12185; ADDENDUM-1.md 1-13 3813; oap/parallel/reports/PAR-007-CPU-PRODUCER-A.json 1-48 4333; src/slaif_raggedized_helper/cpu_embedding_plan.py 1-132 4549; cpu_execution_contract.py 1-227 7624; embedding_batch_plan.py 165-318 5816; retrieval_representation.py 53-139 5758; embedding_job_journal.py 76-139 2359 and 145-482 13146; embedding_job_ownership.py 1-153 4945; embedding_batch_store.py 50-142 4492; vector_codec.py 116-178 2612; isolated_cpu_embedding.py 184-569 16642; embedding_tokenizer.py 197-267 2491. Last nine module paths under src/slaif_raggedized_helper/. Prior audit A report and Root review read separately.",
+  "baseline_A": "Prior independent A report SHA256 04728512430f4b1058eb3e0c0c4e505a489e036edd1ac38977c63cecd95b6971: 11 unit and 21 standalone integration passed; its seven UNPROVEN classifications remain immutable. No baseline rerun claimed. Producer report claims same counts and tests at combined source.",
+  "new_evidence": [
+    "Clean exact HEAD before and after; source SHA256 producer ed91f0f3c2974726045ca0bac0c69b9fe06441d9b0d1b31be5c146fde7a09c3a; unit 36838b7764fc4cee960f4fe60c98c6baae33724935f024d3e3af70b4f37cf221; integration a5abf12f6fe29eccc05e662755a26498d02ccdd08965a67104f19aaa133d114c; doc 55e10447fe6feff50b76121a78bea455bae5c14b03bb370e0b08a5e8290e2955; matches original report and A.",
+    "Three unchanged Root witnesses executed exit 0: producer-lease-interrupt bfdf4ade9ff01aaacee982f6f5693307ff41723cad6b28f89c947aed75852781 (interrupt preserved, retained lease drained); native-close-ownership cde42ab88365d21dd190b76eb9ac54f7ee42944ed8267fec36d2147cbbc98694 (child retained across interrupted close); native-interrupt-priority 92cd6a25d80ccc9e0673400d3db121b8bff71111e40816988650d9e8ce5d9d73 (interrupt priority).",
+    "Original /tmp/audit-cpu-producer-b-witness.py sha256 443d343561e405a30fc358c51602c294475286ece6ee0400daead232c6842ad3: exit 0; separate fully valid positive publishes; negative changes only second receipt nonce to first, refuses before publish, records UNKNOWN_COMPLETION."
+  ],
+  "commands": "For each witness: cwd exact target; PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; SLAIF_NATIVE_TEST_ROOT and SLAIF_CPU_WORKER_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu; SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages; SLAIF_NATIVE_TEST_PYTHON=python3.12; SLAIF_CPU_WORKER_TEST_PACKAGES=/tmp/raggedized-root-cpu-synthetic-56cdd5b2898d3d17/packages; PYTHONPATH absolute target/src:target/tests/unit:target/tests/integration; ulimit -v 1048576; ulimit -t 30; timeout 120 /home/janezp/codex-work/slaif-raggedized-helper-parallel-execution-plan/.venv/bin/python WITNESS. Fake CPU provider installed in fixture before fixed child main.",
+  "original_witness_source": "from pathlib import Path\nfrom dataclasses import replace\nimport tempfile, runpy\nfrom pytest import MonkeyPatch\nfrom slaif_raggedized_helper import cpu_embedding_producer as p\nu = runpy.run_path('tests/integration/test_cpu_embedding_producer_composition.py')\nwith tempfile.TemporaryDirectory(prefix='audit-producer-b-') as td:\n    for negative in (False, True):\n        root = Path(td) / str(negative)\n        root.mkdir(mode=0o700)\n        with MonkeyPatch.context() as m:\n            fixture = u['fixture'].__wrapped__(root, m)\n            args, policy, starts = next(fixture)\n            cls = p.isolated.IsolatedCPUEmbeddingSession\n            original = cls.encode\n            publications = []\n            publish = p.batch.publish\n            def track(*a):\n                publications.append(1)\n                return publish(*a)\n            m.setattr(p.batch, 'publish', track)\n            if negative:\n                def duplicate_nonce(self, texts):\n                    result = original(self, texts)\n                    second = replace(result.receipts[1], nonce=result.receipts[0].nonce)\n                    return replace(result, receipts=(result.receipts[0], second))\n                m.setattr(cls, 'encode', duplicate_nonce)\n            try:\n                if not negative:\n                    result = p.produce(*args, lambda *_: 'a'*64, worker_policy=policy)\n                    assert not result.reused and len(publications) == 1 and len(starts) == 1\n                    print('PASS valid positive published')\n                else:\n                    try:\n                        p.produce(*args, lambda *_: 'a'*64, worker_policy=policy)\n                    except p.ProducerRefused as error:\n                        assert not error.pending\n                    else:\n                        raise AssertionError('duplicate nonce accepted')\n                    assert len(starts) == 1 and not publications\n                    assert u['_state'](args, policy) == 'UNKNOWN_COMPLETION'\n                    print('PASS duplicate nonce refused before publication; UNKNOWN_COMPLETION')\n            finally:\n                fixture.close()\n",
+  "findings": [
+    "CHANGES_REQUIRED: reachable underlying ownership.claim pre-return cleanup failure can leave later descriptors unclosed and mask an original interruption, contradicting original producer order criterion 7. The producer calls this dependency before it can receive a lease owner; correction and verification of the prerequisite are required before accepting this leaf. Root independently confirmed the fault; no additional probe is claimed.",
+    "Finite session/native and final lease cleanup witnesses still pass. The issue does not invalidate their scoped positive results."
+  ],
+  "counterargument": "The demonstrated fault lies in an existing dependency, and finite producer session/native cleanup witnesses pass. Nevertheless producer acceptance requires its invoked acquisition path to preserve resources and interrupts; a pending prerequisite fix cannot establish that invariant. Wider rights, model and hardware gates are separate.",
+  "limits": "No real neural framework/model, GPU, current-policy rights, security, license, hardware, performance, whole-project or merged-SHA ICA, MVP, release or production qualification. Whole 007 remains PARTIAL. DHA NONE."
+}

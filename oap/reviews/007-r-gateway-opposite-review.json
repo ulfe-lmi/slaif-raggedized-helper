@@ -1,0 +1,15 @@
+{
+  "status": "EXACT_NORMAL_PEER_RECEIPT_AND_APPROVED_FINAL_ARTIFACT_RECONCILED",
+  "receipt": {
+    "lane": "audit-gateway-message-role-b",
+    "lane_id": "AUDIT-003-GATEWAY-ROLE-B",
+    "result": "COMPLETE",
+    "target_commit": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+    "report_sha256": "a37d6add51bde1875945be083dcde9f3b51f95e59bea9e3b0a70905506e8cf13",
+    "verified_at": "2026-11-12T17:03:35.829124+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "Root": "audit/003-role-b-peer-root-review-a37d.json",
+  "limits": "Read-only finite independent peer on currentlocalcandidate, not merged/fullMVPICA or currentcanonicalCI. InitialwrongPYTHONPATH lostrawlog explicitlydisclosed; no relabeling.",
+  "no_FIFO_reread": true
+}

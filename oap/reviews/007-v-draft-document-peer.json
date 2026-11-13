@@ -1,0 +1,21 @@
+{
+  "lane_id": "AUDIT-007-U-EVIDENCE-CORRECTION-A",
+  "target_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "findings": [
+    "The three drafts distinguish reported attempts, grouped records, independently retained results, unknown caps and lost evidence; no retrospective authorization or measured root cause is asserted. Containment wording matches the indexed permission record and does not claim rotation or prior access knowledge. CI is separate from the violation.",
+    "Original 007 criteria and fake-encoder allowance, 010 criterion 4, 011 criteria and ARCH 8.3 support the stated downstream allocation, subject to actual source coverage and gates. Draft V forbids local product tests and requires unchanged normal CI; exact indices and receipt disposition block activation.",
+    "No inaccurate assertion identified against finite indexed records. Source hashes and normal receipt disposition remain deliberately unresolved activation blockers, not permission to invent them."
+  ],
+  "counterargument": "An allocation can conceal missing usable pipeline behavior; finite peer evidence and synthetic checks cannot prove actual model, policy, GPU drain or contextual invalidation. Do not accept or advance until the specified current-head and downstream gates are satisfied.",
+  "commands_results": "Read indexed drafts and five evidence records; sha256sum matched all eight indexed hashes. Git show at target read original 007/010/011 orders and architecture 8.3. No tests, application imports, network, environment dumps or protected actions. Target HEAD exact and git status clean. Read local U postpublication receipt as author claim, not proof of normal response; control receipt EXACT_OK_CONSUMED. Bounded stdlib hash witness checked indexed byte counts and hashes; original source blob identities recorded separately.",
+  "input_index_sha256": "c9d051d20ddd3494b1245e708964954dc40b66c49ba4ab73412abfa2d7623d5b",
+  "limits": "I authored foundation code; this target includes my local foundation assembly. No assessment of my own code, Root acceptance, full project ICA, live qualification or external services is claimed. No environment log or value was read. DHA NONE.",
+  "witness": {
+    "path": "parallel/audit-u-evidence-correction/witness.json",
+    "bytes": 3158,
+    "sha256": "089626d41b76cd00c85d18ed2a7de25c01d51c9191f65a02908052849f5770d6",
+    "meaning": "Eight exact indexed identities and original order/architecture full identities and inclusive LF ranges; finite static review only."
+  }
+}

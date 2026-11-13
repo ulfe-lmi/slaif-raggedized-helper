@@ -1,0 +1,52 @@
+{
+  "at": "2026-11-12T00:20:45.784204+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_PORTABLE_SYNTHETIC_CPU_WORKER_TEST_SETUP",
+  "receipt": {
+    "lane": "cpu-test-setup",
+    "lane_id": "PAR-007-CPU-TEST-SETUP-A",
+    "result": "COMPLETE",
+    "implementation": "dc77b8a9e318fcab936af2d2acc6f5522bbf306f",
+    "report_commit": "13fb03dd322af75c01d72c464a4959f9ad535223",
+    "report_sha256": "2ad116a7d49642bf313d52daef5b4c28811102bc09c368826ba9494edb3c06e1",
+    "paths": [
+      "docs/parallel/cpu-worker-test-setup.md",
+      "oap/parallel/orders/PAR-007-CPU-TEST-SETUP-A-ADDENDUM-1.md",
+      "oap/parallel/orders/PAR-007-CPU-TEST-SETUP-A.md",
+      "tests/support/cpu-worker-test-requirements.txt",
+      "tests/support/prepare_cpu_worker_test_backend.py",
+      "tests/unit/test_cpu_embedding_worker.py",
+      "tests/unit/test_cpu_worker_backend_setup.py"
+    ],
+    "verified_at": "2026-11-12T00:19:23.933968+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance.",
+    "signal_recovery": {
+      "at": "2026-11-12T00:19:23.950419+00:00",
+      "reason": "Original sole coordinator consumed exact OK then its launch-time scope snapshot rejected the approved additive order path. This observer read regular files only, reverified the complete exact clean candidate with updated Root scope; no FIFO replay or additional reader.",
+      "old_coordinator_pid": 2389474,
+      "old_process_start": "305468935",
+      "old_log_sha256": "41b3a9d0f9d67ec41e37a10c0a1f7409dab8ef424b4917cb2bc88f94a0c566bb",
+      "Root_scope_addendum_sha256": "52e5dd7df171772b314dc02fd465e11080aad68f5444b06c616571e917dd40bd",
+      "scope": "Mechanical candidate receipt only; Root independent review/integration required."
+    }
+  },
+  "source_review": "Rootwholehelper/allunittests/requirements/docs/renameonlydelta,immutableorder+addendum,correctivelifecycledelta andfullfinalSELFreportread",
+  "graph": "Exactcleantip/SELFreportSHA/soleparent/reportonly/base/originalorder/addendumbytesverified. OriginalsolecoordinatorconsumedOKthenoldlaunchscopefailed; boundedregular-fileobserverreverifiednewapprovedscope+exactaddendum, noFIFOreplay/readduplicate.",
+  "Root_execution": {
+    "new_setup": "audit/007-cpu-test-setup-root-reproduction.json PASS /tmp/raggedized-root-cpu-synthetic-56cdd5b2898d3d17",
+    "Python3.14unit": 61,
+    "Python3.12unit": 61,
+    "standalone_OS_integration": 4,
+    "original_finitecleanup_witness": "PASS",
+    "ruff": "PASS",
+    "actual_distribution_count": 6,
+    "explicit_metadata_only_count": 22,
+    "observed_elapsed_seconds": 1.638685517013073,
+    "observed_self_and_reaped_children_CPU_seconds": 1.3926409999999998,
+    "sampled_peak_disk_bytes": 20293431,
+    "network_bytes": "UNMEASURED"
+  },
+  "witness_sha256": "5621aed961d61878b5df447acea34290394f28c9a3b614341cb139e74148371a",
+  "strongest_counterargument": "This deliberately synthetic fixture supports trusted-fake neural protocol tests. It cannot establish a real28packageMLenvironment, actualTorch/model/parity/security/license/hardwarequalification. CleanGitHubCI stillrequiresreviewedcanonicalworkflowprovisionstep.",
+  "limits": "LOCALONLY; per-processresourcecaps notaggregateCPUhardlimit, sampleddisknotquota, explicit22syntheticrecordsnotinstalledcode/fileattestation; noactualML/GPU/rights/ICA/MVP/release claim",
+  "DHA": "NONE"
+}

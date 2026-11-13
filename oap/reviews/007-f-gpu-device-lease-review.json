@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-12T02:13:30.306933+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_COOPERATIVE_DEVICE_AND_OWNERSHIP_CLEANUP",
+  "implementation": "6c29b935b08ee1b3401cf5829a64c92cd62cff8e",
+  "tip": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+  "report_sha256": "c51cd5ea6f822d06147b9eec864e99a68a93336287a78076c28663fec5ad273f",
+  "source_review": "audit/007-gpu-device-lease-source-review-6c29.json",
+  "graph": "sole-parent report-only exactbytes/SELF, clean exact head; all report source/witness hashes independently checked",
+  "Root_tests": {
+    "focused_units": 31,
+    "standalone_integrations": 3,
+    "original_witnesses": [
+      "/tmp/raggedized-root-gpu-lease-registry.py",
+      "/tmp/raggedized-root-job-ownership-boundaries.py",
+      "/tmp/raggedized-root-job-enter-failure.py",
+      "/tmp/raggedized-root-job-interrupted-close.py"
+    ],
+    "results": "ALL_PASS",
+    "causality": "Original Root in-memory admission bypass previously passed existing preflight; now existing test fails exactly at assert calls==[]. No tracked product mutations.",
+    "ruff": "PASS RAYON_NUM_THREADS=1; earlier default threadpool crashed under Root AS cap, not hidden pass",
+    "diff_check": "PASS"
+  },
+  "scope": "Finite cooperative leaf and shared claim/close correction only; no main merge or full007 acceptance",
+  "strongest_reason_not_to_merge": "Existing journal/producer callers require affected composition and exception/retention review; physicaldevice/controller/model/ACL/profile/security/license/parity/ICA remain unqualified.",
+  "DHA": "NONE"
+}

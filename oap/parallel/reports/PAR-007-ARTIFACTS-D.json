@@ -1,0 +1,35 @@
+{
+  "lane_id": "PAR-007-ARTIFACTS-D",
+  "result": "COMPLETE",
+  "implementation_head": "05d9a64d1e432c010676488cd57917f82a4c2e37",
+  "report_publication_commit": "SELF",
+  "API": "verify_artifacts raises fixed ArtifactRefused with underlying chain suppressed in normal formatted traceback; introspection can still access context.",
+  "commands": [
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit/test_embedding_artifacts.py tests/integration/test_embedding_artifacts_composition.py",
+      "result": "exit 0, 36 passed"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/embedding_artifacts.py tests/unit/test_embedding_artifacts.py tests/integration/test_embedding_artifacts_composition.py",
+      "result": "exit 0"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-artifact-trace-privacy.py",
+      "result": "exit 0"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-artifact-json-boundary.py",
+      "result": "exit 0, 3 cases"
+    },
+    {
+      "command": "git diff --check",
+      "result": "exit 0"
+    }
+  ],
+  "witness_sha256": {
+    "/tmp/raggedized-root-artifact-trace-privacy.py": "dfa36035c3e5ab798971cf1bb221286a510b8ff6757fa3863b081435e3bdd858",
+    "/tmp/raggedized-root-artifact-json-boundary.py": "f94d4d4f2a7478457e01a498f828f27e137ca9096e45428415a796ab9dc74a0f"
+  },
+  "limits": "Local CPU fixtures only; no hardware qualification. Literal caller-source canary witness excluded. No claim about exception introspection.",
+  "DHA": "NONE"
+}

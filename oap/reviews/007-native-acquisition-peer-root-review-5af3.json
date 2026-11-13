@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-12T10:11:51.996500+00:00",
+  "status": "FINITE_COMBINED_NATIVE_FILE_ACQUISITION_PEER_DRAFT_ACCEPTED",
+  "target": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+  "draft_sha256": "5af358ff0899b31a8c77d374058e0d06655b8020f7d7e2bc20dcaf7141bb57aa",
+  "verified_peer_witness_hashes": 3,
+  "verified_predecessor_source_hashes": 3,
+  "prior_Root_checks": "parallel/native-token-acquisition/review.json exactSELF/7paths/9reporthashes;82units+8lifecycle+3Rootcontrols+3isolatedCPU PASS. NativeFILE fullsource/24units+4RootFDnotesambientcontrols actual43files/executable observation retained.",
+  "original_peer_control": "Full37lineactualsession harness reviewed. Actualnative0.21.4 child/privateTmp/strongregistry; normalforkcallback disarms inheritedfinalizer; onlysameactualowner membershipomitted forcausalarm thenrestoredimmediatelyincreator; childcalls inheritedfinalizer andexits, never signals/reapsforeignPopen. Actualcreatorobserveschildstilllive anddrainsnormalbotharms. Earliermanualsessioncontrol kept/disclosed asweakerpreliminary, notauthority.",
+  "Root_original_rerun": "PASS actual native worker and temporary artifact: registered disarm preserves directory; omitted membership deletes it; creator reaps and drains both",
+  "Root_control_log_sha256": "f6498fd90b397d47286ea50f1f53cb277d6d8b0009f8451821048c01f370c703",
+  "peer_tests": "119unitsincl82requested+37existing;8actualacquisition;3nativecompositions;37query/producer/isolatedcompositions PASS, existingforkwarning. Separate3query/3isolatedalreadylaunchedbeforeCONTINUErecorded, no furtherrepeatrequested.",
+  "strongest_counterargument": "Selected-file double observation is not atomic runtime attestation; finite actualnativeworker/fork tests do not cover all kernel/stdlib/interruption windows. Uncertain creation stayspending and mayretainresources. No actualmodel/GPU/precision/physicalvacancy/rights/security/license/quality/currentcanonicalCI/fullICA proof.",
+  "DHA": "NONE"
+}

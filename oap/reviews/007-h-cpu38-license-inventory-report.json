@@ -1,0 +1,28 @@
+{
+  "lane_id": "SPIKE-007-CPU38-LICENSE-INVENTORY-A",
+  "target_commit": "3de83d4a622ba1461c9dc9f58df73189014dc39b",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "findings": "38 exact lock-selected local wheel filenames matched SHA-256 and sizes (torch size from independent HEAD); 38 metadata identities matched normalized names and exact versions, no duplicate singleton headers, all 141 declared License-File references resolved to paths actually read and hashed. Publisher declarations: 22 SPDX expression, 11 legacy License header, 5 classifier only. Classifier-only: jinja2, markdown-it-py, mdurl, safetensors, tokenizers; tokenizers has no license/notice named file or License-File declaration. BSD labels in jinja2, mpmath, sympy lack variant specificity. Certifi declares MPL-2.0; tqdm MPL-2.0 AND MIT; shellingham ISC; numpy declares 0BSD, Zlib, CC0-1.0 alongside BSD/MIT; regex declares CNRI-Python alongside Apache; torch declares LLVM-exception and BSL-1.0 alongside Apache/BSD/MIT; typing-extensions declares PSF-2.0. These observations require Root review, not license exceptions. Python platform PSF disclosure is separate. Packaging declares Apache-2.0 OR BSD-2-Clause without selecting an alternative. Torch has 90 and NumPy 20 license/notice-labelled members, bytes and paths hashed in evidence; these do not prove complete native dependency provenance. Aggregate 1,231,200 bytes inspected; no limit exceeded. All 38 row declarations and exact file paths are in private evidence.",
+  "criteria": {
+    "1": "PASS local bounded inspection; ARCHITECTURE section 24, PLAN section 2, update licensing and decision policy read; order calls this A24 but architecture indexes licensing as A04/section 24",
+    "2": "PASS publisher declarations, identities, file checks and hashes in private evidence; legal permissibility UNPROVEN",
+    "3": "PASS 38 local wheels; no public lookup necessary to record observed labels; ambiguous variants remain unproven",
+    "4": "PASS categories and limitations recorded; separate release and model gates remain open",
+    "5": "PASS bounded stdlib inspection, positive, declared suffix fixture and four malformed controls; no extraction or package imports",
+    "6": "PASS draft, evidence and controls; legal permissibility UNPROVEN"
+  },
+  "commands": [
+    "PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 timeout 120 python3 /tmp/cpu38_inventory.py",
+    "PYTHONDONTWRITEBYTECODE=1 timeout 120 python3 /tmp/cpu38_controls.py",
+    "sha256sum witnesses; read ARCHITECTURE.md section 24, PLAN.md section 2, update and decision policy"
+  ],
+  "witnesses": {
+    "/tmp/cpu38_inventory.py": "3e8a5c7fd071cdfe2f80cfebf44a8eddea7512ab5cda6f716a86dd5a7562374f",
+    "/tmp/cpu38-evidence.json": "be50ccf261b64233032b80a102fc60bc128483bf28ec3628ca0d11c7d762e1ba",
+    "/tmp/cpu38_controls.py": "72aeda4c1d7c408c8584e93e940d46377fe4fca137e0d30c864bfa6765e111a8",
+    "control-consumed.json": "3c2ce7c49627eb0901cab01f8da20853aa61aa7f419757dc2b972e6f3607e07a"
+  },
+  "counterargument": "Publisher metadata and filename-based notice discovery may omit undeclared differently named notices or embedded binary dependencies; declared paths were all read but do not prove complete legal provenance. Matching wheel filenames to frozen lock plus selection helper is not a separate re-execution of its tag ranking.",
+  "limits": "No legal or security clearance; no external research. Excludes model/tokenizer assets, GPU57, rendering, other dependency graphs and platform review. No extraction, package code execution, installs or deployment. DHA NONE."
+}

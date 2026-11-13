@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-12T17:03:32.554996+00:00",
+  "status": "ROOT_EXACT_PEER_DRAFT_EVIDENCE_REVIEWED_FINALIZE_PERMITTED",
+  "target": "77b4e8c911d558329bfbd2796bb9cc990d5f36e9",
+  "draft_sha256": "a37d6add51bde1875945be083dcde9f3b51f95e59bea9e3b0a70905506e8cf13",
+  "source_review": "audit/003-role-b-source-review-786b.json",
+  "report_review": "parallel/gateway-message-role-b/review.json",
+  "verified_fullfile_and_artifact_entries": 20,
+  "verified_selected_ranges": 9,
+  "artifact_index_archive": "audit/003-role-b-peer-artifacts-a37d/roleb-peer-readset-index.json",
+  "review": "Full current draft read, exact20entries/9scopedbytehashes checked. Original and strengthened protocol witness and closed-port streaming retry read. Isolates ONLY protocol-error preference condition while actualHTTP/UTF8parser/rolecollector/restguards alive; original/restored roleerror and oneguardcontrol/healthyUTF8error allFAILED/noText/oneattempt/request. Errorselection effect supports firstfailure semantics, not unauthorized-success. Root independently reproduced originalwirecontrol1PASS3.67. B4actualpasses and healthytimeouttext/oneattempt, separate actualstream retry3failedconnections atmax_retries2.",
+  "retained_limit": "Initial wrongPYTHONPATH executed installedpackage4failures3requests, originalrawstdout notsaved/lost and explicitlydisclosed. Never reconstructed/counted against candidate; actualcorrectsource tests and Root independent29 sourcechecks available. Source selectedranges ratherthan wholefile hash read claim. CurrentcanonicalCI/mergedICA stillfuturegates.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

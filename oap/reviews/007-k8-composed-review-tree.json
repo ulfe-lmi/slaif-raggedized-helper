@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T09:54:35.061205+00:00",
+  "status": "EXACT_CURRENT_J_PLUS_EIGHT_CODECS_FORECAST_PASS",
+  "base": "41b093f5a3961048e9637b85869f8b5cd8567e9b",
+  "directory": "/tmp/raggedized-root-j-k8-codecs-36_ospg5",
+  "files": 8,
+  "bytes": 47707,
+  "tests": "50 core+row-map tests PASS, exit0",
+  "bounds": "1GiBAS30CPU120wall/threads1/no bytecode; pure format/data only",
+  "log_sha256": "c856c3389f6961f6037d8d4a5b00e75fee312ec2e757d9c955fc934f8c7a89be",
+  "scope": "Disposable review copy only, no canonical/CI/ICA/source/vector/rights qualification. Root exact component source and independent controls reviewed separately."
+}

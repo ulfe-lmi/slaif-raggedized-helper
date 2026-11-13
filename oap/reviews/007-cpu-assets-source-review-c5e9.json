@@ -1,0 +1,104 @@
+{
+  "at": "2026-11-12T06:51:34.459Z",
+  "implementation": "c5e9e98e8e6cd0c3f8af2cdd6a6607de28e7da28",
+  "status": "SOURCE_AND_SCOPED_INSTALLED_WHEEL_TESTS_REVIEWED_REPORT_ELIGIBLE",
+  "base": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+  "source_review": "Fullinitial6pathdiff/tests/API andfullcorrectiondiff:3immutableassetsforceincluded, CPUhelperboundedlocaldist-infocheck+projectmanifestidentity before sourcefallback, bundledfirst/failclosed, worker+predictor sharedhelper. No GPUbackend/profile/dependency/CI edits.",
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "unit",
+        "chunk_id": "6262cb",
+        "wall_time_seconds": 0.000019398,
+        "exit_code": 0,
+        "original_token_count": 39,
+        "output": ".............................................. [ 80%]\n.................                                                        [100%]\n89 passed in 4.61s\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "wheel",
+        "chunk_id": "027db7",
+        "wall_time_seconds": 0.000021223,
+        "exit_code": 0,
+        "original_token_count": 135,
+        "output": "wheel 303047 expanded 1046713 entries 80 sha256 ee5dfac32130b9dea9e3ca8d3dc92f3488a6952f970be5cec47ea4f5b86df507\ninstalled profile, contract and controls passed 7cf4c88943cc2b519ad18c0c28cbc2281f159a98704db172e1696ec5ae20b287 sha256:af99eeb7d262373e65c51d82796d1f96734cb47d7a33874cafff0ff599ef2475\nsrc prefix: installed profile, contract and controls passed 7cf4c88943cc2b519ad18c0c28cbc2281f159a98704db172e1696ec5ae20b287 sha256:af99eeb7d262373e65c51d82796d1f96734cb47d7a33874cafff0ff599ef2475\nprivate bytes 3390001\n.\n1 passed in 2.08s\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "query",
+        "chunk_id": "99fbb2",
+        "wall_time_seconds": 0.000019405,
+        "exit_code": 0,
+        "original_token_count": 25,
+        "output": "...                                                                      [100%]\n3 passed in 1.91s\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "worker",
+        "chunk_id": "2e0c0d",
+        "wall_time_seconds": 0.000023717,
+        "exit_code": 0,
+        "original_token_count": 25,
+        "output": "...                                                                     [100%]\n4 passed in 9.07s\n"
+      }
+    }
+  ],
+  "first_outputs": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "unit",
+        "chunk_id": "aa7a2d",
+        "wall_time_seconds": 1.001112227,
+        "session_id": 22064,
+        "original_token_count": 7,
+        "output": ".........................."
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "wheel",
+        "chunk_id": "efb0cd",
+        "wall_time_seconds": 1.001021045,
+        "session_id": 55511,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "query",
+        "chunk_id": "66101d",
+        "wall_time_seconds": 1.001550026,
+        "session_id": 27366,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "name": "worker",
+        "chunk_id": "1b7a69",
+        "wall_time_seconds": 1.001259477,
+        "session_id": 47748,
+        "original_token_count": 1,
+        "output": "."
+      }
+    }
+  ],
+  "Root_identity_proof": "Private /tmp/raggedized-root-cpu-assets-identity-c5.py b2d70e44d3146c9b642186318c79c10d4296338885cdd28579911a708ce21230: adapt earlierprovidedproof witholdref1bb andCPUexecution_contract.py source instead ofunchangedtokenizer; oldexecution4fdf70/new0120c944 distinct, semanticspace/definition/native/workerpolicy unchanged,1PASS1.83s. Syntheticrecord profilea64, notactualneuralexecution. Actualinstalledpredictionaf99 separatefixturemetadata proof.",
+  "strongest_counterargument": "Only CPU profile/prediction and syntheticinstalledgates; GPUbackend/child/launchplan installedlayout stillopen andnewsourcechangescompletecodeidentity. No realBGE/security/license/hardware/fullICA/readiness proof. Freshaffectedpeer/currentcanonicalCIrequired.",
+  "disposition": "ExactSELFreport/ONEresponsefreeze only; holdcanonicalintegration pendingfreshpeer. QueryI DRAFT will need refreshedcompositeindex forCPUassetssource ifintegratedtogether.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-11T22:57:14.847037+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_ISOLATED_NATIVE_TOKEN_IDS",
+  "receipt": {
+    "lane": "token-ids",
+    "lane_id": "PAR-007-TOKEN-IDS-A",
+    "result": "COMPLETE",
+    "implementation": "dbac425d0f2e0be08f3ae76bcafd3d33125c26ae",
+    "report_commit": "4a2a39e2ca5442936a363e6b6c3af5edb24a2a1f",
+    "report_sha256": "1600305cd014f2809b6eab5e2f2735a8e2c872f4167e2ea3708b623979ecfb01",
+    "paths": [
+      "docs/parallel/embedding-tokenizer-api.md",
+      "oap/parallel/orders/PAR-007-TOKEN-IDS-A.md",
+      "src/slaif_raggedized_helper/embedding_tokenizer.py",
+      "src/slaif_raggedized_helper/embedding_tokenizer_worker.py",
+      "tests/integration/test_embedding_tokenizer_composition.py",
+      "tests/unit/test_embedding_tokenizer.py"
+    ],
+    "verified_at": "2026-11-11T22:54:45.533358+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "execution": {
+    "unit": 41,
+    "standalone_integration": 1,
+    "lint": "PASS",
+    "native_runtime": "approvedowned0.21.4fixtures standaloneCPython3.12; parent3.14",
+    "real_neural_model": "NOT_RUN"
+  },
+  "source_review": "Root allparent/worker source, all41unit/composition/API docs read; immutable finalreport full read and report-only SELF parent/clean exacthead verified. Extra author fullsuite observation predates final limit test as honestly qualified in report; Root current focused41+1 passes.",
+  "strongest_counterargument": "Runtime/packages remain trusted host inputs; bytebound IDs and actual sandbox fixtures do not prove actual BGE model compatibility or fullownedCPU neural-worker lifecycle. Fullphysicalmodel/CPU-GPU parity and transitive license/security qualification remain open.",
+  "limits": "Native engine proof on owned synthetic fixture only; no actual neural model, published BGE equivalence/runtime/CPU-GPU parity/license/authorization/hardware/ICA/MVP qualification. Canonical integration pending.",
+  "DHA": "NONE"
+}

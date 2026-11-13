@@ -1,0 +1,105 @@
+{
+  "at": "2026-11-13T00:27:29.312006+00:00",
+  "status": "FINAL_FROZEN_ROOT_INPUTS_COPY_UNCHANGED_TRANSCRIPT_FIRST",
+  "entries": [
+    {
+      "source": "audit/007-t-review.json",
+      "target": "oap/reviews/007-u-prior-review.json",
+      "bytes": 2749,
+      "sha256": "32baabad8eb6dabbcbff3b3f4092abc9f8fda0732557a74e9e3390c2b64e3093"
+    },
+    {
+      "source": "audit/007-t-resolution-timing-event.json",
+      "target": "oap/reviews/007-u-prior-timing.json",
+      "bytes": 747,
+      "sha256": "555eb1d9585e067c3fc7d148180f803a1f65574604605ab530ee6879db8f2224"
+    },
+    {
+      "source": "audit/007-t-current-CI-terminal-491c.json",
+      "target": "oap/reviews/007-u-prior-CI-terminal.json",
+      "bytes": 3225,
+      "sha256": "d49992ecc4977b921ba6a3eb53d5ce08ce3c9a4186aed78ad206dc53604f7077"
+    },
+    {
+      "source": "audit/007-t-current-remote-threads-491c.json",
+      "target": "oap/reviews/007-u-prior-remote.json",
+      "bytes": 672,
+      "sha256": "ab5302f641f8da1b6ad0ad6c0486b020aab2f90c4bded1b788791e56d2f8d17a"
+    },
+    {
+      "source": ".oap-state/response-consumed-007-t.json",
+      "target": "oap/reviews/007-u-prior-normal-response.json",
+      "bytes": 345,
+      "sha256": "75b963a7e7a5f152f65c28647488c3f691072385d708edcdd2b062dd736edefa"
+    },
+    {
+      "source": "audit/007-t-root-protected-epoch-result.json",
+      "target": "oap/reviews/007-u-prior-local-boundary.json",
+      "bytes": 1923,
+      "sha256": "6cbff5cb26b2179a74bab2b876169d34d16bb121e40a6013e9757f5664fe4f19"
+    },
+    {
+      "source": "parallel/output-repair/local-admission.json",
+      "target": "oap/reviews/007-u-source-local-admission.json",
+      "bytes": 1754,
+      "sha256": "d8672361c12365903872eea773d51031d4bb988a65c69d381430ac0ab0c708eb"
+    },
+    {
+      "source": "parallel/output-repair/review.json",
+      "target": "oap/reviews/007-u-source-Root-review.json",
+      "bytes": 2485,
+      "sha256": "c4b15464f1c397c3889607e8e176534bba6a9a1fd717150c5a4a8576d7fe17a0"
+    },
+    {
+      "source": "parallel/audit-output-repair/report.json",
+      "target": "oap/reviews/007-u-source-opposite-review.json",
+      "bytes": 11020,
+      "sha256": "3beaa59461c723db4697293e45a5e7bd5849690215d2b4f9039d0a32216ddc8b"
+    },
+    {
+      "source": "audit/007-output-repair-peer-root-review-3bea.json",
+      "target": "oap/reviews/007-u-source-opposite-Root-review.json",
+      "bytes": 1838,
+      "sha256": "f3eeccc945bfe7f5353b6daf8291c4371d8bbb2c64731f780921bc09df50cc9c"
+    },
+    {
+      "source": "audit/007-u-final-source-fit.json",
+      "target": "oap/reviews/007-u-source-fit.json",
+      "bytes": 9599,
+      "sha256": "6dacf632c10d62cbfa76ec4b9bae090e70a49bf766c06890bf3e9c1283472eda"
+    },
+    {
+      "source": "audit/007-u-output-repair-components.json",
+      "target": "oap/reviews/007-u-components.json",
+      "bytes": 2328,
+      "sha256": "5b014e9f850e67e171ad10276d7daa3f5665f1aa81ebd348e45b030cb27c3093"
+    },
+    {
+      "source": "parallel/audit-output-repair-fit/report.json",
+      "target": "oap/reviews/007-u-current-fit-opposite.json",
+      "bytes": 5247,
+      "sha256": "cf0ed4d89a0de1bda0437ac931d3d8a73f184a07cd1b3f4b03c9a383ed9a8daf"
+    },
+    {
+      "source": "audit/007-u-fit-peer-root-review-cf0e.json",
+      "target": "oap/reviews/007-u-current-fit-Root-review.json",
+      "bytes": 1265,
+      "sha256": "b886abc7dd9d1c844e1483a60681065b4df1752d621bb79abd9912d55646e513"
+    },
+    {
+      "source": "parallel/audit-current-007t-software/report.json",
+      "target": "oap/reviews/007-u-current-software-coverage.json",
+      "bytes": 10314,
+      "sha256": "8cd9eb14d98e0d4b0fbc215c0b9d2ef59589a20b31f02772bb9d4036167cb2f8"
+    },
+    {
+      "source": "audit/007-current-T-software-peer-root-review-8cd9.json",
+      "target": "oap/reviews/007-u-current-coverage-Root-review.json",
+      "bytes": 1589,
+      "sha256": "4e0a815cef55d48d3bdec2793ffe3f71749734c9e780f65805423ae227a37194"
+    }
+  ],
+  "total_source_bytes": 57100,
+  "note": "Immutable historical identity/copy records, not executable procedures or a request to semantically read every transitive byte. No active/register/runtime/auth files seeded. Do not mutate these indexedRootinputs after activation.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,29 @@
+{
+  "lane_id": "AUDIT-007-SOURCE-PLAN-B",
+  "target_commit": "2b50e6587b5362b3da7d092bf355cdd8153712cd",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "commands_results": [
+    {
+      "command": "env -u PYTHONPATH OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.12 sh -c 'ulimit -v 1048576; ulimit -t 30; exec timeout 120 python /tmp/audit-b-witness.py'",
+      "exit": 0,
+      "result": "CPython 3.12.15 supports Path._raw_paths. Preallocated 1M raw component: peak 2368 bytes, admission 0; 1M chunk: peak 1840 bytes, admission 0; valid baseline peak 4455, admission 1. Real journey positive admit/build/validate 1/1/1; empty, duplicate, oversized and invalid definition 0/0/0; foreign, metadata, member, runtime 1/1/1; wrong inventory 1/0/0. All negative calls refused. 18-file snapshot including outside sentinel unchanged after every call: 86fd5223d422a5ff8cde661e732b1171bf0b8f3ae6f57fbd876d9b2501c0e688."
+    }
+  ],
+  "witness_hashes": {
+    "/tmp/audit-b-witness.py": "b7883f1586084678ba02dc97792b52fd299ff132dc69b5e5066d781c18273352"
+  },
+  "read_set": [
+    "order.md",
+    "audit-source-plan/report.json",
+    "audit-source-plan/review.json",
+    "embedding_batch_plan.py _path and _preflight",
+    "tests/integration/test_embedding_batch_plan_composition.py",
+    "/tmp/raggedized-root-source-plan-preflight-memory.py",
+    "unit fixture via runpy",
+    "integration journey fixture via runpy"
+  ],
+  "findings": [],
+  "counterargument": "The witness covers selected finite inputs and snapshots owned fixture files only; it cannot prove preservation for all failures or all Python versions. Native tokenizer fixture and bounded allocations give direct evidence for these particular gaps.",
+  "limits": "No whole ICA, MVP, current authorization, license, actual model or hardware qualification. Snapshot aggregate represents names, size and individual SHA-256; files are synthetic fixture files. Tracemalloc measures Python traced allocations after preallocation, not total RSS. No model execution. DHA NONE."
+}

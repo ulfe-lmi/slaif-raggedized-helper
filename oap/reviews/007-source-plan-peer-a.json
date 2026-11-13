@@ -1,0 +1,80 @@
+{
+  "lane_id": "AUDIT-007-SOURCE-PLAN-A",
+  "target_commit": "2b50e6587b5362b3da7d092bf355cdd8153712cd",
+  "result": "COMPLETE",
+  "decision": "UNPROVEN",
+  "items": {
+    "1": {
+      "status": "PARTIAL",
+      "evidence": "Strict exact types, bounds and frozen policy revalidation in embedding_batch_plan.py:32-160; positive preflight test reaches admission. 3.14 mutated raw path independently refused. 3.12 path behavior not independently exercised."
+    },
+    "2": {
+      "status": "IMPLEMENTED",
+      "evidence": "build admits space then one build_many; actual integration wraps one validate, one Session, one build_many; native fixture is synthetic tokenizer and synthetic weights, not model execution. Count receipt fields checked; late bad second count refuses."
+    },
+    "3": {
+      "status": "IMPLEMENTED",
+      "evidence": "Integration independently recomputes seven dependencies, eight row fields, canonical bytes, source text, and job identities; exercises revision, scope/title, purpose, policy, order and count changes. Strict prefix tests. CPU execution is intent."
+    },
+    "4": {
+      "status": "PARTIAL",
+      "evidence": "Privacy traceback/warning unit and tampered original recovery integration; original memory witness passed. No independent sentinel/no-copy observation of all negative paths; no assertion of exhaustive immutable-original preservation."
+    },
+    "5": {
+      "status": "IMPLEMENTED",
+      "evidence": "4 unit and separately 6 integration passed, native fixture required by make_native; both env -u PYTHONPATH and limits after uv startup."
+    }
+  },
+  "commands_results": [
+    {
+      "command": "env -u PYTHONPATH OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 uv run --isolated --locked --offline --python 3.14 sh -c \"ulimit -v 1048576; ulimit -t 30; exec timeout 120 python -m pytest -q tests/unit/test_embedding_batch_plan.py\"",
+      "exit": 0,
+      "result": "4 passed"
+    },
+    {
+      "command": "same wrapper, SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12; pytest -q tests/integration/test_embedding_batch_plan_composition.py",
+      "exit": 0,
+      "result": "6 passed"
+    },
+    {
+      "command": "same wrapper python /tmp/raggedized-root-source-plan-preflight-memory.py",
+      "exit": 0,
+      "result": "hugechunkid 2208, hugemodelpath 2248 peak bytes"
+    },
+    {
+      "command": "same wrapper python /tmp/audit007-path-check.py",
+      "exit": 0,
+      "result": "mutated raw path refused"
+    },
+    {
+      "command": "initial inline path check",
+      "exit": 1,
+      "result": "SyntaxError due to shell newline quoting; corrected with witness script"
+    }
+  ],
+  "witness_hashes": {
+    "memory": "f056c6870944730beae4a8784b739e12f92910fbbcb9807e2ebbddf62115ce03",
+    "path": "25deedeb73f4d8d3fd3f0e842f55b7212be069b39e025f592f0281362851c8d2",
+    "source": "e7080dad7e4a79189a78e02dad8220d00ee4758396a3bcb67deb64129c02abae",
+    "unit": "bc3ee1ec5026953e19d6cb6ffef412f671480dadd49ed21528944ff2499f500d",
+    "integration": "b3e8d8d7fa6ee99841c8481878bbc4e3b61a5496962682f468b393714813c153",
+    "api": "58b93893374456552859b9fd7d1ded14dbad97d8f4e983da1a21e276e9db2c84",
+    "author_report": "cdcf15f35fc41376344d5e5a29f523cc77ccc7d19df678b6b257c6b94bb70dee"
+  },
+  "read_set": [
+    "embedding_batch_plan.py full",
+    "test_embedding_batch_plan.py full",
+    "test_embedding_batch_plan_composition.py full",
+    "docs/parallel/embedding-batch-plan-api.md full",
+    "retrieval_representation.py build_many",
+    "embedding_space.py admit",
+    "schema.py fingerprint and embedding definitions",
+    "embedding_job_journal.py _plan and make_spec",
+    "embedding_batch_store.py _metadata",
+    "ingestion_bundle.py validate",
+    "source_admission.py OriginalStore read and verification"
+  ],
+  "findings": [],
+  "counterargument": "Strongest reason not to integrate is incomplete direct proof of 3.12 raw Path mutation and sentinel/no-copy behavior, despite passing native composition and bounded 3.14 memory tests. No reproducible implementation defect established.",
+  "limits": "UNPROVEN denotes evidence gaps, not established bugs. Current rights, licenses, real ML and hardware qualification remain outside scope and unproven. Prepared is forgeable; this is component review, not milestone ICA or full MVP. DHA NONE."
+}

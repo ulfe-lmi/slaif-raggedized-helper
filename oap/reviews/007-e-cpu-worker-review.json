@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-12T00:01:04.025612+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_ISOLATED_CPU_CLS_WORKER_SOFTWARE",
+  "receipt": {
+    "lane": "cpu-worker",
+    "lane_id": "PAR-007-CPU-WORKER-A",
+    "result": "COMPLETE",
+    "implementation": "7656d6b7c0c3e9ac66341eae4f9d6b86264161b7",
+    "report_commit": "f92ed6e0637e60559063c9b6e5fa6a553f1683d4",
+    "report_sha256": "a730365b6a3395b3b79b5ee9173a2df4a1435f10c61bb90a45d429dcd6f451f7",
+    "paths": [
+      "docs/parallel/cpu-embedding-worker-api.md",
+      "oap/parallel/orders/PAR-007-CPU-WORKER-A.md",
+      "src/slaif_raggedized_helper/cpu_embedding_worker.py",
+      "src/slaif_raggedized_helper/cpu_embedding_worker_main.py",
+      "tests/integration/test_cpu_embedding_worker_composition.py",
+      "tests/unit/test_cpu_embedding_worker.py"
+    ],
+    "verified_at": "2026-11-12T00:00:11.625263+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "source_review": "Root allinitialparent+childsource/unit/integration/API andtwofullcorrectivedeltas independentlyread; allfinalSELFreportread",
+  "graph": "root-final-graph.json exactreportSHA/soleparent/reportonly/order/base/clean verified",
+  "Root_execution": {
+    "unit": 51,
+    "standalone_integration": 4,
+    "ruff": "PASS",
+    "original_admission": "PASS exact28metadata/uncheckedwarning",
+    "original_reply_binding_causality": "PASS positive+onlyguardremovalcaught",
+    "original_interrupted_cleanup": "PASS actualownedchildreaped"
+  },
+  "witnesses": {
+    "raggedized-root-worker-admission-boundaries.py": "5a8a21b974eae8b609f4cede777454b594a54204cd2584bce163616b9ad436bf",
+    "raggedized-root-worker-reply-test-causality.py": "4ab7b1203c47fe2470a1b39684241a5e13bc120c602b51fb9aedfc158b1e0223",
+    "raggedized-root-worker-cleanup-interrupt.py": "3b041c7f4b9c41d366bd9896360b8447469e8fb6626540fad613f5cb6007d327"
+  },
+  "strongest_counterargument": "Actual OS sandbox and protocol with trusted neural fakes do not prove real checkpoint loading/inference, deserialization security, capacity or complete security boundary. Local trusted profile test paths also do not prove cleanrunner CI provision.",
+  "limits": "LOCALONLY; no canonicalintegration/currentCI/actualCPUquery/model/physicalCPU/GPU/parity/currentrights/license/quality/ICA/MVP claims. Packagefileintegrity and protected ancestry/runtime assumed, metadata only profile selector. Later portabletestsetup and composedprocesssession required.",
+  "DHA": "NONE"
+}

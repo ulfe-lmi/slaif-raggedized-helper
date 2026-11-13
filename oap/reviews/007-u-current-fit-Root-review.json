@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-13T00:09:14.810833+00:00",
+  "status": "ROOT_VERIFIED_COMPLETE_CURRENT_T_OUTPUT_REPAIR_STATIC_FIT",
+  "draft_sha256": "cf0ed4d89a0de1bda0437ac931d3d8a73f184a07cd1b3f4b03c9a383ed9a8daf",
+  "target_source": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+  "target_canonical": "cf7479ee551e01803f7e2e6a8823bc61b3f1fe23",
+  "identity_checks": {
+    "candidate_files": 5,
+    "static_modules": 13,
+    "canonical_ranges": 14,
+    "immutable_report": 1
+  },
+  "witness_sha256": "ff9a42dac1d723f75f593c3180a1e07b62e855458afb14a4b87a29d086041a53",
+  "review": "Root refreshed full added repair method/newresultclass/dataclassimport and exactdiff. Existing24functions/methods retained, additions no currentbinding/caller shadow. Livelease/state/revision/wholeplan/typedoutput/equalcallbackepochs/CAS/history/start/wallrollback and originaldeadline before+aftercommit preserved; complete materialization only and uncertainterminalnotreopened. Candidate/current13node/14range/fullSHA exactverified, no newtests.",
+  "counterargument": "Static equality and supplied callbacks do not prove live rights/races/actualdrain; currentT mustresolve/currentCI beforeU, allnewrepair andfullcaptureCI afterU needed. No Uactivation or007acceptance yet.",
+  "DHA": "NONE"
+}

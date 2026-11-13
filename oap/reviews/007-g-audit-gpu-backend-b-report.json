@@ -1,0 +1,43 @@
+{
+  "lane_id": "AUDIT-007-GPU-BACKEND-B",
+  "target_commit": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "draft_only": true,
+  "findings": [
+    {
+      "finding": "Original exception replaced by failed owner attachment",
+      "status": "IMPLEMENTED",
+      "evidence": "Full backend and old/new scoped diff: both handlers retain captured owner before guarded interrupt attribute assignment, catching BaseException; ordinary exceptions produce a BackendRefused attached to the captured owner. Reused six-case witness covers forward, post-load and pre-return, ordinary attachment failure and secondary interruption; exact original identity and retained owner asserted. Forward sole-handler bypass trips identity assertion."
+    },
+    {
+      "finding": "API overstates attachment before model return",
+      "status": "IMPLEMENTED",
+      "evidence": "API limits attachment to captured owners or writable interrupt attributes; no captured local model before loader return means framework internal allocations unknown. Local registry and close do not prove drain or release caller lease; owned process lifecycle and controller-observed vacancy required."
+    }
+  ],
+  "tests": "87 focused units/integrations passed; separate GPU integration 1 passed. Reused /tmp/raggedized-root-gpu-interrupt-remediation.py SHA256 c5556919cb10e9c7d9a8e15eea81555c55e8c4f72b74f12c362a0d901a104bda six cases passed. First /tmp/audit007_b_causal.py SHA256 32a4c4d965ca8db3a924d72d11855d9fb554c2d62b9f1af9f55adbbbea8d8d7c is invalid causality evidence: separate globals/registry and generic assertion catch; its constructor attempt also failed due to isolated globals. Corrected /tmp/audit007_b_owner_causal_v2.py SHA256 474266906f9a26fb11d64d8d3261e111fc1774c19f01da1438380759eb259fac uses actual shared registry and same valid artifact/kernel lease positive in each run. Intact handler: identity=True, observed Locked, actual owner retained, lease live. Single forward-handler guard bypass: identity=False, observed RuntimeError attachment denied, same actual owner retained, lease live. Specific assertions occur outside caught original failure. Root boundary and memory scripts pass, hashes b61ca7bc5692a68a71e7b66a7f0c2f1246aecb405f5d9d9b6bc277ad4290cbd5 and f0425b5d3e4d515048880496edba2adeb7915c7bf89573b810fc56e17153e50e. Each bounded 1GiB/30 CPU/120 wall, one thread and no bytecode.",
+  "counterargument": "The fix cannot establish every asynchronous failure or prevent framework allocations before return; cooperative lock does not establish physical vacancy. Nevertheless the scoped source invariant and documentation defect are addressed by both handler inspection and bounded controlled evidence, with real GPU gates still open.",
+  "limits": "No actual GPU, neural runtime, security, license, parity, whole 007, ICA or deployment claim. DHA NONE.",
+  "identity": "HEAD d7b9bdc6b326210ea7191ec85533a8689a0e0622; sole parent 6da14ba514dbadf55c9e4751fed37c5ad8c1ad19; report-only commit. Backend SHA256 05da61fa34e1423a0daefd818775309565812b00a68bb7affd2df4a802bf91c0; API 963b2c093f01142362b6ce00b202c4cfb9c048e82ba8ef3d560b628519c4e5f2; unit b76b66a175b1beab60ecdb5498060aec92294956c2213a4a046eef59661e10fb; standalone 8a0255abecef920bafd60603fb9bb89154c0fcf398b918c654705634f1be97e3 unchanged.",
+  "criteria": [
+    {
+      "criterion": "lifetime and interrupt ownership",
+      "status": "IMPLEMENTED",
+      "evidence": "Both handlers and close inspected; terminal refusal, explicit close and live caller lease exercised; finite evidence does not cover arbitrary OOM/asynchronous interruption."
+    },
+    {
+      "criterion": "runtime, UUID, lease, admission, bounds, CLS and dtype gates",
+      "status": "IMPLEMENTED",
+      "evidence": "Full backend reviewed; scoped old/new diff only changes two handlers; original peer finite inspection reused after identity verification of dependencies, lock and standalone. 87 focused and separate standalone test plus boundary/memory pass."
+    },
+    {
+      "criterion": "real GPU, physical drain, parity, security and license qualification",
+      "status": "UNPROVEN",
+      "evidence": "Explicitly excluded; synthetic artifacts and fake framework with actual cooperative kernel lease do not confer GPU authority or physical isolation."
+    }
+  ],
+  "transitive": "Compared old/new Git blobs and SHA256 against original peer: lease e22f6d0d44f8369e85653a3fc9572ed5d17c9942a79def23341b9d55a393ab62, ownership 708731cd9a76e41df08c1c07e02b78748f90aca72da0bb6e12e5c7ee1977cafe, artifacts f9f52ece4cea2f686d1765b3538ff1e1d52ac79bc55ab62c2f41f73ea0cb2892, space 2cf63b8dcc5bc081fee174582159c362e6d7f351ba0e0ac74885aee9654a1e2e, native a17e7c7a18b33694a495f18c37dc51b50b2050837e01a16c47aa17e4d6e34ae2, schema 9fecd1043f6f62b263a78d5ff0726ce0dcb379ffcdaefa225b3c77dfaee736d2, CPU cd0f4a3b9dad487d94c9e5944614530432ed07887a5b96744b3a9379cd014937, lock d3f47d3d2943759967a95694017f32e20b8a29ee7de4df790465a402bc17c334. Read full lease and ownership and standalone; reused earlier peer finite admission/space/CPU/native/schema inspection only for identical blobs. Excludes Python/library internals and uninspected broader runtime/controller.",
+  "commands": "In exact worktree env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 PYTHONPATH=src:tests/unit timeout 120 prlimit --as=1073741824 --cpu=30 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m pytest -o addopts='' -q -p no:cacheprovider tests/unit/test_gpu_embedding_backend.py tests/unit/test_cpu_embedding_backend.py tests/unit/test_gpu_device_lease.py tests/integration/test_gpu_device_lease_composition.py tests/integration/test_cpu_embedding_backend_composition.py: 87 passed. Same environment and limits separately for pytest tests/integration/test_gpu_embedding_backend_composition.py: 1 passed; same python and limits for each /tmp witness named in tests field. Corrected witness exact command: env PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1 PYTHONPATH=src:tests/unit timeout 120 prlimit --as=1073741824 --cpu=30 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python /tmp/audit007_b_owner_causal_v2.py.",
+  "original_witnesses": "Read original peer report/review and three unchanged witnesses: interrupt d660144d6437f7f616bb45b4792ef0f52c1441e7906e73b7bb5fc1471353627d, pre-return b0d46b1d89515c4d97515515adeae0a494927d3a8f47b9a806298796c70cd53c, guard e7d6199853513f6dd78fa67c22772ed0ad4814a1063fb7b7013fcd5eb4787c10. Historical bug assertions are not correction passes."
+}

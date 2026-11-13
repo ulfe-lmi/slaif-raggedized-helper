@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-12T05:12:13.175144+00:00",
+  "draft": "3b57c57aef2f206d98d305b5cf25f41ad7777aafd41e0a9e7ba9d3f97f206494",
+  "status": "FINITE38_WHEEL_DECLARATION_NOTICE_FACTS_VERIFIED_NOT_LEGAL_CLEARANCE",
+  "Root_evidence": "Fullprivateinspector/controls/draft+all38rowsread. Independent38wheelstreamrehashmatchesactualfrozenselectedhelperfullCLIinventory; allreportedmetadata/licensefilebytes/shasrevalidated, ALL141declaredfile referencesread, no duplicateZIPmembernames; controlsvalid+4malformed+declaredsuffixPASS.",
+  "aggregate_inspected_bytes": 1231200,
+  "publisher_declaration_categories": {
+    "SPDX expression": 22,
+    "legacy License header": 11,
+    "classifier only": 5
+  },
+  "private_evidence_sha256": "be50ccf261b64233032b80a102fc60bc128483bf28ec3628ca0d11c7d762e1ba",
+  "Root_citation_correction": "InitialRootorderA24 intendedarchitectureSECTION24, actuallicensingrequirementA04; originalorderimmutable, no scopeorhumanpolicy change.",
+  "findings": "Tokenizers0.23.1 classifier-only/no declaredorfilename-discoverednoticetext; ambiguousBSDvariants; observedMPL2/ISC/PSF/CNRI/LLVMexception/BSL/0BSD/Zlib/CC0labels/combinations requireproperRootreleaseinventoryreview, notautomaticallowlistexpansion. AllincludedTorch/NumPydeclaredfileshashed; embeddednativeprovenance stillUNPROVEN.",
+  "strongest_counterargument": "Publishermetadata/declarations/includednoticefiles do not prove legalpermission, completebundledbinaryprovenance or redistribution compliance. No humanexception/approval/legal/security clearance.",
+  "disposition": "Acceptfactualinventoryonly; preserveactualoutofallowlist/missingnoticeuncertaintiesasreleasegates, continueauthorizeddevelopment. No CRITICALentrymerelyforordinarydependencyinventory/no provisionalexceptionadmitted.",
+  "DHA": "NONE",
+  "scope": "FACTUAL_SELECTED38_LICENSE_NOTICE_EVIDENCE_ONLY_NOT_APPROVAL",
+  "original_peer_report_sha256": "3b57c57aef2f206d98d305b5cf25f41ad7777aafd41e0a9e7ba9d3f97f206494",
+  "developer_readiness": "Licenseallowlist/notice/native/model/platformdistributiongatesremainOPEN; no automaticexception/adjudication/deploypermission."
+}

@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-12T13:49:30.814546+00:00",
+  "status": "EXACT_LOCAL_REPORT_RECONCILED_ROOT_SOFTWARE_PASS_PEER_PENDING",
+  "identity": {
+    "lane": "durable-gpu-producer",
+    "lane_id": "PAR-007-GPU-PRODUCER-A",
+    "implementation": "617ab621d1dc8fbb6cbfbaff61261d35e1ae2716",
+    "base": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+    "effective_base": "38ac45b33c32e454bd02bbbefcf575ee415c8c3b",
+    "preparation_heads": [
+      "38ac45b33c32e454bd02bbbefcf575ee415c8c3b"
+    ],
+    "paths": [
+      "docs/parallel/gpu-embedding-producer-api.md",
+      "docs/parallel/gpu-embedding-producer-design.md",
+      "oap/parallel/orders/PAR-007-GPU-PRODUCER-A.md",
+      "src/slaif_raggedized_helper/gpu_embedding_producer.py",
+      "tests/integration/test_gpu_embedding_producer_composition.py",
+      "tests/unit/test_gpu_embedding_producer.py"
+    ],
+    "order_sha256": "595cc008e6cc139edb6cb68536d07a6ba13383b7fe123531f79b326ebad82163",
+    "at": "2026-11-12T13:44:33.455282+00:00",
+    "reader_pid": 3455293,
+    "scope": "Implementation checkpoint only. Root review required; no acceptance or report yet."
+  },
+  "source_hashes": {
+    "docs/parallel/gpu-embedding-producer-api.md": "0ba932c594d68692c15979f9dd57ebf55daaa6500d75a994566783db145b87c7",
+    "docs/parallel/gpu-embedding-producer-design.md": "3a196c8b39ab019f53a2d95dd5c2011818ece994f84c36f9ce2e962f0c7a34d3",
+    "oap/parallel/orders/PAR-007-GPU-PRODUCER-A.md": "595cc008e6cc139edb6cb68536d07a6ba13383b7fe123531f79b326ebad82163",
+    "src/slaif_raggedized_helper/gpu_embedding_producer.py": "7e0cbdb9c1d93c1b1c345da475774707d5a4128e32e3630e7521261258bc7483",
+    "tests/integration/test_gpu_embedding_producer_composition.py": "5fc1880f554f5c1e8d2789e85b29351f387b5bda8822e56682e5ca4396da5466",
+    "tests/unit/test_gpu_embedding_producer.py": "cbed65eeac956d454a190f2058ef50bb54097afdc6e3a4150c52ae1a925422da"
+  },
+  "review": "Entire26535Bproducer source, unit tests/API, full actual positive/fault helper and actual acquisition/return/config/source/state/journal/fork/busy cleanup bodies inspected. Exact6paths/soleprep38ac/cleanmerge/d100+b0ca/order/fulloriginal+4Rootamendmentdesign verified. Actualknownclass worker/session dispatch and observation/receipt nativeowner guards, source+authorization epoch rebuilds, typed FP32 rows/payload/output binding, postdrainfreshB, PENDING/COMPLETEonly, ambiguous commit reread, strong exception identity cleanup reachability and lease until knownowners drain verified. Private bridge coupling deliberate contract. Default launch no-capture limitation remains.",
+  "Root_checks": {
+    "007-producer-root-units-617a.log": {
+      "sha256": "5d55354c6c38cbf536fc63d13195727856b9a2b041fd89c8283e4c79d282c5f1",
+      "output": ".......................\n"
+    },
+    "007-producer-root-return-recovery-617a.log": {
+      "sha256": "e8e2bfb9088b7dec0ac16ade695749de33d1d6c2cd492ca888ee688f5b9399d4",
+      "output": "..\n"
+    },
+    "007-producer-root-lease-control-617a.log": {
+      "sha256": "d99bf4070ec4291b7b6fe5d368ca5ec3fcd90c699a7a48a4a5eb4dc0a2e6a8e2",
+      "output": "F\n=================================== FAILURES ===================================\n____________ test_actual_pending_preparation_gates_journal_release _____________\n\ntmp_path = PosixPath('/tmp/raggedized-root-producer-lease-control-wji3mkao/test_actual_pending_preparatio0')\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x706b0d7fb6f0>\n\n    def test_actual_pending_preparation_gates_journal_release(tmp_path,monkeypatch):\n     setup,reservation=_prepared_fixture(tmp_path,monkeypatch)\n     prepared=l.prepare(**setup)\n     handle=j.Journal(tmp_path).own(wire(plan()));handle.__enter__()\n     owner=p._CleanupOwner(None,None,handle,preparation=prepared)\n     source=textwrap.dedent(inspect.getsource(p._CleanupOwner.close));needle='and self.preparation is None\\n            and self.capture is None'\n>    assert source.count(needle)==1\nE    AssertionError: assert 0 == 1\nE     +  where 0 = <built-in method count of str object at 0x3672c850>('and self.preparation is None\\n            and self.capture is None')\nE     +    where <built-in method count of str object at 0x3672c850> = 'def close(self):\\n    from . import gpu_embedding_worker, gpu_worker_launch, isolated_gpu_embedding\\n\\n    if self.cr... item is not self]\\n    _retained_associations[:] = [item for item in _retained_associations if item[1] is not self]\\n'.count\n\n/tmp/raggedized-root-producer-617a-lease-control.py:13: AssertionError\n=========================== short test summary info ============================\nFAILED ../../../../tmp/raggedized-root-producer-617a-lease-control.py::test_actual_pending_preparation_gates_journal_release\n1 failed in 2.48s\n"
+    },
+    "007-producer-root-positive-617a.log": {
+      "sha256": "8608541d6478c11d83d5967534863eca32d3700653c32dece8c607b86909d963",
+      "output": "authorization_boundary=before_model\nproducer_cpu_at_before_model=4.047\nproducer_harness_sha256=9ce60f40cb86f80c3c8e8e5e09620436569b318aa21d1d4af106b5c8670fa955\nauthorization_boundary=before_encode\nproducer_cpu_at_before_encode=15.658\nauthorization_boundary=before_publish\nproducer_cpu_at_before_publish=30.222\nauthorization_boundary=before_complete\nproducer_cpu_at_before_complete=33.898\nproducer_call_cpu=33.912\nproducer_call_wall=34.818\njob_id=sha256:a9075caa6464149a6f1e38e6eab21be79944cf5822e2d54158aba52bdee6b590\noutput_ref=sha256:16063a4552c5ca7222bdc0a93399563b8ac6cf287a22e084123c1cd21760f26e\nmetadata_sha256=881283c067f1c7fa50876479e48224e992f92f4c427dd3e3b2e5cf28e79eedef\nexecution_record_sha256=3a492c6064cd5e207590b87fdeb0c2672744a2824b9273f2e7903d4b07c601fd\nnative_record_sha256=980b0732c984656113d81afcd805d013888d5b5586b92c11b485de2c124891a8\njournal_trace=PENDING,CLAIMED,RUNNING,COMPLETE\n.\n"
+    },
+    "007-producer-root-lease-control-v2-617a.log": {
+      "sha256": "07572f20efbf5a1c250f00277fa6d493299d2a22f9cf3902af7ebf981c0ba6f6",
+      "output": "Actual pending prepared: original retains actual journal; removing only prepared-is-None release guard releases journal. Control SHA256=15251b17c35e2f304dbf701a20912a854566690129bef3158616d63a92c3f418\n.\n1 passed in 2.44s\n"
+    }
+  },
+  "positive": "Current617a actual native/syntheticGPU/source/store/journal singlebatch PASS; call33.912processCPU/34.818wall, tracePENDING/CLAIMED/RUNNING/COMPLETE, no real neural/GPU qualification. Exact23units and2actualhandoffreturncasesPASS. OneRootouter60 D0 only, allworkers30.",
+  "causal_control": {
+    "path": "/tmp/raggedized-root-producer-617a-lease-control-v2.py",
+    "sha256": "9d92da4c6a019c68d1aee78e4684dff0cf2d40197394fbcfa92207f1fffd8775",
+    "effect": "Actual prepared capsule removal controlled failure +actual journallease. Originalclose retained exactlease; temporaryclose removingONLYprepared-is-None releasecondition releasedleasewhileactualpreparedpending. Supportedactualcleanup then drainedno-childpins; callerreservation remainedowned. 1PASS2.44s.",
+    "Root_setup_failure": "Originalprivatecontrol asserted dedented source needlewith wrongindent before guardexecution;1FAIL2.48s retained, no productbug. Revisedv2 correctsexactneedle; no sourcepatch."
+  },
+  "author_late_evidence": "Readactual3logs and verifiedall3log+3timeSHA256 vsprogress/currentexactproducer/testhashes, actualpositivefixtureassertionsreviewed. Three lateepoch/Bclose casesPASS under exactamendment4. No countaggregation/throughput claim.",
+  "progress_sha256": "6f074c3afdc70ef95616b7624adc52c7e3d8eb91a9ceffe159720b6d936d199b",
+  "strongest_counterargument": "One-batch reference repeatedly performs costly planning/preparation and uses privatebridge layout; safe bounded software behavior has finite actualproof, but efficientcorpus execution/currentprincipalpolicy/controller/parity/realmodel/security/hardware/license/ICA/currentcanonicalCI remainunproven. Original and later source-test costs/failures retained, notperformance acceptance.",
+  "DHA": "NONE",
+  "report_commit": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+  "report_sha256": "2dfa9b9f026f49aa81e49999e1dfb4dfe082e313a7d443d0d2ea3d6444221d51",
+  "report_review": "Full immutableSELFreport read; cleanexact6path/soleprep38ac/cleanmergetree/soleimplementation617a/reportonly/Rootorder verified via purehelper. All6source/prepsource/4Rootlogs/progress/6lateartifact hashes verified. Priorpositive vs exactcurrentRootpositive distinction explicit; no unsupported remoteCI/rights/neural/hardware/wholeMVP acceptance. Opposite-agent finite review stillrequired before integration."
+}

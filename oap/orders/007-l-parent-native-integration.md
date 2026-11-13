@@ -1,0 +1,55 @@
+# OAP Work Order — 007-l
+
+Status: FINAL
+Identifier: 007-l
+PR mode: AMEND_EXISTING_PR
+Branch: oap/007-embedding-pipeline
+Base commit: 3b41a6b39d18a4805ecad253b38ffb2fc5ef130f
+PR number: 9
+Expected active: 007-k
+Provenance: H activated full-MVP/parallel/CI mandate; A11.2/A19 execution provenance and actual resource ownership; E actual parent reinit/native Popen pre-return and fork/context faults now repaired; I exact9ac0/d770 reports, finite d31d/5af3 affected peers and Root original controls/currentK composition
+Architecture SHA256: 4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a
+Governance SHA256: 1b20edbb9d1adef35b0eb51658f8b0de4bee6727655eb8c91533156a1677a9a6
+
+## Objective
+Selectively integrate EXACT23 frozen source/test/API/design files250571B: parent14 (owned parent/retainedlock/lock-close-race/rawworkeridentity/singleinitialization) from9ac0eabd77bff77101debe9812887993e86a6803, native9 (selectedFILEidentity and actualTokenIDSession acquisition/fork/reinit/diagnostic fixes plusCIpositiveenv) fromd7701a5329d825eefa2d5f7a2a58b74bc0788b10. No new implementation or source adaptation. Whole007 staysPARTIAL; GPUbridge/producer/controller/durableGPU/actualBGE/parity/fullMVP stillnotimplemented/qualifiedcanonically. No mainmerge/008/runtime/releasegrant. OldunactivatedK13index is history, NEVERcopyit; newindexincludesconstructorfix/newdesign andnativefiles.
+
+## Dependencies and current state
+K resolvedPARTIALbeforethisorder: transcript206334927ec80203001146571486f9e7332c08b5 ->impl16559d585f425202acd4f60d55c701ad2812f8a9 ->report3b41a6b39d18a4805ecad253b38ffb2fc5ef130f/sha bea8e5bb5b91f3c311ffcc397999f8ecb5972488ceff9c12bc967fcc9be8483c. Rootexact8blobs47707B/14records/currentdocs/50units reviewed; originalstrictbare40SELFverify_report PASS withoutadapter; normalwrapperreceipt exactOK/remoteverified, noFIFO reread. BOTHCI43200113662/43202045756 ALL5jobsALL78stepsSUCCESS; uniqueOPENnondraftPR9/main11bad/noauto/no unresolvedthreads/reviews. audit/007-k-review.json andtimingledgerrecordresolution. Codingquiet/livepublicationgate recheckedbyRootbeforeactivation; notcodingroadmapauthority.
+
+Parentimpl1344e7b2fa29afead4ee630f55f4110246e9ec6f/report9ac0 fixes actualsame-objectconstructorcorruption beforeliveowner mutation; d31dc3a5be937271569fdc14abf4b988283523e630cdc685a4c885843c0e24fd finitepeer andRootactualborrowedforkcontrol verified. ParentincludeslegacylockB19898 andrawidentityb83a7 actualsource, not completeGPUbridge. Nativeimpl385948256f7e3d0d9a50d03c4e7a6deee7b6f107/reportd770 includesFILE3be9 actualselectedbytes/strictcodec/FDcleanup pluspreallocatedactualPopen/strongpendingowner/forkfinalizer/once/contextpriority; combinedpeer5af358ff0899b31a8c77d374058e0d06655b8020f7d7e2bc20dcaf7141bb57aa andRootactualnativeforkfinalizercontrol verified. Sameaccount/transitivehistoricalauthorship disclosed, finitefreshcontextreviewNOTfullICA/independenthumanidentity/hardwareproof. ActualNativeFILEmeasuredold4ff5fingerprint is historicalbeforehelperfix, changesnaturallywithsource; neverhardcodeit.
+
+Index audit/007-l-parent-native-components.json SHA256010d2b52080fb814dc507a8f1d9a5052a235b661360985f1808833181dfc3fa5; EIGHTEEN sanitizedRootrecords enumeratedby audit/007-l-root-records.json SHA256ab83c56dad4bb061ac3362af14c4fe25a3a063835d9da7b245212011d84f06b4. Root disposablecurrentJ+exactK8+23 forecast112units+actual8native/2parent/1identity/3query/3isolatedPASS, existingforkwarningretained; KproductcodeequalsJ+K8 byexactunchanged-sourceverification, docs/reportchanges donotqualifyruntime. Source originalsPLAN/UPDATE/ARCH/law unchanged. ParallelSourceRows/lexical/dense/GPUbridge are NOT copied or claimedintegrated.
+
+## Allowed paths and scope
+FIRST transcript-onlycommit onexactroundbase: unchangedRootFINALorder/active007-lLF, all18exactRootrecords andthatrecordindex ->oap/reviews/007-l-root-records.json. Verifyallsource/target/hashbytes. THEN ONEimplementation soleparenttranscript: onlyEXACT23indexedblobs/size/SHA/sourcecommit plusallowedcurrentdocs. THENsoleparentimmutableSELFreport-onlycommit. No branchmerge/cherry-pick/rebase/reset/stash/clean/switch/historyrewrite. Allproduct/test/API/designbytesimmutable; actualconflict/failure toRoot, neverpatchtoforcepass. Nevercopyparallelorders/reports/privatepermits/helpers/state/FIFO.
+
+Allowedcurrentdocs README.md,STATUS.md,TESTING.md,docs/embedding.md,docs/UNCERTAINTIES.md; oap/governance/CONTEXT-BUDGET.md andMANIFEST.json measuredcurrent-doc/hashupdatesonly. PreserveTESTINGT1..T15byteexact; compress/updateT16only withinroutine<=50000B(current49999). PreservecurrentK8/I15/J14, allothercode, Hhelpers/fixtures/CIsteps/pins/locks/pyproject/requirements/profileassets/sourcebooks/ARCH/law/projections/CRITICAL. No newdeps/code/endpoints/modelIDs/licenses/benchmarks.
+
+## Non-goals
+No GPUtextbridge/actualneuralFP16/producer/jobcontroller/modevacancy/physicalhardware/precisionparity oractualBGEexecution. Noactualsnapshotpayload/sourcegroup/lexical/densebuilder/rights/currentACL/publisher/CAS/retention/Ready integration, no numeric008/mainmerge/tag/deploy/release. FILErecords/predictedworkerIDs aredata, neverowner/qualification/currentgrant. Actual live rawworker observation requiresregisteredparent andretainedlock/source/ready/process/FD/pidfd/namespacechecks, stillnotcompleteGPUexecution.
+
+## Acceptance criteria
+1. Exactthree-committopology/order/active/18Rootrecords+index/23immutablefiles250571B; currentK8/I15/J14/helpers/CI/pins/locks/law/ARCH/source/CRITICALunchanged. NewindexONLY, oldK13 neverused. Scopeconflictsreportednotadapted. Currentdocs sourcefacts vsqualifications explicit.
+2. Actualparentcreator/singleinitialization beforeanyexistingowner/process/FD/lock/registry mutation; no live/failed/closedrevival/foreigninitialization; originalactualPopen pre-return capture, immutableReady9/capturedactualLock10, source/dependency/fork/busy/namespace/confirmedreap/pendingcleanup/exceptionpriority maintained. Rawidentitystablemeaningfulinputs andobservedactualparentnotforgedDTO. No hardwarevacancy/actualmodel claim.
+3. Native actualTokenIDSession Popenowner retainedBEFOREinitializer, independentstrongpendingowner, creator/once/closed/context/errorprecedence/forkfinalizer rules. FILEclosedcanonicalselectedactualPython/package/dist/source/defaultpolicy identity, boundednofollowstability/uncertainFDcleanup, explicitstdlib/system/ABI/GPUmetadata-onlyexclusions. PositiveunitusesexistingrequiredCIenv,nohardcodedRootpaths/skips. Source/nativeinputs naturallychangefingerprints; semanticspace notchanged.
+4. Currentcomposed112focusedunits(parent23/identity7/TokenID58/FILE24), native8actualacquisition, allparent28originalOSdisjoint11normal/7hostile/5acquisition/5lock-race plusnew1, identityOS1, nativecompositions3, separatequery3/isolatedCPU3; relevantnormalizer/launch/protocoltests ifactualnewconcern. Keepactualcounts/disjointdeselectionhonest. Root/componentproofs alreadyrun; no unrelatedbroadfullsweeps/repeatswithoutnewfailure. Ruff/compile/diff/OAP41/check_state/help/doctor. RequiredunchangedCI BOTH exactimplementation/reportheads all5jobs78stepsSUCCESS, none missing/skipped/pending/cancelled green.
+5. Honestcurrentdocs: newlyintegratedparent/rawidentity/nativeFILE/acquisitionsoftware underactualnative0.21/syntheticcopiedentry/nullpins/fakeCPU/GPU only; no realTensor/model/GPU/driver. Whole007/MVPPARTIAL, actualBGEUNRUN/UNQUALIFIED, Hactual38/classimport/licensefacts andarchivedCPUtoy distinction/hostfullunitcauseUNRESOLVED preserved. ParentK13originalholdremediatedatfrozensoftware+freshpeer; oldholdhistorypreserved, nohumanDHAwaiver. ParallelGPUbridge/SourceRows/lexical/dense remainunintegrated/pendingseparategates. Nextcurrentdocrefreshmayfixcosmeticduplicateheading inembedding.md withoutrewritinghistory.
+
+## Verification and negative evidence
+InspectactualindexeddependenciesagainstcurrentKandimmutableblobs, notfluentreportsalone. Actualowned namespaces/privateartifacts/sourceFDs/fork/Popen/pendingowners/interruption andplainFILEdeclarationsdistinguished. Preservecomponentoriginalcausalcontrols/history; syntheticactualtokenizers/fakes doNOTestablishneuralorigin/FP16precision/physicalvacancy/security/license/quality/fullICA. RequiredCI unchangedcontainscurrentfixtureenv; no workflow/pin/setupchanges authorized. Failure toRootwhilesafeindependentproofcontinues; nogreenbyskip/caprelaxation.
+
+MANDATORY prepublicationparse NEWreport withexistingoaplib.metadata; existingcommit_id onImplementationheadSHA/Roundbasecommit/Transcriptcommit/PRmainbase musteach BAREliteral40hexmatchingactualGitfacts. Identifier007-l,ResultPARTIAL,publicationSELF. ParentexplanationsbodyONLY. Originalfullverify-reportagainstactualremote beforeONEresponse. NoRootmetadatarecoveryadapter, oldreportrewrite, futurepush/CI/responseclaims. Exactactualdiffstatnotguessed.
+
+## Documentation
+Onlynamedcurrentdocs/currentbudget+manifesthashes. Keepcurrentstateconcise/linkexactAPIs/reviews, avoidanotherlongchronicleinREADME/STATUS; preservehistory/humanboundaries. Measureactualtransitivereadset/honestbudget, no inventedwhole-source-readorimmutablehashapproval. No producthuman-owner/referral behavior. Updatedsourceidentity/selected-file integrity doesnotbecomeactualruntime/rights/Readycertificate.
+
+## Runtime and protected resources
+CachedappPython3.14; eachmodel-freecommandtimeout120/prlimitAS1073741824CPU30,OMP_NUM_THREADS/OPENBLAS_NUM_THREADS/MKL_NUM_THREADS/RAYON_NUM_THREADS/NUMEXPR_NUM_THREADS=1,PYTHONDONTWRITEBYTECODE1,assignedrepoPYTHONPATH=src:tests/unit. Standalonefixtures existingonly: SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu,SLAIF_NATIVE_TEST_PYTHON=python3.12,SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages; SLAIF_GPU_TEST_ROOT=/tmp/raggedized-root-cpython312-portability,SLAIF_GPU_TEST_PACKAGES=/tmp/raggedized-root-gpu-fixture-c0e14e2c/packages; SLAIF_CPU_V2_TEST_ROOT=/tmp/raggedized-root-cpython312-portability,SLAIF_CPU_V2_TEST_PACKAGES=/tmp/raggedized-root-cpu-v2-portable-485fc687/packages. No newsetup/install/download/network/framework/Tensor/model/GPU/driver/service/corpus/credentials/privateendpoint/SSH. Actualnative0.21syntheticworker +approvedcopiedGPUfakeentry/nullpins/fakeCPU only. Ruffwall120/thread1 allocator exceptionhonestlyallowed, nottestcapchange. PreservehumanQwen/A100Q8/xhigh/profile/auth; nootherpanes/nestedagents. Nohistoricalclassimport/toy/runtimepermittransfer.
+
+## Deferred human adjudication
+
+- Decision: NONE
+
+## Publication and report
+ExistingPR9only. Transcript-only ->ONEexactsource/docsimplementation ->soleparentimmutableSELFreport<=7500B. Originalstrictmachineheaderpreflight/actualcounts/mockvsreal/currentCI/remaininggates/DHANONE. BOTHimpl/reportCIall5all78 observedbeforeONEresponse; recordfuturepublicationfacts separately, donotpredict. VerifyexactremoteSELF/reportbytes/graph/activationwithoriginalhelper. Finishbounded007-lgoal/idle; Rootaloneaccepts/advances. No reread/replayoldcontrol/responseFIFO orduplicateconsumer, numeric008/mainmerge/auto-merge/tag/deploy/release.

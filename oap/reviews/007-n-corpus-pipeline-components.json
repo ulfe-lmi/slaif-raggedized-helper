@@ -1,0 +1,161 @@
+{
+  "status": "FROZEN_REVIEWED_N_SOURCE_INDEX_ONLY_NOT_ACTIVATION",
+  "current_M_reference": "e9ee12568fdfbfd9f122ceb3ed0d15690b4dbbfa",
+  "entries": [
+    {
+      "source_commit": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+      "path": "src/slaif_raggedized_helper/gpu_worker_launch.py",
+      "bytes": 41596,
+      "sha256": "89230e00f2e4fca3271c4e60f55a487a186d932fdce142ee9525852c9a49d3b3",
+      "blob": "ee8f67170361c74feded39c76fa3bb41e335cabb"
+    },
+    {
+      "source_commit": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+      "path": "tests/unit/test_gpu_launch_preparation_owner.py",
+      "bytes": 10076,
+      "sha256": "5737d37679c473c98937623b45495ad14bb02c5e11728c9b2658412df9023b87",
+      "blob": "4cda0d6027da09e624616dfb4db1fef9d099339d"
+    },
+    {
+      "source_commit": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+      "path": "tests/integration/test_gpu_launch_preparation_owner_composition.py",
+      "bytes": 956,
+      "sha256": "00069e3e83c5f01a3cb45423aadca4b786e0a99188ea1be35d8617cbe26e9dfa",
+      "blob": "bc65535ff988683168c1106addd9d5920183eb1e"
+    },
+    {
+      "source_commit": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+      "path": "docs/parallel/gpu-launch-preparation-owner-api.md",
+      "bytes": 1682,
+      "sha256": "bc54c6f091358ff9a3d6b52b1db399be3e98c3a4f055fafd944b16526c927c1a",
+      "blob": "ad83c61702d7d67736c4767c1638163b421d03a1"
+    },
+    {
+      "source_commit": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+      "path": "docs/parallel/gpu-launch-preparation-owner-design.md",
+      "bytes": 12529,
+      "sha256": "ce88d00937f6cfca5f951125c621f25e7e07252210434c9680e019805036c3e9",
+      "blob": "febe1d2ebdc1c1e4c6efa75edebbc6a67a8ad39e"
+    },
+    {
+      "source_commit": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+      "path": "src/slaif_raggedized_helper/gpu_embedding_producer.py",
+      "bytes": 26535,
+      "sha256": "7e0cbdb9c1d93c1b1c345da475774707d5a4128e32e3630e7521261258bc7483",
+      "blob": "9d61c09574f318cafa91635a739a9e10e08b0299"
+    },
+    {
+      "source_commit": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+      "path": "tests/unit/test_gpu_embedding_producer.py",
+      "bytes": 10045,
+      "sha256": "cbed65eeac956d454a190f2058ef50bb54097afdc6e3a4150c52ae1a925422da",
+      "blob": "0fb2106c875dcee2495fe5c49a3585c44712d8cb"
+    },
+    {
+      "source_commit": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+      "path": "tests/integration/test_gpu_embedding_producer_composition.py",
+      "bytes": 70160,
+      "sha256": "5fc1880f554f5c1e8d2789e85b29351f387b5bda8822e56682e5ca4396da5466",
+      "blob": "fda827754d4bf7cf523cf8fe8c71ee8e2f9932e3"
+    },
+    {
+      "source_commit": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+      "path": "docs/parallel/gpu-embedding-producer-api.md",
+      "bytes": 4380,
+      "sha256": "0ba932c594d68692c15979f9dd57ebf55daaa6500d75a994566783db145b87c7",
+      "blob": "dda8a4d2dda9684c3eda4f63859ae66639ee3e84"
+    },
+    {
+      "source_commit": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+      "path": "docs/parallel/gpu-embedding-producer-design.md",
+      "bytes": 33397,
+      "sha256": "3a196c8b39ab019f53a2d95dd5c2011818ece994f84c36f9ce2e962f0c7a34d3",
+      "blob": "a34e655a0dae4f8e61e2f21257a569d16c206ef3"
+    },
+    {
+      "source_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+      "path": "src/slaif_raggedized_helper/retrieval_representation.py",
+      "bytes": 7412,
+      "sha256": "ce48363bc620a941516188777d58d1d3866dd8ac5e9ad0b881702aa1bfeeecbc",
+      "blob": "15a75d41bac4e38925cbca95a6d0ce4870972840"
+    },
+    {
+      "source_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+      "path": "src/slaif_raggedized_helper/corpus_embedding_program.py",
+      "bytes": 17727,
+      "sha256": "5d5302d56f76f348a1e96c5fe8c9ea02e44b4321d4c76e039de2ed7a92b721aa",
+      "blob": "c03be251474bc40a162076130eb953ae0085acf3"
+    },
+    {
+      "source_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+      "path": "tests/unit/test_corpus_embedding_program.py",
+      "bytes": 3946,
+      "sha256": "f826b8fed217898abeb6d0c1888eafc7d7c3e13986167b407ff8d32706236dfd",
+      "blob": "8f31d151612b0245393cd2da3dffb021099610a9"
+    },
+    {
+      "source_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+      "path": "tests/integration/test_corpus_embedding_program_composition.py",
+      "bytes": 16540,
+      "sha256": "598045f52e24b2199bdee5f8b3f93219764cff5932d0745e1cdb5206fb961c59",
+      "blob": "bd825ca027d164815bce61c14076d3880b40222e"
+    },
+    {
+      "source_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+      "path": "docs/parallel/corpus-embedding-program-api.md",
+      "bytes": 1335,
+      "sha256": "2e397c9c113710c9c36fcb9d37bda2ba294484a8a097cf2a1e2ea0207a243e4f",
+      "blob": "f3a73a2bdae21747b0a97464097ba044a1e80143"
+    },
+    {
+      "source_commit": "6f5b31123d080376b6b0c09a803bd67033694484",
+      "path": "docs/parallel/corpus-embedding-program-design.md",
+      "bytes": 13243,
+      "sha256": "241a318126c3f72c22556335c9d392527b8718dce6c487c30cdd5edb78f29d04",
+      "blob": "72c84adc7f1b2727070b5c33ce03db58df83e42d"
+    },
+    {
+      "source_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+      "path": "src/slaif_raggedized_helper/corpus_embedding_executor.py",
+      "bytes": 9011,
+      "sha256": "ee09ec140db4da72248a3c79e0073ed98b806c070368be2a82aa24da8e481f9d",
+      "blob": "39fa9e1398bc42e222a5ef0096ac5fc465a81d7f"
+    },
+    {
+      "source_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+      "path": "tests/unit/test_corpus_embedding_executor.py",
+      "bytes": 3375,
+      "sha256": "5ff0e7b4e24e0bdb1d868f45c7302fd1a8570d2116c8cb4b07423c9a23093aa0",
+      "blob": "56ccbe48a92414e2975f90623ab3938ee13eabf9"
+    },
+    {
+      "source_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+      "path": "tests/integration/test_corpus_embedding_executor_composition.py",
+      "bytes": 38234,
+      "sha256": "31ae037e500ab4671d7d7f0bceaec2c63b7725f2f61a6bae2284ea956ace146e",
+      "blob": "1196b290d6e8d11fc84c815535d6f2bbe965e973"
+    },
+    {
+      "source_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+      "path": "docs/parallel/corpus-embedding-executor-api.md",
+      "bytes": 1325,
+      "sha256": "2bb3c00dc9721825c986c3b64cbd3e4f8b2c8a7ad1bf984e826975ca5a002284",
+      "blob": "247e302b110178fe10c7234b5eee5c1d61273bd7"
+    },
+    {
+      "source_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+      "path": "docs/parallel/corpus-embedding-executor-design.md",
+      "bytes": 12183,
+      "sha256": "51e32fd0803b838f5cfa2537938fcd5f10f1fa2d7ef28bddbd5f6e12b711c5a2",
+      "blob": "4b9c4ca93611784bfbdf4d0b8dba17eea6bc75e7"
+    }
+  ],
+  "files": 21,
+  "total_bytes": 335687,
+  "existing_replacements": [
+    "src/slaif_raggedized_helper/gpu_worker_launch.py",
+    "src/slaif_raggedized_helper/retrieval_representation.py"
+  ],
+  "rules": "Exact reviewed source blobs only. Two intentional existing production extensions; nineteen new paths. All other preexisting product/test/API/design unchanged, including BOTH L tests, canonical K declarations and M10. Source map is not a current execution, CI, readiness or activation record.",
+  "DHA": "NONE"
+}

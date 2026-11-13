@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-12T19:27:39.661117+00:00",
+  "draft_sha256": "3beaa59461c723db4697293e45a5e7bd5849690215d2b4f9039d0a32216ddc8b",
+  "status": "FINITE_OPPOSITE_PEER_REVIEWED_FINALIZE_EXACT_REPORT_NOT_CANONICAL_ACCEPTANCE",
+  "verified": "14readsetsourceidentities +2witness/index entries; current2df/old074 proofs, index89files alreadyRootverified, all state/epoch/output/lease/CAS/deadline/diagnosticlimits reviewed",
+  "Root_independent_witness_replay": {
+    "path": "audit/007-output-repair-peer-root-inode-3bea.log",
+    "result": "PASSexit0, originalownkernelwitness under explicitCPU30AS1GiBwall120/all5threads1/nobytecode/owned0700 temp",
+    "witness_sha256": "c6647c493876e61a5d1976d6f23f84ab1ca733703a26bef7479a1f71ff699672"
+  },
+  "peer_environment_correction": "OriginalpeercommandsetOMP/OPENBLAS/MKL/NUMEXPR/VECLIB, no recordedRAYON. PrescribedfiveNOTproved; pinrawtime/logretained, repairstdout/wall onlytoolreported/no rawlog. Reconstructedcommandlabelledhonestly. No Rayonbackendinvoked. Root ownfullybounded replay isadditionalverification, notrewritingpeerhistory orclaimingitscommandcompliance.",
+  "D0_reason": "Routinecommand/evidencecorrection settledbyactualcallgraphandkernelobservations, originalCPU/AS/wallcapcommands syntacticallyvalid (combinedBashulimit independentlyconfirmed). No model/protectedresource/invariantwaiver orDHAjudgment.",
+  "strongest_counterargument": "FiniteprivateDATAleafs/ownkernelwitness do not establish currentrights/invocation/accounting/drain/retention/purger/crosshostFS/Ready/currentcanonicalCI/fullMVP; oldhistoricaltestbytesnotreconstructible forrepair, notallcurrentpass.",
+  "next": "Exactapprovedfinalreport/normalresponse thenseparateRootlocaladmission; retainexistingRootreview files byteexact becausepeerhashesreference them.",
+  "no_FIFO_read": true,
+  "DHA": "NONE"
+}

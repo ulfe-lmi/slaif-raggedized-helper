@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-12T15:52:18.829785+00:00",
+  "status": "CURRENT_SOURCE_REVIEW_PASS_REPORT_ALLOWED_OPPOSITE_PEER_PENDING",
+  "implementation": "773aacf2947babd9f00862e0a034cc41e2e76f89",
+  "base": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+  "source_hashes": {
+    "docs/parallel/embedding-parity-capture-api.md": "a5df0bae83b720aa51384049ecb2922f1d147186984f0af9e64f2bb00abb776f",
+    "docs/parallel/embedding-parity-capture-design.md": "2d4561400aeb9a53989d98cbdca3fb4d7c4ec5e085b13a915fe5f836db1289b4",
+    "oap/parallel/orders/PAR-007-PARITY-CAPTURE-A.md": "4ae85fca504252385b037074f0da74f1e7ee095498c71398d9052e54dacbf9e1",
+    "src/slaif_raggedized_helper/qualification/embedding_capture.py": "b3ffad426d08e876a18bef0ac5faae7ea758ff9bead0aaa0207c863f6efb0019",
+    "tests/integration/test_embedding_capture_composition.py": "dfc9a8c37be11d2af966780f0c70ba98bb3e4cc8de3e8d5762b5a6ee36325425",
+    "tests/unit/test_embedding_capture.py": "a674177f7fdba1a08f08cc96300f3ae14b1f21440266eb473399cc61bd5359c4"
+  },
+  "review": "Full822module/tests/API/design and all57/773deltas read. CAP1existingprivatejournaltype/currentUID700/nofollowmetadataidentity beforeproducerandrechecks; CAP2unneededtransientFDremoved, noownednewresource orfinallyclose/error masking; originalnonException passesexceptException unchanged. DownstreamactualJournal pins/owns/revalidateslease unchanged. Exact6/solebase/order/design/API/codeclean.",
+  "Root_current_checks": {
+    "audit/007-capture-root-units-773a.log": {
+      "sha256": "0dda60ffd61b7c9229ce14fd6a2b5aebf9c86c0a172dec1ad13a1901794c45fc",
+      "output": ".......................gold_guard_control_sha256=8a1a36acd0e41cbc7c9d7c93ba6b205744d1f3c1bc1122a98a725bc6148a61fc\n...............\n"
+    },
+    "audit/007-capture-root-badroot-773a.log": {
+      "sha256": "1b1f6b0ed4d24cd0ce6d27bb78e40353382e6777b72c541e9948cad4b19cf5aa",
+      "output": "proof_wall_seconds=1.395 parent_cpu_seconds=0.516 children_cpu_seconds=0.077 parent_peak_rss_kib=84568 children_peak_rss_kib=84568\n.\n"
+    },
+    "audit/007-capture-root-epoch-773a.log": {
+      "sha256": "765df285768efdc3476dc8ebb45b898eb19bfa5d6af1354b7c6156aedfd907fe",
+      "output": "proof_wall_seconds=7.329 parent_cpu_seconds=5.588 children_cpu_seconds=0.130 parent_peak_rss_kib=85800 children_peak_rss_kib=85800\n.\n"
+    }
+  },
+  "counts": "Current38unit+2actualprivate-journal/epoch-refusaljourneys independentlyPASS underCPU30AS1GiBwall120/fiveThreads1/privatebasetemp. Earlier57realquerybindingvalidbaseline+3corruptions1PASS unchangedhelper; oldRootactualinvalidjournalandFDpriorityfindings retained asfailurehistory withpreciseattribution.",
+  "combined_positive": "Historical exact822/source73d+oldcompleteintegrationac1901row/1query freshCPU/GPU/query+COMPLETEreuseobservedPASS, allrecordhashesverified. NOTfullcurrent773pass. ProportionateD0 audit/007-capture-current-verification-D0-773a.json and unchanged9coreASThelpers/testbodyprefix verified, no extraheavyinvocationauthorized.",
+  "strongest_counterargument": "Fullcurrentcompletecapture/reuse journey not rerun after newprivate-root checks. Mitigation exactlowerAST/passingexistingproof, currentrealpositiveadmission+revocation+shape/owner checks, honestversionedreport andoppositepeer; futureexactcanonicalcurrentreportfullCI MUST runnormallycollectedcompletecoupledtest beforeintegration/developmentmerge. No skippedCI/waivedcontract/falsecurrentpass.",
+  "open": "Oppositepeer/exactcanonicalcurrentreportfullCI includingnormalcombineddriver, actualmodel/FP16/hardware/currentpolicy/license/security/quality/visual/fullICA/MVP. Captureevidencealwaysunqualified, verifiedreusehistorical notfreshmodel.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

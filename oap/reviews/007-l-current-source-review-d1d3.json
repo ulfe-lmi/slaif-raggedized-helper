@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-12T13:27:37.124937+00:00",
+  "status": "CORRECTED_CURRENT_SOURCE_TEST_DOCS_ROOT_REVIEWED_PENDING_BOTH_REQUIRED_CI_AND_REPORT",
+  "implementation": "d1d3f0b032946b7babb7cc7ea53b72c1121c98a7",
+  "previous_hold": "audit/007-l-current-source-review-eb75.json",
+  "verification": "Soleeb75parent; only3pathdelta: before/afteractualinitobservation reordered exactlyasRoot3 and2currentdocSHAsupdated. All22otherindexed exact, NativeFILEc2 preserved, ALLproductionunchangedfrom6de. Existing3Rootrecords/current8pathscope verifiedprecedingreview preserved.",
+  "test_review": "CapturesactualpreallocatedchildBEFOREfallibleactualPopen.__init__delegation, sameactualpublicclass/nofactory, restfullactualencoding/renewal/distinctvector/reaping/stagingassertionsunchanged. All4currentdocdiffsfrom6de alreadyread, current2hash-onlydiffsread.",
+  "Root_current_case": {
+    "path": "audit/007-l-root-corrected-current-CPU-d1d3.log",
+    "sha256": "423b1d0e014eb1eab96f4420f7b344c2615be505dd574b756ac884826ca74f2d",
+    "output": ".                                                                        [100%]\n"
+  },
+  "Root_production_guard": "audit/007-l-root-native-class-guard-evidence.json correctedactualembeddingfixture1PASS1.78s publicclassreplacementrefusedBEFOREanyinitializer. WronggenericrevisioninitialRootsetupfailurepreserved, notproductbug.",
+  "CI": "43226491920 exactd1d3 observedIN_PROGRESS; eb75 prior5jobsSUCCESSbutorderedtestsequencingheld. Currentd1d3full5/all78 ANDfutureSELFreportfull5/all78 separatelymandatory. No acceptance/nextactivation/mergeuntilallchecksandstrictreport/remote/normalreceipt/ledger.",
+  "strongest_counterargument": "BothnativeFILEandCPUobserver aretest-onlyexceptions to frozen transfer; preciseboundariesverifiedwithactualsource/currentcase/guard butcurrentbroadCI stillpending, whole007/softwareandactualMVPgaps remain.",
+  "DHA": "NONE"
+}

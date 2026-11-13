@@ -1,0 +1,68 @@
+{
+  "lane_id": "AUDIT-007-LAUNCH-OWNER-A",
+  "target_commit": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+  "implementation": "5a1bbff4321502240ecbe0c3cd1ae689426458ef",
+  "base": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "provenance": "Opposite-agent read-only review in the retained producer conversation. Reviewer did not author the launch-owner prerequisite but is the dependent unfinished producer implementer; not fresh context, human adjudication, or milestone ICA. Target inspected at clean exact report commit; implementation sole parent d100; report commit sole parent implementation and report-only diff. Exact six allowed implementation paths and exact design concatenation verified. No producer/product/Git mutation during review.",
+  "source_sha256": {
+    "launch": "89230e00f2e4fca3271c4e60f55a487a186d932fdce142ee9525852c9a49d3b3",
+    "parent": "1ac96452e4c32604afb2fe16276046ba48ebe640d596962aeeb1dd1712faf1e0",
+    "plan": "8b80a6e00989dba55481f564693be3a0faee4e6a95a39574a12e547c871bb366",
+    "bridge": "909cc8cc4086250f7a2fdd10956dd8162714f2c14c481451565f850fd3e29533",
+    "unit": "5737d37679c473c98937623b45495ad14bb02c5e11728c9b2658412df9023b87",
+    "integration": "00069e3e83c5f01a3cb45423aadca4b786e0a99188ea1be35d8617cbe26e9dfa",
+    "design": "ce88d00937f6cfca5f951125c621f25e7e07252210434c9680e019805036c3e9",
+    "api": "bc54c6f091358ff9a3d6b52b1db399be3e98c3a4f055fafd944b16526c927c1a",
+    "order": "f2ebeef6e6e2f5f908af13b29a2703ca5cd68c3ea92554495138cbe320390c1b",
+    "report": "55861597e94ad30ddc29f599dc66b5b8fcf2f69ae6b02445df3b080dcb274f67"
+  },
+  "source_coverage": "Full launch delta and all new tests/API/original contract/return addendum; inspected actual _Owner.cleanup, PreparationOwner, wrapper/prepare body, PreparedLaunch, parent close/consume and GPU identity/prediction. Independent AST comparison found 23 old top-level definitions unchanged and old prepare body unchanged except supplied-owner allocation. Prediction includes launch source hash: same algorithm does not imply old execution fingerprint. No global pending-list diff used for authority.",
+  "test_environment": "All pytest invocations run from exact target worktree, cached application Python, timeout 120 prlimit --as=1073741824 --cpu=30, PYTHONPATH=src:tests/unit:tests/integration, five numerical thread limits 1, PYTHONDONTWRITEBYTECODE=1, approved existing SLAIF_GPU_TEST_ROOT and SLAIF_GPU_TEST_PACKAGES, private /tmp/audit-launch-owner-ZeRglaUq basetemps and no cacheprovider; no concurrent heavy tests.",
+  "commands_and_results": [
+    {
+      "selection": "tests/unit/test_gpu_launch_preparation_owner.py plus tests/integration/test_gpu_launch_preparation_owner_composition.py",
+      "result": "11 passed",
+      "log": "/tmp/audit-launch-owner-ZeRglaUq/new.log",
+      "sha256": "08faea39fd19189f6544839f505d91d76ecb1367e219f5db362cdf22916ef869"
+    },
+    {
+      "selection": "tests/unit/test_gpu_worker_launch.py",
+      "result": "27 passed",
+      "log": "/tmp/audit-launch-owner-ZeRglaUq/old.log",
+      "sha256": "a82a0b51cd86fa0131904e08c34ef556963104f0e3677f688117e093ebf2d3fe"
+    },
+    {
+      "selection": "/tmp/raggedized-root-launch-owner-parent-5a1b.py",
+      "result": "1 passed 3.73s; actual parent synthetic namespace and no model/GPU",
+      "input_sha256": "7548815ba47f34a1240cd7ee5b160bfc9f62c488da06adafd1df34260a579e5a",
+      "log_sha256": "eb0316b7ce1917b92f4426ef21638ce2591eea81fbb1bfe03d36d4dad47ccf12",
+      "provenance": "reused Root witness input, separately rerun"
+    },
+    {
+      "selection": "/tmp/raggedized-root-launch-owner-fixed-return-5a1b.py",
+      "result": "1 passed 2.56s; actual handoff return-interruption recovery",
+      "input_sha256": "d90e3f283dd648ef51ed70302fb564a59e59a2197c541ca58f82b7a872bc1cf7",
+      "log_sha256": "52b9b897b4940f25366b1e64e4d638d1cfa82ffefc2b58146b6ce2c871e920d9",
+      "provenance": "reused Root witness input, separately rerun"
+    },
+    {
+      "selection": "/tmp/audit-launch-owner-ZeRglaUq/test_handoff_control.py",
+      "result": "1 passed 0.84s; actual no-child prepared launch and actual capture. Baseline close refuses handoff, removing only the handoff refusal in isolated compiled function drains same capture and its capsule. All other actual preparation and owner checks run.",
+      "test_sha256": "3d0a65f556757100b8dbdbbde198ae5cf43e8068a7a2e7de111027c70a5701d7",
+      "modified_function_sha256": "862de8ae1dddf92d58596afe4ab3e0f04f6525bdf984b66dd57d88705334148a",
+      "log_sha256": "1a245648d64e9dab6eb64c5113658cf5bb73eeb6959276c45ca32bd187b1d01a",
+      "failed_setup": "First control failed only because counterfactual drained actual descriptors and revalidation raised OSError rather than assumed LaunchRefused; expectation corrected to accept either. First log sha256 da4330caa2e2c397f7ee2fab479743c7aa7b35ca2882e60b78ec3585699f5502; all own resources were cleaned. This tests handoff admission policy, not live-child pin destruction or general security."
+    },
+    {
+      "selection": "independent AST and exact design concatenation, git diff --check",
+      "result": "PASS; AST log sha256 7c83349257534b1d233b767ed9fc659fecf012019b896de60230731195329be8"
+    }
+  ],
+  "findings": [],
+  "integration_guidance": "After a separate authorized and verified preparation merge, producer must allocate exact PreparationOwner before each fallible prepare, retain each capture, pass preparation_owner, and on any exception distinguish failed capture from capture.prepared successful handoff. Recover the identical PreparedLaunch on interrupted return; if no child was ever started, or actual parent drain is confirmed, close that actual prepared object. If a parent remains live/pending, retain the parent, preparation and journal until its own supported drain. If no handoff, use only capture.close; retain sticky unknown FD and do not infer lock or vacancy. Never infer owner by global registry difference. Apply to both A and B and COMPLETE reuse; rerun actual faults and source fingerprint checks. This review makes no product change or merge.",
+  "strongest_counterargument": "The target captures finite Python lifecycle boundaries but cannot make allocation, lock-release or kernel interruption atomic; the returned PreparedLaunch must not be closed while any parent child remains live. These limits are explicit, the return-interruption and guarded-handoff tests use the actual owner, and predecessor bodies retain their guards. Acceptance is for this bounded software candidate only, contingent on separate integration and current CI.",
+  "limits": "No rights/current-principal policy, source-to-neural production, real FP16/model/GPU/vacancy, live security, license, efficiency, visual/MVP, deployment or ICA claim. Synthetic null-device fixtures and owned processes only. Root evidence is distinct from this retained-context review. All counts are per invocation and overlap; do not sum with Root or author counts.",
+  "DHA": "NONE"
+}

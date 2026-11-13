@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T09:25:08.908885+00:00",
+  "source": "3be9eefc28975f36f5623bc0824fa3f4826419f5",
+  "selected_files": 43,
+  "selected_bytes": 9620834,
+  "python_bytes": 30990408,
+  "record_bytes": 7589,
+  "record_fingerprint": "sha256:4ff5d419d4bcc1677bac5b95f452fd7c1cbfc082c5301dbdaf20e89dc4b5aecc",
+  "FDcount_stable": true,
+  "independent_selected_file_hashes_exact": true,
+  "scope": "Root separatebounded actualselectedfileobservations/recomputedhashes only. No nativeprocess/import/model/GPU/ABI/quality/security/license/ICA qualification."
+}

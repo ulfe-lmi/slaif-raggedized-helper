@@ -1,0 +1,74 @@
+{
+  "at": "2026-11-13T00:19:02.459713+00:00",
+  "status": "EXACT_CURRENT_T_REQUIRED_CI_TERMINAL_SUCCESS_ALL5_ALL78",
+  "run": 43334112423,
+  "head": "491c570f7a4c3c4a8117e90504d60a688c61515f",
+  "jobs": [
+    {
+      "id": 131585823009,
+      "name": "OAP tests (Python 3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": 10
+    },
+    {
+      "id": 131585823240,
+      "name": "OAP tests (Python 3.12)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": 10
+    },
+    {
+      "id": 131585823329,
+      "name": "Product tests (Python 3.14)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": 24
+    },
+    {
+      "id": 131585823349,
+      "name": "OAP tests (Python 3.14)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": 10
+    },
+    {
+      "id": 131585823471,
+      "name": "Product tests (Python 3.12)",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": 24
+    }
+  ],
+  "actual_steps": 78,
+  "bad_steps": [],
+  "capture_driver_sha256": "dfc9a8c37be11d2af966780f0c70ba98bb3e4cc8de3e8d5762b5a6ee36325425",
+  "unconditional_test_functions": [
+    "test_actual_synthetic_capture_and_reuse",
+    "test_actual_bad_gpu_root_refuses_before_cpu_entry",
+    "test_actual_epoch_revocation_refuses_before_cpu_forward",
+    "test_actual_query_binding_valid_and_corrupt"
+  ],
+  "current_complete_integration_logs": [
+    {
+      "version": "3.12",
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-t-current-product-3.12-full.log",
+      "bytes": 127767,
+      "sha256": "07ce2f053affc7cbec012850f4f762608389485c71bab0674ff3e355ac919c1e",
+      "CI_command": "uv run pytest tests/integration -q",
+      "normal_collection": "All4newunconditionaltestfunctions present/no skip calls, normalintegrationstepSUCCESS/fullsuite100%; dots-onlyqqlog hasno individualfunctionnames, no independentnodeinstrumentationclaim."
+    },
+    {
+      "version": "3.14",
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-t-current-product-3.14-full.log",
+      "bytes": 127554,
+      "sha256": "1d7dd9c1b53446cc26909b7400b719adfd57088b97c6602d18ceb951e247c65d",
+      "CI_command": "uv run pytest tests/integration -q",
+      "normal_collection": "All4newunconditionaltestfunctions present/no skip calls, normalintegrationstepSUCCESS/fullsuite100%; dots-onlyqqlog hasno individualfunctionnames, no independentnodeinstrumentationclaim."
+    }
+  ],
+  "remote": "audit/007-t-current-remote-threads-491c.json uniquePR9/main11bad/noautomerge/no unresolvedthreads/reviews0",
+  "Root_verification_harness_history": "Initialprivate assertion assumed -q precedes tests/integration; actual unchangedworkflow/log command is uv run pytest tests/integration -q. Firstassert failedbeforewritingterminalrecord, noCI/source/productfailure. Corrected toexactactualargv only; all job/step/source checks unchanged.",
+  "limits": "CURRENTfullcombineddriver gate passes byunchangednormalcollection/source/completeintegrationstep; notactualneural/hardware/currentrights/heldout/whole007acceptance. Originalnormalresponse/Rootfinalresolutiontiming stillrequired.",
+  "DHA": "NONE"
+}

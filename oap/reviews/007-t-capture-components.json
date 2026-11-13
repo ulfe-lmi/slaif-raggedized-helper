@@ -1,0 +1,48 @@
+{
+  "at": "2026-11-12T23:19:24.412973+00:00",
+  "status": "FINAL_EXACT_FIVE_NEW_CAPTURE_FILES_FOR_GATED_007T_INTEGRATION",
+  "source_implementation": "773aacf2947babd9f00862e0a034cc41e2e76f89",
+  "source_report": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+  "source_report_sha256": "22317f1b316a9fae3bc9642778188ad30a1b900cd2b98e0346fd55f30d149797",
+  "current_round_base": "1b38443f36ae170a4ee816d392e0294ce8fc4a5f",
+  "entries": [
+    {
+      "source_commit": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+      "path": "src/slaif_raggedized_helper/qualification/embedding_capture.py",
+      "bytes": 26978,
+      "sha256": "b3ffad426d08e876a18bef0ac5faae7ea758ff9bead0aaa0207c863f6efb0019",
+      "blob": "55240e36cc6874610ac0140ac4663542de71fe42"
+    },
+    {
+      "source_commit": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+      "path": "tests/unit/test_embedding_capture.py",
+      "bytes": 17818,
+      "sha256": "a674177f7fdba1a08f08cc96300f3ae14b1f21440266eb473399cc61bd5359c4",
+      "blob": "05f131ec8ea8bfdfde9dbea53541aa99b3eaffbd"
+    },
+    {
+      "source_commit": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+      "path": "tests/integration/test_embedding_capture_composition.py",
+      "bytes": 12294,
+      "sha256": "dfc9a8c37be11d2af966780f0c70ba98bb3e4cc8de3e8d5762b5a6ee36325425",
+      "blob": "3eda512ac1c2da4f1c6f710712cda2c47b60c379"
+    },
+    {
+      "source_commit": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+      "path": "docs/parallel/embedding-parity-capture-api.md",
+      "bytes": 2343,
+      "sha256": "a5df0bae83b720aa51384049ecb2922f1d147186984f0af9e64f2bb00abb776f",
+      "blob": "6c10a3f0f8df64d646a16d2e8db2296af75dec54"
+    },
+    {
+      "source_commit": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+      "path": "docs/parallel/embedding-parity-capture-design.md",
+      "bytes": 9665,
+      "sha256": "2d4561400aeb9a53989d98cbdca3fb4d7c4ec5e085b13a915fe5f836db1289b4",
+      "blob": "fe0627ed713e003d2b9a01527db820759ea1c143"
+    }
+  ],
+  "total_bytes": 69098,
+  "gate": "Root+opposite exact773 localcandidate accepted only; entireunchangedcombinedcurrentdriverMUSTnormallypasscurrentreportCI bothProductjobs, historical822notcurrentproof. No model/currentpolicy/precision/hardware/license/quality/ICA/MVPqualification.",
+  "DHA": "NONE"
+}

@@ -22,6 +22,7 @@ authors = [{ name = "ulfe-lmi" }]
 keywords = ["rag", "retrieval", "configuration", "contracts"]
 dependencies = [
   "httpx>=0.28,<1",
+  "numpy==2.5.4",
   "pydantic>=2.11,<3",
 ]
 
@@ -36,6 +37,11 @@ dev = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/slaif_raggedized_helper"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"worker_profiles/cpu-v2/uv.lock" = "slaif_raggedized_helper/_worker_profiles/cpu-v2/uv.lock"
+"worker_profiles/cpu/uv.lock" = "slaif_raggedized_helper/_worker_profiles/cpu/uv.lock"
+"worker_profiles/gpu/uv.lock" = "slaif_raggedized_helper/_worker_profiles/gpu/uv.lock"
 
 [tool.pytest.ini_options]
 testpaths = ["tests/unit"]

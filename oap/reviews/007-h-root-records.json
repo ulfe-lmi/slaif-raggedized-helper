@@ -1,0 +1,81 @@
+{
+  "at": "2026-11-12T05:44:37.157813+00:00",
+  "records": [
+    {
+      "source": "audit/007-g-review.json",
+      "target": "oap/reviews/007-g-review.json",
+      "sha256": "229c348292bdceaca8bb8665de1926f3b3b61e10df6fc9ab1b2f9466d7f99bc4"
+    },
+    {
+      "source": "audit/007-g-implementation-CI-final.json",
+      "target": "oap/reviews/007-g-implementation-CI-final.json",
+      "sha256": "ae1155179ed16a171605f97744924fa273ec6800c2cf0da9cbbad91fd6c85644"
+    },
+    {
+      "source": "audit/007-g-report-CI-final.json",
+      "target": "oap/reviews/007-g-report-CI-final.json",
+      "sha256": "a1e62749c443b0fd7646cf4df79c696d40b8997626d0187841cbb9eb794eba9e"
+    },
+    {
+      "source": "audit/007-g-GitHub-current-final.json",
+      "target": "oap/reviews/007-g-GitHub-current-final.json",
+      "sha256": "ecc7321c3446c96c63567a32bf33cf4813c72c8cdb20dbe15cfcb467778460d5"
+    },
+    {
+      "source": "audit/007-h-components.json",
+      "target": "oap/reviews/007-h-components.json",
+      "sha256": "b4c10cd4e5e750998e9b8b5961edf81ba93a1869f49b77917b15bdd4a1aa549f"
+    },
+    {
+      "source": "parallel/cpu-install-arena-d/review.json",
+      "target": "oap/reviews/007-h-cpu-install-arena-d-review.json",
+      "sha256": "63aa8bc118ae2a7ed345bdb1634d7576860117bc6b683052e2c83dacf5fcc0b8"
+    },
+    {
+      "source": "audit/007-installer-D-source-review-ec9b.json",
+      "target": "oap/reviews/007-installer-D-source-review-ec9b.json",
+      "sha256": "9a956cff83362f79f5dc32a082648f9bd8b847bba025ec9aa2524f9497c8f5e0"
+    },
+    {
+      "source": "audit/007-installer-D-root-tests-ec9b.json",
+      "target": "oap/reviews/007-installer-D-root-tests-ec9b.json",
+      "sha256": "0ed2bae7b78c0b03fa3870c1c868af008e28d1c65e6cb22ed055a52b6c811e6e"
+    },
+    {
+      "source": "audit/007-h-cpu-runtime-evidence.json",
+      "target": "oap/reviews/007-h-cpu-runtime-evidence.json",
+      "sha256": "9335958ee16dd41cff94b16520ae441b4cda1fb7492d4ccab81a891b5ab09ffd"
+    },
+    {
+      "source": "parallel/gpu-test-fixture/review.json",
+      "target": "oap/reviews/007-h-gpu-test-fixture-review.json",
+      "sha256": "e57fbd53bd45e3542ce2b31204fe95c878242a2c3641f8403d783afee1c1455f"
+    },
+    {
+      "source": "audit/007-gpu-fixture-source-review-c0e1.json",
+      "target": "oap/reviews/007-gpu-fixture-source-review-c0e1.json",
+      "sha256": "23c8d4d92ed3d88574e783f7a8bdcbf8919f3e9c9852a7a13d90503fc71504f2"
+    },
+    {
+      "source": "audit/007-h-gpu-fixture-evidence.json",
+      "target": "oap/reviews/007-h-gpu-fixture-evidence.json",
+      "sha256": "89b252cdd14a9481bd3f34f3164e1d4d725502719e5eaa1e194ac2fe5295cc96"
+    },
+    {
+      "source": "parallel/cpu38-license-inventory/report.json",
+      "target": "oap/reviews/007-h-cpu38-license-inventory-report.json",
+      "sha256": "3b57c57aef2f206d98d305b5cf25f41ad7777aafd41e0a9e7ba9d3f97f206494"
+    },
+    {
+      "source": "parallel/cpu38-license-inventory/review.json",
+      "target": "oap/reviews/007-h-cpu38-license-inventory-review.json",
+      "sha256": "661eae5f29e63321870cbdab8c08b5b9f92d23dcfb1cb474acce2bd95d010653"
+    },
+    {
+      "source": "audit/007-h-license-facts.json",
+      "target": "oap/reviews/007-h-license-facts.json",
+      "sha256": "54cf2a60392ec260eb9655d6de86a9e9d2597dd8e622e87d77bd740f833040b5"
+    }
+  ],
+  "scope": "ImmutableRootpublicsoftwareevidence snapshots, no privatepermits/runtime/STATE/FIFOs/weights/corpus/credentials. Identitynotwhole007acceptance."
+}

@@ -1,0 +1,27 @@
+{
+  "lane_id": "PAR-007-JOB-JOURNAL-A",
+  "result": "COMPLETE",
+  "preparation_head": "578c6770b7d2a2b57db1f21e3a01cbd5e46432f4",
+  "implementation_head": "ad8f64afce84eace1b13015f9c6fc638ab670d69",
+  "report_publication_commit": "SELF",
+  "api": "make_spec(plan_bytes); Journal(root).own(plan_bytes) provides a live owned context with owner_id, read, append CAS and verified_output. COMPLETE and reuse require a fresh typed batch load against full expected metadata.",
+  "validation": [
+    "Python 3.14.4, locked cached offline environment; exact preparation merge tree 13c3998d9d6e46ddd5904937a5ad8c3ae2caf63a.",
+    "ulimit -v 1048576 -t 30; env -u PYTHONPATH OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 timeout 120 .venv/bin/python -m pytest -q tests/unit/test_embedding_job_journal.py: exit 0, 16 passed.",
+    "ulimit -v 1048576 -t 30; env -u PYTHONPATH OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 timeout 120 .venv/bin/python -m pytest -q tests/integration/test_embedding_job_journal_composition.py: exit 0, 2 passed, separately standalone.",
+    "uv run --offline --locked ruff check src/slaif_raggedized_helper/embedding_job_journal.py tests/unit/test_embedding_job_journal.py tests/integration/test_embedding_job_journal_composition.py: exit 0; git diff --check and staged diff check: exit 0.",
+    "Under the same resource limits and environment, .venv/bin/python /tmp/raggedized-root-journal-boundaries.py: exit 0; all three independent boundary observations passed.",
+    "Root reports independent event-bound causality witness passed: changing only the 64-event cap to 65 causes the valid-history regression to fail DID NOT RAISE; tracked bytes unchanged."
+  ],
+  "witness_sha256": {
+    "/tmp/raggedized-root-journal-boundaries.py": "0715abaeae1defc5e8c96c253c010ee327c9e7aede59ebab4d98dc14e66fac85",
+    "/tmp/raggedized-root-journal-event-bound-causality.py": "c20183d828c0788927ae6a3176e51dcbfa8c57f4cfbcf64ae718d03cae7776de",
+    "src/slaif_raggedized_helper/embedding_job_journal.py": "6b3b16402e7c5e5d5ea07f17d5841c01aaad52f19bde38b4d1746c74df6452da",
+    "tests/unit/test_embedding_job_journal.py": "db367952a2415ce4821b18d7ac406a92be4e614fb04c8005750c16b88c1b34b5",
+    "tests/integration/test_embedding_job_journal_composition.py": "115607bb0fb3d2af413d10f1ab0a40950b7151361f7a73863a828f8316169699",
+    "docs/parallel/embedding-job-journal-api.md": "446b5c2252881ce9521658e226e19ec296c11ec06f0ce8be13811835158b46e4"
+  },
+  "limits": "Private owned progression is not signed or adversarial rollback-proof history. The 64-event limit makes a seventeenth claim unreachable under existing transitions. Failure after replace can leave the new valid state; simulated fsync failures do not establish power-loss durability. Declarations and verified storage do not establish neural execution, source relationships, current ACL, model, license or hardware qualification. No automatic controller, retry, recovery, global GPU ownership, ICA or MVP claim; whole 007 remains partial.",
+  "strongest_counterargument": "Typed output and owned persistence prove bounded mechanics, not execution, authorization, retry policy or full power-loss durability; those boundaries remain explicit and unqualified.",
+  "DHA": "NONE"
+}

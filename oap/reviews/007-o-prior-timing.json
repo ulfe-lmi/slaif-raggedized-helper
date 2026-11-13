@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T18:25:46.262659+00:00",
+  "identifier": "007-n",
+  "event": "STRATEGIC_REVIEW_REJECTS_CURRENT_CI_GATE_REQUIRES_SAME007_CONTINUATION",
+  "report_commit": "915dbc53bad866be70f730416806e500cdaa4dad",
+  "review": "audit/007-n-review.json",
+  "review_sha256": "fdc27374c64ed6f8f3c627304f0267a7777d14becc5e8de52e299a29ef3c16b2",
+  "normal_response_verified_at": "2026-11-12T18:20:31.558576+00:00",
+  "current_report_allCI_success": false,
+  "next": "007-o boundedunitimportCIfix; no unrelatedintegration/nextnumeric/mainmerge",
+  "DHA": "NONE"
+}

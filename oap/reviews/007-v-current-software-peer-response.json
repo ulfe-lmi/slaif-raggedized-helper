@@ -1,0 +1,9 @@
+{
+  "lane": "audit-current-007u-software",
+  "lane_id": "AUDIT-007-CURRENT-U-SOFTWARE-A",
+  "result": "COMPLETE",
+  "target_commit": "e92ec948e8eaac1413fc3473a3f6065905ad701f",
+  "report_sha256": "acab66c5126b0e40f6324a10f5b984e3024b44ce7105f89afeddd2da7b2c1ec7",
+  "verified_at": "2026-11-13T01:08:54.704311+00:00",
+  "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+}

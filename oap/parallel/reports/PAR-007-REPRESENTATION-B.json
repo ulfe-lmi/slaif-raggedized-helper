@@ -1,0 +1,16 @@
+{
+  "lane_id": "PAR-007-REPRESENTATION-B",
+  "result": "PARTIAL",
+  "implementation_head": "3cab9c4e6821edf916ca7bf520f4d9c2e36f9010",
+  "report_publication_commit": "SELF",
+  "API": "retrieval_representation.build(store, metadata_json_bytes, members, chunk_id, definition, runtime, policy=None)",
+  "commands_and_results": [
+    "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 sh -c ulimit/timeout pytest focused: exit 0, 2 passed",
+    "uv run --isolated --locked --offline --python 3.14 ruff check touched Python: exit 0",
+    "git diff --cached --check: exit 0"
+  ],
+  "source_base": "cc823912e9835492da29ce0f66967f6283d4287c",
+  "witnesses": "Native composition asserts exact rendered text, hash, count input hash, deterministic repetition, scope, invalid chunk, role, bundle order, token limit and artifact hash.",
+  "limits": "Acceptance 4 remains incomplete: no dedicated causal cases for changed source metadata, title/heading overflow with body fitting, JSON escaping overflow, malformed count or early resource admission. Fixture does not independently establish all requested title and multispan properties. No encoder, model, hardware or authorization qualification.",
+  "DHA": "NONE"
+}

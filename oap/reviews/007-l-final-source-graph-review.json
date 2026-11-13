@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-12T15:04:29.900075+00:00",
+  "status": "EXACT_CURRENT_L_SOURCE_RECORDS_REPORT_GRAPH_INVARIANCE_VERIFIED",
+  "base": "3b41a6b39d18a4805ecad253b38ffb2fc5ef130f",
+  "implementation": "d1d3f0b032946b7babb7cc7ea53b72c1121c98a7",
+  "report": "63958c436428aebfc5f58247f4eb9119740e35c6",
+  "sole_parent_chain": [
+    "8ce0f5a82fecbceb3de81336e6d050508eb591b1",
+    "c82e6085eace075846327d1fc4dcf36dee10db89",
+    "86dafd9dbb8daf4f97f82addb513e8245d808b4c",
+    "f7a7615ff63e43d193d89ae72b243a9c334a4be6",
+    "6de7beab5cea24e0bdf03ae60133b223c36fe485",
+    "ce6db9eec959b21b59ae53f0a8cf38548e545c30",
+    "eb757a3025b268051b6846ac5826085eb91c69ef",
+    "d1d3f0b032946b7babb7cc7ea53b72c1121c98a7"
+  ],
+  "path_counts": [
+    21,
+    29,
+    2,
+    2,
+    5,
+    3,
+    5,
+    3
+  ],
+  "source_index": "23 indexed,22 exact originals plus authorized NativeFILE exception; CPU observer exception outside23 exact",
+  "exceptions": {
+    "tests/unit/test_embedding_native_identity.py": "c2b483b77c84f304ead4a6ae5c2ef27e5194c1df6ccd6adbb62992a7904a8df6",
+    "tests/integration/test_cpu_embedding_session_composition.py": "275e10d333555f6e02f3261449e6f9becf99e659a352ee9d4464e4837a843fd0"
+  },
+  "Root_records": "18 current source/target/SHA bytes unchanged and present at report head",
+  "all_preexisting_outside_exact_scope_unchanged": true,
+  "report_only": "Only new report, sole parent d1d3 verified prior record",
+  "CI": "Both exact heads all5/all78 success verified independently, no code tests repeated without new concern",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

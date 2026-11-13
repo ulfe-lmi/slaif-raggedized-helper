@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-11T22:03:26.452019+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_PUBLISHED_FORMAT",
+  "decision": "ACCEPT_LOCAL_COMPONENT_PENDING_CANONICAL007_INTEGRATION_CURRENT_HEAD_CI",
+  "receipt": {
+    "lane": "published-checkpoint-format-c",
+    "lane_id": "PAR-007-PUBLISHED-FORMAT-C",
+    "result": "COMPLETE",
+    "implementation": "2900feafd9d48a4eeb430c6b94b2e2019d03249f",
+    "report_commit": "d38360428240dddf01de0f0763ad8504eaaa8aa8",
+    "report_sha256": "fb74619dfc3db56ebfc7a4169fae8f952308260b2ed3aeed8be200c2dbab22a6",
+    "paths": [
+      "docs/parallel/embedding-artifacts-api.md",
+      "docs/parallel/embedding-space-api.md",
+      "oap/parallel/orders/PAR-007-PUBLISHED-FORMAT-C.md",
+      "src/slaif_raggedized_helper/embedding_artifacts.py",
+      "tests/unit/test_embedding_artifacts.py",
+      "tests/unit/test_embedding_space.py"
+    ],
+    "verified_at": "2026-11-11T22:03:26.484002+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "inspection": "Rootfulloriginalartifact/spaceAPI andallA/B/Cschema/format/constructor/identity/test/docchanges reviewed. No deserializer/runtimeimport/newdependency/networkmodelcode. Currentparserversion1and2rawbyteshash/configvalidation, singleversion2formatfilename whitelisted. Spaceverifiedformatexposedwithoutlegacyfpchange.",
+  "root_execution": {
+    "unit": "70PASS separateenv -u PYTHONPATH process, actualinsidePython1GiB/30CPU outer120s",
+    "integration": "6PASS separateenv -u PYTHONPATH process samebounds; priorCimportfailure nowfixed",
+    "lint": "ALL6currentartifact/spacePythonfilesPASS",
+    "original_witnesses": "UNCHANGEDJSONthreecasesPASS anddynamicprivatepathtraceprivacyPASS",
+    "old_reader": {
+      "path": "/tmp/raggedized-root-schema1-compatibility.py",
+      "sha256": "a576e7dbf05a3175625a05a2cfdaf0915c4cc62f9219c50276487b618bc40903",
+      "exit": 0,
+      "actualoldsourcehash": "43a263c0dae5c4b75f73f51e5134bdc57883b4c14eee9748bc74d1c9c40e52be",
+      "schema1old_and_new_id": "c46798c163e9483e52c9bf81f2caefb13c204b07f68e547dd6d615c419c765ec",
+      "schema2different_id": "ffe98f956ddc343efb248ac3cf76e5a1883f2360756ab110ef98fe29aa708cc1"
+    }
+  },
+  "strongest_reason_not_to_accept": "Raw.binbyteverificationmustnotbecomeunsafeweightloading. CurrentofficialPyTorchadvisoryweights_onlyRCEaffects<=2.9.1andpatched>=2.10.0, graph/runtime/safeconstruction/V100 stillunqualified. ThisleafexecutesNOdeserializer; formatcompatibilitycorrectlymatcheshuman-namedupstreammodel, expectedhashes/operatorscopesnotapproval/license/provenanceproof.",
+  "followup_docs": "Canonicalintegrationmustreplaceprivateaudit/007-public-checkpoint-layout.json docreferencewithcopiedversionedreviewpathorpublicpinnedURL. No productsourcechange needed.",
+  "DHA": "NONE"
+}

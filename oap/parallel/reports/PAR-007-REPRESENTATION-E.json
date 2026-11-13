@@ -1,0 +1,22 @@
+{
+  "lane_id": "PAR-007-REPRESENTATION-E",
+  "result": "COMPLETE",
+  "implementation_head": "373256bef0b0d0c71f598634c3245bbd4df6e358",
+  "report_publication_commit": "SELF",
+  "API": "No product source changed; controlled test fixture supplies complete identity.",
+  "commands_and_results": [
+    "SLAIF_NATIVE_TEST_ROOT=/home/janezp/.local/share/uv/python/cpython-3.12.15-linux-x86_64-gnu SLAIF_NATIVE_TEST_PACKAGES=/tmp/raggedized-root-native-setup-b-6cd8bebe0a/packages SLAIF_NATIVE_TEST_PYTHON=python3.12 uv run --isolated --locked --offline --python 3.14 pytest -q tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: exit 0, 15 passed",
+    "uv run --isolated --locked --offline --python 3.14 ruff check tests/unit/test_retrieval_representation.py tests/integration/test_retrieval_representation_composition.py: exit 0",
+    "git diff --check: exit 0",
+    "uv run --isolated --locked --offline --python 3.14 python /tmp/rep_witness_d.py: exit 0, positive and 12 refusals",
+    "uv run --isolated --locked --offline --python 3.14 python /tmp/raggedized-root-receipt-test-causality.py: exit 1, inner pytest DID NOT RAISE, no TEST_STILL_PASSES",
+    "uv run --isolated --locked --offline --python 3.14 python /tmp/rep_e_causal_witness.py: exit 0, baseline passes and disabled guard caught"
+  ],
+  "witness_sha256": {
+    "root": "78c0797a6893f9e7add4532d2f2c5d5bca5cfb923bb41fad633dee6c1262d6fa",
+    "peer": "322d3c41e0bbf5c2819c538405c02c5de794140971f16a3917fc121f1dfda511",
+    "own": "9bbc6067932215ba98ebffac9704f3eee636e430b493f912e477de9c7df672d0"
+  },
+  "limits": "Controlled fixture is not real source/model proof. No hardware qualification. Local only.",
+  "DHA": "NONE"
+}

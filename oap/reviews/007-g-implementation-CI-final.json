@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-12T05:30:21.064878+00:00",
+  "run_id": 43160235569,
+  "head": "5d1acfe06aa76521046d600971b01500ae41d4d6",
+  "status": "completed",
+  "conclusion": "success",
+  "all5all76success": true,
+  "total_steps": 76,
+  "jobs": [
+    {
+      "id": 130989379300,
+      "name": "Product tests (Python 3.14)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 130989379548,
+      "name": "OAP tests (Python 3.12)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 130989379595,
+      "name": "Product tests (Python 3.12)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 130989379600,
+      "name": "OAP tests (Python 3.13)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 130989379642,
+      "name": "OAP tests (Python 3.14)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-12T16:00:28.773759+00:00",
+  "status": "EXACT_PEER_DRAFT_FINALIZATION_PERMITTED_NO_CANONICAL_OR_HARDWARE_ACCEPTANCE",
+  "target": "29b06100ba00708687a427f4b1dbadfaeca9b97f",
+  "draft_sha256": "cefe59e237ca825f86a500f96dd3a6e15bac8b40bc8e2868ed06ab4c377b8e21",
+  "review": "Full revised draft/readset/commands and raw logs/source original control read;18 listed target source hashes+byte sizes verified, full versus relevant sections honestly distinguished; source/proof versions/current full combined unrun disclosed.5 archived command/exit/log entries checked; no failures asserted. Root exact original enteredResidentQueryEncoder dispatchcontrol rerun1PASS1.08s, no disk patch, isolates single instance-vs-class call and leaves downstreamchecks. Prior7source+6artifact hashes verified in1cf8review.",
+  "listed_source_bytes": 233957,
+  "listed_source_count": 18,
+  "readset_artifacts": {
+    "/tmp/parity-peer-29b/readset.json": "ae1e0044fc67306feb675671fa931965949664c9c7ade2c616867db7b9814c98",
+    "/tmp/parity-peer-29b/commands.json": "f398517d9f8a7eb85468509c48d2614d11dc7c05f87c9ad08497c7d74ef884fc"
+  },
+  "Root_original_control": {
+    "path": "audit/007-capture-peer-root-dispatch-1cf8.log",
+    "sha256": "a1cd4cfd5f6acc6d07ae7d887b5e64381df6b82347b0ac40f9b4bfe24ba5d5f2"
+  },
+  "counterargument": "Current773 coupled fresh/reuse proof still not rerun; currentselectedactualchecks and exactunchangedlowerAST/historical73d proof supportfinitecandidateonly. Required futurecanonicalcurrentreportfullCI mustnormallyexecutecombineddriver beforedevelopmentintegrationacceptance.",
+  "provenance": "Opposite suppliedagent fresh context, same account/shared predecessor authorship disclosed; scoped software peer, nothuman/fullmergedICA.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

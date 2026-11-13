@@ -68,8 +68,8 @@ approval is metadata, not authentication
 [docs/parallel/provenance-records-api.md](docs/parallel/provenance-records-api.md),
 [docs/parallel/job-records-api.md](docs/parallel/job-records-api.md),
 [docs/data-model.md](docs/data-model.md)).
-The first 006 slice (open on the 006 PR, branch
-`oap/006-native-extraction-and-chunking`, not merged) adds native
+The 006 slices (merged to main as PR #8, branch
+`oap/006-native-extraction-and-chunking`) add native
 extraction on that foundation: the exact literal line and bounded
 structural Markdown subset adapters with full Unicode code-point
 coverage, and the fixed trusted isolated PDF worker (bounded verified
@@ -115,6 +115,351 @@ source coverage, tail, units and anchors preserved; classifier v2 /
 policy v3 records remain immutable and require explicit re-extraction,
 and the literal grammar cannot infer arbitrary PDF layout. Whole-006
 acceptance and all real qualification remain open.
+The first 007 slice (open on the 007 PR, branch
+`oap/007-embedding-pipeline`, not merged) integrates the exact reviewed
+bounded normalized FP32 NPY subset codec (`vector_codec`: strict header
+admission before materialization, writer interop, immutable read-only
+views, input-free refusals) and the first exact runtime dependency pin
+(NumPy 2.5.4 in the lock; the full 018 license/SBOM audit remains OPEN).
+The 007-b continuation integrates the reviewed source-bound raw retrieval
+representation/batch (one bundle validation, one native token-counting
+session, exact receipt admission, bounded batch preflight) and the published
+BGE-M3 checkpoint inventory/encoder-space software (schema 1/2 byte-verified
+local artifact admission with fixed safetensors/pytorch-state-dict weight
+names; v1 CLS/1024/normalize/identity space binding; pinned layout evidence
+metadata-only, no deserialization or model execution).
+The 007-c continuation integrates the reviewed composed CPU-session
+software: owned staging with double admission, exact native token IDs
+obtained before any framework construction, bounded 1-128 text and
+native receipt preflight before one ordered CPU CLS forward, and fixed
+binary32 L2 normalization with provenance kept separate from encoder
+identity. The neural framework runs only as trusted fakes; no actual
+model, weights, GPU or network were used.
+The 007-d continuation integrates the reviewed durable source-plan
+substrate: a fresh original-backed source bundle through ONE native count
+session into a deterministic intended CPU/FP32 embedding batch plan with
+exact dependency and row fingerprints, the typed validated embedding
+batch store with fresh read-back publication, per-job ownership leases
+and the owned atomic job journal whose COMPLETE only accepts a freshly
+validated full-plan typed output. Plan, store, lease and journal are
+software contracts; no encoder producer, controller, retry, CPU query,
+GPU or actual model execution exists yet.
+The 007-e continuation integrates the reviewed CPU reference path: a
+pre-model schema-2 execution contract predicted before any model starts,
+job claim before model startup, observed-execution comparison before any
+source text is forwarded, the one-batch CPU producer (explicit trusted
+authorization provider, one attempt, COMPLETE only after actual typed
+publication plus fresh load, verified reuse with zero model starts), the
+resident CPU worker under the actual bounded OS isolation protocol and the
+portable synthetic six-real/22-metadata CPU test fixture provisioned in CI.
+The actual BGE model has never been run and the legacy optional CPU pins
+(Torch 2.10.0+cpu / Transformers 4.51.3) are NOT security qualified; the
+required exclusive GPU FP16 corpus encoding remains unimplemented.
+The 007-f continuation integrates the two exact root-reviewed
+cleanup/ownership composition candidates and the cooperative
+per-device kernel lease: finite owned-descriptor close attempts across
+failures with original non-Exception interruptions preserved (a new
+cleanup interrupt outranks ordinary errors), no blind re-close of a
+reused descriptor number (same-inode included), sticky UNKNOWN cleanup
+retained as a cleanup owner reaching the sanitized journal and producer
+errors even before the claim returns, the producer's pending native/model
+resource and journal lease held until drain, the isolated context-exit
+under the same interrupt priority, and the GPU device lease key binding
+only the versioned host + physical UUID under the trusted common local
+root (cooperative: no physical exclusivity, no granted runtime
+authority, no GPU lifecycle managed). The imported seventeen
+source/test/API files are the immutable reviewed bytes; no actual model,
+GPU operation, profile cutover or runtime change.
+The 007-g continuation selectively integrates the TWO exact
+root-reviewed candidates by byte-identical file transfer (twenty-five
+indexed files, no branch ancestry, no source adaptation): the CPU source
+now selects the cpu-v2 lock (Torch 2.14.0+cpu / Transformers 5.22.2 /
+framework tokenizers 0.23.1; 38 locked metadata distributions) with the
+legacy profile/helper/fixture and the native 0.21.4 capsule intact, the
+required portable synthetic CPUv2 CI fixture (six exact wheels plus 32
+DATA-ONLY metadata distributions, no importable fake ML packages) is
+provisioned before lint on both matrix legs with the legacy fixture
+variables retained, and the corrected raw GPU backend source is
+integrated finite and inert (assigned device UUID byte guard, process-
+owned DeviceLease assertion, bounded native-ID input, no autocast,
+ordered finite CPU FP32 raw CLS output, sticky close and original
+non-Exception identity under hostile attachment). This is bounded
+source integration, not model/runtime qualification: the actual BGE
+model, checkpoint and hardware remain UNRUN/UNQUALIFIED, the actual
+full-38 CPUv2 installation remains a separate PARTIAL (uv allocation
+abort under the fixed 2 GiB address space; no full CLI acceptance or
+neural import), and no owned GPU process/controller or physical drain
+exists.
+The 007-h continuation selectively integrates the SIX root-reviewed
+setup/test/API files (no branch ancestry, no source adaptation): the
+original byte-identical transfer (70,906 bytes;
+oap/reviews/007-h-components.json) is historical, and per the Root
+CI-portability amendment 007-h-1
+(oap/reviews/007-h-ci-portability-addendum-1.md) ONLY the installer
+unit file differs from that frozen candidate (23,095 → 28,320 bytes;
+current SHA-256
+6038a3b1766f52911f9d15b800d6fe515630b32f03cec52bca39b30ed56d1482;
+self-contained controlled-fake preflight in its own tmp_path), while
+the other five files, including the production helper (SHA-256
+226a527650083ec3324fcb783354ca47eb8b30884f0db0d3e4df6c044e6ede0c),
+remain byte-exact at this head (current six-file sum 76,131 bytes;
+oap/reviews/007-h-components-after-portability.json): the fixed CPUv2
+runtime
+installer source — developer qualification tooling with the 38-wheel
+pinned official graph, offline no-index/no-deps hash-required
+install, MALLOC_ARENA_MAX=1 and atomic receipts, never run in CI and
+not an implicit deployment or runtime grant — the portable synthetic
+GPU worker fixture helper (six exact wheels plus 51 DATA-ONLY
+metadata distributions from the fixed GPU lock, no importable fake ML
+packages) and their unit suites and API docs. The ONE required GPU
+fixture CI step is provisioned after the CPUv2 fixture and before
+lint on both matrix legs with literal GITHUB_ENV bindings. The
+007-g-era full-38 PARTIAL claim is superseded as current status by
+separately scoped Root actual development evidence (not release
+qualification): a frozen full-CLI acquisition of all 38 wheels
+completed in 22.254 s (252554535 payload bytes, 38 hash-verified
+wheels, 38 metadata and dependency graph, all four commands exit 0,
+no unresolved owned children, sampled disk 2085087847 B under 2 GiB
+address space / 120 s CPU / 600 s wall, sampling not quota), and a
+separate actual CPU class import (Torch 2.14.0+cpu plus
+Transformers 5.22.2 XLMRobertaModel) succeeded in 14.73 s with
+352816 KiB RSS inside the standalone CPython 3.12 namespace,
+synthetic /dev, no home, offline, under a separate 4 GiB /
+30 s CPU / 120 s wall allowance. A class import is not loading BGE
+weights, constructing a model, running a forward pass or measuring
+query latency, parity, hardware, security or licenses.
+The 007-i continuation selectively integrates the FIFTEEN
+root-reviewed resident-query/CPU-asset files (no branch ancestry,
+no source adaptation; oap/reviews/007-i-components.json,
+170,026 bytes): the private resident CPU query encoder
+(ResidentQueryEncoder over one owned isolated CPU session:
+bounded raw Unicode/UTF-8 query admission of at most 8192
+characters / 32768 strictly encoded bytes with no prefix,
+title, normalization, truncation or padding; independent native
+0.21.4 tokenizer IDs enforcing the 1024 limit; one actually
+owned CPU worker reused across different queries with
+load-once; immutable normalized FP32 result with observed
+complete execution provenance; content-free refusal before
+exposure on invalid input or missing/changed identity), the
+shared native/CPU/session diagnostic-priority fixes (the
+selected original non-Exception interruption is preserved even
+when cleanup or diagnostic annotation fails; a new cleanup
+interruption outranks an ordinary error; exception notes and
+owner attributes are best effort, never resource ownership) and
+the packaged CPU profile lock assets (the actual offline wheel
+bundles byte-identical CPU v2 / legacy CPU / GPU locks under
+_worker_profiles with RECORD/license/entry/source identity
+checks; installed-layout selection refuses missing, corrupt,
+symlinked or whole-bundle-missing assets even with a matching
+ambient project/lock under bounded dist-info downgrade guards;
+source-checkout support retained; pyproject adds only the three
+reviewed force-include lock mappings, with dependencies and all
+CPU/GPU/native locks unchanged). This is finite model-free
+software: the composed tests substitute a trusted in-memory fake
+framework over actual staged artifacts, actual native tokenizer
+0.21.4 and the actual CPU isolation protocol, and the wheel test
+builds and exercises the actual wheel offline in a private
+bounded prefix. The actual BGE execution, latency, parity, model
+memory and hardware remain UNRUN/UNQUALIFIED; the corrected GPU
+backend and the H helpers/fixtures/CI/locks are preserved
+unchanged; GPU child/plan/parent resources remain parallel and
+unintegrated; whole 007 remains PARTIAL
+([docs/parallel/query-embedding-api.md](docs/parallel/query-embedding-api.md),
+[docs/parallel/cpu-profile-assets-api.md](docs/parallel/cpu-profile-assets-api.md)).
+The 007-j continuation selectively integrates the FOURTEEN
+root-reviewed GPU child/protocol, prepared-launch and packaged-
+resource files (no branch ancestry, no source adaptation;
+oap/reviews/007-j-components.json, 136,921 bytes, single exact
+source commit 5445c03): the GPU worker protocol (child-owned
+GPU device lease acquired before any backend load, fixed
+closed bounded wire/version/config/startup vocabulary, exact
+token-ID requests and raw FP32 rows, content-free refusals,
+immutable ready bindings and no fake serialized PID-bound
+lease), the worker main entry (the original non-Exception
+interruption priority is retained; foreign/fork/error/
+interrupt ownership semantics keep actually owned resources
+honest), the corrected raw GPU backend (finite and inert under
+trusted fakes: device UUID byte guard, process-owned
+DeviceLease assertion, ordered finite CPU FP32 raw CLS
+output), the prepared launch (actual pinned Python/package/
+config/device inputs with retained FDs, exact closed copied
+capsule, fixed argv/clearenv/private namespaces and trusted
+fixed entry; the fork-creating-PID check precedes any
+close/cleanup and bounded startup is checked against the
+fixed 2 MiB request/total input; no parent or module code
+execution and no generic process callback) and the packaged
+GPU profile assets (bundled unchanged GPU lock first;
+fail-closed for missing, corrupt, symlinked or whole-bundle-
+missing assets under the actual installed normal and src-
+named prefixes even with a matching ambient project/lock;
+bounded dist-info recognition; the exact private /app/src/pkg
+layout case is a data mapping, not authorization; the real
+offline wheel carries the three exact locks plus
+RECORD/license/entry/source identity). This is finite
+model-free software: the focused units and the separate
+installed/launch/wheel invocations use fake/null namespaces,
+synthetic /dev bindings and the actual offline wheel, never a
+real GPU, driver, Tensor, model or framework import. The
+actual BGE execution, latency, parity, model memory and
+hardware remain UNRUN/UNQUALIFIED; the actual owned GPU
+parent, the new lock and the worker-identity resources remain
+parallel and unintegrated (pending their affected reviews);
+the current I fifteen files, the H helpers/fixtures/CI/locks
+and the CPU paths are preserved unchanged; whole 007 remains
+PARTIAL
+([docs/parallel/gpu-child-protocol-api.md](docs/parallel/gpu-child-protocol-api.md),
+[docs/parallel/gpu-worker-launch-api.md](docs/parallel/gpu-worker-launch-api.md),
+[docs/parallel/gpu-profile-assets-api.md](docs/parallel/gpu-profile-assets-api.md)).
+The 007-k continuation selectively integrates the EIGHT
+root-reviewed immutable raw snapshot core/row-map declaration
+codec, test, API and design files (oap/reviews/007-k8-snapshot-
+components.json, 47,707 bytes, byte-exact from the two exact
+source commits b7a2b52 and 09fe0d5): a closed bounded canonical
+ASCII schema-1 core codec with strict types, duplicate-key and
+cross-reference checks and a derived noncircular snapshot ID,
+and an 8-header/17-row row-map codec with canonical partition
+subsets and a fresh-bytes bind checking exact declared
+correspondence. They are pure declared-format data only: they
+validate declarations, never actual payloads, sources,
+vectors, terms, rights, normalization, publication or
+retention, and no snapshot is activated or loaded. The held
+parent K13 plan and the parallel native work are not
+integrated; whole 007 remains PARTIAL
+([docs/parallel/raw-snapshot-manifest-api.md](docs/parallel/raw-snapshot-manifest-api.md),
+[docs/parallel/raw-snapshot-row-map-api.md](docs/parallel/raw-snapshot-row-map-api.md)).
+The 007-l continuation selectively integrates the TWENTY-THREE
+root-reviewed immutable owned-GPU parent/identity and native
+runtime-identity files (oap/reviews/007-l-parent-native-
+components.json, 250,571 bytes, byte-exact from the two exact
+source commits 9ac0eabd and d7701a53): the owned GPU embedding
+worker parent (creating-process retained lock in the strong
+owner registry, lock-close race, raw worker identity, single
+initialization refused before any owner/process/FD/lock/
+registry mutation, original Popen pre-return capture), the raw
+GPU worker-identity predictor/validator (canonical selected-
+file bytes with domain-separated fingerprint; a record is
+data, never authorization) and the native runtime-identity
+leaf plus the TokenIDSession acquisition corrections (owned
+Popen retained before fallible initialization, independent
+strong pending owner, fork refusal, creator/once/closed/
+context/error precedence, bounded no-follow artifact
+identity). They are finite model-free software: parent and
+identity proofs run against the actual offline fixture with
+fake/null namespaces and synthetic copied entries, and the
+token work uses the actual native 0.21.4 tokenizer worker on
+synthetic strings — no real GPU, driver, Tensor, model,
+parity, rights or Ready is established; the GPU text bridge,
+producer, controller and durable GPU execution remain
+unimplemented; two authorized test-only
+portability exceptions (Root addenda 1/2/3) replace the
+frozen FILE unit's 32 MiB+1 fixture-file creation with an
+exact device/inode fstat size boundary under the
+inherited CI FSIZE cap, and the CPU-session composition's
+public-class Popen replacement spy with a real
+Popen.__init__ spy (the integrated exact-class guard
+refuses a replaced public class) while all other 22 files
+and all production guards/limits stay byte-exact; whole
+007 remains PARTIAL
+([docs/parallel/owned-gpu-worker-api.md](docs/parallel/owned-gpu-worker-api.md),
+[docs/parallel/gpu-worker-identity-api.md](docs/parallel/gpu-worker-identity-api.md),
+[docs/parallel/embedding-native-runtime-identity-api.md](docs/parallel/embedding-native-runtime-identity-api.md),
+[docs/parallel/embedding-tokenizer-api.md](docs/parallel/embedding-tokenizer-api.md)).
+The 007-m continuation selectively integrates the TEN
+root-reviewed immutable GPU text-bridge and source-bound GPU
+plan files (oap/reviews/007-m-bridge-plan-components.json,
+95,773 bytes, byte-exact from the two exact source commits
+a9a5ef0 and d100689): the isolated GPU embedding bridge
+(borrows the actual owned GPU worker parent, PreparedLaunch
+and caller reservation, owning only its own independent
+native TokenIDSession; native 0.21.4 token IDs never
+supplied or re-derived in the GPU worker; strict bounded
+UTF-8 preflight before any native text exposure; full
+receipt-field validation; forward/encode dispatch reaches
+the captured actual class implementations, not selected
+instance shadows; creator/once/closed/busy/fork rules,
+pre-return ownership retention and cleanup priority; raw CLS
+rows checked, then normalized to FP32 via the existing
+codec) and the source-bound GPU plan (freshly derives
+complete selected rows, source scope, independent native
+counts and canonical order/hash/space/definition/
+inventory/policy before any job creation, predicts the
+selected GPU batch execution before execution, replaces only
+the legacy CPU intended execution dependency with the
+complete predicted GPU execution, and refuses
+forged/detached/stale records and source changes, with no
+truncation, replaced source proof or callback grant). They
+are finite model-free software: proofs run on synthetic
+fixtures with the actual native 0.21.4 tokenizer worker on
+synthetic strings and the approved copied GPU fake/null
+fixture — no real GPU, driver, Tensor, model, parity, rights
+or Ready; the two preserved 007-l test-only exceptions
+(SHA-256 c2b483b7/15,779 B and 275e10d3/5,179 B) remain
+byte-exact; the GPU producer, corpus controller, durable GPU
+execution and snapshot publication remain unimplemented;
+whole 007 remains PARTIAL
+([docs/parallel/isolated-gpu-embedding-api.md](docs/parallel/isolated-gpu-embedding-api.md),
+[docs/parallel/gpu-embedding-plan-api.md](docs/parallel/gpu-embedding-plan-api.md)).
+The 007-n continuation selectively integrates the
+TWENTY-ONE root-reviewed immutable corpus-pipeline files
+(oap/reviews/007-n-corpus-pipeline-components.json,
+335,687 bytes, byte-exact from the four exact source
+commits b0ca5a6, 880dedf, 6f5b311 and bac11be; two
+deliberate existing production replacements, nineteen
+new paths): the reviewed owned launch
+preparation/handoff in gpu_worker_launch.py (actual
+cleanup owner on failure, same actual PreparedLaunch
+handed to the existing parent, reservation borrowed),
+the one-batch GPU embedding producer (actual captured
+preparation/native bridge/journal/typed store, fresh
+current-rights epoch checks at every producer
+boundary, fresh-PENDING-only attempts, no stolen
+owners, retries or exactly-once claim), the
+whole-source formatting support in
+retrieval_representation.py with the source embedding
+program (every selected original-backed container
+freshly revalidated, stable ordered source-local
+batches, no silent >128-row truncation or whole-corpus
+row ceiling) and the selected-source corpus executor
+(one operation-wide epoch, stops on failure before
+uncertain later work, journal-gated reuse with
+fresh-creator resume after a clean between-batch
+stop). Exact contracts:
+[docs/parallel/gpu-launch-preparation-owner-api.md](docs/parallel/gpu-launch-preparation-owner-api.md),
+[docs/parallel/gpu-embedding-producer-api.md](docs/parallel/gpu-embedding-producer-api.md),
+[docs/parallel/corpus-embedding-program-api.md](docs/parallel/corpus-embedding-program-api.md),
+[docs/parallel/corpus-embedding-executor-api.md](docs/parallel/corpus-embedding-executor-api.md).
+They are finite model-free software under the actual
+native 0.21.4 tokenizer worker on synthetic strings
+and the approved copied GPU fake/null fixture — no
+real GPU, driver, Tensor, model, parity, rights or
+Ready; the mode controller, current-principal policy,
+inference CLI, snapshot integration and physical
+qualification remain unimplemented; the two preserved
+007-l test-only exceptions remain byte-exact; whole 007
+remains PARTIAL.
+Objective 006 merged to main as PR #8 (merge commit 11badc7); objective
+007 remains PARTIAL — the CPU reference path (now selecting the CPUv2
+lock) plus the cleanup/lease/isolated-exit composition, the 007-j GPU
+child/protocol/launch/assets software, the 007-k pure snapshot
+declaration codecs, the 007-l owned GPU parent/identity and
+native runtime-identity software, the 007-m isolated GPU text
+bridge and source-bound GPU plan software, the 007-n
+launch-preparation/producer/program/executor software and
+the inert raw GPU backend source are software under
+trusted neural fakes only (no real GPU, driver, Tensor
+or model was run).
+Execution scope is precise: the archived prior OWNED random CPU toy
+was historically executed (toy evidence only); the ACTUAL BGE
+checkpoint/model has NOT been executed or qualified, and a class
+import is not model construction or a forward pass; the current
+38-dependency and class-level interoperability differs from real BGE
+forward and both differ from the controlled neural fakes; the
+resident CPU query encoder and the packaged CPU profile lock
+assets are finite model-free software, but there is still no
+actual-model CPU query execution, resumable GPU batches or
+qualification yet
+([docs/embedding.md](docs/embedding.md),
+[docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
 Source-to-block anchors, native versus visual-needed page semantics,
 refusal behavior, budgets and observed-count provenance are documented
 in

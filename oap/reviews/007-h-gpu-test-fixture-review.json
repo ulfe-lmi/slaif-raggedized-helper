@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-12T04:33:01.228741+00:00",
+  "status": "FINAL_LOCAL_SYNTHETIC_GPU57_LIGHT_FIXTURE_ACCEPTED",
+  "implementation": "c0e14e2c399e8f5d99b563788c9bc66399118879",
+  "report_commit": "c65338387be2136e8d85cacc5f4bd65c822121d2",
+  "report_sha256": "e522cd3fff448b2b8bdab1b769d6c9fe2d18ec78c10c7cbdbb34c2b108794e7a",
+  "report_bytes": 4148,
+  "source_review": "audit/007-gpu-fixture-source-review-c0e1.json",
+  "Root_evidence": "IndependentactualNEWprefix6ACTUAL+51DATAONLYsetup,14new/legacyunit inclreal GPUmetadata gate within-memoryfakes/ruff/diffPASS; codingactualearliercommithelperbytesidentical/currentfinalsourceandreceiptverified.",
+  "graph": "ExactSELF/reportonly/soleparent/order/helper/unit/API/lock/requirements/currentcleanverified",
+  "strongest_counterargument": "No actual57frameworks/CUDA/device/physicalmemory/processisolation/security/license/parity/hardware/MVP. FutureCIexplicitprovisionstillrequired.",
+  "disposition": "Finitefixtureaccepted forfutureownedGPUsoftwareworker tests only. No mainmerge/whole007/ICA/actualmodelauthority.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

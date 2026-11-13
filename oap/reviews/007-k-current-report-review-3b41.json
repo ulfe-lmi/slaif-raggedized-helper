@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-12T10:39:17.136628+00:00",
+  "status": "ORIGINAL_STRICT_METADATA_REMOTE_SELF_REPORT_VERIFIED_NO_RECOVERY_ADAPTER",
+  "verified": {
+    "identifier": "007-k",
+    "pr": 9,
+    "implementation": "16559d585f425202acd4f60d55c701ad2812f8a9",
+    "report_commit": "3b41a6b39d18a4805ecad253b38ffb2fc5ef130f",
+    "report_sha256": "bea8e5bb5b91f3c311ffcc397999f8ecb5972488ceff9c12bc967fcc9be8483c",
+    "verified_at": "2026-11-12T10:39:17.136578+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "headers_bare_actual_gitfacts": {
+    "Implementation head SHA": "16559d585f425202acd4f60d55c701ad2812f8a9",
+    "Round base commit": "41b093f5a3961048e9637b85869f8b5cd8567e9b",
+    "Transcript commit": "206334927ec80203001146571486f9e7332c08b5",
+    "PR main base": "11badc7782bed326995d400f5532b63399b91fbd"
+  },
+  "report_bytes": 6391,
+  "report_only_diff": "A\toap/reports/007-k-snapshot-declarations-integration.md",
+  "report_source_review": "Fullreportread. HonestPARTIAL/declaredonly/actual50local/requiredimpl5all78/historicalqualifications; nofuturereportCI/response assertions. Diffstat1M16Atranscript/6M8Aimpl matchesactual31sourcepaths. Parentunderrepairwording lagsRootparallelfixsourceacceptancebutremainsunintegrated; refreshcurrentdocsnextL, no reportrewrite.",
+  "gates_pending": "AllreportCI5jobs78steps, sole response regularreceipt, finalcurrentremote/defaultmain/reviewthreads/quiet codinggoal anddurableresolution beforeadvance.",
+  "no_FIFO_read": true,
+  "DHA": "NONE"
+}

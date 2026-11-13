@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T19:10:50.769186+00:00",
+  "identifier": "007-o",
+  "event": "STRATEGIC_REVIEW_REJECTS_CURRENT_CI_GATE_REQUIRES_SAME007_CONTINUATION",
+  "report_commit": "c50213fbbd246adb8d6f89cac601239491974deb",
+  "review": "audit/007-o-review.json",
+  "review_sha256": "46ff0a91a9908ec92b9f7494a8b4beb97384a33417c64d9e699cb135a4cba01e",
+  "normal_response_verified_at": "2026-11-12T19:09:06.628438+00:00",
+  "current_report_allCI_success": false,
+  "next": "007-p twointegrationfixtureimport-ordercorrection; laterQgategateway/Rcapture remaininert. No numericjump/mainmerge.",
+  "DHA": "NONE"
+}

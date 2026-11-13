@@ -1,0 +1,21 @@
+{
+  "lane_id": "PAR-007-ARTIFACTS-A",
+  "result": "PARTIAL",
+  "preparation_head": "3e5c9db0ed960fe5b6e952686f500878e2472d5f",
+  "implementation_head": "9071f1af078947c3df7abdd289e55fd667bbce32",
+  "report_publication_commit": "SELF",
+  "API": "Not implemented",
+  "actual_commands": [
+    "wait-control: EXACT_OK_CONSUMED",
+    "git merge --no-ff --no-edit 11badc7782bed326995d400f5532b63399b91fbd: exit 0",
+    "git rev-parse and show parents: exit 0; tree fc2737840fda964bee2896dbb957366c67671703",
+    "read audit/007-pinned-public-model-config.json: exit 0",
+    "copy order and commit: exit 0"
+  ],
+  "counts_and_results": "No implementation or tests completed. Acceptance criteria remain unmet.",
+  "witness_hashes": {
+    "preparation_tree": "fc2737840fda964bee2896dbb957366c67671703"
+  },
+  "limits": "No artifact verification, synthetic tests, or API documentation delivered. Further coding continuation required; do not accept as complete.",
+  "DHA": "NONE"
+}

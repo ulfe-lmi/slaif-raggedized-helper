@@ -1,0 +1,90 @@
+{
+  "status": "FROZEN_EXACT_R_ROOT_TRANSCRIPT_RECORDS",
+  "records": [
+    {
+      "source": "audit/007-q-review.json",
+      "target": "oap/reviews/007-r-prior-review.json",
+      "bytes": 2140,
+      "sha256": "8ceba0106f4737fcb4f176c5b5fe6fd70a0f88b11c8a489e839266f4ad35bfa2"
+    },
+    {
+      "source": "audit/007-q-resolution-timing-event.json",
+      "target": "oap/reviews/007-r-prior-timing.json",
+      "bytes": 644,
+      "sha256": "fe22e488d33303c08f888709a4339b7679847a05663e630acffada25282b6d1e"
+    },
+    {
+      "source": "audit/007-q-current-report-CI-root-review.json",
+      "target": "oap/reviews/007-r-prior-CI-root-review.json",
+      "bytes": 1016,
+      "sha256": "4b8b39588a2592176f6f44392f729a70be7622c35c4ff77d3d7f630510c0bb4f"
+    },
+    {
+      "source": "audit/007-q-current-report-CI-full.json",
+      "target": "oap/reviews/007-r-prior-CI-full.json",
+      "bytes": 14516,
+      "sha256": "87c917d8cd9fdcca329adceac40d2b7a83dab9122404325a11f77afe6eecf019"
+    },
+    {
+      "source": "audit/007-q-current-report-strict-verification.json",
+      "target": "oap/reviews/007-r-prior-strict-review.json",
+      "bytes": 345,
+      "sha256": "227e8300f617e6305911555869b92ccaca733eebb1addd5f66ad1b2f7df654b1"
+    },
+    {
+      "source": "audit/007-q-coding-postpublic-receipt-root-review.json",
+      "target": "oap/reviews/007-r-prior-receipt-review.json",
+      "bytes": 503,
+      "sha256": "89e9063c1058c75a2c912439cd097859bc5c1ea51e5d355a1ade972e23b02811"
+    },
+    {
+      "source": "audit/007-q-implementation-source-review-a518.json",
+      "target": "oap/reviews/007-r-prior-source-review.json",
+      "bytes": 2371,
+      "sha256": "100340789590330dbb531769dc8c2db710c735feab904a81e741c321f6f759e5"
+    },
+    {
+      "source": "audit/007-r-gateway-role-components.json",
+      "target": "oap/reviews/007-r-component-index.json",
+      "bytes": 3349,
+      "sha256": "12f22e26f0c23a000706e2fed62566be0c90981ab36900f542ab5fb34eb4e7b7"
+    },
+    {
+      "source": "audit/003-ICA-root-review-45fc.json",
+      "target": "oap/reviews/007-r-ICA003-root-review.json",
+      "bytes": 2317,
+      "sha256": "71e153680beba0376ed00d2ab01f6dd34d3dbb858b045d0902c737bd6c12c817"
+    },
+    {
+      "source": "audit/003-role-b-source-review-786b.json",
+      "target": "oap/reviews/007-r-gateway-root-source-review.json",
+      "bytes": 2960,
+      "sha256": "643ad5e6b3ac59f50e4e8ca6d92e127ecbfb9e9f5eb5b3d25d4693aa5cb6cd3b"
+    },
+    {
+      "source": "parallel/gateway-message-role-b/review.json",
+      "target": "oap/reviews/007-r-gateway-author-report-review.json",
+      "bytes": 6054,
+      "sha256": "caf400663bd087c34ff7b60ac3411c05477644c67a0f489f082411fb931f8bad"
+    },
+    {
+      "source": "parallel/audit-gateway-message-role-b/review.json",
+      "target": "oap/reviews/007-r-gateway-opposite-review.json",
+      "bytes": 788,
+      "sha256": "3529a54b89e73f0be3b176dfecc0b893f1a0eaebd6fcbf356da219c48f724e7d"
+    },
+    {
+      "source": "audit/003-role-b-peer-root-review-a37d.json",
+      "target": "oap/reviews/007-r-gateway-peer-root-review.json",
+      "bytes": 1618,
+      "sha256": "05bf2c3fd5a0e9cf1ca3ffdeb7f8c4f9132fe4064ff7080fef1f2aff7ddca2fc"
+    },
+    {
+      "source": "parallel/gateway-message-role-b/local-admission.json",
+      "target": "oap/reviews/007-r-gateway-local-admission.json",
+      "bytes": 1152,
+      "sha256": "dbaf9431fdf8baf8bf849086030b0bc8a5857c888ff572581a82f566fe27fbf1"
+    }
+  ],
+  "DHA": "NONE"
+}

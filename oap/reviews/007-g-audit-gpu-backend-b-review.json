@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T04:06:14.822455+00:00",
+  "status": "INDEPENDENT_AFFECTED_GPU_SOURCE_REAUDIT_COMPLETE_ACCEPT_CANDIDATE",
+  "target": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+  "report_sha256": "237e199b1a2f6ca44fa4e27c1e51143f412644b6f73fbe279e52d9c0e550b30f",
+  "report_bytes": 6681,
+  "Root_draft_review": "audit/007-gpu-peer-b-draft-237e-review.json",
+  "Root_causal_reproduction": "audit/007-gpu-peer-b-causal-root-reproduction.json",
+  "disposition": "Twooriginalsource/doc findings remediatedatnew6da14/d7b9; original5948/afc5CHANGES_REQUIREDhistorypreserved. FiniteGPUrawsourceeligiblelaterexactselectiveintegration; nophysical/runtime/security/license/parity/ICA/currentcanonical/whole007claim.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

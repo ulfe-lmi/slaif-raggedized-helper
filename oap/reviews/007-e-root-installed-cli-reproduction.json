@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-12T02:56:27.866790+00:00",
+  "head_observed_after": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+  "exact33indexedfiles": true,
+  "result": "13INSTALLED_CLI_TESTS_PASS_ACROSS_TWO_FOCUSED_INVOCATIONS",
+  "details": "Root projectvenvPATH withsource/parity:10PASS15.98s, chunk3initiallyfailedRootmissingnativeenv (setupmistake), correctedchunk/native/PDFvars3PASS32.87s. No sourcechanges, no full619localpass claim. CurrentCI/report/main gating remains coding/Root review responsibility.",
+  "setup": "PATH=project.venv/bin, PYTHONPATH=src:unit:int, nativeRoot0.21fixture andPDFpinnedcapsule, threads1/PYTHONDONTWRITEBYTECODE1/AS1GiB/CPU30/wall120",
+  "scope": "IndependentRoottestenvironment proof only; not actualML/GPU/currentrights/security/license or ICA"
+}

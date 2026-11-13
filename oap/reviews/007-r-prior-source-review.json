@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-12T20:59:44.029993+00:00",
+  "status": "EXACT_SOURCE_TRANSCRIPT_REPORT_TOPOLOGY_VERIFIED_PENDING_CURRENT_ALL_CI_NORMALRESPONSE",
+  "base": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+  "transcript": "5615057413a4a98ea40e5ea5141939677467623c",
+  "implementation": "a518cd3efb40d19bff5d5da2548b130ba7238ef2",
+  "report": "81159dd0d7278edbd07de904cf94a251a964a5aa",
+  "report_bytes": 8179,
+  "report_sha256": "04b1594c2f2bf990b767c6c4a58f10ec84c38bdfe0b4bff4cc94257ffd8af964",
+  "Root_records": {
+    "count": 11,
+    "sourcebytes": 32262
+  },
+  "implementation_scope": [
+    {
+      "path": "tests/integration/test_corpus_embedding_executor_composition.py",
+      "bytes": 38236,
+      "sha256": "790e4e05063fb433d4d989a288a4c511db17a083166229c9eac0742955fac6b2",
+      "private_forecast": "/tmp/raggedized-root-q-forecast-n2l80i6_/tests/integration/test_corpus_embedding_executor_composition.py"
+    },
+    {
+      "path": "tests/integration/test_corpus_embedding_program_composition.py",
+      "bytes": 16528,
+      "sha256": "d8e5700cbb3ac800446d2fc2d79535a1676952ee032c3a21f83a7056792530bc",
+      "private_forecast": "/tmp/raggedized-root-q-forecast-n2l80i6_/tests/integration/test_corpus_embedding_program_composition.py"
+    },
+    {
+      "path": "tests/fixtures/retrieval_representation_b0ca5a68.py.txt",
+      "bytes": 7049,
+      "sha256": "681bf5145e980f77f67903c2fb5fd153f4694cf33344e208cd6181a5e65947a3",
+      "private_forecast": "/tmp/raggedized-root-q-forecast-n2l80i6_/tests/fixtures/retrieval_representation_b0ca5a68.py.txt"
+    }
+  ],
+  "review": "Root inspected exact actual diff: executor one tuple wrapping only, program import swap + bounded historical fixture loader + two calls, second decode retained. Full frozen historical139line module read previously and now exact Gitobject identity. No product/CI/caps/assertion/journey changed. Source matches Root/peer forecasts. Prior matrix/corruptfixture proofs retained; no unnecessary actual journey replay, normal full CI owns heavy driver.",
+  "strongest_counterargument": "Whole numeric007 remains PARTIAL and currentCI/normalresponse unfinalized; no main merge or next numeric. Q portability source may be accepted only after all required gates. R gateway role, S capture, T repair remain necessary before aggregate software replan.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

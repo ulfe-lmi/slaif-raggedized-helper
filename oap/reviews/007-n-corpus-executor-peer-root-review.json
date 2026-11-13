@@ -1,0 +1,34 @@
+{
+  "at": "2026-11-12T14:50:27.255641+00:00",
+  "target": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+  "draft_sha256": "c87f3685284692541844356169568f8ad6e47ced8aeffb2d290704a96170f318",
+  "status": "FINITE_OPPOSITE_AGENT_REVIEW_ACCEPTED_EXACT_LOCAL_TARGET_ONLY_PROCEDURAL_DEVIATION_RETAINED",
+  "review": "Fullsubstantivereport/witness/source/evidence read. Current4module/test/API+design/order/report sourcehashes7 andall9ownwitness/loghashesverified. Actualcompletecode/source/producer/journal/rights/snapshot/coverage/stop/resume argument substantial; provenance historicalsharedsource/launch authorship explicit, nothuman/fullmergedICA.",
+  "original_peer_control": {
+    "path": "/tmp/AUDIT-007-CORPUS-EXECUTOR-A-snapshot-b6a77a6f.py",
+    "sha256": "b6a77a6fc6eeedb58907b929c1754c4e846fd05a63722d2c821edf7c3ffe37db",
+    "effect": "Actualprivateoriginal/derived/sourceprogram validators; actualsource load AFTERfreshvalidate mutateswire.calls. Originalglobalconfigsnapshot refusesBEFOREproducerentry. Isolatedmodule removesONLYafter-source-loadsnapshotguard (secondof3), reachesexceptionentrysentinel, no fabricatedsuccessor actualGPU. Originalsettingsrestored andoriginalagainrefuses. Preciseguardtimingboundary, laterproducerchecks notcertified bypassed.",
+    "Root_rerun": {
+      "log": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-corpus-executor-peer-root-snapshot-c87f.log",
+      "sha256": "2a8ecaadb19e758c4ab18fc4823c3d454a8948e6d584a7b5e9ea6bc5aa4b3612",
+      "output": "control_sha256=15c178c40b4a0cf26d3f0c5564fce828bde12c1e19ea1b68c64d03ff740d979b\n.\n1 passed in 4.34s\n",
+      "caps": "AS1GiBCPU30wall120fivethreads1/privatebasetemp"
+    }
+  },
+  "evidence_limits": "15peerunitcounts attributableunarchivedstdout, sixactualordinarylogs andinitialcontrolsetupfailure+correctedcontrol+sourcewitness hashesverified. Rootown15+10actualcurrentordinarychecks andexactsource/heavyproof independentlysubstantiatecomponent; no needlessrepeat120 proof. Heavyrecord actualsourceexactee09/currentintegrationoldvsnew distinction preserved.",
+  "procedural_deviation": "Peerexecuted gitmerge-tree--write-tree despite noGitmutationorder. Commandmaywriteobjectdatabase evenifreturnedexistingmatching749c tree. No branch/index/worktree/ref changes, currentcleanhead stillverified; cannotcertifystrictread-onlyDB. This doesnotalterreviewedappcode or invalidateactualsource/controldata. OrdinaryD0processerror recorded, notDHA, no retroactiveclaimcompliant. Rootexistingprivateprepverifieralsouseswrite-tree; its previous purehelper/noFIFO wording means noFIFO not guaranteenoODBwrite. Followup privateorchestrationcompute should isolate GIT_OBJECT_DIRECTORY inown/tmp withrealobjects read-onlyalternates anddisableautogc, keepingtargetgraphsame. No user/productstate/canonical/source rewrite orpermissionexception inferred.",
+  "strongest_counterargument": "One small synthetic positive proof, seeded DATA negative reuse, and private predecessor coupling do not establish performance, real neural execution or universal correctness. The bounded source review, actual ordinary cases, guard control and witnessed synthetic resume support a component acceptance candidate only.",
+  "open": "No actual current policy/controller/operator CLI/parity capture/efficient bulk/real model or hardware/security/license/quality/canonical integration CI/full ICA/MVP qualification. Deadline is cooperative, not preemptive. No independent heavy repeat. No human acceptance or release authority.",
+  "DHA": "NONE",
+  "normal_response": {
+    "lane": "audit-corpus-executor",
+    "lane_id": "AUDIT-007-CORPUS-EXECUTOR-A",
+    "result": "COMPLETE",
+    "target_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+    "report_sha256": "c87f3685284692541844356169568f8ad6e47ced8aeffb2d290704a96170f318",
+    "verified_at": "2026-11-12T14:56:04.663140+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "no_FIFO_reread": true,
+  "process_fix": "audit/private-merge-tree-isolation-review.json"
+}

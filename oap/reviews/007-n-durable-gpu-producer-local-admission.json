@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T13:57:09.784915+00:00",
+  "status": "EXACT_LOCAL_SOFTWARE_COMPONENT_ACCEPTED_FOR_FUTURE_GATED_INTEGRATION",
+  "implementation": "617ab621d1dc8fbb6cbfbaff61261d35e1ae2716",
+  "preparation": "38ac45b33c32e454bd02bbbefcf575ee415c8c3b",
+  "report": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+  "Root_review": "parallel/durable-gpu-producer/review.json",
+  "peer": "parallel/audit-durable-gpu-producer/review.json",
+  "peer_sha256": "81335c3f8fe5fc07502e5ed051c503dc6570e9794a0157623295aab056cf8a94",
+  "scope": "Ownedonebatchsource/native/syntheticGPU/journal/typedstore/currenttrustedproviderepoch software only. Realmodel/FP16/physicaldevice/currentprincipalpolicy/controller/throughput/license/security/parity/currentcanonicalCI/ICA/MVP OPEN. Rootexactcurrentpositive33.912CPU34.818wall undernarrow60outer; actualworker30unchanged. AllhistoricalCPU30fails retained.",
+  "strongest_counterargument": "Costly repeatedpreparation/privatebridge coupling remain, no efficientbulk/hardware proof. Actualcurrentfiniteproof andoppositepeer/sourcegraph justify boundedlocalprerequisite only.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

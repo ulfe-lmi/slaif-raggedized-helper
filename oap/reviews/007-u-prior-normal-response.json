@@ -1,0 +1,9 @@
+{
+  "identifier": "007-t",
+  "pr": 9,
+  "implementation": "cf7479ee551e01803f7e2e6a8823bc61b3f1fe23",
+  "report_commit": "491c570f7a4c3c4a8117e90504d60a688c61515f",
+  "report_sha256": "abb4dbcb6a722c8fef6c60acacd114dfbb6bdcd3a793c66f60ee17797a33ae50",
+  "verified_at": "2026-11-13T00:22:20.804527+00:00",
+  "ci": "NOT CERTIFIED BY THIS CHECK"
+}

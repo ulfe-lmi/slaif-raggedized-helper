@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-12T22:07:08.151023+00:00",
+  "status": "EXACT_TEST_HARNESS_IMPL_ROOT_PASS_REPORT_PERMITTED_OPPOSITE_REQUIRED",
+  "implementation": "87be2e8f8558e648790af33201de26536f9f633e",
+  "base": "c1bcba4666d184689e6d8cdf47e42ceea3667db9",
+  "paths": [
+    "docs/parallel/watchdog-proc-disappearance-test.md",
+    "oap/parallel/orders/PAR-007-WATCHDOG-A.md",
+    "tests/integration/test_cpu_embedding_worker_composition.py"
+  ],
+  "scope": "ONEintegrationfiletest-onlyhelper+errno import/1defaultcollecteddeterministicnode/4ownedproc readsites, docs/order. No production/profile/timeout/ownershipassertion changes. All86trackedsourceIDs+12named IDs exact.",
+  "actual_proof": "RootapprovedONEv2 originalcaps, actualwatchdog testPASS6.19wall1.02user.11system55864KiB, observationsownedworkers/dyingwhileparentSIGSTOP, no neural/model/currentCI/productionwatchdogclaim. ActualESRCH injection onlydeterministicunit not nondeterministicrace reproduction.",
+  "raw": {
+    "/tmp/watchdog-proc-proof-1001-v2/stdout.txt": {
+      "bytes": 80,
+      "sha256": "423b1d0e014eb1eab96f4420f7b344c2615be505dd574b756ac884826ca74f2d"
+    },
+    "/tmp/watchdog-proc-proof-1001-v2/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/watchdog-proc-proof-1001-v2/exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "/tmp/watchdog-proc-proof-1001-v2/time.txt": {
+      "bytes": 990,
+      "sha256": "bf4b2e8c2ab1cb83c4f27cd7570ba26b7554a3799738057a6379b9f5fbe2f02e"
+    }
+  },
+  "Root_independent": "audit/007-watchdog-root-cheap-proof-plan-87be.json + audit/007-watchdog-root-cheap-87be.log actualdefaultcollectedguardnodePASS .74wall .68user .05system55668KiB. No secondnativeproof.",
+  "honesty": "Approvedv2decision prose mistakenlysaid95trackedIDs; actualadditional_count=86/sourceindex has86, allverified. No actualresource/scopechange fromcounttypo. Sourcekeysidentityhashonly, notfullsemanticread. Dynamicruntime/systemlibsclosurepartial.",
+  "strongest_counterargument": "Finite syntheticprocess+injectedreaderrors do not prove arbitraryOSraces/realmodel/watchdogdeployment. CurrentRformatrejected/currentCIpending, sameobjectivecanonicalintegration+affectedoppositepeerrequired; no acceptance/merge/MVPclaim.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

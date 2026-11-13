@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-13T02:10:50.990699+00:00",
+  "identifier": "007-u",
+  "status": "REVIEWED_CURRENT_SOURCE_PASS_EVIDENCE_CORRECTION_REQUIRED_CONTINUE_SAME007",
+  "implementation": "e92ec948e8eaac1413fc3473a3f6065905ad701f",
+  "report_commit": "9d811e3b123966be081a485480aa31d3c02dc6cf",
+  "report_sha256": "0fc81717de65f22c6da5dc646db51c66fd1cd33af7143837cb0571cca8806b68",
+  "source_review": "audit/007-u-root-preliminary-implementation-review-e92e.json; audit/007-u-current-software-peer-root-review-acab.json currentindependent4criteriasoftwareassessment",
+  "current_CI": "audit/007-u-current-CI-terminal-9d81.json exactrun43342353043 all5jobs78stepsSUCCESS/fullboth1756unit789integration; dotsnotindividualspy",
+  "normal_response": {
+    "identifier": "007-u",
+    "pr": 9,
+    "implementation": "e92ec948e8eaac1413fc3473a3f6065905ad701f",
+    "report_commit": "9d811e3b123966be081a485480aa31d3c02dc6cf",
+    "report_sha256": "0fc81717de65f22c6da5dc646db51c66fd1cd33af7143837cb0571cca8806b68",
+    "verified_at": "2026-11-13T02:03:47.598411+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "source_scope": "Exactfivefiles65717B+ONLYSTATUS, all24oldjournalASTdefspreserved/16Rootinputs/transcriptfirst/soleparentreportonly; uniquePR9open/nonDraft/current9d81/main11bad/automergeoff/noreviews/unresolvedthreads.",
+  "report_truth_resolution": "audit/007-u-chronology-root-reconciliation.json. Reportunderstatesactualattempts; firstfailureSTOPnotfollowed; missingcaps/overwritten/discardedrecords; no retrospectiveapproval. CurrentgreenCIisindependentsoftwareevidenceonly. Correctivesame007VmustpublishRootsanitizedcorrection andsoftwareboundary beforedevelopmentmerge.",
+  "privacy": "Knownrawcredentiallogpermissionscontained/usernotified; keyvalidity/prioraccessunproven; noprovider/keyactionauthority. Futureliveprovidercredentialuse boundaryremainsseparate.",
+  "strongest_reason_not_to_merge": "Localreportinterpretationuntruthfulandproceduraldeviationrequiresdurablepubliccorrection. Actualmodel/rights/drain/licenses/heldout/visual20k/mergedICA/MVPstillopen. No mergeor numericadvancefromU.",
+  "next": "Finalizeexactevidence-only007Vunderstandingmandateafterquiet/currentremote/inputs/projectioncheck. SamePR/unchangedproduct/NOlocalproducttests.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

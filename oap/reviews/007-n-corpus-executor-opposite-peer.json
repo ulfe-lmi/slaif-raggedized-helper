@@ -1,0 +1,41 @@
+{
+  "lane_id": "AUDIT-007-CORPUS-EXECUTOR-A",
+  "target_commit": "bac11bee72fa809157b77e21be8bcf8ef17529a9",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "provenance": "Opposite-agent finite component review, not independent human or merged-SHA ICA. I did not author executor; I have historical source-program/launch/predecessor authorship and dependency as assigned. Root alone accepts/integrates. DHA NONE.",
+  "identity": "Clean worktree, SELF bac11be sole parent ff6ea5c, report-only addition SHA256 3b87597257447cb81d073554c1fc11ff0d47ced610b2993606bc4ef5bacb2816; implementation sole parent prep 272b9e; prep parents 6f5b311 and 880dedf. Merge tree and prep tree both 749c438a4a7a6d8280829aae43001b6e075a75ec. Exactly six implementation paths per Root review. Contract and design byte-identical SHA256 51e32fd0803b838f5cfa2537938fcd5f10f1fa2d7ef28bddbd5f6e12b711c5a2; order 40418f96c6d0dd170d65ee9719c0eec2b284f642e206a89dfe7788de993408ee.",
+  "source_hashes": {
+    "executor": "ee09ec140db4da72248a3c79e0073ed98b806c070368be2a82aa24da8e481f9d",
+    "integration": "31ae037e500ab4671d7d7f0bceaec2c63b7725f2f61a6bae2284ea956ace146e",
+    "unit": "5ff0e7b4e24e0bdb1d868f45c7302fd1a8570d2116c8cb4b07423c9a23093aa0",
+    "api": "2bb3c00dc9721825c986c3b64cbd3e4f8b2c8a7ad1bf984e826975ca5a002284"
+  },
+  "readset": "Full executor, unit, API, contract/design, integration fixture/driver and negative bodies, SELF report, Root review/source review, budget decision, observed heavy record and full heavy logs. Targeted program build/parse/validate, producer snapshot/produce/reuse/attempt/cleanup, ingestion load, journal ownership, typed batch load/publish and GPU plan build. No full source books or history.",
+  "analysis": "Actual program validation rebuilds sorted complete declared sources, frozen policy, contiguous source-local greedy batches and rows; executor checks all batch row-fit before dispatch, reloads each source, metadata, scope and ordered chunk IDs, calls actual producer, verifies returned metadata rows and common execution/native/dependency records, discards large results per batch, bounds lightweight completions and performs final fresh validation and cooperative checks. Snapshot includes model/token/runtime and validated launch configuration and borrowed reservation ownership. Provider receives actual boundaries with one operation-wide epoch, with no default. Producer revalidates actual plan and journal/output, permits verified COMPLETE reuse or PENDING only; failed/unknown stop, no executor retry/steal; it retains hostile exception cleanup. Caller establishes permission before call; no current-rights proof or readiness claim.",
+  "tests": {
+    "unit": "15 passed under CPU30/AS1GiB/wall120/five thread limits; prior tool output preserved in conversation only, no independent log was captured.",
+    "actual_six": "Six individual cases passed: changed source/omitted row, row-fit, changed launch, COMPLETE reuse changed epoch, UNKNOWN_COMPLETION, hostile pending cleanup. Each timeout120, ulimit CPU30 and virtual 1048576 KiB, five thread limits 1, no bytecode, private basetemp /tmp/peer-corpus-actual-{0..5}-20261112. Command: cached canonical .venv/bin/python -m pytest -s -q tests/integration/test_corpus_embedding_executor_composition.py::<selector> --basetemp=<private>, with ordered fixture environment specified in lane order. Logs /tmp/peer-corpus-actual-{0..5}.log.",
+    "guard": "Original private witness /tmp/test_peer_corpus_guard.py uses real source/derived stores and actual program validation; after validation actual source load changes wire-policy calls. Original executor refuses before producer; private in-memory control removes ONLY second snapshot guard and reaches a producer-entry exception sentinel; restored original refuses again. No fake success or producer result, no inference; no claim about later producer checks. Control SHA256 15c178c40b4a0cf26d3f0c5564fce828bde12c1e19ea1b68c64d03ff740d979b. Command uses same limits/env: pytest -s -q /tmp/test_peer_corpus_guard.py --basetemp=/tmp/peer-corpus-guard-b-20261112. One pass. Initial attempt failed witness assertion expecting two matching snapshot blocks instead of three; failure log retained; corrected witness and reran.",
+    "heavy": "Reused author/Root observed one approved actual 5-row 2-batch (3,2) synthetic backend proof, not independently rerun: actual first COMPLETE, fresh creator reuse + remaining PENDING, then all COMPLETE reuse without worker parent. Executor hash ee09 equals current; historical whole integration hash f098cd6c1f54d8bfa0461bfd4a70ecb12dbb2c6248236a12723d408e753d18ba differs from current 31ae due later negatives. Logs heavy-proof.log b3caaf5dd57ba505a45c96a72b4088389fa5fa5d5773eceaa09fa8751518b924 and heavy-proof-time.txt ac20e5290b838c755b0264e092c8ce1d231e7b80c759d6495cedca35b4803c0b. 102.715 CPU aggregate observed post-phase, 104.983 wall; 120 CPU limit per process and post-phase accounting, not hard aggregate preemption; product workers CPU30 unchanged. No real GPU/neural proof."
+  },
+  "witness_hashes": {
+    "/tmp/test_peer_corpus_guard.py": "b6a77a6fc6eeedb58907b929c1754c4e846fd05a63722d2c821edf7c3ffe37db",
+    "/tmp/peer-corpus-guard-first-failure.log": "9d9a92738843e554c00bf90af9874d38d7e26cc3401f67e667cb346bf7873a93",
+    "/tmp/peer-corpus-guard-b.log": "c68e7f849af2b33ab1c5585ccf97c4e19bede23a5f9e1fe502d13727acd3d32e",
+    "/tmp/peer-corpus-actual-0.log": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+    "/tmp/peer-corpus-actual-1.log": "af24bceaf6df1fab922914bbf9030da0a1e92da346aa2dd8f043942d1d9a4c53",
+    "/tmp/peer-corpus-actual-2.log": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+    "/tmp/peer-corpus-actual-3.log": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+    "/tmp/peer-corpus-actual-4.log": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e",
+    "/tmp/peer-corpus-actual-5.log": "eb4bd64f7014f7d42e9d358035802242741b974e8dfcd37c59f9c21ce29d781e"
+  },
+  "failures_and_deviations": [
+    "Initial readonly_cycle request before control consumption failed No control receipt; consumed control exactly once then requested and received CONTINUE.",
+    "Initial guard witness failed count assertion, preserved /tmp/peer-corpus-guard-first-failure.log; corrected and passed.",
+    "I invoked git merge-tree --write-tree while checking tree identity. This command can write Git objects, contrary to the read-only/no Git mutation constraint; it returned the existing matching tree hash. No branch, index, worktree or refs were changed; worktree remains clean. I cannot assert no object-database write occurred."
+  ],
+  "findings": [],
+  "counterargument": "One small synthetic positive proof, seeded DATA negative reuse, and private predecessor coupling do not establish performance, real neural execution or universal correctness. The bounded source review, actual ordinary cases, guard control and witnessed synthetic resume support a component acceptance candidate only.",
+  "limits": "No actual current policy/controller/operator CLI/parity capture/efficient bulk/real model or hardware/security/license/quality/canonical integration CI/full ICA/MVP qualification. Deadline is cooperative, not preemptive. No independent heavy repeat. No human acceptance or release authority."
+}

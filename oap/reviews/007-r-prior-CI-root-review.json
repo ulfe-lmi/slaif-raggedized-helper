@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-12T21:00:51.984570+00:00",
+  "status": "CURRENT_EXACT_REPORT_ALL5JOBS_ALL78STEPS_SUCCESS_SOURCE_REVIEW_DONE_AWAIT_NORMAL_RESPONSE",
+  "report": "81159dd0d7278edbd07de904cf94a251a964a5aa",
+  "run": 43303810176,
+  "jobs": 5,
+  "actual_steps": 78,
+  "step_conclusions": {
+    "success": 78
+  },
+  "log": {
+    "bytes": 384689,
+    "sha256": "6639ddae0058ecbc73a488281dc26134fe0db6920d17a65492ffe1ca636bc6e0"
+  },
+  "pr": {
+    "autoMergeRequest": null,
+    "baseRefName": "main",
+    "headRefName": "oap/007-embedding-pipeline",
+    "headRefOid": "81159dd0d7278edbd07de904cf94a251a964a5aa",
+    "isDraft": false,
+    "number": 9,
+    "state": "OPEN"
+  },
+  "main": "11badc7782bed326995d400f5532b63399b91fbd",
+  "review_threads": "none unresolved; no change requested reviews",
+  "limits": "Whole007 remains PARTIAL; gateway/capture/recovery integrations and explicit software replan remain. CI success does not authorize main merge or model/hardware/quality qualification.",
+  "no_FIFO_read": true
+}

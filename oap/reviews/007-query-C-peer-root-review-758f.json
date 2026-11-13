@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-12T06:05:27.238301+00:00",
+  "draft_sha256": "758fceb6820566ba22bd09f908824733fcca39cea56992a714c6263e10ffe817",
+  "target": "1bb40cc63bf4791631337d102ca508ef17c7bf27",
+  "implementation": "13ec5825e7e089d5e1c3491ff3e7f5da03abc80c",
+  "status": "AFFECTED_QUERY_NATIVE_CPU_FIX_PEER_COMPLETE_ACCEPT_CANDIDATE_CONFIRMED",
+  "Root_review": "Full immutable draft/neworiginalcausalsource/twocorrectedactualownedwitnesses/identitysource inspected;15source+witnesshashes andexactcleanHEAD verified; correctedcopiesdiffer ONLY expectedoriginal assertion. Peeractual198+separate3/3/4 PASSEDlabels/logs verified, nofailures. EarlierRoot183+separatecomposition/priorityregressions are separate evidence.",
+  "Root_causal": "Root independently reran actual newcausal witness under1GiBAS30CPU120wall/thread1/no-bytecode; successful owned native0.21/CPUfakeframework query then sole native_diagnose guardbypass observed exactsecondary; actual retainednative/session/stage and childdrained, guardrestored, explicitownedcleanup,1PASS2.28s. No productfilespatched.",
+  "new_causal_sha256": "0542ce5286266d1083e8de1b897744d5c7bb74582ec58b73933d36abe8a1c07c",
+  "evidence_limits": "Rootquerycontextwitnessusesfakesession, nativecontextdirectexit alone notwithpropagation; actualcomposition/unitcontextmatrix supplies boundedaffectedcoverage. FakeframeworknotBGE; oldbugwitnesssecondaryassertionnotclaimedpassing.",
+  "strongest_counterargument": "Finite fault matrix/owned model-free process subset cannot establish arbitrary OS faults, physical reclamation or real BGE semantics/parity. Full transitive/mergedICA andrights/license/security/hardware gates open.",
+  "provenance": "Freshreviewcontextpane33, correctionauthorpane32; previoussamehistoricalqueryauthor/reviewercontextsdisclosed. Affectedpeer notfullICA.",
+  "disposition": "Approve exactregularfinalreport only; eligibilityexplicitfutureselectivecanonicalintegration/currentheadreview+requiredCI, notH/mainmerge/runtimegrant.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

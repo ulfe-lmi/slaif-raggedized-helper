@@ -1,0 +1,39 @@
+{
+  "at": "2026-11-12T00:40:03.528610+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_OWNED_ISOLATED_CPU_EMBEDDING_COMPOSITION",
+  "receipt": {
+    "lane": "isolated-cpu-session",
+    "lane_id": "PAR-007-ISOLATED-SESSION-A",
+    "result": "COMPLETE",
+    "implementation": "1ffb1c1f1cbeaaf5a8ab936c48c241cd850357ea",
+    "report_commit": "c4b289acf2c481d07c9b438d586f4295c8274546",
+    "report_sha256": "e17eab2fa375788cab4d25519f662a53c86bbae04ed2acd65858179d45890da1",
+    "paths": [
+      "docs/parallel/isolated-cpu-embedding-api.md",
+      "oap/parallel/orders/PAR-007-ISOLATED-SESSION-A.md",
+      "src/slaif_raggedized_helper/isolated_cpu_embedding.py",
+      "tests/integration/test_isolated_cpu_embedding_composition.py",
+      "tests/unit/test_isolated_cpu_embedding.py"
+    ],
+    "verified_at": "2026-11-12T00:38:38.312776+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "graph": "ExactcleanSELFreportSHA/soleparent/reportonly/Rootorder/preparationparents+treeverified",
+  "source_review": "Rootwholeinitial508source/346unit/305integration/API plusfullfunctionalfix+test-onlyregressiondelta andfullfinalSELFreportread; source/docs/integrationunchangedbetweene9and1ff",
+  "Root_execution": {
+    "Python3.14unit": 29,
+    "Python3.12unit": 29,
+    "exactfunctional_source_standalone": 2,
+    "ruff": "PASS",
+    "original_preflight": "PASS Path2944B/policy1798B/definition1704B/runtimeevents[]",
+    "samevalidfixture_normalizationguardcausality": "PASS solebadzeroacceptance causesDIDNOTRAISE",
+    "warning": "Realcreator-PIDforktestwarnsaboutmultithreadedfork; boundedread/wait/reap, nogeneralforksafetyclaim"
+  },
+  "witnesses": {
+    "raggedized-root-isolated-session-preflight.py": "1336033f9df5f26b81d4100ef3a9d40c3c144f91862dd512546a07c7dc2a7fc4",
+    "raggedized-root-isolated-session-unit-causality.py": "e8fa995c459ee5729051618030279d5e8c33f2147626cc9c0e4bbf85dcbd7aed"
+  },
+  "strongest_counterargument": "Realstage/nativeIDs/processprotocol andtrustedneuralfakes do not prove actualcheckpoint/model inference, uninterruptiblekernelreap, currentrights/actualruntimefileattestation/license/security/physicalcapacity/parity/ICA/MVP. Stagefailure canretainunknownpendingrequiringoperatorreconciliation.",
+  "limits": "LOCALONLY/canonicalintegrationCIpending; sourceplanstillintendedlegacyexecution. Producerneedscompleteplannedworkercontract beforejobidentity thenobservedmatchbeforecontentforward, notlegacyintentpromotion.",
+  "DHA": "NONE"
+}

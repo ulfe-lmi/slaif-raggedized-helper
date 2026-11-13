@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-12T19:15:37.776161+00:00",
+  "status": "EXACT_LOCAL_REPORT_NORMAL_RESPONSE_REVIEWED_WAIT_OPPOSITE_PEER",
+  "receipt": {
+    "lane": "output-repair",
+    "lane_id": "PAR-007-OUTPUT-REPAIR-A",
+    "result": "COMPLETE",
+    "implementation": "e36873090f1bea693823ba2c7b39bb86d880d401",
+    "report_commit": "3fd1d9e6d19c47b439b23f53c593a03a16f9b248",
+    "report_sha256": "846094bd0a75456c22720669e276eeaa16a796a805741c90a88af2c649711dc4",
+    "paths": [
+      "docs/parallel/embedding-output-repair-api.md",
+      "docs/parallel/embedding-output-repair-design.md",
+      "oap/parallel/orders/PAR-007-OUTPUT-REPAIR-A.md",
+      "src/slaif_raggedized_helper/embedding_job_journal.py",
+      "tests/integration/test_embedding_output_repair_composition.py",
+      "tests/unit/test_embedding_output_repair.py"
+    ],
+    "verified_at": "2026-11-12T19:14:26.180754+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "report_bytes": 3545,
+  "Root_review": "audit/007-output-repair-root-review-e368.json",
+  "proof_index": {
+    "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/output-repair/proof-index.json",
+    "bytes": 13947,
+    "sha256": "36c4eca18874aa42d8abf1ebf715f34fba049f19d71e00ba8dbcacb72f127c99",
+    "verified_files": 89,
+    "externalRootdeadlinefailure_verified": true
+  },
+  "review": "ExactcleanSELF/soleparentcurrente368/reportonly/hashverified; all89indexedwitnessbytes/hashes plusRootdeadlinefailureverified. Immutable reporthonestlyseparates historical074current2df, oldexactcomplete testbytesnotretainedafterformat, placeholdercollectionnotruntime, Rootchecksversusauthorcommands.",
+  "limits": "Unsupportedmktempfailure fact retained via decisions/earlierblocker observation; no separate rawmktemp stderr retained was identified. Mainpositive collectionfailure raw output preserved. No realpolicyprovider/discovery/terminalreopen/billing/physicaldrain/model/currentcanonicalCI/Ready/007orMVPqualification.",
+  "remaining": "Opposite%33 review at exactSELF; selectivecanonicalintegration/currentallrequiredCI before broaderacceptance.",
+  "strongest_counterargument": "A COMPLETE diagnostic can be misread as neural/accounting completion; code/docs preserve recoveredmaterialization diagnostic and unknownorigin/accounting/drain; normaloperatorintegrationmustnotturnthisintoReady ordispatchauthority.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

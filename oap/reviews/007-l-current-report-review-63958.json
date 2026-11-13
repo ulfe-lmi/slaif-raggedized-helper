@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-12T14:54:47.979551+00:00",
+  "status": "CURRENT_REPORT_SOURCE_REVIEWED_PENDING_REQUIRED_REPORT_CI_AND_NORMAL_RESPONSE",
+  "report_commit": "63958c436428aebfc5f58247f4eb9119740e35c6",
+  "implementation": "d1d3f0b032946b7babb7cc7ea53b72c1121c98a7",
+  "report_sha256": "b1aed4446ed8ac59cd530b45fe95400e2366a28ceb2ccbda86ccfa827c703d0d",
+  "bytes": 7963,
+  "sole_parent_report_only": true,
+  "strict_machine_header": {
+    "Identifier": "007-l",
+    "Result": "PARTIAL",
+    "Repository": "ulfe-lmi/slaif-raggedized-helper",
+    "PR number": "9",
+    "Branch": "oap/007-embedding-pipeline",
+    "Base branch": "main",
+    "Round base commit": "3b41a6b39d18a4805ecad253b38ffb2fc5ef130f",
+    "PR main base": "11badc7782bed326995d400f5532b63399b91fbd",
+    "Transcript commit": "8ce0f5a82fecbceb3de81336e6d050508eb591b1",
+    "Implementation head SHA": "d1d3f0b032946b7babb7cc7ea53b72c1121c98a7",
+    "Report publication commit": "SELF"
+  },
+  "D0_size_record": "audit/007-l-report-size-D0.json",
+  "review": "Entire report read. Exact ordered topology/counts, source transfer + two ordered test-only exceptions, truthful implementation all5/all78 CI, failed historical CIs and cause/proof, mock vs actual distinctions and honest whole007 PARTIAL. Exact Root D0 quote included with record SHA; source invariance statement repaired. No future push/CI/response claim or claim of real model execution. All production/source review remains exact d1d3; report-only diff introduces no code change.",
+  "strongest_reason_not_to_merge": "Full007 remains incomplete and real BGE/GPU/precision/hardware/current rights/security/license/evaluation/visual/ICA gates open. Report CI pending, not green.",
+  "next": "Wait only dependent gate; continue independent work. No L acceptance/activation of M until actual all5/all78 report CI, strict remote helper, normal response and ledger.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

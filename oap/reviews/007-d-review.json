@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-12T01:35:30.525517+00:00",
+  "status": "REVIEWED_PARTIAL_CONTINUE_SAME007",
+  "round": "007-d",
+  "receipt": {
+    "identifier": "007-d",
+    "pr": 9,
+    "implementation": "244b96e86b741b71319beacf4022d6d6d7f1dff6",
+    "report_commit": "abb269c4b7304e8f3be4c63705c01941dbbb8625",
+    "report_sha256": "26a2e813d9bdd8ea4eff8205b436baecf10d6d949d3701670ecdd03b73c3382b",
+    "verified_at": "2026-11-12T01:26:29.212455+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "implementation": "244b96e86b741b71319beacf4022d6d6d7f1dff6",
+  "report": "abb269c4b7304e8f3be4c63705c01941dbbb8625",
+  "graph": "Exact65f->14file transcript3ab->ONE cleanmerge d10 exact2b50 candidate->7 allowed docs/governance244->soleparent report-onlyabb;45 allowed implementation paths",
+  "source": "All16 exact indexed blobs/hash retained; othercode/deps unchanged;12Rootrecords/order/active exact; full relevant docs/governance diff read; manifestonly2changedhashes/routine49935",
+  "Root_local": "audit/007-d-root-focused-verification.json:43unit+22standalone, same16bytes before/after and atcurrent report. Earlier full component source/witness/peerA+B reviews retained.",
+  "CI": "Implementation43133432374 and report43134432077 independently ALL5_ALL72SUCCESS",
+  "remote": {
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "11badc7782bed326995d400f5532b63399b91fbd"
+      }
+    },
+    "pullRequest": {
+      "headRefOid": "abb269c4b7304e8f3be4c63705c01941dbbb8625",
+      "baseRefOid": "11badc7782bed326995d400f5532b63399b91fbd",
+      "reviewThreads": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      }
+    }
+  },
+  "strongest_reason_not_to_merge": "Whole007 incomplete: canonical lacks latest isolated worker/producer and native cleanup correction; realBGE/exclusiveGPU FP16/CPUquery parity/hardware/currentrights/license/security/fullICA not qualified. Separate old-SHA randomtoy evidence is not fullBGE/MVP proof.",
+  "acceptance_reason": "D0 sourceplan/typedstore/ownership/journal integration matches exact reviewed16blobs, actual tests and fullCI. Partial continuation justified without wholeobjective merge/release. Native ownership issue already independently corrected in local8dae; next exact integration required before whole007 acceptance.",
+  "next": "Continue samePR/007 latest reviewed worker/producer/testfixture CI integration; no jump008/mainmerge/FIFO reread.",
+  "Root_check_correction": "Initial verifier compared manifest top-level envelope as though path/hash map; failed BEFORE writing review/CI result. Corrected explicit files map and reran all assertions; no product defect or prior falsepass.",
+  "DHA": "NONE"
+}

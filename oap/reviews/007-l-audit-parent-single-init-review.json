@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-12T10:11:34.466970+00:00",
+  "status": "FINITE_AFFECTED_SOURCE_PEER_FINAL_VERIFIED",
+  "candidate": {
+    "lane": "audit-parent-single-init",
+    "lane_id": "AUDIT-007-PARENT-SINGLE-INIT-A",
+    "result": "COMPLETE",
+    "target_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+    "report_sha256": "d31dc3a5be937271569fdc14abf4b988283523e630cdc685a4c885843c0e24fd",
+    "verified_at": "2026-11-12T10:11:34.466897+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "Root_review": "audit/007-parent-single-init-peer-root-review-d31d.json",
+  "qualification": "Only exactsource/ownedmodel-freeconstructor+identity boundary. Not canonical/currentCI, actualmodelGPU/precision/physicalvacancy/rights/security/license/quality/fullICA.",
+  "DHA": "NONE"
+}

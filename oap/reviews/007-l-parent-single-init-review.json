@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-12T10:06:50.763233+00:00",
+  "status": "FINITE_SOURCE_REPORT_AND_FRESH_AFFECTED_PEER_VERIFIED_ELIGIBLE_EXPLICIT_LOCAL_COMPOSITION",
+  "candidate": {
+    "lane": "parent-single-init",
+    "lane_id": "PAR-007-PARENT-SINGLE-INIT-A",
+    "result": "COMPLETE",
+    "implementation": "1344e7b2fa29afead4ee630f55f4110246e9ec6f",
+    "report_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+    "report_sha256": "90720de15617f66e4468d1e54970430355e14f37d84fd84f7ae85373ee7b024b",
+    "paths": [
+      "docs/parallel/gpu-parent-single-initialization-design.md",
+      "docs/parallel/owned-gpu-worker-api.md",
+      "oap/parallel/orders/PAR-007-PARENT-SINGLE-INIT-A.md",
+      "src/slaif_raggedized_helper/gpu_embedding_worker.py",
+      "tests/integration/test_owned_gpu_worker_composition.py",
+      "tests/unit/test_owned_gpu_worker.py"
+    ],
+    "verified_at": "2026-11-12T10:06:50.762285+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "source_review": "audit/007-parent-single-init-source-review-1344.json",
+  "verified_report_hashes": [
+    "parent_source",
+    "parent_units",
+    "parent_composition",
+    "historical_witness",
+    "corrected_witness",
+    "check_script"
+  ],
+  "private_worker_harness": "Reported digest retained; peer must inspect exact actual harness before claiming independently verified.",
+  "strongest_counterargument": "The strongest counterargument is that model-free controlled owner and fork tests cannot establish behavior against arbitrary compromised process state or all kernel failures; they establish only the actual owned resources and narrow constructor admission shown. No real model, GPU, complete pipeline, physical vacancy, hardware performance or ICA is qualified. Fresh affected peer review and current canonical integration CI remain open; 007/full MVP remain partial.",
+  "next": "Fresh combined parent/identity affected peer at9ac0. Old13canonicalparentindex remainsHELD; no merge/modelGPU/physicalvacancy/ICA qualification.",
+  "DHA": "NONE",
+  "affected_peer": "parallel/audit-parent-single-init/review.json",
+  "qualification_gate": "Canonical selectiveintegration/currentheadCI and completepipeline/realmodelGPU/precision/rights/security/license/quality/fullICA remainOPEN",
+  "updated_at": "2026-11-12T10:12:30.272068+00:00"
+}

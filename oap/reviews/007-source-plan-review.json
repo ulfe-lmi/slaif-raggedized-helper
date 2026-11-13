@@ -1,0 +1,34 @@
+{
+  "at": "2026-11-12T00:11:50.864349+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_FRESH_SOURCE_BOUND_CPU_BATCH_PLAN",
+  "receipt": {
+    "lane": "source-plan",
+    "lane_id": "PAR-007-SOURCE-PLAN-A",
+    "result": "COMPLETE",
+    "implementation": "55ea655c35b0aa93753b0c68bcfe08c65ead7e9e",
+    "report_commit": "2b50e6587b5362b3da7d092bf355cdd8153712cd",
+    "report_sha256": "cdcf15f35fc41376344d5e5a29f523cc77ccc7d19df678b6b257c6b94bb70dee",
+    "paths": [
+      "docs/parallel/embedding-batch-plan-api.md",
+      "oap/parallel/orders/PAR-007-SOURCE-PLAN-A.md",
+      "src/slaif_raggedized_helper/embedding_batch_plan.py",
+      "tests/integration/test_embedding_batch_plan_composition.py",
+      "tests/unit/test_embedding_batch_plan.py"
+    ],
+    "verified_at": "2026-11-12T00:10:50.188504+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "graph": "Exactcleantip/SELFreportSHA/soleparent/report-only/Rootorder/preparationparents+treeverified",
+  "source_review": "Rootwholeinitial307source/123unit/305integration/29doc andfullcorrectivedelta read; finalSELFreportfullyread; actualschema/source/nativecontracts refreshed",
+  "Root_execution": {
+    "Python3.14unit": 4,
+    "Python3.14standalone_integration": 6,
+    "Python3.12unit": 4,
+    "ruff": "PASS",
+    "original_memory_witness": "PASSpreallocated1MchunkID2208B/modelpath2248B; sourceunchanged"
+  },
+  "witness_sha256": "f056c6870944730beae4a8784b739e12f92910fbbcb9807e2ebbddf62115ce03",
+  "strongest_counterargument": "FreshOriginalStore/nativecount/localartifactadmission derive declarations, not currentACL/publisherprovenance/license/observedneuralexecution. IntendedCPUFP32runtimehash cannot be promoted to observedexecution/parity by this plan.",
+  "limits": "LOCALONLY/currentcanonicalintegrationCIpending; Preparedforgeable; noactualmodel/encoderoutput/storepublication/controller/retry/GPU/ICA/MVP",
+  "DHA": "NONE"
+}

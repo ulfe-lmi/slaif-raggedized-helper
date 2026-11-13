@@ -1,0 +1,85 @@
+{
+  "at": "2026-11-12T11:45:29.759149+00:00",
+  "status": "ROOT_SOURCE_AND_TESTS_PASS_FRESH_CHECKPOINT_PEER_PENDING_NO_REPORT_YET",
+  "implementation": "fb97d51bd3a8a6fb948db0fc0386ff739023dbfa",
+  "identity": {
+    "lane": "gpu-source-plan",
+    "lane_id": "PAR-007-GPU-PLAN-A",
+    "implementation": "fb97d51bd3a8a6fb948db0fc0386ff739023dbfa",
+    "base": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+    "effective_base": "a9a5ef0bcc331cffd0857257f7d6568fce63bac0",
+    "preparation_heads": [],
+    "paths": [
+      "docs/parallel/gpu-embedding-plan-api.md",
+      "docs/parallel/gpu-embedding-plan-design.md",
+      "oap/parallel/orders/PAR-007-GPU-PLAN-A.md",
+      "src/slaif_raggedized_helper/gpu_embedding_plan.py",
+      "tests/integration/test_gpu_embedding_plan_composition.py",
+      "tests/unit/test_gpu_embedding_plan.py"
+    ],
+    "order_sha256": "cb4578d1c236df24da251b6542c3b3d2ca965aacc00ed338b4ddf12840ecf0c9",
+    "at": "2026-11-12T11:45:29.756756+00:00",
+    "reader_pid": 3365068,
+    "scope": "Implementation checkpoint only. Root review required; no acceptance or report yet."
+  },
+  "source_review": "Fullnew218line-ishmodule/two unit cases/eight actual cases/API/design and source/native/prepared/journal dependencies read. Exactsourceorderpreserved, actualindependentlycalledgenericplan/strictscalarpreflight, exactstartupmanifest/definition/inventory/tokenizer+native/space bindings, aftercountstablepredict/startup recheck; completeGPUhashbarevsdistinctintendedGPU and verifiedlegacyCPU replacedONLYdependency; actualjournal.make_spec. Fixedknowntext/count/batchbudgets vsdynamicfutureparentbudget separated. Noobservedexecution/currentrights/noGPUparent/model/journalpublish/borrowedclose.",
+  "source_hashes": {
+    "docs/parallel/gpu-embedding-plan-api.md": "1157660a6b2ec247064bcdee0534823c01089399220a792058320d35ec7e91f4",
+    "docs/parallel/gpu-embedding-plan-design.md": "28d19cc72c94cb1eb8bf820ae8456c2b6f91219af5d2aebb312fbf9bb22c7030",
+    "oap/parallel/orders/PAR-007-GPU-PLAN-A.md": "cb4578d1c236df24da251b6542c3b3d2ca965aacc00ed338b4ddf12840ecf0c9",
+    "src/slaif_raggedized_helper/gpu_embedding_plan.py": "8b80a6e00989dba55481f564693be3a0faee4e6a95a39574a12e547c871bb366",
+    "tests/integration/test_gpu_embedding_plan_composition.py": "6d39dfd0be06327cb8629cfc1e718d370a55511cdf49cfad2964f33cfe521c2d",
+    "tests/unit/test_gpu_embedding_plan.py": "ee03e7fc581204cb9a6e798360e7b7a6b762b305ad46f42333311223bb81890b"
+  },
+  "current_Root_tests": {
+    "007-gpu-plan-root-case0-fb97.log": {
+      "sha256": "6dfb22eba08dfc6ecef722223ce5795b4c2dd73a15f9039c70ac6beaebe1eeb1",
+      "result": ".                                                                        [100%]\n1 passed in 17.76s"
+    },
+    "007-gpu-plan-root-case1-fb97.log": {
+      "sha256": "348850cee77acd0b3ad0e524676413e070f4d4c2c1db5c488b89b38504ade2a3",
+      "result": ".                                                                        [100%]\n1 passed in 9.25s"
+    },
+    "007-gpu-plan-root-case2-fb97.log": {
+      "sha256": "7b4b3de354f346c984d087a22071d04a9f3e8841ad9e6ee4ecaddc009c35dc13",
+      "result": ".                                                                        [100%]\n1 passed in 7.75s"
+    },
+    "007-gpu-plan-root-case3-fb97.log": {
+      "sha256": "06c187720de06339ed01b767991c6f1e71b3208e10025a1e56f938052e3eaa13",
+      "result": ".                                                                        [100%]\n1 passed in 3.93s"
+    },
+    "007-gpu-plan-root-case4-fb97.log": {
+      "sha256": "31597de6913012447eff02acbff4fa14d96839ce5257f672f82d27bcaa889f29",
+      "result": ".                                                                        [100%]\n1 passed in 4.05s"
+    },
+    "007-gpu-plan-root-case5-fb97.log": {
+      "sha256": "2ab4730d516f43c3f414044cb0204f7f4e6f0c5770847d42c0ce9b41a549a02c",
+      "result": ".                                                                        [100%]\n1 passed in 9.61s"
+    },
+    "007-gpu-plan-root-case6-fb97.log": {
+      "sha256": "b593564d2c8d90853ea395e8794be535f02c70b58dbaaa3d1f773164b49ad468",
+      "result": ".                                                                        [100%]\n1 passed in 3.99s"
+    },
+    "007-gpu-plan-root-case7-fb97.log": {
+      "sha256": "c9519f0f5cf77d11e0a06c26435705c61b6722636b52a1ae938e9b83e0d3b4e1",
+      "result": ".                                                                        [100%]\n1 passed in 5.93s"
+    },
+    "007-gpu-plan-root-original-fb97.log": {
+      "sha256": "2c91830f41642f5d44415a24750f5a247f9746a8d4aeb9cf71819387d04b348f",
+      "result": "control_sha256=7245a917768cbd771ab43e0e232b0b25100191ad26a20e67030b8e62b5ce120e\n.\n1 passed in 11.29s"
+    },
+    "007-gpu-plan-root-units-fb97.log": {
+      "sha256": "04f9045341aec350906fdb4b2fd2ca8d85533f4402f255db22f818c33b3b6807",
+      "result": "........................................                                 [100%]\n40 passed in 3.36s"
+    }
+  },
+  "Root_original": {
+    "path": "/tmp/raggedized-root-gpu-plan-manifest-fb97.py",
+    "sha256": "5e67ac5ef63915c34a0a5faf85cad93fd8050e863a3de3a9a5c26bbe388196dc",
+    "result": "Actualsource/native/borrowedprepared withsource manifest appendedone whitespacebyte; genericactualsourceplanadmits same semanticinventory, originalGPUplanrefusesexactstartupbyte mismatch. OwnedtemporaryWHOLEmodule removesONLYmanifestbyteequality, actualfullplan/sourcecount/predict/spec passes; originalagainrefuses;1PASS11.29s/modifiedsourcehash7245a9. Thisprovesexactserializationbinding, NOTdifferentsemanticmodeladmission/security/currentrights."
+  },
+  "committed_controls": "Private_bind/_bind_source one-equality removal on actualderiveddata tests selectedhelpercomparison, notfullAPI acceptance ofauthenticdifferentGPUcontract. Changed_predictionmock is negativeconsistency input, notauthenticobservedexecution. RootfullAPIcontrol separatelyrunsactualhelpers.",
+  "strongest_counterargument": "Sources/predictedstablefiles maymatch whileactualGPUexecution/precision/ABI/currentrights remainunproven; declarationandDTOforgeablenoauthority. Heavyselectedbytehashes materialcost, no performancequalification. Freshpeer/currentcanonicalintegrationCI/GPUproducer/controller/license/heldout/ICA/MVP remainopen.",
+  "peer": "parallel/audit-gpu-source-plan/manifest.json",
+  "DHA": "NONE"
+}

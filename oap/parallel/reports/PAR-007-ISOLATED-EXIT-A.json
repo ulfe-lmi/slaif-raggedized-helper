@@ -1,0 +1,24 @@
+{
+  "lane_id": "PAR-007-ISOLATED-EXIT-A",
+  "result": "COMPLETE",
+  "implementation_head": "48aafeefdb65b1fbcd340f3fb32ddda811c42117",
+  "report_publication_commit": "SELF",
+  "api": "Original body interrupt remains primary; new cleanup interrupt outranks ordinary body error; ordinary cleanup error preserves body error. Escaping cleanup failures retain fixed note and owner.",
+  "verification": [
+    "PYTHONPATH=src pytest -q tests/unit/test_isolated_cpu_embedding.py tests/integration/test_isolated_cpu_embedding_composition.py: 37 passed",
+    "PYTHONPATH=src:tests/unit pytest -q tests/integration/test_isolated_cpu_embedding_composition.py: 3 passed standalone",
+    "PYTHONPATH=src:tests/unit pytest -q tests/integration/test_cpu_embedding_plan_composition.py tests/integration/test_embedding_batch_plan_composition.py: 7 passed",
+    "Initial plan test collection without tests/unit on PYTHONPATH failed; corrected invocation passed.",
+    "Four original Root witnesses run using execution-plan .venv Python: all passed after correction; isolated-exit positive passed and negative failed before correction as expected.",
+    "ruff check on three changed Python files and git diff --check: passed.",
+    "Root checkpoint REPORT at exact implementation head independently recorded 36 unit and 4 standalone passing."
+  ],
+  "witness_sha256": {
+    "isolated-exit-priority": "558dafc75eb692d4dedfd6bbb5c7bcf025541c1f9281623402772134efaf93da",
+    "native-close-ownership": "cde42ab88365d21dd190b76eb9ac54f7ee42944ed8267fec36d2147cbbc98694",
+    "native-interrupt-priority": "92cd6a25d80ccc9e0673400d3db121b8bff71111e40816988650d9e8ce5d9d73",
+    "producer-lease-interrupt": "bfdf4ade9ff01aaacee982f6f5693307ff41723cad6b28f89c947aed75852781"
+  },
+  "limits": "Python invocations used execution-plan .venv, PYTHONDONTWRITEBYTECODE=1, single thread settings, 1 GiB address space, 30 CPU seconds and 120 second timeout; native 0.21.4 and synthetic CPU packages as ordered. Existing multithreaded fork test emitted DeprecationWarning. Fake neural framework; finite cleanup is not universal reaping or hardware qualification. Canonical integration, combined source tests and CI remain required. No security, license, ICA or whole-007 clearance.",
+  "dha": "NONE"
+}

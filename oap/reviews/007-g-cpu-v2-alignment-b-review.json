@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-12T03:50:31.720217+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_CPU_SELECTIVE_ALIGNMENT_ONLY",
+  "implementation": "8d71e52fcf3d0f90ee60eb79b5b38d939724ddf6",
+  "report_commit": "7a008eefef3055bd1d9f5c737e26b2ebddacd800",
+  "report_sha256": "7ec27b0417b2ae54ebcc3ba193e5c6a56cefe833ffcc25134de809226c1dd94c",
+  "report_bytes": 4732,
+  "source_review": "audit/007-cpu-v2-alignment-b-source-review-8d71.json",
+  "Root_evidence": "177unit+5SEPARATEintegrations40cases+5originalwitnesses/ruff/diffPASS; exactnineblobs +producerpure2env+append/allcleanup preserved",
+  "reported_full_unit": "1384PASS67.54s after honestinitialmissingnativevariables57FAIL/1315PASS/12ERROR; notRoot-full-reproduction/currentCIclaim. LatercanonicalcurrentCIrequired.",
+  "graph": "ExactsoleparentSELF/reportonly/currentcleantip/preparation/order/ninetransferandfivewitnesshashesverified",
+  "strongest_counterargument": "Fakes do notqualifyactualframework/model/security/license/parity/hardware; knownGPUpeerdefects inancestrystillblockrawGPUintegration.",
+  "disposition": "AcceptfiniteCPUselectivetransferonly; latercanonicalexact11+profile/lightfixture, BOTHlegacy/V2CIfixtures. Do not broadmergecandidate or claimwhole007/ICA/MVP/mainmerge.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

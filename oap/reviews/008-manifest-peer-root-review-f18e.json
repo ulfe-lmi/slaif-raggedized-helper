@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T09:03:43.018289+00:00",
+  "target": "b7a2b520ac543d3e78080aa163047b112e0b579f",
+  "draft_sha256": "f18e3be9b00b5efe615fc19e91b537216f9a9539d869234f989890b44b384931",
+  "status": "COMPLETE_FINITE_MANIFEST_PEER_DRAFT_SOURCE_EVIDENCE_VERIFIED",
+  "source_artifact_hashes_verified": 8,
+  "Root_review": "Full draft and225linecodec/peeroriginalscript read; currentexactcleantarget/hashverified; Root independentpeerwitness exit0 samebounds. Helper bypass is only actualcombinedsum/file-membershipcheck at exactsource line203, badfixture changescountalone, allotherchecks retained. It proves declaredcountguardnecessity, notpayload/actualsnapshottruth.",
+  "Root_original_witness": "audit/008-manifest-peer-root-witness-f18e.log",
+  "provenance": "Fresh scoped context; this pane has historical manifest authoring context and same-account transitive history, so this is not independent author identity. Root independently inspected source and original controls.",
+  "strongest_counterargument": "Well-shaped metadata can assert passed and hashes without corresponding payload, rights or truthful rows; accepting it as a snapshot would be unsafe. Acceptance is justified only for the finite pure format candidate, whose API and design explicitly preserve those gates.",
+  "limits": "4096 rows, 128 partitions, 258 files and 96 MiB declared total are admitted bounds, not capacity benchmarks. Actual raw payload, source and deletion coverage, ACL/rights, normalization, row correspondence, fresh loader and retrieval smoke, staged publication and CAS, handle retention, model and precision qualification, full ICA and current integration CI remain unproven. No canonical 008 activation, hardware qualification, readiness, merge or release conclusion."
+}

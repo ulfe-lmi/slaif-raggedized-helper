@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-12T06:40:35.861328+00:00",
+  "status": "LOCAL_LAUNCH_PLAN_SOURCE_REPORT_REVIEWED_PENDING_AFFECTED_PEER",
+  "implementation": "37b968b2df703573748bd8ec2ede7ec621b3c9ad",
+  "report_commit": "581321e7bebcf13f92c99d5bfdae859bb2054eaa",
+  "report_sha256": "191993d77bf0c8dfb1e4c8578e4fd23c97de735377d55973b845bb6b5a05e810",
+  "Root_source_review": "audit/007-gpu-launch-source-review-37b9.json",
+  "Root_hashes": "audit/007-gpu-launch-source-hashes-37b9.json",
+  "graph": "CleanexactcurrentHEAD/soleparent/reportonly/SELF/order/design/12childsourcehashes+newmodule/integrationhash verified",
+  "strongest_counterargument": "The model-free OS proof deliberately substitutes the device and backend and cannot establish production GPU or driver behavior, while the new prelaunch cleanup and integration still require independent affected peer review. Acceptance here is a local leaf candidate only.",
+  "disposition": "Puredependentparentworkmaycontinue; no canonicalintegrationuntilfreshaffectedpeer/currentheadCI. No model/runtime/hardwarequalification.",
+  "DHA": "NONE",
+  "no_FIFO_read": true,
+  "affected_peer": {
+    "review": "parallel/audit-gpu-launch-plan/review.json",
+    "sha256": "c612f62743a40e61b0f8065b8bfe0329fa3dc7d222657ef7548a09b4c6983850",
+    "decision": "ACCEPT_CANDIDATE",
+    "scope": "Freshreviewerpane33,authorpane32,sameaccountidentitylimitsdisclosed;notfullICA"
+  },
+  "current_disposition": "ELIGIBLE_FUTURE_EXPLICIT_CANONICAL_INTEGRATION_CURRENT_SOURCE_CI_REQUIRED"
+}

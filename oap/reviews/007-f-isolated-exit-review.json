@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-12T02:24:01.199942+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_ISOLATED_CONTEXT_INTERRUPT_PRIORITY",
+  "tip": "52252484baf733c98e42963ce759c0b5db27b006",
+  "implementation": "48aafeefdb65b1fbcd340f3fb32ddda811c42117",
+  "report_sha256": "efaae34670b6d4e69af8fa4fb7d191ea972c66d54653f92a271ef05095d8b8bd",
+  "graph": "Exact clean report-only sole-parent/SELF verified; full report read",
+  "source_review": "audit/007-isolated-exit-source-review-48aa.json",
+  "Root_tests": {
+    "units": 36,
+    "standalone_integrations": 4,
+    "original_witnesses": [
+      "isolated-exit-priority",
+      "native-close-ownership",
+      "native-interrupt-priority",
+      "producer-lease-interrupt"
+    ],
+    "results": "ALL_PASS",
+    "ruff": "PASS threads1",
+    "diff": "PASS",
+    "warning": "Existing standalone fork in multithreaded parent DeprecationWarning, not generic fork safety proof"
+  },
+  "strongest_reason_not_to_accept_whole007": "Journal/producer and canonical exact integration/current CI open; no new actualmodel/GPU/currentrights/security/license/parity/ICA evidence.",
+  "DHA": "NONE"
+}

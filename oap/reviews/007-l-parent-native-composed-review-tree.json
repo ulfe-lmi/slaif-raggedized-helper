@@ -1,0 +1,55 @@
+{
+  "at": "2026-11-12T10:20:39.114637+00:00",
+  "status": "EXACT_J_PLUS_K8_PLUS_PARENT_NATIVE23_DISPOSABLE_COMPOSITION_PASS_NOT_CURRENT_CANONICAL_ACCEPTANCE",
+  "directory": "/tmp/raggedized-root-k8-parent-native-g382ftdy",
+  "source_index": "audit/007-l-parent-native-components-DRAFT.json",
+  "source_files": 23,
+  "source_bytes": 250571,
+  "forecast_base": "currentJ41b093 plus exactK8 immutablecodec47707B forecast, NOT canonicalcurrentKimplementation acceptance",
+  "runs": [
+    {
+      "case": "units",
+      "passed": 112,
+      "exit_code": 0,
+      "log": "audit/007-l-composed-units.log",
+      "sha256": "30a77769315d6f7a3dbdf7d1dc4d596b3669fa83a8ca213744807567f4b91282"
+    },
+    {
+      "case": "native",
+      "passed": 8,
+      "exit_code": 0,
+      "log": "audit/007-l-composed-native.log",
+      "sha256": "9821c6846d4e68d0b9c0f0f617dff5c7d9d4760718dbbc6a9e4ba593e679a1f5"
+    },
+    {
+      "case": "parent",
+      "passed": 2,
+      "exit_code": 0,
+      "log": "audit/007-l-composed-parent.log",
+      "sha256": "b4d9e039e607048c3c7de2bc3d5061653be5cfff93dfdabed03617b5a20555b7"
+    },
+    {
+      "case": "identity",
+      "passed": 1,
+      "exit_code": 0,
+      "log": "audit/007-l-composed-identity.log",
+      "sha256": "91e1dcbbe9fa120f04ad1e89927c3f4abffd42b88ce0404de130c4a71460e0e4"
+    },
+    {
+      "case": "query",
+      "passed": 3,
+      "exit_code": 0,
+      "log": "audit/007-l-composed-query.log",
+      "sha256": "0e9ff7cc87fb6b784ca013e03f6ff211bd23ed7d932f09e415db16e273c8198b"
+    },
+    {
+      "case": "isolated",
+      "passed": 3,
+      "exit_code": 0,
+      "log": "audit/007-l-composed-isolated.log",
+      "sha256": "7966afcfa34c06274adefee9308a6fbcf09a1f3f59a9387b2d5023e86b71a2eb"
+    }
+  ],
+  "scope": "112units +actual8nativeacquisition/2parent/1identity/3query/3isolated composition PASS, all commands original1GiBAS30CPU120wall/threads1; existingforkwarning retained. Only actualnative0.21synthetic/fakeGPU&CPU fixtures, no actualneural/GPU/hardware/rights/precision/ICA qualification. CurrentKresponse/CI/Rootresolution thenfinalexactnextorder required; oldK13HOLD history neveractivated.",
+  "DHA": "NONE"
+}

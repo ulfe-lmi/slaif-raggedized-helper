@@ -1,0 +1,117 @@
+{
+  "at": "2026-11-12T22:34:27.671297+00:00",
+  "status": "FROZEN_STRATEGIC_TRANSCRIPT_INPUTS_S",
+  "entries": [
+    {
+      "source": "audit/007-r-review.json",
+      "target": "oap/reviews/007-s-prior-rejected-review.json",
+      "bytes": 2254,
+      "sha256": "310216e4cdae6ad10c1ab1d65751f17d74351f534a268e59169e370fa2c5ae72"
+    },
+    {
+      "source": "audit/007-r-resolution-timing-event.json",
+      "target": "oap/reviews/007-s-prior-timing.json",
+      "bytes": 781,
+      "sha256": "2d5987079f62a4ef1cd4246431eca72c26aec43f92504e2f1bbc61922d03f787"
+    },
+    {
+      "source": "audit/007-r-published-format-rejection.json",
+      "target": "oap/reviews/007-s-prior-format-rejection.json",
+      "bytes": 1095,
+      "sha256": "93fe341d93d24ad354696dda0bce441608bbaeb4522c1ba94bf622fddce27152"
+    },
+    {
+      "source": "audit/007-r-terminal-author-root-reconciliation.json",
+      "target": "oap/reviews/007-s-prior-terminal-reconciliation.json",
+      "bytes": 1031,
+      "sha256": "ee4c547f37828bb3b17251f375a9b1250ae4e1b79bdb629c26b56b11be8ba30c"
+    },
+    {
+      "source": "audit/007-r-current-report-CI-root-review.json",
+      "target": "oap/reviews/007-s-prior-current-CI-review.json",
+      "bytes": 1052,
+      "sha256": "030094506d1e4eea9f95e525520077ac06c6758a74bc81a95b101a8629584d6d"
+    },
+    {
+      "source": "audit/007-r-current-report-CI-observed-2214.json",
+      "target": "oap/reviews/007-s-prior-current-CI-snapshot.json",
+      "bytes": 8968,
+      "sha256": "67565fe0c3d8372fc0b31a821a90a977abc39dd3e575f8ef71ee36fb118fd794"
+    },
+    {
+      "source": "audit/007-r-current-reviews.json",
+      "target": "oap/reviews/007-s-prior-PR-reviews.json",
+      "bytes": 586,
+      "sha256": "5568a32626fc29217fdecbca618a7a6da37c6b389fd791db3466056c2023cb67"
+    },
+    {
+      "source": "audit/007-r-authoritative-idle-observation.json",
+      "target": "oap/reviews/007-s-prior-current-idle.json",
+      "bytes": 1811,
+      "sha256": "e9e00118aec371d901b6f909c785285960415673ecf6800c59f3861527458794"
+    },
+    {
+      "source": "audit/007-r-owned-reader-retirement.json",
+      "target": "oap/reviews/007-s-prior-reader-retirement.json",
+      "bytes": 1349,
+      "sha256": "b751b6536c7492c6ede42c9be4990fb9e7a35237665e063d9686e762c253e533"
+    },
+    {
+      "source": "audit/007-watchdog-root-implementation-review-87be.json",
+      "target": "oap/reviews/007-s-watchdog-source-review.json",
+      "bytes": 2405,
+      "sha256": "c848172d967b9cb65ecaf1be3a9b6b9a0a5e0e630e16c45391a096e68fe22ac1"
+    },
+    {
+      "source": "parallel/watchdog-proc/local-admission.json",
+      "target": "oap/reviews/007-s-watchdog-local-admission.json",
+      "bytes": 902,
+      "sha256": "2832eeddd9135e4086e00351c89782a11403b1f2c7590ccd4f869053842ae95d"
+    },
+    {
+      "source": "parallel/audit-watchdog-proc/report.json",
+      "target": "oap/reviews/007-s-watchdog-opposite-review.json",
+      "bytes": 7768,
+      "sha256": "f1bc868c72a272a3a7b8e0ee3d8dbb45e0169fa9176e35badb9f79155d7cf1d7"
+    },
+    {
+      "source": "audit/007-watchdog-peer-root-review-f1bc.json",
+      "target": "oap/reviews/007-s-watchdog-opposite-Root-review.json",
+      "bytes": 1389,
+      "sha256": "b8b835468567b2445ad101b08c920f7d35ca00be78d1dd3f975cc7e2efd43936"
+    },
+    {
+      "source": "parallel/report-format-recovery-review/report.json",
+      "target": "oap/reviews/007-s-format-recovery-opposite-review.json",
+      "bytes": 9853,
+      "sha256": "ae70c61a219cce5dad1bea236ba567cc4b86e1bdf3eb4e98ac88daa8c31ec249"
+    },
+    {
+      "source": "audit/007-r-format-recovery-peer-root-review-ae70.json",
+      "target": "oap/reviews/007-s-format-recovery-opposite-Root-review.json",
+      "bytes": 2137,
+      "sha256": "e85b03a8a8dd20709e172963adf21ad7c5d29afbe765a5b9267aab525027b91e"
+    },
+    {
+      "source": "audit/007-r-format-recovery-root-validation-review.json",
+      "target": "oap/reviews/007-s-format-recovery-readonly-validation.json",
+      "bytes": 3442,
+      "sha256": "cf5858291dfc57fce2f4c5ccec841dd8f52403e669531e27440ad162fbced5b3"
+    },
+    {
+      "source": "audit/007-r-format-recovery-publication-v3-DRAFT.py",
+      "target": "oap/reviews/007-s-format-recovery-helper-source.txt",
+      "bytes": 19102,
+      "sha256": "47bc852c3d63b6f6f9c00441adeb5f3167dee1e58d9ce12052ea022fe0422f93"
+    },
+    {
+      "source": "audit/007-r-gateway-role-components.json",
+      "target": "oap/reviews/007-s-preserved-gateway-components.json",
+      "bytes": 3349,
+      "sha256": "12f22e26f0c23a000706e2fed62566be0c90981ab36900f542ab5fb34eb4e7b7"
+    }
+  ],
+  "total_source_bytes": 69274,
+  "note": "Rootauthoritative strategicbytes, codingcommitsunchanged; identitychecksnotfullsemanticread. HelperisarchivalTEXTONLYforreview, neverexecutedbycoding. OriginalRreportpreserved/REJECTED_FORMAT, noconfig/law/TESTINGbudget change.",
+  "DHA": "NONE"
+}

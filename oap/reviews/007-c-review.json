@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-12T00:40:40.075106+00:00",
+  "status": "REVIEWED_PARTIAL_CONTINUE_SAME007",
+  "pr": 9,
+  "implementation": "cef832317989ef2ba933692e27eb38d994c820f2",
+  "reviewed_report": "65f1ab5b2668b418a4a10ee6d83af84322196d12",
+  "report_sha256": "f034e26e620d324ccef65d7c881687e01989f5b3a5a65b928d9fafcad967e899",
+  "source_graph": "audit/007-c-source-pre-review.json exact21indexedblobs/actualmergeparents+tree/8Rootrecords/order/active/unchangedothercode+deps verified; allowedfull docsdelta read",
+  "report_remote": "FullSELFreportread; audit/007-c-remote-final.json exactuniqueOPENPR9/main11bad/branch/no draft/auto-merge/zero unresolvedthreads/clean/report-onlysoleparent andremotehashverified. ReportBasecommitidentifiesPRmainbase; actualroundbasecdf312 separatelyverified.",
+  "Root_local": "audit/007-c-root-focused-verification.json PASS116unit+5separatestandalone+2unchangedoriginalboundary/faithfulASTcausalitywitnesses; exactindexedsourceunchangedbefore/after",
+  "coding_full_local": "Reported1123unit/569integration/41OAP+ruff/compileall/console/governance, independently corroborated by exactimplementationCI; not rerunindiscriminately",
+  "CI": {
+    "implementation": "43127183557 ALL5_ALL72SUCCESS independentlyasserted audit/007-c-implementation-CI-final.json",
+    "report": "43128664562 at65f1ab5 lastobserved3OAPSUCCESS/2productIN_PROGRESS, NOTGREEN; audit/007-c-report-CI-observed.json. Gates merge/acceptance notboundednextsamePRdevelopment."
+  },
+  "governance": "check_state0/49936bytes/currentmanifest47faf2ab; authorizedsamebytesTESTINGconsolidation onlymanifestdelta. Immutableorder headerretainsactivationmanifest. DHAregisterzero/unchanged",
+  "privacy_auth_accounting_licenses": "Source/native/inputvalidation/trace/cleanup andtrustedfakeframework limitsread. No actualML/privatecorpus/credential/network/GPU; no currentrights/license/precision/hardware facts invented. Existingdependencygraphunchanged.",
+  "strongest_counterargument": "In-process CPU-session undertrustedfakes doesnotestablish realresidentencoder/processisolation/currentrights/licenses/CPU-GPUparity/security/hardware. ReportheadCI stillpending. Whole007acceptance/merge thereforewithheld.",
+  "continuation_justification": "ExactboundedCPU-sessionsoftware matchesarchitecture,21source/test/APIblobs unchangedfromreviewedcandidate, relevantcurrentRootchecks andallrequiredimplementationchecks pass; reportonlychangesimmutabletext. SamePRnextscopedD0integration mayproceedwhile reportCI finishes, no falsegreen/nextnumeric/merge.",
+  "next": "007-d exactaccepted2b50source-plan/durablestore/ownership/journal16file integration aftercurrentdirty/runtime/quiescenthandoff, futureCPUworker/probe/producer gates separate",
+  "DHA": "NONE",
+  "release_deploy": "NOTAUTHORIZED/NOTPERFORMED"
+}

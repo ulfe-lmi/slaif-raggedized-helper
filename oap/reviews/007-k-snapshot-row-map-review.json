@@ -1,0 +1,26 @@
+{
+  "status": "LOCAL_ROW_MAP_SOURCE_REPORT_VERIFIED_PENDING_FRESH_PEER",
+  "candidate": {
+    "lane": "snapshot-row-map",
+    "lane_id": "PAR-008-ROW-MAP-A",
+    "result": "COMPLETE",
+    "implementation": "1bd63a13471e45abe8a0ca1d36b1a5a4e22fb550",
+    "report_commit": "09fe0d5e02e01b514378facadb7d50cca12ef471",
+    "report_sha256": "2d41b0ab17adf42c307a2b8af4eb806252d6b75aeaac292e093cf75d73351565",
+    "paths": [
+      "docs/parallel/raw-snapshot-row-map-api.md",
+      "docs/parallel/raw-snapshot-row-map-design.md",
+      "oap/parallel/orders/PAR-008-ROW-MAP-A.md",
+      "src/slaif_raggedized_helper/raw_snapshot_rows.py",
+      "tests/unit/test_raw_snapshot_rows.py"
+    ],
+    "verified_at": "2026-11-12T09:36:46.111029+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "source_review": "audit/008-row-map-source-review-1bd6.json",
+  "verified_source_hashes": 6,
+  "Root_evidence": "50units/3originaldeclaredsubset/header/noIO/withdrawn-membershipcausalPASS exactsource; no actualfiles/vector/source/currentrights claims",
+  "strongest_counterargument": "Consistent declarations and pure mutation controls do not establish actual source-to-vector correspondence or authorization; fabricated well-shaped hashes can pass. Source-verified loading and independent integration remain required.",
+  "scope": "Data only. No actual payload/source/rights/deletion, normalization, dense/lexical files, rendered-input adapter, loader, publish CAS, pinned handles, real model, precision, quality, security, license, ICA or canonical CI proof. Existing legacy dense_index.DenseIndex requires a new source-verified adapter; prefix conversion does not establish identity. No canonical 008 activation, 007 closure or MVP claim. Root corrected the earlier frozen JSON assertion in audit/008-row-binding-root-review-7623.json; no product fault inferred. No push, PR, merge, deployment or protected resources.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,44 @@
+{
+  "lane_id": "PAR-007-ARTIFACTS-B",
+  "result": "COMPLETE",
+  "implementation_head": "d163a56ed12df1507eb178ac69ac6f7ca1be5acb",
+  "report_publication_commit": "SELF",
+  "base": "55513f55b3c17e97704ed2a944c0680ad6bf9a7f",
+  "api": "verify_artifacts(manifest_bytes, artifact_root, *, timeout=30) returns frozen VerifiedInventory or raises input-free ArtifactRefused; details in docs/parallel/embedding-artifacts-api.md.",
+  "source_evidence": {
+    "order_sha256": "4a8e6723bda080aa53b67b120be292b448ae1bccc8ed697920ffe5d292c695f2",
+    "public_config_audit_sha256": "bc1b567039d434d20706f48f93125efb9a0597fd4178c0847d061e6c7b8ed941",
+    "public_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+    "inputs": "Inspected audit plus local config/tokenizer metadata at /tmp/qual006.yqp82n2D/bge-m3 and official module/pooling evidence; no model weights downloaded."
+  },
+  "checks": [
+    {
+      "command": "timeout 120s uv run --isolated --locked --offline --python 3.14 python -c <set RLIMIT_CPU=30, RLIMIT_AS=1GiB; pytest.main focused unit and integration files>",
+      "exit": 0,
+      "result": "32 passed, 0.17s; synthetic CPU fixtures"
+    },
+    {
+      "command": "uv run --isolated --locked --offline --python 3.14 ruff check src/slaif_raggedized_helper/embedding_artifacts.py tests/unit/test_embedding_artifacts.py tests/integration/test_embedding_artifacts_composition.py",
+      "exit": 0,
+      "result": "All checks passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit": 0
+    },
+    {
+      "command": "cmp oap/parallel/orders/PAR-007-ARTIFACTS-B.md /home/janezp/codex-supervision/slaif-raggedized-helper/parallel/embedding-artifacts-b/order.md",
+      "exit": 0
+    }
+  ],
+  "witnesses": "Positive complete synthetic directory and root-independent inventory; tamper, size, missing, symlink, directory/FIFO, world/group write, unsafe paths, duplicate descriptors/JSON keys, large declarations, deadline, concurrent replacement, coherent wrong pooling/dimension/module, auto_map and custom tokenizer refusal. Tests check input-free refusal and unchanged input files on semantic failures. Initial fixture tests exposed group writable default files; fixed fixture permissions then reran.",
+  "witness_sha256": {
+    "implementation": "4f8a4244ba13fc5d4a8d0a0916db98aebecccf392dad4b451b5f74f0e6b04b91",
+    "unit": "241fb10562b8590bec9106e2fc92300fbf6fb8232d45852976bd3a6637a4a698",
+    "integration": "7701d5647f522cdee2575322d0808a431d652e88c17633ed611e49efaf5a3892",
+    "documentation": "d522dca383afdeeed26e549a9d020d9f2cb15a9a0347e589753116fcd5ee6c3b"
+  },
+  "limits": "Cooperative deadline cannot interrupt blocked filesystem calls; tree-wide snapshot is not atomic and tree must remain protected after verification. Operator manifest is not publisher provenance, license evidence, model construction, authorization, real inference or device qualification. No real model, GPU, services, deployment, push, merge or release.",
+  "dependencies": "Existing locked Python environment; no added dependency.",
+  "DHA": "NONE"
+}

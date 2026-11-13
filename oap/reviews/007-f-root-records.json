@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-12T03:20:14.120094+00:00",
+  "records": [
+    {
+      "source": "audit/007-e-review.json",
+      "target": "oap/reviews/007-e-review.json",
+      "sha256": "b593f86962eb736b27276f82a6d7b1da4504106f7bb72550e7452e1fd8b9fcc0"
+    },
+    {
+      "source": "audit/007-e-implementation-CI-final.json",
+      "target": "oap/reviews/007-e-implementation-CI-final.json",
+      "sha256": "c6ab215a600d8e4d255f830f015bb28a68bbcb63ba99094497929147f4c084e3"
+    },
+    {
+      "source": "audit/007-e-report-CI-final.json",
+      "target": "oap/reviews/007-e-report-CI-final.json",
+      "sha256": "bc264f39713b904db1665129b03e980cda946ab4c6bb2f7079160c0653c0b024"
+    },
+    {
+      "source": "audit/007-e-GitHub-current-final.json",
+      "target": "oap/reviews/007-e-GitHub-current-final.json",
+      "sha256": "886f761316d734257f3d9c1bc5b21a3994969552458aa8c95b0967bac2654063"
+    },
+    {
+      "source": "audit/007-e-root-installed-cli-reproduction.json",
+      "target": "oap/reviews/007-e-root-installed-cli-reproduction.json",
+      "sha256": "92a419d70e93ce87c7b350a298c9492388b7c6c8cdbb704626b5fa2243c61bde"
+    },
+    {
+      "source": "parallel/audit-cpu-producer-b/report.json",
+      "target": "oap/reviews/007-f-peer-producer-b-report.json",
+      "sha256": "f03d79e2e64bd5827b666e9c77eade3f1d1730f4250df5f3c99b9ca816f55106"
+    },
+    {
+      "source": "parallel/audit-cpu-producer-b/review.json",
+      "target": "oap/reviews/007-f-peer-producer-b-review.json",
+      "sha256": "ba4cd9e399166e2bf8cfdcc57b29f90eaf31cd5a04db53d52ddbd7aedd9892a3"
+    },
+    {
+      "source": "audit/007-journal-producer-cleanup-findings.json",
+      "target": "oap/reviews/007-journal-producer-cleanup-findings.json",
+      "sha256": "b07919a7dae92c8a5f63ffc8802042b0f5b41cdfe1a0f40a21279c6435e7f80f"
+    },
+    {
+      "source": "audit/007-f-composed-review-tree.json",
+      "target": "oap/reviews/007-f-composed-review-tree.json",
+      "sha256": "01e622827aa216f714d78aeb63885f2fff33a432a8700ee5294e7aec658a1c0e"
+    },
+    {
+      "source": "parallel/gpu-device-lease/review.json",
+      "target": "oap/reviews/007-f-gpu-device-lease-review.json",
+      "sha256": "358863c977c9021218b4f3ff0901ff54089ff1864c06741c3d9ab455a3c7ed41"
+    },
+    {
+      "source": "parallel/cleanup-composition/review.json",
+      "target": "oap/reviews/007-f-cleanup-composition-review.json",
+      "sha256": "fe37ec229ad5fd44bf05acb819106d15011770cb7aad5002708a7ea2ced1d6b5"
+    },
+    {
+      "source": "parallel/isolated-exit/review.json",
+      "target": "oap/reviews/007-f-isolated-exit-review.json",
+      "sha256": "d7775c28ed66fe492d7a26574b06142bac4f6d824a6f0ac3d396c16e8a883364"
+    },
+    {
+      "source": "audit/007-f-components.json",
+      "target": "oap/reviews/007-f-components.json",
+      "sha256": "199fd1a248023448cfd9027182590aebe3ea96e71a1fc306e4c8750bd0b84d24"
+    },
+    {
+      "source": "audit/007-legacy-fixed-route-static-observation.json",
+      "target": "oap/reviews/007-legacy-fixed-route-static-observation.json",
+      "sha256": "f610a84a292d466323b11c5873e152016e63bc872deb8c77af0a81ad64f45775"
+    }
+  ],
+  "scope": "Root exact review/evidence snapshots, no mutableSTATE/runtime/FIFOs/privatepermits/modelweights. Source/rootcandidatehashes proveidentity, notwhole007acceptance."
+}

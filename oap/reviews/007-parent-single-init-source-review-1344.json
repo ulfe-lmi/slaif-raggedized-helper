@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-12T10:05:57.858625+00:00",
+  "implementation": "1344e7b2fa29afead4ee630f55f4110246e9ec6f",
+  "status": "SOURCE_REVIEWED_ALLOW_REPORT_FRESH_AFFECTED_PEER_REQUIRED",
+  "source_review": "Full12line constructor guard,108line actual OS case,7line pending-owner unit assertion and API append reviewed. Actual creating PID in __new__, actual short admission lock/once flag before any prior owner mutation; original ready9/lock10/source/forward/close/Popen boundaries unchanged. Exact6paths/solebase/order/design/clean verified; ruff/diff pass.",
+  "tests": {
+    "007-parent-single-init-root-acquisition-1344.log": "5 passed, 24 deselected in 5.89s",
+    "007-parent-single-init-root-hostile-1344.log": "7 passed, 22 deselected in 11.78s",
+    "007-parent-single-init-root-identity-1344.log": "1 passed in 15.21s",
+    "007-parent-single-init-root-launch-protocol-1344.log": "43 failed, 17 passed in 2.25s",
+    "007-parent-single-init-root-launch-protocol-env-1344.log": "60 passed in 12.59s",
+    "007-parent-single-init-root-lock-race-1344.log": "5 passed, 24 deselected in 8.62s",
+    "007-parent-single-init-root-new-1344.log": "1 passed, 28 deselected in 2.88s",
+    "007-parent-single-init-root-normal-1344.log": "11 passed, 18 deselected in 23.57s",
+    "007-parent-single-init-root-original-1344.log": "1 passed in 3.62s",
+    "007-parent-single-init-root-units-1344.log": "30 passed in 13.54s"
+  },
+  "Root_setup_erratum": "First launch/protocol invocation omitted required SLAIF_GPU_TEST_ROOT/PACKAGES:43KeyError fixture failures/17pass. Preserved original log; corrected env invocation60PASS, no source/cap changes or product fault claimed.",
+  "strongest_counterargument": "Finite synthetic fake-backend/null-device cases and exact owned reinitialization control cannot prove arbitrary kernel interruption or model/GPU behavior. Old affected peers do not cover new constructor12lines; fresh affected review/currentcanonicalCI still required.",
+  "DHA": "NONE"
+}

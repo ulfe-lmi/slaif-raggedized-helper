@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T04:18:13.069481+00:00",
+  "implementation": "485fc6877120597ad86a3f70e2b457eaa0d7f3e6",
+  "target": "/tmp/raggedized-root-cpu-v2-portable-485fc687",
+  "receipt_sha256": "d92aa04b74a69e9daab681dffb5b5825b2447d3733fc83a7c3f2b77859bfe81d",
+  "runtime": "/tmp/raggedized-root-cpython312-portability",
+  "runtime_version": "3.12.15",
+  "actual_distributions": 6,
+  "synthetic_metadata_only": 32,
+  "sampled_peak_disk_bytes": 21377281,
+  "network_bytes": "UNKNOWN",
+  "classification": "Root actual boundedLIGHT setup atdifferenttrustedprefix, no realML/GPU"
+}

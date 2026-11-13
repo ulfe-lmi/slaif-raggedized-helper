@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-12T01:18:11.032244+00:00",
+  "status": "FINAL_LOCAL_CANDIDATE_ACCEPTED_OWNED_REAL_CPU_TOY_EVIDENCE_ONLY",
+  "receipt": {
+    "lane": "cpu-toy-probe",
+    "lane_id": "PAR-007-CPU-TOY-PROBE-A",
+    "result": "COMPLETE",
+    "implementation": "88e788e288c4a1de552e2aec0e7a501c3bc067b0",
+    "report_commit": "c1680321da993171afc442167ad4c687e6354283",
+    "report_sha256": "332ca9ef14a85b9b1aae45e65d19a39216d4f2635fb74e319f24086b2e3f1f0f",
+    "paths": [
+      "docs/benchmarks/real-cpu-toy.md",
+      "oap/parallel/orders/PAR-007-CPU-TOY-PROBE-A-ADDENDUM-1.md",
+      "oap/parallel/orders/PAR-007-CPU-TOY-PROBE-A.md",
+      "tests/support/real_cpu_toy_probe.py",
+      "tests/support/real_cpu_toy_worker.py",
+      "tests/unit/test_real_cpu_toy_probe.py"
+    ],
+    "verified_at": "2026-11-12T01:17:05.886800+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance.",
+    "reader_recovery": {
+      "at": "2026-11-12T01:17:05.889756+00:00",
+      "record": "parallel/cpu-toy-probe/response-reader-recovery.json",
+      "scope": "Original helper stopped before any response existed; one new sole response owner, no control replay or consumed-response reread",
+      "addendum_sha256": "bc169bf7ef9b0c8edfa877949b3ba8a6bd461d59423a4db96aae80440108b9f7"
+    }
+  },
+  "source_review": "All source/tests/docs and deltas read;28 safe units/ruff/diff and original child ownership witness independently reproduced. Exact source frozen; approved single actual command matches report.",
+  "artifact_review": "Root read full12181B actual evidence, independently checked all18 artifact file sizes/SHA and tiny config, source/order/addendum/permit/SELF/report-only graph identities and receipt input hashes; compared norms/format IDs/output caps. No checkpoint deserialization or neural rerun by Root.",
+  "actual_execution": "One CODING-run under exact Root D0 private permit; actual pinned CPU libraries on own seeded random1layer state, two formats/2forwardseach and4nativeIDs. Error4.76837158203125e-07, same normalized payload/norms. This is reviewed observed toy evidence, not independently rerun neural evidence.",
+  "evidence_sha256": "60c63b273f7ddeae64b9d59fdcd4c7d7b28b55866a0cadca8fa1b5d2d0eb5bf2",
+  "metrics": {
+    "wall_seconds": 38.99530477402732,
+    "observed_self_plus_reaped_CPU": 2.1445120000000006,
+    "sampled_disk_bytes": 109889516,
+    "RSS": "UNKNOWN",
+    "worker_inter_op": "UNKNOWN"
+  },
+  "strongest_counterargument": "Only random toy and two short sequences; not public pinned BGE, model semantics/Recall/CPU-GPUparity/physicalcapacity/security/license/currentrights/mergedSHAICA/MVP. Underlying nativeclose defect remains required correction despite helper lifecycle guard. No actual runtime permission beyond the now completed one command.",
+  "canonical_integration": "PENDING; no remoteCI/whole007acceptance",
+  "DHA": "NONE"
+}

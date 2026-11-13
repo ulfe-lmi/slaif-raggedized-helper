@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-11T21:46:30.459505+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED",
+  "decision": "ACCEPT_LOCAL_COMPONENT_PENDING_CANONICAL007_INTEGRATION_CURRENT_HEAD_CI",
+  "receipt": {
+    "lane": "representation-batch-b",
+    "lane_id": "PAR-007-REPRESENTATION-BATCH-B",
+    "result": "PARTIAL",
+    "implementation": "4914fe54e116efd5d655d5bb4aac7227aaa945f6",
+    "report_commit": "05257d0324f6096166d553305da17221f9fe192c",
+    "report_sha256": "8a5e1065906ef66b406f341cf3442d3133ba3460aaed03daf2a23a0ef20bfb87",
+    "paths": [
+      "docs/parallel/retrieval-representation-api.md",
+      "oap/parallel/orders/PAR-007-REPRESENTATION-BATCH-B.md",
+      "src/slaif_raggedized_helper/retrieval_representation.py",
+      "tests/unit/test_retrieval_representation.py"
+    ],
+    "verified_at": "2026-11-11T21:46:30.494168+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "review": "Rootwholeinitialbatchsource/refactor/actualnativecountertest andallBsource/test/doc/reportchanges inspected. Existingrealvalidation/nativeSessionONEeach/roworder/reversal/IDequivalence preserved. RootactualCURRENT28focusedtestsPASSunderexplicitinsidePython1GiB/30CPU andouter120s bounds, afterauthorslasttestformatterdelta.",
+  "independent_gap_resolution": {
+    "path": "/tmp/raggedized-root-batch-boundaries.py",
+    "sha256": "004064b0461a496bc5119038404b1d741b9103dfba735707484b5bce3b88ddd3",
+    "exit": 0,
+    "facts": "21invalidselection/policyvariants allrefusedbeforevalidator; actualpositivefaithfulreceiptregressionPASS; correctASTcompiledentirereceiptguarddisabled andcaughtpytestDIDNOTRAISE; sourcefilesunchanged. AuthorPARTIAL remainsimmutable; Rootcurrentindependentproofclosesitsnamedmissingproof, notfalseauthorCOMPLETEattribution."
+  },
+  "strongest_counterargument": "No128throughput/physicalmodel/currentauthorization/typedvectorpersistenceproof; nativeSession20s/2srequestlimitsremain andlargerrequestsrefuseatomically. Boundedsoftwareconstructionacceptedonly; nofullICA.",
+  "DHA": "NONE"
+}

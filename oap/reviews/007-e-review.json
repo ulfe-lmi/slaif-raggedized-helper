@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-12T03:17:38.438049+00:00",
+  "head": "52ae2918c09ea939ba7c8694cd6e65e735c1d918",
+  "implementation": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+  "report_sha256": "b3d7f0a6efc0eec4c208637b4267ab2785bee21c1b73f9d5c5f42f9d0fbacfe7",
+  "report_bytes": 7431,
+  "status": "REVIEWED_PARTIAL_CONTINUE_SAME007",
+  "pr": {
+    "autoMergeRequest": null,
+    "baseRefName": "main",
+    "headRefName": "oap/007-embedding-pipeline",
+    "headRefOid": "52ae2918c09ea939ba7c8694cd6e65e735c1d918",
+    "isDraft": false,
+    "number": 9,
+    "state": "OPEN"
+  },
+  "main": "11badc7782bed326995d400f5532b63399b91fbd",
+  "merge_tree": "808c2e384edb3aac239e9fc2fbd7eeed78579a8b",
+  "exact33blobs": true,
+  "exact14RootrecordsPlusIndex": true,
+  "SELF_report_only_sole_parent": true,
+  "scope_only8docsCIgovernance": true,
+  "source_law_identity": true,
+  "Root_local_evidence": "Exactpriorcomponent source review+all33identity; actual13installedCLI10+3PASS correctedlocalenvironment; importedmodel/cleanup source notadapted. FullCIimplementationall5all74observed separately, reportCIpending.",
+  "findings_to_fix_same007F": [
+    "Known pre-return ownership/journal/producer/isolated cleanup faults require exact accepted17file corrections before whole007merge. Composedtree105unit39standalone10originalwitnessesPASS already recorded, notcurrentheadICA.",
+    "docs/embedding.md wrongly describes high/medium findings on both pins: current TorchScript advisory is GitHubLOW, Transformers has4HIGH plusmedium/low. Correct currentdocs nextsuffix; immutable report/history stays."
+  ],
+  "strongest_reason_not_to_merge": "RequiredGPUbulk/query/snapshot/current-policy/actualmodels/parity/security/license/hardware/heldout/ICA incomplete; knownmandatorycleanupfixesnotyetcanonical. CIalone not acceptance.",
+  "DHA": "NONE",
+  "round": "007-e",
+  "CI": "BOTH exact implementation43143641055 andreport43144877086 independently ALL5_ALL74SUCCESS",
+  "remote_final": "audit/007-e-GitHub-current-final.json exact52ae/PR9/main11bad/nodraft/noauto/nounresolvedthreads",
+  "acceptance_reason": "Exact33blob integration andsingleportableCIstep match independentlyreviewedcontracts/source andallcurrentchecks; legitimate CPUreferencepartialprogress. Knowncleanup/callerbugs mandate exactnextF remediation, notD1waiver or whole007acceptance. SourcecodeactualBGE/GPUbulk/current-policy absent/unqualified explicitlyretained.",
+  "next": "SamePR007-f exactaccepted17filecleanup+devicelease/isolated integration andseveritydoccorrection, no mainmerge/008jump/release/FIFO reread."
+}

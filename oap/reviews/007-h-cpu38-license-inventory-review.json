@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-12T05:13:33.361262+00:00",
+  "status": "FINAL_FACTUAL_CPU38_LICENSE_NOTICE_INVENTORY_ACCEPTED_PERMISSION_UNPROVEN",
+  "target": "3de83d4a622ba1461c9dc9f58df73189014dc39b",
+  "report_sha256": "3b57c57aef2f206d98d305b5cf25f41ad7777aafd41e0a9e7ba9d3f97f206494",
+  "Root_review": "audit/007-cpu38-license-root-review-3b57.json",
+  "facts": "38exactselectedwheelsindependentlyrehashed;all141declaredLicenseFilepathsread/hashpluspatternnotices1231200B;22SPDX/11legacy/5classifier; positive/malformed/suffixcontrolsPASS.",
+  "release_gate": "Actualoutofallowlist/ambiguouslabels+tokenizersmissingnotice+bundlednative/model/platformprovenance remainOPEN. No automaticallowlistexpansion/legalapproval/security/licenseexception. A04/architecturesection24 governs.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

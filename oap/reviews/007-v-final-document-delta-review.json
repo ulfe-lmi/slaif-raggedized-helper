@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-13T02:12:36.266879+00:00",
+  "scope": "Rootfinalizationofpreviouslypeer-reviewedstaticdrafts; neitherpeerreportnororiginaldraftsrewritten",
+  "peer": "parallel/audit-u-evidence-correction/review.json exactd3b3staticdraftpeeronly",
+  "changes": [
+    "StatusFINAL/effectiveonlyafterVcurrentchecks/expectedheadmerge, no liveauthority.",
+    "Authorv2table internally32preunit19fail13success plusoneunit/oneintegration; reject residual32further andnocapabove wordings. Completeindependentcountunattested/lostrecordsnotrestored.",
+    "OriginalUnormal02:03:47actualreceiptandRootCONTINUEVdisposition replacependingworkflowwording; all5/78currentUCIunchanged.",
+    "Explicit010/011parentannotation/contextualinvalidation/downstreamownershipunchanged; finalnumericadvanceconditionsremain."
+  ],
+  "before_final_docs": {
+    "contracts/007-u-local-evidence-correction-DRAFT.md": {
+      "bytes": 5621,
+      "sha256": "a1a80e80d88cb6228a4a772d7e22237ac4db2ff8eed38d42c659b3498f8dfe77"
+    },
+    "workorders/007-software-boundary-replan-DRAFT.md": {
+      "bytes": 9396,
+      "sha256": "3c9408307ff2c3b109f1ef65259e69debcecaf8747b4514b4b04958ed97a43ac"
+    }
+  },
+  "after_final_docs": {
+    "contracts/007-u-local-evidence-correction-FINAL.md": {
+      "bytes": 6400,
+      "sha256": "1d6267b61f9d3c2383f7e116d6a62dbe7674898c30872b4c21b02ef27eb1f393"
+    },
+    "contracts/007-software-boundary-replan-FINAL.md": {
+      "bytes": 10138,
+      "sha256": "ed7b8140ed005ac9f9baed2057edced682b4d3224000120b5d9c46a8bafb155e"
+    }
+  },
+  "Root_review": "FullfinaldocumentsreadbyRoot; finaldeltaaddsverifiedfacts/refusesunsupportedclaims, no source/budget/productboundarychange or blanketfinalpeerpassclaim. DHA NONE."
+}

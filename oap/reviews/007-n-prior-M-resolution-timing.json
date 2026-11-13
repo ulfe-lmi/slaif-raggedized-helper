@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-12T17:05:43.426027+00:00",
+  "identifier": "007-m",
+  "event": "STRATEGIC_PARTIAL_RESOLUTION_BEFORE_NEXT_ACTIVATION",
+  "report_commit": "e9ee12568fdfbfd9f122ceb3ed0d15690b4dbbfa",
+  "review": "audit/007-m-review.json",
+  "review_sha256": "81d9e4809e2b0ec14130b5b9de4bbf4d1b2f0a7f5cbb462d37cd44476bb2f0ae",
+  "normal_response_verified_at": "2026-11-12T17:05:04.093576+00:00",
+  "current_report_CI_all5all78_reconfirmed": true,
+  "next": "007-n exact21producer/program/executor finalpreflight thenactivate; no mainmerge",
+  "DHA": "NONE"
+}

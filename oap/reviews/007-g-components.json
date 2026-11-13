@@ -1,0 +1,191 @@
+{
+  "at": "2026-11-12T04:40:11.153020+00:00",
+  "status": "FINAL_SELECTIVE_INTEGRATION_INDEX_AFTER_F_CURRENTHEAD_REVIEW",
+  "observed_F_implementation": "0495713119005c911fe3ea659fcbddd783bfc39a",
+  "observed_F_CI": "BOTH implementation43153296812/report43154816327 independentlyALL5_ALL74SUCCESS",
+  "transfer_mode": "SELECTIVE25FILES from2reviewed immutablecandidates, NO broadbranchmerge.23filesbyteexact;2profileREADMEs mayappendprecisecurrent-source-selectionnote withoutrewritinghistoricalevidence; Rootfinalheadreviewrequired.",
+  "files": {
+    "docs/parallel/cpu-embedding-backend-api.md": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "7c82f5aa63d6acfcad347ae997215790f4ee2804",
+      "sha256": "eff6cfb4f29c6e1cb07fb5599d9579944aaf009b7730503a8c58e9f3e6957fff",
+      "bytes": 2166,
+      "profile_README_current_note_may_append": false
+    },
+    "docs/parallel/cpu-embedding-worker-api.md": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "0b7b7ac0b09fccfab047c7f4fcebd4cf4c542102",
+      "sha256": "d5d60ee08dcb872901a6987073594057ca572f4a425438489021bb2e2cc2ab95",
+      "bytes": 5289,
+      "profile_README_current_note_may_append": false
+    },
+    "docs/parallel/cpu-worker-test-setup-v2.md": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "03f88226fc8b3512eff00f3dc41ebe15bf1631f6",
+      "sha256": "b50b7be7f8b6d83a284015ef3d466ebccef61153ea472a41af210455524a2893",
+      "bytes": 3124,
+      "profile_README_current_note_may_append": false
+    },
+    "docs/parallel/gpu-embedding-backend-api.md": {
+      "from_candidate": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+      "blob": "f0c9cc17ef72383eac80518cd7265848876ca7da",
+      "sha256": "963b2c093f01142362b6ce00b202c4cfb9c048e82ba8ef3d560b628519c4e5f2",
+      "bytes": 2953,
+      "profile_README_current_note_may_append": false
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_backend.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "e3cc606f176d1e5c2fa73083481c68404b412bad",
+      "sha256": "0e94b61abbc05556fbb60196080b17593e386b17d69cfbfc2da220d84fb03bf1",
+      "bytes": 8029,
+      "profile_README_current_note_may_append": false
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_worker.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "b60fd5d0c56d89e60d5058c41d63ae0ca64d6354",
+      "sha256": "27afba563b54e53881f97a4610831279071ecfea5eaabbcd306d8da1a0cd3def",
+      "bytes": 23440,
+      "profile_README_current_note_may_append": false
+    },
+    "src/slaif_raggedized_helper/cpu_execution_contract.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "2cd590d874fb2ded268bcf5d40faa414af0e2890",
+      "sha256": "ebbaca8c71154e928d59ad41e22bd2111a8baf9864a923b2f7066a828a6d6212",
+      "bytes": 7627,
+      "profile_README_current_note_may_append": false
+    },
+    "src/slaif_raggedized_helper/gpu_embedding_backend.py": {
+      "from_candidate": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+      "blob": "1bc9caaf3f0cf6ebc6f831c759fffe61c84792bb",
+      "sha256": "05da61fa34e1423a0daefd818775309565812b00a68bb7affd2df4a802bf91c0",
+      "bytes": 14696,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/integration/test_cpu_embedding_plan_composition.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "06f4b8db7c252ab620dcddb250e65f43e6269f7f",
+      "sha256": "cdde4f82806144678282736954e578c6b8e0c02f434b757f776ef7e004e754c3",
+      "bytes": 12807,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/integration/test_cpu_embedding_producer_composition.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "280a53da2376d382f15638390d359d0218d1210b",
+      "sha256": "72b9800069136d7ca09837114948642e7543c0342f44ade500b9d220135de7a4",
+      "bytes": 25674,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/integration/test_cpu_embedding_worker_composition.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "3ab07f8b764a760d8c386dc8f51e0ad8f2439f8f",
+      "sha256": "303c85687265eac90e8390ce20a218df90973502c5a990465b9f8f7974f0ffae",
+      "bytes": 10220,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/integration/test_gpu_embedding_backend_composition.py": {
+      "from_candidate": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+      "blob": "bbfd6bf866f4038994098a184bb6421089528e13",
+      "sha256": "8a0255abecef920bafd60603fb9bb89154c0fcf398b918c654705634f1be97e3",
+      "bytes": 1321,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/integration/test_isolated_cpu_embedding_composition.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "adfceb2d3e008b9af06ffcc1db0063630866433a",
+      "sha256": "e3c1807bd719a9182c499b55e4eea27d5e3e6d277076b6abfaa986078409f2e2",
+      "bytes": 14254,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/support/cpu-worker-test-v2-requirements.txt": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "1ee8cb5c36c55613d2a94d8268930a406b8c6c85",
+      "sha256": "426e4825b8fdffae599614c5353eadaee565033423ca6b77920c7cbea35c69fc",
+      "bytes": 606,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/support/prepare_cpu_worker_test_backend_v2.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "5de2b96a158936f3114793ce0063215697b05b99",
+      "sha256": "8372ad4bf8f7c85dc3f7aba520f52ca90665139cddc5d42e4efe3c69a4d98fc7",
+      "bytes": 9491,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/unit/test_cpu_embedding_worker.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "2b88631ad8207a12c79a26ddc3081524c98a1722",
+      "sha256": "66c75d7374294fe7aab038e8498edcf30586f227525eacc75f70b6284b4794cc",
+      "bytes": 16400,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/unit/test_cpu_worker_backend_setup.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "550d8d680c7e2af0cb2731d48c79156473d1a4fa",
+      "sha256": "28f4e2b2ca9d257331e2411ec78591210b2ebfecc3b7137df5c14041fc3b4116",
+      "bytes": 8526,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/unit/test_cpu_worker_backend_setup_v2.py": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "d9aebb5321e6a315ec7403875d200822860946fc",
+      "sha256": "afd9ac4cc6e486a6f8caaf861ac9d3508369803dc253ebb863b841d574afb6d1",
+      "bytes": 5616,
+      "profile_README_current_note_may_append": false
+    },
+    "tests/unit/test_gpu_embedding_backend.py": {
+      "from_candidate": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+      "blob": "c2e0f1639326b1335f57e99fde617e4f43aa2598",
+      "sha256": "b76b66a175b1beab60ecdb5498060aec92294956c2213a4a046eef59661e10fb",
+      "bytes": 22261,
+      "profile_README_current_note_may_append": false
+    },
+    "worker_profiles/cpu-v2/README.md": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "da28f92379674165804c14f78f8fc0e2a5d71a33",
+      "sha256": "060e2a593bf157e62ab4b40d5885204108e7507c2db8035710917362826d5bc1",
+      "bytes": 2900,
+      "profile_README_current_note_may_append": true
+    },
+    "worker_profiles/cpu-v2/pyproject.toml": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "95b18f3f602b5eec88bc8d2062c1b38ae896260b",
+      "sha256": "62832dcc924b82ce5471a910f276edeb7dc453527ba13414d973572f48013876",
+      "bytes": 605,
+      "profile_README_current_note_may_append": false
+    },
+    "worker_profiles/cpu-v2/uv.lock": {
+      "from_candidate": "adfc96e731feef691828e7b96df149a7599bef01",
+      "blob": "79da0b4081977e81899259f4bbf827bb26eda884",
+      "sha256": "7cf4c88943cc2b519ad18c0c28cbc2281f159a98704db172e1696ec5ae20b287",
+      "bytes": 32214,
+      "profile_README_current_note_may_append": false
+    },
+    "worker_profiles/gpu/README.md": {
+      "from_candidate": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+      "blob": "434f155f5271e355ce1ff08f43f3ca556c26c3e6",
+      "sha256": "121a80f4ea2a4da6743ff114405a5a25819e6efb25b520d676908ba9926694bc",
+      "bytes": 2967,
+      "profile_README_current_note_may_append": true
+    },
+    "worker_profiles/gpu/pyproject.toml": {
+      "from_candidate": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+      "blob": "a505087effeed0013b6e1bea40505b9ecbe2bc3c",
+      "sha256": "a2abe50b257a73dfc360d302b46857a11e46ccdb1031007deff7b77993959922",
+      "bytes": 613,
+      "profile_README_current_note_may_append": false
+    },
+    "worker_profiles/gpu/uv.lock": {
+      "from_candidate": "d7b9bdc6b326210ea7191ec85533a8689a0e0622",
+      "blob": "1f382af4762d4b3be2cd05652e7b61ccc284bb18",
+      "sha256": "d3f47d3d2943759967a95694017f32e20b8a29ee7de4df790465a402bc17c334",
+      "bytes": 44632,
+      "profile_README_current_note_may_append": false
+    }
+  },
+  "bytes": 278431,
+  "CPU_review": "parallel/cpu-v2-alignment-b/review.json +parallel/cpu-v2-fixture-portable-c/review.json;root177+40+5witnesses, portableactual6+32/18+4+1",
+  "GPU_review": "parallel/gpu-backend-b/review.json +parallel/audit-gpu-backend-b/review.json exact237e; originalafc5CHANGES_REQUIREDhistoricalpreserved",
+  "runtime_limits": "Code/source/controlledfake test integration only. No actualfullpackages/model/CUDA/GPU/service change;actualsetupresultsindependent/open. NewCPUv2CIstepmustuseexplicitprovidedPDF_TEST_RUNTIME andNEWdirect/tmp target/literalV2vars, retainOLDlegacyfixture. Expected5jobs76steps ifonlyoneaddedstepperproductleg.",
+  "DHA": "NONE",
+  "base": "8efacce5a0d300833f021b1e442908fdf7318e9f",
+  "F_review": "audit/007-f-review.json"
+}

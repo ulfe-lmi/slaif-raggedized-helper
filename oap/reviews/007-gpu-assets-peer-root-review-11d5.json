@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T07:43:34.546171+00:00",
+  "draft_sha256": "11d5d1b639d6070771dd1a668589d165df87ac49b2f30dd11c6440666dd2692b",
+  "target": "5445c03bcc85a5cea6ad24f26f137e55f5a806cf",
+  "status": "FINAL_COMPLETE_FINITE_GPU_ASSET_REVIEW_ACCEPT_CONFIRMED",
+  "Root_review": "Full exact draft/16sourcehashes/7artifacthashes independently verified; original guard-only witness source/log inspected and Root actual3.12-I-S rerun PASS under1GiBAS30CPU120wall/thread1. Same actual installed srcprefix/backend/moduleglobals/filesystem; AST ONLY matching distinfo condition False, scan/count/project gate retained; guardedrefusal/wrongambient57 firstTorchsentinel/restoreguardrefusal/restoreassetpositive all observed, no actual frameworks imported.",
+  "peer_counts": "103unit13.03s, separate8installed5.74s, separate1projectnamespace1.11s. Initial20failed83pass due peer0755trustedtmp parent, corrected0700/newbasetemp; originalfail preserved. Root previous103/8/1 independently PASS separate.",
+  "provenance": "Freshcontext samehistoricalauthor/accountpane33 explicitlydisclosed; not identityindependence/fullmergedICA.",
+  "witness_sha256": "e9ba9ea719d35443e88131195d2e19e36807d78d0cd19e203d01817ba577025e",
+  "strongest_counterargument": "Bounded filesystem layout and dist-info recognition are not authenticity; compromised local metadata can influence recognition. The witness demonstrates the guard is causally necessary for the specified installed-src downgrade, not an adversarial security proof. Fake devices and pre-framework sentinel cannot establish production behavior. Affected software acceptance is justified by exact source inspection and independent focused tests under the stated scope, with current-head CI and separately assigned acquisition repair still open.",
+  "disposition": "Permit exact final report only; candidate eligible later explicitcanonicalintegration/currentheadCI; parent still under separatefix/noactualGPU/model/hardware/security/license/ICA qualification.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

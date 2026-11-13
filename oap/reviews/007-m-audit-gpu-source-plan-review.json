@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-12T11:49:37.996254+00:00",
+  "status": "FINAL_FINITE_GPU_PLAN_PEER_RECONCILED",
+  "target": "fb97d51bd3a8a6fb948db0fc0386ff739023dbfa",
+  "report_sha256": "deebfe94a029e1408fec2b041b421a47ab177498c41ee9e53f1f031227eb3be3",
+  "Root_review": "audit/007-gpu-plan-peer-root-review-deeb.json",
+  "scope": "Exactfb97 clean source10/witness5/currentboundedpeerchecks+actualfullAPImaxrowsoneguardcontrol, Root40units+8actual+1fullAPIcontrolPASS. Historicalauthor/sameaccountnotindependenthuman/fullICA; no canonicalintegration/modelGPU/currentrights/durableproducer/Ready/MVPacceptance.",
+  "DHA": "NONE"
+}

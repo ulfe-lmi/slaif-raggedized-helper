@@ -1,0 +1,259 @@
+{
+  "at": "2026-11-13T02:10:50.990699+00:00",
+  "state": "ROOT_RECONCILED_LOCAL_ATTEMPT_EVIDENCE_WITH_PERMANENT_LIMITS_NO_RETROACTIVE_APPROVAL",
+  "identifier": "007-u",
+  "author_v1": {
+    "bytes": 36108,
+    "sha256": "618a2b927ac8cad785f26da0a559256c901533131014bb9afe50c0a6bfcf5ee6"
+  },
+  "author_v2": {
+    "bytes": 33819,
+    "sha256": "48dca4f4b98bf6a08b594260247d1234a74ddb5e216b974ddacbad7795b5b261"
+  },
+  "count_interpretation": "Authorv2tableenumerates32preliminaryUNITtargetinvocationsincludingfirst,then1laterunitprocessand1different3caseintegrationprocess:33listedunitinvocations/1integration=34. Prelimtable19exit1+13exit0 internallyconsistent. Thus31furtherpreliminaryunitinvocations afterfirst, NOT32further. Countsnotcompleteindependentprocessattestation; othercollection/help/OAPcommandsseparate.",
+  "limits": "V2correctsmaincounts/threadcontrols/knownabsentcapsbutstillcontains32furtheroffbyoneandbroadnocapabovephrase. RootdoesNOTadoptthoseclauses. Absenceofacapdoesnotestablishaceiling; recordeduncapped/partialcapentriesremainsetupviolations/unknowns. Noprecasecountsfromsilentexit/fixture-residue, no restorationofdiscarded/overwrittenrecords, no measuredmemoryfailuremechanism.",
+  "independent_retained_evidence": {
+    "unchanged_raw_or_script_record_identities": 45,
+    "note": "Rehashed45non-environmentrecord/scriptfileswithoutpublishingsecretvalues. Readretainedtwofailedretry/traceexit1emptyoutputs andsuccessfulP1/P2records; authorfulltotalnotindependentlyattested. OriginalfirstP1filesoverwritten; loopsdiscarded.",
+    "records": [
+      {
+        "path": "/tmp/raggedized-u-007/report-draft.md",
+        "bytes": 6535,
+        "sha256": "0fc81717de65f22c6da5dc646db51c66fd1cd33af7143837cb0571cca8806b68"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/help.txt",
+        "bytes": 1569,
+        "sha256": "10a5bb61e140992519c9468b10bf5a2dd8734262f323983a8129a66a6abd9fed"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/nopf-3.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/nopf-2.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/nopf-1.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/envp-3.txt",
+        "bytes": 80,
+        "sha256": "08faea39fd19189f6544839f505d91d76ecb1367e219f5db362cdf22916ef869"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/envp-2.txt",
+        "bytes": 80,
+        "sha256": "08faea39fd19189f6544839f505d91d76ecb1367e219f5db362cdf22916ef869"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/envp-1.txt",
+        "bytes": 80,
+        "sha256": "08faea39fd19189f6544839f505d91d76ecb1367e219f5db362cdf22916ef869"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/cpu1.txt",
+        "bytes": 80,
+        "sha256": "08faea39fd19189f6544839f505d91d76ecb1367e219f5db362cdf22916ef869"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/as1.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/col.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/loop-out-3.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/loop-out-2.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/loop-out-1.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/lim.sh",
+        "bytes": 56,
+        "sha256": "afb0955c08763440890d306278a07dc551c5ea97268ea0cb49807078bd247a33"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/min2.sh",
+        "bytes": 209,
+        "sha256": "94c58e3805695f89514dad44feee99b1cc00515125d78f7bca1b7bcf8a6945a0"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/env-inline.txt",
+        "bytes": 3369,
+        "sha256": "f2c6893e54c3ee69fb4fa51fb8b98d7d306447840369313c89fec9137ee8f08c"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/env-script.txt",
+        "bytes": 3369,
+        "sha256": "64a027243501a8d486f6e00f03fec1ada62900c96927fd7df366ba632199c108"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/envdump.sh",
+        "bytes": 70,
+        "sha256": "c782967da13a564d193a0b804d0b39a509e558e3f4d2079ef13a1085a7641949"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/min.sh",
+        "bytes": 284,
+        "sha256": "19a7a5ea58c18d04e2414905673feaa2583830e148abc62ee7cf874d0ac99083"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/run.sh",
+        "bytes": 2110,
+        "sha256": "14b66184e0d45a42abf463198ec3e83c6a6d518fe9ca1ca42a1c2def541459a6"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p0c-integration/out.txt",
+        "bytes": 4212,
+        "sha256": "d311b6365b27f4fad60f491e3f5344848d46fffcbb658ad6fb050136bd2c8269"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p0c-unit/out.txt",
+        "bytes": 3306,
+        "sha256": "f6d934ddc45bed721430f072c28cbd746fcb9c9c2a4ef0723d501c95b216e509"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p0-collect/out.txt",
+        "bytes": 10341,
+        "sha256": "867d4f6f346fed0533435807c507998380a2cba3cd7c07db2bc6af1b5e281ed7"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p2-integration/exit.txt",
+        "bytes": 7,
+        "sha256": "19eaf43821a7660ec323a87c8457bf74823beb296c39f5e01aa8a683aa50f061"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p2-integration/stderr.txt",
+        "bytes": 1010,
+        "sha256": "b70267b1c556975c734a25381ac917e25953273a5213d0b8787b9f666e0f1e15"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p2-integration/stdout.txt",
+        "bytes": 428,
+        "sha256": "651bde203b3e7dc399b53947d62d5f589f2ad75914df355697b245243ea51506"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p2-integration/env.txt",
+        "bytes": 3494,
+        "sha256": "b7bb4ea688831a13b1ff4b7f10e2b8af34bafd686f3a2233f9760cd88afdc3de"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p2-integration/pre-run.txt",
+        "bytes": 1250,
+        "sha256": "ee3a4f32c2a4942cffe6e89347fe39c1cebd87c33bc64c1b339c5278e502b263"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit/exit.txt",
+        "bytes": 7,
+        "sha256": "19eaf43821a7660ec323a87c8457bf74823beb296c39f5e01aa8a683aa50f061"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit/stderr.txt",
+        "bytes": 862,
+        "sha256": "7ba5b38b0feda153516f4d335c83458737a2f4b94cf3e8a35279d2884ee0cdee"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit/stdout.txt",
+        "bytes": 429,
+        "sha256": "1fb8f82110115e687a34d40f4de7588ba37f5ef8e9d5ac09853b44c4798238b5"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit/env.txt",
+        "bytes": 3520,
+        "sha256": "927c7a9a62a4d3b84b41dced01b92fad7f1c55faa5c9ab1c7f1755505e9dfab8"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit/pre-run.txt",
+        "bytes": 1115,
+        "sha256": "7f6460900769047967c90c8aebe2b46888131e46765c19485e88c41095a83f99"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/combo/c.sh",
+        "bytes": 255,
+        "sha256": "65a35d1f5a628d8aee03c3b4e172d5b2fa448141e31ddba524a8a28ec1f70728"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-trace/exit.txt",
+        "bytes": 7,
+        "sha256": "cf205dbb8cea84897b488abcc281bf96698d5e94b1096b16657b4caba9082a22"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-trace/stderr.txt",
+        "bytes": 905,
+        "sha256": "73014e58575fb9491921a3df78cea81ebc8138ed3730beb9434a8269f42ff623"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-trace/stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-trace/env.txt",
+        "bytes": 3520,
+        "sha256": "d4ccf9f33781d3f93b4b80c4f8249a9c983d8cfcf1fd671e51fb9df569f1c215"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-trace/pre-run.txt",
+        "bytes": 1914,
+        "sha256": "bfd2e4689b66ccc35efdd1d132d8cb063867c4faa2565691893a3246339b0222"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-retry/exit.txt",
+        "bytes": 7,
+        "sha256": "cf205dbb8cea84897b488abcc281bf96698d5e94b1096b16657b4caba9082a22"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-retry/stderr.txt",
+        "bytes": 906,
+        "sha256": "1db35705750e5ed299b4634b2e31451b07bd91a3602c3518b60ca840a2cc4c11"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-retry/stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-retry/env.txt",
+        "bytes": 3520,
+        "sha256": "bdbc33dacc058b0f4a9d577fba779aef5a8bbf7958bfdb8b209ade1ba2f2ee20"
+      },
+      {
+        "path": "/tmp/raggedized-u-007/p1-unit-retry/pre-run.txt",
+        "bytes": 948,
+        "sha256": "ce76c197cdd7459e75aed0604fe0f3036c44bb75a412072ff752e0a4c6260ab9"
+      }
+    ]
+  },
+  "privacy_containment": "Ownedroot0700/sixknownlogs0600rechecked,nocontentchange/credentialuse/rotation/revocation/provideraction. Twoearlierworldreadablelogsheldcredential-namedvalue;validity/prioraccessUNKNOWN. No rawenvvaluesreadintothisrecord orpublished.",
+  "normal_response": {
+    "identifier": "007-u",
+    "pr": 9,
+    "implementation": "e92ec948e8eaac1413fc3473a3f6065905ad701f",
+    "report_commit": "9d811e3b123966be081a485480aa31d3c02dc6cf",
+    "report_sha256": "0fc81717de65f22c6da5dc646db51c66fd1cd33af7143837cb0571cca8806b68",
+    "verified_at": "2026-11-13T02:03:47.598411+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "disposition": "Ucurrentcode/sourcepeer/current5jobs78CIpassandnormalresponseverified. Localproceduralcompliance/reportwordingNOTaccepted. Orderonlysame007Vtruthfulsanitizedcorrection/finalexplicitsoftwareboundary, no productpatch ornewlocalproducttest toreplacehistory. No merge/numeric008beforeVexactheadchecks/finalRootreview.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-13T02:12:36.266879+00:00",
+  "status": "OWNED_DIAGNOSTIC_ENVIRONMENT_LOG_PERMISSION_CONTAINMENT",
+  "observed": "Sixdiagnosticenvironmentlogscontainedanonemptycredential-namedvalue. Two top-level0644-like/0664logsunder0775directorywereaccessibletootherlocalaccounts; fourper-runlogshad0700parentdirectories.",
+  "action": "Rootrestrictedonlyowneddiagnosticdirectoryto0700andallsixknownlogsto0600;bytespreserved. No credentialvaluescopiedintothisrecord/repository. No clientconfig/auth/provider/keyuse/rotation/revocation/service/sharedruntimepermissionchange.",
+  "limits": "Credentialvalidity/prioraccess/externaluseUNKNOWN. Permissioncontainmentdoesnotestablishearlierprivacy. Credential/provideractionneedsseparatescopedauthority; nosuchactionauthorizedorperformed.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

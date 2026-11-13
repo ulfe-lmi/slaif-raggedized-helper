@@ -1,0 +1,202 @@
+{
+  "at": "2026-11-12T01:40:31.287634+00:00",
+  "scope": "Current legacy optional CPU profile is development-only, NOT security qualified",
+  "pins": {
+    "torch": "2.10.0+cpu",
+    "transformers": "4.51.3"
+  },
+  "observed": [
+    {
+      "ghsa_id": "GHSA-x9r9-c232-4q39",
+      "severity": "high",
+      "summary": "Hugging Face Transformers downloads custom generation code before trust consent",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": ">= 4.49.0, <= 5.8.1",
+          "first_patched_version": null,
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/pull/48620"
+    },
+    {
+      "ghsa_id": "GHSA-xrqw-3rrv-vx5w",
+      "severity": "high",
+      "summary": "Transformers save_pretrained path traversal allows arbitrary file writes through chat template names",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 5.10.0",
+          "first_patched_version": "5.10.0",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/eaaaf8494dd5386634ae37d1d122212fdc315be5"
+    },
+    {
+      "ghsa_id": "GHSA-fgcw-684q-jj6r",
+      "severity": "high",
+      "summary": "huggingface/transformers: Arbitrary Code Execution During Model Initialization in the LightGlue Model Loading Path",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 5.5.0",
+          "first_patched_version": "5.5.0",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/676559d5022b74aaa0cee1cee0842b7f27c5320e"
+    },
+    {
+      "ghsa_id": "GHSA-29pf-2h5f-8g72",
+      "severity": "high",
+      "summary": "HuggingFace transformers vulnerable to remote code execution",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 5.3.0",
+          "first_patched_version": "5.3.0",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/a7f8e7ff37d87d1a1a0c8cf607971c607741452f"
+    },
+    {
+      "ghsa_id": "GHSA-69w3-r845-3855",
+      "severity": "medium",
+      "summary": "HuggingFace Transformers allows for arbitrary code execution in the `Trainer` class",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 5.0.0rc3",
+          "first_patched_version": "5.0.0rc3",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/03c8082ba4594c9b8d6fe190ca9bed0e5f8ca396"
+    },
+    {
+      "ghsa_id": "GHSA-4w7r-h757-3r74",
+      "severity": "medium",
+      "summary": "Hugging Face Transformers vulnerable to Regular Expression Denial of Service (ReDoS) in the AdamWeightDecay optimizer",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 4.53.0",
+          "first_patched_version": "4.53.0",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/47c34fba5c303576560cb29767efb452ff12b8be"
+    },
+    {
+      "ghsa_id": "GHSA-rcv9-qm8p-9p6j",
+      "severity": "medium",
+      "summary": "Hugging Face Transformers library has Regular Expression Denial of Service",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 4.53.0",
+          "first_patched_version": "4.53.0",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/ba8eaba9865618253f997784aa565b96206426f0"
+    },
+    {
+      "ghsa_id": "GHSA-59p9-h35m-wg4g",
+      "severity": "medium",
+      "summary": "Hugging Face Transformers is vulnerable to ReDoS through its MarianTokenizer",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 4.53.0",
+          "first_patched_version": "4.53.0",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/47c34fba5c303576560cb29767efb452ff12b8be"
+    },
+    {
+      "ghsa_id": "GHSA-9356-575x-2w9m",
+      "severity": "medium",
+      "summary": "Hugging Face Transformers Regular Expression Denial of Service (ReDoS) vulnerability",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 4.53.0",
+          "first_patched_version": "4.53.0",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/944b56000be5e9b61af8301aa340838770ad8a0b"
+    },
+    {
+      "ghsa_id": "GHSA-37mw-44qp-f5jm",
+      "severity": "medium",
+      "summary": "Transformers is vulnerable to ReDoS attack through its DonutProcessor class",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "<= 4.51.3",
+          "first_patched_version": "4.52.1",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/ebbe9b12dd75b69f92100d684c47f923ee262a93"
+    },
+    {
+      "ghsa_id": "GHSA-phhr-52qp-3mj4",
+      "severity": "low",
+      "summary": "Transformers's Improper Input Validation vulnerability can be exploited through username injection",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "transformers"
+          },
+          "vulnerable_version_range": "< 4.52.1",
+          "first_patched_version": "4.52.1",
+          "vulnerable_functions": []
+        }
+      ],
+      "primary_reference": "https://github.com/huggingface/transformers/commit/4dda5f71b35fb70cf602187eef84bb17a50b9082"
+    }
+  ],
+  "torch_advisory": "GHSA-rrmf-rvhw-rf47 LOW affects<=2.12.1, patched2.13.0; audit/007-torch210-current-advisories.json",
+  "actual_exposure": "Only old-SHA explicitly scoped owned random CPUtoy command executed; no external/public model/private corpus/GPU/service. That permission is completed, not transferable. No model/ABI/security/license qualification was claimed.",
+  "disposition": "Required dependency/advisory reachability and patched CPU+Volta-compatible profile preparation before further actual model qualification. Ordinary D0 dependency work; no D1/legal/security exception admitted. Do not silently downgrade or present metadata as safety.",
+  "research": "Read-only spikeA identified official2.14 CPU/cu126 wheels and sourcebuildSM70; binary kernels/host compatibility/transitive route unproven. Bounded followup planned; no pin changes or installs in current integration.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-12T11:51:15.310806+00:00",
+  "status": "FROZEN_LOCAL_GPU_PLAN_ROOT_SOURCE_REPORT_AND_FRESH_PEER_RECONCILED",
+  "implementation": "fb97d51bd3a8a6fb948db0fc0386ff739023dbfa",
+  "report": "d100689ef5582a79a29d78e51a4c5ce860d1552c",
+  "report_sha256": "cd280476c03acdf7b5526a412634962ce1f7198a8ba177324ff6a15461a99bae",
+  "scope": "6newpaths/solea9a5base/soleparentSELFreport-only/exactorderdesign verified;4source/test/design+6readset+2modifiedhelpercontrolhashes verified. Rootfullsource/40unit/8separateactual/1fullAPIcontrol/ruff/diff, freshpeerdeeb exact10source+5archivedwitnesses andfullAPImaxrowscontrol allreconciled.",
+  "Root_source": "audit/007-gpu-plan-source-review-fb97.json",
+  "peer": "parallel/audit-gpu-source-plan/review.json",
+  "report_errata": "Authorattributes prioraggregate137toCPUlimit; Root independentlyretains knownexit137/failedaggregate undercaps, exactkillmechanismnotestablishedby137alone. Splitcurrentcasesallpass, no capwaiver. Partialreadsethashlist isnot claimalllistedfilesreadfullor50kbudget; Rootsourceidentitiesmeasuredseparately. Startupcapacityblockerstale, actualcodingcontinued andnormalreportnowCOMPLETE.",
+  "strongest_counterargument": "Predictions/nativecounts/DTOdatacannotproveactualGPUneural/currentrights/hardware/precision/durablecompletion/security/license/ICA/MVP; currentcanonical integration/BOTHrequiredCIremainseparategates.",
+  "DHA": "NONE"
+}

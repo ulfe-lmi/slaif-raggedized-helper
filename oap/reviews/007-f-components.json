@@ -1,0 +1,123 @@
+{
+  "at": "2026-11-12T03:20:14.120094+00:00",
+  "status": "FINAL_REVIEWED_EXACT_COMPONENTS_FOR007F",
+  "prospective_base_observed": "2bf4d3916c07bfd8e2ae99612885e364788c9e3f",
+  "merge_candidates_in_order": [
+    "985806afe7c985d8a511261f9384cd1bfebce2f0",
+    "52252484baf733c98e42963ce759c0b5db27b006"
+  ],
+  "transitive_accepted_gpu_candidate": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+  "prospective_first_merge_tree": "a99a8d333fa24533191b0d9adf2138cdd9eac773",
+  "independent_cleanup_plus_isolated_tree": "f92f8da765cb3262794e39534c628c2d9fa1cab9",
+  "files": {
+    "docs/parallel/embedding-job-ownership-api.md": {
+      "from_candidate": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+      "blob": "73c4f3282fc014305ae52f245a6cfec3873e7631",
+      "sha256": "39f9b60127967df3ff5c1799278065f00b86ee53d34dcbedd5f0b7d0d2b79086",
+      "bytes": 1768
+    },
+    "docs/parallel/gpu-device-lease-api.md": {
+      "from_candidate": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+      "blob": "88a15d4d23ecc3461baf45b4f37dc0952fb44c7e",
+      "sha256": "ff12dcbdd5b157597e7038784f7e71a7f442432ae6e63f42bdff4861f7da0b60",
+      "bytes": 2230
+    },
+    "src/slaif_raggedized_helper/embedding_job_ownership.py": {
+      "from_candidate": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+      "blob": "57cac3d77196d9d41c5840ace8fbb6723cd9bd8d",
+      "sha256": "708731cd9a76e41df08c1c07e02b78748f90aca72da0bb6e12e5c7ee1977cafe",
+      "bytes": 7008
+    },
+    "src/slaif_raggedized_helper/gpu_device_lease.py": {
+      "from_candidate": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+      "blob": "0a5ce44e7dfcb097b7af0bd6a9207777372cdf51",
+      "sha256": "e22f6d0d44f8369e85653a3fc9572ed5d17c9942a79def23341b9d55a393ab62",
+      "bytes": 7098
+    },
+    "tests/integration/test_gpu_device_lease_composition.py": {
+      "from_candidate": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+      "blob": "e73969fbcd93104b23028c1eaeb5172252e676d3",
+      "sha256": "dd773af29e1748e11a1e3a5f359bccef03c8698260d0a2dc721f35873fae5d67",
+      "bytes": 2888
+    },
+    "tests/unit/test_embedding_job_ownership.py": {
+      "from_candidate": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+      "blob": "910ccf60b9741e8fa2daff5a67af58ebf349e00e",
+      "sha256": "79e8aac53ce43341f0bd02c0584d64ae0644b2617a8722d2a319e65d2b18ce70",
+      "bytes": 9789
+    },
+    "tests/unit/test_gpu_device_lease.py": {
+      "from_candidate": "692fa53bb62aa2c0b0b61454378a7986c4b3c025",
+      "blob": "d77c00c9e5a150e63ebe045c38d1f6f9ba75169a",
+      "sha256": "1e29e3b54392dd038cecce705f0d6d359e83e2b63816eb25b0a0411222a52b99",
+      "bytes": 7584
+    },
+    "docs/parallel/cpu-embedding-producer-api.md": {
+      "from_candidate": "985806afe7c985d8a511261f9384cd1bfebce2f0",
+      "blob": "ff509de0d08ecadc252ab1f03803613a960b73ef",
+      "sha256": "c07bc3ae8ce45339a7897e63e89830d76c14e24887372a39a4e88eb5b614df51",
+      "bytes": 3481
+    },
+    "docs/parallel/embedding-job-journal-api.md": {
+      "from_candidate": "985806afe7c985d8a511261f9384cd1bfebce2f0",
+      "blob": "6a91911cf1b1597013070526d390efe394dbe038",
+      "sha256": "c78a3f6f303cae55a9c09e2ce3ee43691e430175f59c99217a752e517889f2e6",
+      "bytes": 6121
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_producer.py": {
+      "from_candidate": "985806afe7c985d8a511261f9384cd1bfebce2f0",
+      "blob": "770d6c2766f814c422b162891df1c63d3293d9e3",
+      "sha256": "46102e562da9a722d61033a7e95d4c858dce2065d54530a3c83aa2595daed4a1",
+      "bytes": 15798
+    },
+    "src/slaif_raggedized_helper/embedding_job_journal.py": {
+      "from_candidate": "985806afe7c985d8a511261f9384cd1bfebce2f0",
+      "blob": "1a2f384b0837e450001975477d027bb94f3dda02",
+      "sha256": "9b6331ad2dfedd93f5826ab964bd107f62348daecd607cbfd38586070de3043e",
+      "bytes": 20510
+    },
+    "tests/integration/test_cpu_embedding_producer_composition.py": {
+      "from_candidate": "985806afe7c985d8a511261f9384cd1bfebce2f0",
+      "blob": "b3b2798bca57d598e54ccaae00ae78ba1c40d4c4",
+      "sha256": "43c81b55c971d47e3fceceb648855dcf57b267a1b04770a463c78f405e95822b",
+      "bytes": 23315
+    },
+    "tests/unit/test_embedding_job_journal.py": {
+      "from_candidate": "985806afe7c985d8a511261f9384cd1bfebce2f0",
+      "blob": "006525e4f282038ddd4d47142ba5b4648ba307dc",
+      "sha256": "21185bc0b0e758ce2a0fe72ba2fa42d8b584b972751ddc7a1f6f722ca6e71305",
+      "bytes": 28445
+    },
+    "docs/parallel/isolated-cpu-embedding-api.md": {
+      "from_candidate": "52252484baf733c98e42963ce759c0b5db27b006",
+      "blob": "f36dd22a941dbe3e54adc5667e4ffbd7756f6c11",
+      "sha256": "f80b957ab07dffed88208f8a455886a33df854ad84f6fa9a5c38fad84116dc0f",
+      "bytes": 3648
+    },
+    "src/slaif_raggedized_helper/isolated_cpu_embedding.py": {
+      "from_candidate": "52252484baf733c98e42963ce759c0b5db27b006",
+      "blob": "bf968bd80caaa10f1001442758aea30bddecefc0",
+      "sha256": "0a6f48f58d9a036abe990aa84f727abfe5aa6debe19a5ad672abe2b9743e1940",
+      "bytes": 22058
+    },
+    "tests/integration/test_isolated_cpu_embedding_composition.py": {
+      "from_candidate": "52252484baf733c98e42963ce759c0b5db27b006",
+      "blob": "419e6f3f3038c096bbd2651aef7f56a2f4fd9e45",
+      "sha256": "498c091f0c8ceee2e416a8364e966e8ec8e4641a168e474ca934db9c61e54d27",
+      "bytes": 14270
+    },
+    "tests/unit/test_isolated_cpu_embedding.py": {
+      "from_candidate": "52252484baf733c98e42963ce759c0b5db27b006",
+      "blob": "68fda5523ecf1ace4be9d0ec6082f47d7d5ffd48",
+      "sha256": "6077be1c6e16490cc46e21882d1cc98a815d0833b32ba3ff306cdb1ed84db36f",
+      "bytes": 19638
+    }
+  },
+  "file_count": 17,
+  "bytes": 195649,
+  "scope": "Exact reviewed cleanup/lease/isolated corrections only; no activation/newGitbranch/sourcepatch/actualNN/GPU/profilecutover. Actual parent merge trees must be rechecked after new transcript publication; currentE report not yet received, no finalhead/CI claims.",
+  "DHA": "NONE",
+  "base": "52ae2918c09ea939ba7c8694cd6e65e735c1d918",
+  "first_merge_forecast_atbase": "38d49bf9097b8bc243133375fe649774d6c16399",
+  "limits": "Exact reviewed17productblobs; actualnewtranscript/mergeparenttrees must beverified. Rootcomposedtree105unit39standalone10originalwitnessesPASS isnotcurrentheadICA or realML/GPUqualification. No activation by thisindex."
+}

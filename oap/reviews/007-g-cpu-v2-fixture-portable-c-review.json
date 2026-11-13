@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-12T04:21:56.772809+00:00",
+  "status": "FINAL_LOCAL_PORTABLE_CPU_LIGHT_FIXTURE_ACCEPTED",
+  "implementation": "485fc6877120597ad86a3f70e2b457eaa0d7f3e6",
+  "report_commit": "adfc96e731feef691828e7b96df149a7599bef01",
+  "report_sha256": "5bd186c13a4e311d668785865ab84fd84e876f33fb238c3552dde5dfad0c256e",
+  "report_bytes": 3088,
+  "source_review": "audit/007-cpu-v2-portable-source-review-485f.json",
+  "Root_evidence": "Independentactualdifferent-prefix6+32setup,18unit+SEPARATEworker4/premodel1/ruff/diffPASS. Codingownactualexecutioncommit/receipt independenthashverified.",
+  "graph": "ExactSELF/reportonly/soleparent/order/source/unit/APIhash/currentcleanhead",
+  "strongest_counterargument": "No currentrunnerCI/realframework/class/model/security/license/parity/CPU/GPU/hardware orICAqualification.",
+  "disposition": "EligibleexplicitcanonicalCIcutover withNEWdirect/tmp target/PDF_TEST_RUNTIME/literalV2envandretainedlegacyfixtures. No whole007/mainmerge/MVPclaim.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

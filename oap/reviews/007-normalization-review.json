@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-11T22:49:48.991446+00:00",
+  "status": "FINAL_LOCAL_COMPONENT_ACCEPTED_NORMALIZED_FP32_PRODUCER",
+  "receipt": {
+    "lane": "normalization",
+    "lane_id": "PAR-007-NORMALIZATION-A",
+    "result": "COMPLETE",
+    "implementation": "81f85b4320b0769215d39044618d08911c91edd0",
+    "report_commit": "46176a55679fdf65d9ae02e006c1e84f95a6d7de",
+    "report_sha256": "41dea1dc9be6e55e08778ef0bbca97d82a887fe7585d4a5c39850c055b523933",
+    "paths": [
+      "docs/parallel/embedding-vectors-api.md",
+      "oap/parallel/orders/PAR-007-NORMALIZATION-A.md",
+      "src/slaif_raggedized_helper/embedding_vectors.py",
+      "tests/integration/test_embedding_vectors_composition.py",
+      "tests/unit/test_embedding_vectors.py"
+    ],
+    "verified_at": "2026-11-11T22:49:16.209232+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "execution": {
+    "unit": 4,
+    "standalone_integration": 1,
+    "lint": "PASS",
+    "witness": "/tmp/raggedized-root-normalization-proof.py",
+    "witness_sha256": "23df33f4d12c3008b6b27e392b96e93a3b4331afc107100f038c46bb056abd0b",
+    "exit": 0
+  },
+  "source_review": "Root whole source/all unit/composition/doc read, tiny threshold causal correction reviewed, source unchanged; final SELF report full read and report-only topology/current clean tree verified.",
+  "strongest_counterargument": "Actual reference execution may accumulate/round differently; producer needs downstream physical CPU/GPU measured parity. Current arithmetic/storage contract and bounded refusal proof justify local leaf acceptance only.",
+  "limits": "No actual model/runtime/parity/rowmap/typedstore/currentrights/license/ICA qualification; canonical007 integration pending.",
+  "DHA": "NONE"
+}

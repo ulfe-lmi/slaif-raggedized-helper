@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-12T09:52:52.632940+00:00",
+  "status": "DO_NOT_ACTIVATE_OLD_K13_PARENT_REINIT_DEFECT",
+  "index": "audit/007-k-components.json",
+  "index_sha256": "4e30386ff394fdbaf86fde61a842f0fa396fb3427eb31b0bcefed8540107bbd5",
+  "actual_finding": "audit/007-parent-reinit-finding-b83a.log 1 historical bad-behavior assertion PASS2.96s with actual owned parent; no foreign signals.",
+  "witness": "/tmp/raggedized-root-parent-reinit-b83a.py",
+  "witness_sha256": "ff0a11bb19fd9a04adde126f90fc1330001bbfb8d5c1ffaac4083764802cc9f1",
+  "replan": "Canonical same007-k will integrate eight pure snapshot core/row-map declaration files while separate parent correction and native acquisition work proceed. Original007 remaining snapshot/vector bindings, no canonical008 activation or parent waiver.",
+  "DHA": "NONE"
+}

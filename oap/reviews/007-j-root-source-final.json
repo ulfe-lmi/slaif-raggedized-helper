@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-12T09:36:35.018666+00:00",
+  "head": "41b093f5a3961048e9637b85869f8b5cd8567e9b",
+  "implementation": "856ecb641d190ffef54f7debe3a176379586b65d",
+  "transcript": "21c8c9b0abf2759e1dc0a2b1efe421c30726bb0c",
+  "base": "4a4992e9eae85d52aaae093f61030fa14153eaa6",
+  "status": "SOURCE_GRAPH_REPORT_IDENTITIES_VERIFIED_REPORT_CI_AND_FORMAT_RECOVERY_PENDING",
+  "report_sha256": "564dd916b01491fd45b3a3c764f85cfab61256fd490d313b7b1b4e22a8e43397",
+  "report_bytes": 6554,
+  "actual_counts": {
+    "transcript": {
+      "M": 1,
+      "A": 15
+    },
+    "implementation": {
+      "M": 8,
+      "A": 13
+    }
+  },
+  "fourteen_source_bytes": 136921,
+  "Root13records_plus_index_exact": true,
+  "transcript_first_separate_exact": true,
+  "order_active_exact": true,
+  "manifest_all_entries_exact": true,
+  "routine_bytes": 49999,
+  "I15_exact_protected": true,
+  "protected_law_dependencies_helpers_profiles_unchanged": true,
+  "TESTING_T1_T15_prefix_exact": true,
+  "docs_review": "All currentREADME/STATUS/TESTING/UNCERTAINTIES/budget/embeddingdiff independentlyread, finitefake/null/actualofflinewheelvsunrunmodel/hardware distinction and Iquery/Hactual38/toy/unresolvedfault history preserved. Ownedparent/lock/identity remaincanonicalunintegrated; affectedpeerpendingstatements are asatJactivation, nowparallelpeersfinished.",
+  "report_errata": "Implementationheadmetadata contains parentannotation and strictparserrefuses, recoverypending exactSHA only. Actualdiffstat counts are authoritative over any prosecounts; inspect actual_counts. No reportrewrite/false responseclaim.",
+  "scope": "Whole007PARTIAL/no mainmerge/008/modelruntime/fullICA acceptance."
+}

@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-13T01:24:22.703618+00:00",
+  "status": "ALL_REQUIRED_CURRENT_REPORT_JOBS_AND_STEPS_SUCCESS_NOT_ACCEPTANCE",
+  "head": "9d811e3b123966be081a485480aa31d3c02dc6cf",
+  "run": 43342353043,
+  "attempt": 1,
+  "event": "pull_request",
+  "jobs": [
+    {
+      "name": "Product tests (Python 3.14)",
+      "id": 131613440538,
+      "completed_at": "2026-11-13T01:15:44Z",
+      "steps": 24
+    },
+    {
+      "name": "OAP tests (Python 3.13)",
+      "id": 131613440779,
+      "completed_at": "2026-11-13T01:06:53Z",
+      "steps": 10
+    },
+    {
+      "name": "Product tests (Python 3.12)",
+      "id": 131613440798,
+      "completed_at": "2026-11-13T01:18:44Z",
+      "steps": 24
+    },
+    {
+      "name": "OAP tests (Python 3.12)",
+      "id": 131613440800,
+      "completed_at": "2026-11-13T01:06:51Z",
+      "steps": 10
+    },
+    {
+      "name": "OAP tests (Python 3.14)",
+      "id": 131613440969,
+      "completed_at": "2026-11-13T01:06:57Z",
+      "steps": 10
+    }
+  ],
+  "total_jobs": 5,
+  "total_actual_steps": 78,
+  "full_logs": [
+    {
+      "python": "3.12",
+      "bytes": 126427,
+      "sha256": "8ad8c48c631ee5dd18a86bb2248e6184358b8f48c5e4cc1007852510e66c079b",
+      "selected_lines": [],
+      "progress_case_marks": [
+        {
+          "step": "Product test suite",
+          "observed_progress_case_marks": 1756,
+          "all_marks": ".",
+          "completion": "Product tests (Python 3.12)\tProduct test suite\t2026-11-13T01:08:02.5205691Z ............................                                             [100%]"
+        },
+        {
+          "step": "Integration test suite (owned loopback HTTP/SSE)",
+          "observed_progress_case_marks": 789,
+          "all_marks": ".",
+          "completion": "Product tests (Python 3.12)\tIntegration test suite (owned loopback HTTP/SSE)\t2026-11-13T01:18:22.3360620Z .....................................................................    [100%]"
+        }
+      ],
+      "selected_lines_note": "-qqformat has no individualtestnames orpasssummary; exactdotprogress1756unit/789integration+100%verified, not individualnode spy."
+    },
+    {
+      "python": "3.14",
+      "bytes": 126446,
+      "sha256": "420c8960e155fb25dd57aa20651470d5e09f46c44fe93e89a56d3063af574101",
+      "selected_lines": [],
+      "progress_case_marks": [
+        {
+          "step": "Product test suite",
+          "observed_progress_case_marks": 1756,
+          "all_marks": ".",
+          "completion": "Product tests (Python 3.14)\tProduct test suite\t2026-11-13T01:08:05.3761019Z ............................                                             [100%]"
+        },
+        {
+          "step": "Integration test suite (owned loopback HTTP/SSE)",
+          "observed_progress_case_marks": 789,
+          "all_marks": ".",
+          "completion": "Product tests (Python 3.14)\tIntegration test suite (owned loopback HTTP/SSE)\t2026-11-13T01:15:31.4850809Z .....................................................................    [100%]"
+        }
+      ],
+      "selected_lines_note": "-qqformat has no individualtestnames orpasssummary; exactdotprogress1756unit/789integration+100%verified, not individualnode spy."
+    }
+  ],
+  "semantic_limit": "Wholeunchangedunit/integrationcommands visibleinbothProductlogs, newrepairandTcapturecodeunconditional/currentcommittedbytecopies. Dot-onlyoutputisnotindividualtestspyinstrumentation. Needfullwholecommands/results/defaultcollection/sourcefit, no historicgreen substitution. CIcannoteraseunderreportedlocaldiagnostics orproveactualrights/models.",
+  "gate": "Normalresponse/authorattemptchronology/Rootreporttruth-resolution andlikelycorrectiveevidencecontinuationpending; no acceptance/merge/008advance.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

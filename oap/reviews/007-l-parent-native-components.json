@@ -1,0 +1,178 @@
+{
+  "at": "2026-11-12T10:52:30.678039+00:00",
+  "status": "FINAL_EXACT23_PARENT14_NATIVE9_FROZEN_SOURCE_INDEX",
+  "entries": [
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "src/slaif_raggedized_helper/gpu_embedding_worker.py",
+      "bytes": 38570,
+      "sha256": "1ac96452e4c32604afb2fe16276046ba48ebe640d596962aeeb1dd1712faf1e0",
+      "blob": "5ffeff578d6095e231d6d47617734604c80ec53c"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "tests/unit/test_owned_gpu_worker.py",
+      "bytes": 17947,
+      "sha256": "d96fac12b41960e91935443ffa203dc4696384af0127bf87e7c893b8f528297b",
+      "blob": "f43a17563602bf373fb56955b2c35bce7eddb0a8"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "tests/integration/test_owned_gpu_worker_composition.py",
+      "bytes": 39856,
+      "sha256": "c764f0ea1e8e057e10b9d03f70d464f632162608ebf1b004b2ff9d9e1e7729bf",
+      "blob": "4ccc59b440688332fbfb1317c3957d3aebe41413"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "docs/parallel/owned-gpu-worker-api.md",
+      "bytes": 5714,
+      "sha256": "9e611c6f46b8e9580dbf9260ea201e496793cccbc386fec6e7b2c28e4bbd5bb1",
+      "blob": "229017d9c0203975ccb731585a187d93741cd4c1"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "docs/parallel/owned-gpu-supervisor-design.md",
+      "bytes": 6658,
+      "sha256": "ee42b51025a59203518e4a3548061a0a5968f347d3869f12682dcee0f06da3c9",
+      "blob": "e37df2db203f08c96973be60807302154c3507d7"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "docs/parallel/owned-gpu-parent-lock-design.md",
+      "bytes": 4031,
+      "sha256": "fe6edaa592c41a6d0d86b8ee88e0b4f115c736c889e2db3f6456fd0596b27c2e",
+      "blob": "2feee059946bd60c80220ac0cc2ff403a230314e"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "docs/parallel/owned-gpu-lock-close-race-design.md",
+      "bytes": 2954,
+      "sha256": "c083d40fbd9538adf7ecd8da2197de02c8fc720edd5b7a544e781058756db02b",
+      "blob": "6dca5c44893549f57acd3ca5c74b9b9239cc7dff"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "src/slaif_raggedized_helper/gpu_worker_identity.py",
+      "bytes": 12373,
+      "sha256": "a570140545088c7042420afe79ba761f1a4068097990d47bd9ce4434274876ab",
+      "blob": "98375edba7e8928592dfd8c62e366df1645cc5c1"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "tests/unit/test_gpu_worker_identity.py",
+      "bytes": 7856,
+      "sha256": "6283d660794a58c6cd986c5e85d7fcef2b3db143d69c94ef3715aed6378c78e7",
+      "blob": "80bd25fb8d727a00630edf87401eda82422adc62"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "tests/integration/test_gpu_worker_identity_composition.py",
+      "bytes": 6965,
+      "sha256": "343aa0a47662c33dd5632027bcac9f0cbf907a3374ed6079f4f09b188a635f6f",
+      "blob": "d0e7f331bf25c998787e46fe05dff3010fd158c4"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "docs/parallel/gpu-worker-identity-api.md",
+      "bytes": 1739,
+      "sha256": "f40152dbe92dfde8d9105376c8858c907202e7697526990a9ddcd22237eab16c",
+      "blob": "de8e013a0920b1ea3b07948e567180c59c1bb3a0"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "docs/parallel/gpu-worker-identity-design.md",
+      "bytes": 8372,
+      "sha256": "73d806f7ca5d6092e434e4a65c3e508f334e86309c9ff1e161a999896786db55",
+      "blob": "01f3b18c4a595ecdcd21c4d06fbd7ee39f065eec"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "docs/parallel/gpu-worker-identity-addendum-1.md",
+      "bytes": 3655,
+      "sha256": "0c873f69f9e35bfc60ad59ecee30fae70cc496a13199375b055cfcfe86166fb0",
+      "blob": "cf93dfdd97e8774dd0bc300967515b0e04b07712"
+    },
+    {
+      "source_commit": "9ac0eabd77bff77101debe9812887993e86a6803",
+      "path": "docs/parallel/gpu-parent-single-initialization-design.md",
+      "bytes": 4154,
+      "sha256": "9607d4e686f710c34914b3e425f7ac2cd2b0d66cc929b157a94b9ed7a375353f",
+      "blob": "62873a8d98921c82162360bb88938f4ae0709b6e"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "src/slaif_raggedized_helper/embedding_native_identity.py",
+      "bytes": 14659,
+      "sha256": "a7f3eea2b8215d4cd6fb8c2299edc8c38786c9ab9b754c3bd317c0e9bb2aff87",
+      "blob": "d8ddfe71212de7cf95165de171f6ed26b3aa74dc"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "tests/unit/test_embedding_native_identity.py",
+      "bytes": 13668,
+      "sha256": "ecf43b16a520ca9b314cedb6d9b7c3e49f483dbe90fb3614ceb61b3dc58f3f67",
+      "blob": "9774b19f614f4cf668c30163a9a78c43fb3d8db4"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "docs/parallel/embedding-native-runtime-identity-api.md",
+      "bytes": 1462,
+      "sha256": "3a131bdabcb3f335990451cb16a8e1f6091f3416a91dc4814c8d705aac3177bb",
+      "blob": "77ef0d30adf96780849239663fd18ce4f3125481"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "docs/parallel/embedding-native-runtime-identity-design.md",
+      "bytes": 10172,
+      "sha256": "41ef555bc5a6747a57e3db497ae2d1efcec17056a96136a840989b1e9644d8ff",
+      "blob": "885bb54a62340a2f8345e8f2005f36457edb708b"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "src/slaif_raggedized_helper/embedding_tokenizer.py",
+      "bytes": 14014,
+      "sha256": "1c1d0a3ebf6bb3d587cd89aa3dc2270ea6ec745823c990964f715ce8a5bf5094",
+      "blob": "6002a6cbb2a87e8faf700e9a00f66164a17f497e"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "tests/unit/test_embedding_tokenizer.py",
+      "bytes": 19579,
+      "sha256": "ca6dadb7a7bf5c83edac7dc4cb04754bcb6e411915f5fdd20e6537679647b517",
+      "blob": "9c19d7e63ac8d48645be5eb1ac38e18d47ec661c"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "tests/integration/test_native_token_id_acquisition.py",
+      "bytes": 6659,
+      "sha256": "4dec27c3ce2381e9cf2564c24d770d34759c4bfb8fa370a9d2d8f16fa758e710",
+      "blob": "28b131aaf4480d0b2d3ac11098deceb1c8e7845a"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "docs/parallel/embedding-tokenizer-api.md",
+      "bytes": 3377,
+      "sha256": "84c188461c493f4ea38facfc639a0114f55d95540d2dbb73f402b2338e679cdd",
+      "blob": "d116aa0a029a430cc0957f396087f95e8208562c"
+    },
+    {
+      "source_commit": "d7701a5329d825eefa2d5f7a2a58b74bc0788b10",
+      "path": "docs/parallel/native-token-id-acquisition-design.md",
+      "bytes": 6137,
+      "sha256": "b5db06b56c3d32da4449c509a837a9d19d5e0c975acc727738c954201e2d0da7",
+      "blob": "4bce722d0ece916c7491b5c19931e4aaedbbe8c2"
+    }
+  ],
+  "total_bytes": 250571,
+  "forecast_directory": "/tmp/raggedized-root-k8-parent-native-g382ftdy",
+  "forecast_base": "currentJ41b093 plus exactK8 immutablecodec47707B forecast, NOT canonicalcurrentKimplementation acceptance",
+  "peers": [
+    "parent9ac0/d31d",
+    "native d770/5af3",
+    "historical parent764f/5f9e;lock19898/5d25;identityb83a/cd7b"
+  ],
+  "gate": "CurrentK independentlyresolvedPARTIAL/BOTHexactCIALL5ALL78/normalresponse; finalpublicationstillrequireslivehead/defaultmain/clean/quiet/uniquePR andhelperlocks. No mainmerge/modelGPU/008/releasegrant.",
+  "DHA": "NONE",
+  "canonical_base": "3b41a6b39d18a4805ecad253b38ffb2fc5ef130f"
+}

@@ -1,0 +1,39 @@
+{
+  "at": "2026-11-12T20:11:31.008142+00:00",
+  "identifier": "007-p",
+  "status": "REVIEWED_NOT_ACCEPTED_CURRENT_CI_FAILURE_CONTINUE_SAME007",
+  "implementation": "cd6d22bd640b23298cdedc8970bed495aa982263",
+  "report": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+  "report_sha256": "812963d01f718c68da4c00c6555074524f08e8b3319704ea631c6f8fbcd6c0b0",
+  "source_review": "audit/007-p-implementation-source-review-cd6d.json",
+  "strict_verification": "Original verify_report STRATEGIC at19:52:13 checkedremotePR9/head/reportsoleparent/reportonly/bytes/activeorder; no CI certification.",
+  "CI": {
+    "run": 43293767218,
+    "head": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+    "conclusion": "failure",
+    "jobs": "3OAPsuccess/2Productfail atactualIntegration test step",
+    "steps": "66success2failure10skipped of78; missing/skipped notgreen",
+    "evidence": [
+      "audit/007-p-current-report-CI-full.json",
+      "audit/007-p-current-report-CI-failed.log"
+    ],
+    "failure": "Bothinterpreters creator min soleint oninheritedunlimitedresources; two actualcorpusprogram controls Gitshowoldb0 objectmissing shallowCI. Collectioncollisiongone; no skips/bypass or acceptance."
+  },
+  "fit": "Twoexactimportswaps/traces/source-onlyscope; Rootdefaultintegration752collectwithmoduleidentityPASS, authoractualowner1/rowfit1passes; no product/auth/license/DHA change.",
+  "next": "007-q-ci-harness-portabilityD0 final3filetestrepair; Rootforecast/source-derivedcap10caseproof/fixturecorruptrefusal/RuffPASS+oppositestatic13identityreview6d91. Awaitlivequiet/runtime/finalorderRootrecords/preflightpublication; then originalcontrol/responseONCE. Rgateway/Scapture/Trepair remaininert.",
+  "strongest_counterargument": "AllrequiredCI hasnotpassed, soP cannotbeaccepted or PRmerged despite narrowlocallyverifiedcollectionfix. Full007 remainsPARTIAL; noactualBGE/hardware/currentrights/drain/precision/license/MVPclaims.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true,
+  "strict_current_report": "audit/007-p-current-report-strict-verification.json20:11:06 exact986/head/reportonly/source/active/order verified; no CIcertification",
+  "normal_response": {
+    "identifier": "007-p",
+    "pr": 9,
+    "implementation": "cd6d22bd640b23298cdedc8970bed495aa982263",
+    "report_commit": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+    "report_sha256": "812963d01f718c68da4c00c6555074524f08e8b3319704ea631c6f8fbcd6c0b0",
+    "verified_at": "2026-11-12T20:10:32.625848+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "postpublic_receipt_review": "audit/007-p-coding-postpublic-receipt-root-review.json; actualAPI24stepsperProduct vsreceiptprose18/23 typo explicitlyreconciled; reportedtmpdeletioncauseunverified andlocalrecapturehistorynotusedasacceptancegate",
+  "current_remote": "UniqueOPENnonDraftPR9/branch oap/007-embedding-pipeline/base main/head986/main11bad verified20:11. Auto-mergeOFF, no unresolved reviewthreads/changerequests; audit/007-p-current-reviews.json"
+}

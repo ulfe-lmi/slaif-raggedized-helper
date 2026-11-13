@@ -1,0 +1,68 @@
+{
+  "at": "2026-11-12T19:58:02.415710+00:00",
+  "status": "D0_CI_TEST_HARNESS_PORTABILITY_DESIGN_NOT_PRODUCT_PATCH",
+  "report": "986ab7ef0fa44eced4027fd3aebe9a7bb14e3812",
+  "run": 43293767218,
+  "failures": [
+    "creatorfiniteceilingminstar empty leaves oneintargument whenboth inheritedlimitsunlimited",
+    "two Gitshow historicalcomparisons fail shallowCI; actualimmutablebaseb0 object shouldbeexactfixture"
+  ],
+  "resource_matrix": [
+    {
+      "limits": [
+        -1,
+        -1
+      ],
+      "old": "TypeError",
+      "fixed": 120
+    },
+    {
+      "limits": [
+        30,
+        -1
+      ],
+      "old": 30,
+      "fixed": 30
+    },
+    {
+      "limits": [
+        -1,
+        60
+      ],
+      "old": 60,
+      "fixed": 60
+    },
+    {
+      "limits": [
+        30,
+        60
+      ],
+      "old": 30,
+      "fixed": 30
+    },
+    {
+      "limits": [
+        10,
+        20
+      ],
+      "old": 10,
+      "fixed": 10
+    },
+    {
+      "limits": [
+        0,
+        0
+      ],
+      "old": 0,
+      "fixed": 0
+    }
+  ],
+  "old_fixture": {
+    "commit": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+    "path": "src/slaif_raggedized_helper/retrieval_representation.py",
+    "bytes": 7049,
+    "sha256": "681bf5145e980f77f67903c2fb5fd153f4694cf33344e208cd6181a5e65947a3"
+  },
+  "proposed": "Replace min(*empty possibility) with min(nonempty sequence containingoriginalceiling), preservingallcaps. Commit exacthistoricalsourcebytes as inert testsfixture, loadwith explicitSHAassert preservingbothsemanticcontrols. No CI fetch-depth/network/historypresence dependency, no skip, no assertion/capweakening. Rootforecasts/privateproofonly; codingwritesproduct/testpatch.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-13T02:10:50.990699+00:00",
+  "identifier": "007-u",
+  "event": "STRATEGIC_REVIEWED_SOURCE_PASS_EVIDENCE_CORRECTION_REQUIRED_CONTINUE_SAME007",
+  "report_commit": "9d811e3b123966be081a485480aa31d3c02dc6cf",
+  "review": "audit/007-u-review.json",
+  "review_sha256": "8fc8498e6afc749529d0bc5855cd49b9cd9f74f40df08635c4c0c92c87408f61",
+  "activation_at": "2026-11-13T00:29:29.913465+00:00",
+  "normal_response_verified_at": "2026-11-13T02:03:47.598411+00:00",
+  "activation_to_response_seconds": 5657.684946,
+  "current_report_allCI_success": true,
+  "development_acceptance": "NOT_GRANTED_PENDING_TRUTHFUL_CORRECTION_V",
+  "next": "Same007Vdocumentationonly/nolocalproducttests/no merge/numericadvance",
+  "DHA": "NONE"
+}

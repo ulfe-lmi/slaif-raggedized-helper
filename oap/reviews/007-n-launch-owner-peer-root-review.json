@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-12T12:56:22.663146+00:00",
+  "target": "b0ca5a68f8e55667ada5dd7523903b5585cbe0af",
+  "draft_sha256": "cba97e611fe71a49b1a1df4f089ace9eafbf3cdc2c9f1d97fd2e4dc83277f96e",
+  "status": "ROOT_FINITE_PEER_EVIDENCE_VERIFIED_ALLOW_FINALIZE",
+  "Root_original_rerun": {
+    "path": "audit/007-launch-owner-peer-root-handoff-cba9.log",
+    "sha256": "1a245648d64e9dab6eb64c5113658cf5bb73eeb6959276c45ca32bd187b1d01a",
+    "output": "handoff_control_sha256=862de8ae1dddf92d58596afe4ab3e0f04f6525bdf984b66dd57d88705334148a\nonly handoff refusal removed; same actual no-child capture drained; not a live-child, device-vacancy or general security test\n.\n1 passed in 0.84s\n"
+  },
+  "source_hashes_verified": 10,
+  "additional_artifact_hashes_verified": 8,
+  "review": "Full COMPLETE opposite-agent retainedproducercontext draft/source18hashes and all7rawlogs/newowncontrol read. Reviewer didnotauthorprereq but isdependentimplementer, notfreshcontext/human/milestoneICA.11new+27oldunits/actualparent1/returnrecovery1/ownhandoffguard1PASS; separateRootwitness reruns namedreusedinputs; countsnotadditive. InitialcontrolOSErrorexpectationfailure preserved, correctfinitecounterfactual no productbug claim. Actualonehandoffclause removed fromcompiledclose function onactualno-childprepared, owner/capsuledrained; originalrefused. RootrerunonePASS underoriginalcaps.",
+  "scope": "Only prerequisitecleanupassociation finitecandidate; actualproduceradaptation/newsourcefingerprints/currentcanonicalCI separate. No livevacancy/model/rights/license/ICA claim.",
+  "DHA": "NONE"
+}

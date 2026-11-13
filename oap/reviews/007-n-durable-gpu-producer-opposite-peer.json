@@ -1,0 +1,57 @@
+{
+  "lane_id": "AUDIT-007-GPU-PRODUCER-A",
+  "target_commit": "880dedf33e7b9eb1da497bf88acb6bb626a7fce3",
+  "implementation_commit": "617ab621d1dc8fbb6cbfbaff61261d35e1ae2716",
+  "result": "COMPLETE",
+  "decision": "ACCEPT_CANDIDATE",
+  "DHA": "NONE",
+  "provenance": "Finite opposite-agent component review, not separate human, canonical integration or merged-SHA ICA. Historical shared launch-owner/source/tokenizer ancestry creates review dependency. Root and author logs explicitly reused below. NEW control consumed once; prior partial draft received CONTINUE.",
+  "identity": "Clean target branch oap/parallel-007-durable-gpu-producer: report SELF commit 880dedf sole parent 617ab; report-only diff adds one report. Implementation 617ab sole parent 38ac45b; exactly six added paths. Preparation merge parents d100689 and b0ca5a6, changes only launch prerequisite and its own documents/tests/order/report; seven ordered other dependency hashes match original order. Design exactly concatenates original contract plus four amendments.",
+  "source_sha256": {
+    "docs/parallel/gpu-embedding-producer-api.md": "0ba932c594d68692c15979f9dd57ebf55daaa6500d75a994566783db145b87c7",
+    "docs/parallel/gpu-embedding-producer-design.md": "3a196c8b39ab019f53a2d95dd5c2011818ece994f84c36f9ce2e962f0c7a34d3",
+    "oap/parallel/orders/PAR-007-GPU-PRODUCER-A.md": "595cc008e6cc139edb6cb68536d07a6ba13383b7fe123531f79b326ebad82163",
+    "src/slaif_raggedized_helper/gpu_embedding_producer.py": "7e0cbdb9c1d93c1b1c345da475774707d5a4128e32e3630e7521261258bc7483",
+    "tests/integration/test_gpu_embedding_producer_composition.py": "5fc1880f554f5c1e8d2789e85b29351f387b5bda8822e56682e5ca4396da5466",
+    "tests/unit/test_gpu_embedding_producer.py": "cbed65eeac956d454a190f2058ef50bb54097afdc6e3a4150c52ae1a925422da",
+    "src/slaif_raggedized_helper/gpu_worker_launch.py": "89230e00f2e4fca3271c4e60f55a487a186d932fdce142ee9525852c9a49d3b3",
+    "oap/parallel/reports/PAR-007-GPU-PRODUCER-A.json": "2dfa9b9f026f49aa81e49999e1dfb4dfe082e313a7d443d0d2ea3d6444221d51"
+  },
+  "read_set": "Entire producer, unit tests, API, original contract and four amendments; source-review-617a and progress evidence; implementation order and report; actual composition positive/reuse, faults, source, lease, capture, constructor, fork and busy bodies; GPU plan and source preflight/build, launch preparation/capture/reservation, parent registry/cleanup, bridge registry/observation/receipt/encode, typed batch load/publish and journal enter/read/append/verified_output. Compared exact graph, source/report hashes and design bytes.",
+  "review": "Capture allocated before each A/B/reuse preparation, handoff recovery uses actual capture; actual parent consumes A, independently drained native/parent before fresh B and publication; lease gated by known resources, uncertain close sticky. Snapshot/actual reservation and fresh source plans bind full records and actual bridge lock/owner receipts; epoch checked at named boundaries; dispatch marked before actual class encode. Actual typed publish/load precedes COMPLETE, reread protects committed terminal state; only PENDING or verified COMPLETE accepted. Full records returned separately from stored fingerprints. No in-scope defect identified within finite review.",
+  "commands_and_results": {
+    "context": "cwd /home/janezp/codex-work/slaif-raggedized-helper-parallel-durable-gpu-producer; cached /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python, PYTHONPATH=src:tests/unit:tests/integration, PYTHONDONTWRITEBYTECODE=1; ulimit -t 30; ulimit -v 1048576; timeout 120; private basetemps. OMP_NUM_THREADS, OPENBLAS_NUM_THREADS, MKL_NUM_THREADS, NUMEXPR_NUM_THREADS = 1. First three invocations set VECLIB_MAXIMUM_THREADS=1 instead of ordered RAYON_NUM_THREADS; no explicit RAYON setting recorded for them. Later invocations set RAYON_NUM_THREADS=1. Native and GPU fixture roots/packages exactly as order.",
+    "first_runs": "python -m pytest -q -p no:cacheprovider --basetemp=/tmp/gpu-peer-unit-unique tests/unit/test_gpu_embedding_producer.py: 23 passed; same command with basetemps /tmp/gpu-peer-capture-a-unique and /tmp/gpu-peer-capture-b-unique, selectors test_capture_a_interrupted_actual_return_recovers_same_handoff and test_capture_b_interrupted_return_recovers_actual_handoff_and_lease respectively: 1 passed each. Outputs observed, no separately saved logs.",
+    "later_runs": "python -m pytest -q -p no:cacheprovider --basetemp=/tmp/gpu-peer-source-new tests/integration/test_gpu_embedding_producer_composition.py::test_corrupt_original_source_refuses_before_model: 1 passed; same with /tmp/gpu-peer-b-failure-new and ::test_capture_b_failure_holds_actual_journal_until_drained: 1 passed. python -m pytest -q -s -p no:cacheprovider --basetemp=/tmp/gpu-peer-reuse-new tests/integration/test_gpu_embedding_producer_composition.py::test_fresh_plan_with_seeded_typed_journal_binding: 1 passed; seeded typed vectors, not neural provenance. python -m pytest -q -s -p no:cacheprovider --basetemp=/tmp/gpu-peer-attempt-control-base /tmp/gpu-peer-attempt-control.py: 1 passed in 7.89s. Each independently executed with above caps and current ordered five threads.",
+    "reused": "Root exact-current 617a positive log: synthetic fresh single batch, four boundaries, PENDING/CLAIMED/RUNNING/COMPLETE, 33.912 process CPU seconds, outer test only CPU60; not independently repeated. Author three late cases each log and time file hash checked against evidence; exit 0, specific authorized CPU60 outer drivers only. Author previous-source fresh process reuse/vector output matched record hashes; earlier producer predated exception association change and is not exact-current positive. Root unit and return logs and both lease controls verified, first control setup failed before guard, corrected control passed. All original full-positive CPU30 SIGKILL failures remain failures; no independent repeat or performance qualification."
+  },
+  "causal_witness": {
+    "file": "/tmp/gpu-peer-attempt-control.py",
+    "effect": "Actual fresh source-derived plan/native count, actual preparation/reservation and owned real journal. Actual RUNNING attempt a; separate transaction b with same actual handle. Original reconciliation refuses before append. In-memory source changes only attempt_id mismatch predicate to False; calls actual journal append, which independently refuses invalid transition; RUNNING/a persists. Original restored check refuses before append; supported actual owner reconciles FAILED and cleans preparation/capture/reservation. Thus precise pre-append guard effect only, not broad security proof or successful forged commit.",
+    "modified_function_sha256": "cdafc2938a477fd069e7f177a04e6a0557bb6363b73d4e5a3c20f370bddc747d"
+  },
+  "evidence_sha256": {
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-producer-root-units-617a.log": "5d55354c6c38cbf536fc63d13195727856b9a2b041fd89c8283e4c79d282c5f1",
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-producer-root-return-recovery-617a.log": "e8e2bfb9088b7dec0ac16ade695749de33d1d6c2cd492ca888ee688f5b9399d4",
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-producer-root-lease-control-617a.log": "d99bf4070ec4291b7b6fe5d368ca5ec3fcd90c699a7a48a4a5eb4dc0a2e6a8e2",
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-producer-root-lease-control-v2-617a.log": "07572f20efbf5a1c250f00277fa6d493299d2a22f9cf3902af7ebf981c0ba6f6",
+    "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/007-producer-root-positive-617a.log": "8608541d6478c11d83d5967534863eca32d3700653c32dece8c607b86909d963",
+    "/tmp/gpu-producer-a4-late-Tw2dIoNt/test_b_close_failure_retains_journal_and_orphan.log": "f80e75cd104ee1215e73161674f1a73d3554dffbe50a5e631b067675a1cf0e15",
+    "/tmp/gpu-producer-a4-late-Tw2dIoNt/test_epoch_change_before_complete_leaves_orphan.log": "04846b9d1f18136626739763e0e370a9746d5ba2ee518b1dca7abc4df147003b",
+    "/tmp/gpu-producer-a4-late-Tw2dIoNt/test_epoch_change_before_publish_after_dispatch.log": "eba38b4b8857c8482597843f19f81eaf14be2c4df32a4fb7a8325f051a353030",
+    "/tmp/gpu-producer-a4-late-Tw2dIoNt/test_b_close_failure_retains_journal_and_orphan.time": "68f852f530d49c60760ea765379788161fbc0304edd4dcaad784a9e453c012ed",
+    "/tmp/gpu-producer-a4-late-Tw2dIoNt/test_epoch_change_before_complete_leaves_orphan.time": "4b798aee18340e6875f9bdb6a78bd4a5db41dca96f4f191d1e51edf7f5e76206",
+    "/tmp/gpu-producer-a4-late-Tw2dIoNt/test_epoch_change_before_publish_after_dispatch.time": "baf976da614fa0a2e1e4fd76598fde0955017fdea9671f9da43917cccf7b615c",
+    "/tmp/gpu-producer-a3-cpu60-lgscGLOG/producer.log": "20c30851c4346680450f2b7bdc6d7bb7bfa7a99ce81929738fd451c2eab896bf",
+    "/tmp/gpu-producer-a3-cpu60-lgscGLOG/reuse.log": "762b523dab82ac3b26d7ada25b3893110f9bd0f74b832dbf44136d97b975f57f",
+    "/tmp/gpu-producer-a3-cpu60-lgscGLOG/reuse-vector.log": "a0e9dac3a2f0e91c0d396b91f95a8d933ea0366af22f3d9a329269b321fcb737",
+    "/tmp/gpu-peer-source-new.log": "423b1d0e014eb1eab96f4420f7b344c2615be505dd574b756ac884826ca74f2d",
+    "/tmp/gpu-peer-b-failure-new.log": "423b1d0e014eb1eab96f4420f7b344c2615be505dd574b756ac884826ca74f2d",
+    "/tmp/gpu-peer-reuse-new.log": "01e1c19731e85e170452296ec3d25e1a3cecb2aab31f63e0c4ad7c7d90cc9d3f",
+    "/tmp/gpu-peer-attempt-control.py": "7605074d7bb45aa588e50f8f6d1ba994b897e96e35c0f956fff426ed523bb4e8",
+    "/tmp/gpu-peer-attempt-control.log": "98471b9cce5ba428a68635d900e1fdb51ee5ec6780cf866b08b68956402c1431"
+  },
+  "findings": [],
+  "strongest_counterargument": "Private bridge registry layout and repeatedly rebuilt preparations create fragile coupling and expensive bounded execution; selected tests cannot establish universal failure safety. Exact-current full positive and late cases are Root/author evidence, not independent repeat, and real policy and hardware are unqualified. Actual source/ownership inspection, selected independently run cases, journal causal control and retained exact evidence justify a candidate only for this bounded software component.",
+  "limits": "OPEN: raw neural FP16, V100 physical exclusivity and vacancy, online controller and restoration, efficient bulk, current principal policy/rights, security, license, parity, canonical CI, full ICA, MVP and release. Synthetic test provider and GPU fake are not those qualifications. No source/Git mutation, live GPU/model, deployment or acceptance."
+}

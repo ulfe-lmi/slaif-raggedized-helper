@@ -1,0 +1,331 @@
+"""INERT exact one-time FAILED_FORMAT -> same007 successor publication proposal.
+No FIFO IO, Git mutation, report acceptance, persistent helper change or merge.
+No dry-run/retry: an ATTEMPTED journal requires explicit state reconciliation.
+"""
+from pathlib import Path
+from dataclasses import dataclass
+import argparse
+import json
+import subprocess
+import sqlite3
+from datetime import datetime
+import sys
+
+S = Path('/home/janezp/codex-supervision/slaif-raggedized-helper')
+R = Path('/home/janezp/codex-work/slaif-raggedized-helper')
+sys.path.insert(0, str(R / 'oap/bin'))
+import oaplib as o
+
+HEAD = 'c1bcba4666d184689e6d8cdf47e42ceea3667db9'
+IMPL = '270d4156c4bf813a12e58c32cdd638ddb1ca35d0'
+PRIOR = '81159dd0d7278edbd07de904cf94a251a964a5aa'
+REPORT = 'oap/reports/007-r-gateway-role-remediation.md'
+REPORT_HASH = 'cf716a628f7e51373845bc8151e5907e5684b490135c5675c1cf4afc7f68ddf6'
+ORDER = 'oap/orders/007-r-gateway-role-remediation.md'
+ORDER_HASH = '31abbbb2de8090bc9f89706fdcbabc33c00013c58b29f154c05ab8e4c1e2ee0d'
+BRANCH = 'oap/007-embedding-pipeline'
+MAIN = '11badc7782bed326995d400f5532b63399b91fbd'
+REPOSITORY = 'ulfe-lmi/slaif-raggedized-helper'
+RUN = 43315535020
+CI_SNAPSHOT = S / 'audit/007-r-current-report-CI-observed-2214.json'
+CI_SNAPSHOT_HASH = '67565fe0c3d8372fc0b31a821a90a977abc39dd3e575f8ef71ee36fb118fd794'
+REQUIRED_JOBS = {'Product tests (Python 3.12)', 'Product tests (Python 3.14)',
+                 'OAP tests (Python 3.12)', 'OAP tests (Python 3.13)', 'OAP tests (Python 3.14)'}
+STRICT_VERIFY = o.verify_report
+
+
+def read_json(path):
+    return json.loads(o.read_bytes(path))
+
+
+@dataclass(frozen=True)
+class FrozenOrder:
+    """Only the source argument: normal validator always sees approved bytes.
+    Canonical target/other reads remain ordinary Paths, without monkeypatching IO.
+    """
+    path: Path
+    data: bytes
+
+    @property
+    def name(self):
+        return self.path.name
+
+    @property
+    def suffix(self):
+        return self.path.suffix
+
+    def is_file(self):
+        return self.path.is_file()
+
+    def is_symlink(self):
+        return self.path.is_symlink()
+
+    def read_bytes(self):
+        return self.data
+
+
+def exact_ci():
+    raw = o.read_bytes(CI_SNAPSHOT)
+    o.require(o.digest(raw) == CI_SNAPSHOT_HASH, 'Frozen CI reference changed')
+    reference = json.loads(raw)
+    expected = {j['name']: j for j in reference['jobs']}
+    o.require(set(expected) == REQUIRED_JOBS and len(reference['jobs']) == 5,
+              'Frozen required-job reference invalid')
+    ci = o.gh('api', f'repos/{REPOSITORY}/actions/runs/{RUN}')
+    page = o.gh('api', f'repos/{REPOSITORY}/actions/runs/{RUN}/jobs?per_page=100&filter=all')
+    o.require(ci['id'] == RUN and ci['workflow_id'] == 403803560
+              and ci['path'] == '.github/workflows/oap.yml' and ci['run_attempt'] == 1
+              and ci['event'] == 'pull_request' and ci['head_branch'] == BRANCH
+              and ci['head_sha'] == HEAD and ci['status'] == 'completed'
+              and ci['conclusion'] == 'success', 'Exact current workflow/run identity changed')
+    jobs = page['jobs']
+    o.require(page['total_count'] == len(jobs) == 5
+              and len({j['name'] for j in jobs}) == 5
+              and {j['name'] for j in jobs} == REQUIRED_JOBS,
+              'Missing/duplicate/unexpected required CI job or incomplete page')
+    for job in jobs:
+        wanted = expected[job['name']]
+        o.require(job['id'] == wanted['databaseId'] and job['run_id'] == RUN
+                  and job['status'] == 'completed' and job['conclusion'] == 'success',
+                  'Required job identity/status changed')
+        o.require([(s['number'], s['name']) for s in job['steps']]
+                  == [(s['number'], s['name']) for s in wanted['steps']]
+                  and all(s['status'] == 'completed' and s['conclusion'] == 'success'
+                          for s in job['steps']), 'Required step missing/skipped/changed/not successful')
+    o.require(sum(len(j['steps']) for j in jobs) == 78, 'Required-step cardinality changed')
+
+
+def exact_rejected_graph(repo, repository, identifier):
+    """Graph reconciliation ONLY: strict original report verifier still refuses."""
+    o.require(repo == R and repository == REPOSITORY and identifier == '007-r',
+              'Only exact rejected predecessor is recoverable')
+    o.require(o.unique(R, 'orders', identifier) == R / ORDER
+              and o.unique(R, 'reports', identifier) == R / REPORT,
+              'Ambiguous or missing original order/report')
+    data = o.read_bytes(R / REPORT)
+    o.require(len(data) == 7426 and o.digest(data) == REPORT_HASH, 'Frozen rejected report changed')
+    m = o.metadata(data.decode('utf-8'))
+    o.require(m['Identifier'] == identifier and m['Repository'] == REPOSITORY
+              and m['PR number'] == '9' and m['Branch'] == BRANCH and m['Base branch'] == 'main'
+              and m['Result'] == 'PARTIAL' and m['Report publication commit'] == 'SELF'
+              and m['Round base commit'] == PRIOR and m['PR main base'] == MAIN
+              and m['Implementation head SHA'] == IMPL + ' (sole parent ad835959)',
+              'Only exact recorded report/format defect is recoverable')
+    o.commit_id(R, IMPL)
+    try:
+        STRICT_VERIFY(R, repository, identifier)
+    except o.ProtocolError as error:
+        o.require(str(error) == 'Full literal Git object ID required', 'Unexpected strict failure')
+    else:
+        raise o.ProtocolError('Expected strict failure disappeared; use normal protocol')
+    pr = o.gh('pr', 'view', '9', '--repo', repository, '--json',
+              'number,state,isDraft,headRefName,baseRefName,headRefOid,autoMergeRequest')
+    o.require(pr['number'] == 9 and pr['state'] == 'OPEN' and not pr['isDraft']
+              and pr['headRefName'] == BRANCH and pr['baseRefName'] == 'main'
+              and pr['headRefOid'] == HEAD and pr['autoMergeRequest'] is None,
+              'Current exact PR/branch/head changed')
+    candidates = [p for p in o.remote_prs(repository) if p['headRefName'].startswith('oap/007-')]
+    o.require(len(candidates) == 1 and candidates[0]['number'] == 9, 'Objective PR not unique')
+    o.require(o.git(R, 'rev-parse', 'HEAD') == HEAD and not o.git(R, 'status', '--porcelain'),
+              'Coding head/dirty state changed')
+    o.require(o.git(R, 'show', '-s', '--format=%P', HEAD) == IMPL
+              and o.git(R, 'diff-tree', '--no-commit-id', '--name-status', '-r', HEAD)
+              == 'A\t' + REPORT and not o.git(R, 'ls-tree', '--name-only', IMPL, '--', REPORT),
+              'Report is not new-file sole-parent/report-only SELF')
+    o.require(o.command(['git', '-C', str(R), 'show', HEAD + ':' + REPORT]) == data,
+              'Git report bytes differ')
+    for relative in ('oap/active', ORDER):
+        o.require(o.command(['git', '-C', str(R), 'show', IMPL + ':' + relative])
+                  == o.read_bytes(R / relative), 'Original activation bytes changed')
+    o.require(o.digest(o.read_bytes(R / ORDER)) == ORDER_HASH and o.active(R) == identifier,
+              'Frozen prior activation changed')
+    o.require(o.gh('api', f'repos/{repository}/git/ref/heads/main')['object']['sha'] == MAIN,
+              'Default branch changed')
+    exact_ci()
+    return {'identifier': identifier, 'report_commit': HEAD, 'report_sha256': REPORT_HASH,
+            'status': 'REJECTED_FORMAT_GRAPH_ONLY_RECONCILED_NOT_ACCEPTANCE'}
+
+
+def current_quiet(config):
+    """Bind present terminal state to exact live process, thread, goal and completed turn.
+    No credential/config/history copying; only scoped read-only lifecycle metadata.
+    """
+    o.validate_pane(config, 'coding')
+    identity = subprocess.check_output(['tmux', 'display-message', '-p', '-t', '%30',
+        '#{pane_id} #{pane_pid} #{pane_current_path} #{pane_current_command}'], text=True).strip()
+    o.require(identity == '%30 2959598 ' + str(R) + ' codex', 'Designated pane/process changed')
+    tail = subprocess.check_output(['tmux', 'capture-pane', '-p', '-t', '%30'], text=True)
+    rows = [line for line in tail.splitlines() if line.strip()]
+    footer = rows[-1] if rows else ''
+    o.require('Goal achieved' in footer and 'qwen3.8-27b on A100 (Q8)' in footer
+              and 'xhigh' in footer and 'Pursuing goal' not in tail,
+              'Present footer is not complete on preserved human model')
+    tid = '01a1d196-76c7-7f82-829e-37ffda8fe29d'
+    goal_id = 'a25088b1-07fc-4dc3-b08f-ff7496114596'
+    turn_id = '01a1d196-84da-7872-8a5a-d3ffa9e23969'
+    rollout = Path('/home/janezp/.codex/sessions/2026/11/12/'
+                   'rollout-2026-11-12T21-07-41-' + tid + '.jsonl')
+    proc = Path('/proc/2959885')
+    fields = o.read_bytes(proc / 'stat').decode().rpartition(') ')[2].split()
+    o.require(fields[1] == '2959598' and fields[19] == '216425042'
+              and o.read_bytes(proc / 'comm').strip() == b'codex'
+              and (proc / 'cwd').resolve() == R, 'Original Codex process start/parent/root changed')
+    links = []
+    for fd in (proc / 'fd').iterdir():
+        try:
+            links.append(str(fd.readlink()))
+        except FileNotFoundError:
+            pass
+    o.require(str(rollout) in links and str(Path('/home/janezp/.codex/thread-writer-locks')
+              / (tid + '.lock')) in links, 'Live designated process is not bound to pinned thread')
+    state = sqlite3.connect('file:/home/janezp/.codex/state_5.sqlite?mode=ro', uri=True)
+    try:
+        thread = state.execute('select cwd,rollout_path,model,reasoning_effort,archived '
+                               'from threads where id=?', (tid,)).fetchone()
+    finally:
+        state.close()
+    o.require(thread == (str(R), str(rollout), 'qwen3.8-27b', 'xhigh', 0),
+              'Pinned current thread identity/model changed')
+    goals = sqlite3.connect('file:/home/janezp/.codex/goals_1.sqlite?mode=ro', uri=True)
+    try:
+        goal = goals.execute('select goal_id,objective,status,updated_at_ms '
+                             'from thread_goals where thread_id=?', (tid,)).fetchone()
+    finally:
+        goals.close()
+    o.require(goal is not None and goal[0] == goal_id and goal[2] == 'complete'
+              and o.digest(goal[1].encode())
+              == '8b974188fdd09949feaae8715c661494ba778bac70877ea348e90bd51648fa9f',
+              'Exact R goal is not complete or objective changed')
+    before = rollout.stat()
+    o.require(before.st_size <= 16777216, 'Pinned lifecycle file exceeds review bound')
+    with rollout.open('rb') as stream:
+        raw = stream.read(16777217)
+    o.require(len(raw) <= 16777216, 'Lifecycle grew beyond bound')
+    after = rollout.stat()
+    o.require((before.st_ino, before.st_size, before.st_mtime_ns)
+              == (after.st_ino, after.st_size, after.st_mtime_ns),
+              'Pinned lifecycle changed while observing; fail closed')
+    started = completed = last_lifecycle = None
+    for line in raw.splitlines():
+        record = json.loads(line)
+        payload = record.get('payload', {})
+        if record['type'] != 'event_msg':
+            continue
+        kind = payload.get('type')
+        if kind == 'task_started':
+            started = (payload.get('turn_id'), record['timestamp'])
+            last_lifecycle = kind
+        elif kind == 'task_complete':
+            completed = (payload.get('turn_id'), record['timestamp'])
+            last_lifecycle = kind
+        elif kind == 'turn_aborted':
+            last_lifecycle = kind
+    o.require(started is not None and completed is not None and started[0] == turn_id
+              and completed[0] == turn_id and last_lifecycle == 'task_complete'
+              and datetime.fromisoformat(completed[1].replace('Z', '+00:00')).timestamp() * 1000
+              >= goal[3], 'Current pinned turn is unfinished, aborted or changed')
+    o.require(not Path('/proc/3861339').exists(), 'Old reader PID still exists; reconcile identity')
+    for name in ('response-send-007-r.json', 'response-consumed-007-r.json',
+                 'control-send-007-s.json', 'control-consumed-007-s.json',
+                 'response-send-007-s.json', 'response-consumed-007-s.json'):
+        o.require(not (S / '.oap-state' / name).exists(), 'Unexpected prior/new signal state')
+    return identity
+
+
+def publish_exact_next(source):
+    attempt = S / '.oap-state/format-recovery-007-r-to-007-s-attempt.json'
+    result_path = S / '.oap-state/format-recovery-007-r-to-007-s-result.json'
+    # All publication state is checked under the NORMAL helper publication lock.
+    with o.lock(S / '.oap-state/response-reader.lock'), o.lock(S / '.oap-state/control-reader.lock'), \
+            o.lock(R / '.oap-state/publication.lock'):
+        o.require(not attempt.exists() and not result_path.exists(),
+                  'Prior recovery attempted; explicitly reconcile partial state, never replay')
+        approved = read_json(S / 'audit/007-r-format-recovery-approved.json')
+        o.require(approved['decision'] == 'APPROVED_ONE_EXACT_NEXT_SUFFIX_PUBLICATION'
+                  and approved['script_sha256'] == o.digest(o.read_bytes(Path(__file__)))
+                  and approved['prior_report'] == HEAD, 'Exact independent Root approval absent')
+        resolution = read_json(S / 'audit/007-r-review.json')
+        timing = read_json(S / 'audit/007-r-resolution-timing-event.json')
+        author = read_json(S / 'audit/007-r-terminal-author-root-reconciliation.json')
+        retired = read_json(S / 'audit/007-r-owned-reader-retirement.json')
+        o.require(resolution['status'] == 'REJECTED_REPORT_FORMAT_WHOLE007_PARTIAL'
+                  and resolution['report'] == timing['report_commit'] == HEAD
+                  and not resolution['development_acceptance'], 'Rejected-format resolution absent')
+        raw_author = o.read_bytes(S / 'audit/007-r-coding-terminal-format-failure.json')
+        o.require(author['source_sha256'] == o.digest(raw_author) and author['report_commit'] == HEAD
+                  and author['strict_format_failed'] is True
+                  and author['all_current_jobs_steps_success'] is True, 'Author terminal evidence mismatch')
+        o.require(retired['identifier'] == '007-r' and retired['reader_pid'] == 3861339
+                  and retired['terminated_owned_reader'] is True and retired['coding_pane_quiet'] is True
+                  and retired['process_start_identity_verified'] is True,
+                  'Original reader retirement evidence absent')
+        config = o.load_runtime(S / 'runtime.json', R, operational=True)
+        identity = current_quiet(config)
+        frozen = FrozenOrder(source, o.read_bytes(source))
+        o.require(o.digest(frozen.data) == approved['next_order_sha256'], 'Approved order bytes changed')
+        m = o.validate_order(R, frozen)
+        o.require(m['Identifier'] == '007-s' and m['Expected active'] == '007-r'
+                  and m['Base commit'] == HEAD and m['Branch'] == BRANCH
+                  and m['PR number'] == '9' and m['PR mode'] == 'AMEND_EXISTING_PR'
+                  and o.active(R) == '007-r', 'Only exact next same007 suffix permitted')
+        existing = o.unique(R, 'orders', '007-s', False)
+        o.require(existing is None and o.unique(R, 'reports', '007-s', False) is None,
+                  'Next suffix already exists; reconcile, do not replay')
+        calls = []
+
+        def rejected_transition_only(repo, repository, identifier):
+            o.require(not calls, 'Repeated predecessor recovery')
+            calls.append(exact_rejected_graph(repo, repository, identifier))
+            return calls[-1]
+
+        o.verify_report = rejected_transition_only
+        try:
+            facts = o.remote_transition(R, m, config['github_repository'])
+        finally:
+            o.verify_report = STRICT_VERIFY
+        o.require(len(calls) == 1 and o.verify_report is STRICT_VERIFY, 'Strict function not restored')
+        # Fresh local authority/quiescence immediately before durable intent/order/active writes.
+        fresh = o.load_runtime(S / 'runtime.json', R, operational=True)
+        o.require(fresh == config and o.active(R) == '007-r'
+                  and o.git(R, 'rev-parse', 'HEAD') == HEAD and not o.git(R, 'status', '--porcelain'),
+                  'Current authority/active/working state changed during reconciliation')
+        current_quiet(fresh)
+        # Reconcile remote identity and exact required checks again nearest the writes.
+        near = o.gh('pr', 'view', '9', '--repo', REPOSITORY, '--json',
+                    'state,isDraft,headRefName,baseRefName,headRefOid,autoMergeRequest')
+        o.require(near['state'] == 'OPEN' and not near['isDraft']
+                  and near['headRefName'] == BRANCH and near['baseRefName'] == 'main'
+                  and near['headRefOid'] == HEAD and near['autoMergeRequest'] is None
+                  and o.gh('api', f'repos/{REPOSITORY}/git/ref/heads/main')['object']['sha'] == MAIN,
+                  'Remote changed nearest publication; abort and re-review')
+        exact_ci()
+        again = o.load_runtime(S / 'runtime.json', R, operational=True)
+        o.require(again == fresh and o.active(R) == '007-r'
+                  and o.git(R, 'rev-parse', 'HEAD') == HEAD and not o.git(R, 'status', '--porcelain'),
+                  'Local authority/state changed during final remote read')
+        current_quiet(again)
+        journal = {'at': o.now(), 'state': 'ATTEMPTED_BEFORE_ORDER_WRITE', 'prior_report': HEAD,
+                   'next_identifier': '007-s', 'order_sha256': o.digest(frozen.data),
+                   'script_sha256': o.digest(o.read_bytes(Path(__file__))), 'identity': identity,
+                   'no_FIFO_operations': True, 'prior_report_accepted': False}
+        o.atomic_write(attempt, (json.dumps(journal, indent=2) + '\n').encode(), immutable=True, mode=0o600)
+        target = o.safe_path(R, 'oap/orders/' + frozen.name)
+        # Same atomic primitives and order-before-active sequence as normal publish_order.
+        o.atomic_write(target, frozen.data, immutable=True)
+        o.atomic_write(o.safe_path(R, 'oap/active'), b'007-s\n')
+        o.require(o.read_bytes(target) == frozen.data and o.digest(o.read_bytes(target))
+                  == approved['next_order_sha256'] and o.active(R) == '007-s', 'Publication read-back failed')
+        result = {'status': 'PUBLISHED_EXACT_ONE_TIME_FAILED_FORMAT_CONTINUATION', 'at': o.now(),
+                  'remote': facts, 'prior_rejected_report': calls[0], 'next_identifier': '007-s',
+                  'order_sha256': o.digest(frozen.data), 'FIFO_operations': 0,
+                  'persistent_verifier_changed': False, 'prior_report_accepted': False}
+        o.atomic_write(result_path, (json.dumps(result, indent=2) + '\n').encode(), immutable=True, mode=0o600)
+        return result
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--source', type=Path, required=True)
+    parser.add_argument('--apply', action='store_true', required=True)
+    args = parser.parse_args()
+    print(json.dumps(publish_exact_next(args.source), indent=2))

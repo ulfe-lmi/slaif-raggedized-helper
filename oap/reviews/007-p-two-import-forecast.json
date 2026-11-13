@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-12T19:06:19.514834+00:00",
+  "status": "FINAL_EXACT_IMPORT_ONLY_EXPECTATIONS_NO_PRODUCT_EDITS",
+  "base": "c50213fbbd246adb8d6f89cac601239491974deb",
+  "files": [
+    {
+      "path": "tests/integration/test_corpus_embedding_executor_composition.py",
+      "base_bytes": 38234,
+      "base_sha256": "31ae037e500ab4671d7d7f0bceaec2c63b7725f2f61a6bae2284ea956ace146e",
+      "expected_bytes": 38234,
+      "expected_sha256": "06eec3c9143aded63deff7b9fc0f64f6c4b08bb85acddac1691f7d1d45060185",
+      "edit": "ONLY swap exact two adjacent fixture imports; launch fixture before journey import side effect"
+    },
+    {
+      "path": "tests/integration/test_gpu_embedding_producer_composition.py",
+      "base_bytes": 70160,
+      "base_sha256": "5fc1880f554f5c1e8d2789e85b29351f387b5bda8822e56682e5ca4396da5466",
+      "expected_bytes": 70160,
+      "expected_sha256": "b491dc396870dbfa3774cff98f3e1c75c15395267a34af8234f60a0827ea6eaa",
+      "edit": "ONLY swap exact two adjacent fixture imports; launch fixture before journey import side effect"
+    }
+  ],
+  "negative_evidence": "audit/007-o-root-integration-collection-c502-with-fixtures.log actualordinaryfullintegrationcollect collision; remote43283406324 bothintegrationjobs samefailure",
+  "DHA": "NONE"
+}
