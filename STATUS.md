@@ -427,9 +427,44 @@ open on the 007 PR, branch
   writer/publisher/FileBuilder/query/current-policy/quality
   interface, no CLI wiring, existing canonical modules unchanged,
   no local product tests, no new dependencies; one historical
-  bounded 7-row synthetic journey and current report-head CI
-  (pending) are the evidence boundary; whole 008 remains PARTIAL,
-  no merge.
+  bounded 7-row synthetic journey and the report-head CI now
+  recorded terminal at d9ef6b4 (run 43362986520: all five jobs /
+  all 78 steps SUCCESS, full normal 1,836 unit + 838 integration
+  on both Product 3.12/3.14 legs per
+  oap/reviews/008-b-ci-terminal.json) are the evidence boundary
+  for that head; the immutable 008-b report's 11-new-Python AST
+  wording is a documented count limitation — the slice
+  transferred 13 — per Root clarification
+  oap/reviews/008-b-scoped-prefix-resolution.json (report
+  preserved unchanged); whole 008 remained PARTIAL at 008-b, no
+  merge.
+- 008-c (publication reader; same PR 10/branch, transcript-first):
+  third bounded slice of objective 008 — byte-exact 25-file
+  transfer (200,027 B) of the Root- and peer-reviewed local
+  assembly per
+  oap/reviews/008-c-publication-reader-components.json (five
+  production modules: raw_snapshot_publication,
+  raw_snapshot_selection, raw_snapshot_catalog,
+  raw_snapshot_pin, raw_snapshot_file_builder; ten test files —
+  five unit and five integration suites; ten docs/parallel
+  contracts) plus nine exact Root records (37,297 B) and the
+  exact index in the transcript commit. Immutable private
+  publication with no-replace rename/fsync and explicit
+  publication_may_exist rename uncertainty, exact
+  expected-pointer selection with generation CAS and
+  selection_may_have_changed replace uncertainty, source-backed
+  bounded catalog (32 MiB non-vector), creator-owned lifetime
+  pin without removal, and FileBuilder constructing plus
+  independently validating unqualified DATA from the borrowed
+  stores — 4,096-row/128-group/96 MiB finite limits preserved,
+  20k capacity remains NOTQUALIFIED, no cap raise or silent
+  truncation; the blanket no-caller wording is corrected to no
+  CLI/application entrypoint because interlibrary callers now
+  exist. No query/scoring/operator/current-policy/public-route
+  integration, no CLI, existing canonical modules unchanged, no
+  local product tests, no new dependencies; zero local tests
+  this round and current final-head CI (pending) are the
+  evidence boundary; whole 008 remains PARTIAL, no merge.
 
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,

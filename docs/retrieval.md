@@ -1,9 +1,9 @@
-# Raw retrieval snapshot foundation and source construction (objectives 008-a, 008-b)
+# Raw retrieval snapshot foundation, source construction and publication reader (objectives 008-a, 008-b, 008-c)
 
 This document is the nonroutine retrieval reference for the bounded 008
-foundation and source-construction slices. The routine coding context
-remains unchanged; exact per-component contracts live in the byte-exact
-transferred documents under [docs/parallel/](parallel/)
+foundation, source-construction and publication-reader slices. The routine
+coding context remains unchanged; exact per-component contracts live in the
+byte-exact transferred documents under [docs/parallel/](parallel/)
 (`technical-analyzer-api.md`,
 `raw-snapshot-membership-api.md`/`-design.md`,
 `raw-snapshot-source-rows-api.md`/`-design.md`,
@@ -13,7 +13,12 @@ transferred documents under [docs/parallel/](parallel/)
 `raw-snapshot-row-builder-api.md`/`-design.md`,
 `raw-snapshot-files-api.md`/`-design.md`,
 `raw-snapshot-program-coverage-api.md`/`-design.md`,
-`raw-snapshot-directory-api.md`/`-design.md`).
+`raw-snapshot-directory-api.md`/`-design.md`,
+`raw-snapshot-publication-api.md`/`-design.md`,
+`raw-snapshot-selection-api.md`/`-design.md`,
+`raw-snapshot-catalog-api.md`/`-design.md`,
+`raw-snapshot-pin-api.md`/`-design.md`,
+`raw-snapshot-file-builder-api.md`/`-design.md`).
 
 ## Provenance of the 008-a slice
 
@@ -60,14 +65,49 @@ source-composition gate resolution
 (`oap/reviews/008-b-correspondence-journey-gate.json`), all per
 `oap/reviews/008-b-root-records.json`. Two integration modules contain the
 Root-approved existing-provider-import-only initialization; the copied final
-prepared bytes are authoritative, not older leaf blobs. Those are provenance
-records, not canonical acceptance: whole-008 acceptance still requires
-current canonical CI, same-PR continuations and Root review.
+prepared bytes are authoritative, not older leaf blobs. The immutable 008-b
+report records an AST count of 11 new Python files; the slice transferred
+13 (4 production + 4 unit + 5 integration). Per the Root clarification
+(`oap/reviews/008-b-scoped-prefix-resolution.json`) the report is retained
+unchanged, all 13 files were Root-verified to parse, and this current
+wording records the count limitation. Those are provenance records, not
+canonical acceptance: whole-008 acceptance still requires current canonical
+CI, same-PR continuations and Root review.
+
+## Provenance of the 008-c slice
+
+Twenty-five files (200,027 bytes: five production modules, ten test files
+— five unit and five integration suites — and ten docs/parallel contract
+documents) were transferred byte-exact by Git-object read from the reviewed
+local assembly commit SELF `4e428b17` of the parallel file-builder-assembly
+worktree, per the Root-owned index
+`oap/reviews/008-c-publication-reader-components.json` (identical to
+`audit/008-c-publication-reader-components-FINAL.json`, SHA-256
+`441c130f90cf5a4bc80e5815b12987be90e7a46564661b82d4086a5b7fc91355`). All
+25 paths were absent at the 008-c round base `d9ef6b4c`; no branch switch,
+cherry-pick or ancestry merge of the candidate occurred, and no other path
+was modified. The candidate carries the three source reviews
+(`oap/reviews/008-c-publication-selection-source-review.json`,
+`oap/reviews/008-c-catalog-pin-source-review.json`,
+`oap/reviews/008-c-file-builder-source-review.json`) and the historical
+peer Root reviews
+(`oap/reviews/008-c-file-builder-historical-peer-root-review.json`,
+`oap/reviews/008-c-pin-historical-peer-root-review.json`),
+together with the terminal 008-b CI, scoped-prefix resolution and timing
+records, all per `oap/reviews/008-c-root-records.json` (index 3,040 B; nine
+records, 37,297 B). The FileBuilder historical peer pre-run provenance
+remains UNPROVEN and is never backfilled; the pin peer proof's old-author
+RAYON-missing/reconstructed-stdout limits are retained separate from the
+Root fully bounded FD-reuse proof. Those are provenance records, not
+canonical acceptance: whole-008 acceptance still requires current canonical
+CI, same-PR continuations and Root review.
 
 ## Actual callable foundation (008-a, unchanged)
 
-All five modules are importable package members; none is wired into the CLI,
-a store lifecycle, a snapshot publisher or any caller in this slice.
+All five modules are importable package members; none has a CLI or
+application entrypoint (the later 008-c file-builder and catalog modules
+call the 008-a membership, source-rows, dense, lexical, rows and
+technical-analyzer modules as libraries).
 
 - `technical_analyzer`: `analyze(text, policy)` returns ordered
   `Term(text, start, end, derivation)` tuples with half-open codepoint spans;
@@ -106,12 +146,13 @@ a store lifecycle, a snapshot publisher or any caller in this slice.
   `validate_partition`. `normalization_policy_id` must equal the canonical
   `embedding_vectors.POLICY_ID`.
 
-## Actual callable construction layer (008-b, what exists now)
+## Actual callable construction layer (008-b, unchanged)
 
-All four modules are importable package members; none is wired into the
-CLI, a store lifecycle, a snapshot publisher or any caller in this slice.
-None publishes, selects, serves, scores or answers; stores are borrowed and
-deadlines are cooperative.
+All four modules are importable package members; none has a CLI or
+application entrypoint (008-c's publication, selection, pin and file-builder
+modules call the directory and files modules as libraries). None publishes,
+selects, serves, scores or answers; stores are borrowed and deadlines are
+cooperative.
 
 - `raw_snapshot_row_builder`: `build(originals, derived, declaration_bytes,
   groups, *, deadline_ms=30000)` constructs canonical v1 row-map DATA for
@@ -162,26 +203,91 @@ deadlines are cooperative.
   permission or filesystem immutability; cooperative bounds do not preempt
   blocked operating-system calls.
 
-## Absent as of 008-b (not implemented, not implied)
+## Actual callable publication layer (008-c, what exists now)
 
-No snapshot writer/publisher, no FileBuilder (it travels in a later wave
-with publication/selection), no snapshot reader/loader beyond the directory
-DATA reader, no query path, no principal/current-policy interface, no
-selection/catalog/pinning, no operator or CLI, no scoring, RRF or hybrid
-fusion, no BM25 index, no quality or readiness interface, no ACL recheck
-endpoint, no public route. The 008-b construction modules are DATA
-producers and validators for selected cuts; they do not publish or select a
-snapshot. The existing canonical manifest, row-map, corpus-program and
-representation modules are unchanged and not replaced. Nothing here serves,
-scores or answers.
+All five modules are importable package members with explicit interlibrary
+callers within this slice (file-builder → rows/membership/dense/lexical/
+manifest; publication → files/manifest/directory; selection →
+directory/publication; catalog → directory/source-rows/dense; pin →
+directory/publication/selection). None has a CLI or application entrypoint,
+and none serves, scores or answers a query; stores are borrowed and
+deadlines are cooperative.
+
+- `raw_snapshot_file_builder`: `build(originals, derived, row_map_bytes,
+  active_bundle_ids, withdrawn_revisions, query_context_bytes,
+  *, deadline_ms=30000)` constructs the unqualified raw snapshot DATA file
+  set (row map, fresh whole-batch membership, per-partition dense and
+  lexical payloads) from the borrowed source stores, preserving fresh
+  membership/payload/manifest/file binding and the declared
+  `slaif-raw-snapshot-query-context-v1` (space and definition fingerprints
+  must match the row map), and independently revalidates the complete file
+  set through `raw_snapshot_files.validate_files` before returning a frozen
+  `BuiltSnapshotFiles` (`SUPPLIED_UNVERIFIED` execution origin,
+  `NOT_QUALIFIED` qualification). It never publishes or qualifies. Limits:
+  128 active bundles, 1,024 withdrawn revisions, 128 groups, 258 files,
+  96 MiB total payload, 256 KiB core; the deadline is cooperative and
+  includes final construction; ordinary failures are content-free
+  `SnapshotBuildError`.
+- `raw_snapshot_publication`: `publish_directory(originals, derived,
+  store_root, core_bytes, files)` validates the complete source-backed file
+  set before any filesystem mutation, stages a private candidate, fsyncs,
+  and renames once without replace (`created=True` exactly once;
+  `created=False` when the snapshot ID already exists — no replacement),
+  then freshly reads the detached DATA back through the directory reader.
+  Cooperating writers serialize on the namespace lock under a 30 s
+  cooperative deadline; failures are content-free `PublicationError` with
+  the explicit `publication_may_exist` uncertainty after an attempted
+  rename, and unknown descriptor-close outcomes surface as non-retryable
+  `CleanupPendingError`. Publishing grants no authority.
+- `raw_snapshot_selection`: `parse_pointer` (canonical
+  `raw-snapshot-selection-data-v1` bytes: schema 1, generation
+  1..2^63-1, `sha256:<hex64>` snapshot ID), `read_selected_data` and
+  `compare_and_select_data` (exact expected-pointer compare-and-select with
+  generation increment, atomic `current.json` replace, fresh source-
+  validated candidate load under the namespace lock, 1..120,000 ms
+  cooperative deadline). `SelectionError.selection_may_have_changed` flags
+  post-replace uncertainty; selection has no serving or retention authority.
+- `raw_snapshot_catalog`: `load_catalog(originals, derived, store_root,
+  snapshot_id, *, deadline_ms=120000)` freshly converts one named snapshot
+  into row/declaration/chunk/source/scope/rendered/vector/term
+  correspondence over the borrowed stores (32 MiB non-vector retention
+  budget, 120 s cooperative deadline), ends with a fresh directory re-read
+  equality check and a `catalog_id` identity digest, and establishes no
+  query authority. Ordinary refusals are content-free `CatalogError`.
+- `raw_snapshot_pin`: `PinOwner.acquire_selected_data` /
+  `RetirementOwner.acquire_unselected_data` (plus `check`, `close` and the
+  context manager) hold a source-validated DATA identity under a shared or
+  exclusive target lock with creator-only cleanup and numeric descriptor
+  no-retry. They perform no removal, no authorization, no retention or
+  unlink decision; the owners are final (not subclassable); ordinary
+  refusals are content-free `PinError`.
+
+## Absent as of 008-c (not implemented, not implied)
+
+No completion-locator or construction wrapper yet, no snapshot
+reader/loader beyond the directory DATA reader, no query path, no
+principal/current-policy interface, no operator or CLI, no scoring, RRF or
+hybrid fusion, no BM25 serving index, no quality or readiness interface, no
+ACL recheck endpoint, no public route. The 008-c layer is private DATA
+publication, expected-pointer selection, source-backed cataloging, lifetime
+pinning and unqualified DATA construction: it does not serve, score or
+answer, and it grants no authorization, retention, unlink or deletion. The
+existing canonical manifest, row-map, corpus-program and representation
+modules are unchanged and not replaced. Nothing here serves, scores or
+answers.
 
 ## Evidence: current versus historical
 
-- This round (008-b) ran NO local product, unit, integration, native,
+- This round (008-c) ran NO local product, unit, integration, native,
   store, model or diagnostic process: static Git/hash/AST/JSON/metadata and
   governance checks only, plus the unchanged normal hosted CI triggered by
-  the report-head push (full unit and integration suites on Python 3.12 and
+  the final-head push (full unit and integration suites on Python 3.12 and
   3.14 plus the three OAP jobs).
+- The 008-b report-head CI is recorded terminal at `d9ef6b4c` per
+  `oap/reviews/008-b-ci-terminal.json`: run 43362986520, all five jobs / all
+  78 steps SUCCESS with the full normal suites on both Product 3.12/3.14
+  legs (1,836 unit + 838 integration per leg); it is canonical for the
+  008-b head only, not for this 008-c head.
 - The prior local proof is historical evidence for the exact source bytes:
   for 008-a, one corrected normal-layout 49-unit process and one source-row
   synthetic native journey passed on the assembly; the original
@@ -193,10 +299,16 @@ scores or answers.
   source-composition gate — not all batch shapes, physical atomicity,
   current-policy behavior or neural quality. The historical first
   correspondence unit receipt omitted a thread field; the separately
-  Root-authorized corrected 20-unit process passed. The earlier leaf
-  row-builder peer pre-run provenance remains UNPROVEN and is never
-  backfilled. The inherited test-only exception is the explicit `importlib`
-  load of the real existing structured-text fixture inside
+  Root-authorized corrected 20-unit process passed. For 008-c, the Root
+  separate bounded fault proofs support component admission; the FileBuilder
+  historical peer pre-run provenance remains UNPROVEN and is never
+  backfilled; the pin peer proof's old-author RAYON-missing /
+  reconstructed-stdout limits are retained separate from the Root fully
+  bounded FD-reuse proof. The earlier leaf row-builder peer pre-run provenance remains
+  UNPROVEN and is never backfilled. Historical primitive proof scopes and
+  path metrics are not rerun and are not reinterpreted as hardware
+  qualification. The inherited test-only exception is the explicit
+  `importlib` load of the real existing structured-text fixture inside
   `tests/unit/test_raw_snapshot_membership.py` (no `sys.path`/`sys.modules`
   override); no further adaptation is authorized.
 - Mock/synthetic store fixtures are not real routes, real models or hardware.
@@ -216,19 +328,27 @@ execution origin and `NOT_QUALIFIED` qualification; `COMPLETE_SELECTED_PROGRAM`
 describes the selected data cut only. Neither the data cut nor the private
 directory layout establishes rights, precision, permission, filesystem
 immutability or readiness. Rendered indexing text is not original answer
-evidence. The explicit 4,096 snapshot-row and 128-group limits are preserved
-unchanged; the illustrative 20k capacity remains NOTQUALIFIED with no
-truncation or cap raise. No human-owner referral behavior is introduced.
+evidence. The 008-c publication, selection, catalog and pin results are
+private DATA and lifetime coordination, not authorization, retention,
+unlink, ABA, power-loss, hard-preemption or model-readiness proof:
+publication renames once without replace and reports
+`publication_may_exist` uncertainty after an attempted rename; selection
+replaces `current.json` only against the exact expected pointer and reports
+`selection_may_have_changed` uncertainty after an attempted replace; pin
+performs no removal; unknown descriptor-close outcomes surface as
+non-retryable `CleanupPendingError`. The explicit 4,096 snapshot-row,
+128-group and 96 MiB build-payload (catalog 32 MiB non-vector) limits are
+preserved unchanged; the illustrative 20k capacity remains NOTQUALIFIED
+with no cap raise or silent truncation. No human-owner referral behavior
+is introduced.
 
 ## Remaining 008 scope (later same-PR waves, strategy-activated)
 
-FileBuilder and immutable
-publication/catalog/selection/pinning (FileBuilder tests need
-publication/selection and travel in that later wave); actual
-dense/BM25/RRF/hybrid dependencies; usable scoped query, operator and
-current-policy integration; scoring; final whole-008 criteria review. The
-transferred construction modules do not close those interfaces.
-Model/tokenizer/runtime pinning and the independent-tokenizer obligation
-remain architecture invariants; objective 014's authenticated principal
-boundary cannot waive these pre-scoring scope checks. New direct or
-transitive dependencies: NONE (stdlib plus the already locked NumPy).
+Completion-locator/construction wrapper over the 008-c publication-reader
+layer; actual dense/BM25/RRF/hybrid dependencies; usable scoped query,
+operator and current-policy integration; scoring; final whole-008 criteria
+review. The transferred publication-reader modules do not close those
+interfaces. Model/tokenizer/runtime pinning and the independent-tokenizer
+obligation remain architecture invariants; objective 014's authenticated
+principal boundary cannot waive these pre-scoring scope checks. New direct
+or transitive dependencies: NONE (stdlib plus the already locked NumPy).
