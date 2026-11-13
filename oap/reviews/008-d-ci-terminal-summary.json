@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-13T05:46:10.527829+00:00",
+  "state": "CURRENT_EXACT_C3E3_ALL_REQUIRED_CI_SUCCESS",
+  "run": 43370945412,
+  "head": "c3e36dae37966958cf30d8f6bb5df221a26f0d14",
+  "jobs": 5,
+  "steps": 78,
+  "all_required_jobs_and_steps": "SUCCESS independently checked; no missing/skipped/cancelled/pending",
+  "suite_counts": {
+    "312": {
+      "unit": 1864,
+      "integration": 894
+    },
+    "314": {
+      "unit": 1864,
+      "integration": 894
+    }
+  },
+  "durations_seconds": {
+    "OAP tests (Python 3.12)": 27.0,
+    "OAP tests (Python 3.13)": 24.0,
+    "Product tests (Python 3.14)": 863.0,
+    "OAP tests (Python 3.14)": 19.0,
+    "Product tests (Python 3.12)": 864.0
+  },
+  "full_terminal_record": {
+    "path": "audit/008-d-ci-terminal-c3e3.json",
+    "bytes": 27312,
+    "sha256": "1b6d43de94a2609c5cb1419e81b2e30b9f2e4f2225e4988a52cd7bd4c4e7d7e3"
+  },
+  "raw_logs": {
+    "312": {
+      "path": "audit/008-d-product-312-full.log",
+      "bytes": 76569,
+      "sha256": "962cb5ab6a96556998fe71036f31275e5b161d2a100c3c5a22efe3303ffc259a"
+    },
+    "314": {
+      "path": "audit/008-d-product-314-full.log",
+      "bytes": 77145,
+      "sha256": "f043f23614b6698ba630683a1f57ff4c1b3698663c6d5b16850fcebd81669807"
+    }
+  },
+  "limits": "Independentnormalcurrentheadbehavior evidence; doesnotretroactivelyqualifyold008dprivateharness or old322cFAIL. Rootsource/evidencereplan/docs gate/original008criteria remain separate; no merge/MVPclaim.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,279 @@
+{
+  "at": "2026-11-13T05:45:37.292060+00:00",
+  "status": "FINAL_EXACT_SOURCE_COPY_INDEX",
+  "base": "c3e36dae37966958cf30d8f6bb5df221a26f0d14",
+  "source_SELF": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+  "source_implementation": "a752b535cb666711d59fec1996616f2169beb33d",
+  "entries": [
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "src/slaif_raggedized_helper/raw_dense_search.py",
+      "bytes": 17407,
+      "sha256": "1dbb05a0bd5c2937e9f65a3685de150b2a0c69e4687c30dfd94e1f048ba9e643"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "src/slaif_raggedized_helper/raw_lexical_search.py",
+      "bytes": 17814,
+      "sha256": "66e90a988fdb15f8cf65006a78e1ab3bb99013bc66ce05481053009ec24034f3"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "src/slaif_raggedized_helper/raw_rank_fusion.py",
+      "bytes": 10840,
+      "sha256": "ffcb9b500b3e10a214c9ca0452a18c8d8c2ac9bf6c26ba1be9173aa2bc7fc91a"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "src/slaif_raggedized_helper/raw_hybrid_search.py",
+      "bytes": 14600,
+      "sha256": "ab1f804150362ca240e25fcfdf167725800adb7771cf85fbaefed6628b9b1a14"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "pyproject.toml",
+      "bytes": 2025,
+      "sha256": "a4c6c55eb4f84107600bc1dab6761128c4304cc8dbf39c4a24a8e25e5d2c392f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "uv.lock",
+      "bytes": 89617,
+      "sha256": "5048b68104b0374492b9e8f5d097adae22c7d5615fa92849557b33411e6b4685"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/unit/test_raw_dense_search.py",
+      "bytes": 4174,
+      "sha256": "7b561ba4eb7f35e0425f8a77f84e35320a461f2e27234334a59a34c7a4416eae"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/integration/test_raw_dense_search_composition.py",
+      "bytes": 15489,
+      "sha256": "8bd636e188537548adadfac53afa05bf131149bf7747a63e887ef6683ae65442"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-dense-search-api.md",
+      "bytes": 3021,
+      "sha256": "0336e7165a1f01b7609d25b4afa3ce94e8276a5ab985fd5ec533f303dd33d876"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-dense-search-design.md",
+      "bytes": 8813,
+      "sha256": "125e70d99b10bbf1fe6db61571a82d4dc627079db813be799b9757872fc89871"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/unit/test_raw_dense_authorized_trace.py",
+      "bytes": 7162,
+      "sha256": "1c660a6a7507cb9c934c0b589ef547959ddbbb05e1d8fbafb848a56589616ebd"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/integration/test_raw_dense_authorized_trace_composition.py",
+      "bytes": 5297,
+      "sha256": "46ceafa7d178e4198edae1a9a0494b4635fb49b82d36f9d1d2efff444439b23f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-dense-authorized-trace-api.md",
+      "bytes": 952,
+      "sha256": "01dcfa57a56c100bab6a51b36d12dafa0fc53aaa98a3cb46f3712853d17df3de"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-dense-authorized-trace-design.md",
+      "bytes": 14828,
+      "sha256": "08bb7dbe3171af1bd91760a1f06c8a1877e345eac476f5f3fc2cc3c29b0267a7"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-dense-authorized-trace-oracle.json",
+      "bytes": 9405,
+      "sha256": "fd035dcda51371124de9b3590b79d9911cd4666b6d727961a04afc110b7a53a5"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/unit/test_raw_lexical_search.py",
+      "bytes": 5626,
+      "sha256": "9002c465920381a868da7c173e693bd7a77e77e221cac526943c0b0a36babcda"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/integration/test_raw_lexical_search_composition.py",
+      "bytes": 18492,
+      "sha256": "579b57ba63afd3419a72bc0943e41fb458202dabf58fc689b631430981ddab51"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-lexical-search-api.md",
+      "bytes": 2629,
+      "sha256": "933be4d674ffafa6ac1502317030761c6232353e1c781d7b1e8a82966fd2661c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-lexical-search-design.md",
+      "bytes": 9978,
+      "sha256": "24abfc842e5f72a54ffeb79e3982f57333b6aee3e68cfe5a58e645f224e1a025"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/unit/test_raw_lexical_authorized_trace.py",
+      "bytes": 7114,
+      "sha256": "9074c2181a7279e0c0edcd016950082977d39366a90e0d6f9442ca6b05d23e20"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/integration/test_raw_lexical_authorized_trace_composition.py",
+      "bytes": 17561,
+      "sha256": "e778ae07e477427b4847e402dafa2d52d003eae298aaa072346f78238e331604"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-lexical-authorized-trace-api.md",
+      "bytes": 1077,
+      "sha256": "5addf1c1c27747081a3849b9a528ca21ab8ddb7710917962975c38d76b44cad8"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-lexical-authorized-trace-design.md",
+      "bytes": 11440,
+      "sha256": "d1b33b33d4fa1198882bda233acdae1ba217cc477749496d2cba99f55bef5e6e"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-lexical-authorized-trace-oracle.json",
+      "bytes": 25963,
+      "sha256": "840bc915e106c06a860101221835d26b2d7aa11fdfaf3c30b970cac595514b67"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-lexical-trace-identity-witness.md",
+      "bytes": 1188,
+      "sha256": "73046948221c134d34e1725094b3b9b5ccd5675afa8c7e9bd5e62ac0411ca3a8"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/unit/test_raw_rank_fusion.py",
+      "bytes": 4532,
+      "sha256": "316dda1a5d541864e35c6f6d2d910e319c7ab664bd8e57d78f0f5fb50e54d92e"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/integration/test_raw_rank_fusion_composition.py",
+      "bytes": 14420,
+      "sha256": "ce700117cb0aa7d536541399cedc6520feabd8efbe53fe73c14b7f048e0ba31d"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-rank-fusion-api.md",
+      "bytes": 2682,
+      "sha256": "6cc346c0001595996fcd289818151dc47eee941f69019cb82f9fbb05297763ea"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-rank-fusion-design.md",
+      "bytes": 9676,
+      "sha256": "d8120e6f1384640876ede95484e255679e7945e8ffe7dd6e194c7c307dcdfcce"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/unit/test_raw_hybrid_search.py",
+      "bytes": 3000,
+      "sha256": "48010b7445c130c2e10361f229aff3ff5fc4f528999e3edb1a48ec9f10a78cd9"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/integration/test_raw_hybrid_search_composition.py",
+      "bytes": 18817,
+      "sha256": "d4cdcb97059330b9650cd4facb0f1840d8cf5fecd4719992077f4912ed45a193"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-hybrid-search-api.md",
+      "bytes": 6554,
+      "sha256": "c8d4afc63948d0587d1b1e716ae6caed49bd752d3ff92ee889150a89af6d9d89"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-hybrid-search-design.md",
+      "bytes": 12173,
+      "sha256": "839e4778b2f9886c2194845a8905081ed79c55199198651486dbff96eaf85a88"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/unit/test_raw_hybrid_trace.py",
+      "bytes": 29978,
+      "sha256": "4b2f7972d79fa58130eb77a35a1262b573476d83709071a8007adeb66493b5b8"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "tests/integration/test_raw_hybrid_trace_composition.py",
+      "bytes": 11951,
+      "sha256": "c3d2150e918c900c378e7372c06f4cf428f0a9c44a7f3ea7f9033c97abca50fd"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-hybrid-trace-contract.md",
+      "bytes": 12183,
+      "sha256": "c34432541cfeaabd941edf115aeeace72d8e92582d68fe565984a220c4c68cf9"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-scoring-test-assembly",
+      "source_commit": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+      "path": "docs/parallel/raw-hybrid-trace-oracle.json",
+      "bytes": 3237,
+      "sha256": "b0607979e3a40493cb798f0ce9dd09d8c5186f1b7c7c56368f01ee6c3daa79dc"
+    }
+  ],
+  "total_bytes": 451715,
+  "breakdown": {
+    "production": 4,
+    "unit": 7,
+    "integration": 7,
+    "documentation": 17,
+    "dependency_metadata": 2
+  },
+  "provenance": "Exact fourprod/twodeps previouslyprepared and31reviewednewtestdocs with only2Rootorderedimportmoves. Local7module40case metadata collection pass; no runtimeproof. Oldscore008dDRAFT neveractivated; suffix008dusedforobservedCIrepair, plannedscoringtransfer008e.",
+  "gates": "Current008d scoped resolution recorded with complete CI and independent peer. Only exact source transfer and three currentdocs; full resulting hostedCI still required. No local runtime or qualification authority.",
+  "DHA": "NONE"
+}

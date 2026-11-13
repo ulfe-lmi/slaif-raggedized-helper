@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T05:45:37.292060+00:00",
+  "identifier": "008-d",
+  "event": "EXACT_C3E3_NARROW_TEST_BEHAVIOR_ACCEPTED_EXPLICIT_REPLAN_LOCAL_ATTESTATION_UNPROVEN_CONTINUE_SAME008",
+  "activation_at": "2026-11-13T04:57:24.504198+00:00",
+  "normal_response_verified_at": "2026-11-13T05:17:17.470563+00:00",
+  "activation_to_response_seconds": 1192.966365,
+  "report_commit": "c3e36dae37966958cf30d8f6bb5df221a26f0d14",
+  "review": "audit/008-d-scoped-resolution-c3e3.json",
+  "DHA": "NONE"
+}

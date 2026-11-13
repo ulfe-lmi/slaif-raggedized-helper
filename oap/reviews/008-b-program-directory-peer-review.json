@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-13T02:50:18.425533+00:00",
+  "status": "OPPOSITE_FINAL_NORMAL_VERIFIED_CURRENT0090_SOURCE_AND_SYNTHETIC_PROOF_REVIEWED",
+  "receipt": {
+    "lane": "audit-program-directory-assembly",
+    "lane_id": "AUDIT-008-PROGRAM-DIRECTORY-A",
+    "result": "COMPLETE",
+    "target_commit": "009044a786b0a899b1ea1fd4c8be2b6f78c80909",
+    "report_sha256": "873fd1bbc3e3d8c02c99608c4959da65add2984a09121200b371b8e032c74165",
+    "verified_at": "2026-11-13T02:49:45.918275+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "Root_review": "audit/008-program-directory-root-checkpoint-peer-review-0090.json",
+  "decision": "REPORT_PERMISSION_ONLY_NO_CANONICAL_ACCEPTANCE",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

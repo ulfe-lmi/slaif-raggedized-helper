@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-13T07:13:08.451701+00:00",
+  "identifier": "008-g",
+  "base": "5509c6baa963f06750bc09b425ebdd1f2d577db1",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-f-failed-ci-reconciliation.json",
+      "target": "oap/reviews/008-g-prior-ci-failure.json",
+      "bytes": 2060,
+      "sha256": "e624d231b9f23ca1d599a62c99fecb193137f9599383f15582fa9a1908f81d78"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-f-normal-head-reconciliation-5509.json",
+      "target": "oap/reviews/008-g-prior-source-report-normal.json",
+      "bytes": 1161,
+      "sha256": "bbc9af8b8de1c3ba8a9053b081c24b0174132728883d53c98b771a0973b5efa7"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-f-resolution-timing-event.json",
+      "target": "oap/reviews/008-g-prior-timing.json",
+      "bytes": 501,
+      "sha256": "1cf0a5e49f32e16cf7614f6f5bb5b9f27bdc39be07d1858ff88cf94918d2fc59"
+    }
+  ],
+  "record_count": 3,
+  "total_record_bytes": 3722,
+  "DHA": "NONE"
+}

@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-13T03:01:57.007544+00:00",
+  "status": "LOCAL_SOURCE_PREPARATION_ADMITTED_FOR_FUTURE_SELECTIVE_INTEGRATION_ONLY",
+  "implementation": "64d8e4241f284982218ccd9cf6e0c27e5aefdbc3",
+  "SELF": "ca8f792e1b4275a4d39cc4042ba24fc0684325c8",
+  "report_sha256": "e4e3952757ec19e00c699a26f792f655970966840ce92beb7580d822e3026068",
+  "report_bytes": 2918,
+  "normal": {
+    "lane": "publication-selection-assembly",
+    "lane_id": "PAR-008-PUBLICATION-SELECTION-A",
+    "result": "PARTIAL",
+    "implementation": "64d8e4241f284982218ccd9cf6e0c27e5aefdbc3",
+    "report_commit": "ca8f792e1b4275a4d39cc4042ba24fc0684325c8",
+    "report_sha256": "e4e3952757ec19e00c699a26f792f655970966840ce92beb7580d822e3026068",
+    "paths": [
+      "docs/parallel/raw-publication-selection-assembly-notes.md",
+      "docs/parallel/raw-snapshot-publication-api.md",
+      "docs/parallel/raw-snapshot-publication-design.md",
+      "docs/parallel/raw-snapshot-selection-api.md",
+      "docs/parallel/raw-snapshot-selection-design.md",
+      "oap/parallel/orders/PAR-008-PUBLICATION-SELECTION-A.md",
+      "src/slaif_raggedized_helper/raw_snapshot_publication.py",
+      "src/slaif_raggedized_helper/raw_snapshot_selection.py",
+      "tests/integration/test_raw_snapshot_publication_composition.py",
+      "tests/integration/test_raw_snapshot_selection_composition.py",
+      "tests/unit/test_raw_snapshot_publication.py",
+      "tests/unit/test_raw_snapshot_selection.py"
+    ],
+    "verified_at": "2026-11-13T02:59:49.406476+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "Root_checkpoint": "audit/008-publication-selection-root-checkpoint-review-64d8.json",
+  "verified": "10indexedsourcehashes/12NEWpaths/unchangedRootorder/soleparentreportonly/clean/currentAPIfit. No appimports/tests/collection/native/store/processjourney, so no new combined physical proof claimed. Prior exact primitive Root+opposite reviews retained, no fresh composition ICA claimed.",
+  "remaining": "Canonical008integration/currentCI/newphysicalwriter+reader+CAS ifneeded/currentrights/retention/ABA/security/powerloss/license/quality20k/ICA/MVPopen.",
+  "strongest_counterargument": "Exactcopy+staticfit+historicalprimitiveproof is preparation, not current combined runtime assurance.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

@@ -1,0 +1,21 @@
+{
+  "scope": "Independent Root synthetic structural DATA oracle only, no actual execution/store/source proof. Constants authored from current documented schemas; expected bytes are literal input to coding tests, not computed by proposed serializer.",
+  "program_canonical_ascii": "{\"batch_policy\":{\"max_items\":128,\"max_total_codepoints\":1000000,\"max_total_request_bytes\":4000000,\"version\":\"raw-batch-v1\"},\"batches\":[{\"batch_index\":0,\"first_ordinal\":0,\"row_count\":1,\"source_index\":0,\"total_codepoints\":3,\"total_native_request_bytes\":100},{\"batch_index\":1,\"first_ordinal\":1,\"row_count\":1,\"source_index\":1,\"total_codepoints\":3,\"total_native_request_bytes\":100}],\"kind\":\"embedding-source-program-v1\",\"program_policy\":{\"deadline_ms\":120000,\"max_batches\":65536,\"max_bundles\":128,\"max_program_bytes\":16777216,\"max_rows\":65536,\"version\":\"embedding-source-program-policy-v1\"},\"representation_policy\":{\"max_codepoints\":100000,\"max_request_bytes\":200000,\"max_tokens\":1024,\"separator\":\"\\n\\n\",\"version\":\"raw-v1\"},\"rows\":[{\"chunk_id\":\"sha256:000000000000000000000000000000000000000000000000000000000000000b\",\"codepoints\":3,\"native_request_bytes\":100,\"ordinal\":0,\"rendered_sha256\":\"000000000000000000000000000000000000000000000000000000000000000d\",\"source_index\":0},{\"chunk_id\":\"sha256:000000000000000000000000000000000000000000000000000000000000000c\",\"codepoints\":3,\"native_request_bytes\":100,\"ordinal\":1,\"rendered_sha256\":\"000000000000000000000000000000000000000000000000000000000000000e\",\"source_index\":1}],\"schema\":1,\"sources\":[{\"bundle_id\":\"0000000000000000000000000000000000000000000000000000000000000001\",\"bundle_metadata_sha256\":\"0000000000000000000000000000000000000000000000000000000000000003\",\"extraction_id\":\"sha256:0000000000000000000000000000000000000000000000000000000000000007\",\"first_ordinal\":0,\"revision_id\":\"sha256:0000000000000000000000000000000000000000000000000000000000000005\",\"row_count\":1,\"source_scope_sha256\":\"0000000000000000000000000000000000000000000000000000000000000009\"},{\"bundle_id\":\"0000000000000000000000000000000000000000000000000000000000000002\",\"bundle_metadata_sha256\":\"0000000000000000000000000000000000000000000000000000000000000004\",\"extraction_id\":\"sha256:0000000000000000000000000000000000000000000000000000000000000008\",\"first_ordinal\":1,\"revision_id\":\"sha256:0000000000000000000000000000000000000000000000000000000000000006\",\"row_count\":1,\"source_scope_sha256\":\"000000000000000000000000000000000000000000000000000000000000000a\"}],\"token_eligibility\":\"NOT_RUN\"}",
+  "program_sha256": "d51c8a0980a29de3d9dedc3aa25f17148a2e45cce42a7d1c107b1bb5fc428059",
+  "program_id": "sha256:68b546b8fe02ba2b9f76847586f4358bf1ad95386f8d4ac263d6d2db0f5e3c13",
+  "row_count": 2,
+  "completions": [
+    {
+      "batch_index": 0,
+      "output_ref": "sha256:0000000000000000000000000000000000000000000000000000000000000015",
+      "metadata_sha256": "000000000000000000000000000000000000000000000000000000000000001f"
+    },
+    {
+      "batch_index": 1,
+      "output_ref": "sha256:0000000000000000000000000000000000000000000000000000000000000016",
+      "metadata_sha256": "0000000000000000000000000000000000000000000000000000000000000020"
+    }
+  ],
+  "expected_locator_canonical_ascii": "{\"kind\":\"slaif-raw-program-output-selection-v1\",\"outputs\":[{\"batch_index\":0,\"container_id\":\"0000000000000000000000000000000000000000000000000000000000000015\",\"metadata_sha256\":\"000000000000000000000000000000000000000000000000000000000000001f\"},{\"batch_index\":1,\"container_id\":\"0000000000000000000000000000000000000000000000000000000000000016\",\"metadata_sha256\":\"0000000000000000000000000000000000000000000000000000000000000020\"}],\"schema\":1,\"source_program_id\":\"sha256:68b546b8fe02ba2b9f76847586f4358bf1ad95386f8d4ac263d6d2db0f5e3c13\"}",
+  "expected_locator_sha256": "bfef9048a4dea946acb355e4d914efa71eacc765c05c5aa92600fdd09e838798"
+}

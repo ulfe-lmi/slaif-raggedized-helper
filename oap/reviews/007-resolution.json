@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-11-13T02:45:50.554458+00:00",
+  "objective": "007",
+  "identifier": "007-v",
+  "decision": "MERGED",
+  "status": "MERGED_VERIFIED_BOUNDED_EMBEDDING_SOFTWARE_WITH_NAMED_LIVE_GATES_OPEN",
+  "pr": 9,
+  "branch": "oap/007-embedding-pipeline",
+  "accepted_head": "c5248f0790e7c4cb61422d79b9ae1a8b083aa494",
+  "accepted_report": "c5248f0790e7c4cb61422d79b9ae1a8b083aa494",
+  "implementation": "222029b262fee3273f34cc8795d9cb9be63bf206",
+  "report_sha256": "d7095c42673e6d7104f82a27b185a30abf8f9b88ee23e3cd969617fdd9567832",
+  "merge_commit": "1a8fddf8c1448ad9e76b6b8194984877c4c21a95",
+  "main_before": "11badc7782bed326995d400f5532b63399b91fbd",
+  "parents": [
+    "11badc7782bed326995d400f5532b63399b91fbd",
+    "c5248f0790e7c4cb61422d79b9ae1a8b083aa494"
+  ],
+  "merged_at": "2026-11-13T02:44:58Z",
+  "tree": "12e415cf69b737c411bbf18ac10916d17d9255ba",
+  "review": "audit/007-v-final-development-review.json",
+  "checks": "43351918485 all5jobs/all78stepsSUCCESS; both1756unit/789integration normal suites",
+  "scope": "Final published docs/embedding-software-boundary.md traced replan effective after this verified merge. Software development acceptance only; actual EMBED01/02, FP16/current rights/drain/real models/hardware/licenses/quality/contextual annotation/mergedICA/full text+visualMVP gates remain open. U historical procedure/report failures retained and corrected, not retroactively approved. No release/tag/deploy.",
+  "merge_mechanism": "gh pr merge --merge --match-head-commit exactc524; no admin/auto/bypass; remotePR/main and fetched parents/tree independently verified; coding working branch not switched by Root.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

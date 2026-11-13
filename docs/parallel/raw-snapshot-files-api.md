@@ -1,0 +1,5 @@
+# Raw snapshot file-set DATA correspondence
+
+`validate_files(originals, derived, core_bytes, files)` accepts exact store types, core bytes and a sorted tuple of exact `(path, bytes)` pairs. It returns frozen `BoundSnapshotData` only after complete descriptor checks, fresh row and membership binding and fresh source-backed dense and lexical validation. Ordinary failures raise content-free `SnapshotFilesError`; non-Exception interruptions propagate. Stores are borrowed.
+
+This establishes correspondence to declared historical source and stored normalized vectors and current terms. It does not establish neural execution, historic token execution, FP16 quality, current rights, external inventory completeness, withdrawal authority, filesystem containment, query compatibility, retrieval, publication, retention, security, licensing, held-out evaluation, ICA or readiness. Core query and qualification fields remain declarations. The operation has cooperative bounds, not a hard RAM or IO preemption guarantee.

@@ -1,0 +1,62 @@
+{
+  "at": "2026-11-13T06:22:47.169689+00:00",
+  "identifier": "008-e",
+  "state": "EXACT_SOURCE_NORMAL_REPORT_RECONCILED_CI_FAILED_SAME008_REPLAN_NO_ACCEPTANCE",
+  "head": "50a85ac8ad41856cc9e81292db8d50d39477b42b",
+  "implementation": "291321f170592e90fdad9918e4d8176e608583b0",
+  "run": 43377547440,
+  "jobs": [
+    {
+      "id": 131727448752,
+      "name": "Product tests (Python 3.14)",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-11-13T06:16:25Z",
+      "completed_at": "2026-11-13T06:16:44Z"
+    },
+    {
+      "id": 131727448971,
+      "name": "OAP tests (Python 3.14)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-13T06:16:25Z",
+      "completed_at": "2026-11-13T06:16:49Z"
+    },
+    {
+      "id": 131727448993,
+      "name": "OAP tests (Python 3.12)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-13T06:16:25Z",
+      "completed_at": "2026-11-13T06:16:44Z"
+    },
+    {
+      "id": 131727449042,
+      "name": "OAP tests (Python 3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-13T06:16:25Z",
+      "completed_at": "2026-11-13T06:16:44Z"
+    },
+    {
+      "id": 131727449278,
+      "name": "Product tests (Python 3.12)",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-11-13T06:16:25Z",
+      "completed_at": "2026-11-13T06:16:43Z"
+    }
+  ],
+  "failure": "BothProduct3.12/3.14 failLintE501 atadaptedtest_raw_hybrid_trace_composition.pyLF47:101chars>100 innewfixtureDOCSTRING. Oneobservedlintdiagnosticperleg. Subsequentproductsyntax/fullunit/integration/governance/consolechecksSKIPPED, notpass. ThreeOAPjobssuccess. No package/native/model test outcome established.",
+  "raw_log": {
+    "path": "audit/008-e-ci-failed-full-50a8.log",
+    "bytes": 9634,
+    "sha256": "6475d5b9e70db1e89523eca13e8eb76be6dfd89c9b2ba01ccce43313899eb807"
+  },
+  "Root_source_review": "audit/008-e-root-implementation-preliminary-2913.json",
+  "Root_report": "audit/008-e-report-head-reconciliation-50a8.json",
+  "route": "D0 explicitreplan: preservefailedreport/run/raw/currentdocs; nextsame008-f may combine thisknowncomment-onlyE501repair withalreadyreviewed16joincomponents after oneboundedstaticlint/format/sourcepreparation. No separate30minroundforonecharacter; numeric008notresolved/advanced. Thissupersedesinertdraftwait-for8e-greencondition, NOTfailedCIacceptance. Newexactfinal8fheadfullunchangedmatrixstillrequiredbeforeanydevelopmentmerge.",
+  "limits": "No localmodel/native/store/scorer invocation orCIrerun tohidefailure, no caps/skip/workflow/law/depschanges. Format-only sourceadaptationsmustbeRootreviewedAST-equivalent andpreflightstaticlint permittedbeforecanonicalactivation.",
+  "strongest_counterargument": "Addingjoinsbeforeoldbehaviorwasexecutedcouldobscurefailures; observedgatefailureisfullylocalizedonecharindocstring, preparedjoincodealreadycomponentreviewed, finalCIexercisescompleteunchangedold+newbehaviorwithoutwaivinganytest. Any nonformatproblem stopsbeforeexpandedsourcechanges.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-13T04:54:13.449937+00:00",
+  "state": "008C_EXACT_SOURCE_AND_REPORT_RECONCILED_CURRENT_CI_FAILED_SAME_OBJECTIVE_REMEDIATION_REQUIRED",
+  "identifier": "008-c",
+  "SELF": "322c7fe0f54e3ce53fa4550c914cd73f51525126",
+  "implementation": "c66dfe4917862ba24d3acf9a739cbb0a62367203",
+  "transcript": "f72405f779d1f1b6e13951a6742d909f0fc6073d",
+  "normal": {
+    "identifier": "008-c",
+    "pr": 10,
+    "implementation": "c66dfe4917862ba24d3acf9a739cbb0a62367203",
+    "report_commit": "322c7fe0f54e3ce53fa4550c914cd73f51525126",
+    "report_sha256": "944a75ab973ae082a346f5d8265e879fa6e7a3fcfb04b9b1ff3fb26f2025d9fb",
+    "verified_at": "2026-11-13T04:51:59.102399+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "report_bytes": 6365,
+  "report_sha256": "944a75ab973ae082a346f5d8265e879fa6e7a3fcfb04b9b1ff3fb26f2025d9fb",
+  "source_review": "audit/008-c-root-implementation-preliminary-c66d.json: 25exactnew200027B,15PythonAST,12transcript+27implementation+1report=40,9Rootrecords/index/order/active and1193priortrackedpathsunchangedexceptorderedactive/currentdocs. Report fullread/currentremote strictverify exactPR10/main/branch/SELF/clean; no localproducttests fromtransfer.",
+  "CI": {
+    "run": 43368073059,
+    "head": "322c7fe0f54e3ce53fa4550c914cd73f51525126",
+    "314_job": 131697112168,
+    "314": "FAILURE in Product test suite; Integration/OAP/governance/console/doctor dependentsteps skipped. NOTGREEN.",
+    "312_job": 131697112313,
+    "312": "IN_PROGRESS atfirstsnapshot, integration running; no finalpassclaim.",
+    "governance_matrix": "all3 OAP jobsSUCCESS",
+    "raw_log": "audit/008-c-product-314-failed-full.log",
+    "raw_log_sha256": "80ca79e5105e4c755ae9e4b327662e0bf4d53e63164077c8e329df24fe049077",
+    "jobs_snapshot": "audit/008-c-ci-jobs-first-observation.json",
+    "jobs_snapshot_sha256": "f7348adc7c012ac79b78aca9f8abe69d6a8fcd06394ebffc58fbb6657ea7c094"
+  },
+  "observed_failure": "Existing unchanged tests/unit/test_cpu_worker_backend_setup.py::_descendant_gone catches FileNotFoundError only. Actual314trace /proc/2735/stat read raised ProcessLookupError ESRCH; test_timeout_kills_owned_descendant failed despite disappearance indicating no running process. Do not infer full productioncleanupqualification from this failure. No hosted rerun used to hide it.",
+  "resolution": "8c not developmentaccepted; namedCIgate remainsopen. Continue SAME008 via narrow nextsuffix test-observation-race fix and deterministic mock regressions; preserve old report/rawfailure. Four-scorer transfer deferred until currentCIrepair complete. Original numeric008notadvanced, no merge/cancel/rerun/skip/capchange. Newrequiredcurrentheadalljobs/steps mustpass.",
+  "counterargument": "An apparent observer race could mask actual descendant cleanup bugs. Fix must handle only real absence errors, preserve live-state refusal and other errors, keep existing real owned-descendant timeout case; do not weaken orskipassertion, touch setup.run or claim retrospectivepass.",
+  "DHA": "NONE"
+}

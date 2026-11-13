@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-13T04:56:33.704052+00:00",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-c-root-implementation-preliminary-c66d.json",
+      "target": "oap/reviews/008-c-exact-source-review.json",
+      "bytes": 1758,
+      "sha256": "4e3439cfb9893c3c1d8a0c0aae42383ecadf054d9f98756e45db7098b555876d"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-c-failed-ci-reconciliation.json",
+      "target": "oap/reviews/008-c-failed-ci-reconciliation.json",
+      "bytes": 3028,
+      "sha256": "f76c6f8bd5ff5028a6f5e411a422a9587bd47fc2805da921224207e0019a153f"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-c-resolution-timing-event.json",
+      "target": "oap/reviews/008-c-resolution-timing-event.json",
+      "bytes": 486,
+      "sha256": "d7f39fc1ede8ea7585c6b2fab12eaa0c676e08a8af1ab3d4c6801a050843c78a"
+    }
+  ],
+  "total_bytes": 5272,
+  "scope": "Root authored source/report/failedCI/timing only. Failed314 and stillunfinished312 are not green; no raw logs or invented acceptance. Immutable sources after publication."
+}

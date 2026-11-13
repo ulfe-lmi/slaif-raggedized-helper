@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-13T06:43:10.863409+00:00",
+  "decision": "LOCAL_SOURCE_PREPARATION_ADMITTED_FOR_SELECTIVE_008F_TRANSFER_ONLY",
+  "implementation": "78d2598bb122baa16a74c1b1c0c6296beca60494",
+  "SELF": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+  "report_sha256": "220a311d8a3e4150d0277d241741812cb7984dbf01d8b7288b8b8abe46b9b12f",
+  "source_review": "audit/008-final-join-lint-root-review-78d2.json",
+  "scope": "Report-only sole parent verified; report source/tool failures and UNRUN runtime limits honest. Nine ASTs verified; no code semantics changes. Not current canonical CI/whole008 acceptance.",
+  "DHA": "NONE"
+}

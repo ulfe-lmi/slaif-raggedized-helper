@@ -1,0 +1,330 @@
+{
+  "at": "2026-11-13T02:07:13.949704+00:00",
+  "state": "OPPOSITE_FINITE_FOUNDATION_COMPOSITION_REVIEW_VERIFIED_FINALIZE_PERMITTED",
+  "draft": "e206819d8837e7492a3f7ade2341ed8d016f4b36a5a132fbbdecc5ca9645c835",
+  "target": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+  "full_record_identities_verified": 58,
+  "component_identities_verified": 25,
+  "inclusive_LF_ranges": [
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-a-foundation-component-index-DRAFT.json",
+      "range": [
+        1,
+        267
+      ],
+      "bytes": 11208,
+      "sha256": "75930b5344f1a27ce8aea7f7fd32656432b2d23446a175744cbfa4a5ed5e01b6"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-foundation-root-implementation-review-3eac.json",
+      "range": [
+        1,
+        142
+      ],
+      "bytes": 6552,
+      "sha256": "279fed43df223413c1170c644ddbc4af68d8aa71665d1f175b2f1706bcb79134"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-foundation-root-actual-proof-v2-review.json",
+      "range": [
+        1,
+        206
+      ],
+      "bytes": 8106,
+      "sha256": "08df2ada982fd1021be93eb36b445bcedd6fbeef990377e06f5dc2ce04636d78"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-foundation-checkpoint-helper-correction.json",
+      "range": [
+        1,
+        19
+      ],
+      "bytes": 1462,
+      "sha256": "8600f43050a8ffad22121073f098bc96e48ec45702d17368c18b9235e629e072"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/review.json",
+      "range": [
+        1,
+        162
+      ],
+      "bytes": 7943,
+      "sha256": "f7e3986c1e48e7136338d5f9d7577531d38ba1d9e5d74fec3cc68a586372f8a3"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/order.md",
+      "range": [
+        1,
+        45
+      ],
+      "bytes": 11300,
+      "sha256": "27a24f64d367c2254adc9153e1d52d828815cb033a05531621e4edcf4cd1be2a"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/root-test-layout-addendum-v1.md",
+      "range": [
+        1,
+        11
+      ],
+      "bytes": 2761,
+      "sha256": "063cda2b309836ea51bb416d785e573592baed5cd6fd6e7a123579ddd761959e"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/root-proof-decision-v2.json",
+      "range": [
+        1,
+        48
+      ],
+      "bytes": 4088,
+      "sha256": "f795307a8e605b97153363d89a15e5cec149373ec4670ab3457d7ef50c3ccf80"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/actual-proof-v2-result.json",
+      "range": [
+        1,
+        56
+      ],
+      "bytes": 2137,
+      "sha256": "62dde37214f680585f136c649e2a4b66fa834d691e4dc36947cd5f03a6898571"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/technical_analyzer.py",
+      "range": [
+        1,
+        121
+      ],
+      "bytes": 4295,
+      "sha256": "8dfd84c4ecd4d42d5c51d3383e36ee742435f597779fc8f7c0488f0b17a3c59e"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/raw_snapshot_membership.py",
+      "range": [
+        1,
+        396
+      ],
+      "bytes": 13491,
+      "sha256": "506b8c727c89b99990c4270a4a06e549438b90a3efc7efc7618276265eeed2a7"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/raw_snapshot_source_rows.py",
+      "range": [
+        1,
+        161
+      ],
+      "bytes": 7554,
+      "sha256": "bbdb37bf9b2ff2ee64f7bc4b9581d6fbdc7dbc39a352bb85e8ce2412848808d6"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/raw_snapshot_dense.py",
+      "range": [
+        1,
+        167
+      ],
+      "bytes": 5936,
+      "sha256": "a40dd743d264a1f3f6cae1918bd1bcfb4257675ed4cc22d24ceac4d12dfa9ef6"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/raw_snapshot_lexical.py",
+      "range": [
+        1,
+        236
+      ],
+      "bytes": 8734,
+      "sha256": "3eaf7fa47a19f3df4466f45271cc5a53d15ad136ef42211676260b443ca3ef8b"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/retrieval_representation.py",
+      "range": [
+        1,
+        150
+      ],
+      "bytes": 7412,
+      "sha256": "ce48363bc620a941516188777d58d1d3866dd8ac5e9ad0b881702aa1bfeeecbc"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/raw_snapshot_rows.py",
+      "range": [
+        1,
+        231
+      ],
+      "bytes": 7582,
+      "sha256": "b828532273e095392d203f2a6dfab2b55ac5c750dce750d41dd5bc1d705471c8"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/embedding_batch_store.py",
+      "range": [
+        1,
+        142
+      ],
+      "bytes": 5893,
+      "sha256": "8e53be2d1a0acb8fc8d6932bdd9c1d5f5b8f9015108de79814fa2a07c6a9f429"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/tests/unit/test_raw_snapshot_membership.py",
+      "range": [
+        1,
+        201
+      ],
+      "bytes": 6846,
+      "sha256": "83424df35efc056f1827c9ea9dc5de56e0f8a6eab5a094757c0a04e47d94470e"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/tests/integration/test_raw_snapshot_source_rows_composition.py",
+      "range": [
+        1,
+        220
+      ],
+      "bytes": 11661,
+      "sha256": "4b204b4c7ad505da0bcdfecab80fe5978298d997fd5b92e1004c14e70cdce962"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/docs/parallel/raw-foundation-integration-notes.md",
+      "range": [
+        1,
+        9
+      ],
+      "bytes": 3539,
+      "sha256": "10db7c2739f7ea10f628514e4384acdd57663e7e5a63161790898f40ead82e7a"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/oap/parallel/orders/PAR-008-FOUNDATION-A.md",
+      "range": [
+        1,
+        45
+      ],
+      "bytes": 11300,
+      "sha256": "27a24f64d367c2254adc9153e1d52d828815cb033a05531621e4edcf4cd1be2a"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/oap/parallel/reports/PAR-008-FOUNDATION-A.json",
+      "range": [
+        1,
+        1
+      ],
+      "bytes": 7306,
+      "sha256": "ee847866e8729c16bcde93c261ff2d5b4955dcf537840311652fb5c69cb51666"
+    },
+    {
+      "path": "/tmp/raw-foundation-actual-proof-v2/attempt.guard",
+      "range": [
+        1,
+        1
+      ],
+      "bytes": 36,
+      "sha256": "30c1eaba23ef70a7938a3fc906e003f28bb4e0607e0f7eac055f03a2687d90d3"
+    },
+    {
+      "path": "/tmp/raw-foundation-actual-proof-v2/stdout.txt",
+      "range": [
+        1,
+        3
+      ],
+      "bytes": 141,
+      "sha256": "3c663dcc0212db2998a0e1fb9f238e6e0d72eaa01015e078ee9a2cb165421065"
+    },
+    {
+      "path": "/tmp/raw-foundation-actual-proof-v2/time.txt",
+      "range": [
+        1,
+        1
+      ],
+      "bytes": 58,
+      "sha256": "614616f7d8a679f73e9c36d39d353641dee2db9378d8618c0dae44de0f3473a3"
+    },
+    {
+      "path": "/tmp/raw-foundation-actual-proof-v2/exit.txt",
+      "range": [
+        1,
+        1
+      ],
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/actual-proof-v2-attempt.guard",
+      "range": [
+        1,
+        1
+      ],
+      "bytes": 36,
+      "sha256": "a1a60a8ef87f0d1ff8473aa944ecba9d427214ab3eda905acefc5361e7a192ce"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/root-proof-decision-v2.json",
+      "range": [
+        1,
+        48
+      ],
+      "bytes": 4088,
+      "sha256": "f795307a8e605b97153363d89a15e5cec149373ec4670ab3457d7ef50c3ccf80"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/actual-proof-v2-author-preflight.json",
+      "range": [
+        1,
+        21
+      ],
+      "bytes": 1115,
+      "sha256": "c6ebaf32f22ca4bb597183292b4d77c763b9dc5abc0e5134628fd14e06a82cd7"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/tests/unit/test_raw_snapshot_rows.py",
+      "range": [
+        1,
+        85
+      ],
+      "bytes": 2394,
+      "sha256": "c47d0a3f2aeb560b451a0da3b2914a7c1e96662056372b0a536f52c4d8c3a2e3"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/tests/integration/test_structured_text_composition.py",
+      "range": [
+        1,
+        25
+      ],
+      "bytes": 1132,
+      "sha256": "dc6f4f9a548bcd88651e6038e47587ded894f576947b3142cc71dff3dad4b531"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/tests/integration/test_retrieval_representation_composition.py",
+      "range": [
+        1,
+        12
+      ],
+      "bytes": 484,
+      "sha256": "89909fd9d5bbe7f10a9c185b68f93abbfcd306bb8c0ac6fcc2483a4650198b4f"
+    },
+    {
+      "path": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation/src/slaif_raggedized_helper/ingestion_store.py",
+      "range": [
+        1,
+        57
+      ],
+      "bytes": 1938,
+      "sha256": "1799ec8a79bea134e628e44147a9f83405c94640338973c8d557c6b2fdae1c7a"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/planned-proof-driver-v2.py",
+      "range": [
+        1,
+        57
+      ],
+      "bytes": 2535,
+      "sha256": "308912cb74e8a03ed39862173a37620c66d4018d17cdce494891ece4671cecae"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/raw-foundation/root-approved-proof-runner-v2.sh",
+      "range": [
+        1,
+        35
+      ],
+      "bytes": 2079,
+      "sha256": "ed4a8e370845ad8f201ea6aff18e55a8afa5b7b11977a3220587b8d7187ad18e"
+    }
+  ],
+  "review": "Fullpeerreportandactualfinitewitness reviewed; exact27NEWpaths/24exactcopies+oneRootfixtureexception, defaultPolicy/BatchPolicy/statichelperfit/freshselectedSourceRowsONEproof and allDATAtrustlimits. Historicalownleafauthorship/familiaritydisclosed; compositionreviewnotfullICA/ownleafindependence. Nochangefinding.",
+  "strongest_counterargument": "The assembly rests on an unaccepted base and only one narrow current physical SourceRows composition; Membership, Dense and Lexical full physical composition and normal canonical CI are unproven. Static compatibility and supplier hashes cannot substitute for them. Candidate acceptance is justified only for this bounded local source composition review, with those gates explicitly open; it is not development merge acceptance.",
+  "next": "Rootfinalizesonlyfinitepeerreport; normalreceipt/Rootlocaladmission stillseparate. FullphysicalMember/Dense/Lexical/currentcanonicalCI/rights/ICA/MVP gatesopen.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

@@ -460,6 +460,23 @@ actual-model CPU query execution, resumable GPU batches or
 qualification yet
 ([docs/embedding.md](docs/embedding.md),
 [docs/parallel/vector-codec-api.md](docs/parallel/vector-codec-api.md)).
+The objective 008-a continuation (new PR, branch
+`oap/008-raw-hybrid-snapshots`) transfers the reviewed raw snapshot
+foundation byte-exact from the Root- and peer-reviewed local assembly
+(25 files, 142,322 bytes, per
+oap/reviews/008-a-foundation-components.json): the bounded technical
+analyzer (strict token preservation: identifiers, components, flags,
+paths, versions, negation, NFKC/casefold aliases, no stemming),
+original-backed whole-batch source membership (4,096-row/128-entry
+limits), fresh source-and-stored-row group correspondence, and the
+dense and lexical partition codecs (canonical payloads, normalized
+finite read-only FP32 storage, fresh-rebuild validation). The modules
+are not wired to any CLI, publisher, reader, query, scoring or
+current-policy path; no writer/reader/query/quality interface exists in
+this slice, the existing canonical manifest/row-map/corpus-program/
+representation modules are unchanged, no local product tests were run,
+and whole 008 remains PARTIAL pending the later same-PR waves, current
+canonical CI and Root review ([docs/retrieval.md](docs/retrieval.md)).
 Source-to-block anchors, native versus visual-needed page semantics,
 refusal behavior, budgets and observed-count provenance are documented
 in

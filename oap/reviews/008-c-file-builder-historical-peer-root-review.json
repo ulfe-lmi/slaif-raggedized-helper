@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-12T20:00:52.316012+00:00",
+  "status": "EXACT_NORMAL_OPPOSITE_PEER_REVIEWED_FINITE_PROVENANCE_GAP_RETAINED_ROOT_NEW_PROOF_PASS",
+  "target": "8b13b575fc0183cc825381450d584b51aea8a0dd",
+  "peer_sha256": "1ae7714a35b4c6d4c6a4f2a42ead2a675cad03c538c870b2ab2ea2a745560c3e",
+  "peer_decision": "UNPROVEN",
+  "peer_result": "PARTIAL",
+  "source_identities_verified": 21,
+  "semantic_review": "Full peer report/witness/source read; exactidentity controls/sourcebinding/finaldeadline/inheritedbounds agree with Root source review. No new source defects reported. Row real storedvectormember latecorruption refuses/restores; file validcodecnormalized rowexchange reaches ORIGINAL finalsourcevalidator which refuses. Peer missing separatecompletepre-run transitiveplan captured honestly; no retroactiveclaim or invariant waiver.",
+  "Root_new_proof": {
+    "plan": "audit/008-file-builder-root-peer-proof-plan.json",
+    "log": "audit/008-file-builder-root-peer-fault.log",
+    "sha256": "f9d4b87c5f36f2d939fb3d6bf0cf03b78007a345324d9ad9fedf56e7da4daa19",
+    "result": "PASSexit0 underCPU30AS1GiBwall120/all5threads1 with exactwitness and complete tracked source/testgraph identity capturedBEFOREinvocation; separatefrompeerhistoricalrun"
+  },
+  "strongest_counterargument": "Both peer decisions UNPROVEN retain historical preplan incompleteness; smallfixtures cannot prove scale/currentrights/retention/model/CI/MVP. Independent finite semantic review plus Root originalcombinedproof and newexactfaultproof justify only local componentadmission, not erasedpeerprovenance or whole008closure.",
+  "DHA": "NONE",
+  "no_FIFO_reread": true
+}

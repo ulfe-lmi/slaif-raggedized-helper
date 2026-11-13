@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-13T04:10:39.492278+00:00",
+  "state": "LOCAL_EXACT_SOURCE_PREPARATION_ADMITTED_NOT_CURRENT_RUNTIME_OR_CANONICALCI",
+  "implementation": "5ef1665eb74c820b218775c7292c349bdd56e43a",
+  "SELF": "e1269f222e86c9c1136052cc2c6d4e3105e1bf1e",
+  "report_sha256": "e7b698eae7e810901896503c6ea071e542d0fa20d7deab5335752dfbea765246",
+  "normal": {
+    "lane": "scoring-assembly",
+    "lane_id": "PAR-008-SCORING-ASSEMBLY-A",
+    "result": "PARTIAL",
+    "implementation": "5ef1665eb74c820b218775c7292c349bdd56e43a",
+    "report_commit": "e1269f222e86c9c1136052cc2c6d4e3105e1bf1e",
+    "report_sha256": "e7b698eae7e810901896503c6ea071e542d0fa20d7deab5335752dfbea765246",
+    "paths": [
+      "docs/parallel/raw-scoring-assembly-notes.md",
+      "oap/parallel/orders/PAR-008-SCORING-ASSEMBLY-A.md",
+      "pyproject.toml",
+      "src/slaif_raggedized_helper/raw_dense_search.py",
+      "src/slaif_raggedized_helper/raw_hybrid_search.py",
+      "src/slaif_raggedized_helper/raw_lexical_search.py",
+      "src/slaif_raggedized_helper/raw_rank_fusion.py",
+      "uv.lock"
+    ],
+    "verified_at": "2026-11-13T04:09:27.706105+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "Root_review": "audit/008-scoring-assembly-root-checkpoint-review-5ef1.json",
+  "scope": "6exact152303B/fourprod2metadata+notes/order, no appimports/tests/setup/runtime. Exactpinoldversionspreserved/notesactualprefix71->bare64conversionmandatoryfutureadapter. Priorbf248 actualproofsourceidenticalnotnewcombinedquery/pinproof. No currentpolicy/quality/model/precision/license/ICA/MVPacceptance.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-13T03:38:03.356159+00:00",
+  "state": "LOCAL_SOURCE_PREPARATION_ADMITTED_NOT_CURRENT_RUNTIME_OR_CANONICAL_ACCEPTANCE",
+  "implementation": "bfa93fc3f3c5ab6ac65dd2d83b09b57d5a2f02b8",
+  "SELF": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+  "report_sha256": "42da9037779eed3bc17f93a9d573641cb3478911b8122935295210dc2c127b50",
+  "normal": {
+    "lane": "file-builder-assembly",
+    "lane_id": "PAR-008-FILE-BUILDER-ASSEMBLY-A",
+    "result": "PARTIAL",
+    "implementation": "bfa93fc3f3c5ab6ac65dd2d83b09b57d5a2f02b8",
+    "report_commit": "4e428b1726bc2b607b0f3dcdf0a6aeb5ca75dd68",
+    "report_sha256": "42da9037779eed3bc17f93a9d573641cb3478911b8122935295210dc2c127b50",
+    "paths": [
+      "docs/parallel/raw-file-builder-assembly-notes.md",
+      "docs/parallel/raw-snapshot-file-builder-api.md",
+      "docs/parallel/raw-snapshot-file-builder-design.md",
+      "oap/parallel/orders/PAR-008-FILE-BUILDER-ASSEMBLY-A.md",
+      "src/slaif_raggedized_helper/raw_snapshot_file_builder.py",
+      "tests/integration/test_raw_snapshot_file_builder_composition.py",
+      "tests/unit/test_raw_snapshot_file_builder.py"
+    ],
+    "verified_at": "2026-11-13T03:37:44.352295+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "Root_review": "audit/008-file-builder-assembly-root-checkpoint-review-bfa9.json",
+  "source": "5exactblobs32170B from8b13; allpreviouschainbytesunchanged. HistoricalpeerpreplanUNPROVEN preserved/Rootseparatefaultproof notretroactive. No newruntime tests.",
+  "integration_sequence": "FileBuilder integration test imports publication/selection, so canonical transfer must wait for the publication-selection wave.008b includes only correspondence/programcoverage/directory21files; FileBuilder reserved008c with its prerequisites. No source adaptation or duplicate builder.",
+  "DHA": "NONE"
+}

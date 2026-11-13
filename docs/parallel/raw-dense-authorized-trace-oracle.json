@@ -1,0 +1,145 @@
+{
+  "purpose": "ROOT_PREIMPLEMENTATION_SYNTHETIC_TRACE_CANONICAL_VECTORS_NOT_ACTUAL_QUERY_EVIDENCE",
+  "authority_vectors": [
+    {
+      "pair": [
+        null,
+        null
+      ],
+      "canonical_utf8": "[null,null]",
+      "bytes": 11,
+      "sha256": "95cb9b4f84ceff132cc7a875d8c192bf4997016a939ee64141c1fd628c0e8738"
+    },
+    {
+      "pair": [
+        {
+          "schema_version": 1,
+          "corpora": [
+            "one",
+            "two"
+          ],
+          "versions": [
+            "v1",
+            "\u017d\ud83d\ude00"
+          ],
+          "labels": [
+            "secret"
+          ]
+        },
+        null
+      ],
+      "canonical_utf8": "[{\"corpora\":[\"one\",\"two\"],\"labels\":[\"secret\"],\"schema_version\":1,\"versions\":[\"v1\",\"\u017d\ud83d\ude00\"]},null]",
+      "bytes": 98,
+      "sha256": "09d4cf4038a6102fe378951f1f6b69fd0ba8c50308d75984b7e2877750bcc7f6"
+    }
+  ],
+  "vectors": [
+    {
+      "name": "known-empty-null-authority",
+      "object": {
+        "schema": 1,
+        "kind": "slaif-raw-dense-authorized-trace-v1",
+        "snapshot_id": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "catalog_id": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "query_payload_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "query_space_id": "2222222222222222222222222222222222222222222222222222222222222222",
+        "query_definition_fingerprint": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+        "query_policy_id": "4444444444444444444444444444444444444444444444444444444444444444",
+        "query_execution_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+        "authority_sha256": "95cb9b4f84ceff132cc7a875d8c192bf4997016a939ee64141c1fd628c0e8738",
+        "k": 1,
+        "partition_cap": 2,
+        "rows": [],
+        "partitions": [],
+        "selected_ordinals": [],
+        "returned_ordinals": []
+      },
+      "canonical_ascii": "{\"authority_sha256\":\"95cb9b4f84ceff132cc7a875d8c192bf4997016a939ee64141c1fd628c0e8738\",\"catalog_id\":\"sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"k\":1,\"kind\":\"slaif-raw-dense-authorized-trace-v1\",\"partition_cap\":2,\"partitions\":[],\"query_definition_fingerprint\":\"sha256:3333333333333333333333333333333333333333333333333333333333333333\",\"query_execution_fingerprint\":\"5555555555555555555555555555555555555555555555555555555555555555\",\"query_payload_sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\",\"query_policy_id\":\"4444444444444444444444444444444444444444444444444444444444444444\",\"query_space_id\":\"2222222222222222222222222222222222222222222222222222222222222222\",\"returned_ordinals\":[],\"rows\":[],\"schema\":1,\"selected_ordinals\":[],\"snapshot_id\":\"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}",
+      "trace_id": "sha256:d429a92b45456fbe3382fde5170a1b44f0ead2113b0ce2310876c19a3aa58de1"
+    },
+    {
+      "name": "three-row-two-partition-equal-score-global-prefix",
+      "object": {
+        "schema": 1,
+        "kind": "slaif-raw-dense-authorized-trace-v1",
+        "snapshot_id": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "catalog_id": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "query_payload_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "query_space_id": "2222222222222222222222222222222222222222222222222222222222222222",
+        "query_definition_fingerprint": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+        "query_policy_id": "4444444444444444444444444444444444444444444444444444444444444444",
+        "query_execution_fingerprint": "5555555555555555555555555555555555555555555555555555555555555555",
+        "authority_sha256": "09d4cf4038a6102fe378951f1f6b69fd0ba8c50308d75984b7e2877750bcc7f6",
+        "k": 1,
+        "partition_cap": 2,
+        "rows": [
+          {
+            "ordinal": 0,
+            "partition_id": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "chunk_id": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "revision_id": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+            "representation_id": "7777777777777777777777777777777777777777777777777777777777777777"
+          },
+          {
+            "ordinal": 1,
+            "partition_id": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "chunk_id": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "revision_id": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+            "representation_id": "8888888888888888888888888888888888888888888888888888888888888888"
+          },
+          {
+            "ordinal": 2,
+            "partition_id": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "chunk_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "revision_id": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+            "representation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "partitions": [
+          {
+            "partition_id": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "eligible_ordinals": [
+              0,
+              1
+            ],
+            "ranked_ordinals": [
+              0,
+              1
+            ],
+            "selected_ordinals": [
+              0,
+              1
+            ],
+            "returned_ordinals": []
+          },
+          {
+            "partition_id": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            "eligible_ordinals": [
+              2
+            ],
+            "ranked_ordinals": [
+              2
+            ],
+            "selected_ordinals": [
+              2
+            ],
+            "returned_ordinals": [
+              2
+            ]
+          }
+        ],
+        "selected_ordinals": [
+          2,
+          0,
+          1
+        ],
+        "returned_ordinals": [
+          2
+        ]
+      },
+      "canonical_ascii": "{\"authority_sha256\":\"09d4cf4038a6102fe378951f1f6b69fd0ba8c50308d75984b7e2877750bcc7f6\",\"catalog_id\":\"sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"k\":1,\"kind\":\"slaif-raw-dense-authorized-trace-v1\",\"partition_cap\":2,\"partitions\":[{\"eligible_ordinals\":[0,1],\"partition_id\":\"sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\"ranked_ordinals\":[0,1],\"returned_ordinals\":[],\"selected_ordinals\":[0,1]},{\"eligible_ordinals\":[2],\"partition_id\":\"sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"ranked_ordinals\":[2],\"returned_ordinals\":[2],\"selected_ordinals\":[2]}],\"query_definition_fingerprint\":\"sha256:3333333333333333333333333333333333333333333333333333333333333333\",\"query_execution_fingerprint\":\"5555555555555555555555555555555555555555555555555555555555555555\",\"query_payload_sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\",\"query_policy_id\":\"4444444444444444444444444444444444444444444444444444444444444444\",\"query_space_id\":\"2222222222222222222222222222222222222222222222222222222222222222\",\"returned_ordinals\":[2],\"rows\":[{\"chunk_id\":\"sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\",\"ordinal\":0,\"partition_id\":\"sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\"representation_id\":\"7777777777777777777777777777777777777777777777777777777777777777\",\"revision_id\":\"sha256:6666666666666666666666666666666666666666666666666666666666666666\"},{\"chunk_id\":\"sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\"ordinal\":1,\"partition_id\":\"sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\"representation_id\":\"8888888888888888888888888888888888888888888888888888888888888888\",\"revision_id\":\"sha256:6666666666666666666666666666666666666666666666666666666666666666\"},{\"chunk_id\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"ordinal\":2,\"partition_id\":\"sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"representation_id\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"revision_id\":\"sha256:9999999999999999999999999999999999999999999999999999999999999999\"}],\"schema\":1,\"selected_ordinals\":[2,0,1],\"snapshot_id\":\"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}",
+      "trace_id": "sha256:829a8f38a6b3bc2e93c79e766b027065317684349304da12617aee72dc56d4f4"
+    }
+  ],
+  "limits": "These are fixed encoding/order/authority hash vectors only. Positive three-row IDs are hypothetical supplied declarations, not actual catalog/authorization/query execution. Actual proof requires real controlled stores/validators and actual score loops; private output, NOTQUALIFIED/NOTATTESTED markers unchanged."
+}

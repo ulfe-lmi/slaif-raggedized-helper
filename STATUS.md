@@ -1,8 +1,23 @@
 # Project status
 
-## Current state (2026-11-12)
+## Current state (2026-11-13)
 
-- Active objective: 007, current slice 007-r (the 007-a reviewed
+- Current (2026-11-13): active objective 008, current slice 008-g
+  (same PR 10/branch oap/008-raw-hybrid-snapshots, transcript-first).
+  Objective 007 is complete and merged to main as PR #9 (merge commit
+  1a8fddf8); the 007-a..007-v entries below are historical round
+  records retained for traceability. The private
+  completion-locator/construction wrapper join and pinned-query
+  composition exist (008-f); 008-g bounds the diagnostic parameter IDs
+  of the completion-locator invalid-program tests (test metadata only,
+  payloads byte-identical) after the 008-f report-head CI failure
+  (pytest session-finish cache/nodeids write, OSError errno 27; no
+  failed assertion in the logs; later product steps SKIPPED). Public
+  serving, current principal/current policy, evidence delivery and real
+  qualification remain absent/open. Whole 008 remains PARTIAL; no
+  merge.
+- Historical 007 record (active objective at the time: 007,
+  then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
   extended by the 007-b source-bound raw retrieval representation/batch
   and published BGE-M3 checkpoint inventory/encoder-space software,
@@ -384,7 +399,241 @@ open on the 007 PR, branch
   008/010/011/014/015/017/018/019/020/021 obligations stay separately
   owned. U CI 43342353043 is historical for V; whole-007 and actual BGE
   remain UNRUN/UNQUALIFIED; no 008 advance, no merge.
+- 008-a (raw snapshot foundation; NEW PR, branch
+  oap/008-raw-hybrid-snapshots, transcript-first, same main base
+  1a8fddf8 as accepted PR9): first bounded slice of objective 008 —
+  byte-exact 25-file transfer (142,322 B) of the Root- and
+  peer-reviewed local assembly per
+  oap/reviews/008-a-foundation-components.json (five production
+  modules: technical_analyzer, raw_snapshot_membership,
+  raw_snapshot_source_rows, raw_snapshot_dense,
+  raw_snapshot_lexical; ten test files — five unit and five
+  integration suites; the documented 008-a count wording is
+  corrected here per Root reconciliation
+  oap/reviews/008-a-scoped-prefix-resolution.json while the
+  immutable 008-a report is retained unchanged; ten docs/parallel
+  contracts) plus nine exact Root records and the exact index in
+  the transcript commit. Strict token preservation, whole-batch
+  membership, original-backed source rows, normalized finite read-only
+  FP32 dense storage and canonical lexical payloads with 4,096-row/128-
+  group bounded limits; 20k capacity remains NOTQUALIFIED. No
+  writer/reader/query/current-policy/quality interface, no CLI/
+  publisher wiring, existing canonical modules unchanged, no local
+  product tests, no new dependencies; historical exact-source
+  49-unit/source-row proof and current report-head CI (pending) are
+  the evidence boundary; whole 008 remained PARTIAL at 008-a, no
+  merge.
+- 008-b (source construction; same PR 10/branch, transcript-first):
+  second bounded slice of objective 008 — byte-exact 21-file
+  transfer (145,034 B) of the Root- and peer-reviewed local assembly
+  per oap/reviews/008-b-construction-components.json (four production
+  modules: raw_snapshot_row_builder, raw_snapshot_files,
+  raw_snapshot_program_coverage, raw_snapshot_directory; four unit
+  and five integration suites; eight docs/parallel contracts) plus
+  eight exact Root records and the exact index in the transcript
+  commit, and correction of the 008-a foundation count in current
+  docs/retrieval.md and STATUS (25 = 5 production + 5 unit + 5
+  integration + 10 docs; immutable 008-a report unchanged).
+  Selected-batch row-map DATA builder, snapshot file-set
+  correspondence DATA, selected-program row-coverage DATA and
+  private snapshot directory DATA reader, all with 4,096-row/128-
+  group finite limits, borrowed stores and cooperative deadlines;
+  20k capacity remains NOTQUALIFIED. No
+  writer/publisher/FileBuilder/query/current-policy/quality
+  interface, no CLI wiring, existing canonical modules unchanged,
+  no local product tests, no new dependencies; one historical
+  bounded 7-row synthetic journey and the report-head CI now
+  recorded terminal at d9ef6b4 (run 43362986520: all five jobs /
+  all 78 steps SUCCESS, full normal 1,836 unit + 838 integration
+  on both Product 3.12/3.14 legs per
+  oap/reviews/008-b-ci-terminal.json) are the evidence boundary
+  for that head; the immutable 008-b report's 11-new-Python AST
+  wording is a documented count limitation — the slice
+  transferred 13 — per Root clarification
+  oap/reviews/008-b-scoped-prefix-resolution.json (report
+  preserved unchanged); whole 008 remained PARTIAL at 008-b, no
+  merge.
+- 008-c (publication reader; same PR 10/branch, transcript-first):
+  third bounded slice of objective 008 — byte-exact 25-file
+  transfer (200,027 B) of the Root- and peer-reviewed local
+  assembly per
+  oap/reviews/008-c-publication-reader-components.json (five
+  production modules: raw_snapshot_publication,
+  raw_snapshot_selection, raw_snapshot_catalog,
+  raw_snapshot_pin, raw_snapshot_file_builder; ten test files —
+  five unit and five integration suites; ten docs/parallel
+  contracts) plus nine exact Root records (37,297 B) and the
+  exact index in the transcript commit. Immutable private
+  publication with no-replace rename/fsync and explicit
+  publication_may_exist rename uncertainty, exact
+  expected-pointer selection with generation CAS and
+  selection_may_have_changed replace uncertainty, source-backed
+  bounded catalog (32 MiB non-vector), creator-owned lifetime
+  pin without removal, and FileBuilder constructing plus
+  independently validating unqualified DATA from the borrowed
+  stores — 4,096-row/128-group/96 MiB finite limits preserved,
+  20k capacity remains NOTQUALIFIED, no cap raise or silent
+  truncation; the blanket no-caller wording is corrected to no
+  CLI/application entrypoint because interlibrary callers now
+  exist. No query/scoring/operator/current-policy/public-route
+  integration, no CLI, existing canonical modules unchanged, no
+  local product tests, no new dependencies; zero local tests
+  this round and current final-head CI (pending) are the
+  evidence boundary; whole 008 remains PARTIAL, no merge.
 
+- 008-d (CI process observation; same PR 10/branch,
+  transcript-first): test-only repair of the narrowly observed
+  actual 3.14 CI failure at the 008-c report head 322c7fe0 (run
+  43368073059, job 131697112168) — the preserved
+  test_timeout_kills_owned_descendant post-kill observer
+  _descendant_gone caught only FileNotFoundError while the
+  runner raised ProcessLookupError/ESRCH; the observer now
+  accepts exactly the two absence classes (ENOENT, ESRCH) and
+  keeps the direct stat read, zombie observation and
+  live-state refusal (no broad except, existence precheck,
+  retry, sleep increase, deadline/cap change, skip or fixture
+  rewrite), with two new deterministic regressions
+  (parameterized errno-bearing ENOENT/ESRCH absence cases, and
+  live S false / zombie Z true / PermissionError-EPERM and
+  OSError-EIO propagate, one read each) and the unchanged real
+  timeout test; no product module, setup.run/cleanup, other
+  test, CI, dependency, profile, architecture, law, prior
+  report or source-book change; one bounded local pytest
+  process (four node IDs, five cases passed, exit 0, 1.18 s
+  elapsed under CPU 10 s / AS 1 GiB / wall 30 s / affinity 0 /
+  five thread vars 1 / closed env, pinned Python 3.14.4 +
+  pytest 8.4.2; private fsync'd preflight/argv/env/caps guard,
+  split stdout/stderr, GNU time and exit records) plus
+  optional static AST/compile checks; new
+  docs/ci-proc-observation.md explains the actual old-3.14
+  failure, the observer-only fix, the exact local evidence and
+  the current final-head CI status; the old failed 3.14
+  artifacts are preserved unchanged (not marked green
+  retrospectively); current final-head CI (pending) is the
+  evidence boundary; whole 008 remains PARTIAL, no merge.
+  Current correction per the Root 008-d evidence replan: the
+  private harness directory reset, check-cat guard and uncapped
+  metadata/fsync/pytest-version probes do not establish one-shot
+  provenance, so LOCAL-008D-ONE-SHOT-ATTESTATION remains UNPROVEN
+  permanently and the harness is never rerun or reused; that round
+  moved 9 paths excluding its own report and 10 including it
+  (immutable report preserved); the old 3.14 failure stays
+  preserved, not green.
+
+- 008-e (raw scoring transfer; same PR 10/branch,
+  transcript-first): byte-exact 37-file transfer (451,715 B) of the
+  Root-reviewed donor SELF b289e8d9 per
+  oap/reviews/008-e-scoring-components.json — four production
+  modules (raw_dense_search, raw_lexical_search, raw_rank_fusion,
+  raw_hybrid_search), seven unit and seven integration suites,
+  seventeen docs/parallel contracts, and two dependency metadata
+  files (only bm25s 0.2.14 + SciPy 1.18.1 added; no old package
+  version removed or changed; no lock regeneration) — with exactly
+  one narrow test-fixture portability adaptation ordered by the Root
+  D0 addendum oap/reviews/008-e-portability-addendum.md:
+  tests/integration/test_raw_hybrid_trace_composition.py calls the
+  inherited test_native_tokenizers.make_native once before its
+  subprocess guard, verifies the two pinned artifact hashes and
+  drops the hard-coded private witness cache, while all other 36
+  indexed files stay byte-exact. Transcript commit carries the
+  unchanged FINAL order, active 008-e+LF, nine exact Root records
+  (29,999 B), the exact index and the unchanged addendum (13
+  paths); three current docs updated (retrieval 008-e scoring
+  section, this STATUS entry, ci-proc-observation corrections and
+  portability note). Static Git/hash/AST/metadata checks only: no
+  local product, unit, integration, collection, import, setup,
+  model, store or scorer process; the full unchanged hosted CI
+  supplies new-head behavior (pending). Authorized partitions,
+  normalized 1024-D CPU vectors, pinned Lucene BM25/technical
+  analyzer, deterministic caps and RRF 60 with no raw-score
+  addition, fail-closed source/catalog/ACL binding and supplied
+  (unverified, not attested) trace origins are preserved; the
+  completion-locator/construction and query joins, the
+  application/serving constructor, pinned-query entrypoint,
+  current-service and current-principal/policy gates remained absent
+  at 008-e; 008-f then transferred the completion-locator/construction
+  and pinned-query joins as private modules (the application/serving
+  constructor and current-service/current-principal/policy gates
+  remain absent). Whole 008 remains PARTIAL, no merge.
+
+- 008-f (construction/pinned-query join transfer + lint repair; same PR
+  10/branch, transcript-first): byte-exact 19-file transfer (129,802 B)
+  of the Root-reviewed prepared SELF 1224dae (implementation 78d2598)
+  per oap/reviews/008-f-joins-components.json — three production
+  modules (raw_snapshot_completion_locator, raw_snapshot_construction,
+  raw_snapshot_query), three unit and three integration suites
+  (including the new normal-CI controlled-encoder query case and the
+  new construction-composition case), ten docs/parallel
+  contracts/provenance — eighteen NEW paths plus the existing trace
+  integration file changed ONLY in its one overlong (101-char, E501)
+  docstring line, the format-only repair of the 008-e report-head lint
+  failure. The transcript commit carries the unchanged FINAL order,
+  active 008-f+LF, eleven exact Root records (38,427 B) and the exact
+  index (14 paths); the implementation commit carries the 19 blobs
+  plus only docs/retrieval.md and STATUS.md (21 paths). Static
+  Git/hash/AST/metadata checks only: no local product, unit,
+  integration, collection, import, setup, model, store or scorer
+  process; no donor-branch merge, cherry-pick, reset, clean, stash,
+  switch, rebase or force push; the donor's unrelated 009 code and
+  obsolete fixture were not copied. Preserved 008-e record:
+  report-head CI run 43377547440 at head 50a85ac failed both Product
+  jobs (3.12 job 131727449278, 3.14 job 131727448752) at the lint step
+  on that one docstring line with all later product steps SKIPPED (not
+  pass); three OAP jobs succeeded; the failure, raw log and immutable
+  008-e report are preserved unchanged, not accepted or retried. The
+  transferred joins keep supplied/unverified execution origin,
+  NOT_QUALIFIED results, borrowed stores, cooperative deadlines,
+  fail-closed source/ACL/policy binding and the before-encode
+  unavailable-partition refusal; the private real Toy proof driver and
+  009 extras remain excluded. The full unchanged hosted CI at the new
+  report head (all five jobs, unit + integration on 3.12/3.14) is the
+  evidence boundary and remains pending. Whole 008 remains PARTIAL, no
+  merge.
+
+- 008-g (bounded pytest parameter IDs; same PR 10/branch,
+  transcript-first): test-metadata-only repair of
+  tests/unit/test_raw_snapshot_completion_locator.py — the
+  test_bad_program_refused parametrize gained six stable unique short
+  IDs (empty, malformed-json, trailing-newline, mutable-bytes,
+  bytes-subclass, oversized-program); all six payload expressions are
+  byte-identical (including b"x" * 16777217), case cardinality is
+  unchanged (6), and the module AST equals the base after removing the
+  one ids keyword. The transcript commit carries the unchanged FINAL
+  order (d3f220b3…), active 008-g+LF, three exact Root records
+  (3,722 B) and the exact index (1,100 B, SHA-256 a2eb1596…; 6 paths);
+  the implementation commit carries the test file plus only
+  docs/ci-parameter-ids.md (new), docs/retrieval.md and STATUS.md
+  (4 paths). Bounded local evidence under owned disposable children
+  (CPU 10 s / AS 1 GiB / wall 60 s / affinity 0 / five thread vars = 1 /
+  closed env / bytecode + third-party plugin autoload disabled, built-in
+  cache provider enabled / deliberately lowered 1 MiB child file-size
+  limit / fresh 0700 scratches): one pre-edit collect-only (51 collected,
+  max node-ID 16,777,295 chars — the serialized oversized payload; no
+  cache/nodeids write under collect-only in pytest 8.4.2, no error), one
+  post-edit full module run (51 passed in 0.42 s, exit 0, session finish
+  and cache write succeeded; cache/v/cache/nodeids 4,601 B, max node-ID
+  95 chars), static AST/hash checks and one ruff 0.17.4 (SHA-256
+  4ef33997…) pass on the changed file. Honest attempt history: FOUR
+  attempted pytest processes (A usage-fail before collection, A2 old
+  collect, B pre-correction full run, F the D0-permitted final run);
+  A2 and B preceded the Root correction records and are preserved
+  without replay; no further runtime is authorized or performed.
+  Preserved 008-f record: report-head CI run 43383127224 at head
+  5509c6ba failed both Product jobs (3.12 job 131745302976, 3.14 job
+  131745303383) in the pytest session-finish cache/nodeids write
+  (OSError errno 27) after unit progress 100%, with no failed assertion
+  in the logs and all later product steps SKIPPED (not pass); three OAP
+  jobs succeeded; the failure, raw logs and immutable 008-f report are
+  preserved unchanged, not accepted or retried. The exact original CI
+  file-size limit value was NOT measured (an inherited RLIMIT_FSIZE
+  remains an unverified inference); no cap was raised or changed. All
+  local evidence is synthetic owned-test-infrastructure proof, not a
+  CI-ceiling measurement and not model evidence; see
+  docs/ci-parameter-ids.md. No merge, no cherry-pick/reset/clean/stash/
+  switch/rebase/force push. The full unchanged hosted CI at the new
+  report head (all five jobs, all steps, unit + integration on
+  3.12/3.14) is the evidence boundary and remains pending. Whole 008
+  remains PARTIAL, no merge.
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
@@ -406,9 +655,13 @@ open on the 007 PR, branch
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 007 (007 PR), not idle.
-- Current main is the 006 merge commit 11badc7 (PR #8); the 007
-  branch builds from it.
+- The coding client is active on objective 008 (PR 10, branch
+  oap/008-raw-hybrid-snapshots), not idle; the 007-era wording is
+  historical.
+- Current main is the 007 merge commit 1a8fddf8 (PR #9); the 008
+  branch (PR 10) builds from it. Historical: while 007 was in flight,
+  current main was the 006 merge commit 11badc7 (PR #8) and the 007
+  branch built from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
   (strategic, copied unchanged).

@@ -1,0 +1,165 @@
+{
+  "at": "2026-11-13T03:38:42.514537+00:00",
+  "status": "ROOT_FINAL_008B_EXACT_SOURCE_TRANSFER_INPUT_NOT_ACCEPTANCE",
+  "base": "0ef370696ea4a28e7153977df8c623e27fdad1e7",
+  "source_SELF": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+  "source_implementation": "009044a786b0a899b1ea1fd4c8be2b6f78c80909",
+  "entries": [
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_row_builder.py",
+      "bytes": 7579,
+      "sha256": "d8e20bbbc1f361ac62b0019f8bff54c7dc20b65b2c61f7c3b64c0b97649a8c4c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/unit/test_raw_snapshot_row_builder.py",
+      "bytes": 3080,
+      "sha256": "b0f0e50d30854a212a46436740a5ec581ff5006fffbe8f36ac3747d8940a329a"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/integration/test_raw_snapshot_row_builder_composition.py",
+      "bytes": 3428,
+      "sha256": "d839f5e138bfc7be07e907c75418b2a19c664b52530a08e3cda2f856665cdb1f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "docs/parallel/raw-snapshot-row-builder-api.md",
+      "bytes": 1642,
+      "sha256": "767f0c65fa5cdb1c5f8a3a79f8f09c698b596309e3f0a60b42eaef50979788ee"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "docs/parallel/raw-snapshot-row-builder-design.md",
+      "bytes": 10959,
+      "sha256": "fd8d1d8ea675f83a87d4372941f9ee86970730cf0d8081287f943229aa474529"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_files.py",
+      "bytes": 6649,
+      "sha256": "da682cdc07ed0538245addad518e9d5bd190b830b369d7cd01324a97d05885b8"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/unit/test_raw_snapshot_files.py",
+      "bytes": 491,
+      "sha256": "175d41ff95bb5c9767325007bcecf5a2702a4a70444c18cae71cb170ab604370"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/integration/test_raw_snapshot_files_composition.py",
+      "bytes": 10841,
+      "sha256": "a2e982b616088e90a03f71054d17b78ce3ccdeb5d50f560da57fe22f5012e467"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "docs/parallel/raw-snapshot-files-api.md",
+      "bytes": 1014,
+      "sha256": "c0fdf635c1d3b9442b1957fc7e14a6d989f489c5afd46d11410a7652d2d29e83"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "docs/parallel/raw-snapshot-files-design.md",
+      "bytes": 11151,
+      "sha256": "d33c6d902b0c353fd577d5f631df3d5da119ff826337c1952d3f5672df0a6b8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_program_coverage.py",
+      "bytes": 7409,
+      "sha256": "98ba43a634bbe7cadd2179caf7fa36797301baab3ec4fea24351ffe4154c8f65"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/unit/test_raw_snapshot_program_coverage.py",
+      "bytes": 10387,
+      "sha256": "e699d2b29a7c422b53abef2aa722573b94790f9a64db5fb249f258ab945705ce"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/integration/test_raw_snapshot_program_coverage_composition.py",
+      "bytes": 16537,
+      "sha256": "a9d860696167633e66edc9eb9f27d26f24f36d987601dfddab8275f5a648233f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "docs/parallel/raw-snapshot-program-coverage-api.md",
+      "bytes": 1794,
+      "sha256": "c81e43a97df7e176fe3ae40ab9c13834aebedbddf3747be36a52195a885f9211"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "docs/parallel/raw-snapshot-program-coverage-design.md",
+      "bytes": 9686,
+      "sha256": "5d64a62679129752da5fbbc5788b06d57eb6a24a7b3f24f5c0e0abfd4690b61b"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_directory.py",
+      "bytes": 8795,
+      "sha256": "e2448d9babe4d57e9601e8eeee46b4a5fc305b84ad7074ca91ee69a330aeece0"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/unit/test_raw_snapshot_directory.py",
+      "bytes": 1493,
+      "sha256": "5c8544ce684bbee2043554042f3c0245207763000fb8eb1a36274dd081f48178"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/integration/test_raw_snapshot_directory_composition.py",
+      "bytes": 10154,
+      "sha256": "7bfe80019559a1db4708a17dc5deb44623e3693765277fbc7f94256bddc1005e"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "docs/parallel/raw-snapshot-directory-api.md",
+      "bytes": 909,
+      "sha256": "3e5528bbdb2e2693d669a8b5471bc969285d6da3b3747000d066a06b241d5681"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "docs/parallel/raw-snapshot-directory-design.md",
+      "bytes": 9795,
+      "sha256": "60b6cf0d749ed6564e17f9ffa8286081cbd6b3212ec16078ae5ca3593b89ad20"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-program-directory-assembly",
+      "source_commit": "2da3d0df5caf31cbd5304bcb918334994dae2bfe",
+      "path": "tests/integration/test_raw_snapshot_assembled_composition.py",
+      "bytes": 11241,
+      "sha256": "870f861d4f0b78b84bb48c2ecc2bb47d45478416749494d45218c7ce3d01070e"
+    }
+  ],
+  "total_bytes": 145034,
+  "breakdown": {
+    "production": 4,
+    "unit": 4,
+    "integration": 5,
+    "documentation": 8
+  },
+  "exceptions": "Two integration modules include Root-approved existing-provider-import-only initialization, as reviewed at009044/873fd1; copied exact finalprepared bytes, not their older leaf blobs. Allotherindexedblobs exact donors. Assembled21stdriver is samebounded source whoseone synthetic journey passed; no currentlocalrerun.",
+  "DHA": "NONE"
+}

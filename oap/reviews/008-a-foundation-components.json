@@ -1,0 +1,262 @@
+{
+  "status": "FINAL_ROOT008A_EXACT_SELECTIVE_INTEGRATION_SOURCE",
+  "at": "2026-11-13T02:46:39.126232+00:00",
+  "base_main": "1a8fddf8c1448ad9e76b6b8194984877c4c21a95",
+  "source_implementation": "3eac764f522c63e69b02d75635207c2b4ec5b13b",
+  "source_SELF": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+  "entries": [
+    {
+      "path": "docs/parallel/technical-analyzer-api.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 2287,
+      "sha256": "dc4934028c184a43b16171445690c8ee308235b389934316467801bba964a42b",
+      "upstream_leaf_SELF": "f35bc1fe6531dd05499efa2c9d92ffe8d5c51b85",
+      "upstream_leaf_implementation": "505e57ed1c705df35377abb051e4f2852c4ad0e5",
+      "exception": "NONE"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/technical_analyzer.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 4295,
+      "sha256": "8dfd84c4ecd4d42d5c51d3383e36ee742435f597779fc8f7c0488f0b17a3c59e",
+      "upstream_leaf_SELF": "f35bc1fe6531dd05499efa2c9d92ffe8d5c51b85",
+      "upstream_leaf_implementation": "505e57ed1c705df35377abb051e4f2852c4ad0e5",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/integration/test_technical_analyzer_composition.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 2348,
+      "sha256": "2c725d0dc13bdef3089c0b5c237a1ab148ce1cb548386ad32b20404ed81710bf",
+      "upstream_leaf_SELF": "f35bc1fe6531dd05499efa2c9d92ffe8d5c51b85",
+      "upstream_leaf_implementation": "505e57ed1c705df35377abb051e4f2852c4ad0e5",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/unit/test_technical_analyzer.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 2833,
+      "sha256": "6b65e3431095c6c7d68fcaf4ddb2ae74fbf092bd57e51c1a5eb40cf5758e76ae",
+      "upstream_leaf_SELF": "f35bc1fe6531dd05499efa2c9d92ffe8d5c51b85",
+      "upstream_leaf_implementation": "505e57ed1c705df35377abb051e4f2852c4ad0e5",
+      "exception": "NONE"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-membership-api.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 857,
+      "sha256": "d977928129f061ec1794b1cee7dbb638d9b54f32b2734a3771fe8571917e0e14",
+      "upstream_leaf_SELF": "892ef2e14fd8c19eb7e5b0cc14178a9c2f050f03",
+      "upstream_leaf_implementation": "605aa78a1580f36aa511c0a21677a5ace34cc98b",
+      "exception": "NONE"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-membership-design.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 12279,
+      "sha256": "854166cc1911592358addf92718a450626331f937b37b401a7d930520ff0b6ba",
+      "upstream_leaf_SELF": "892ef2e14fd8c19eb7e5b0cc14178a9c2f050f03",
+      "upstream_leaf_implementation": "605aa78a1580f36aa511c0a21677a5ace34cc98b",
+      "exception": "NONE"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/raw_snapshot_membership.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 13491,
+      "sha256": "506b8c727c89b99990c4270a4a06e549438b90a3efc7efc7618276265eeed2a7",
+      "upstream_leaf_SELF": "892ef2e14fd8c19eb7e5b0cc14178a9c2f050f03",
+      "upstream_leaf_implementation": "605aa78a1580f36aa511c0a21677a5ace34cc98b",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/integration/test_raw_snapshot_membership_composition.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 8703,
+      "sha256": "30b99997c16e8965924987560a225570bbc6d1d55cb1226d0ea3ba345fe70f8d",
+      "upstream_leaf_SELF": "892ef2e14fd8c19eb7e5b0cc14178a9c2f050f03",
+      "upstream_leaf_implementation": "605aa78a1580f36aa511c0a21677a5ace34cc98b",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/unit/test_raw_snapshot_membership.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 6846,
+      "sha256": "83424df35efc056f1827c9ea9dc5de56e0f8a6eab5a094757c0a04e47d94470e",
+      "upstream_leaf_SELF": "892ef2e14fd8c19eb7e5b0cc14178a9c2f050f03",
+      "upstream_leaf_implementation": "605aa78a1580f36aa511c0a21677a5ace34cc98b",
+      "exception": "Approved actual existing-fixture importlib load; no sys.path/sys.modules override"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-source-rows-api.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 889,
+      "sha256": "c61a161d1e2e8f1e856b5b326f11c9aba04f0eeb4624801653f217312ba3b865",
+      "upstream_leaf_SELF": "9818964127fec8e2eeb0c8c1ef01404319eb361c",
+      "upstream_leaf_implementation": "3ff6abb63755cb4110890c558d04bb52d2c9529a",
+      "exception": "NONE"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-source-rows-design.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 12405,
+      "sha256": "c989b92cae948aa684ea13c46aab57f42f2009c89e183fe76e0d78c82cfc9d39",
+      "upstream_leaf_SELF": "9818964127fec8e2eeb0c8c1ef01404319eb361c",
+      "upstream_leaf_implementation": "3ff6abb63755cb4110890c558d04bb52d2c9529a",
+      "exception": "NONE"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/raw_snapshot_source_rows.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 7554,
+      "sha256": "bbdb37bf9b2ff2ee64f7bc4b9581d6fbdc7dbc39a352bb85e8ce2412848808d6",
+      "upstream_leaf_SELF": "9818964127fec8e2eeb0c8c1ef01404319eb361c",
+      "upstream_leaf_implementation": "3ff6abb63755cb4110890c558d04bb52d2c9529a",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/integration/test_raw_snapshot_source_rows_composition.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 11661,
+      "sha256": "4b204b4c7ad505da0bcdfecab80fe5978298d997fd5b92e1004c14e70cdce962",
+      "upstream_leaf_SELF": "9818964127fec8e2eeb0c8c1ef01404319eb361c",
+      "upstream_leaf_implementation": "3ff6abb63755cb4110890c558d04bb52d2c9529a",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/unit/test_raw_snapshot_source_rows.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 1165,
+      "sha256": "0a974c56a8b9c2221cf25255f6d9527fdd905fb2de4076d495f9b1c4b090b684",
+      "upstream_leaf_SELF": "9818964127fec8e2eeb0c8c1ef01404319eb361c",
+      "upstream_leaf_implementation": "3ff6abb63755cb4110890c558d04bb52d2c9529a",
+      "exception": "NONE"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-dense-api.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 876,
+      "sha256": "e203078f43fdaaf1e9d1d2ca617d83684b33701cddf520bd303584d6424add08",
+      "upstream_leaf_SELF": "57fe432b922a59641cb8039000ce14fe9dccbeb7",
+      "upstream_leaf_implementation": "74b86643b9c382bdb376a687bfbbe31a7e17fdf1",
+      "exception": "NONE"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-dense-design.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 8021,
+      "sha256": "c14180fafb9a34a168814dce8a8cf3957653a37c226aa2cd1a1cae84fb150473",
+      "upstream_leaf_SELF": "57fe432b922a59641cb8039000ce14fe9dccbeb7",
+      "upstream_leaf_implementation": "74b86643b9c382bdb376a687bfbbe31a7e17fdf1",
+      "exception": "NONE"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-payload-format-map.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 1156,
+      "sha256": "aa9f5b9cd998c36fe849a4dc5568fdc864a0889232c454392afbd501200cbdf7",
+      "upstream_leaf_SELF": "57fe432b922a59641cb8039000ce14fe9dccbeb7",
+      "upstream_leaf_implementation": "74b86643b9c382bdb376a687bfbbe31a7e17fdf1",
+      "exception": "NONE"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/raw_snapshot_dense.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 5936,
+      "sha256": "a40dd743d264a1f3f6cae1918bd1bcfb4257675ed4cc22d24ceac4d12dfa9ef6",
+      "upstream_leaf_SELF": "57fe432b922a59641cb8039000ce14fe9dccbeb7",
+      "upstream_leaf_implementation": "74b86643b9c382bdb376a687bfbbe31a7e17fdf1",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/integration/test_raw_snapshot_dense_composition.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 4345,
+      "sha256": "6de7cca064413641a538cc299ce208f90bb7a0a31c2c787c65ed3a5db42f73e3",
+      "upstream_leaf_SELF": "57fe432b922a59641cb8039000ce14fe9dccbeb7",
+      "upstream_leaf_implementation": "74b86643b9c382bdb376a687bfbbe31a7e17fdf1",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/unit/test_raw_snapshot_dense.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 2306,
+      "sha256": "94de151efb6bac97668a228f82848a3f28da2fd6fe14c9d0d28e8789f02fa497",
+      "upstream_leaf_SELF": "57fe432b922a59641cb8039000ce14fe9dccbeb7",
+      "upstream_leaf_implementation": "74b86643b9c382bdb376a687bfbbe31a7e17fdf1",
+      "exception": "NONE"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-lexical-api.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 820,
+      "sha256": "bd26562d9dc2727432141065d2bd5ce28e8f4fea5bc1fbb393c471ab7a57367e",
+      "upstream_leaf_SELF": "b2c6199e26f7ba1fa6f69f77694464141965def1",
+      "upstream_leaf_implementation": "4f45ae9260b4db32d62fb1a93c52eb691bb0c7fe",
+      "exception": "NONE"
+    },
+    {
+      "path": "docs/parallel/raw-snapshot-lexical-design.md",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 10108,
+      "sha256": "fd63dd65fc0998d42ff66fdd5edee6af7e19e34147157874cb170f6ff8532506",
+      "upstream_leaf_SELF": "b2c6199e26f7ba1fa6f69f77694464141965def1",
+      "upstream_leaf_implementation": "4f45ae9260b4db32d62fb1a93c52eb691bb0c7fe",
+      "exception": "NONE"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/raw_snapshot_lexical.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 8734,
+      "sha256": "3eaf7fa47a19f3df4466f45271cc5a53d15ad136ef42211676260b443ca3ef8b",
+      "upstream_leaf_SELF": "b2c6199e26f7ba1fa6f69f77694464141965def1",
+      "upstream_leaf_implementation": "4f45ae9260b4db32d62fb1a93c52eb691bb0c7fe",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/integration/test_raw_snapshot_lexical_composition.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 10213,
+      "sha256": "a5eb2d2fcc16e205fa266dd7d21842b98d58ae1550d51090751ae1ff5e69eeb6",
+      "upstream_leaf_SELF": "b2c6199e26f7ba1fa6f69f77694464141965def1",
+      "upstream_leaf_implementation": "4f45ae9260b4db32d62fb1a93c52eb691bb0c7fe",
+      "exception": "NONE"
+    },
+    {
+      "path": "tests/unit/test_raw_snapshot_lexical.py",
+      "source_commit": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-raw-foundation",
+      "bytes": 2194,
+      "sha256": "83261c92245b880274cf322be580293d3b691150affd57143160408c9ec74ff3",
+      "upstream_leaf_SELF": "b2c6199e26f7ba1fa6f69f77694464141965def1",
+      "upstream_leaf_implementation": "4f45ae9260b4db32d62fb1a93c52eb691bb0c7fe",
+      "exception": "NONE"
+    }
+  ],
+  "total_bytes": 142322,
+  "scope": "25exact current reviewed assembly blobs; no merge/cherry-pick of candidate ancestry. Existing canonical manifest/rows/program/representation retained. Original supplier reports are provenance, not canonical acceptance.",
+  "DHA": "NONE"
+}

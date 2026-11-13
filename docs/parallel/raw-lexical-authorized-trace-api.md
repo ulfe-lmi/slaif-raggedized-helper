@@ -1,0 +1,5 @@
+# Raw lexical authorized trace
+
+`search(..., trace=False)` defaults to the legacy result behavior. `trace=True` adds a private in-memory trace of eligible identities and the actual matching, per-partition selected, and global returned stages. Only supplied static grants and restrictions are checked; this does not establish current rights or revocation. A validated empty trace is distinct from a refused search. The original cooperative deadline includes trace work and final result construction, but cannot preempt a blocking call.
+
+Trace records and their result field are hidden from `repr`; ordinals, identifiers and hashes remain linkable private information. Do not implicitly log, persist or export them. `dataclasses.asdict` includes the new field, and callers can construct or forge DTOs: neither a DTO nor its hash proves execution, code identity, source truth or authorization. Explicit export is a caller responsibility. The canonical identity and stage definitions are in the accompanying design and synthetic oracle; those vectors are not actual BM25 evidence.

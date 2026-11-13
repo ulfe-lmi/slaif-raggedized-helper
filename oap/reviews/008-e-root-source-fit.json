@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-13T05:45:37.292060+00:00",
+  "state": "EXACT37_SOURCE_FILES_RECHECKED_CURRENT_C3E3_BASE_FIT",
+  "source_SELF": "b289e8d91eef36a9dd4ed873d4f1456e63d8df22",
+  "files": 37,
+  "bytes": 451715,
+  "Python_AST": 18,
+  "new": 35,
+  "existing_metadata": 2,
+  "dependencies": "Only bm25s0.2.14/scipy1.18.1 added; all old external package records byte-structurally identical. Project package dependency entries intentionally extended. No lock regeneration/runtime install.",
+  "historical_review": [
+    "parallel/scoring-assembly/local-preparation-admission.json",
+    "parallel/scoring-test-assembly/review.json",
+    "audit/008-scoring-test-assembly-root-checkpoint-review-a752.json"
+  ],
+  "CI_budget": "Latest unchanged current full productjobs864s/863s versus1200s existing hard bound; incoming40 tiny integration cases/historical guarded finite proofs and metadata import collection support proceeding with unchanged limit. This is a budget estimate, not a measured full-new-suite duration. Any actual timeout/failure stops before revised scope, no capraise/skips.",
+  "architecture_fit": "ARCH11-14 raw1024D/technicalBM25/authorizedpartitions/RRF60/currentpolicy separate. Supplied authorities/execution identifiers do not establish authentication or neural corpus provenance. Completion/construction/pinned query remain later gates.",
+  "DHA": "NONE"
+}

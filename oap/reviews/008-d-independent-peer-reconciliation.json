@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-13T05:41:20.539188+00:00",
+  "state": "EXACT_C3E3_INDEPENDENT_SOURCE_AND_CONDITIONAL_EVIDENCE_REPLAN_NORMAL_VERIFIED",
+  "normal": {
+    "lane": "audit-008d-source-evidence",
+    "lane_id": "AUDIT-008D-SOURCE-EVIDENCE-A",
+    "result": "PARTIAL",
+    "target_commit": "c3e36dae37966958cf30d8f6bb5df221a26f0d14",
+    "report_sha256": "13c7a5f40f7c781dbe063aa842ee9546511eccd39fe09b6057728f928441d527",
+    "verified_at": "2026-11-13T05:38:13.033413+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "Root_review": "audit/008-d-source-evidence-peer-root-review-13c7.json",
+  "scope": "Staticnarrowcodecorrect/historicalone-shotUNPROVEN; conditionalnormalCIbehaviorbasis anddocscorrectionsbeforemergedeemedproportionate. RootseparatelynowverifiednewCI5/78/both1864unit894integration; no retroapprovalorICA."
+}

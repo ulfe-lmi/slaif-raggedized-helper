@@ -21,6 +21,8 @@ requires-python = ">=3.12"
 authors = [{ name = "ulfe-lmi" }]
 keywords = ["rag", "retrieval", "configuration", "contracts"]
 dependencies = [
+  "bm25s==0.2.14",
+  "scipy==1.18.1",
   "httpx>=0.28,<1",
   "numpy==2.5.4",
   "pydantic>=2.11,<3",

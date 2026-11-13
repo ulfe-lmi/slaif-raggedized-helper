@@ -1,0 +1,58 @@
+{
+  "entries": [
+    {
+      "source": "audit/007-resolution.json",
+      "target": "oap/reviews/007-resolution.json",
+      "bytes": 1712,
+      "sha256": "e8158a7cc32b9a413d3a9b8e5c76c4e316fc0e9b595f138298a858f9043893ba"
+    },
+    {
+      "source": "audit/007-v-final-development-review.json",
+      "target": "oap/reviews/007-v-final-development-review.json",
+      "bytes": 7629,
+      "sha256": "9b48e91b7ee2cbe539c6e94fc6b23098cf660da440961519a9c4a4ead216386b"
+    },
+    {
+      "source": "audit/007-v-resolution-timing-event.json",
+      "target": "oap/reviews/007-v-resolution-timing.json",
+      "bytes": 593,
+      "sha256": "6850cd40f9608029b9d060066541130c69ecb519d0660ca05ebd7b4d8204bd9a"
+    },
+    {
+      "source": "audit/008-a-foundation-components-FINAL.json",
+      "target": "oap/reviews/008-a-foundation-components.json",
+      "bytes": 13987,
+      "sha256": "e11bfb74e81232c0e95287ff372bc5934e7f70fc094d1f4becbe005197a06336"
+    },
+    {
+      "source": "parallel/raw-foundation/review.json",
+      "target": "oap/reviews/008-a-foundation-Root-review.json",
+      "bytes": 7943,
+      "sha256": "f7e3986c1e48e7136338d5f9d7577531d38ba1d9e5d74fec3cc68a586372f8a3"
+    },
+    {
+      "source": "parallel/raw-foundation/local-admission.json",
+      "target": "oap/reviews/008-a-foundation-local-admission.json",
+      "bytes": 539,
+      "sha256": "59fd2aae5a0a084fd78754a78ad0003bd217d5674f32601d534f28b11a819682"
+    },
+    {
+      "source": "parallel/audit-raw-foundation/report.json",
+      "target": "oap/reviews/008-a-foundation-peer.json",
+      "bytes": 5674,
+      "sha256": "e206819d8837e7492a3f7ade2341ed8d016f4b36a5a132fbbdecc5ca9645c835"
+    },
+    {
+      "source": "audit/008-foundation-peer-root-review-e206.json",
+      "target": "oap/reviews/008-a-foundation-peer-Root-review.json",
+      "bytes": 11532,
+      "sha256": "5781a59cfbf9418430a03d876950cda5a6a7b458b27b5329d0cd90cd293886dd"
+    },
+    {
+      "source": "parallel/raw-foundation/root-test-layout-addendum-v1.md",
+      "target": "oap/reviews/008-a-foundation-test-layout-addendum.md",
+      "bytes": 2761,
+      "sha256": "063cda2b309836ea51bb416d785e573592baed5cd6fd6e7a123579ddd761959e"
+    }
+  ]
+}

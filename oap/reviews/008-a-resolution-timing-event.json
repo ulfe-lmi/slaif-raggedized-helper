@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T03:37:05.326461+00:00",
+  "identifier": "008-a",
+  "event": "BOUNDED_FOUNDATION_PREFIX_REVIEWED_CONTINUE_SAME_008_PR_NO_OBJECTIVE_ACCEPTANCE_OR_MERGE",
+  "activation_at": "2026-11-13T02:50:05.494007+00:00",
+  "normal_response_verified_at": "2026-11-13T03:25:52.105360+00:00",
+  "activation_to_response_seconds": 2146.611353,
+  "report_commit": "0ef370696ea4a28e7153977df8c623e27fdad1e7",
+  "review": "audit/008-a-scoped-prefix-resolution.json",
+  "DHA": "NONE"
+}

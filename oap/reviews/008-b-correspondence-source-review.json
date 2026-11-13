@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-13T02:15:31.101586+00:00",
+  "state": "ROOT_LOCAL_PREPARATION_REPORT_NORMAL_RECEIPT_REVIEWED_PHYSICAL_JOURNEY_GATE_OPEN",
+  "receipt": {
+    "lane": "raw-correspondence",
+    "lane_id": "PAR-008-CORRESPONDENCE-A",
+    "result": "PARTIAL",
+    "implementation": "a584d68827134687a359dd6ca35ef6fd16368629",
+    "report_commit": "c7751ba8c1328278a57dfc9a1e60a86d4c6e7191",
+    "report_sha256": "b6aeeb0d2c516680cf037ce9745d44063ee0a689b84c94848da675ba92331989",
+    "paths": [
+      "docs/parallel/raw-correspondence-integration-notes.md",
+      "docs/parallel/raw-snapshot-files-api.md",
+      "docs/parallel/raw-snapshot-files-design.md",
+      "docs/parallel/raw-snapshot-row-builder-api.md",
+      "docs/parallel/raw-snapshot-row-builder-design.md",
+      "oap/parallel/orders/PAR-008-CORRESPONDENCE-A.md",
+      "src/slaif_raggedized_helper/raw_snapshot_files.py",
+      "src/slaif_raggedized_helper/raw_snapshot_row_builder.py",
+      "tests/integration/test_raw_snapshot_files_composition.py",
+      "tests/integration/test_raw_snapshot_row_builder_composition.py",
+      "tests/unit/test_raw_snapshot_files.py",
+      "tests/unit/test_raw_snapshot_row_builder.py"
+    ],
+    "verified_at": "2026-11-13T02:10:23.123032+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "report_bytes": 1842,
+  "source_review": "audit/008-correspondence-root-report-permission-a584.json",
+  "verified_witnesses": [
+    {
+      "path": "/tmp/par008-corrected-1794535740-4182681/harness.py",
+      "bytes": 2099,
+      "sha256": "e3f0369d7f67b75f2d2abf18a199be58ddb3758e89f38aedc7b1cf9d650f3d4d"
+    },
+    {
+      "path": "/tmp/par008-corrected-1794535740-4182681/preflight.json",
+      "bytes": 111849,
+      "sha256": "ac10f5e2227756fb40b4fe0a811d1cbb574d876a2d80bc810819dd25ed3fac30"
+    },
+    {
+      "path": "/tmp/par008-corrected-1794535740-4182681/stdout",
+      "bytes": 99,
+      "sha256": "9880a8788611d95a5373611be9fa207b198acdbd2d1e60ca73424cd13dff5475"
+    },
+    {
+      "path": "/tmp/par008-corrected-1794535740-4182681/stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/tmp/par008-corrected-1794535740-4182681/time.txt",
+      "bytes": 1081,
+      "sha256": "16c5377c03e360ebcb1d694e6f2c1dd7adf271d318d7528470b9287d3d06d251"
+    },
+    {
+      "path": "/tmp/par008-corrected-1794535740-4182681/exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    }
+  ],
+  "review": "ExactSELF/soleparenta584/reportonly/currentclean12NEWpaths and10exactcopies Rootreviewed. PARTIALreportaccuratelyretainsfirstreceiptgap/explicitcorrected20PASSandactualphysicalNOTRUNnamedgate; no extraactualproof inferred.",
+  "strongest_reason_not_to_integrate": "008-CORRESPONDENCE-JOURNEYNOTRUN/currentcanonical008CI/sourcepolicy/quality/licensesICA/MVPopen; historicalrowbuilderpeerUNPROVENkept. Eligibleonlyforlocaldevelopment; currentcompositeoppositereviewstillneededbeforeintegration.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}

@@ -1,0 +1,62 @@
+{
+  "at": "2026-11-13T04:21:22.707850+00:00",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-b-scoped-prefix-resolution.json",
+      "target": "oap/reviews/008-b-scoped-prefix-resolution.json",
+      "bytes": 1478,
+      "sha256": "28fb210c70589bc2c07a22bbfadf2f4f184af57408ef0ac86f0447b244ac7650"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-b-resolution-timing-event.json",
+      "target": "oap/reviews/008-b-resolution-timing-event.json",
+      "bytes": 487,
+      "sha256": "da74f1cd0f71806b41200c637d09382a10e9b9777a2e303cf8a98d41dc585fca"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-b-ci-terminal-d9ef.json",
+      "target": "oap/reviews/008-b-ci-terminal.json",
+      "bytes": 15546,
+      "sha256": "6bb10ec287b4403fa4ad03f44aa47b3150cc8e3bb3fc968e9750cde8cef1abaf"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-c-publication-reader-components-FINAL.json",
+      "target": "oap/reviews/008-c-publication-reader-components.json",
+      "bytes": 9675,
+      "sha256": "441c130f90cf5a4bc80e5815b12987be90e7a46564661b82d4086a5b7fc91355"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/publication-selection-assembly/review.json",
+      "target": "oap/reviews/008-c-publication-selection-source-review.json",
+      "bytes": 2377,
+      "sha256": "19cebcb2b702860277649591576f0c5d4b2dc83dd940da585eedc2031e97d0d0"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/catalog-pin-assembly/review.json",
+      "target": "oap/reviews/008-c-catalog-pin-source-review.json",
+      "bytes": 2370,
+      "sha256": "ff52c5e5523ab99011c4dd3728e13393f707fe506f6b9c310b74746a92c9431c"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/file-builder-assembly/review.json",
+      "target": "oap/reviews/008-c-file-builder-source-review.json",
+      "bytes": 1909,
+      "sha256": "daa72fca6229dcbf7c907bd687c513bad8b299924d1d330c596f54b8dd351b42"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-snapshot-file-builder-peer-root-review-1ae7.json",
+      "target": "oap/reviews/008-c-file-builder-historical-peer-root-review.json",
+      "bytes": 1648,
+      "sha256": "6c5b8801a01ce0b8b90eb5c8fde80bd5d9b701fe98dd0ccb79447663290100e9"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-pin-peer-root-review-8e5f.json",
+      "target": "oap/reviews/008-c-pin-historical-peer-root-review.json",
+      "bytes": 1807,
+      "sha256": "0110242707f19224bb0998d6ff04b86dec8e37b239ffae194f954a1d13a19c61"
+    }
+  ],
+  "total_bytes": 37297,
+  "scope": "Root-owned immutabletranscript inputs; acceptance scopes exactlyinrecords, no rawlogs/env/privateconfig transfer. Historicalpeerlimits andnewRootproofs separate.",
+  "DHA": "NONE"
+}
