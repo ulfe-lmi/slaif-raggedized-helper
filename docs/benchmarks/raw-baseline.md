@@ -1,10 +1,13 @@
 # Raw baseline methodology and current NOT RUN state (objective 009)
 
 This document records the declared methodology of the raw retrieval
-baseline that will be measured once the missing gates are available. As of
-slice 009-a it contains NO measured results: no sample counts, no
-latencies, no model IDs, no scores and no quality claims. Every number
-below is a declared bound, formula or variant definition. The current
+baseline that will be measured once the missing gates are available. As
+of slices 009-a and 009-c it contains NO real baseline results: no
+quality, latency or sample measurements, no model IDs and no quality
+claims. Every baseline number below is a declared bound, formula or
+variant definition; the attributed software test counts cited in the
+evaluation docs (51/45 unit cases, eight-attempt composition proofs)
+are distinct software evidence, not held-out samples. The current
 baseline state is **NOT RUN**.
 
 ## Pipeline variants
@@ -65,12 +68,21 @@ remain `SUPPLIED_UNIT_ID` until a real adapter binds them to originals.
 
 ## Current state: NOT RUN
 
-009-a is a static byte-exact transfer: no real approved evaluation
-dataset and no baseline were measured; the coding local transfer was
-static (no local or CI baseline run occurred and no encoder was
-executed). Future ordinary CI runs of the copied synthetic unit fixtures
-are distinct from, and do not constitute, a real baseline. Missing gates
-that block the real baseline (each is a gate, not a synthetic pass):
+009-a and 009-c are static byte-exact transfers plus documentation: no
+real approved evaluation dataset and no baseline were measured; the
+coding local work was static (no local or CI baseline run occurred and no
+encoder was executed). Slice 009-c additionally integrates the reviewed
+source-backed stage components and their synthetic actual-source
+composition proofs; the bounded 512-row catalog diagnostic (the joined
+geometry/source-binder components admit ≤ 512 rows, 256 cases and 512
+global Gold occurrences over 1 MiB; the standalone dataset foundation
+separately permits 512 cases over 16 MiB) and the synthetic
+three-revision fixtures are not 20k-scale qualification, and the 51/45
+controlled unit case counts and the eight-attempt composition proofs
+are software evidence, not retrieval measurements or held-out samples. Future ordinary CI runs of the copied synthetic
+unit fixtures are distinct from, and do not constitute, a real
+baseline. Missing gates that block the real baseline (each is a gate, not
+a synthetic pass):
 
 - Human-approved representative held-out questions (held-out untouched;
   synthetic supplemental only).
@@ -91,4 +103,8 @@ of the 009-a slice (donor SELF `8c351a95`, per
 `oap/reviews/009-a-components.json`, SHA-256 `f3f65b1b…a80f`); see
 [../evaluation.md](../evaluation.md) for the API reference and
 [../parallel/supplied-rank-metrics-design.md](../parallel/supplied-rank-metrics-design.md)
-for the frozen contract.
+for the frozen contract. The 009-c source-backed stage slice (source
+SELF `e6b229b1`, per `oap/reviews/009-c-components.json`, SHA-256
+`6fbeb96c23…c5c633af91`) adds the stage-loss and geometry contracts under
+[../parallel/](../parallel/) without changing the declared methodology or
+any measured result; the real baseline state is unchanged: NOT RUN.

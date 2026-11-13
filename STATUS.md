@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-13)
 
-- Current (2026-11-13): active objective 009, current slice 009-b
+- Current (2026-11-13): active objective 009, current slice 009-c
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -27,12 +27,43 @@
   the one pytest.raises clause immediately around that call now accepts
   (TypeError, ValueError); every other byte, test, fixture, assertion,
   import and production blob is unchanged
-  (docs/ci-dataclass-replace-portability.md). Whole 009 remains
-  PARTIAL: no actual evaluation harness, real-model retrieval quality,
-  human held-out data, rights, source-bound stage-loss acceptance or
-  real baseline (raw baseline NOT RUN); no 010 activation; no merge.
-  Public serving, current principal/current policy, evidence delivery
-  and real qualification remain absent/open.
+  (docs/ci-dataclass-replace-portability.md). Slice 009-c is the
+  source-backed stage-evaluation wave: byte-exact 22-file transfer
+  (395,115 B: three production modules — 127,064 B — three unit suites —
+  110,520 B — five integration suites — 78,437 B, one of them the exact
+  existing raw-hybrid fixture modification — and eleven docs/parallel
+  contract/proof documents — 79,094 B) from the reviewed source SELF e6b229b1 (implementation
+  748d08b4) per oap/reviews/009-c-components.json (SHA-256
+  6fbeb96c23…): 21 NEW + one MODIFY with exact preimage — the raw text
+  stage support, declared stage geometry and source-bound stage loss
+  components completing the nine private module API families (the nine
+  callable private evaluation primitives), with the actual synthetic
+  source-backed composition proofs (raw bridge
+  V3 eight-attempt pass; stage-loss v2 eight ordered cases — two
+  positive / six expected refusals, six native session wrappers reaped,
+  no close overages; 51 controlled source-binder unit cases and 45
+  geometry unit cases attributed to their exact sources; v1 preflight
+  failure retained with the separately approved v2). The independent
+  COMPLETE software-coverage audit 2624 (Root adjudicated;
+  oap/reviews/009-c-software-coverage-adjudication.json) confirms the
+  remaining ABSENT production software: a callable cohort pipeline
+  joining frozen split selection, per-case producer traces/source
+  binding, source Recall@20/60/multi-source/stage-loss aggregation and
+  total/defined/undefined/refused denominators with private report
+  provenance (an operator loop is not harness software; separately
+  ordered same-009 continuation). Whole 009 remains
+  PARTIAL: the cohort harness, source metric aggregation and private
+  split/report integration are absent; no real-model retrieval quality,
+  human held-out data, corpus rights/current principal-policy authority
+  or qualified encoder, and no real baseline (raw baseline NOT RUN); the
+  512-row catalog diagnostic bound (≤ 512 rows / 256 cases / 512 global
+  Gold occurrences in the joined components; 512 cases / 16 MiB at
+  standalone admission) and the synthetic three-revision fixtures are
+  not 20k qualification. Hardware/visual/license/ICA/full-MVP gates
+  retained; historical 009-a/b at-time evidence and the 008 accepted
+  state preserved; no 010 activation; no merge. Public serving, current
+  principal/current policy, evidence delivery and real qualification
+  remain absent/open.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
@@ -714,6 +745,33 @@ open on the 007 PR, branch
   failure (run 43395492425) and all earlier reports/runs are preserved
   unchanged; the full unchanged five-job CI at the new report head is
   the evidence boundary and remains PENDING. Whole 009 remains
+  PARTIAL; no merge; no 010 activation.
+
+- 009-c (source-backed stage evaluation v2; AMEND PR 11, same branch
+  oap/009-evaluation-baseline, transcript-first): the transcript commit
+  ac408fe0 carries the unchanged FINAL order, active 009-c+LF, the
+  eleven exact Root records (52,832 B, including the source component
+  index at oap/reviews/009-c-components.json) and the exact 3,512 B
+  index (SHA-256 659d3856…) — fourteen transcript paths on sole parent
+  aba42a52 (the 009-b report head). The implementation commit changes
+  exactly 25 paths: the 22 indexed byte-exact blobs (395,115 B from
+  source SELF e6b229b1; 21 NEW verified absent at base, one MODIFY
+  against exact preimage d4cdcb97…) plus docs/evaluation.md,
+  docs/benchmarks/raw-baseline.md and this STATUS.md. Static
+  Git/read/hash/AST/JSON identity verification only: every blob verified
+  by size + SHA-256 + Git-object identity before and after copy, changed
+  Python parses, structured copied inputs parse, canonical portable
+  dataset unit b00aa74f… preserved; no local lint, collect, product,
+  unit, integration, native, model, scorer or store run, no setup or
+  download. Prior local evidence attribution preserved (51/45 unit
+  cases, raw bridge V3 eight-attempt, stage-loss v2 eight ordered cases
+  two-positive/six-refusal/six-workers-reaped, v1 preflight failure with
+  separately approved v2; GNU values are waited-process observations,
+  not aggregate tree bounds or encoder performance). Coverage 2624:
+  cohort harness/source aggregation/complete denominators/private
+  split-report integration ABSENT — documented, separately ordered
+  same-009 work. The full unchanged five-job CI at the new report head
+  is the evidence boundary and remains PENDING. Whole 009 remains
   PARTIAL; no merge; no 010 activation.
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,

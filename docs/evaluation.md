@@ -1,10 +1,15 @@
-# Canonical text evaluation foundations (objective 009, slice 009-a)
+# Canonical text evaluation foundations (objective 009, slices 009-a and 009-c)
 
-This document is the nonroutine evaluation reference for the first 009
-software wave: the byte-exact transfer of the reviewed structural
+This document is the nonroutine evaluation reference for the 009
+software waves: the byte-exact transfer of the reviewed structural
 text-evaluation dataset contract, the supplied graded-rank metrics and the
-original-source/span support primitives. The routine coding context remains
-unchanged; the exact per-component contracts live in the byte-exact
+original-source/span support primitives (slice 009-a), plus the three
+source-backed stage components — raw text stage support, declared stage
+geometry and source-bound stage loss — with their actual synthetic
+source-backed composition proofs (slice 009-c). Together they are the
+nine private module API families — the nine callable private evaluation
+primitives. The routine coding context
+remains unchanged; the exact per-component contracts live in the byte-exact
 transferred documents under [docs/parallel/](parallel/)
 (`text-evaluation-dataset-api.md`/`-design.md`/`-oracle.json`,
 `supplied-rank-metrics-api.md`/`-design.md`/`-oracle.json`,
@@ -12,7 +17,12 @@ transferred documents under [docs/parallel/](parallel/)
 `-coverage-followup.md`, `declared-span-support-api.md`/`-design.md`/
 `-oracle.json`, `source-bound-ranking-api.md`/`-design.md`/`-oracle.json`,
 `source-bound-text-support-api.md`/`-design.md`/`-input-pins.json`/
-`-oracle.json`).
+`-oracle.json`, and the 009-c `raw-text-stage-support-api.md`/
+`-contract.md`/`-composition.md`, `declared-stage-geometry-api.md`/
+`-contract.md`, `source-bound-raw-stage-loss-api.md`/`-contract.md`,
+`source-bound-stage-proof-composition.md`/`-inputs.json`,
+`raw-text-stage-composition-inputs.json` and
+`source-bound-support-ci-preparation.md`).
 
 ## Provenance of the 009-a slice
 
@@ -33,7 +43,31 @@ carries the local Root reviews
 `oap/reviews/009-a-source-support-source-review.json`) and the first-wave
 replan (`oap/reviews/009-a-first-wave-replan.json`).
 
-## The six private evaluation APIs
+## Provenance of the 009-c slice
+
+Twenty-two files (395,115 bytes: three production modules — 127,064 B —
+three unit suites — 110,520 B — five integration suites — 78,437 B, one
+of them the exact existing raw-hybrid fixture modification — and eleven
+docs/parallel contract and proof documents — 79,094 B) were transferred byte-exact by Git-object read from the
+reviewed source SELF `e6b229b1` (implementation `748d08b4`) of the
+parallel 009 source-stage-proof worktree, per the Root-owned index
+`oap/reviews/009-c-components.json` (identical to
+`audit/009-c-components-FINAL.json`, SHA-256
+`6fbeb96c23…c5c633af91`). All 21 NEW targets were verified absent at the
+round base `aba42a52` and the one MODIFY target verified against its exact
+preimage SHA-256 before copy; every blob was verified by size and SHA-256
+against immutable Git objects before and after copy. No cherry-pick,
+merge or branch-ancestry transfer; no lower adaptation. The candidate
+carries the local Root records retained in the 009-c transcript
+(`oap/reviews/009-c-source-binder-review.json`,
+`oap/reviews/009-c-stage-proof-review.json`,
+`oap/reviews/009-c-stage-proof-actual-review.json`,
+`oap/reviews/009-c-local-admissions.json`,
+`oap/reviews/009-c-source-base-compatibility.json`,
+`oap/reviews/009-c-peer-driver.json`) and the Root replan
+(`oap/reviews/009-c-replan.json`).
+
+## The six private evaluation APIs (slice 009-a)
 
 Three of these are pure (no I/O, no store access): dataset admission,
 supplied rank metrics and declared span geometry. Three are
@@ -197,11 +231,96 @@ rights are not checked; supplied ranking, query execution, human quality,
 held-out status and model/hardware qualification are not attested. Do not
 publish result data or use it as a serving route.
 
+## The three source-backed stage APIs (slice 009-c)
+
+These three complete the nine callable private evaluation primitives. Two
+borrow the original/derived stores plus an active same-root snapshot pin;
+one is pure geometry over supplied rows and stage relations.
+
+### `raw_text_stage_support.evaluate_case(originals, derived, store_root, pin_owner, dataset_bytes, case_id, gold_bundle_ids, query_payload, *, query_space_id, query_definition_fingerprint, query_policy_id, query_execution_fingerprint, grants, restrictions=None, deadline_ms=120000)`
+
+Private sequential diagnostic over the ACTUAL raw retrieval stack. It
+admits the complete canonical dataset (≤ 16 MiB), the chosen case (ID ≤
+128 chars), up to 128 sorted unique bundle hashes, one 4,096-byte
+normalized little-endian float32 query vector and four declared query
+identifiers; the strict integer deadline is 1–120,000 ms, one cooperative
+clock covering admission, every lower call and final construction
+(admission ≤ 5,000 ms, each support call ≤ 30,000 ms). The case scope is
+the allowlist intersection of the supplied grants with the dataset scope,
+retaining restrictions unchanged; an empty corpus or version
+intersection denies all, and empty labels allow only unlabeled sources —
+supplied declarations, not current rights or Gold eligibility. Per full attempt, under
+the held old pin, it performs one owned hybrid call and three sequential
+owned source-support calls over the actual dense/lexical/fusion results
+(the V3 proof's totals of six each of hybrid/dense/lexical/fusion and 13
+support calls are the per-attempt aggregate across its eight attempts,
+as recorded in the aggregate counter paragraph below). The
+frozen `StageSupport` result carries linkable IDs, counts, cap markers and
+the per-cutoff source-support coverage records; it omits question text,
+the vector, source content, paths, hits, traces and exceptions. Errors
+are content-free `StageSupportError`; coverage is declared original-span
+geometry, not factual support, and MRR/nDCG/Gold candidate-loss are
+unavailable under `UNSPECIFIED_RELEVANCE_UNIT_MAPPING`. Markers: execution
+NOT_ATTESTED, results NOT_QUALIFIED, source binding limited to the owned
+binding calls.
+
+### `declared_stage_geometry.diagnose(dataset_bytes, case_id, rows, stages, *, deadline_ms=10000)`
+
+Pure supplied-stage geometry diagnostic (no store, model or runtime
+access). It re-admits the canonical dataset (≤ 1 MiB here) and takes
+supplied row geometry (≤ 512 rows, ≤ 8,192 fragments, ≤ 65,536 block-ID
+characters, ≤ 512 global Gold occurrences, ≤ 256 cases), EXACTLY ten
+named stage relations (each ≤ 512 indices; the returned-index sets of
+stage positions 3, 7 and 9 are each ≤ 60 rows; ≤ 5,120 stage indices
+total) and a strict
+1–10,000 ms deadline covering admission and all thirteen lower calls
+under one bounded work/serialization ledger (W ≤ 67,108,864 work units,
+B ≤ 134,217,728 bytes of declared logical allowances — not CPU, memory or
+I/O limits). It reports per-stage and ordered @20/@60 completion,
+full-stage requirement/alternative coverage, removal transitions with
+lost alternatives and requirements, and declared required source recall:
+the denominator is ALL mandatory chosen Gold revisions, every atom of a
+revision must be covered, independently of requirement coverage; the
+measure is undefined for no-Gold cases and OR alternatives. Chunk MRR and
+nDCG are UNAVAILABLE because no explicit chunk relevance mapping exists;
+alternative requirement grades cannot supply one, and a separate explicit
+graded-item rank library exists but is not called here. Inputs are caller
+declarations: source binding UNVERIFIED, eligibility NOT_CHECKED,
+execution NOT_ATTESTED, qualification NOT_QUALIFIED; stage relations
+alone do not establish a complete eligible universe, score ordering or
+rights.
+
+### `source_bound_stage_loss.bind_stages(originals, derived, root, pin_owner, dataset_bytes, case_id, gold_bundle_ids, hybrid_result, query_payload, *, query_space_id, query_definition_fingerprint, query_policy_id, query_execution_fingerprint, grants, restrictions=None, deadline_ms=120000)`
+
+Source-bound stage diagnostic. It takes the supplied hybrid result
+(HybridResult) traces, validates the complete eligible and matching
+universes from source through sequentially observed source bindings
+under one 1–120,000 ms cooperative deadline, constructs the ten stage
+relations and independently recomputes the RRF dedup, ranks, scores and
+tie order (pure arithmetic over the supplied modality order — no
+actual encoder, BM25 or dense scoring/search forward is executed; dense
+and lexical score order remains `SUPPLIED_SCORE_ORDER_NOT_REEXECUTED`),
+then passes the geometry to the pure component. The fixed source
+envelope comprises five direct pin checks, one direct catalog load and
+two catalog loads inside ranking (three catalog loads total), one Gold
+binding and one ranking binding — at most 12,288 derived loads and
+4,986,555,627,809 logical read-payload bytes — with owned logical
+work/payload limits 134,217,728 / 268,435,456 (not CPU, memory or
+physical I/O limits). The pure component retains `UNVERIFIED` source
+binding; the observations establish neither current rights nor
+atomicity. Pre-prefix cap loss is reported at the 20/60
+cutoffs from the observed stage rows. A successful binding still proves
+only sequential consistency of the supplied trace with observed source
+metadata — not that the declared model/scorer produced the ranking, that
+policy remains current after the last observation, or any user quality.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
 running operation) and is an int in 1–30,000 ms except gold binding
-(1–120,000 ms). All refusals are content-free; `BaseException`
+(1–120,000 ms) and the three 009-c stage APIs (raw text stage support and
+source-bound stage loss 1–120,000 ms; declared stage geometry
+1–10,000 ms). All refusals are content-free; `BaseException`
 subclasses propagate. Fingerprints are domain-separated sha256 over
 canonical sorted ASCII JSON of the exact supplied inputs. Ordinary
 dataclass constructors are not admission APIs and results are forgeable
@@ -243,11 +362,110 @@ Conflating the layers is a category error; missing or unrelated
 gold/source failure is a refusal, never an empty or qualified success, and
 no private operator here is an authenticated or current-policy claim.
 
+## The actual source-backed stage seam (slice 009-c)
+
+The integration suites — collected by the unchanged ordinary CI's
+explicit `tests/integration` command; the global pytest default
+`testpaths` remains `tests/unit` — compose the actual synthetic raw
+retrieval with the new components on owned three-revision fixtures (no
+model forward, no encoder; supplied synthetic queries and normalized
+vectors only):
+
+- `test_raw_text_stage_support_composition.py` — the Root-approved V3
+  actual proof joined one actual hybrid retrieval to three actual
+  source-bound support calls under one retained selection pin across
+  eight ordered attempts (positive; empty intersection; chosen no-Gold
+  case with unrelated Gold retained; corrupt unrelated Gold; temporarily
+  withdrawn original; restored positive; expiry after the actual hybrid
+  returned; closed-pin refusal). It passed all eight attempts on the
+  executed bytes; recorded counters were one generator, six Session
+  initializations and closes, 546 Session counts, 73 catalog loads,
+  2,568 bundle loads, six each of hybrid/dense/lexical/fusion and 13
+  support calls, final pin state CLOSED. GNU time for its waited process:
+  64.31 s wall / 62.36 s user / 0.50 s system, 92,240 KiB max RSS —
+  waited-process observations, not aggregate tree bounds or encoder
+  performance.
+- `test_source_bound_stage_loss_composition.py` — one actual hybrid
+  producer plus source-bound stage diagnosis; the selected case requires
+  source spans from `a` and `c`, an unrelated case retains a `c` beta
+  atom, and the reciprocal-rank-fusion oracle expects `2/61` and `1/62`.
+  The separately approved v2 actual attempt completed all eight ordered
+  cases — two positive bindings and six expected refusals (coherent
+  eligible and lexical omissions, a fused-score alteration, owned-blob
+  withdrawal after Gold returned, controlled expiration after Rank
+  returned, closed pin) — asserting the intended pre-Gold/pre-Rank/
+  pre-pure boundaries and restoring the blob in `finally`. Observed: one
+  producer, two successful and six refused binder calls, two pure
+  diagnoses, 26 lower scoring calls; six captured native session wrappers
+  reaped, six session closes, both store closes and the pin close
+  complete, no close overages. GNU time for its waited process: 24.18 s
+  elapsed / 23.20 s user / 0.25 s system, 92,832 KiB max RSS. The earlier
+  v1 attempt failed before selection when the existing directory guard
+  rejected writable ancestors of the proposed scratch path; Root
+  attributed the path-preflight omission to its approval and separately
+  authorized v2 with a fresh private scratch path under a permitted
+  sticky ancestor — both the failure and the pass are preserved
+  privately; no shared permissions or product guards changed. The
+  executed test (SHA-256
+  `6fee2aa7767c4449b01f2fb0d9ac4a988cff1dd3e8bfd44b832bac3915859a38`)
+  and the final bytes (SHA-256
+  `02c19ff566a426ea5e513d022d52f47f63040b0d0d958cdc9a9c2879f1b760c6`)
+  differ only in a reviewed module docstring and the removal of a stale
+  comment (header/comment-only change); no rerun is invented.
+- `test_source_bound_support_ci_composition.py` /
+  `test_source_bound_support_ci_cleanup.py` — the portable
+  source-bound support fixture journey (support 1/2 at both cutoffs for
+  one row, 2/2 for both; whole-dataset three occurrences / three distinct
+  atoms; empty ranking zero support with a nonzero denominator; denied
+  source, absent case, absent Gold bundle and wrong unrelated Gold hash
+  refusals) and its controlled failure/cleanup negatives.
+
+The stage-loss proof checks ten full stages (`dense.eligible/ranked/
+selected/returned`, `lexical.eligible/ranked/selected/returned`,
+`fusion.input`, `fusion.returned`), seven supplied transitions and the
+20/60 prefixes without inventing chunk relevance grades. The caller
+retains a real pin across a pointer-generation advance of the same
+snapshot (captured old generation and pointer SHA-256 asserted), so the
+proof covers the captured old generation only: it does not prove a
+distinct snapshot transition, ABA prevention or current policy. Full
+eligible/matching source validation is revalidated at call time on every
+pass (Gold bundles and selected ranking rows against the borrowed stores;
+sequential, not atomic). Controlled unit runs attributed to their exact
+sources: 51 controlled source-binder unit cases (source-bound stage
+loss; Ruff7 passed on the same Python bytes) and 45 geometry unit cases
+(declared stage geometry; final Ruff passed); earlier partial runs and
+their corrections are preserved in the transcript records.
+
+## Absent cohort harness (independent coverage 2624)
+
+The nine callable private per-case primitives and the actual per-case
+source-backed seam above are components, not a harness. The independent
+COMPLETE software-coverage audit (SHA-256 `262440e2…54f139`, Root
+adjudicated and retained as
+`oap/reviews/009-c-software-coverage-adjudication.json`) confirms what
+remains ABSENT from production: a callable cohort pipeline joining
+frozen split selection, per-case producer traces/source binding,
+original source Recall@20/60/full multi-source and stage-loss
+aggregation, and total/defined/undefined/refused denominators with
+private report provenance. Source-linked chunk grades are absent: the
+existing generic MRR/nDCG oracle is valid over supplied units and is not
+grounds to infer requirement-to-chunk grades. No CLI is invented as a
+requirement, but an operator still writing a loop around the generic
+aggregate is not implemented harness software. This is an ordinary
+missing implementation — not D1 and not an external human blocker — and
+requires another bounded same-009 continuation (a separately ordered
+read-only cohort contract/oracle design may proceed at the immutable
+source; bounded implementation only after a new explicit Root FINAL
+order).
+
 ## Unit oracles versus real held-out and actual queries
 
-The six unit suites exercise the copied synthetic fixtures and the
-`docs/parallel/*-oracle.json` vectors: they prove the mathematics, the
-admission boundaries and the negative paths, not retrieval quality. The
+The nine unit suites (six 009-a plus the three 009-c slices) exercise the
+copied synthetic fixtures and the `docs/parallel/*-oracle.json` vectors:
+they prove the mathematics, the admission boundaries and the negative
+paths, not retrieval quality; the 009-c integration suites are the
+synthetic source-backed composition proofs described above and are
+likewise not a baseline. The
 real raw baseline additionally requires human-approved representative
 held-out questions, corpus rights, current principal/policy authorization
 and a qualified real encoder; those gates are missing, so the baseline is
