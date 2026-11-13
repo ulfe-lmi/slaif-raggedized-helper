@@ -1,0 +1,129 @@
+{
+  "at": "2026-11-13T05:59:24.347095+00:00",
+  "state": "EXACT_QUERY_SOURCE_AND_ONE_V6_RETRY_POSITIVE_EVIDENCE_REVIEWED_REPORT_PERMITTED",
+  "implementation": "740d74ea775cbf360cc73e8f2874cc75d99bdbfc",
+  "base": "e1269f222e86c9c1136052cc2c6d4e3105e1bf1e",
+  "source": "6newpaths/soleparent/clean. Product8223B/unit12771B/Rootcontract11679B remain exactfrozenindependentc22dpeer; integrationecd9fixedDTOsourceexactpure+actualproof, APIhonest40scope notnormalCIrecipe. Fullsource/former44unit/currentpure1 andactualV6raw independentlyreviewed; no newtests byRoot.",
+  "actual_counts": {
+    "batch_load": 152,
+    "batch_publish": 4,
+    "catalog_load": 8,
+    "count_sessions": 2,
+    "counts": 432,
+    "cpu_forward": 1,
+    "cpu_worker": 1,
+    "dense": 1,
+    "dense_score": 1,
+    "derived_load": 508,
+    "derived_publish": 5,
+    "derived_raw_read": 1842,
+    "derived_raw_write": 14,
+    "directory_load": 30,
+    "encoder": 1,
+    "fusion": 1,
+    "hybrid": 1,
+    "ingestion_load": 206,
+    "ingestion_publish": 1,
+    "lexical": 1,
+    "lexical_index": 1,
+    "lexical_score": 1,
+    "original_admit": 1,
+    "original_inspect": 1,
+    "original_raw_read": 420,
+    "original_raw_write": 2,
+    "original_read": 209,
+    "pin_acquire": 1,
+    "pin_checks": 5,
+    "popen_count": 2,
+    "popen_cpu": 1,
+    "popen_tokenizer": 1,
+    "query": 2,
+    "representation": 1,
+    "selection": 2,
+    "snapshot_publish": 2,
+    "source_fixture": 1,
+    "source_group": 148,
+    "tokenizer": 1,
+    "tokenizer_encode": 1
+  },
+  "actual": "ONEapprovedV6retry PASSED. Source-backed actualpublication/selection/pin, deny-beforeencode, oneToyCPUforward andactualdense/BM25/fusion withpositivelexicalhits; oldpinafterpointeradvance. Verify8.4119s/proof39.0060s/outer47.5212s all0/reaped/noStop; GNUproof22.18user+.35sys/38.95wall/RSS98608KiB. Sampledhosttemp55333526B, nothardquota.",
+  "accounting": "ControllerSELFbaselinehighwater2167204KiB is alreadyhigh atbaseline, notproofpeak orsum; neverreport98608KiB asaggregateactualworkerpeak. RecordedSELF/CHILDRENCPUdeltas andphaseGNUtime only; live/escapeddescendants/systemlibs/kernel/privateworker-tmpfs unknown. PerprocessCPU/AS notaggregatehardcap.",
+  "history": "FailedV5beforeforward/scoring preserved26files withfrozenmanifest; explicitRootdecisionbeforeoneV6retry. PuretestvalidatesfixedDTO only. Original44unitpreflighthadoldnonexecutedintegrationhash knownlimitation; no retroactiveimmutable-recordrewrite.",
+  "strongest_counterargument": "Suppliedbasisvectors are rebound toToyspace andthreecountroles shareoneToytokenizer; runtimepositive doesnotestablish productionencoder/corpusprecision pairing, quality/currentprincipalrights ornormalCIportability.",
+  "gate": "PrivateLOCAL_PROOF_ONLY, NOT_CANONICAL_READY driver. Separatepreparedcontrolledencoder/actualscoringnormalCIcase4ed0SELFbce49e requiresfutureexacttransfer/fullnormalCI. Constructionoppositepeer/full008criteria/mergedICA/20k/realmodel/hardware/rights/license/fullMVP stayopen.",
+  "artifacts": {
+    "proof-plan-v6.json": {
+      "bytes": 20512,
+      "sha256": "2a49e621eea9fef1becd653728023d641f201276e12a30545e869f0ad0756a14"
+    },
+    "proof-v6-root-decision.json": {
+      "bytes": 503,
+      "sha256": "0570520f331c18c170686ad9b6c06c1ed7c54a7eba3b25bee225e852def4f8e0"
+    },
+    "proof-v6-preflight.json": {
+      "bytes": 2065,
+      "sha256": "b376daa93ebee620ba23ed2bfd8304e267dd1b3e914e06f6b37bb2b3dcfd24b3"
+    },
+    "proof-v6-preflight-attempt.guard": {
+      "bytes": 26,
+      "sha256": "be34e823bb6b710f805e0e9cc326b194def4d0b32fd095797fcbffe2ca4775dd"
+    },
+    "proof-v6-attempt.guard": {
+      "bytes": 26,
+      "sha256": "be34e823bb6b710f805e0e9cc326b194def4d0b32fd095797fcbffe2ca4775dd"
+    },
+    "proof-v6-outer-attempt.guard": {
+      "bytes": 26,
+      "sha256": "be34e823bb6b710f805e0e9cc326b194def4d0b32fd095797fcbffe2ca4775dd"
+    },
+    "proof-v6-outer-preflight.json": {
+      "bytes": 1820,
+      "sha256": "535b94a5d7590046bb8e31bd030814589a23be5ebcbdd998f389b38275704b24"
+    },
+    "proof-v6-stdout.txt": {
+      "bytes": 798,
+      "sha256": "44e055eae60238213c23edf04cec820ebf2bafbd21dba647362d4f2c48276773"
+    },
+    "proof-v6-stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "proof-v6-time.txt": {
+      "bytes": 937,
+      "sha256": "c0eed7f35e4404e9cbb8957651c4768b8ec9577874a223480af2b80f770b4559"
+    },
+    "proof-v6-exit.json": {
+      "bytes": 1274,
+      "sha256": "a2b313ab2b3a1774b4d6656c90ac4c427cdcc0ca8a746980bca7aed4247971c5"
+    },
+    "proof-v6-verify-exit.json": {
+      "bytes": 1241,
+      "sha256": "9ffe78a0d344f35230f19ae1b7df4c73e55d5d292828490616fe1a5a0f9900b3"
+    },
+    "proof-v6-verify-stdout.txt": {
+      "bytes": 33,
+      "sha256": "2b3ea4bbf92177147fd9c52ee728c01387fe85c255fc014f701701e8df28d626"
+    },
+    "proof-v6-outer-exit.json": {
+      "bytes": 1206,
+      "sha256": "8791cdc23a82ec12c8f15b463d68ad3a4ed1f055245875db41b68473faa7da39"
+    },
+    "proof-v6-outer-time.txt": {
+      "bytes": 905,
+      "sha256": "9d5599ed6728b0ccb68f943ea7fbda0fa7ae703385250104e4ae0342e4cc57b5"
+    },
+    "pure-v6-exit.json": {
+      "bytes": 16,
+      "sha256": "3e42a2ad3dbeab9d1167d20261ad6305bdea31103ffc09c30f25558345966de2"
+    },
+    "pure-v6-stdout.txt": {
+      "bytes": 80,
+      "sha256": "423b1d0e014eb1eab96f4420f7b344c2615be505dd574b756ac884826ca74f2d"
+    },
+    "v5-failed-frozen-20261113/manifest.json": {
+      "bytes": 4467,
+      "sha256": "a43040a09c980574a89cef1fe8395292afee56f4c5071c31059d4f28293ede7a"
+    }
+  },
+  "DHA": "NONE"
+}

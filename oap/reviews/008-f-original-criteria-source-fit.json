@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-13T06:43:10.863409+00:00",
+  "status": "PREACTIVATION_SOURCE_FIT_NOT_CURRENT_HEAD_ACCEPTANCE",
+  "base": "50a85ac8ad41856cc9e81292db8d50d39477b42b",
+  "provenance": "A original008 four criteria/A17-A19/A24 and ARCH11-14; H fullMVP mandate; I source/opposite reviews; E last8eCI format refusal",
+  "criteria": [
+    {
+      "id": 1,
+      "fit": "Existing technical_analyzer preserves technical identifiers/flags/versions/negation/Slovenian normalization; current raw_lexical_search uses pinned bm25s Lucene and RRF never raw-score addition. Test raw lexical/analyzer oracle cases copied8e, full new CI pending."
+    },
+    {
+      "id": 2,
+      "fit": "Existing actual raw_hybrid_search default60+60/partition60/RRF60; independently bound dense/lexical stage traces expose eligible/ranked/selected/returned ordinals and caps, fusion retains deterministic rank/identity/counts. Supplied trace origin retained; Gold/source candidate LOSS requires009 mapping, not inferred from counts."
+    },
+    {
+      "id": 3,
+      "fit": "Core/rowmap -> membership/program coverage -> fresh source rows, normalized vectors/lexical payloads -> file set/catalog and publication all bind source/model/ACL/withdrawn identity. New construction joins actual locator/coverage/build/publication/CAS with fail-closed typed returns and original deadline; staged failure may leave candidate, no blind rollback."
+    },
+    {
+      "id": 4,
+      "fit": "Locked CAS/atomic data publication and retained PinOwner old directory with new pointer selection tested in existing lower files plus new construction and pinned-query integration. Query provider before_encode/retrieval/return same epoch/scope, affected unavailable partition refusal before model; authorized filtering precedes index/scoring and poison denied cases. Trusted supplied provider is not authenticated principal/current policy; public exposure remains014 and actual-policy gate."
+    }
+  ],
+  "actual_evidence": "Historical private V2 constructor and V6 Toy CPU query/source/scorer proofs at earlier unformatted component bytes; independently reviewed ordinary normal-CI controlled-encoder case new/UNRUN. All nine formatted ASTs equivalent; only old trace docstring shortened. These establish plausible source fit, never new-head behavior/realBGE/hardware/currentrights/scale quality.",
+  "next_gate": "Full unchanged all-five jobs/all required steps including whole unit/integration3.12+3.14 at final008f report SHA; independently review all cumulative008 currentcode/docs/reports/license/privacy/dependencies/DHA/threads before any protected expected-head merge. Main-SHA ICA before milestone closure, not circular premerge gate.",
+  "strongest_counterargument": "Libraries and controlled fixtures may hide unusable service integration or performance. This is explicitly software raw retrieval/data private spine; source-backed actual calls/held pins/fullCI plus later014serving/current policy and original004/007realqualification gates avoid implying MVP closure.",
+  "DHA": "NONE"
+}

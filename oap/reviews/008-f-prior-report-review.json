@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-13T06:17:21.591340+00:00",
+  "state": "EXACT_NORMAL_REPORT_CURRENT_REMOTE_HEAD_AND_IMPLEMENTATION_RECONCILED_CI_PENDING",
+  "normal": {
+    "identifier": "008-e",
+    "pr": 10,
+    "implementation": "291321f170592e90fdad9918e4d8176e608583b0",
+    "report_commit": "50a85ac8ad41856cc9e81292db8d50d39477b42b",
+    "report_sha256": "9254006596043d9fef4f876c75a111eacce14346659ddb81724c0cd002add14b",
+    "verified_at": "2026-11-13T06:16:27.472856+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "report_bytes": 7196,
+  "Root_implementation_review": "audit/008-e-root-implementation-preliminary-2913.json",
+  "topology": "50a8reportonlySELF ->2913soleparentimplementation ->5911soleparent13pathtranscript ->c3e3; clean/currentuniquePR10/main/no reviewthreads; main1a8fddunchanged. Strictverify06:16:51passed. Actual54roundpaths includesreport.",
+  "report_precision": "All37hashesverified againstdonor atcopy thenoneexplicitadaptedtest hasfinalnewhash; finaltruth36exact/oneadapted. Oldexternalpackagerecords unchanged, rootprojectdependencylist intentionallyextended bytwo pins. Immutablecodingreporthasbothbaselineandexceptiondetails; noedit.",
+  "CI": {
+    "run": 43377547440,
+    "head": "50a85ac8ad41856cc9e81292db8d50d39477b42b",
+    "product312": 131727449278,
+    "product314": 131727448752,
+    "state": "IN_PROGRESS no currentpassclaim"
+  },
+  "strongest_counterargument": "Portablefixturehashdeterminism/newfullsuitebudget stillunproven untilcurrentfullmatrix; privatecurrentAPIsdonotfinish008construction/query. No prefixacceptance/merge/nextsuffixactivation beforeactualchecks.",
+  "DHA": "NONE"
+}

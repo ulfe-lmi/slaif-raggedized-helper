@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T06:22:47.169689+00:00",
+  "identifier": "008-e",
+  "event": "SOURCE_REPORT_REVIEWED_CURRENT_CI_E501_FAILED_PRESERVED_SAME008_REPLAN_NO_ACCEPTANCE",
+  "activation_at": "2026-11-13T05:46:43.234143+00:00",
+  "normal_response_verified_at": "2026-11-13T06:16:27.472856+00:00",
+  "activation_to_response_seconds": 1784.238713,
+  "report_commit": "50a85ac8ad41856cc9e81292db8d50d39477b42b",
+  "review": "audit/008-e-failed-ci-reconciliation.json",
+  "DHA": "NONE"
+}

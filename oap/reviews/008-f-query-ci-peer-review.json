@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T06:22:47.168849+00:00",
+  "state": "COMPLETE_NARROW_NORMALCI_CASE_STATIC_PEER_RECONCILED",
+  "draft_sha256": "b768e992a22e5d755928880ddcf2fbd572184575fcd1bd9d5cf6936a47d517ee",
+  "target": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+  "verified": "Fullreport/new87LFcase/directhelpers/manifest-types/payloadtuple/CAS/pin/QueryEmbedding-result fields andscope partition cardinality, actualunmockedscoringcountcontrols/positive anddenied sameinput/normalCIprerequisites/teardown. Rootmatched4sourcehashes; no staticdefectidentified.",
+  "counterargument": "Static fit cannot prove subprocess portability, timing, native dependencies, lexical hit or assertion reachability; denial is content-free and could mask an earlier failure. Same-input positive control must pass in both full normal CI jobs within existing caps before relying on this test.",
+  "familiarity": "Reviewer previously authored query wrapper and private driver; this is not independent review of those or ICA.",
+  "current_CI": "Canonical8e50a8 CI43377547440failed unrelatedadaptedtracefixture101chardocstringE501; no producttestsran. ThisnewcaseUNRUN remainsfuturecanonicalCIgate; staticlintpreparationneededbefore8f.",
+  "DHA": "NONE"
+}

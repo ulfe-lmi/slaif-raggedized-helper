@@ -1,0 +1,77 @@
+{
+  "at": "2026-11-13T06:43:23.031828+00:00",
+  "status": "FINAL_ROOT_AUTHORED_IMMUTABLE_TRANSCRIPT_INDEX",
+  "identifier": "008-f",
+  "base": "50a85ac8ad41856cc9e81292db8d50d39477b42b",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-e-failed-ci-reconciliation.json",
+      "target": "oap/reviews/008-f-prior-ci-failure-replan.json",
+      "bytes": 3144,
+      "sha256": "429c371c3c7023afc779153ed6a3a69d20597deb172f5482d6c9bd53bfdeefcb"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-e-report-head-reconciliation-50a8.json",
+      "target": "oap/reviews/008-f-prior-report-review.json",
+      "bytes": 1634,
+      "sha256": "788b4923413e689307bd0390f07149ee18563a2eec593a1d1076c8c2da36bdbd"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-e-resolution-timing-event.json",
+      "target": "oap/reviews/008-f-prior-timing.json",
+      "bytes": 481,
+      "sha256": "302df04b8eacfec1e943b1a4c5d1a6678c7a19130f4a21df056163ca90a4db46"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-final-join-lint-root-review-78d2.json",
+      "target": "oap/reviews/008-f-format-source-review.json",
+      "bytes": 8954,
+      "sha256": "eac813b1a77f6978a53462a4d4d28865b767899436880e81a51e45c357c0e510"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-final-join-lint-normal-root-review-1224.json",
+      "target": "oap/reviews/008-f-format-normal-review.json",
+      "bytes": 625,
+      "sha256": "9df10ae1fcf5f43d8bd5dab8871f7ebdf05a859887b9d6f8b2cf0a23a00dbf20"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-construction-peer-root-review-e1cf.json",
+      "target": "oap/reviews/008-f-construction-peer-review.json",
+      "bytes": 1708,
+      "sha256": "e04a50f3c8d412d3d949d34795451cb900e338958a2b1929178c0dd03f4cfe32"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-pinned-query-root-checkpoint-review-740d.json",
+      "target": "oap/reviews/008-f-private-query-source-review.json",
+      "bytes": 5627,
+      "sha256": "6644b0afa1a7a8c80a37a99ed0fd1b33fb0c549869c00aa0a8150f72204f8782"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-query-ci-peer-root-review-b768.json",
+      "target": "oap/reviews/008-f-query-ci-peer-review.json",
+      "bytes": 1227,
+      "sha256": "7734d911fd744df1c2461ef6c03f3f4d8c7d45408e519e3a7f6d4e6a621c3609"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-development-acceptance-boundary-clarification.json",
+      "target": "oap/reviews/008-f-development-gate-clarification.json",
+      "bytes": 2335,
+      "sha256": "72b9179710b619748f999333d9a6cff552d13c9d02ebe8f3866862989c5cd22a"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-f-original-criteria-preactivation-review.json",
+      "target": "oap/reviews/008-f-original-criteria-source-fit.json",
+      "bytes": 3050,
+      "sha256": "aebdb4ae39538a2027723487e1bb9e58a4fe839a5d52694f1f65cab51ce179a6"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-f-joins-components-FINAL.json",
+      "target": "oap/reviews/008-f-joins-components.json",
+      "bytes": 9642,
+      "sha256": "462b727cd65f201ae62f895c512b5b7d0503cc95095a020a5bb460e3adffd4d4"
+    }
+  ],
+  "record_count": 11,
+  "total_record_bytes": 38427,
+  "DHA": "NONE"
+}

@@ -1,0 +1,183 @@
+{
+  "at": "2026-11-13T06:43:10.863409+00:00",
+  "status": "FINAL_EXACT_SELECTIVE_SOURCE_INDEX_NO_WHOLE_DONOR_MERGE",
+  "base": "50a85ac8ad41856cc9e81292db8d50d39477b42b",
+  "source_SELF": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+  "source_implementation": "78d2598bb122baa16a74c1b1c0c6296beca60494",
+  "entries": [
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_completion_locator.py",
+      "bytes": 3568,
+      "sha256": "6ca8ec375aa6595c615f11b6ea208dcfe16e5eb06271eb90630f1366640ce7d0",
+      "disposition": "NEW",
+      "before_format_sha256": "34cea660631a488ad08ed19c3bb95c4dc2638e294b165647a807bcf05d6d20c7"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "tests/unit/test_raw_snapshot_completion_locator.py",
+      "bytes": 9010,
+      "sha256": "a2b088a0d66948f76287bdf1da511b7eadc66d9368d0b5f414dc42d463d3a784",
+      "disposition": "NEW",
+      "before_format_sha256": "0bec942bea0b67d9f743fc764fd25bb3d95b9281707b730dd95414cd5797f621"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/completion-locator-api.md",
+      "bytes": 2901,
+      "sha256": "f1f43243293331369d4ecf3d83c8de0e603cc0a5452f949b0068c0c1f9465dbe",
+      "disposition": "NEW",
+      "before_format_sha256": "f1f43243293331369d4ecf3d83c8de0e603cc0a5452f949b0068c0c1f9465dbe"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/completion-locator-contract.md",
+      "bytes": 4533,
+      "sha256": "dd93b0996d1bb165d8f13ae503213264fe3d64b883cb5188df942e80c53ca130",
+      "disposition": "NEW",
+      "before_format_sha256": "dd93b0996d1bb165d8f13ae503213264fe3d64b883cb5188df942e80c53ca130"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/completion-locator-oracle.json",
+      "bytes": 4036,
+      "sha256": "dd1caa4216f809a7435fb4bf290baacecd3874b28df8346b7ba9eaed6ba29dde",
+      "disposition": "NEW",
+      "before_format_sha256": "dd1caa4216f809a7435fb4bf290baacecd3874b28df8346b7ba9eaed6ba29dde"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_construction.py",
+      "bytes": 7121,
+      "sha256": "4a01e150f46633dca856f6bfcac05007b06930839c21c7b13c1431672c54f7a3",
+      "disposition": "NEW",
+      "before_format_sha256": "107673d5bedf22fbe629fd4d5ec41c33d0fad70bbed99db8522c2d46ee7ff9d6"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "tests/unit/test_raw_snapshot_construction.py",
+      "bytes": 9782,
+      "sha256": "a43d7c99780c9fdb7c58ca5e18c58936caa5f23aef2e3cc3b92ccafafcc50de0",
+      "disposition": "NEW",
+      "before_format_sha256": "c7093fd2a0775d7e364be65ae8b65069d62ce5f7082daa4d83f1d4af83129660"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "tests/integration/test_raw_snapshot_construction_composition.py",
+      "bytes": 5729,
+      "sha256": "7ffd3f0d6c64b72bde4b8957d27397b370cb7d936cb8fe09526bb5f1dafe16d6",
+      "disposition": "NEW",
+      "before_format_sha256": "c45d9d961d147d00e3a6a26d7e5c28e8a339da45470cf0860ebec1283ed749ee"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/snapshot-construction-api.md",
+      "bytes": 3056,
+      "sha256": "cfd67f4ea4d8494730b6f7e5db8fb1dd24998a8191d85cb870738d922786b992",
+      "disposition": "NEW",
+      "before_format_sha256": "cfd67f4ea4d8494730b6f7e5db8fb1dd24998a8191d85cb870738d922786b992"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/snapshot-construction-contract.md",
+      "bytes": 10010,
+      "sha256": "07df618fc26d3ca1fb0318ad6903fd93556aeeccd6246a4dc7a4a82d114aa942",
+      "disposition": "NEW",
+      "before_format_sha256": "07df618fc26d3ca1fb0318ad6903fd93556aeeccd6246a4dc7a4a82d114aa942"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_query.py",
+      "bytes": 8782,
+      "sha256": "aced05dea7dc3019390676d8fc509e65c672accff4090a87acbaaf24ac292541",
+      "disposition": "NEW",
+      "before_format_sha256": "7cf010637cbee6378155aa921297b8fa4c072e27b5eb37d4770953f5fb88f6a5"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "tests/unit/test_raw_snapshot_query.py",
+      "bytes": 13832,
+      "sha256": "cd7c959d7b067756dce7c8a04b09f8111e261d32821d65509e65936c045f3e08",
+      "disposition": "NEW",
+      "before_format_sha256": "b54cf7335153d3b0cbfc0807165c22034f1da2d6210b8766c3bc065792ac03bf"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/pinned-query-api.md",
+      "bytes": 3040,
+      "sha256": "1ef76d5723a0f9552999fc4403105481e4c426ae2664b75dabb22c01fdddd6e5",
+      "disposition": "NEW",
+      "before_format_sha256": "1ef76d5723a0f9552999fc4403105481e4c426ae2664b75dabb22c01fdddd6e5"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/pinned-query-contract.md",
+      "bytes": 11679,
+      "sha256": "89066153ec7d66fedfec33aa4000a6b67e5c621546a4f4c8d0b9a5c0a5cad2fd",
+      "disposition": "NEW",
+      "before_format_sha256": "89066153ec7d66fedfec33aa4000a6b67e5c621546a4f4c8d0b9a5c0a5cad2fd"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "tests/integration/test_raw_snapshot_query_ci_composition.py",
+      "bytes": 5185,
+      "sha256": "a5442419d9a3865e2a9eefbd8181964cccc1d0db896f1b6161befc8d08d4f893",
+      "disposition": "NEW",
+      "before_format_sha256": "f04570f2b9d9f85e719fa2d30947d69c11cd73a78218f4c9a379823fa95ed311"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/pinned-query-ci-preparation.md",
+      "bytes": 1030,
+      "sha256": "304def8842e8d27e0dbee88347006a3bb85d80bf06c95e413145e2d4db84e08e",
+      "disposition": "NEW",
+      "before_format_sha256": "304def8842e8d27e0dbee88347006a3bb85d80bf06c95e413145e2d4db84e08e"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "tests/integration/test_raw_hybrid_trace_composition.py",
+      "bytes": 11398,
+      "sha256": "3a12ea8d574a5a3d40b3de52190f862a79172c8486109ef5234374268326fa5d",
+      "disposition": "REPLACE_EXISTING_DOCSTRING_ONLY",
+      "before_format_sha256": "3759df10d25748e41f9988bc853c04e7e8799e32e3cc2b86150182b9aacb7057"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/final-join-lint-source-index.json",
+      "bytes": 10271,
+      "sha256": "d8180e5949f5f6acc98fb8a55f9c1030b651dec1a3064d21424824644dd7507d",
+      "disposition": "NEW_PROVENANCE"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-lint",
+      "source_commit": "1224dae8eb4fa097e61e5a6ae02bf8d3cf9af6d7",
+      "path": "docs/parallel/final-join-lint.md",
+      "bytes": 4839,
+      "sha256": "60f4f092cd9397e7d14ca7e1b70622660edc80b2468984d23eaf6a48635b0aeb",
+      "disposition": "NEW_PROVENANCE"
+    }
+  ],
+  "total_bytes": 129802,
+  "Python_AST": 9,
+  "breakdown": "3 production / 3 unit / 3 integration / 10 documentation-provenance; 18 NEW and existing trace DOCSTRING-only replacement",
+  "limits": "No 009 extras/private Toy driver/dependencies/config/workflow. Formatting only, behavioral component proofs preformat; full current canonical normal CI remains mandatory.",
+  "DHA": "NONE"
+}

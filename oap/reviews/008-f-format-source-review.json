@@ -1,0 +1,205 @@
+{
+  "at": "2026-11-13T06:42:07.502990+00:00",
+  "implementation": "78d2598bb122baa16a74c1b1c0c6296beca60494",
+  "base": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+  "decision": "EXACT_FORMAT_ONLY_SOURCE_PREPARATION_REVIEWED_REPORT_ALLOWED_NOT_CANONICAL_ACCEPTANCE",
+  "entries": [
+    {
+      "path": "src/slaif_raggedized_helper/raw_snapshot_completion_locator.py",
+      "before": "34cea660631a488ad08ed19c3bb95c4dc2638e294b165647a807bcf05d6d20c7",
+      "after": "6ca8ec375aa6595c615f11b6ea208dcfe16e5eb06271eb90630f1366640ce7d0",
+      "bytes": 3568,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS"
+    },
+    {
+      "path": "tests/unit/test_raw_snapshot_completion_locator.py",
+      "before": "0bec942bea0b67d9f743fc764fd25bb3d95b9281707b730dd95414cd5797f621",
+      "after": "a2b088a0d66948f76287bdf1da511b7eadc66d9368d0b5f414dc42d463d3a784",
+      "bytes": 9010,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS",
+      "literal_values": "BOTH_BYTE_EXACT"
+    },
+    {
+      "path": "docs/parallel/completion-locator-api.md",
+      "before": "f1f43243293331369d4ecf3d83c8de0e603cc0a5452f949b0068c0c1f9465dbe",
+      "after": "f1f43243293331369d4ecf3d83c8de0e603cc0a5452f949b0068c0c1f9465dbe",
+      "bytes": 2901,
+      "AST": null
+    },
+    {
+      "path": "docs/parallel/completion-locator-contract.md",
+      "before": "dd93b0996d1bb165d8f13ae503213264fe3d64b883cb5188df942e80c53ca130",
+      "after": "dd93b0996d1bb165d8f13ae503213264fe3d64b883cb5188df942e80c53ca130",
+      "bytes": 4533,
+      "AST": null
+    },
+    {
+      "path": "docs/parallel/completion-locator-oracle.json",
+      "before": "dd1caa4216f809a7435fb4bf290baacecd3874b28df8346b7ba9eaed6ba29dde",
+      "after": "dd1caa4216f809a7435fb4bf290baacecd3874b28df8346b7ba9eaed6ba29dde",
+      "bytes": 4036,
+      "AST": null
+    },
+    {
+      "path": "src/slaif_raggedized_helper/raw_snapshot_construction.py",
+      "before": "107673d5bedf22fbe629fd4d5ec41c33d0fad70bbed99db8522c2d46ee7ff9d6",
+      "after": "4a01e150f46633dca856f6bfcac05007b06930839c21c7b13c1431672c54f7a3",
+      "bytes": 7121,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS"
+    },
+    {
+      "path": "tests/unit/test_raw_snapshot_construction.py",
+      "before": "c7093fd2a0775d7e364be65ae8b65069d62ce5f7082daa4d83f1d4af83129660",
+      "after": "a43d7c99780c9fdb7c58ca5e18c58936caa5f23aef2e3cc3b92ccafafcc50de0",
+      "bytes": 9782,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS"
+    },
+    {
+      "path": "tests/integration/test_raw_snapshot_construction_composition.py",
+      "before": "c45d9d961d147d00e3a6a26d7e5c28e8a339da45470cf0860ebec1283ed749ee",
+      "after": "7ffd3f0d6c64b72bde4b8957d27397b370cb7d936cb8fe09526bb5f1dafe16d6",
+      "bytes": 5729,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS"
+    },
+    {
+      "path": "docs/parallel/snapshot-construction-api.md",
+      "before": "cfd67f4ea4d8494730b6f7e5db8fb1dd24998a8191d85cb870738d922786b992",
+      "after": "cfd67f4ea4d8494730b6f7e5db8fb1dd24998a8191d85cb870738d922786b992",
+      "bytes": 3056,
+      "AST": null
+    },
+    {
+      "path": "docs/parallel/snapshot-construction-contract.md",
+      "before": "07df618fc26d3ca1fb0318ad6903fd93556aeeccd6246a4dc7a4a82d114aa942",
+      "after": "07df618fc26d3ca1fb0318ad6903fd93556aeeccd6246a4dc7a4a82d114aa942",
+      "bytes": 10010,
+      "AST": null
+    },
+    {
+      "path": "src/slaif_raggedized_helper/raw_snapshot_query.py",
+      "before": "7cf010637cbee6378155aa921297b8fa4c072e27b5eb37d4770953f5fb88f6a5",
+      "after": "aced05dea7dc3019390676d8fc509e65c672accff4090a87acbaaf24ac292541",
+      "bytes": 8782,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS"
+    },
+    {
+      "path": "tests/unit/test_raw_snapshot_query.py",
+      "before": "b54cf7335153d3b0cbfc0807165c22034f1da2d6210b8766c3bc065792ac03bf",
+      "after": "cd7c959d7b067756dce7c8a04b09f8111e261d32821d65509e65936c045f3e08",
+      "bytes": 13832,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS"
+    },
+    {
+      "path": "docs/parallel/pinned-query-api.md",
+      "before": "1ef76d5723a0f9552999fc4403105481e4c426ae2664b75dabb22c01fdddd6e5",
+      "after": "1ef76d5723a0f9552999fc4403105481e4c426ae2664b75dabb22c01fdddd6e5",
+      "bytes": 3040,
+      "AST": null
+    },
+    {
+      "path": "docs/parallel/pinned-query-contract.md",
+      "before": "89066153ec7d66fedfec33aa4000a6b67e5c621546a4f4c8d0b9a5c0a5cad2fd",
+      "after": "89066153ec7d66fedfec33aa4000a6b67e5c621546a4f4c8d0b9a5c0a5cad2fd",
+      "bytes": 11679,
+      "AST": null
+    },
+    {
+      "path": "tests/integration/test_raw_snapshot_query_ci_composition.py",
+      "before": "f04570f2b9d9f85e719fa2d30947d69c11cd73a78218f4c9a379823fa95ed311",
+      "after": "a5442419d9a3865e2a9eefbd8181964cccc1d0db896f1b6161befc8d08d4f893",
+      "bytes": 5185,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS"
+    },
+    {
+      "path": "docs/parallel/pinned-query-ci-preparation.md",
+      "before": "304def8842e8d27e0dbee88347006a3bb85d80bf06c95e413145e2d4db84e08e",
+      "after": "304def8842e8d27e0dbee88347006a3bb85d80bf06c95e413145e2d4db84e08e",
+      "bytes": 1030,
+      "AST": null
+    },
+    {
+      "path": "tests/integration/test_raw_hybrid_trace_composition.py",
+      "before": "3759df10d25748e41f9988bc853c04e7e8799e32e3cc2b86150182b9aacb7057",
+      "after": "3a12ea8d574a5a3d40b3de52190f862a79172c8486109ef5234374268326fa5d",
+      "bytes": 11398,
+      "AST": "IDENTICAL_EXCEPT_DOCSTRINGS",
+      "diff": "ONLY_ONE_DOCSTRING_LINE_VS_CANONICAL50A8"
+    }
+  ],
+  "diff_paths": [
+    "docs/parallel/final-join-lint-source-index.json",
+    "docs/parallel/final-join-lint.md",
+    "oap/parallel/orders/PAR-008-FINAL-JOIN-LINT-A.md",
+    "src/slaif_raggedized_helper/raw_snapshot_completion_locator.py",
+    "src/slaif_raggedized_helper/raw_snapshot_construction.py",
+    "src/slaif_raggedized_helper/raw_snapshot_query.py",
+    "tests/integration/test_raw_hybrid_trace_composition.py",
+    "tests/integration/test_raw_snapshot_construction_composition.py",
+    "tests/integration/test_raw_snapshot_query_ci_composition.py",
+    "tests/unit/test_raw_snapshot_completion_locator.py",
+    "tests/unit/test_raw_snapshot_construction.py",
+    "tests/unit/test_raw_snapshot_query.py"
+  ],
+  "source_fit": "Nine ASTs identical ignoring only docstrings; eight original docs exact; PROGRAM/EXPECTED bytes exact; existing canonical trace differs in only LF47 docstring. All nine actual new files linted under static allowance; failed first check preserved. No runtime proof rerun.",
+  "evidence": {
+    "check2.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "check2.time": {
+      "bytes": 1268,
+      "sha256": "8858fd2ce3f7130e0ca28a7f79f592a5bd29d9d727ecbb563288868d8bef5dcc"
+    },
+    "check2.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "check2.stdout": {
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "comparison.json": {
+      "bytes": 4994,
+      "sha256": "79e76b816db04c7168b111bd5933495954595661a9765b79fb115076d47405e4"
+    },
+    "check.exit": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "check.time": {
+      "bytes": 1305,
+      "sha256": "872044cb7e7f6f570356abba0bf0f4f98a5e00d801ee8090f0493a95076eddb6"
+    },
+    "check.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "check.stdout": {
+      "bytes": 1623,
+      "sha256": "714ee2038a94c02b5e67d9fb84f4b4753f71ae2714c2346ba3b3fec67ebadc68"
+    },
+    "format.exit": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "format.time": {
+      "bytes": 1215,
+      "sha256": "7e4541c197c30456c542193f35fdf2d6378e41fedc0b142056658c2f78f6f289"
+    },
+    "format.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "format.stdout": {
+      "bytes": 20,
+      "sha256": "e403cb4a6d2ddd145072064fd2716a3f6647ed81696b66b7d729b53cd05f60a8"
+    },
+    "preflight.json": {
+      "bytes": 11139,
+      "sha256": "0a607be2fb77919054e464d3205260326b63118f94a4ad0d619fa8838428de8d"
+    }
+  },
+  "Root_verification_correction": "First Root metadata-only attempt stopped at comparing original seed order to installed expanded order. Correct identity is immutable parallel/lane/order.md including Root launcher append, matches coordinator SHA386ee1. No product/tool rerun or state mutation in failed verification.",
+  "counterargument": "Unexecuted formatted integration and controlled encoder fixture cannot establish combined runtime; require new exact-head unchanged full CI on both versions, original008 criteria/root source review before development merge. Historical Toy/model/runtime bounds unchanged.",
+  "DHA": "NONE"
+}
