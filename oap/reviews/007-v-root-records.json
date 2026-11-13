@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "status": "ROOT_FROZEN_V_TRANSCRIPT_INPUTS",
+  "identifier": "007-v",
+  "entries": [
+    {
+      "source": "audit/007-u-review.json",
+      "target": "oap/reviews/007-v-prior-review.json",
+      "bytes": 2310,
+      "sha256": "8fc8498e6afc749529d0bc5855cd49b9cd9f74f40df08635c4c0c92c87408f61"
+    },
+    {
+      "source": "audit/007-u-resolution-timing-event.json",
+      "target": "oap/reviews/007-v-prior-timing.json",
+      "bytes": 738,
+      "sha256": "5763dc8cba7af9f120c9763d77062c3dabe26f00544bcbf2e6ded333ee5d772b"
+    },
+    {
+      "source": ".oap-state/response-consumed-007-u.json",
+      "target": "oap/reviews/007-v-prior-normal-response.json",
+      "bytes": 345,
+      "sha256": "b21ba543a1841a47143dd6d3a44a4f3c97411a70f828eccf7be28fecd440404c"
+    },
+    {
+      "source": "audit/007-u-current-CI-terminal-9d81.json",
+      "target": "oap/reviews/007-v-prior-CI.json",
+      "bytes": 3773,
+      "sha256": "113e8da5c87c72fad952a65fd1c4f09b96ba57c6dbae0b0f8e9b045cce8c4d32"
+    },
+    {
+      "source": "audit/007-u-root-preliminary-implementation-review-e92e.json",
+      "target": "oap/reviews/007-v-current-source-Root-review.json",
+      "bytes": 2069,
+      "sha256": "0fdf6aaf32b3ae3c5003f21ba14f286914c5bfd66d1951f07d2db1e48e3274ef"
+    },
+    {
+      "source": "parallel/audit-current-007u-software/report.json",
+      "target": "oap/reviews/007-v-current-software-peer.json",
+      "bytes": 7885,
+      "sha256": "acab66c5126b0e40f6324a10f5b984e3024b44ce7105f89afeddd2da7b2c1ec7"
+    },
+    {
+      "source": "parallel/audit-current-007u-software/response-consumed.json",
+      "target": "oap/reviews/007-v-current-software-peer-response.json",
+      "bytes": 407,
+      "sha256": "c9236121293a3bc306ef4f6ad97fdbb3a1b140d15a81aad1f1411b55500fdc80"
+    },
+    {
+      "source": "audit/007-u-current-software-peer-root-review-acab.json",
+      "target": "oap/reviews/007-v-current-software-peer-Root-review.json",
+      "bytes": 1974,
+      "sha256": "c942e784a2f149920b382a596a0d0e88444e2e2c7204708d8f0913ea26f07864"
+    },
+    {
+      "source": "audit/007-u-chronology-root-reconciliation.json",
+      "target": "oap/reviews/007-v-local-attempt-reconciliation.json",
+      "bytes": 10773,
+      "sha256": "79ed450a4a10320f1d519603d8571e108f7c12eb0bd2f653a8bbcbc7212de4b3"
+    },
+    {
+      "source": "audit/007-u-public-credential-containment-summary.json",
+      "target": "oap/reviews/007-v-diagnostic-privacy-containment.json",
+      "bytes": 832,
+      "sha256": "f77d1e4249ce290c73fcd0f2e29427eb99e0014b9f7c356cad64f63aa190788f"
+    },
+    {
+      "source": "parallel/audit-u-evidence-correction/report.json",
+      "target": "oap/reviews/007-v-draft-document-peer.json",
+      "bytes": 2588,
+      "sha256": "d3b32c7e00ca11f0c6aacc5ce206ed1463df493633f0ddbebbafe791a542ad1d"
+    },
+    {
+      "source": "audit/007-u-corrective-doc-peer-root-review-d3b3.json",
+      "target": "oap/reviews/007-v-draft-document-peer-Root-review.json",
+      "bytes": 4302,
+      "sha256": "2d343075bbee525abffc71511961ebe189834a8af18a647fa6f300b8c751faa8"
+    },
+    {
+      "source": "audit/007-v-root-final-document-delta-review.json",
+      "target": "oap/reviews/007-v-final-document-delta-review.json",
+      "bytes": 1730,
+      "sha256": "b60f73b84584b4156bb6942515c48bbc186eaa9972967e2e189b0999d7b0cd4a"
+    }
+  ],
+  "files": 13,
+  "total_bytes": 39726,
+  "scope": "ExactRoot-ownedsanitizedreviewrecords; no rawenvlogs/values orfullunreviewedauthorchronology. Priorreports/sourceUinputsimmutable; hashesidentifybytesnotapproval.",
+  "DHA": "NONE"
+}

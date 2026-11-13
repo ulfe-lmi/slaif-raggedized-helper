@@ -1,0 +1,137 @@
+{
+  "at": "2026-11-13T01:54:10.383098+00:00",
+  "draft": "d3b32c7e00ca11f0c6aacc5ce206ed1463df493633f0ddbebbafe791a542ad1d",
+  "state": "FINITE_STATIC_ROOT_DOCUMENT_REVIEW_VERIFIED_FINALIZE_PERMITTED",
+  "anchor": "96822ff4f262c42eeeb9fe144b2b0163c406fba6",
+  "witness": {
+    "path": "parallel/audit-u-evidence-correction/witness.json",
+    "bytes": 3158,
+    "sha256": "089626d41b76cd00c85d18ed2a7de25c01d51c9191f65a02908052849f5770d6",
+    "meaning": "Eight exact indexed identities and original order/architecture full identities and inclusive LF ranges; finite static review only."
+  },
+  "verified_files_and_ranges": [
+    {
+      "path": "contracts/007-u-local-evidence-correction-DRAFT.md",
+      "full_bytes": 5621,
+      "range": [
+        1,
+        21
+      ],
+      "range_bytes": 5621,
+      "range_sha256": "a1a80e80d88cb6228a4a772d7e22237ac4db2ff8eed38d42c659b3498f8dfe77"
+    },
+    {
+      "path": "workorders/007-v-evidence-correction-DRAFT.md",
+      "full_bytes": 7182,
+      "range": [
+        1,
+        47
+      ],
+      "range_bytes": 7182,
+      "range_sha256": "d5161dd4633ad3d80b97a00143b449b5ce9b7e5e7a9350ed84d48457c85b5881"
+    },
+    {
+      "path": "workorders/007-software-boundary-replan-DRAFT.md",
+      "full_bytes": 9396,
+      "range": [
+        1,
+        34
+      ],
+      "range_bytes": 9396,
+      "range_sha256": "3c9408307ff2c3b109f1ef65259e69debcecaf8747b4514b4b04958ed97a43ac"
+    },
+    {
+      "path": "audit/007-u-current-CI-terminal-9d81.json",
+      "full_bytes": 3773,
+      "range": [
+        1,
+        90
+      ],
+      "range_bytes": 3773,
+      "range_sha256": "113e8da5c87c72fad952a65fd1c4f09b96ba57c6dbae0b0f8e9b045cce8c4d32"
+    },
+    {
+      "path": "audit/007-u-environment-log-permission-containment.json",
+      "full_bytes": 2693,
+      "range": [
+        1,
+        86
+      ],
+      "range_bytes": 2693,
+      "range_sha256": "d2870b6c7a0144fa7b4df6cfedbc79dfa1693043833451f842d948858f8f9947"
+    },
+    {
+      "path": "audit/007-u-local-attempt-provenance-finding.json",
+      "full_bytes": 9060,
+      "range": [
+        1,
+        239
+      ],
+      "range_bytes": 9060,
+      "range_sha256": "d6ac7992b74323de55a4cc5edd501205e863370026bec0974b389e4a1ab2b12e"
+    },
+    {
+      "path": "audit/007-u-current-software-peer-root-review-acab.json",
+      "full_bytes": 1974,
+      "range": [
+        1,
+        15
+      ],
+      "range_bytes": 1974,
+      "range_sha256": "c942e784a2f149920b382a596a0d0e88444e2e2c7204708d8f0913ea26f07864"
+    },
+    {
+      "path": "parallel/audit-current-007u-software/report.json",
+      "full_bytes": 7885,
+      "range": [
+        1,
+        1
+      ],
+      "range_bytes": 7885,
+      "range_sha256": "acab66c5126b0e40f6324a10f5b984e3024b44ce7105f89afeddd2da7b2c1ec7"
+    },
+    {
+      "path": "oap/strategic-instructions/initial-orders/007-a-embedding-pipeline.md",
+      "full_bytes": 3306,
+      "range": [
+        1,
+        58
+      ],
+      "range_bytes": 3306,
+      "range_sha256": "73c3a00b1e3b01cadfda4849ac6ce43dd2695fcd1f4853922543bbb1044d56b8"
+    },
+    {
+      "path": "oap/strategic-instructions/initial-orders/010-a-contextualization-jobs.md",
+      "full_bytes": 3373,
+      "range": [
+        1,
+        58
+      ],
+      "range_bytes": 3373,
+      "range_sha256": "840c5b8919d3cbf77441c8ef6ecb2d2ecacd4ccdb7c7462ebe9c0ed90aa5ce0f"
+    },
+    {
+      "path": "oap/strategic-instructions/initial-orders/011-a-contextual-index-evaluation.md",
+      "full_bytes": 3205,
+      "range": [
+        1,
+        58
+      ],
+      "range_bytes": 3205,
+      "range_sha256": "957af0333b96b0edae4bc14e3a9aff66f170fef7b8b4828d001d8669ece8702b"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "full_bytes": 128390,
+      "range": [
+        575,
+        596
+      ],
+      "range_bytes": 889,
+      "range_sha256": "57dde61593c86da3f2dbafb75ef62382e4d7a2dfc3b34a9b0e7473344597f1b2"
+    }
+  ],
+  "review": "Rootreadfullpeerreport;all12sourceidentities+LFrangesverified. Original007fakeencoderallowance/010parentinvalidation/011contextualallocation preserved, Rootdraftstruthfulseparateselfreports/unknowncaps/lostevidence/permissioncontainment/currentCI. No product/currentrights/ICA/Rootacceptance. Authornewv2andnormalreceiptstillpending.",
+  "DHA": "NONE",
+  "no_FIFO_read": true
+}
