@@ -392,9 +392,13 @@ open on the 007 PR, branch
   oap/reviews/008-a-foundation-components.json (five production
   modules: technical_analyzer, raw_snapshot_membership,
   raw_snapshot_source_rows, raw_snapshot_dense,
-  raw_snapshot_lexical; twenty test files; ten docs/parallel
-  contracts) plus nine exact Root records and the exact index in the
-  transcript commit. Strict token preservation, whole-batch
+  raw_snapshot_lexical; ten test files — five unit and five
+  integration suites; the documented 008-a count wording is
+  corrected here per Root reconciliation
+  oap/reviews/008-a-scoped-prefix-resolution.json while the
+  immutable 008-a report is retained unchanged; ten docs/parallel
+  contracts) plus nine exact Root records and the exact index in
+  the transcript commit. Strict token preservation, whole-batch
   membership, original-backed source rows, normalized finite read-only
   FP32 dense storage and canonical lexical payloads with 4,096-row/128-
   group bounded limits; 20k capacity remains NOTQUALIFIED. No
@@ -402,7 +406,30 @@ open on the 007 PR, branch
   publisher wiring, existing canonical modules unchanged, no local
   product tests, no new dependencies; historical exact-source
   49-unit/source-row proof and current report-head CI (pending) are
-  the evidence boundary; whole 008 remains PARTIAL, no merge.
+  the evidence boundary; whole 008 remained PARTIAL at 008-a, no
+  merge.
+- 008-b (source construction; same PR 10/branch, transcript-first):
+  second bounded slice of objective 008 — byte-exact 21-file
+  transfer (145,034 B) of the Root- and peer-reviewed local assembly
+  per oap/reviews/008-b-construction-components.json (four production
+  modules: raw_snapshot_row_builder, raw_snapshot_files,
+  raw_snapshot_program_coverage, raw_snapshot_directory; four unit
+  and five integration suites; eight docs/parallel contracts) plus
+  eight exact Root records and the exact index in the transcript
+  commit, and correction of the 008-a foundation count in current
+  docs/retrieval.md and STATUS (25 = 5 production + 5 unit + 5
+  integration + 10 docs; immutable 008-a report unchanged).
+  Selected-batch row-map DATA builder, snapshot file-set
+  correspondence DATA, selected-program row-coverage DATA and
+  private snapshot directory DATA reader, all with 4,096-row/128-
+  group finite limits, borrowed stores and cooperative deadlines;
+  20k capacity remains NOTQUALIFIED. No
+  writer/publisher/FileBuilder/query/current-policy/quality
+  interface, no CLI wiring, existing canonical modules unchanged,
+  no local product tests, no new dependencies; one historical
+  bounded 7-row synthetic journey and current report-head CI
+  (pending) are the evidence boundary; whole 008 remains PARTIAL,
+  no merge.
 
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
