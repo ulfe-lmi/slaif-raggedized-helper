@@ -1,4 +1,4 @@
-# Raw retrieval snapshot foundation, source construction, publication reader and raw scoring (objectives 008-a, 008-b, 008-c, 008-e)
+# Raw retrieval snapshot foundation, source construction, publication reader and raw scoring (objectives 008-a, 008-b, 008-c, 008-e, 008-f)
 
 This document is the nonroutine retrieval reference for the bounded 008
 foundation, source-construction and publication-reader slices. The routine
@@ -101,6 +101,44 @@ RAYON-missing/reconstructed-stdout limits are retained separate from the
 Root fully bounded FD-reuse proof. Those are provenance records, not
 canonical acceptance: whole-008 acceptance still requires current canonical
 CI, same-PR continuations and Root review.
+
+## Provenance of the 008-f slice
+
+Nineteen files (129,802 bytes: three production modules — completion
+locator, construction and pinned-query join — three unit and three
+integration test suites, and ten docs/parallel contract and provenance
+documents) were transferred byte-exact by Git-object read from the
+Root-reviewed prepared SELF `1224dae8` (implementation `78d2598b`) of the
+parallel final-join-lint worktree, per the Root-owned index
+`oap/reviews/008-f-joins-components.json` (identical to
+`audit/008-f-joins-components-FINAL.json`, SHA-256
+`462b727cd65f201ae62f895c512b5b7d0503cc95095a020a5bb460e3adffd4d4`).
+Eighteen paths were absent at the 008-f round base `50a85ac8`; the
+existing `tests/integration/test_raw_hybrid_trace_composition.py` changed
+ONLY its one overlong (101-character, E501) docstring line — the
+format-only repair of the 008-e report-head lint failure — while its
+earlier portable artifact generation, exact artifact hashes and
+no-repeat guard are preserved. No donor-branch merge, cherry-pick,
+reset, clean, stash, switch, rebase or force push occurred; the donor
+branch's unrelated 009 code and obsolete inherited fixture were not
+copied. The slice carries the Root format-source review
+(`oap/reviews/008-f-format-source-review.json`; nine ASTs identical
+except docstrings, failed first lint preserved), the Root normal
+topology review (`oap/reviews/008-f-format-normal-review.json`), the
+construction opposite peer review
+(`oap/reviews/008-f-construction-peer-review.json`), the pinned-query
+source review
+(`oap/reviews/008-f-private-query-source-review.json`), the query-CI peer
+review (`oap/reviews/008-f-query-ci-peer-review.json`), the development
+gate clarification
+(`oap/reviews/008-f-development-gate-clarification.json`) and the
+original 008 four-criteria preactivation source fit
+(`oap/reviews/008-f-original-criteria-source-fit.json`), together with
+the preserved 008-e failed-CI reconciliation, report-head
+reconciliation and resolution-timing records, all per
+`oap/reviews/008-f-root-records.json`. Those are provenance records, not
+canonical acceptance: whole-008 acceptance still requires current
+canonical CI, same-PR continuations and Root review.
 
 ## Actual callable foundation (008-a, unchanged)
 
@@ -337,13 +375,84 @@ change, invalid or oversize input, deadline overrun or backend mismatch
 refuse the whole request fail-closed. Grants/restrictions are static
 trusted-caller data; None grants or unknown source version deny.
 
-Still absent after 008-e: the completion-locator/construction wrapper
-join, any usable pinned-query or scoped query entrypoint, the
-application/serving constructor and current-service integration,
-principal/current-policy enforcement and every qualification gate.
-The private directory, selected-data, catalog and pin readers remain
-the only readers; nothing here serves, scores an answer or authorizes
-access, and no blanket no-reader claim is made for the private layers.
+Still absent after 008-f: any application/serving constructor or
+public entrypoint (including any public scoped-query or operator
+entrypoint), current-service integration, principal/current-policy
+enforcement (the 008-f provider is a supplied, unauthenticated hook) and
+evidence-delivery rechecks, plus every qualification gate. The
+completion-locator/construction join and the private pinned-query
+composition now exist as the private 008-f modules described above, but
+they serve, score an answer for, or authorize no caller. The private
+directory, selected-data, catalog and pin readers remain the only
+readers alongside those joins; nothing here serves, scores an answer or
+authorizes access, and no blanket no-reader claim is made for the
+private layers.
+
+## Actual callable construction and pinned-query join layer (008-f, what exists now)
+
+Three private join modules import over the 008-b construction, 008-c
+publication-reader and 008-e scoring layers. None has a CLI or
+application entrypoint; all operate on borrowed stores under cooperative
+deadlines and grant no authorization, serving, retention or deletion
+authority.
+
+- `raw_snapshot_completion_locator.encode(program_bytes,
+  execution_result, *, deadline_ms=30000)`: canonical ASCII structural
+  conversion of a canonical source program and exact executor DTOs
+  (4,096 rows, 128 ordered batches; 16 MiB program bytes, 65,536-byte
+  locator output) into the completion-locator bytes the existing
+  program-coverage builder accepts; `sha256:` output references emit the
+  bare container ID in order; content-free `CompletionLocatorError`,
+  non-Exception interruptions propagate. This conversion proves no
+  execution: a fresh `raw_snapshot_program_coverage.build` must
+  independently reload and verify the actual sources, program, batches
+  and rows before downstream use.
+- `raw_snapshot_construction.build_publish_select_data(...)`: joins the
+  completion locator to fresh source-backed program coverage, the file
+  builder, immutable publication and exact expected-pointer
+  compare-and-select under one cooperative outer deadline (checked
+  around each stage and after result construction; it cannot preempt the
+  nested coverage/file-builder/publication budgets). Borrowed stores are
+  never closed. A content-free `ConstructionError` exposes the stage,
+  known candidate ID and publication/selection attempted flags (set
+  before the corresponding side-effect call); an exception or deadline
+  after either attempt leaves durable state uncertain for the caller to
+  reconcile — there is no retry, deletion, pointer restore or rollback
+  and no automatic cleanup of a published candidate. Successful results
+  are `SELECTED_DATA`, `SUPPLIED_UNVERIFIED`, `NOT_QUALIFIED`; they
+  establish no current rights, serving readiness, precision or quality.
+- `raw_snapshot_query.search_pinned_data(...)`: composes one already
+  active `PinOwner`, its matching borrowed original/derived stores and
+  one already entered `ResidentQueryEncoder` with the actual hybrid
+  search over the pinned snapshot. The caller exclusively owns these
+  objects for the whole call; the adapter never enters, closes,
+  restarts or reacquires them. The trusted application
+  `authorization_provider(boundary, admission)` is freshly consulted at
+  `before_encode`, `before_retrieval` and `before_return` (including
+  when data grants are empty); an affected readable unavailable
+  partition refuses the whole query BEFORE any model exposure, unknown
+  partition IDs cause a generic refusal, and policy or availability
+  changes refuse the whole query. The adapter invokes the borrowed
+  encoder once and the hybrid search once, checks the actual execution
+  fingerprint against the captured snapshot core, and keeps the captured
+  pin even while current selection advances. One cooperative deadline;
+  content-free errors (`ScopeUnavailableError` for a readable affected
+  scope, `PinnedQueryError` otherwise, non-Exception interruptions
+  propagate); the result carries identity hashes and the hybrid result,
+  not the raw question or encoder record.
+
+The supplied policy provider and execution-origin markers mean only that
+a supplied provider was consulted and data supplied: no authenticated
+principal, real current policy, monotonic epochs, authenticated
+dispatch, evidence-delivery rechecks or model qualification are
+established by these joins. The private real Toy proof driver and all
+009 extras are excluded from this transfer. The new normal-CI case
+(`tests/integration/test_raw_snapshot_query_ci_composition.py`) uses an
+explicitly controlled test-double encoder over actual
+source/catalog/publication/selection/pin/dense/BM25/fusion composition;
+it is UNRUN until the unchanged hosted matrix executes it. The private
+pinned-query composition is an actual usable private join for controlled
+development composition; no public entrypoint exists for it.
 
 ## Absent as of 008-c (not implemented, not implied)
 
@@ -357,15 +466,26 @@ pinning and unqualified DATA construction: it does not serve, score or
 answer, and it grants no authorization, retention, unlink or deletion. The
 existing canonical manifest, row-map, corpus-program and representation
 modules are unchanged and not replaced. Nothing here serves, scores or
-answers.
+answers. This as-of-008-c wording is retained as history: the
+completion-locator/construction wrapper and the private pinned-query
+composition were later transferred in 008-f (section above).
 
 ## Evidence: current versus historical
 
-- This round (008-c) ran NO local product, unit, integration, native,
+- This round (008-f) ran NO local product, unit, integration, native,
   store, model or diagnostic process: static Git/hash/AST/JSON/metadata and
   governance checks only, plus the unchanged normal hosted CI triggered by
   the final-head push (full unit and integration suites on Python 3.12 and
-  3.14 plus the three OAP jobs).
+  3.14 plus the three OAP jobs). The 008-e report-head CI run 43377547440
+  at head 50a85ac is recorded terminal-failed per
+  `oap/reviews/008-f-prior-ci-failure-replan.json`: both Product jobs
+  (3.12 job 131727449278, 3.14 job 131727448752) failed the lint step on
+  the one 101-character docstring line (E501, line 47) of the adapted
+  trace fixture and every later product step was SKIPPED, not pass; the
+  three OAP jobs succeeded. That failure and its raw log are preserved
+  unchanged, not accepted or retried; the single overlong line was
+  repaired format-only (AST-identical) in this 008-f transfer, and
+  new-head CI remains pending.
 - The 008-b report-head CI is recorded terminal at `d9ef6b4c` per
   `oap/reviews/008-b-ci-terminal.json`: run 43362986520, all five jobs / all
   78 steps SUCCESS with the full normal suites on both Product 3.12/3.14
@@ -393,7 +513,14 @@ answers.
   qualification. The inherited test-only exception is the explicit
   `importlib` load of the real existing structured-text fixture inside
   `tests/unit/test_raw_snapshot_membership.py` (no `sys.path`/`sys.modules`
-  override); no further adaptation is authorized.
+  override); no further adaptation is authorized. For the 008-f joins,
+  the historical V2 construction proof and the V6 approved Toy CPU query
+  proof ran earlier unformatted component bytes under separately finite
+  decisions (the V5 query fixture failure is preserved); they are
+  limited component evidence, not execution of the final combined bytes
+  or real BGE/rights/quality qualification, and the new normal-CI
+  controlled-encoder query case is UNRUN until the unchanged hosted
+  matrix executes it.
 - Mock/synthetic store fixtures are not real routes, real models or hardware.
   Supplied DTOs, hashes, fingerprints and this byte transfer are not neural
   origin, current principal, rights, current-ACL or readiness proof.
@@ -427,16 +554,21 @@ is introduced.
 
 ## Remaining 008 scope (later same-PR waves, strategy-activated)
 
-Completion-locator/construction wrapper join over the 008-c
-publication-reader layer and the 008-e scoring modules; usable scoped
-query, operator and current-policy integration; the application/serving
-constructor and pinned-query entrypoint; final whole-008 criteria
-review. The transferred scoring modules do not close those interfaces:
-no construction/query join, no current-service path and no current
-principal or policy enforcement exist yet. Model/tokenizer/runtime
-pinning and the independent-tokenizer obligation remain architecture
-invariants; objective 014's authenticated principal boundary cannot
-waive these pre-scoring scope checks. Direct dependencies after 008-e:
-the already locked set plus exactly the two pinned additions bm25s
-0.2.14 and SciPy 1.18.1 (no old package version removed or changed, no
-lock regeneration); otherwise stdlib plus the already locked NumPy.
+Remaining 008 scope is the full original four criteria with the
+current CI and the Root development review, and resolution of any
+findings from that review; this round's source transfer does not
+itself close it. Public authenticated query, current-policy
+enforcement, serving, evidence-delivery and operator functionality
+belong to the later objective 014 and operations product gates, not to
+this objective. The private construction and pinned-query joins
+transferred in 008-f are actual usable private joins (the public
+entrypoint is absent); they do not close those public gates: no
+current-service path, no public route and no current principal or
+policy enforcement exist yet. Model/tokenizer/runtime pinning and the
+independent-tokenizer obligation remain architecture invariants;
+objective 014's authenticated principal boundary cannot waive these
+pre-scoring scope checks. Direct dependencies after 008-f: unchanged by
+this round — the already locked set plus exactly the two pinned
+additions bm25s 0.2.14 and SciPy 1.18.1 (no old package version removed
+or changed, no lock regeneration); otherwise stdlib plus the already
+locked NumPy.

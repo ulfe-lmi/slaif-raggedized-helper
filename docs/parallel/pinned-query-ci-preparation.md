@@ -1,0 +1,5 @@
+# Pinned query CI preparation
+
+UNRUN: future normal CI command: `pytest tests/integration/test_raw_snapshot_query_ci_composition.py`. Full hosted CI on both required versions remains mandatory. The integration uses actual source-backed stores, publication, selection, pin and scoring; its encoder is an explicitly controlled test double returning a supplied vector, not a neural forward or real Toy qualification. The private real Toy proof remains separately required and has failed.
+
+The intended static bounds are one fixture generator, up to three sources and four native sessions, two publication events, one denial and one allowed query, and caps of three. Expected calls after the allowed query are one each to encoder, hybrid, dense score, lexical index, lexical score and fusion; these are assertions, not measurements. The unrun integration may contain source-fit errors and needs independent review and hosted CI. This work makes no authentication, current principal, rights, precision, model, scale, ICA or MVP claim.

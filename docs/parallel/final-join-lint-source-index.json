@@ -1,0 +1,170 @@
+{
+  "at": "2026-11-13T06:24:27.234046+00:00",
+  "state": "FINAL_INPUT_SOURCE_BASELINE_FOR_STATIC_FORMAT_PREPARATION_NOT_OUTPUT_EQUIVALENCE_OR_ACTIVATION",
+  "base": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+  "entries": [
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_completion_locator.py",
+      "bytes": 3342,
+      "sha256": "34cea660631a488ad08ed19c3bb95c4dc2638e294b165647a807bcf05d6d20c7",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "tests/unit/test_raw_snapshot_completion_locator.py",
+      "bytes": 8398,
+      "sha256": "0bec942bea0b67d9f743fc764fd25bb3d95b9281707b730dd95414cd5797f621",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "docs/parallel/completion-locator-api.md",
+      "bytes": 2901,
+      "sha256": "f1f43243293331369d4ecf3d83c8de0e603cc0a5452f949b0068c0c1f9465dbe",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "docs/parallel/completion-locator-contract.md",
+      "bytes": 4533,
+      "sha256": "dd93b0996d1bb165d8f13ae503213264fe3d64b883cb5188df942e80c53ca130",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "docs/parallel/completion-locator-oracle.json",
+      "bytes": 4036,
+      "sha256": "dd1caa4216f809a7435fb4bf290baacecd3874b28df8346b7ba9eaed6ba29dde",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_construction.py",
+      "bytes": 6838,
+      "sha256": "107673d5bedf22fbe629fd4d5ec41c33d0fad70bbed99db8522c2d46ee7ff9d6",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "tests/unit/test_raw_snapshot_construction.py",
+      "bytes": 9459,
+      "sha256": "c7093fd2a0775d7e364be65ae8b65069d62ce5f7082daa4d83f1d4af83129660",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "tests/integration/test_raw_snapshot_construction_composition.py",
+      "bytes": 5283,
+      "sha256": "c45d9d961d147d00e3a6a26d7e5c28e8a339da45470cf0860ebec1283ed749ee",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "docs/parallel/snapshot-construction-api.md",
+      "bytes": 3056,
+      "sha256": "cfd67f4ea4d8494730b6f7e5db8fb1dd24998a8191d85cb870738d922786b992",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "docs/parallel/snapshot-construction-contract.md",
+      "bytes": 10010,
+      "sha256": "07df618fc26d3ca1fb0318ad6903fd93556aeeccd6246a4dc7a4a82d114aa942",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-snapshot-construction",
+      "historical_source_commit": "979bed4ddcf1f5b23decea02258dac2e2b04ec8c"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_query.py",
+      "bytes": 8223,
+      "sha256": "7cf010637cbee6378155aa921297b8fa4c072e27b5eb37d4770953f5fb88f6a5",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-pinned-query",
+      "historical_source_commit": "25baf70c197f89a917931339b391a7b4c139182f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "tests/unit/test_raw_snapshot_query.py",
+      "bytes": 12771,
+      "sha256": "b54cf7335153d3b0cbfc0807165c22034f1da2d6210b8766c3bc065792ac03bf",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-pinned-query",
+      "historical_source_commit": "25baf70c197f89a917931339b391a7b4c139182f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "docs/parallel/pinned-query-api.md",
+      "bytes": 3040,
+      "sha256": "1ef76d5723a0f9552999fc4403105481e4c426ae2664b75dabb22c01fdddd6e5",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-pinned-query",
+      "historical_source_commit": "25baf70c197f89a917931339b391a7b4c139182f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "docs/parallel/pinned-query-contract.md",
+      "bytes": 11679,
+      "sha256": "89066153ec7d66fedfec33aa4000a6b67e5c621546a4f4c8d0b9a5c0a5cad2fd",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-pinned-query",
+      "historical_source_commit": "25baf70c197f89a917931339b391a7b4c139182f"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "tests/integration/test_raw_snapshot_query_ci_composition.py",
+      "bytes": 4986,
+      "sha256": "f04570f2b9d9f85e719fa2d30947d69c11cd73a78218f4c9a379823fa95ed311",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-query-ci-preparation",
+      "historical_source_commit": "bce49e2a0a4bb52c9176575e69f2045bcbe853fc"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-final-join-preparation",
+      "source_commit": "e454b32bf9393703d8eb3fa3be750f4d51fa2cd9",
+      "path": "docs/parallel/pinned-query-ci-preparation.md",
+      "bytes": 1030,
+      "sha256": "304def8842e8d27e0dbee88347006a3bb85d80bf06c95e413145e2d4db84e08e",
+      "historical_source_repository": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-query-ci-preparation",
+      "historical_source_commit": "bce49e2a0a4bb52c9176575e69f2045bcbe853fc"
+    },
+    {
+      "source_repository": "/home/janezp/codex-work/slaif-raggedized-helper",
+      "source_commit": "50a85ac8ad41856cc9e81292db8d50d39477b42b",
+      "path": "tests/integration/test_raw_hybrid_trace_composition.py",
+      "bytes": 11420,
+      "sha256": "3759df10d25748e41f9988bc853c04e7e8799e32e3cc2b86150182b9aacb7057",
+      "role": "CURRENT_CANONICAL8E_ADAPTED_TRACE_FIXTURE_REPLACE_OLDER_PRIVATECACHE_BASE"
+    }
+  ],
+  "total_bytes": 111005,
+  "ruff": {
+    "binary": "/tmp/slaif-pinned-query-setup-20261113/venv/bin/ruff",
+    "bytes": 24549376,
+    "sha256": "4ef33997b4bb7c5f141527e90b2da0abe918108362ca1b9825c4d13adce0e347",
+    "version_from_METADATA": "0.17.4",
+    "metadata": "/tmp/slaif-pinned-query-setup-20261113/venv/lib/python3.14/site-packages/ruff-0.17.4.dist-info/METADATA",
+    "metadata_sha256": "012610932dce35ebd07b287a9a1e9032ab89a5025a41a2dbbc476c1ae2f9323f"
+  },
+  "scope": "17targetinputblobs:16futurejoinfiles+exactcurrentcanonicaltracefixture, notwholebranch. Only8newincomingPythonformattingASTequivalent andonetracefixtureDOCSTRINGE501shortening; no runtime/tests/model/native/store/appimports/deps/CIchanges.",
+  "DHA": "NONE"
+}

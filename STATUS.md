@@ -1,8 +1,18 @@
 # Project status
 
-## Current state (2026-11-12)
+## Current state (2026-11-13)
 
-- Active objective: 007, current slice 007-r (the 007-a reviewed
+- Current (2026-11-13): active objective 008, current slice 008-f
+  (same PR 10/branch oap/008-raw-hybrid-snapshots, transcript-first).
+  Objective 007 is complete and merged to main as PR #9 (merge commit
+  1a8fddf8); the 007-a..007-v entries below are historical round
+  records retained for traceability. The private
+  completion-locator/construction wrapper join and pinned-query
+  composition now exist (008-f); public serving, current
+  principal/current policy, evidence delivery and real qualification
+  remain absent/open. Whole 008 remains PARTIAL; no merge.
+- Historical 007 record (active objective at the time: 007,
+  then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
   extended by the 007-b source-bound raw retrieval representation/batch
   and published BGE-M3 checkpoint inventory/encoder-space software,
@@ -535,8 +545,45 @@ open on the 007 PR, branch
   (unverified, not attested) trace origins are preserved; the
   completion-locator/construction and query joins, the
   application/serving constructor, pinned-query entrypoint,
-  current-service and current-principal/policy gates remain
-  absent. Whole 008 remains PARTIAL, no merge.
+  current-service and current-principal/policy gates remained absent
+  at 008-e; 008-f then transferred the completion-locator/construction
+  and pinned-query joins as private modules (the application/serving
+  constructor and current-service/current-principal/policy gates
+  remain absent). Whole 008 remains PARTIAL, no merge.
+
+- 008-f (construction/pinned-query join transfer + lint repair; same PR
+  10/branch, transcript-first): byte-exact 19-file transfer (129,802 B)
+  of the Root-reviewed prepared SELF 1224dae (implementation 78d2598)
+  per oap/reviews/008-f-joins-components.json — three production
+  modules (raw_snapshot_completion_locator, raw_snapshot_construction,
+  raw_snapshot_query), three unit and three integration suites
+  (including the new normal-CI controlled-encoder query case and the
+  new construction-composition case), ten docs/parallel
+  contracts/provenance — eighteen NEW paths plus the existing trace
+  integration file changed ONLY in its one overlong (101-char, E501)
+  docstring line, the format-only repair of the 008-e report-head lint
+  failure. The transcript commit carries the unchanged FINAL order,
+  active 008-f+LF, eleven exact Root records (38,427 B) and the exact
+  index (14 paths); the implementation commit carries the 19 blobs
+  plus only docs/retrieval.md and STATUS.md (21 paths). Static
+  Git/hash/AST/metadata checks only: no local product, unit,
+  integration, collection, import, setup, model, store or scorer
+  process; no donor-branch merge, cherry-pick, reset, clean, stash,
+  switch, rebase or force push; the donor's unrelated 009 code and
+  obsolete fixture were not copied. Preserved 008-e record:
+  report-head CI run 43377547440 at head 50a85ac failed both Product
+  jobs (3.12 job 131727449278, 3.14 job 131727448752) at the lint step
+  on that one docstring line with all later product steps SKIPPED (not
+  pass); three OAP jobs succeeded; the failure, raw log and immutable
+  008-e report are preserved unchanged, not accepted or retried. The
+  transferred joins keep supplied/unverified execution origin,
+  NOT_QUALIFIED results, borrowed stores, cooperative deadlines,
+  fail-closed source/ACL/policy binding and the before-encode
+  unavailable-partition refusal; the private real Toy proof driver and
+  009 extras remain excluded. The full unchanged hosted CI at the new
+  report head (all five jobs, unit + integration on 3.12/3.14) is the
+  evidence boundary and remains pending. Whole 008 remains PARTIAL, no
+  merge.
 
 - Product implementation: IN PROGRESS — foundation (objective 002-a,
   merged), the complete 003 gateway/transport/native/probe slice
@@ -558,9 +605,13 @@ open on the 007 PR, branch
   versioned collector/code-source binding. Hardware/model
   qualification: NOT RUN. ICA:
   NOT RUN.
-- The coding client is active on objective 007 (007 PR), not idle.
-- Current main is the 006 merge commit 11badc7 (PR #8); the 007
-  branch builds from it.
+- The coding client is active on objective 008 (PR 10, branch
+  oap/008-raw-hybrid-snapshots), not idle; the 007-era wording is
+  historical.
+- Current main is the 007 merge commit 1a8fddf8 (PR #9); the 008
+  branch (PR 10) builds from it. Historical: while 007 was in flight,
+  current main was the 006 merge commit 11badc7 (PR #8) and the 007
+  branch built from it.
 - The 2026-11-10 human MVP activation re-enabled the strategic runtime
   for the current MVP; the executed program is docs/MVP-EXECUTION-PLAN.md
   (strategic, copied unchanged).

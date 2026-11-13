@@ -44,7 +44,7 @@ for function, module in ((make_sources, hybrid_provider),
 
 @pytest.fixture
 def trace_owned(tmp_path, monkeypatch, request):
-    """Owned toy artifacts from the inherited helper; the source builder must not regenerate them."""
+    """Use owned helper artifacts once; prevent source-builder regeneration."""
     capped = getattr(request, 'param', 'poison') == 'capped'
     limits = dict(dense=2 if capped else 5, lexical=2 if capped else 5,
                   fusion=2 if capped else 3, catalog=16 if capped else 34,
