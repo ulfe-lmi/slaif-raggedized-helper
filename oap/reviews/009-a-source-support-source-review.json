@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-13T06:48:51.488595+00:00",
+  "implementation": "c91a5c2b942aee00f3833186e393b174b731be5b",
+  "decision": "EXACT_LOCAL_SOURCE_PREPARATION_REVIEWED_REPORT_ALLOWED",
+  "22copies_bytes": 247911,
+  "paths": 25,
+  "python_AST": 8,
+  "direct_relative_imports_present": [
+    "declared_span_support",
+    "derived_store",
+    "ingestion_store",
+    "provenance_records",
+    "raw_snapshot_catalog",
+    "raw_snapshot_rows",
+    "source_bound_ranking",
+    "text_evaluation_dataset",
+    "text_evaluation_gold_binding"
+  ],
+  "existing_dataset": "UNCHANGED_BYTE_EXACT",
+  "docs": "Explicit partial/source preparation/whole dataset Gold/unverified rights/ranking/current policy/qualifications and excluded private integration fixtures. Requirement denominator is per case; global counters describe all dataset Gold atom occurrences/distinct identities, not a second verified-relevance denominator.",
+  "gates": "Assembled runtime UNRUN, actual adapter/portable normal-CI fixtures and exact then-current canonical source fit/whole008 acceptance before009 activation. No source/type/semantic adaptation allowed or observed.",
+  "counterargument": "Metadata/code coexistence cannot prove runtime interoperability; subsequent owned adapter and meaningful actual source-backed normal-CI composition plus full required checks remain mandatory.",
+  "DHA": "NONE"
+}

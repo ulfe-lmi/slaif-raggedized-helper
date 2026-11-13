@@ -1,0 +1,23 @@
+{
+  "objective": "008",
+  "decision": "MERGED",
+  "pr": 10,
+  "accepted_head": "2944716817a8c8346ab9196aa3a04a265955d936",
+  "merge_commit": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "resolved_at": "2026-11-13T08:07:44.679962+00:00",
+  "authority": "Activated human full-MVP concentratedOAP delegated development; strategic S03/S06.",
+  "review": "audit/008-g-development-acceptance-2944.json",
+  "CI_run": 43388401267,
+  "required_jobs": 5,
+  "required_steps": 78,
+  "CI_all_success": true,
+  "actual_main_verified": true,
+  "scope": "Boundedprivate rawsnapshot/retrieval software originalfourcriteria accepted. Not milestoneB/fullMVP/release/deploy orrealqualification.",
+  "remaining_gates": [
+    "009originalsource-basedevaluation/typedmeaningfulness+stage-loss/humanheldoutquality",
+    "RealBGE/CPU-GPUparity/currentprincipal-policy/V100reranker/hardware/20k/visual/licensequalification",
+    "Independentexactmerged-SHAcoverageICA beforemilestoneB/fullMVPclosure",
+    "Human target release/pilot/deploy authority"
+  ],
+  "DHA": "NONE"
+}
