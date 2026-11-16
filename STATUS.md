@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-16)
 
-- Current (2026-11-16): active objective 009, current slice 009-f
+- Current (2026-11-16): active objective 009, current slice 009-g
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -185,7 +185,49 @@
   historical 009-a/b/c/d at-time evidence and the 008 accepted state
   preserved; no 010 activation; no merge. Public serving, current
   principal/current policy, evidence delivery and real qualification
-  remain absent/open.
+  remain absent/open. Slice 009-g is the bounded test-origin context
+  repair (same 009 continuation, AMEND PR 11 at round base 4e2d073a,
+  the 009-f report head whose hosted CI FAILED): run 43921457809 —
+  product 3.12 job 133489544939 and 3.14 job 133489545017 each
+  2445 PASS / 4 FAIL in the full default tests/unit session, the
+  four failures being exactly the four origin entry nodes of
+  tests/unit/test_evaluation_program.py (every per-module local
+  origin predicate passed, then the helper's misplaced final global
+  assertion failed summing session-loaded product/test source-file
+  EXTENTS, 2,923,383 B, against the focused 2 MiB readset ceiling —
+  stat extents are not actual bytes read or RSS); three OAP jobs
+  SUCCESS; integration/downstream product steps SKIPPED, not green;
+  one orphan bwrap per failed product leg reported at cleanup
+  (origin/state/ownership UNPROVEN, no causal attribution, no worker
+  fix). Root causal review and D0 scope decision retained at
+  oap/reviews/009-g-ci-finding.json and oap/reviews/
+  009-g-scope-decision.json. The repair removes only the misplaced
+  global sum from the broad default suite and keeps the strict
+  global local-origin invariant (real local __file__ resolving under
+  assigned root/src for every loaded slaif_raggedized_helper
+  package/module and under root/tests/unit for every loaded test_
+  module; foreign/missing/non-file/resolved-escape origins still
+  fail at the same four entry points) plus new bounded
+  synthetic-metadata regressions (legitimate focused and broader
+  local metadata pass — including local test extents above the old
+  2 MiB sum — while foreign package/test origin, missing
+  __file__/non-file and resolved path escape fail); no cap raise,
+  no skip/xfail/filter, no collection change, no
+  sys.path/sys.modules manipulation, no fake package modules, no
+  product helper/API/module added. Source implementation unchanged:
+  evaluation_program.py 84aceffc… and source_cohort_runner.py
+  d9f1b0e8… byte-exact; the focused 98-unit source proof evidence
+  stays tied to those old exact bytes (no rerun, no retrospective
+  cap change); the new regressions and the new-head full hosted CI
+  are new evidence. Only tests/unit/test_evaluation_program.py,
+  docs/evaluation.md and STATUS.md changed; static local
+  verification only (Git/read/hash/AST/JSON), no local runtime.
+  Real baseline NOT RUN; current policy/qualified encoder/data/
+  rights/CLI/plan/publisher/native-OS/20k/hardware/visual/security/
+  license/merged-ICA/MVP/release gates preserved; 009-f 17
+  components = 16 NEW + one MODIFY (actual NEW groups 5+6+5,
+  per-source total groups 5+7+5, Root clarification); no 010
+  activation; no merge.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

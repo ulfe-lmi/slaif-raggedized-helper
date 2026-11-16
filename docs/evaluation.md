@@ -796,6 +796,81 @@ deltas or address space. The initial broad read/lane-isolation FAIL
 (fresh semantic 341,392 B exceeding the 262,144 B allowance by 79,248
 B) is retained as a historical failure, not a pass.
 
+## The 009-g unit origin-guard repair (same 009 continuation)
+
+Slice 009-f's report head `4e2d073a` FAILED hosted CI run
+43921457809: in the full default `tests/unit` session, both product
+legs (Python 3.12 job 133489544939 and 3.14 job 133489545017)
+counted 2,445 PASS / 4 FAIL each; the three OAP jobs succeeded and
+the integration/downstream product steps were SKIPPED, not green.
+The four failures are exactly this suite's four default-collected
+origin entry points (`test_local_program_origins`,
+`test_z_final_module_origins`, `test_zz_last_module_origins` and
+`test_zzz_final_origins_after_all_cases`), each calling the same
+test-local helper. Every per-module local origin predicate passed;
+the failure was the helper's final misplaced global assertion
+summing the file EXTENTS (`st_size`) of all session-loaded
+product/test modules (2,923,383 B) against a 2 MiB ceiling.
+
+Causal distinction (Root records `oap/reviews/009-g-ci-finding.json`
+and `oap/reviews/009-g-scope-decision.json`): that 2 MiB ceiling is
+the dynamic readset limit of the separately frozen focused check
+(`parallel/evaluation-core/check-proposal.json`,
+`readset.dynamic_limit`: "Unit asserts total bytes of loaded product
+and test module origins <=2MiB and assigned checkout origins"),
+authorized once for the focused two-file unit execution whose 98
+controlled units passed — whose post-check bytes are exactly this
+suite's pre-009-g preimage `593a3be6…` plus the unchanged program
+`84aceffc…` and runner `d9f1b0e8…`. It measures summed
+source-file extents of that frozen focused readset — not actual
+dynamic bytes read, RSS, or the aggregate extents of the full
+default session, which intentionally collects unrelated project
+tests. The focused historical result stays immutable: no
+retrospective cap change, no numeric raise, and no "all hosted code
+was read" claim.
+
+The 009-g repair (order `oap/orders/009-g-unit-origin-guard.md`,
+Root D0 scope decision) removes only that misplaced global sum from
+the broad default suite. The strict provenance checks remain global
+and unchanged in meaning: every currently loaded
+`slaif_raggedized_helper` package/module must have a real local
+`__file__` resolving under the assigned `root/src`, and every loaded
+`test_` module under `root/tests/unit`; foreign, missing, non-file
+or resolved-escaping origins still fail at the same four default
+entry points (session start and end). A small test-local verifier
+(test-local; no product API, helper or module added) is regressed
+with bounded synthetic origin metadata. The focused case passes on
+four real local origins. The broader case is a distinct-file
+witness: two different real local unit test files given bounded
+synthetic `st_size` metadata (3 MiB each, through a test-scoped
+`Path.stat` substitution restored by the pytest fixture — no huge
+files, no fake/importable modules, no collection change) so that
+the deduplicated old-style sum over their unique source extents
+(6 MiB) exceeds the old 2 MiB sum while the revised provenance
+check passes; that deduplicated extent sum is exactly the envelope
+the old global assertion wrongly enforced on the full session.
+Foreign package origin, foreign test origin, missing `__file__` /
+non-file origin and resolved path escape all fail with unswallowed
+negative sentinels. No cap raise, no skip/xfail/filter, no
+collection change, no `sys.path`/`sys.modules` manipulation, no fake
+package modules.
+
+The source-only implementation is unchanged (`evaluation_program.py`
+`84aceffc…` and `source_cohort_runner.py` `d9f1b0e8…` byte-exact);
+the source proof evidence above stays tied to those old exact bytes.
+The new controlled regression checks and the current full hosted CI
+at the new head are NEW evidence, not reruns of the source proof.
+Real baseline remains NOT RUN; the current policy/qualified
+encoder/data/rights/CLI/plan/publisher/native-OS/20k/hardware/
+visual/security/license/merged-ICA/MVP/release gates are preserved.
+The orphan bwrap observation recurred on both failed product legs
+before integration; its origin/state/ownership remains UNPROVEN —
+no live state, owner or worker fix is inferred or made here. The
+009-f count is restated per the Root clarification: 17 total
+components = 16 NEW + one MODIFY (the `source_cohort_runner.py`
+shared-loop replacement; actual NEW groups 5+6+5, while the
+per-source total groups are 5+7+5).
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

@@ -16,22 +16,144 @@ from slaif_raggedized_helper import (
 from slaif_raggedized_helper import text_evaluation_dataset
 
 
-def test_local_program_origins():
+def _origin_assignment(name):
+    if name == "slaif_raggedized_helper" or name.startswith("slaif_raggedized_helper."):
+        return "src"
+    if name.startswith("test_"):
+        return "tests/unit"
+    return None
+
+
+def _local_origin_records():
     import sys
+
+    return tuple(
+        (name, getattr(module, "__file__", None))
+        for name, module in tuple(sys.modules.items())
+        if _origin_assignment(name) is not None
+    )
+
+
+def _check_local_origins(records):
+    """Strict local-origin provenance over bounded (name, __file__) metadata.
+
+    Every loaded slaif_raggedized_helper package/module must have a real
+    local origin resolving under the assigned root/src and every loaded
+    test_ module under root/tests/unit; foreign, missing, non-file or
+    resolved-escaping origins fail.  This certifies provenance only, not
+    total source bytes, RSS or read cost: no global extent sum is applied
+    here.  Finite focused execution/readset budgets (the 2 MiB dynamic
+    limit of the separately frozen parallel/evaluation-core check
+    proposal) bind only to that frozen focused readset, never to an
+    arbitrary full default pytest session collecting unrelated tests.
+    """
     from pathlib import Path
 
     root = Path(__file__).resolve().parents[2]
-    loaded = set()
-    for name, module in tuple(sys.modules.items()):
-        if name == "slaif_raggedized_helper" or name.startswith("slaif_raggedized_helper."):
-            origin = getattr(module, "__file__", None)
-            assert origin is not None and Path(origin).resolve().is_relative_to(root / "src")
-            loaded.add(Path(origin).resolve())
-        elif name.startswith("test_"):
-            origin = getattr(module, "__file__", None)
-            assert origin is not None and Path(origin).resolve().is_relative_to(root / "tests/unit")
-            loaded.add(Path(origin).resolve())
-    assert sum(path.stat().st_size for path in loaded) <= 2 * 1024 * 1024
+    for name, origin in records:
+        assert origin is not None, f"origin missing for {name!r}"
+        resolved = Path(origin).resolve()
+        assert resolved.is_file(), f"not a real file origin for {name!r}"
+        assigned = root / _origin_assignment(name)
+        assert resolved.is_relative_to(assigned), f"unsafe origin for {name!r}"
+
+
+def test_local_program_origins():
+    _check_local_origins(_local_origin_records())
+
+
+def test_origin_metadata_focused_local_passes():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    focused = (
+        ("slaif_raggedized_helper", str(root / "src" / "slaif_raggedized_helper" / "__init__.py")),
+        ("slaif_raggedized_helper.evaluation_program", str(program.__file__)),
+        ("test_evaluation_program", str(__file__)),
+        ("test_source_cohort_runner", str(fixture.__file__)),
+    )
+    _check_local_origins(focused)
+
+
+def test_origin_metadata_broader_local_session_passes_past_focused_sum(monkeypatch):
+    import os
+    from pathlib import Path
+
+    own = Path(__file__).resolve()
+    other = Path(fixture.__file__).resolve()
+    assert own != other
+    big = 3 * 1024 * 1024
+    sizes = {str(own): big, str(other): big}
+    real_stat = Path.stat
+
+    def fake_stat(self, *args, **kwargs):
+        result = real_stat(self, *args, **kwargs)
+        size = sizes.get(str(self))
+        if size is None:
+            return result
+        values = list(result)
+        values[6] = size
+        return os.stat_result(*values)
+
+    monkeypatch.setattr(Path, "stat", fake_stat)
+    records = (
+        ("test_evaluation_program", str(own)),
+        ("test_source_cohort_runner", str(other)),
+    )
+    unique = {Path(origin).resolve() for _name, origin in records}
+    assert len(unique) == 2
+    assert sum(path.stat().st_size for path in unique) > 2 * 1024 * 1024
+    _check_local_origins(records)
+
+
+def test_origin_metadata_foreign_package_origin_fails():
+    foreign = (("slaif_raggedized_helper.evaluation_program", str(fixture.__file__)),)
+    with pytest.raises(AssertionError):
+        _check_local_origins(foreign)
+
+
+def test_origin_metadata_foreign_test_origin_fails():
+    foreign = (("test_evaluation_program", str(program.__file__)),)
+    with pytest.raises(AssertionError):
+        _check_local_origins(foreign)
+
+
+def test_origin_metadata_missing_or_nonfile_origin_fails():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    for record in (
+        ("slaif_raggedized_helper.evaluation_program", None),
+        ("test_evaluation_program", None),
+        (
+            "slaif_raggedized_helper",
+            str(root / "src" / "slaif_raggedized_helper" / "absent_module.py"),
+        ),
+        ("test_evaluation_program", str(root / "tests" / "unit")),
+    ):
+        with pytest.raises(AssertionError):
+            _check_local_origins((record,))
+
+
+def test_origin_metadata_resolved_path_escape_fails():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[2]
+    escapes = (
+        (
+            "slaif_raggedized_helper.evaluation_program",
+            str(root / "src" / "slaif_raggedized_helper" / ".." / ".." / "tests" / "unit"
+                / "test_source_cohort_runner.py"),
+        ),
+        (
+            "test_evaluation_program",
+            str(root / "tests" / "unit" / ".." / ".." / "src" / "slaif_raggedized_helper"
+                / "evaluation_program.py"),
+        ),
+    )
+    for record in escapes:
+        with pytest.raises(AssertionError):
+            _check_local_origins((record,))
 
 
 def setup_case(monkeypatch, count=1, judgments=None):
