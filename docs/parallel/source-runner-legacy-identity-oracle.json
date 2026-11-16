@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "kind": "CONTROLLED_UNIT_LEGACY_RUNNER_IDENTITY_ORACLE",
+  "scope": "Rootcapturedbeforeimplementation, exactoldsource96e69714/currentunit4d01ca5. ControlledI/Odelegates, genuinecohortlocal/pureaggregate. Notactualsource/native/model/hardwareproof. No inputplainvectorsorprivatepaths.",
+  "source_sha256": "96e6971435a3a2f639e7ba3d101248c8eb3fb6bc34b35fedbebdd40d673b4f29",
+  "unit_sha256": "4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b",
+  "witness_sha256": "5c0a8f8a240ca9adc176e96b418bd10629927d75deedd52fa537a067cd4b14df",
+  "raw_result_sha256": "853d8fb8aed217c6bd27e67e032ef3a3e743ab69086a6e3a6ef545471d8a69f5",
+  "scenarios": [
+    {
+      "final_payload": 1116748,
+      "final_work": 468903,
+      "identity": "sha256:2c0013b52f03ca05ca6e0ea6b388b195c2b52a856e508e008a9c47358dfeeca5",
+      "payload_bytes": 14390,
+      "payload_sha256": "2694c28baf8a954a40f052bb951ee436693b3647cf59f6fa8f841894777a6f2d",
+      "scenario": "one_no_gold",
+      "selected_cases": 1,
+      "direct_sequence": "pin once, then (pin,producer,binder) per selectedcase",
+      "sequence_sha256": "fa6a62ca14f05df4ea630b66b8bea484537a499a82205a1bba5bd4a7e3fe074a",
+      "counts": {
+        "pin": 2,
+        "producer": 1,
+        "binder": 1
+      }
+    },
+    {
+      "final_payload": 215468828,
+      "final_work": 43443983,
+      "identity": "sha256:d261868106112fae1d31dfd315d61f0e5979b998c36c8104e8b45adb3b4008bc",
+      "payload_bytes": 1127935,
+      "payload_sha256": "7a9a8df15ebd1e28b99954863d894484e91806cb7402573e34b9b2de10f61951",
+      "scenario": "full_256_no_gold",
+      "selected_cases": 256,
+      "direct_sequence": "pin once, then (pin,producer,binder) per selectedcase",
+      "sequence_sha256": "c10cc1b4740c58dc93c31789ce4c3e9a9cea8da642170bd52d449be8455aed23",
+      "counts": {
+        "pin": 257,
+        "producer": 256,
+        "binder": 256
+      }
+    },
+    {
+      "final_payload": 1979867,
+      "final_work": 640396,
+      "identity": "sha256:0552fb51a157d603648ea4da86278300f3fb851423f44729204f21c2ba9382ee",
+      "payload_bytes": 18985,
+      "payload_sha256": "e4abed132da66f5a8bb91849556c249afe7e6b5b977f7115212a79e6db37b195",
+      "scenario": "mixed_three_full_two_selected",
+      "selected_cases": 2,
+      "direct_sequence": "pin once, then (pin,producer,binder) per selectedcase",
+      "sequence_sha256": "c71882501dcd6347b2f29767db1c0f2c38c120a86f821755a312eec529767fef",
+      "counts": {
+        "pin": 3,
+        "producer": 2,
+        "binder": 2
+      }
+    }
+  ],
+  "DHA": "NONE"
+}

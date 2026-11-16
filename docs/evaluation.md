@@ -1,4 +1,4 @@
-# Canonical text evaluation foundations (objective 009, slices 009-a, 009-c, 009-d and 009-e)
+# Canonical text evaluation foundations (objective 009, slices 009-a, 009-c, 009-d, 009-e and 009-f)
 
 This document is the nonroutine evaluation reference for the 009
 software waves: the byte-exact transfer of the reviewed structural
@@ -11,10 +11,13 @@ declared-cohort metrics aggregation over supplied geometry (slice
 009-d), and the private source cohort runner — the source-running cohort
 pipeline that joins frozen split/subset selection, per-case traced raw
 hybrid producer and source-bound stage binding, and the pure cohort
-aggregation into one joined private split report (slice 009-e). Together
-they are the eleven private module API families: the nine callable
-private per-case evaluation primitives, the pure cohort-level
-aggregation and the source-running cohort runner. The routine coding
+aggregation into one joined private split report (slice 009-e), and the
+private callable graded evaluation program — the permanent private
+graded evaluation program over explicit chunk judgments executed on the
+shared source cohort loop (slice 009-f). Together they are the twelve
+private module API families: the nine callable private per-case
+evaluation primitives, the pure cohort-level aggregation, the
+source-running cohort runner and the graded evaluation program. The routine coding
 context remains unchanged; the exact per-component contracts live in the
 byte-exact transferred documents under [docs/parallel/](parallel/)
 (`text-evaluation-dataset-api.md`/`-design.md`/`-oracle.json`,
@@ -31,7 +34,13 @@ byte-exact transferred documents under [docs/parallel/](parallel/)
 `source-bound-support-ci-preparation.md`, and the 009-d
 `declared-cohort-metrics-api.md`/`-contract.md`/`-oracle.json`, and the
 009-e `source-cohort-runner-api.md`/`-contract.md`/`-binding.json`/
-`-composition.md`/`-proof-inputs.json`/`-tiny-oracle.json`).
+`-composition.md`/`-proof-inputs.json`/`-tiny-oracle.json`, and the 009-f
+`graded-evaluation-program-contract.md`/`-api.md`/`-binding.json`,
+`graded-evaluation-program-composition.md`/`-proof-inputs.json`/
+`-proof-oracle.json`/`-proof-contract.md`,
+`source-runner-legacy-identity-oracle.json`,
+`source-graded-rank-proof-contract.md`/`-composition.md`/
+`-proof-inputs.json`/`-oracle.json`).
 
 ## Provenance of the 009-a slice
 
@@ -123,6 +132,40 @@ retained in the 009-e transcript with the exact Root index
 evidence, the peer driver correction, the coding proof report, the two
 local Root admissions (runner and proof), the 009-d documentation
 precision findings and the transfer replan.
+
+## Provenance of the 009-f slice
+
+Seventeen files (230,430 bytes: two production modules — 79,975 B, one
+of them the exact minimal shared-loop replacement of the 009-e
+`source_cohort_runner.py` — three test suites — 73,822 B — and twelve
+docs/parallel contract and proof documents — 76,633 B) were transferred
+byte-exact by Git-object read from the three reviewed source SELFs
+`f4d9dbb2` (existing graded interop proof lane; report-only SELF over
+implementation `1dcf7c3e`), `45bcb729` (graded evaluation core lane;
+report-only SELF over implementation `7df7e79c`, whose sole parent is
+`f4d9dbb2`) and `e3bf5b84c` (genuine graded program proof lane;
+report-only SELF over implementation `5d79e3d6`, whose sole parent is
+`45bcb729`), per the Root-owned index
+`oap/reviews/009-f-components.json` (identical to
+`audit/009-f-components-FINAL.json`, SHA-256 `1ff91482…cd6b`): five
+existing graded proof blobs from SELF `f4d9dbb2`, seven graded
+evaluation core blobs from SELF `45bcb729` and five genuine program
+proof blobs from SELF `e3bf5b84c`. Sixteen NEW targets were verified
+absent at the round base `9ba33cd7` and the one MODIFY target verified
+against its exact indexed preimage blob `b69589c3` before copy; every
+blob was verified by Git blob ID, size and SHA-256 against immutable
+source Git objects before and after copy. The sources are reviewed
+immutable candidates, not ancestry to merge: no cherry-pick, merge or
+branch-ancestry transfer; no lower adaptation — the Root index records
+that of the 122 production/config/workflow comparison paths, 120 shared
+paths are byte-exact and the intentional `evaluation_program` NEW plus
+`source_cohort_runner` modification are the only deltas (Root replan
+`oap/reviews/009-f-replan.json`). The eight local Root records
+(including this components index) are retained in the 009-f transcript
+with the exact Root index `oap/reviews/009-f-root-records.json`
+(SHA-256 `57a170a2…de2c`): prior 009-e resolution, the transfer replan,
+the public component evidence, the three local Root admissions (graded
+proof, core, program proof) and the core peer admission.
 
 ## The six private evaluation APIs (slice 009-a)
 
@@ -508,7 +551,7 @@ binder must succeed before exactly one pure
 geometry)` pairs; there is no surviving-subset report. One monotonic
 cooperative 1–1,200,000 ms deadline covers admission, every delegate
 (clipped to 5,000 / 120,000 / 10,000 ms) and final construction; the
-frozen 22-field `Budget` of nonnegative ceilings keeps independent
+frozen 20-field `Budget` of nonnegative ceilings keeps independent
 cumulative ledgers whose large reservations are logical worst-case
 envelopes, not physical I/O authorization, and whose binder and geometry
 ledgers overlap (never added); the initial dataset parser's internal
@@ -564,7 +607,194 @@ retained, not passes of the current bytes. The scalar correction
 requires exact bounded integers for the aggregate case count and the
 binder's dataset/atom-occurrence/chosen-occurrence counts before
 independent comparison; no normal-run metrics error or privacy leak was
-observed.
+observed. Shared source loop: in slice 009-f this runner's execution
+became the private fixed `_run_cohort` loop shared with the twelfth
+family (the graded evaluation program below); the public `run_cohort`
+entry, its source-only call sequence, failure phases, report bytes,
+identity and final counters are unchanged, and the graded state is
+created and typed exclusively inside `evaluation_program`.
+
+## The graded evaluation program API (slice 009-f)
+
+The twelfth callable private module family is the permanent PRIVATE
+callable graded evaluation program — explicit chunk-judgment evaluation
+over the actual source cohort loop. It is not new metric math, a parser
+stub or a test-side recipe, and it implements no evaluate CLI, no
+filesystem report publisher and no current-policy or CPU-current-policy
+integration; those remain explicit later stages of original 009.
+
+### `evaluation_program.run_evaluation(originals, derived, root, pin_owner, dataset_bytes, cohort, queries, gold_bundle_ids, *, grants, restrictions, config, budget, plan, grade_budget, deadline_ms)`
+
+Borrowed composition (schema `slaif-graded-evaluation-program-v1`); it
+never acquires, closes, replaces or publishes the stores or the pin.
+`cohort`, `queries`, `config` and `budget` reuse the EXACT current
+`source_cohort_runner` types and source-only input contracts (`budget`
+is the unchanged source 20-field Budget). It dispatches only to fixed
+module code through the runner's private fixed shared loop and makes its
+own state from fully validated declarations — no arbitrary callback,
+duck/subclass mode, caller-supplied successful DTO, monkeypatch or
+duplicate producer/binder exists on the path, and internal state is not
+a public admission credential.
+
+`Judgments(case_id, gold)`: `gold` is the exact tuple of sorted
+strictly-increasing unique `(actual_chunk_id, grade)` pairs — chunk IDs
+`sha256:` + 64 lowercase hex, grade exact int 0..3; an empty gold tuple
+is valid and distinct from a missing case. Every judged ID, including
+grade-0 and unretrieved positive IDs, must be source-grounded under the
+case's EFFECTIVE authority; zero grade does not waive authorization, and
+gold-requirement grades, OR/AND structure and source spans never
+determine these judgments.
+
+`Plan(plan_id, dataset_id, split_id, snapshot_id, generation, catalog_id,
+protocol_id, unknown_policy, overlap_policy, cutoffs, judgments)`:
+`unknown_policy` exactly `UNJUDGED_AS_ZERO_DIAGNOSTIC`, `overlap_policy`
+exactly `EXPLICIT_CHUNK_IDS_ONLY` (declared numerical semantics, not
+human approval or semantic relevance); `generation` exact int
+1..2^63−1; `cutoffs` an exact ascending tuple of 1..16 ints in 1..4,096
+that includes 20 and 60; `judgments` holds exactly one `Judgments` per
+selected case in selected sorted case order (no omitted or extra case).
+The scoring unit is the frozen-snapshot chunk ID; the variants are the
+fixed dense/lexical/fusion set — no arbitrary variant or pipeline
+injection.
+
+`GradeBudget(source_directories, source_ingestion_loads,
+source_derived_batch_loads, source_bytes, pin_calls, catalog_calls,
+judgment_binding_calls, metric_aggregate_calls, metric_entries,
+metric_work, local_work, local_payload, report_bytes)` is the
+thirteen-field ADDITIONAL envelope bounded by the Root binding
+(`grade_budget_max`: 1,540 / 853,888 / 919,808 / 719,781,365,958,412 /
+514 / 513 / 256 / 3 / 196,608 / 6,291,456 / 134,217,728 / 268,435,456 /
+12,582,912). It is additional to, and never replaces or widens, the
+source Budget; it is a logical worst-case reservation, never permission
+for physical I/O, native or inference work, and no caller flag changes
+qualification.
+
+Admission is ALL-CASE and happens BEFORE any pin, source or producer
+work: the full source dataset/cohort/query/Gold/authority admission
+first, then the entire plan, every judgment, every cutoff and both
+budgets, the exact dataset/split IDs, the full selection/query joins,
+scalar/ID/ordering/duplicate grammar and the cumulative input/scorer/
+source/local/output reservations — duplicate query identities across
+selected cases are refused before source, and no case is ever omitted
+or filtered. The per-variant scorer reservations (E =
+Σ(g_i+60) ≤ 65,536 entries and W = Σ((g_i+60)·Ck + g_i·max(1,
+bit_length(max(1,g_i)−1))) ≤ 2,097,152 work, each g_i ≤ 4,096) are
+reserved for all THREE variants before any producer. The plan identity
+is a domain-separated SHA-256 under `slaif-graded-evaluation-plan-v1`
+plus one LF over canonical sorted-key ASCII compact JSON (no NaN, ≤ 8 MiB
+encoding) binding all Plan fields and judgments, the current admitted
+dataset/split/cohort/config, the query payload hashes/fingerprints, the
+complete Gold bundle tuple and the original/effective authority hashes —
+private linkable metadata, not attestation; no plaintext question or
+vector appears in the plan identity.
+
+Under the held pin the per-case source path is unchanged: the per-case
+pin observation, one genuine traced `raw_hybrid_search.search` at all
+caps 60 with the per-case EFFECTIVE grants, one genuine
+`source_bound_stage_loss.bind_stages` with the ORIGINAL grants over the
+FULL dataset and ALL Gold bundles, and the current case checks. The
+grade path then adds, per case: one grade-owned owner observation BEFORE
+and AFTER one genuine `source_bound_ranking.bind` of the ENTIRE judged
+ID tuple (including empty) under the effective case
+grants/restrictions and the expected snapshot/catalog, requiring the
+exact returned `BoundRanking`, exact ordered IDs, snapshot/catalog/
+authority and native-source identities (an empty tuple stays
+`NO_SELECTED_SOURCE_VALIDATED`, not proof of source eligibility); it
+then extracts the entire actual ordered variant hit-ID tuples,
+preserving unjudged rank gaps and unretrieved positives. One additional
+genuine `raw_snapshot_catalog.load_catalog` runs in the CATALOG phase
+against the captured snapshot; grade-owned owner observations total
+exactly 2+2N and extra catalogs 1+2N. A case completes only after BOTH
+source and graded grounding/ranking collection succeed.
+
+Only after ALL cases succeed are the source-only pure aggregate, its
+exact source-only report bytes/identity and final counters preserved,
+then exactly THREE genuine `supplied_rank_metrics.aggregate` calls run —
+one per dense/lexical/fusion variant — on all actual
+`(query_id, gold, ranking)` triples sorted by real query ID, with ZERO
+direct `score_query` calls and no double scoring; the three variants are
+separate means, never one mixed denominator, and empty/all-zero positive
+gold remains counted and undefined. Metric markers stay
+`SUPPLIED_UNIT_ID`/`SUPPLIED_UNVERIFIED`/`NOT_QUALIFIED` with separate
+outer source-grounding metadata that describes only the supplied
+effective scope. One LAST grade-owned pin observation and deadline check
+(FINAL_PIN) precede return; no report is emitted on stale, cancel or
+refusal.
+
+`Report(identity_payload, identity, plan_identity, final_work,
+final_payload)` is the exact frozen private data (schema
+`slaif-graded-evaluation-program-v1`). The outer report embeds the
+already-verified exact source-report identity payload once as a raw JSON
+value, preserving its distinct v1 ordered encoding, and is bounded by
+the component formula 65,536 + 2,048N + 1,642,496 +
+3·(N·(1,024+448·Ck) + 4,096+512·Ck) (8,560,640 B at N=256/Ck=16; hard
+report cap 12,582,912 B). It carries plan/dataset/split/selection
+identities and counts, the captured snapshot/generation/catalog, the
+source report identity/payload/final totals, bounded per-case
+case/query/authority/grounding IDs and judgment fingerprints, the three
+metric aggregate summaries and all per-query metric results — no raw
+question, source, vector, path, hit list, grade list, trace or callee
+exception. One cooperative monotonic 1..1,200,000 ms deadline covers
+entry to return, clipped per lower delegate (catalog/owner/producer/
+binder 120,000, judged-ID binding 30,000, dataset 5,000, source
+aggregate 10,000, each metric aggregate 5,000); it is never reset
+between cases or delegates.
+
+Every ordinary failure refuses the WHOLE call — no partial report or
+aggregate — raising exactly `EvaluationError('evaluation program
+refused') from None` with read-only `progress`: `None` until complete
+joint admission, then the exact frozen `FailurePrefix(phase, intended,
+attempted, completed, refused, pending)` over the fixed thirteen phases
+`PREFLIGHT, CATALOG, CASE_PIN, PRODUCER, BINDER, GRADE_PIN, GRADE_BIND,
+GRADE_CASE, SOURCE_AGGREGATE, SOURCE_SERIALIZE, GRADE_AGGREGATE,
+SERIALIZE, FINAL_PIN` (attempted increments before the case pin;
+completed only after source AND graded collection;
+`completed + refused = attempted`). `BaseException` propagates as an
+interruption; borrowed resources are never closed; a returned source
+report held internally on later failure is not returned or published.
+
+Shared source loop: the runner's public `run_cohort` now dispatches to
+the private fixed `_run_cohort` that both entry points share. The
+source-only path is behaviorally unchanged — same signature/argument
+order, source-only imports and delegates, Budget/reservations, call
+sequence, old failure phases, cancellation, exact report bytes,
+identity and final counters — and regresses against the three
+pre-implementation legacy identity goldens captured by Root
+(`source-runner-legacy-identity-oracle.json`: 1-case no-Gold, full 256
+no-Gold and mixed 3-full/2-selected). The graded state is created,
+strictly typed and consumed only inside `evaluation_program`; the
+absent-state path cannot take any graded branch or import
+`evaluation_program`.
+
+Attributed source-lane evidence (exact records in
+`oap/reviews/009-f-local-core-admission.json`,
+`oap/reviews/009-f-local-program-proof-admission.json`,
+`oap/reviews/009-f-local-graded-proof-admission.json` and
+`oap/reviews/009-f-core-peer-admission.json`): the core lane passed
+AST-equivalent format, Ruff and 98 controlled units (the 54 unchanged
+old source-runner units plus 44 new) including the three controlled
+legacy identity goldens and the full-256-case moderate synthetic check —
+controlled delegates and genuine pure metrics, not source/model
+execution. The existing lower graded interop lane passed ONE actual
+two-query synthetic process: two producers, three stage binders, five
+external judged-ID groundings, six direct query scores, three
+aggregates and four real refusals; one generator exit 0 and six captured
+session wrappers deliberately closed/reaped 143. The genuine program
+proof lane passed exactly ONE whole-module v3 test node: the full
+5-case / 7-Gold / 3-bundle source universe with h1/h4 selection, direct
+totals owner 19 / producer 6 / binder 6 / source aggregate 2 /
+pre-catalog 2 / grade binder 4 / rank aggregate 3 / direct score 0,
+exact legacy source-only output equivalence, bool preflight 0, later
+ineligible b:0 grade-bind refusal `2/2/1/1/0`, closed pin
+`2/0/0/0/2`, six real captured wrappers closed/reaped 143 and ZERO
+generators via one cached data-only fixture; observer SELF+waited
+CHILDREN CPU delta 64.584229 s, observer wall 65.29573054192588 s,
+launcher child wall 65.777162 s, launcher waited-child CPU 65.039091 s
+(distinct scopes), pytest SELF peak 94,252 KiB = 92.04296875 MiB and
+waited children max RSS 72,036 KiB — high waters, non-additive and not
+deltas or address space. The initial broad read/lane-isolation FAIL
+(fresh semantic 341,392 B exceeding the 262,144 B allowance by 79,248
+B) is retained as a historical failure, not a pass.
 
 ## Input contracts and bounds
 
@@ -572,7 +802,9 @@ Every deadline is cooperative (checked between steps; it cannot preempt a
 running operation) and is an int in 1–30,000 ms except gold binding, raw
 text stage support and source-bound stage loss (1–120,000 ms), and
 declared stage geometry plus the 009-d declared cohort metrics
-(1–10,000 ms) and the 009-e source cohort runner (1–1,200,000 ms). All
+(1–10,000 ms), and the 009-e source cohort runner and the 009-f
+graded evaluation program (1–1,200,000 ms, the program clipped per
+lower delegate as above). All
 refusals are content-free; `BaseException` subclasses propagate. The
 pre-009-d family fingerprints are domain-separated sha256 over canonical
 sorted-key ASCII JSON of the exact supplied inputs, per component
@@ -774,26 +1006,33 @@ system, network, license or provenance closure. Public component
 evidence retains exact hashes and attribution without raw private input
 (`oap/reviews/009-e-component-evidence.json`).
 
-Original objective 009 remains OPEN/PARTIAL: this continuation is
-static transfer plus documentation in the canonical lane (no local
-source run), and no merge, next numeric objective or whole-MVP claim
-follows from it.
+Original objective 009 remains OPEN/PARTIAL: the 009-f continuation,
+like 009-a through 009-e, is static transfer plus documentation in the
+canonical lane (no local source run); the private publisher, the named
+plan/evaluate CLI, current-policy verification and the representative
+baseline remain unfinished, and no merge, next numeric objective or
+whole-MVP claim follows from it.
 
 ## Unit oracles versus real held-out and actual queries
 
-The eleven unit suites (six 009-a, three 009-c, one 009-d and one
-009-e) exercise the copied synthetic fixtures and the
+The twelve unit suites (six 009-a, three 009-c, one 009-d, one 009-e
+and one 009-f) exercise the copied synthetic fixtures and the
 `docs/parallel/*-oracle.json` vectors (the 009-d suite: 33 tests against
 the frozen cohort oracle and genuine lower geometry; the 009-e suite:
 54 controlled cases — the original 35 plus 19 scalar-admission
 variants — against the exact corrected runner DTOs, with binder
 refusals preceding aggregation and pure-report refusals following one
-real controlled aggregate): they prove the mathematics, the admission
+real controlled aggregate; the 009-f suite: 44 new graded program
+units over plan/judgment/grade-budget admission, failure prefixes and
+no-subset refusal, running in the source lane alongside the 54
+unchanged old source-runner units): they prove the mathematics, the admission
 boundaries and the negative paths, not retrieval quality; the 009-c
 integration suites are the synthetic source-backed composition proofs
-described above and the 009-e integration suite is the one actual
-synthetic composition proof described in the harness section — likewise
-not a baseline. The
+described above, the 009-e integration suite is the one actual
+synthetic composition proof described in the harness section, and the
+009-f integration suites are the one actual two-query synthetic lower
+graded interop proof and the one actual whole-module genuine graded
+program proof v3 described above — likewise not a baseline. The
 real raw baseline additionally requires human-approved representative
 held-out questions, corpus rights, current principal/policy authorization
 and a qualified real encoder; those gates are missing, so the baseline is

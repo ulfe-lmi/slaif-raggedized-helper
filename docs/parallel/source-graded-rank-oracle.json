@@ -1,0 +1,107 @@
+{
+  "status": "FINAL_ROOT_INDEPENDENT_PREEXECUTION_ORACLE",
+  "schema": "source-graded-rank-interop-oracle-v1",
+  "source_base_SELF": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+  "provenance": "Root authored arithmetic from fixed synthetic sourceonehotfixture and explicit independent grade3 declaration before newinterop execution. Doesnotattestmeaningfulhumanjudgments.",
+  "unit": "actual frozen-snapshot chunk ID identified through source logical name; never synthetic replacement ID",
+  "cases": {
+    "h1": {
+      "explicit_judgments": {
+        "a": 3
+      },
+      "c": "UNJUDGED_AS_ZERO_FOR_NUMERICAL_DIAGNOSTIC_ONLY",
+      "positive_gold_count": 1
+    },
+    "h4": {
+      "explicit_judgments": {},
+      "positive_gold_count": 0
+    }
+  },
+  "cutoffs": [
+    1,
+    2,
+    20,
+    60
+  ],
+  "rankings_logical_names": {
+    "dense": [
+      "c",
+      "a"
+    ],
+    "lexical": [
+      "c"
+    ],
+    "fusion": [
+      "c",
+      "a"
+    ]
+  },
+  "h1_at_k": {
+    "1": {
+      "all_variants": {
+        "recall": 0,
+        "reciprocal_rank": 0,
+        "ndcg": 0,
+        "dcg": 0,
+        "idcg": 7,
+        "relevant_returned": 0,
+        "undefined_reason": null
+      }
+    },
+    "2_20_60": {
+      "dense_and_fusion": {
+        "recall": 1,
+        "reciprocal_rank": 0.5,
+        "ndcg_symbolic": "1/log2(3)",
+        "ndcg_decimal": 0.6309297535714575,
+        "dcg_symbolic": "7/log2(3)",
+        "idcg": 7,
+        "relevant_returned": 1,
+        "undefined_reason": null
+      },
+      "lexical": {
+        "recall": 0,
+        "reciprocal_rank": 0,
+        "ndcg": 0,
+        "dcg": 0,
+        "idcg": 7,
+        "relevant_returned": 0,
+        "undefined_reason": null
+      }
+    }
+  },
+  "h4_all": {
+    "recall": null,
+    "reciprocal_rank": null,
+    "ndcg": null,
+    "dcg": 0,
+    "idcg": 0,
+    "relevant_returned": 0,
+    "undefined_reason": "UNDEFINED_EMPTY_POSITIVE_GOLD"
+  },
+  "returned_at_k": "min(k,len(actual variant ranking))",
+  "per_variant_aggregate": {
+    "total_queries": 2,
+    "defined_queries": 1,
+    "undefined_empty_gold_queries": 1,
+    "means": "same h1 values for that variant/cutoff, empty-positive h4 excluded numerically but retained/counts; do not halve means or drop case"
+  },
+  "float_tolerance": {
+    "rel_tol": 1e-12,
+    "abs_tol": 1e-12
+  },
+  "direct_calls": {
+    "producer": 2,
+    "stage_binder": 3,
+    "external_judged_id_grounding": 5,
+    "score_query": 6,
+    "aggregate": 3
+  },
+  "normal_fixture": {
+    "generator": 1,
+    "session_wrappers": 6,
+    "limitation": "captured normal-path wrapper reaps, not whole descendant guarantee"
+  },
+  "scope": "Two diagnostic selected cases from full5dataset/all7Gold/all3bundles. Doesnotreduce existing1..256cohortcontract or replace prior4-case proof; no graded evaluation program/CLI implemented by this interoperability test.",
+  "DHA": "NONE"
+}

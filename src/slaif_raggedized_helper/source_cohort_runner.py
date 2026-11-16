@@ -1046,7 +1046,6 @@ def _serialize(
     return _finish_outer(pieces, size, meter, clock)
 
 
-
 def _hash_identity(domain, payload):
     import hashlib
 
@@ -1084,6 +1083,7 @@ def _finish_outer(pieces, size, meter, clock):
     clock.check()
     meter.reserve(16, 256)
     return CohortReport(payload, identity, meter.work, meter.payload)
+
 
 def _admit_dataset(*args, **kwargs):
     from . import text_evaluation_dataset
@@ -1130,9 +1130,45 @@ def run_cohort(
     deadline_ms,
 ):
     """Run the entire supplied cohort or refuse without returning partial metrics."""
+    return _run_cohort(
+        originals,
+        derived,
+        root,
+        pin_owner,
+        dataset_bytes,
+        cohort,
+        queries,
+        gold_bundle_ids,
+        grants=grants,
+        restrictions=restrictions,
+        config=config,
+        budget=budget,
+        deadline_ms=deadline_ms,
+    )
+
+
+def _run_cohort(
+    originals,
+    derived,
+    root,
+    pin_owner,
+    dataset_bytes,
+    cohort,
+    queries,
+    gold_bundle_ids,
+    *,
+    grants,
+    restrictions,
+    config,
+    budget,
+    deadline_ms,
+    _grade=None,
+    _started=None,
+):
+    """Fixed source loop; optional grading state is created only by its module."""
     import time
 
-    started = time.monotonic()
+    started = time.monotonic() if _started is None else _started
     admitted = False
     phase = "PREFLIGHT"
     intended = attempted = completed = 0
@@ -1153,10 +1189,32 @@ def run_cohort(
             budget,
             clock,
         )
+        if _grade is not None:
+            from . import evaluation_program as graded
+
+            if type(_grade) is not graded._State:
+                raise ValueError
+            graded._prepare(
+                _grade,
+                dataset,
+                selected,
+                selection,
+                cohort,
+                queries,
+                gold_bundle_ids,
+                config,
+                budget,
+                clock,
+            )
         intended = len(selected)
         admitted = True
         meter.reserve(1)
+        if _grade is not None:
+            phase = "CATALOG"
         captured = _pin_observation(pin_owner, originals, derived, root, None, meter, clock)
+        if _grade is not None:
+            phase = "CATALOG"
+            graded._catalog(_grade, originals, derived, root, pin_owner, captured, clock)
         metadata = []
         pairs = []
         binder_work = binder_payload = 0
@@ -1233,11 +1291,28 @@ def run_cohort(
                 raise ValueError
             binder_work += diagnosis.final_work
             binder_payload += diagnosis.final_payload
+            if _grade is not None:
+                phase = "GRADE_PIN"
+                graded._case(
+                    _grade,
+                    originals,
+                    derived,
+                    root,
+                    pin_owner,
+                    captured,
+                    case,
+                    effective,
+                    restricted,
+                    result,
+                    item,
+                    clock,
+                )
+                phase = "GRADE_CASE"
             meter.reserve(4, 256)
             metadata.append(item)
             pairs.append((case.case_id, diagnosis.geometry))
             completed += 1
-        phase = "AGGREGATE"
+        phase = "SOURCE_AGGREGATE" if _grade is not None else "AGGREGATE"
         meter.reserve(len(pairs) + 1, 128 * len(pairs))
         pairs = tuple(pairs)
         clock.check()
@@ -1248,7 +1323,7 @@ def run_cohort(
             max_payload=budget.aggregate_payload,
         )
         clock.check()
-        phase = "SERIALIZE"
+        phase = "SOURCE_SERIALIZE" if _grade is not None else "SERIALIZE"
         payload = _pure_payload(
             aggregate, pairs, meter, clock, budget.aggregate_work, budget.aggregate_payload
         )
@@ -1266,13 +1341,35 @@ def run_cohort(
             meter,
             clock,
         )
+        if _grade is not None:
+            phase = "GRADE_AGGREGATE"
+            return graded._finish(
+                _grade,
+                report,
+                dataset,
+                cohort,
+                selection,
+                config,
+                captured,
+                pin_owner,
+                originals,
+                derived,
+                root,
+                clock,
+            )
         clock.check()
         return report
     except Exception:
-        progress = None
-        if admitted:
-            refused = 1 if phase in ("CASE_PIN", "PRODUCER", "BINDER") else 0
-            progress = FailurePrefix(
-                phase, intended, attempted, completed, refused, intended - attempted
-            )
-        raise CohortRunnerError(progress) from None
+        if _grade is not None:
+            from . import evaluation_program as graded
+
+            grade_error = graded._failure(_grade, admitted, phase, intended, attempted, completed)
+        else:
+            progress = None
+            if admitted:
+                refused = 1 if phase in ("CASE_PIN", "PRODUCER", "BINDER") else 0
+                progress = FailurePrefix(
+                    phase, intended, attempted, completed, refused, intended - attempted
+                )
+            raise CohortRunnerError(progress) from None
+    raise grade_error from None

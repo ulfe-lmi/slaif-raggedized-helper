@@ -1,8 +1,8 @@
 # Project status
 
-## Current state (2026-11-13)
+## Current state (2026-11-16)
 
-- Current (2026-11-13): active objective 009, current slice 009-e
+- Current (2026-11-16): active objective 009, current slice 009-f
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -126,11 +126,55 @@
   not aggregate hard bounds); the first inventory and first collection
   guard failures were retained with the separately corrected checks
   passing; Root independently ran ten controlled cleanup cases once
-  (PASS; coding author did not rerun). Whole 009 remains PARTIAL: the
-  source-running cohort harness and joined private split report are now
-  implemented software (009-e) and ONE tiny synthetic composition proof
-  exists — a weaker substitute for the required representative real
-  baseline; no real-model retrieval quality, human held-out data,
+  (PASS; coding author did not rerun). Slice 009-f is the
+  graded-evaluation-program wave: byte-exact 17-file transfer (230,430 B:
+  two production modules — 79,975 B, one of them the exact minimal
+  shared-loop replacement of source_cohort_runner.py — three test suites
+  — 73,822 B — and twelve docs/parallel contract/proof documents —
+  76,633 B) from the reviewed source SELFs f4d9dbb2 (existing graded
+  interop proof; implementation 1dcf7c3e), 45bcb729 (graded evaluation
+  core; implementation 7df7e79c over f4d9dbb2) and e3bf5b84c (genuine
+  program proof; implementation 5d79e3d6 over 45bcb729) per
+  oap/reviews/009-f-components.json (SHA-256 1ff91482…cd6b): sixteen NEW
+  plus one MODIFY verified against its exact preimage b69589c3, copied
+  by immutable Git object and re-verified by blob ID/size/SHA-256; no
+  lower adaptation (120 of 122 shared production/config/workflow paths
+  byte-exact, the two intentional deltas only). It implements the
+  private callable graded evaluation program
+  evaluation_program.run_evaluation — all-case plan/judgment/cutoff/
+  grade-budget admission before any pin/source/producer, per-case
+  grade-owned pin bracketing one genuine explicit judged-ID source
+  binding under effective authority, one additional catalog load, the
+  exact source-only report preserved, exactly three supplied metric
+  aggregates (one per dense/lexical/fusion variant, zero direct score
+  queries) only after all cases succeed, the private graded report
+  embedding the source identity payload once, thirteen fixed failure
+  phases and whole-call refusal with no surviving subset — the twelfth
+  private module API family; the runner's public source-only behavior is
+  unchanged and regressed against the three pre-implementation legacy
+  identity goldens. Attributed source-lane evidence, not rerun: 98
+  controlled units (54 unchanged old runner + 44 new) with the three
+  legacy identity goldens and the full-256 moderate synthetic check; ONE
+  actual two-query synthetic lower graded interop process (two producer
+  / three stage binder / five judged-ID grounding / six direct score /
+  three aggregate, four real refusals; one generator exit 0, six
+  wrappers reaped 143); ONE actual whole-module genuine graded program
+  proof v3 (full 5-case/7-Gold/3-bundle universe, h1/h4 selection;
+  direct totals owner 19 / producer 6 / binder 6 / source aggregate 2 /
+  pre-catalog 2 / grade binder 4 / rank aggregate 3 / direct score 0;
+  exact legacy source-only output equivalence; bool preflight 0, later
+  ineligible b:0 GRADE_BIND 2/2/1/1/0, closed pin CATALOG 2/0/0/0/2; six
+  real captured wrappers closed/reaped 143; zero generators via one
+  cached data-only fixture; observer SELF+waited CHILDREN CPU delta
+  64.584229 s, pytest SELF peak 94,252 KiB = 92.04296875 MiB, children
+  max RSS 72,036 KiB — distinct scopes, not additive); the initial broad
+  read/lane-isolation FAIL (fresh semantic 341,392 B > 262,144 B
+  allowance by 79,248 B) is retained, not a pass. Whole 009 remains
+  PARTIAL: the source-running cohort harness and joined private split
+  report are now implemented software (009-e) and the private graded
+  evaluation program over the shared source loop (009-f) — each backed
+  by tiny synthetic composition proofs only — weaker substitutes for the
+  required representative real baseline; no real-model retrieval quality, human held-out data,
   corpus rights/current principal-policy authority or qualified
   encoder, and no real baseline (raw baseline NOT RUN); the 1–256-case
   / 512-Gold runner admission and the 512-row catalog diagnostic bound

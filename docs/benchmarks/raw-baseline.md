@@ -2,13 +2,14 @@
 
 This document records the declared methodology of the raw retrieval
 baseline that will be measured once the missing gates are available. As
-of slices 009-a, 009-c, 009-d and 009-e it contains NO real baseline
-results: no quality, latency or sample measurements, no model IDs and no
+of slices 009-a, 009-c, 009-d, 009-e and 009-f it contains NO real
+baseline results: no quality, latency or sample measurements, no model IDs and no
 quality claims. Every baseline number below is a declared bound, formula
 or variant definition; the attributed software test counts cited in the
-evaluation docs (51/45/54 unit cases, eight-attempt composition proofs
-and one synthetic cohort composition proof) are distinct software
-evidence, not held-out samples. The current baseline state is **NOT
+evaluation docs (51/45/54/98 unit cases, eight-attempt composition
+proofs, one synthetic cohort composition proof, one two-query synthetic
+graded interop proof and one whole-module genuine graded program
+proof) are distinct software evidence, not held-out samples. The current baseline state is **NOT
 RUN**.
 
 ## Pipeline variants
@@ -69,8 +70,8 @@ remain `SUPPLIED_UNIT_ID` until a real adapter binds them to originals.
 
 ## Current state: NOT RUN
 
-009-a, 009-c, 009-d and 009-e are static byte-exact transfers plus
-documentation in the canonical lane: no real approved evaluation dataset
+009-a, 009-c, 009-d, 009-e and 009-f are static byte-exact transfers
+plus documentation in the canonical lane: no real approved evaluation dataset
 and no baseline were measured; the coding local work was static (no
 local or CI baseline run occurred and no encoder was executed). Slice
 009-c additionally integrates the reviewed source-backed stage
@@ -84,7 +85,16 @@ declared split/subset selection, per-case traced producer and
 source-bound stage binding and one pure aggregation only after complete
 success into the joined private split report, plus its one bounded
 synthetic composition proof (four outer attempts, seven producer / six
-binder / one aggregate direct calls, no surviving subset). The runner's
+binder / one aggregate direct calls, no surviving subset), and slice
+009-f the reviewed private graded evaluation program: the callable
+`evaluation_program.run_evaluation` over explicit chunk judgments on
+the shared source cohort loop (the twelfth private evaluation module
+family; the source-only runner behavior is unchanged and regressed
+against the three pre-implementation legacy identity goldens), with its
+two further synthetic-only proofs (one actual two-query lower graded
+interop process and one actual whole-module genuine graded program
+proof v3 with zero generators via one cached data-only fixture) — still
+no source-run baseline. The runner's
 1–256-case and 512-Gold admission values are software bounds, not
 physical permission or an invented pilot reduction; the bounded 512-row
 catalog diagnostic (the joined geometry/source-binder components admit
@@ -130,5 +140,10 @@ directory; the 009-e source-cohort-runner slice (source SELFs `91f31182`
 runner and `5ffef4c1` proof, per
 `oap/reviews/009-e-components.json`, SHA-256 `b73448cf…c55c8e6`) adds
 the runner contract, binding, API, composition and proof documents under
-the same directory. None of these changes the declared methodology or
+the same directory; the 009-f graded-evaluation-program slice (source
+SELFs `f4d9dbb2` existing proof, `45bcb729` core and `e3bf5b84c`
+genuine proof, per `oap/reviews/009-f-components.json`, SHA-256
+`1ff91482…cd6b`) adds the graded program contract, API, binding, legacy
+identity oracle, composition and proof documents under the same
+directory. None of these changes the declared methodology or
 any measured result; the real baseline state is unchanged: NOT RUN.

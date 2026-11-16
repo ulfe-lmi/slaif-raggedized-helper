@@ -1,0 +1,88 @@
+{
+  "DHA": "NONE",
+  "actual": {
+    "after_sha256": "2648cce17f15b4697edc63c2208e05a0d5a7939de07962005f27acd15afa1e54",
+    "approval_sha256": "2ce83c570b1997a264675069478bae93866c86613688870eb22488ca766a858b",
+    "captured_wrapper_exit_codes": [
+      143,
+      143,
+      143,
+      143,
+      143,
+      143
+    ],
+    "cleanup_failures": 0,
+    "generator_exit": 0,
+    "launcher_wall_seconds": 33.014180924743414,
+    "lifecycle_sha256": "b4d7c64e3ae7b284a5ac2431d685aed6c92cdf5cb5c9b97415694a95ce2dfc9b",
+    "limits": "child CPU120s AS2GiB wall240s; outer CPU180s AS2GiB wall360s; CPU0 FSIZE16MiB CORE0; sampled log2MiB each and scratch256MiB/4096 entries",
+    "limits_qualification": "per-process and sampled; not hard aggregate or whole-tree guarantees",
+    "request_sha256": "8ab58493f27205a12c30ee4211f25b382949bdc14bc051bb2c2e2c2096758d7b",
+    "result": "PASS_ROOT_REVIEWED",
+    "sampled_entries": 74,
+    "sampled_scratch_bytes": 285067,
+    "summary_sha256": "b8167e953098fc95e2245034961447d031c747a86b8c9d07e71f762a884e889b"
+  },
+  "authority": "original one+two/v1/secret and unchanged restrictions; effective one/v1/no labels",
+  "base_SELF": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+  "baseline": "NOT_RUN",
+  "bundles": 3,
+  "contract_sha256": "9dc996687a4180cb26aea4fe54736c77a7117ab2675239ea94c8b93e9c35ef14",
+  "cutoffs": [
+    1,
+    2,
+    20,
+    60
+  ],
+  "dataset_cases": 5,
+  "direct_calls": {
+    "aggregate": 3,
+    "external_judged_id_grounding": 5,
+    "producer": 2,
+    "score_query": 6,
+    "stage_binder": 3
+  },
+  "driver_sha256": "d3c905a64634ce9c0596d126da57a8cb6fefa860496749140ababb1d20f32639",
+  "evaluation_program": "NOT_IMPLEMENTED",
+  "failure_history": "No actual process failure or retry. Pre-authorization Root reviews required guarded cleanup note and inclusion of two runtime-opened worker files; prior requests retained.",
+  "gold_atom_occurrences": 7,
+  "internal_work": "separate and not additive; aggregate rescores",
+  "inventories": {
+    "external": {
+      "bytes": 250534525,
+      "files": 2632,
+      "sha256": "1bfdd37f93b49bfb9fef65c7cfe680370b968f3e38460b6f71ec4dce6a9ba7c8"
+    },
+    "local": {
+      "bytes": 988573,
+      "files": 79,
+      "sha256": "53e1f82d80fdb8cf6f6e9891d292b642e870b45c0e2d2418377f53f2a6a9af69"
+    },
+    "qualification": "named inputs matched; dynamic/native/linker/OS closure not certified",
+    "supplemental": {
+      "bytes": 6539565,
+      "files": 265,
+      "sha256": "8e9bd61cff0648037a7e19d88e3e6041e562de67a85ba18ea9581e5f945132f2"
+    }
+  },
+  "joins": "private actual source, case, split, query, snapshot, catalog and authority identities; aggregate triples sorted by query ID",
+  "oracle_sha256": "cea83b46fa74ec2c31217fd3544ffd2f842e7480bb00142fb42f67460f90c856",
+  "original_009": "OPEN",
+  "phase_a": {
+    "approval_sha256": "d06b3ac1c7a4e44f1b178535f12ae819a518c2ca48b05f5996c2f8907d96af4e",
+    "result": "PASS_FORMAT_RUFF_WHOLE_MODULE_COLLECTION",
+    "test_body_run": false
+  },
+  "selected_cases": 2,
+  "source_hashes_sha256": {
+    "hybrid": "ab1f804150362ca240e25fcfdf167725800adb7771cf85fbaefed6628b9b1a14",
+    "metrics": "508e9e7ff0e71a5ea321d0f25b3e88f5c80b61ebe4df90e16e9c7b9ca3d4dcb6",
+    "ranking_binder": "66871234a20109aac4984ff101c353267c95f405f4aa7fe4cb6cd6a84015ab88",
+    "source_cohort_runner": "96e6971435a3a2f639e7ba3d101248c8eb3fb6bc34b35fedbebdd40d673b4f29",
+    "source_cohort_test": "065b2cb4c2e67c35f4a76987cfeb991d65fd6e039f50de8dcd852cbe08794124",
+    "source_fixture": "ad6d3a1f7a669deb73fd972185dab92ba3938a215c4940363ef48f8b387ad854",
+    "stage_binder": "168fca4b151c01c89a66ac1fe50d907758fe8402ea24c0c30303a9aea92773b8"
+  },
+  "status": "ONE_SYNTHETIC_PROCESS_PASS_ROOT_REVIEWED",
+  "synthetic_judgments": "h1 source a grade 3; h4 empty; c unjudged treated as zero for this diagnostic only"
+}
