@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-16T18:44:12.998620+00:00",
+  "exit": 0,
+  "stdout": "{\"expanded_ten_fields\": \"TYPE_ERROR\", \"single_sequence_size\": 3145728, \"ok\": true}\n",
+  "stderr": "",
+  "stdout_bytes": 83,
+  "stderr_bytes": 0,
+  "scope": "ROOT_STDLIB_VALUE_METADATA_ONLY_NOT_PRODUCT_OR_CI"
+}
