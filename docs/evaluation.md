@@ -990,6 +990,76 @@ data/rights/CLI/plan/publisher/native-OS/20k/hardware/visual/
 security/license/merged-ICA/MVP/release gates remain open; no
 010, no merge.
 
+## The 009-j bounded unit diagnostics (same 009 continuation)
+
+Slice 009-i's report head `a7ad70b` CANCELLED hosted CI run
+43962945486 (terminal): three jobs SUCCESS (the three OAP legs)
+and both product jobs (3.12 job 133634863960, 3.14 job
+133634863970) CANCELLED by the unchanged 20-minute product job
+limit, with both check-runs annotated "The job has exceeded the
+maximum execution time of 20m0s". The raw terminal API returned
+76 steps - 60 completed SUCCESS, 2 unit steps still labelled
+in_progress, 14 downstream pending - with the usual two
+Complete job steps absent; that inconsistency is preserved and
+never promoted to success. The precise blocked node and
+underlying cause remain UNPROVEN: both connector log retrievals
+returned 404 BlobNotFound and `gh --log` returned 0 bytes (not
+evidence of unit execution or success), and the earlier 009-h
+3.12 exit-137 cause also remains UNPROVEN (Root resolution
+`oap/reviews/009-j-prior-resolution.json`).
+
+The 009-j change (order
+`oap/orders/009-j-bounded-unit-diagnostics.md`) is diagnostic-only
+and preserves the complete suite: the Product test suite step
+alone changes from `/usr/bin/time -v uv run pytest tests/unit -o
+addopts= -vv` to
+`PYTHONUNBUFFERED=1 /usr/bin/time -v /usr/bin/timeout
+--signal=TERM --kill-after=10s 180s uv run pytest tests/unit -o
+addopts= -vv -o faulthandler_timeout=60`, gated by executable
+checks for both `/usr/bin/time` and `/usr/bin/timeout` (the
+workflow moves 14,169 B `556fa14d...` to 14,317 B
+`fc1ba2cd...`; every other workflow byte is unchanged). This
+disclosed 180-second unit-command deadline is LOWERED relative
+to the 20-minute job limit: on expiry `timeout` sends TERM
+(KILL after 10 s if necessary); a timeout or any nonzero exit
+fails the step and never becomes success. Missing tools fail
+loudly; there is no install, shell pipeline, background process,
+status mask, continue-on-error or retry, and no selector,
+filter, skip, xfail or splitting: all default test nodes, the
+full unit order/set, both matrix legs, the 20-minute product
+job limit and every downstream integration/OAP/governance/
+help/doctor gate remain unchanged. The builtin
+`faulthandler_timeout=60` only requests a stack dump during a
+long test - not test cancellation, cause proof or an OS
+containment guarantee; `PYTHONUNBUFFERED=1` reduces lost
+progress output only. External `time`/`timeout` change ancestry
+and resource-observation boundaries only: they establish no
+aggregate/live-tree accounting, descendant adoption/reap,
+escaped-child containment, exact allocation or OOM cause, and a
+printed stack or last node is localization only. A command
+exceeding 180 s may be a legitimate slow case: preserve it and
+replan from evidence instead of raising the cap or filtering
+the suite. The production program `84aceffc...`, runner
+`d9f1...` and unit file `59f093b4...` are unchanged.
+
+The Root-owned independent 104/104 focused-unit result from the
+009-h round (attributed in
+`oap/reports/009-h-stat-fixture-constructor.md`) remains prior
+bounded development evidence: separate evidence, not a full-CI
+substitution and not localization. No product fix, semantic-capacity change, resource-limit
+increase, workflow weakening or test change accompanies this
+round; no coding-side local product execution
+occurred (static Git/hash/text verification only, exact
+three-path diff/hashes through the Root regular-file gate).
+GitHub-hosted new-head full complete CI is PENDING at
+publication and is the first actual invocation of the revised
+command. No current or future green certificate, cause claim,
+real baseline or whole-MVP acceptance follows from this report.
+Real baseline remains NOT RUN; the operator/current-policy/
+qualified-encoder/data/rights/CLI/plan/publisher/native-OS/20k/
+hardware/visual/security/license/merged-ICA/MVP/release gates
+remain open; no 010, no merge.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

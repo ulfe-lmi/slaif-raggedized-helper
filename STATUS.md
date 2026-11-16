@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-16)
 
-- Current (2026-11-16): active objective 009, current slice 009-i
+- Current (2026-11-16): active objective 009, current slice 009-j
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -305,6 +305,56 @@
   policy/qualified encoder/data/rights/CLI/plan/publisher/
   native-OS/20k/hardware/visual/security/license/merged-ICA/MVP/
   release gates preserved; no 010 activation; no merge.
+  Slice 009-j is the bounded unit-diagnostics deadline (same 009
+  continuation, AMEND PR 11 at round base a7ad70b, the 009-i
+  report head whose hosted CI CANCELLED, run 43962945486: three
+  OAP jobs SUCCESS; product 3.12 job 133634863960 and product
+  3.14 job 133634863970 CANCELLED by the unchanged 20-minute
+  job limit, both check-runs annotated "exceeded the maximum
+  execution time of 20m0s"; raw terminal API 76 steps - 60
+  completed SUCCESS, 2 unit steps labelled in_progress, 14
+  downstream pending - with the two Complete job steps absent:
+  inconsistency preserved, never promoted; precise blocked
+  node/underlying cause UNPROVEN - connector logs 404
+  BlobNotFound, gh --log 0 bytes not execution/success evidence;
+  earlier 009-h exit-137 cause also UNPROVEN). The change is
+  diagnostic-only: the Product test suite step alone becomes
+  PYTHONUNBUFFERED=1 /usr/bin/time -v /usr/bin/timeout
+  --signal=TERM --kill-after=10s 180s uv run pytest tests/unit
+  -o addopts= -vv -o faulthandler_timeout=60 behind executable
+  /usr/bin/time and /usr/bin/timeout checks (workflow 14,169 B
+  556fa14d... to 14,317 B fc1ba2cd..., every other workflow
+  byte unchanged): a disclosed LOWERED 180-second unit-command
+  deadline - TERM on expiry, KILL after 10 s if necessary, any
+  timeout/nonzero exit fails the step and never succeeds;
+  builtin faulthandler_timeout=60 requests a stack dump only
+  (no cancellation/cause proof/OS containment); unbuffered
+  output reduces lost progress only; missing tools fail loudly,
+  no install; no selector/filter/skip/xfail/split/pipeline/
+  background/status-mask/continue-on-error/retry; full
+  suite/node set/order, both matrix legs, the 20-minute product
+  job limit and all downstream
+  integration/OAP/governance/help/doctor gates unchanged;
+  external time/timeout change ancestry/observation boundaries
+  only (no live-tree accounting, descendant reap, escaped-child
+  containment, exact allocation or OOM cause); a printed
+  stack/last node is localization only and a >180 s command may be
+  a legitimate slow case to preserve and replan from evidence -
+  never cap-raise or suite-filter authority. Program 84aceffc/
+  runner d9f1/unit 59f093b4 bytes unchanged. Root's 009-h
+  104/104 focused units remain separate prior bounded evidence,
+  not a full-CI substitution. No product fix/capacity change/
+  workflow weakening/test change; no coding-side local product
+  execution (static Git/hash/text verification only; exact
+  three-path diff/hashes through the Root regular-file gate).
+  GitHub-hosted new-head full complete CI PENDING at
+  publication and is the first actual invocation of the revised
+  command; no current or future green certificate, cause claim,
+  baseline or whole-MVP acceptance; real baseline NOT RUN;
+  current policy/qualified encoder/data/rights/CLI/plan/
+  publisher/native-OS/20k/hardware/visual/security/license/
+  merged-ICA/MVP/release gates preserved; no 010 activation;
+  no merge.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
