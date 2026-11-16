@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-16T18:01:58.493998+00:00",
+  "identifier": "009-g",
+  "base": "4e2d073ac297933501abea6d61bc3fa5437e8397",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-f-resolution.json",
+      "target": "oap/reviews/009-g-prior-resolution.json",
+      "bytes": 2089,
+      "sha256": "92a3b0e3f50b4fff5167845ce2f0da374cc35bebb029e7c084d5f3adad3350c7"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-g-ci-public-finding-FINAL.json",
+      "target": "oap/reviews/009-g-ci-finding.json",
+      "bytes": 994,
+      "sha256": "a28a1777dd7d58f7e4a5249ebae4eb359cb4464e505a70ecd7f3c29ca36794bf"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-g-origin-budget-scope-D0-FINAL.json",
+      "target": "oap/reviews/009-g-scope-decision.json",
+      "bytes": 1475,
+      "sha256": "e80974fd869bebcdec28829e448e89cabbc39d4d8bc5fc6298c132ab65171b52"
+    }
+  ],
+  "record_count": 3,
+  "total_record_bytes": 4558,
+  "DHA": "NONE"
+}
