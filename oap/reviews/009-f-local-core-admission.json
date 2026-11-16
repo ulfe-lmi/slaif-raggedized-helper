@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-13T16:37:56.191823+00:00",
+  "normal": {
+    "lane": "evaluation-core",
+    "lane_id": "PAR-009-EVAL-CORE-A",
+    "result": "COMPLETE",
+    "implementation": "7df7e79c003831130643e15c809db8b989c8913c",
+    "report_commit": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+    "report_sha256": "42b1b88bf381cf3249d4605ec2f6a0e376a4622394b7e491ec433d28e55f8e15",
+    "paths": [
+      "docs/parallel/graded-evaluation-program-api.md",
+      "docs/parallel/graded-evaluation-program-binding.json",
+      "docs/parallel/graded-evaluation-program-contract.md",
+      "docs/parallel/source-runner-legacy-identity-oracle.json",
+      "oap/parallel/orders/PAR-009-EVAL-CORE-A.md",
+      "src/slaif_raggedized_helper/evaluation_program.py",
+      "src/slaif_raggedized_helper/source_cohort_runner.py",
+      "tests/unit/test_evaluation_program.py"
+    ],
+    "verified_at": "2026-11-13T16:36:18.713721+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "report_bytes": 3870,
+  "decision": "BOUNDED_CORE_LOCAL_CANDIDATE_RECONCILED_NOT_CANONICAL_ACCEPTANCE",
+  "reviews": [
+    "audit/009-eval-core-checkpoint-root-review-7df7.json",
+    "audit/009-eval-core-controlled-check-root-review-84ac.json"
+  ],
+  "graph": "7df7 soleparentf4d9;reportonlySELF45bc soleparent7df7,cleanexacthead. Eightimplementationpaths; sevenpotentialtransferfiles excludeinstalledorder.",
+  "verification": "Fullreport/readexactcode/checkresultidentity review, all98units+3legacygoldens/full256moderate arecontrolledstubs+genuinepuremath; no actualsource/native/modelproof claimed.",
+  "next": "Commissionread-only actualimplementationaudit at45bc alongside separatelyscoped genuine newprogram+legacy-source proof. No parallelancestrymerge, no original009closure/CLI/privatepublication/CPU-currentpolicy/20k/realbaseline/MVP/releaseclaim. CIorphanunproven/qualificationgatepreserved.",
+  "DHA": "NONE"
+}

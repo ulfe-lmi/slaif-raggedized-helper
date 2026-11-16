@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-16T17:14:28.149085+00:00",
+  "objective": "009",
+  "continuation": "009-f",
+  "decision": "D0_SELECTIVE_GRADED_CORE_AND_TWO_PROOFS_NOW_PUBLISHER_LATER_SAME_009",
+  "provenance": "H standing full-MVP development; A ARCH20/23/25; E canonical graded program absence and 22-v20 documentation error; I core and genuine proof normal/exact evidence reviewed",
+  "prior": "009-e durably resolved, current report head9ba and all5jobs78steps successful, original009 open. Earlier next-wave-v3 publisher dependency is explicitly superseded for this selective wave. Original core-plus-genuine-proof prerequisite is satisfied.",
+  "reason": "Graded core and both proofs have exact immutable normal reports and independently reviewed evidence. Publisher is a separable storage leaf with no imports from transferred core/proofs; its protocol still needs revised implementation and feasibility proof. No integration dependency requires serializing mature software behind that unfinished leaf.",
+  "scope": "17 exact reviewed blobs plus docs/evaluation.md, docs/benchmarks/raw-baseline.md, STATUS.md. Minimal source runner shared-loop modification is intentional and preimage-verified; all other existing app/test/config/deps/workflow/law bytes preserved. No new local product execution, unchanged hosted CI at new head required.",
+  "publisher": "Still required in same009, not abandoned, not accepted, not covered by this transfer; Linux/procfs feasibility and complete revised faults remain open. No named-temp weaker fallback.",
+  "counterargument": "A combined wave could validate storage interactions once; separate software transfer has less end-to-end coverage. Mitigate by no whole009 closure/merge, later genuine CLI/plan/program/publication composition order and new-head complete CI.",
+  "gates": "Real baseline NOT_RUN; approved data/rights/current-policy/qualified encoder, genuine operator, scale/native/OS/hardware/visual/security/license/mergedICA/release open.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-13T16:13:46.373617+00:00",
+  "identifier": "009-e",
+  "decision": "BOUNDED_TRANSFER_REVIEW_FINISHED_CONTINUATION_REQUIRED_NOT_MERGE_ACCEPTANCE",
+  "pr": 11,
+  "head": "9ba33cd7939634f31ebba25fe8c8b638ade51d81",
+  "implementation": "87f7daa15d24f157c0f774a944be7fb098ec4e31",
+  "transcript": "f9b76d313828a6f2d98490f8f39022eb45f350ff",
+  "report_sha256": "740bb7230fde029c7ab8c225baa9ebe32832a01cf86b7ac1db61dc232042f826",
+  "normal_verified_at": "2026-11-13T16:05:34.735639+00:00",
+  "CI": {
+    "run": 43455291739,
+    "all_jobs": 5,
+    "all_steps": 78,
+    "conclusion": "SUCCESS",
+    "joblog_last_timestamps": {
+      "314": "2026-11-13T15:58:36.0056691Z",
+      "312": "2026-11-13T15:56:12.4952319Z"
+    },
+    "unit_passmarkers_each_leg": 2405,
+    "integration_passmarkers_each_leg": 949,
+    "total_each_leg": 3354,
+    "skip_or_nonpass_markers": "NONE in parsedstandardpytestprogress; +54unit/+1integration versus009d",
+    "evidence": [
+      "audit/009-e-ci-complete-43455291739.json",
+      "audit/009-e-ci-test-markers-and-orphans.json",
+      "audit/009-e-remote-terminal-reconcile-9ba3.json",
+      "audit/009-e-normal-pr-9ba3.json"
+    ],
+    "qualification": "Jobcleanup312reportsone orphanbwrap;successdoesnotqualifywholeprocesstree. Source/nativeownershipdiagnosisrequired, no assumedcausality/liveness."
+  },
+  "source_scope": "9exactNEW167455B +3docs;13transcript/12impl/1report26roundpaths; reportonlySELF/localremoteexact7598B/26paths verified. Existingoldsource/config/deps/workflow/law/testbytesunchanged; productioncohort96e source+54controlledunits+one4caseactualproof attributed. Roottranscript/impl/reportreviews f9b7/87f7/9ba3 retained. CurrentPRtitle/body11families/sourcecohortrunner accuratelyupdated; oldpendingCIatpublication phrasinghistoricalnotnewstatuscertificate.",
+  "open_gates": [
+    "docs/evaluation.md says22-fieldBudget, actual20; fixnextsame009 beforemerge; no strategyproductpatch/reportrewrite",
+    "CI312orphanbwrapcleanupobservation unprovenorigin/live-vs-zombie; audit/009-e-ci-orphan-observation.json",
+    "Original009permanentgradedprogram/actualprogramcomposition/evaluateCLI/privateplanpublication/qualifiedCPU-currentpolicy andapprovedrepresentativebaseline remainrequired. Privateevaluation-core codingactive underseparateFINALorder, notcanonicalimplementedstate",
+    "Humanheldout/rights/currentpolicy/encoder/hardware/20ksoftware/visual/enriched/security/license/mergedICA/fullMVP/humanreleasegatesretain"
+  ],
+  "strongest_reason_not_to_merge": "GreenCI/exacttransferimplementboundedsourcecohortsoftware, notfulloriginal009. Docprecisiondefect andunexplainedCIorphanobservationremain. No nextnumeric/merge/releaseauthorityfromthisresolution.",
+  "next": "Concentrate original009 on privategradedcore+controlled/genuineproof andremainingoperator/qualificationsoftware; sourcegradedf4d9proof5componentindexinertuntilnextcombined/selectivewavefreshbase/order. IndependentlytraceCIbwrapownership inread-only review before any newnativeprobe/merge; keepcurrentcodeworkindependent.",
+  "DHA": "NONE"
+}
