@@ -937,6 +937,59 @@ operator/current-policy/qualified-encoder/data/rights/CLI/plan/
 publisher/native-OS/20k/hardware/visual/security/license/merged-ICA/
 MVP/release gates remain open; no merge.
 
+## The 009-i unit-exit diagnostics (same 009 continuation)
+
+Slice 009-h's report head `7117201` FAILED hosted CI run
+43949914814 (terminal): four jobs SUCCESS (the three OAP legs
+plus the product 3.14 job 133589341005, whose full unit and
+integration progress reached 100% with the retained
+multithreaded-fork DeprecationWarning, not a failed gate and
+not a full OS certificate) and one FAILURE: the product 3.12
+job 133589340533 ended its full default `tests/unit` step with
+exit 137 after 90% progress plus 52 dots, with no failed-node
+traceback and no completed summary, and its six downstream
+steps were SKIPPED. 78 required steps: 71 success / 1 failure /
+6 skipped. The precise cause remains UNPROVEN: no OOM, sender,
+culprit-node or constructor-recurrence claim is made (Root
+resolution `oap/reviews/009-i-prior-resolution.json`).
+
+The 009-i change (order
+`oap/orders/009-i-unit-exit-diagnostics.md`) is diagnostic-only
+and preserves the complete suite: the Product test suite step
+alone changes from quiet `uv run pytest tests/unit -q` to
+`/usr/bin/time -v uv run pytest tests/unit -o addopts= -vv`
+gated by an executable `/usr/bin/time` check (the workflow moves
+14,095 B `a26bda03...` to 14,169 B `556fa14d...`; every other
+workflow byte is unchanged). Clearing the quiet `addopts` and
+adding `-vv` change reporting only: no selector, filter, skip,
+xfail or splitting; all default test nodes, the full unit
+order/set, both matrix legs, the 20-minute product job limit and
+every downstream integration/OAP/governance/help/doctor gate
+remain unchanged. GNU `time -v` adds one external parent and
+reports the command's resources/termination; that is an
+observation boundary, not identical process ancestry, not
+measured allocation, not additive/delta high-water, not complete
+live-tree/cgroup accounting and not proof of OOM. A last printed
+node is localization, not proof that it caused the kill. Missing
+`/usr/bin/time` fails loudly; there is no install, shell
+pipeline, background process or status-masking wrapper.
+
+The Root-owned independent 104/104 focused-unit result from the
+009-h round (two full unit files under frozen caps, attributed
+in `oap/reports/009-h-stat-fixture-constructor.md`) remains prior bounded
+development evidence: it does not replace the full suite or
+localize this 3.12 exit. No product fix, capacity or resource
+limit change, workflow weakening or test change accompanies this
+round. The new-head full complete hosted CI is PENDING at
+publication: a rerun with verbose node reporting and
+command-resource output is the next honest evidence, and no
+current or future green certificate, cause claim, real baseline
+or whole-MVP acceptance follows from this report. Real baseline
+remains NOT RUN; the operator/current-policy/qualified-encoder/
+data/rights/CLI/plan/publisher/native-OS/20k/hardware/visual/
+security/license/merged-ICA/MVP/release gates remain open; no
+010, no merge.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

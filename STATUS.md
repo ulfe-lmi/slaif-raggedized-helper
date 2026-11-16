@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-16)
 
-- Current (2026-11-16): active objective 009, current slice 009-h
+- Current (2026-11-16): active objective 009, current slice 009-i
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -268,6 +268,43 @@
   CLI/plan/publisher/native-OS/20k/hardware/visual/security/
   license/merged-ICA/MVP/release gates preserved; no 010 activation;
   no merge.
+  Slice 009-i is the bounded unit-exit diagnostic (same 009
+  continuation, AMEND PR 11 at round base 7117201, the 009-h
+  report head whose hosted CI FAILED, run 43949914814: four jobs
+  SUCCESS - three OAP legs plus product 3.14 job 133589341005
+  with full unit/integration progress at 100%, retained
+  multithreaded-fork DeprecationWarning not a failed gate or
+  full OS certificate - one FAILURE: product 3.12 job
+  133589340533 unit step exit 137 after 90% progress plus 52
+  dots, no failed-node traceback or completed summary, six
+  downstream steps SKIPPED; 78 required steps 71/1/6; precise
+  cause UNPROVEN - no OOM/sender/culprit-node/
+  constructor-recurrence claim). The change is diagnostic-only:
+  the Product test suite step alone changes from quiet
+  uv run pytest tests/unit -q to /usr/bin/time -v uv run pytest
+  tests/unit -o addopts= -vv after an executable /usr/bin/time
+  check (workflow 14,095 B a26bda03... to 14,169 B
+  556fa14d..., every other workflow byte unchanged):
+  reporting-only - no selector, filter, skip, xfail or
+  splitting; full suite/node set/order, both matrix legs, the
+  20-minute product job limit and all downstream
+  integration/OAP/governance/help/doctor gates unchanged; GNU
+  time adds one external parent and reports command
+  resources/termination - an observation boundary, not process
+  ancestry proof, measured allocation, additive/delta high-water,
+  live-tree/cgroup accounting or OOM proof; a last printed node
+  is localization, not cause. Root's 009-h independent 104/104
+  focused units remain prior bounded evidence, not a full-suite
+  replacement or localization. No product fix/capacity change/
+  workflow weakening/test change; no coding-side local product
+  execution (static Git/hash/text verification only; exact
+  three-path diff/hashes through the Root regular-file gate).
+  New-head full complete hosted CI PENDING at publication; no
+  current or future green certificate, cause claim, baseline or
+  whole-MVP acceptance; real baseline NOT RUN; current
+  policy/qualified encoder/data/rights/CLI/plan/publisher/
+  native-OS/20k/hardware/visual/security/license/merged-ICA/MVP/
+  release gates preserved; no 010 activation; no merge.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
