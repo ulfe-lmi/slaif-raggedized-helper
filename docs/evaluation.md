@@ -871,6 +871,72 @@ components = 16 NEW + one MODIFY (the `source_cohort_runner.py`
 shared-loop replacement; actual NEW groups 5+6+5, while the
 per-source total groups are 5+7+5).
 
+## The 009-h stat-fixture constructor correction (same 009 continuation)
+
+Slice 009-g's report head `857355ab` FAILED hosted CI run
+43931502904 (three OAP jobs SUCCESS; two product jobs FAILED; 78
+required steps 64 success / 2 failure / 12 skipped): product 3.12
+job 133524822329 aborted in the full default `tests/unit` session at
+the new broad-session origin-metadata regression's test-local
+`fake_stat` (line 96), where `os.stat_result(*values)` expands the
+ten-field sequence into ten positional arguments and raises
+`TypeError`; pytest error rendering then re-entered the same scoped
+`Path.stat` monkeypatch and produced `INTERNALERROR`, so no complete
+pass/fail summary exists for that leg. Product 3.14 job
+133524822987 printed one `F` and exited 137 before any complete
+traceback or summary; its precise cause remains UNPROVEN and is not
+equated with the confirmed 3.12 constructor defect nor claimed as
+OOM. Integration/downstream steps were SKIPPED, not green (Root
+resolution `oap/reviews/009-h-prior-resolution.json`).
+
+Root's isolated standard-library synthetic value witness
+(`oap/reviews/009-h-stat-result-witness.json`) confirms the expanded
+ten-field form is a `TYPE_ERROR` and the single-sequence form carries
+`st_size` 3,145,728; it is neither a product test nor CI acceptance.
+
+The 009-h correction (order
+`oap/orders/009-h-stat-fixture-constructor.md`) makes exactly one
+unique byte substitution in that fixture, `os.stat_result(*values)`
+to `os.stat_result(values)`: the test moves 24,446 B `085f0cea…`
+to 24,445 B `59f093b4…` with all 50 default-collected nodes
+(44 original + 6 new) and every other byte unchanged. The program
+`84aceffc…` and runner `d9f1b0e8…` remain byte-exact, as do all
+paths outside the three ordered implementation paths.
+
+NEW bounded verification, Root-owned and independent of the coder
+lane: one Root-authorized direct pytest child under the frozen caps
+(CPU 20 s / address space 1 GiB / wall 120 s / core 0 / file 16 MiB /
+affinity 0 / five thread variables 1, private fresh 0700 /tmp) ran
+the two full unit files and passed 104 / 104 (54
+`test_source_cohort_runner.py` + 50 `test_evaluation_program.py`,
+including all six new provenance regressions and the four actual
+origin entry points), no skip/xfail/xpass; all 79 frozen input
+identities rechecked unchanged after the run; waited-children CPU
+7.725588 s user / 0.094994 s system, parent-observed wall 7.952863
+s, waited-children high-water 87,292 KiB (absolute Linux high-water,
+not a delta). Root operational proposal `52f4fe9c…`, result
+`0fb613bb…` and log `beb63602…` (11,326 B) are the
+attribution records; the coder's static-preflight product-check
+launcher in the strategic check lane was NOT RUN (preserved as
+unexecuted reference); the static AST inventory was prepared and
+generated without product imports and supplied the corrected
+56-file input set; Root owned the actual 104-unit process. This
+result is development-unit
+evidence only — not full-suite, CI, source-proof, runtime or
+baseline qualification.
+
+Clarification of the old focused 98-unit proof: it ran the old test
+bytes `593a3be6…` (pre-009-g); the program and runner are the
+same exact bytes across 009-f/g/h, so "same source bytes" applies to
+the source implementation only, never to the changed test, and the
+regression's intent was never a pass. The 009-g report and failure
+records stay immutable. Full complete hosted product/integration
+3.12/3.14 plus all three OAP jobs at the new report head is PENDING
+at publication; real baseline remains NOT RUN; the
+operator/current-policy/qualified-encoder/data/rights/CLI/plan/
+publisher/native-OS/20k/hardware/visual/security/license/merged-ICA/
+MVP/release gates remain open; no merge.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

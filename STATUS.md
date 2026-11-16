@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-16)
 
-- Current (2026-11-16): active objective 009, current slice 009-g
+- Current (2026-11-16): active objective 009, current slice 009-h
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -228,6 +228,46 @@
   components = 16 NEW + one MODIFY (actual NEW groups 5+6+5,
   per-source total groups 5+7+5, Root clarification); no 010
   activation; no merge.
+  Slice 009-h is the bounded stat-fixture constructor correction
+  (same 009 continuation, AMEND PR 11 at round base 857355ab, the
+  009-g report head whose hosted CI FAILED, run 43931502904: three
+  OAP jobs SUCCESS, product 3.12 job 133524822329 FAILED in the new
+  broad-session regression's fake_stat — os.stat_result(*values)
+  expands ten fields into ten arguments, TypeError, then pytest
+  INTERNALERROR re-entering the scoped Path.stat monkeypatch with no
+  complete summary — product 3.14 job 133524822987 one F then exit
+  137 with cause UNPROVEN, not equated with the 3.12 defect or OOM;
+  78 required steps 64/2/12; integration SKIPPED, not green). The
+  correction is the exact one-character fixture substitution
+  os.stat_result(values): test 24,446 B 085f0cea… to 24,445 B
+  59f093b4…, all 50 default nodes (44+6) and every other byte
+  preserved; program 84aceffc… and runner d9f1b0e8…
+  byte-exact unchanged. NEW Root-owned independent bounded
+  verification (Root proposal 52f4fe9c… / result 0fb613bb… /
+  log beb63602…, 11,326 B): one authorized direct pytest child
+  under the frozen caps (CPU 20 s / AS 1 GiB / wall 120 s / core 0 /
+  file 16 MiB / affinity 0 / five threads 1, private fresh 0700 /tmp)
+  passed 104/104 (54 runner + 50 program, all six new provenance
+  regressions and four origin entry points), no skip/xfail/xpass,
+  all 79 frozen input identities rechecked unchanged post-run;
+  waited-children CPU 7.725588 s user / 0.094994 s system,
+  parent-observed wall 7.952863 s, waited-children high-water 87,292
+  KiB absolute. The coder's static-preflight product-check launcher
+  was NOT RUN (preserved as reference); the static AST inventory was
+  generated without product imports; Root owned the actual 104-unit
+  process; the Root stdlib
+  value witness (expanded ten fields TYPE_ERROR, single-sequence
+  st_size 3,145,728) is not product/CI acceptance. Old 98 focused
+  units stayed tied to old test bytes 593a3be6… (program/runner
+  the same exact bytes across 009-f/g/h); regression intent is not a
+  pass. Only tests/unit/test_evaluation_program.py, docs/evaluation.md
+  and STATUS.md changed; no coding-side local check/import/collect/
+  lint/setup. New-head full complete hosted product/integration
+  3.12/3.14 plus all three OAP jobs PENDING at publication; real
+  baseline NOT RUN; current policy/qualified encoder/data/rights/
+  CLI/plan/publisher/native-OS/20k/hardware/visual/security/
+  license/merged-ICA/MVP/release gates preserved; no 010 activation;
+  no merge.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

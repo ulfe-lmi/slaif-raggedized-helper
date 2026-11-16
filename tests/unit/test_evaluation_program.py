@@ -93,7 +93,7 @@ def test_origin_metadata_broader_local_session_passes_past_focused_sum(monkeypat
             return result
         values = list(result)
         values[6] = size
-        return os.stat_result(*values)
+        return os.stat_result(values)
 
     monkeypatch.setattr(Path, "stat", fake_stat)
     records = (
