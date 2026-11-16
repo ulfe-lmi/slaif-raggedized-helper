@@ -1,0 +1,47 @@
+{
+  "at": "2026-11-16T22:14:01.153753+00:00",
+  "identifier": "009-i",
+  "decision": "CANCELLED_REQUIRED_CI_NOT_ACCEPTED_BOUNDED_DIAGNOSTIC_CONTINUATION_REQUIRED",
+  "pr": 11,
+  "head": "a7ad70b5e96995122afeae937ce8dd49d569131b",
+  "implementation": "Only exact diagnostics unitrunblock+2docs, fulltest/matrix/gates unchanged. No speculativeproductrepair. Root104focusedpriorproof notwholeCIreplacement.",
+  "transcript": "0cdd00e39a355d2e96d07a309722c54e265842b7",
+  "normal_verified_at": "2026-11-16T21:44:06.301648+00:00",
+  "report_sha256": "5f726a63d79ec406e73a47cc849876325b83c1a3fb5fb5b9576332c79dfbca20",
+  "report_review": "audit/009-i-report-root-review-a7ad70b.json",
+  "remote": "Unique open nondraft PR11 branch oap/009-evaluation-baseline/base main5a7; exact localcleanhead a7ad. Reviews0/threads0 independently refreshed; unmerged. Canonical pane30 verified quiescent/goalachieved/human Qwen settings preserved; old responsewrapper3997297 absent.",
+  "CI": {
+    "run": 43962945486,
+    "run_number": 132,
+    "run_attempt": 1,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "completed_at": "2026-11-16T22:08:29Z",
+    "jobs": {
+      "success": 3,
+      "cancelled": 2
+    },
+    "returned_steps": 76,
+    "returned_step_conclusions": {
+      "success": 60,
+      "NONE": 16
+    },
+    "returned_step_statuses": {
+      "completed": 60,
+      "in_progress": 2,
+      "pending": 14
+    },
+    "required_gate": "Fivejobs/allrequiredsteps not green; two Complete job steps absent versus usual78; raw API returns76 including unitin_progress and downstreampending even though jobs terminalcancelled. Preserve inconsistency, never promote tosuccess.",
+    "product_jobs": [
+      133634863960,
+      133634863970
+    ],
+    "annotations": "Both check-runs explicitly annotate: The job has exceeded the maximum execution time of 20m0s. Terminal timestamps25min afterstart include opaque scheduler/terminationdelay; no derivedexact executiontime.",
+    "localization": "No reliable new printed node/stack/resource result available: both connector log retrievals404BlobNotFound; gh312--log returned0but0bytes stdout/stderr (not evidence of unit success/no execution). Current precise blocked node/underlying reason UNPROVEN; earlier009h312exit137cause remainsUNPROVEN.",
+    "sources": "audit/009-i-ci-terminal/{jobs,run,133634863960-check,133634863960-annotations,133634863970-check,133634863970-annotations}.json; GHmetadata fallback because connector retainedstalein_progress. No cancellation/rerun byRoot."
+  },
+  "strongest_reason_not_to_merge": "Both requiredproductjobscancelledby20mjoblimit anddownstreamgatesuncompleted; incomplete009/currentauthority/operator/encoder/data/rights/baseline/runtime/hardware/visual/security/license/ICA/fullMVP.",
+  "next": "Same009/PR11 suffix009-j: bound the single unit diagnostic command with explicit180s TERM+10sKILL, builtin60sfaulthandler stack and unbuffered Python output; retainfullsuite/order/matrices/downstreamgates/20mjoblimit andfail-on-timeout. No oldrunretry/capraise/speculativeproductpatch. Separatelyscopedpure parser/publisher software reviews continue under explicit priororders; not objectivejump or falseacceptance.",
+  "DHA": "NONE",
+  "implementation_head": "200fe4ca2bbc7754a0b21ff9c2cf93be15a1b8b9"
+}
