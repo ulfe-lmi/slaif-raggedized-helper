@@ -1,0 +1,47 @@
+{
+ "lane_id": "PAR-009-PLAN-WIRE-A",
+ "result": "COMPLETE",
+ "implementation_head": "ceef2888a36f0c0a063351792319bd9b00cf4d14",
+ "report_publication_commit": "SELF",
+ "branch": "oap/parallel-009-evaluation-proof",
+ "source_base": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+ "paths_committed": [
+  "src/slaif_raggedized_helper/evaluation_plan_wire.py",
+  "tests/unit/test_evaluation_plan_wire.py",
+  "docs/parallel/private-evaluation-plan-wire-v1.md",
+  "docs/parallel/private-evaluation-plan-wire-api.md",
+  "oap/parallel/orders/PAR-009-PLAN-WIRE-A.md"
+ ],
+ "witness_hashes_sha256": {
+  "order_installed": "aa59353749ca8e90083d2cc830ce03089b0f875bced2e092a81432a3b56c9fb0",
+  "root_contract_copy": "1f8e64a580ccf6a7643a4c2d24b2b7b2010bed06a4fd5ecd408aaaba16a86f28",
+  "parser_source": "528e6391a3fdb64b0656f73f4712a16e2bec9e0cfc2c42dd563eefbe4f1c8a2a",
+  "unit_module": "afdd69731f08265f12b3e8b4cae3fcbafaa896870592eeac38aaad3ece3efaac",
+  "api_doc": "88dc5551bfa6897702ef9b3a183db60e7a831dfc6f5afd394e83558fb696ed1c",
+  "pinned_evaluation_program": "84aceffc09ec7e53fcf96913ad0cb409616b31223d71915e60fbd750300b9b90",
+  "pinned_source_cohort_runner": "d9f1b0e8f748be9c5b32b6e6d45e8228ace43b397517a41e6187638d4c296faf",
+  "pinned_test_evaluation_program": "593a3be609626fbc4288b61717de6972f171cdd9f926c804b092e702e3419b72",
+  "pinned_test_source_cohort_runner": "4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b",
+  "root_unit_log": "20f38c2b32961851684099d1fabafcf042c2e7722d2d6836242390cfcb42496b",
+  "root_product_check_result": "dc4cdae39dac464572545fe609aedc529173bce2b2ffb64302a7019d2eea1070",
+  "root_first_lint_result": "59af1e843638bf4320dc1d380acce2af125d96c6990d2d4d911550cc9a3f02fb"
+ },
+ "component": "evaluation_plan_wire.admit: pure byte admission to the exact existing evaluation_program.Plan (nested Judgments, tuples, wire order); 186-case default-collected offline unit module; no product interface, CLI or operator",
+ "actual": {
+  "execution": "Root independent bounded check under a separate exact decision, executed by Root's own operational parent; lane v1 parent NEVER_RUN and preserved as history; Root execution is not coding's",
+  "lint": "ONE Ruff lint process PASS, no source mutation",
+  "unit": "ONE exact frozen three-file pure unit process: 186 new parser + 44 existing evaluation + 54 existing runner = 284 PASS in 13.64 s, no skip/xfail/xpass; all 84 frozen identities matched pre and post; worktree remained exactly the five NEW paths at the e3bf base; full 31377-byte log 20f38c2b32961851684099d1fabafcf042c2e7722d2d6836242390cfcb42496b",
+  "resources": "waited-child CPU user 13.871513 and system 0.179967 seconds, wall 14.206 s, waited-children RSS high-water 122604 KiB (Linux high-water, not additive, delta or aggregate allocation)",
+  "operational_evidence": "Root supervisor harness v1/v2 pre-product failures and v3 four controlled lifetime qualification passes are separate operational evidence, not failed product attempts or a full OS certificate",
+  "runtime_scope": "representative runtime and entrypoint identities only; OS, stdlib, third-party and native-loader closure unmeasured"
+ },
+ "identity_evidence": "real program._plan_admission compatibility plus a real controlled preflight/identity path (source._input_admission, program._prepare/_State, binder._canonical_hash): wired and manual plan_identity equal and nonempty, spelling-invariant, schema discriminator excluded, semantic-change control moves it; the parser is never its own oracle",
+ "read_ledger": "the lane 287964-byte ledger against the 524288-byte semantic budget is an attributed estimate with repeated reads and unknowns, not a Root-certified cumulative upper bound; no refund or reset; Root AST inventory 58 files 775075 bytes is a syntactic lower bound only",
+ "limits": [
+  "local candidate only, pending normal/source peer review and later explicit integration; no merge, acceptance or milestone",
+  "pure declaration parser: no current principal or policy, actual CLI or operator, qualified data, real encoder, meaningful human grades, source execution or representative baseline",
+  "coarse 5165136-byte partition preserved; no tighter attained maximum, no isolated work-overflow fixture, no RSS or zero-allocation claims",
+  "Numeric009 OPEN; baseline NOT_RUN; current principal/policy/encoder/data/rights/operator/baseline/hardware/visual/security/license/ICA/release gates OPEN"
+ ],
+ "DHA": "NONE"
+}

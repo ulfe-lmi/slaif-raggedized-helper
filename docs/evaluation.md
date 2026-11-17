@@ -1201,6 +1201,59 @@ ceiling, hardware/visual/security/license/merged-ICA/full-MVP/
 release) remain open. No green certificate, cause claim, 010 or
 merge; DHA NONE.
 
+## The 009-m private evaluation components (same 009 continuation)
+
+009-l report head `494a1908` fresh hosted CI run 44022614755: all five
+jobs / all 78 steps SUCCESS; both 3.12/3.14 unit legs 2455 passed (7
+warnings; retained fork Deprecation/test-reader ResourceWarnings; no
+warning-free or physical qualification claim). The prior 3f8b4eb run 44017736685 OVERSIZE128 failure is
+preserved (auto parameter IDs/oversized step output);
+only the older 20-minute/exit-137 underlying causes remain UNPROVEN.
+
+009-m transfers the EXACT reviewed private components into canonical
+009 by byte-exact blob copy from source Git objects per the Root index
+(7b4f4ec0, 11,722 B; 16 transfers = 14 implementation + 2 archival).
+The parser (implementation `ceef2888`, report head `82923f0`) brings
+the private 8 MiB closed plan-wire parser, its unit module, and its
+contract/API/order docs; the publisher (implementation `70bf21fc`,
+report head `6196ef2`) brings the private unnamed-stage report
+publication module with its no-replace/durability/cleanup contracts,
+unit module and docs. The two archival original coding reports are
+copied byte-identical under `oap/provenance/009-m/`; their original
+SELF resolves the original report heads, never the later
+archival-copy commit, and the source-graph mapping stays explicit in
+the Root ledger (`oap/reviews/009-m-root-records.json`) and archives.
+Preparation bases `e3bf5b84`/`45bcb729` are not canonical ancestors:
+no candidate-branch merge, cherry-pick or preparation-history import.
+All 16 destinations were absent at `494a1908` and verified byte-exact
+after copy (sha256, size, Git blob OID, regular non-symlink file);
+core `evaluation_program.py`/`source_cohort_runner.py` and
+`pyproject.toml` hashes still match the index.
+
+This is code presence, not capability: the parser admission is a
+private 8 MiB closed wire to real Plan objects, not current
+auth/grades truth; the publisher contracts remain exact with no new
+target/hardware qualification from import; pure policy primitives
+remain separately INERT design work; no evaluate CLI,
+current-principal provider, real data, models, encoder or baseline is
+added or qualified. The inherited scoped evidence (284 parser PASS =
+186 parser + 44 program + 54 runner; 88 publisher PASS) is historical
+on the exact source; the fresh whole CI at the report head is the
+first canonical combined run and must collect the expected 2729 unit
+cases = 2455 current + 186 parser + 88 publisher (expectation only -
+a mismatch is a stop, not a silent adjustment), every new case
+actually run, not skipped. The source workload illustration is 20k
+CHUNKS, not 20k documents, and the raw 4096-row ceiling stays open.
+Existing local real-resource evidence is neither erased as globally
+unproven nor universalized. The one authorized static Ruff check of
+the four new Python files exited 0 ("All checks passed!"); static
+lint only - no local test/import/collection/product execution, mock
+or live. no-auth/no-current-policy/no-real-producer/no-model-
+qualification labels, full baseline NOT_RUN and rights/privacy/
+visual/security/license/hardware/merged-ICA/MVP/release gates
+preserved. Whole 009 PARTIAL; no deployment readiness implied; no
+010, no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

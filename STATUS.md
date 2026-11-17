@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-16)
 
-- Current (2026-11-16): active objective 009, current slice 009-l
+- Current (2026-11-16): active objective 009, current slice 009-m
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -460,6 +460,47 @@
   NOT_RUN; current principal/policy/encoder/data+rights/CLI/parser/
   publisher/raw-ceiling/hardware/visual/security/license/merged-ICA/
   MVP/release gates preserved; no 010, no merge; DHA NONE.
+  Slice 009-m is the exact reviewed private-component blob transfer (same 009
+  continuation, AMEND PR 11 at round base 494a1908, the 009-l report
+  head whose fresh hosted CI run 44022614755 SUCCESS, all five jobs/78
+  steps/five status contexts, both 3.12/3.14 unit legs 2455 passed).
+  The EXACT 16 Root-indexed blobs (7b4f4ec0, 11,722 B; 14
+  implementation + 2 byte-identical archival reports) were copied from
+  source Git objects only (parser ceef2888/82923f0; publisher
+  70bf21fc/6196ef2; preparation bases e3bf5b84/45bcb729 are NOT
+  canonical ancestors - no branch merge/cherry-pick or
+  preparation-history import): two source modules, two unit modules
+  (186 parser + 88 publisher cases) and ten contract/API/order docs;
+  the two archival reports under oap/provenance/009-m/ keep their
+  original SELF resolving the original report heads 82923f0/6196ef2,
+  never a later copy commit (source-graph mapping explicit in the Root
+  ledger and archives). All 16 destinations verified NEW at 494a,
+  byte-exact after copy (sha256 + size + blob OID); core
+  evaluation_program.py / source_cohort_runner.py / pyproject.toml
+  hashes unchanged vs index. One authorized static .venv/bin/ruff
+  check of the four new Python files: exit 0, "All checks passed!"
+  (static lint only; no local test/import/collection/product
+  execution). Fresh report-head full CI is the first canonical
+  combined run and must collect the expected 2729 unit cases = 2455
+  current + 186 parser + 88 publisher (expectation only; a mismatch is
+  a stop, not a silent adjustment), every new case actually run, not
+  skipped; the inherited scoped source evidence (284 parser PASS =
+  186 + 44 + 54, 88 publisher PASS) is historical on the exact source,
+  not a fresh combined claim. Parser admission stays a private 8 MiB
+  closed wire to real Plan objects, not current auth/grades truth;
+  publisher private unnamed-stage/no-replace/durability/cleanup
+  contracts remain exact with no new target or hardware qualification
+  from import; pure policy primitives remain separately INERT design
+  work. The source workload illustration is 20k CHUNKS, not 20k
+  documents; the raw 4096-row ceiling stays open. Existing local
+  real-resource evidence is neither erased as globally unproven nor
+  universalized. The prior 3f8b4eb run 44017736685 OVERSIZE128 failure
+  is preserved (auto parameter IDs/oversized step output);
+  only the older 20-minute/exit-137 underlying causes remain UNPROVEN.
+  no-auth/no-current-policy/no-real-producer/no-model-qualification
+  labels, full baseline NOT_RUN and rights/privacy/visual/security/
+  license/hardware/merged-ICA/MVP/release gates preserved; whole 009
+  PARTIAL, no deployment readiness implied, no 010, no merge; DHA NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
