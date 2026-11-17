@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-16)
 
-- Current (2026-11-16): active objective 009, current slice 009-j
+- Current (2026-11-16): active objective 009, current slice 009-k
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -355,6 +355,83 @@
   publisher/native-OS/20k/hardware/visual/security/license/
   merged-ICA/MVP/release gates preserved; no 010 activation;
   no merge.
+  Slice 009-k is the owned unit-diagnostics supervisor (same 009
+  continuation, AMEND PR 11 at round base cc51b9a, the 009-j report
+  head whose hosted CI CANCELLED - run 43978029330: 3 OAP SUCCESS;
+  both product jobs CANCELLED; cause UNPROVEN, hypothesis only).
+  Diagnostic-only: the Product test suite step alone becomes
+  PYTHONUNBUFFERED=1 /usr/bin/time -v python3
+  oap/bin/ci_unit_diagnostics.py (workflow fc1ba2cd... to 29a44dd6...;
+  other bytes unchanged). The private stdlib supervisor (no
+  product/operator API, no new dependency) spawns the fixed uv run
+  pytest tests/unit -o addopts= -vv -o faulthandler_timeout=60 as
+  argv (no shell) with PYTHONUNBUFFERED=1, stdin DEVNULL,
+  stdout/stderr to an exclusive 0600 log in a private 0700
+  RUNNER_TEMP dir (raw bytes retained; PRESERVED, never deleted; no
+  PIPE/runner output). Parent forwards finite 64 KiB reads: 4 MiB
+  cap, 4,096-byte labeled escaped segments, finite wall/byte
+  backpressure on job stdout (refusal = honest OBSERVER_FAILURE,
+  offset recorded); 180 s child deadline; every post-launch exit runs
+  bounded owned teardown first: identity-verified group TERM, 10 s
+  grace, bounded KILL sweep (labeled, not claimed; no host scan), ONE
+  shared 5 s post-KILL budget, single bounded reap; recycled PID/PGID
+  never signalled; exit codes preserved exactly (0/7/5; named CLD
+  decoding; signalled child separate field); private 0600 status
+  record holds full result; nonzero 124-132 statuses; uncertainty
+  stays nonzero; only complete zero + proven teardown returns 0.
+  Limits: no host guarantee for a persistently blocking channel, no
+  proof of the old cause, no universal descendant containment, no
+  live-tree guarantee. Full unit set/order, both matrix legs,
+  20-minute job limit, all downstream gates unchanged; no
+  selector/filter/skip/xfail/split. New default-discovered unittest:
+  v1 14-case proposal NEVER_RUN; v4 census (pre-execution): 19
+  methods, 13 returned/owned stdlib children + 1 failed Popen
+  constructor/exec attempt (test 7; conservatively budgeted 14
+  creation attempts; no invented PID), 0 grandchildren, max 1
+  concurrent. V4 static: t11 honest-bounded cap contract + near-cap
+  oracle; t13 real private abort-record truthfulness (primary
+  unmasked, no external-signal claim); t18 post-teardown-only
+  real-child sink refusal (honest 126); t19 prelaunch private
+  record, zero Popen; final-summary record run_status +
+  summary_status (126 intended, never falsely OK).
+  009-K_CHECK_EVIDENCE (finite, true): Root-owned actual check (not
+  a coding-owned run): 19/19 PASS, 0 fail/err/skip, 14 constructor
+  attempts = 13 returned/owned children + 1 failed constructor/exec
+  attempt, 0 grandchild, max 1 concurrent, all reaped in supervised
+  teardown, no Root rescue, 20/20 post/current hashes matched; local
+  Python 3.14.4 stdlib only, wall 14.745 s, waited-child CPU 0.244 s,
+  RSS high-water 79,548 KiB (not aggregate); exact source
+  3e15bf1c2e3707de12365ffb6ec73fd24b180c9e7ea023b0817d853c04ab3681 /
+  test e4f348a12defe4b4996ef553c33c544c297acf17b4f1a0c7cca5363804c6ab65;
+  full log 2,948 B sha256
+  1ca4be4ec4e367a67a633120ed6f7d17e958a3ddf4e7efa2c9673f2ca87c7279
+  preserved. Amended per-process limits only (CPU 20 / AS 512 MiB /
+  FSIZE 32 MiB / NOFILE 256 / CORE 0 / affinity 0 / alarm 90; rescue
+  5 s limit, none used): not an aggregate/OS-blocking/external-
+  SIGKILL/adoption/escaped-descendant theorem; no production rlimit.
+  On refusal forwarded_bytes = queued/attempted display bytes, not
+  guaranteed delivered; exact raw log distinct from bounded display
+  + summary phase. V3 17-case attempt 16 PASS/1 FAIL t11 (log
+  b60807561943df885b95d60bc46659886a0032cec9e923156080207502cfc8cd
+  preserved): old per-case values unobserved, old cause not proven;
+  the new deterministic near-cap oracle + honest-bounded contract is
+  what passes; no invented old result. Peer frozen-V2 K20-K22
+  findings differentially resolved by Root current bytes + actual V5
+  regressions (peer did not review V5; not a merged ICA). Hosted CI:
+  head cc51b9a CI 43978029330 CANCELLED (20m0s, cause UNPROVEN,
+  output-ownership hypothesis only); fresh head CI
+  PENDING/NOT_YET_RUN; product command/matrix/order/downstream
+  gates/job cap unchanged; no local full-product or existing OAP
+  suite claim. Representative baseline NOT_RUN; plan
+  wire/publisher/principal/policy/real-CPU encoder/held-out data +
+  rights/operator/runtime/hardware/visual/security/license/merged-
+  ICA/full-MVP/release gates OPEN; no 010/merge/deploy claim.
+  pyproject already excludes oap/bin + tests/oap from product Ruff
+  scope; no new lint task or exclude change; fresh head normal CI
+  must pass all product lint/OAP checks/matrices. No green
+  certificate, cause claim, baseline or whole-MVP acceptance; gates
+  preserved; no 010, no merge.
+
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
