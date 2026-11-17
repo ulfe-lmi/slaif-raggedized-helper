@@ -26,7 +26,9 @@ def fake(monkeypatch):
     return q.ResidentQueryEncoder(*([None] * 7))
 
 
-@pytest.mark.parametrize('text', [None, True, b'hello', '', ' \n\t', '\ud800', 'x' * 8193])
+@pytest.mark.parametrize('text', [None, True, b'hello', '', ' \n\t', '\ud800', 'x' * 8193],
+                         ids=("none", "bool", "bytes", "empty", "whitespace", "lone-surrogate",
+                              "oversize"))
 def test_raw_refusal_before_dispatch(fake, text):
     with fake:
         with pytest.raises(q.QueryRefused, match='refused'):

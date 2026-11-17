@@ -97,7 +97,8 @@ def test_exception_priority_preserves_interrupt():
 
 @pytest.mark.parametrize('raw', [b'{"child-pid":2}\n',
                                  b'{"child-pid":2,"child-pid":3}\n',
-                                 b'x' * 4097 + b'\n'])
+                                 b'x' * 4097 + b'\n'],
+                          ids=("missing-field", "duplicate-field", "oversize"))
 def test_control_rejects_missing_duplicate_and_oversize(raw):
     import time
     from types import SimpleNamespace

@@ -1152,6 +1152,55 @@ head normal CI still must pass all product lint/OAP checks and
 matrices. No green certificate, cause claim, baseline or whole-MVP
 acceptance; gates preserved; no 010, no merge.
 
+## The 009-l bounded pytest case IDs (same 009 continuation)
+
+009-k report head `3f8b4eb` hosted CI run 44017736685: all three OAP
+jobs SUCCESS; both Product jobs FAILURE. Each whole-unit run
+collected 2455 cases; the first `test_refusal` case passed, then the
+next verbose node ID serialized a 65,537-byte synthetic header
+(followed by large chunk/receipt parameter IDs) into the test name;
+the supervisor raw log reached 16,843,391 B (> 16 MiB) in 5.62/5.97 s
+and exited OVERSIZE 128 on both legs. This is the current observed
+failure; the earlier cc51b9a 20-minute cancellation (run
+43978029330) and the 009-h 3.12 exit-137 cause remain UNPROVEN and
+unclaimed.
+
+009-l is metadata-only: the exact fifteen named
+`pytest.mark.parametrize` calls gain ONE explicit `ids=` literal
+tuple of short lowercase ASCII case labels (90 total; each 1..48
+chars, unique within its call, descriptive, content-free - no
+payload/credential bytes). Every fixture value/expression, test body,
+function name, argument name, parameter count and order is preserved:
+a static AST differential removing exactly the new `ids` keywords
+yields the exact preimage AST for all fifteen files (preimage
+SHA256 identities match the frozen Root index). No imports, new
+tests, refactors, pytest configuration or selection changes,
+supervisor/workflow or limit changes, filters, skips or xfails.
+
+The effect is display-only: `-vv` node IDs use the bounded labels
+instead of auto-derived serialized scalar payloads, so verbose
+diagnostics no longer embed large fixture bytes in test names. The
+test set is unchanged - CI must still collect the same 2455 current
+unit cases; any mismatch is a stop, not an adjusted expectation.
+Verification to this point: read-only hash/Git/diff/text/AST-shape
+checks, plus three actual Ruff invocations disclosed as an order
+deviation (not retroactive authorization; evidence retained for Root
+reconciliation): (1) the proper `.venv/bin/ruff check` over the
+fifteen changed test files under the repo pyproject config (ruff
+0.17.4, exit 0, "All checks passed!"); (2) a supplemental preimage
+run over /tmp copies under ruff DEFAULT config (no repo pyproject
+context; no evidentiary value claimed); (3) a
+`.venv/bin/ruff check tests/unit/` directory run (repo config, exit
+0). No further ruff/test/collect/setup runs are made or claimed. No
+local product, native, collection or test execution is claimed.
+Fresh head CI is PENDING as the actual whole-unit run; the
+representative baseline stays NOT_RUN; all open
+gates (current principal/policy, qualified real encoder, held-out
+data + rights, operator/CLI, parser/publisher joins, raw 4096-row
+ceiling, hardware/visual/security/license/merged-ICA/full-MVP/
+release) remain open. No green certificate, cause claim, 010 or
+merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

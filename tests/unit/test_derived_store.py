@@ -344,6 +344,12 @@ def test_metadata_and_member_limits_without_large_allocations(tmp_path, monkeypa
         b'{"x":' + str(1 << 431).encode() + b"}",
         b'{"x":"\\udfff"}',
     ],
+    ids=(
+        "deep-nested",
+        "long-array",
+        "huge-number",
+        "lone-surrogate",
+    ),
 )
 def test_json_complexity_and_unicode_limits(tmp_path, metadata):
     with Store(tmp_path) as store, pytest.raises(StoreError):

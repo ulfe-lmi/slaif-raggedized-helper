@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-16)
 
-- Current (2026-11-16): active objective 009, current slice 009-k
+- Current (2026-11-16): active objective 009, current slice 009-l
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -431,6 +431,35 @@
   must pass all product lint/OAP checks/matrices. No green
   certificate, cause claim, baseline or whole-MVP acceptance; gates
   preserved; no 010, no merge.
+  Slice 009-l is the bounded pytest case-ID metadata repair (same 009
+  continuation, AMEND PR 11 at round base 3f8b4eb0, the 009-k report
+  head whose hosted CI run 44017736685 FAILED: 3 OAP SUCCESS; both
+  product jobs FAILURE - 2455 collected per run, verbose auto-derived
+  parameter IDs serialized large scalar fixtures (first 65,537 B
+  header) into node names, supervisor raw 16,843,391 B crossed 16 MiB,
+  OVERSIZE 128 after 5.62/5.97 s; current observed failure, old
+  20-minute/exit-137 causes remain UNPROVEN). Metadata-only: the
+  exact fifteen named parametrize calls gain one explicit bounded
+  literal ids= tuple of short lowercase ASCII labels (90 total; 1..48
+  chars, unique per call, content-free); every fixture
+  value/expression, body, name, argument, count and order preserved -
+  static AST differential removing exactly the new ids keywords
+  yields the exact preimage AST for all fifteen files. Display-only
+  impact (verbose node IDs no longer embed large scalar payloads);
+  2455-case set/order/matrices/supervisor/workflow bytes and all
+  limits unchanged; no src/, no limit increase, no filters/skips/
+  xfails. Verification: hash/Git/diff/text/AST-shape checks plus
+  three actual Ruff invocations disclosed as an order deviation
+  (1: proper 15-file run, repo pyproject config, ruff 0.17.4, exit
+  0, "All checks passed!"; 2: supplemental /tmp preimage run under
+  ruff default config, no evidentiary value claimed; 3: tests/unit/
+  directory run, repo config, exit 0; no further runs made); no
+  local product/native/test/collection execution claimed; fresh
+  head CI PENDING as the actual whole-unit run; representative
+  baseline
+  NOT_RUN; current principal/policy/encoder/data+rights/CLI/parser/
+  publisher/raw-ceiling/hardware/visual/security/license/merged-ICA/
+  MVP/release gates preserved; no 010, no merge; DHA NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed

@@ -70,7 +70,9 @@ def test_invalid_metadata_before_io(mutation, spy):
 
 
 @pytest.mark.parametrize('data', [b'{}', b'{"x":1,"x":2}', b'{"x":NaN}', b'\xff\xfe{\x00',
-                                  b'"\\ud800"', b' ' * 131073])
+                                  b'"\\ud800"', b' ' * 131073],
+                          ids=("empty-object", "duplicate-key", "nan-literal", "invalid-bytes",
+                               "lone-surrogate", "oversize-whitespace"))
 def test_bad_syntax_before_io(data, spy):
     with pytest.raises(batch.BatchError):
         batch.publish(spy, data, b'')

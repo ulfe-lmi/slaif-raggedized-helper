@@ -59,7 +59,10 @@ def test_positive_reuse_and_fresh_lists(setup):
         assert len(model.calls) == 2 and len(factory.calls) == 1
 
 
-@pytest.mark.parametrize("bad", ["x" * 100001, "\ud800", "é" * 40000])
+@pytest.mark.parametrize(
+    "bad", ["x" * 100001, "\ud800", "é" * 40000],
+    ids=("oversize-string", "lone-surrogate", "non-ascii-large"),
+)
 def test_late_invalid_preflight_no_worker_or_forward(setup, bad):
     create, model, _ = setup
     obj = create()

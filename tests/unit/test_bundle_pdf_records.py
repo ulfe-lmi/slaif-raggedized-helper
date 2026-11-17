@@ -39,6 +39,14 @@ def test_early_admission_before_parse_hash_and_store(monkeypatch):
         b"[" * 18 + b"0" + b"]" * 18,
         b"[" + b"0," * 20001 + b"0]",
     ],
+    ids=(
+        "duplicate-key",
+        "lone-surrogate",
+        "nan-literal",
+        "invalid-byte",
+        "deep-nested",
+        "long-array",
+    ),
 )
 def test_bad_json_tree(raw):
     with pytest.raises((ValueError, UnicodeError)):

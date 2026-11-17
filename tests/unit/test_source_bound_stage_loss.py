@@ -1581,7 +1581,8 @@ def test_digest_finalization_reservation_and_postcheck(monkeypatch):
     assert finalized == [True]
 
 
-@pytest.mark.parametrize("bad_payload", [b"", bytes(4095), bytearray(4096), b"x" * 4097])
+@pytest.mark.parametrize("bad_payload", [b"", bytes(4095), bytearray(4096), b"x" * 4097],
+                         ids=("empty", "below-ceiling", "at-ceiling-bytearray", "oversize"))
 def test_payload_preflight_refuses_before_source(monkeypatch, bad_payload):
     originals, derived, owner, data, gold_ids, result, _, ids, grants, calls = (
         _controlled_fixture(monkeypatch)
