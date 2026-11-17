@@ -1,0 +1,235 @@
+{
+  "status": "ROOT_FINAL_BLOB_IDENTITY_TRANSFER_SPEC_NOT_STANDALONE_ACTIVATION",
+  "identifier": "009-m",
+  "at": "2026-11-17T05:42:35.365354+00:00",
+  "canonical_base": "494a1908b3f0719c0eb78becdcbcb6c5c3ac0d74",
+  "transfers": [
+    {
+      "component": "parser",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "ceef2888a36f0c0a063351792319bd9b00cf4d14",
+      "source_path": "docs/parallel/private-evaluation-plan-wire-api.md",
+      "destination": "docs/parallel/private-evaluation-plan-wire-api.md",
+      "bytes": 8945,
+      "sha256": "88dc5551bfa6897702ef9b3a183db60e7a831dfc6f5afd394e83558fb696ed1c",
+      "git_blob_oid": "3869d65dd2f392a1451a7a65c49e873935da942b"
+    },
+    {
+      "component": "parser",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "ceef2888a36f0c0a063351792319bd9b00cf4d14",
+      "source_path": "docs/parallel/private-evaluation-plan-wire-v1.md",
+      "destination": "docs/parallel/private-evaluation-plan-wire-v1.md",
+      "bytes": 14571,
+      "sha256": "1f8e64a580ccf6a7643a4c2d24b2b7b2010bed06a4fd5ecd408aaaba16a86f28",
+      "git_blob_oid": "cd60928492d617e4cfbae9bf17508960ec72939a"
+    },
+    {
+      "component": "parser",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "ceef2888a36f0c0a063351792319bd9b00cf4d14",
+      "source_path": "oap/parallel/orders/PAR-009-PLAN-WIRE-A.md",
+      "destination": "oap/parallel/orders/PAR-009-PLAN-WIRE-A.md",
+      "bytes": 10418,
+      "sha256": "aa59353749ca8e90083d2cc830ce03089b0f875bced2e092a81432a3b56c9fb0",
+      "git_blob_oid": "aac1c4672b6ede5fb869f51a31893b38abd6f707"
+    },
+    {
+      "component": "parser",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "ceef2888a36f0c0a063351792319bd9b00cf4d14",
+      "source_path": "src/slaif_raggedized_helper/evaluation_plan_wire.py",
+      "destination": "src/slaif_raggedized_helper/evaluation_plan_wire.py",
+      "bytes": 14848,
+      "sha256": "528e6391a3fdb64b0656f73f4712a16e2bec9e0cfc2c42dd563eefbe4f1c8a2a",
+      "git_blob_oid": "f6e325f0df89d72a2d8c74af07dd34cd196743aa"
+    },
+    {
+      "component": "parser",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "ceef2888a36f0c0a063351792319bd9b00cf4d14",
+      "source_path": "tests/unit/test_evaluation_plan_wire.py",
+      "destination": "tests/unit/test_evaluation_plan_wire.py",
+      "bytes": 32850,
+      "sha256": "afdd69731f08265f12b3e8b4cae3fcbafaa896870592eeac38aaad3ece3efaac",
+      "git_blob_oid": "7e14cdedf8b0f0aeacdb4cc3fc2bf64de69e667d"
+    },
+    {
+      "component": "parser",
+      "kind": "ARCHIVAL_ORIGINAL_CODING_REPORT_NOT_ACTIVE_REPORT",
+      "source_commit": "82923f0dd28e5265aa383726362d804d757ac319",
+      "source_path": "oap/parallel/reports/PAR-009-PLAN-WIRE-A.json",
+      "destination": "oap/provenance/009-m/PAR-009-PLAN-WIRE-A.original.json",
+      "bytes": 4448,
+      "sha256": "94920f328bc5ce68a97e0348282612081768dff7377e86822fa3e3746cd49eae",
+      "git_blob_oid": "12378c4730cae03fa0bbc4c992be3a7805ca531a",
+      "original_SELF_resolves_to": "82923f0dd28e5265aa383726362d804d757ac319",
+      "original_implementation": "ceef2888a36f0c0a063351792319bd9b00cf4d14"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "docs/parallel/private-evaluation-report-publication-api.md",
+      "destination": "docs/parallel/private-evaluation-report-publication-api.md",
+      "bytes": 10325,
+      "sha256": "bcf05f8fd15a239960ed4316c32dda33fc2896be2c2cfc5d0a48f05a1a20f5f7",
+      "git_blob_oid": "ce185202d455bcbb2d5cb98f7d55d02dfee42032"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "docs/parallel/private-evaluation-report-publication-contract.md",
+      "destination": "docs/parallel/private-evaluation-report-publication-contract.md",
+      "bytes": 12541,
+      "sha256": "0f8fcaa63c937b3c607f7b266f327515c162b8ddfed1ed6babda220dfad3deba",
+      "git_blob_oid": "f55aae5c1c4ac0e7ed637279a1c8af1adca59fe1"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "docs/parallel/private-evaluation-report-publication-unnamed-v2.md",
+      "destination": "docs/parallel/private-evaluation-report-publication-unnamed-v2.md",
+      "bytes": 9731,
+      "sha256": "83dc0ada8070f53eeba4263d22e1e158e71e4b667619c8ea49486a7925fa9c98",
+      "git_blob_oid": "6083d6995f8a0ea7b3beaa8898ee10502aaa1bd8"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "oap/parallel/orders/PAR-009-REPORT-PUBLICATION-A-publication-addendum.md",
+      "destination": "oap/parallel/orders/PAR-009-REPORT-PUBLICATION-A-publication-addendum.md",
+      "bytes": 9770,
+      "sha256": "192634b92f55f1c113953312da341629cb9b688e3b912c2c54cd82c247e529a4",
+      "git_blob_oid": "6f969d6ca78cd7f31dce026ddbd614756ade0274"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "oap/parallel/orders/PAR-009-REPORT-PUBLICATION-A-tracking-addendum.md",
+      "destination": "oap/parallel/orders/PAR-009-REPORT-PUBLICATION-A-tracking-addendum.md",
+      "bytes": 12002,
+      "sha256": "4b73882ffe69f6453aa421acd87482f331611e546837375c8d3de1cee3d90bbb",
+      "git_blob_oid": "4d4edd60e50925584ffc13993e18b83b0b59de88"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "oap/parallel/orders/PAR-009-REPORT-PUBLICATION-A-unnamed-addendum.md",
+      "destination": "oap/parallel/orders/PAR-009-REPORT-PUBLICATION-A-unnamed-addendum.md",
+      "bytes": 5196,
+      "sha256": "4530edd8628219ebaf0dbdc620d425183b9d57f216e4ada8137ded5b8d0fde70",
+      "git_blob_oid": "cef0479bf1315042c0f09cfc0d3f664dd7456d4a"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "oap/parallel/orders/PAR-009-REPORT-PUBLICATION-A.md",
+      "destination": "oap/parallel/orders/PAR-009-REPORT-PUBLICATION-A.md",
+      "bytes": 11395,
+      "sha256": "42da344766970fb0659936ce67c63353335288ab22cfa8fda5ac4365fa7bc0f4",
+      "git_blob_oid": "a04adf2640f90fbb9f3864e31db7ffcef19a7066"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "src/slaif_raggedized_helper/private_report_publication.py",
+      "destination": "src/slaif_raggedized_helper/private_report_publication.py",
+      "bytes": 28170,
+      "sha256": "43207d97f4c195966049cf53bf45c1b47543277dbf95b0bb7068a8a734378e34",
+      "git_blob_oid": "89d905f08e7cf2537b2f01db038760d76e0cd588"
+    },
+    {
+      "component": "publisher",
+      "kind": "EXACT_IMPLEMENTATION_BLOB",
+      "source_commit": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "source_path": "tests/unit/test_private_report_publication.py",
+      "destination": "tests/unit/test_private_report_publication.py",
+      "bytes": 99893,
+      "sha256": "4b1961f3136a00a6dcc1f39bb5720006d990924e17931ac8a7593bd2ffc43d48",
+      "git_blob_oid": "1f4db5cace2e6a7b0ce9358110cdd80996e98fc9"
+    },
+    {
+      "component": "publisher",
+      "kind": "ARCHIVAL_ORIGINAL_CODING_REPORT_NOT_ACTIVE_REPORT",
+      "source_commit": "6196ef2c77fb336a7131dad87fc13e11cdbffa21",
+      "source_path": "oap/parallel/reports/PAR-009-REPORT-PUBLICATION-A.json",
+      "destination": "oap/provenance/009-m/PAR-009-REPORT-PUBLICATION-A.original.json",
+      "bytes": 5178,
+      "sha256": "70b8ec02b46793689363d63bed0dd13020315b777f807b02d0ab5d82abde6764",
+      "git_blob_oid": "f61a84c80239812b5bb9d9953b0b14036010bf17",
+      "original_SELF_resolves_to": "6196ef2c77fb336a7131dad87fc13e11cdbffa21",
+      "original_implementation": "70bf21fca97b1bf4533d1913866031e08ff4eb0b"
+    }
+  ],
+  "count": 16,
+  "implementation_blob_count": 14,
+  "archival_report_count": 2,
+  "origins": [
+    {
+      "component": "parser",
+      "base": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+      "implementation": "ceef2888a36f0c0a063351792319bd9b00cf4d14",
+      "report_head": "82923f0dd28e5265aa383726362d804d757ac319",
+      "source_base_is_ancestor_of_canonical_base": false,
+      "method": "EXACT_BLOB_TRANSFER_PLUS_BYTE_IDENTICAL_ARCHIVAL_REPORT; no candidate history merge/cherry-pick",
+      "original_SELF_interpretation": "Original report SELF resolves original report_head, never the later archival-copy commit; source graph retained locally, identities and payload retained in canonical provenance ledger."
+    },
+    {
+      "component": "publisher",
+      "base": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "implementation": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+      "report_head": "6196ef2c77fb336a7131dad87fc13e11cdbffa21",
+      "source_base_is_ancestor_of_canonical_base": false,
+      "method": "EXACT_BLOB_TRANSFER_PLUS_BYTE_IDENTICAL_ARCHIVAL_REPORT; no candidate history merge/cherry-pick",
+      "original_SELF_interpretation": "Original report SELF resolves original report_head, never the later archival-copy commit; source graph retained locally, identities and payload retained in canonical provenance ledger."
+    }
+  ],
+  "core_dependencies": [
+    {
+      "path": "src/slaif_raggedized_helper/evaluation_program.py",
+      "bytes": 33571,
+      "sha256": "84aceffc09ec7e53fcf96913ad0cb409616b31223d71915e60fbd750300b9b90",
+      "git_blob_oid": "80e85ac2d75a94494967cb99fa2478b489171b58",
+      "byte_identical_to_parser_report829": true
+    },
+    {
+      "path": "src/slaif_raggedized_helper/source_cohort_runner.py",
+      "bytes": 46404,
+      "sha256": "d9f1b0e8f748be9c5b32b6e6d45e8228ace43b397517a41e6187638d4c296faf",
+      "git_blob_oid": "da462dd96bbee534f001e2841f8ed1aa03e085a3",
+      "byte_identical_to_parser_report829": true
+    }
+  ],
+  "canonical_pyproject_sha256": "a4c6c55eb4f84107600bc1dab6761128c4304cc8dbf39c4a24a8e25e5d2c392f",
+  "evidence": [
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-plan-wire-implementation-peer-root-review-bfe232e3.json",
+      "bytes": 2460,
+      "sha256": "507d5deeb9c059dcc24360d50ea8288130dcf48462c075fb52bf838c6f8c1e1d"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-publisher-local-candidate-acceptance-6196ef2c-v2.json",
+      "bytes": 3329,
+      "sha256": "0eeeb14136e33e866b6d91860849999e5ed97d3344c771bafd323d1a2978c37b"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-component-join-inventory-root-review-545e79a4.json",
+      "bytes": 2787,
+      "sha256": "aab4aa83b30205d93e696ab22c6f1910fcf7ad965d7c366b5209cd4e950947e5"
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-l-resolution.json",
+      "bytes": 2528,
+      "sha256": "26e24e64317e8bf09927e334097e9971dbfe8d7600c7979440aad4e329bb9f3b"
+    }
+  ],
+  "no_new_authority": "Private modules/data declarations/publication primitives only; no genuine principal/current policy/qualified producer/encoder/rights/baseline/hardware/CLI/deploy claims. Original coding reports unchanged and not reused as current active reports."
+}
