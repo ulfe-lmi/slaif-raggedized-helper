@@ -2619,6 +2619,85 @@ protected delivery, and representative evaluation gates stay open; the
 representative baseline remains NOT_RUN and whole 009 PARTIAL; no
 merge; DHA NONE.
 
+## The 009-ad private pinned pre-fusion cut (same 009 continuation)
+
+The genuine current selected-policy observation at the existing private
+pinned hybrid boundary after lexical and before fusion (round base
+00743eca, the accepted 009-ac report-only head whose required hosted
+run 44803828473 attempt 1 passed all five jobs and every step, each
+Product at 3,438 ordered units and the separate 957-case integration).
+The exact order (SHA-256
+7fd4e557cf5f711f5db4851bed460c5a54a9445a890bda8147c93d929eec8fdc) and
+the two indexed strategic control JSONs (SHA-256
+f96c34ccf65dbb8fc2495b0e6c5c8e6a839d3dd2a2c994004d472b620763878e and
+30bbdcc88205cb72e7db51ce3a7fc54b8edda980e29744f47086afb020a11b00) are
+committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Source scope: the implementation touches only
+src/slaif_raggedized_helper/raw_hybrid_search.py,
+tests/integration/test_private_pinned_hybrid_composition.py and these
+two documents; the engine and fusion APIs, the policy
+request/reader/installer/writer, the pin helpers, the earlier source
+and test files, the workflow, the CI partition and every caller-facing
+signature stay byte-exact, and no relabeling of prior immutable
+evidence happens.
+
+The five ordered cuts: the shared hybrid body now performs a single
+genuine current observation (O4) on the existing private owned path
+after the actual lexical response validation and the optional trace
+links, before the first real fusion call, using the same current
+request, the live borrowed owner guard and the one anchored absolute
+deadline clipped to the request lifetime, with the remaining budget
+checked after it and the existing private refusal on a detected
+change; no second retrieval happens. The earlier three checks (O1
+after pure admission, nonblocking owner custody and in-memory capture
+verification; O2 before the first real catalog call; O3 after real
+dense before any real lexical) and the final check (O5, after the
+final actual pin association/full owned revalidation and its post-load
+association, detached authority and deadline) are preserved, so an
+already-started earlier operation can never be undone and a detected
+change refuses with zero new fusion, catalog or directory calls.
+
+Integration scope: exactly one default hosted node is added to the
+existing native integration file. After the actual lexical succeeds it
+publishes the same synthetic wire under a new generation via the
+existing attributed test-local fixture, then attests four genuine
+selected observations (O1 through O4), one actual dense, one actual
+lexical, five real catalogs and ten complete directory loads before
+refusal, with zero new fusion, zero final owned load, no usable
+result, the old admission latched invalid - a later latched recheck
+refuses with zero further reader calls, without inferring recall of
+prior reads - the original owner deadline restored and the guard
+released. The six inherited nodes and their phase checks are
+preserved; only the stable positive and the actual final-owner-change
+read counts move from four to five (the new observation is the fifth
+read in the positive journey), while the genuine positive eight
+catalogs and seventeen directory loads, including the distinct final
+owner load, and the legacy output equality stay exact.
+
+Local evidence: under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds
+with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+0700 scratch under sticky /tmp, raw logs outside the private pytest
+basetemp and no cacheprovider - one bounded inherited focus of the four
+ordered unit files (15 + 53 + 45 + 8 = 121 cases, exit 0 in 1.76 s),
+one capped collect-only of the seven hosted nodes (exit 0), one
+targeted Ruff on the two changed Python paths on one local core (exit
+0) and one bounded physical product import-origin probe (the changed
+module resolves to the canonical repository src, exit 0). The actual
+native fixture is hosted-only; no native proof execution, substitute,
+install or other setup ran locally, so the seven real integration
+outcomes remain hosted-only and PENDING at report authoring; expected
+at the exact report head: ordered hosted Product units unchanged at
+3,438 each (A 1,440 and B 1,998) with the separate 958 default
+integrations each, both Products, all three OAP jobs and every prior
+required step passing, with Root owning the hosted review.
+
+Open gates: evaluation/source/grade/delivery, rights, the governed
+live operator, the encoder and the representative baseline stay open;
+the representative baseline remains NOT_RUN and whole 009 PARTIAL; no
+merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

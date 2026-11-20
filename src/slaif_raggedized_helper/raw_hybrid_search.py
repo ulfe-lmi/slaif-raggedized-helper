@@ -282,6 +282,14 @@ def _search(originals, derived, root, snapshot, text, payload, space, definition
                     lexical_k, cap, remaining)
     else:
         _check(dr.trace is None and lr.trace is None)
+    if owner is not None:
+        # O4: the fourth genuine current observation, after the real
+        # lexical response validation and optional trace links and
+        # before the first real fusion call; a detected change refuses
+        # here with zero new fusion, catalog or directory calls - an
+        # already-started earlier operation cannot be undone.
+        pin_eligibility._genuine_recheck(admission, end)
+        remaining()
     fr = fusion.fuse(originals, derived, root, snapshot, query_id,
                      dense=_ranking('dense', snapshot, source.catalog_id, query_id, dr.hits),
                      lexical=_ranking('lexical', snapshot, source.catalog_id, query_id, lr.hits),
@@ -335,18 +343,21 @@ def search_pinned(admission, owner, text, query_payload, *, query_space_id,
     clipped to the current request lifetime and anchors
     the owner operation's ``op.end`` only while held, restoring its
     original exact value in a finally before guard release on
-    success, ordinary refusal and interruption.  Four genuine current
+    success, ordinary refusal and interruption.  Five genuine current
     observations run at the precisely named cuts: O1 after pure
     admission and nonblocking owner custody, with no association,
     catalog or source I/O; O2 after verified scope and actual
     association, before the first real catalog call in the shared
     body; O3 after real dense output completes, before any real
     lexical call, where a detected change refuses with zero new
-    lexical and fusion calls; O4 after the final actual pin
-    association/full revalidation and its post-load association, with
-    the final exact authority check and the true remaining deadline,
-    before usable return.  Scope drift, expired budget and late
-    usable results refuse throughout.  The public :func:`search`
+    lexical and fusion calls; O4 after real lexical output completes
+    and is validated, with its optional trace links, before the first
+    real fusion call, where a detected change refuses with zero new
+    fusion, catalog or directory calls; O5 after the final actual
+    pin association/full revalidation and its post-load association,
+    with the final exact authority check and the true remaining
+    deadline, before usable return.  Scope drift, expired budget and
+    late usable results refuse throughout.  The public :func:`search`
     signature, normal deadline and outcomes and every original caller
     path stay exact; this route exposes one fixed content-free
     ordinary refusal and preserves a non-Exception interruption
@@ -421,7 +432,7 @@ def _search_pinned(admission, owner, text, payload, space, definition, policy,
                          policy, execution, grants, None, dense_k, lexical_k, cap, k,
                          deadline_ms, trace, owner=owner, admission=admission, end=end,
                          held=held)
-        # O4: after the final actual pin association/full revalidation
+        # O5: after the final actual pin association/full revalidation
         # and its post-load association, with the final exact authority
         # check and the true remaining deadline, before usable return.
         pin_eligibility._genuine_recheck(admission, end)

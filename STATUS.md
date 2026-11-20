@@ -9,6 +9,7 @@
     - Current (2026-11-20): active objective 009, current slice 009-aa
      - Current (2026-11-20): active objective 009, current slice 009-ab
       - Current (2026-11-20): active objective 009, current slice 009-ac
+       - Current (2026-11-20): active objective 009, current slice 009-ad
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1355,6 +1356,71 @@
   real root initialization, protected recovery, source rights and
   baseline qualification remain separate gates.  Baseline NOT_RUN;
   whole 009 PARTIAL; no merge; DHA NONE.
+  Slice 009-ad adds the genuine current selected-policy observation at
+  the existing private pinned hybrid boundary after lexical and before
+  fusion (same 009 continuation, AMEND PR 11 at round base 00743eca,
+  the accepted 009-ac report-only head whose required hosted run
+  44803828473 attempt 1 passed all five jobs and every step, each
+  Product at 3,438 ordered units and the separate 957-case
+  integration).  The exact order (SHA-256
+  7fd4e557cf5f711f5db4851bed460c5a54a9445a890bda8147c93d929eec8fdc)
+  and the two indexed strategic control JSONs
+  (009-ad-pre-fusion-source-inputs.json SHA-256
+  f96c34ccf65dbb8fc2495b0e6c5c8e6a839d3dd2a2c994004d472b620763878e and
+  009-ad-prior-resolution.json SHA-256
+  30bbdcc88205cb72e7db51ce3a7fc54b8edda980e29744f47086afb020a11b00)
+  are committed transcript-first byte-exact under oap/orders/ and
+  oap/reviews/.  The implementation touches only
+  src/slaif_raggedized_helper/raw_hybrid_search.py,
+  tests/integration/test_private_pinned_hybrid_composition.py, STATUS.md
+  and docs/evaluation.md; the engine and fusion APIs, the policy
+  request/reader/installer/writer, the pin helpers, the earlier source
+  and test files, the workflow, the CI partition and every
+  caller-facing signature stay byte-exact, and no relabeling of prior
+  immutable evidence happens.  Within the one shared hybrid body, after
+  the actual lexical response validation and the optional trace links
+  and before the first real fusion call, the existing private owned
+  path now performs one genuine current observation (O4) of the current
+  selected policy using the same current request, the live borrowed
+  owner guard and the one anchored absolute deadline clipped to the
+  request lifetime, with the remaining budget checked after it; the
+  existing private refusal is used, no second retrieval happens, and
+  the earlier three checks (O1, O2, O3) and the final check (O5, after
+  the actual association/full owned reload and detached authority and
+  deadline) are preserved, documenting five ordered cuts.  The one new
+  default hosted node publishes the same synthetic wire under a new
+  generation via the existing attributed test-local fixture after the
+  real lexical succeeds and attests four genuine selected
+  observations, one actual dense, one actual lexical, five real
+  catalogs and ten complete directory loads before refusal, with zero
+  new fusion, zero final owned load, no usable result, the old
+  admission latched invalid (a later latched recheck refusing with
+  zero further reader calls), the original owner deadline restored and
+  the guard released; the six inherited nodes and their phase checks
+  are preserved, only the stable positive and the actual
+  final-owner-change read counts move from four to five, and the
+  genuine positive eight catalogs, seventeen directory loads
+  (including the distinct final owner load) and legacy output equality
+  are unchanged.  Actual local proof under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds with OPENBLAS_NUM_THREADS=1,
+  PYTHONDONTWRITEBYTECODE=1, fresh private 0700 scratch under sticky
+  /tmp, raw logs outside the private pytest basetemp and no
+  cacheprovider: one bounded inherited unit focus of the four ordered
+  files (15 + 53 + 45 + 8 = 121 cases, exit 0 in 1.76 s), one capped
+  collect-only of the seven hosted nodes (exit 0), one targeted Ruff
+  on the two changed Python paths on one local core (exit 0) and one
+  bounded physical product import-origin probe (the changed module
+  resolves to the canonical repository src, exit 0).  The actual
+  native fixture is hosted-only; no native proof execution,
+  substitute, install or other setup ran locally, so the seven real
+  integration outcomes are hosted-only and PENDING at report
+  authoring.  Expected at the exact report head: ordered hosted
+  Product units unchanged at 3,438 each (A 1,440 and B 1,998) with the
+  separate 958 default integrations each, both Products, all three OAP
+  jobs and every prior required step passing; Root owns the hosted
+  review.  The evaluator, encoder, source/grade/delivery, rights,
+  governed live operator and representative baseline gates stay open;
+  baseline NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

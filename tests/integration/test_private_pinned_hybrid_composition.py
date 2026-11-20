@@ -212,7 +212,8 @@ def _engine_counts(counts):
 
 
 def _install_witness(monkeypatch, reader, counts, *, after_dense=None,
-                     interrupt_at_read=None, interrupt_marker=None):
+                     after_lexical=None, interrupt_at_read=None,
+                     interrupt_marker=None):
     # Counting wrappers that delegate the real functions at the intended
     # boundaries; counts run from the private dispatch after fixture
     # acquisition.  ``interrupt_at_read`` is the exact one-based read index
@@ -244,7 +245,10 @@ def _install_witness(monkeypatch, reader, counts, *, after_dense=None,
 
     def counting_lexical(*args, **kwargs):
         counts["lexical"] += 1
-        return real_lexical(*args, **kwargs)
+        result = real_lexical(*args, **kwargs)
+        if after_lexical is not None:
+            after_lexical()
+        return result
 
     def counting_fuse(*args, **kwargs):
         counts["fuse"] += 1
@@ -307,7 +311,7 @@ def test_pinned_positive_journey_matches_legacy(tmp_path, monkeypatch):
         _install_witness(monkeypatch, reader, counts)
         result = _dispatch(admission, owner, embedding)
         assert _engine_counts(counts) == (8, 17, 1, 1, 1)
-        assert counts["read"] == 4
+        assert counts["read"] == 5
         assert owner.op.end == stale_end
         assert not owner.guard.locked()
         assert (result.dense.eligible, result.dense.returned) == (3, 3)
@@ -377,6 +381,50 @@ def test_post_dense_change_latches_before_lexical(tmp_path, monkeypatch):
         _close_owned(originals, derived, owner)
 
 
+def test_post_lexical_change_latches_before_fusion(tmp_path, monkeypatch):
+    (originals, derived, root, ident, embedding, owner, policy_root, reader,
+     admission) = _scenario(tmp_path)
+    try:
+        counts = _counts()
+        owner_loads = []
+        real_load = owner._load
+
+        def counting_load(snapshot_id):
+            owner_loads.append(snapshot_id)
+            return real_load(snapshot_id)
+
+        monkeypatch.setattr(owner, "_load", counting_load)
+
+        def change_generation():
+            # The synthetic selected generation changes while the wire
+            # payload stays identical, after the real lexical output.
+            documents = _documents_from_membership(owner)
+            _publish_selection(policy_root, 2, _encode_policy([PRINCIPAL],
+                                                              documents))
+
+        original_end = owner.op.end
+        _install_witness(monkeypatch, reader, counts,
+                         after_lexical=change_generation)
+        with pytest.raises(hybrid.HybridSearchError):
+            _dispatch(admission, owner, embedding)
+        # Four genuine selected observations ran (O1, O2, O3 and the
+        # new pre-fusion O4): the last one observes the change after
+        # the real lexical response with one actual dense, one actual
+        # lexical, five real catalogs and ten complete directory
+        # loads - zero new fusion and zero final owned load.
+        assert owner_loads == []
+        assert _engine_counts(counts) == (5, 10, 1, 1, 0)
+        assert counts["read"] == 4
+        assert admission._invalid is True
+        # The latched recheck refuses with zero further reader calls.
+        assert admission.recheck(deadline_ms=1000) is False
+        assert counts["read"] == 4
+        assert owner.op.end == original_end
+        assert not owner.guard.locked()
+    finally:
+        _close_owned(originals, derived, owner)
+
+
 def test_revocation_before_dispatch_refuses_at_o1(tmp_path, monkeypatch):
     (originals, derived, root, ident, embedding, owner, policy_root, reader,
      admission) = _scenario(tmp_path)
@@ -439,7 +487,7 @@ def test_final_owner_validation_change_refuses_usable_return(tmp_path, monkeypat
         # association refuses the usable return.
         assert owner_loads == [ident]
         assert _engine_counts(counts) == (8, 17, 1, 1, 1)
-        assert counts["read"] == 4
+        assert counts["read"] == 5
         assert admission._invalid is True
         assert owner.op.end == original_end
         assert not owner.guard.locked()
