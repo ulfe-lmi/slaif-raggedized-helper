@@ -1,0 +1,55 @@
+{
+  "at": "2026-11-20T16:19:08.504833+00:00",
+  "identifier": "009-z",
+  "base": "0b337eca746eea97b1e56e71f5a8a06176565a59",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "pr": 11,
+  "branch": "oap/009-evaluation-baseline",
+  "predecessor": {
+    "identifier": "009-y",
+    "status": "ACCEPTED_TEST_ONLY_CONTINUATION",
+    "run": 44768398812,
+    "attempt": 1,
+    "report": {
+      "commit": "0b337eca746eea97b1e56e71f5a8a06176565a59",
+      "path": "oap/reports/009-y-proc-exit-observation.md",
+      "bytes": 11350,
+      "sha256": "1e3208be21cdca5b8d26d18a79bf9b242a132df35c8631b3f4b2c008c10ce025"
+    },
+    "receipt": {
+      "path": ".oap-state/response-consumed-009-y.json",
+      "bytes": 346,
+      "sha256": "0977fb5cd4a97bab97d45b365ad09f9d01ef301837527da66435d652524d76d0"
+    },
+    "terminal_review": {
+      "path": "audit/009-y-check/Root-terminal-review.json",
+      "bytes": 8402,
+      "sha256": "71f0e4461d67e7547cf376264bd8989a94057fef7eb7f972f6017aceacf2f8f6"
+    },
+    "expected_job_outcomes": {
+      "A": 1440,
+      "B": 1756,
+      "units": 3196,
+      "integration": 951
+    }
+  },
+  "exact_receiver_transfer_index": {
+    "path": "workorders/009-z-current-view-and-encoder-transfer-index.json",
+    "bytes": 17348,
+    "sha256": "d6a249fbd1162cbdc831b3961ebc49602fc93fa9db24a0afe513ede56f39124f"
+  },
+  "prior_009x_publisher_dependency": {
+    "path": "audit/009-x-check/Root-exact-implementation-objects.json",
+    "bytes": 1743,
+    "sha256": "ad5188ed47d3fccac67c7ed076d12c5675e9f84697a563bc703870fb08d5cd67"
+  },
+  "prior_009x_terminal_status": "FAILED_REQUIRED_HOSTED_GATE, EXACT PRODUCT BYTES CARRIED THROUGH THE ACCEPTED 009_Y CORRECTION",
+  "workflow": {
+    "path": "/home/janezp/codex-work/slaif-raggedized-helper/.github/workflows/oap.yml",
+    "bytes": 14235,
+    "sha256": "54e66869d9a2a02e95202ed3eaecba199a2494ca6f6c5742554e722cf14367c6"
+  },
+  "baseline": "NOT_RUN",
+  "whole_009": "PARTIAL",
+  "DHA": "NONE"
+}
