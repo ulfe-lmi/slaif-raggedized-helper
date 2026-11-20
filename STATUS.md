@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-o
+- Current (2026-11-20): active objective 009, current slice 009-p
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -557,6 +557,44 @@
   Popen without override. Fresh full Product matrix plus all OAP
   checks at the new report head decide the outcome (pending at report
   authoring); baseline NOT_RUN; protected authority/hardware/right/
+  license/MVP and release gates open; whole 009 PARTIAL; no merge;
+  DHA NONE.
+
+  Slice 009-p is the publisher concurrency-case isolation (same 009
+  continuation, AMEND PR 11 at round base e9f24bae, the 009-o report
+  head whose run 44662270802 completed FAILURE: both Product legs
+  (Python 3.12 and 3.14) with the observed OPENBLAS_NUM_THREADS=1
+  step env again collected 2731, passed 2730 and failed the same
+  16-slot publisher test with RuntimeError (can't start new thread)
+  inside the fixture's Thread.start; the three OAP jobs succeeded and
+  the mandatory downstream steps were skipped; the hosted cause
+  remains unproven). Scoped changes: the two experiment env lines are
+  removed from .github/workflows/oap.yml, restoring the whole
+  workflow byte-for-byte to the pre-experiment 21341795 preimage
+  (SHA256 29a44dd6, original suite selection and downstream steps);
+  and the one 16-slot testcase now launches one fresh sys.executable
+  -c process (parent 20s bound, zero exit, one fixed success marker
+  only after all child assertions) whose fixed inline child
+  self-binds CPU 5s / AS 512 MiB / CORE 0 / FSIZE 16 MiB before any
+  import, runpy-loads the exact resolved physical test path, checks
+  the existing origin assertions and calls the unchanged shared
+  fixture under a real pytest.MonkeyPatch with a genuine-reservation
+  observer (16 distinct real reservations, baseline registry
+  restoration, refused 17th publication before open, real worker
+  termination); no pytest recursion, no preexec_fn; the shared
+  fixture, the two-thread partial-startup regression and the default
+  collection (2731 expectation) stay unchanged. Local actual
+  results: the first bounded publisher-module run failed only the
+  isolated child at real Thread.start under its own 512 MiB cap
+  (88/89); Root's controlled diagnosis (same instrumented program;
+  caps inside-only and exec+inside both failing at the same point;
+  the single MALLOC_ARENA_MAX=1 child env passing all 16 real
+  reservations) authorized that one child-only env line, and the one
+  bounded changed-byte re-run under the same exact envelope passed
+  89/89. Fresh full Product matrix plus all OAP checks at the new
+  report head decide the hosted outcome (pending at report
+  authoring); the hosted limiting resource and hosted benefit remain
+  unproven. Baseline NOT_RUN; protected authority/hardware/right/
   license/MVP and release gates open; whole 009 PARTIAL; no merge;
   DHA NONE.
 

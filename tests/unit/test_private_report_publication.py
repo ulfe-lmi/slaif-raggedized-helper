@@ -763,8 +763,85 @@ def _sixteen_slot_fixture(monkeypatch, start_fault=None, started=None, on_reserv
     assert all(not thread.is_alive() for thread in threads)
 
 
-def test_sixteen_slots_refuse_seventeenth_without_open(monkeypatch):
-    _sixteen_slot_fixture(monkeypatch)
+_SIXTEEN_SLOT_MARKER = "009-P-SIXTEEN-SLOT-ISOLATION-OK"
+
+# 009-p: the one fixed inline child program for the isolated 16-slot
+# case.  It runs in one fresh sys.executable -c process; the exact
+# resolved physical test path is its only argument.  It self-binds the
+# existing child caps (CPU 5s, AS 512 MiB, CORE 0) plus FSIZE 16 MiB
+# BEFORE any test or product import, loads the exact given test via
+# runpy, checks the existing origin assertions, and calls the unchanged
+# shared fixture under a real pytest.MonkeyPatch context with a
+# genuine-reservation observer.  The one fixed success marker is
+# printed only after every child assertion.
+_SIXTEEN_SLOT_CHILD = r"""
+import os, resource, runpy, sys, threading
+resource.setrlimit(resource.RLIMIT_CPU, (5, 5))
+resource.setrlimit(resource.RLIMIT_AS, (536870912, 536870912))
+resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+resource.setrlimit(resource.RLIMIT_FSIZE, (16777216, 16777216))
+test_path = os.path.realpath(os.path.abspath(sys.argv[1]))
+namespace = runpy.run_path(test_path)
+namespace["test_imported_module_is_assigned_worktree_source"]()
+publisher = namespace["publisher"]
+baseline = list(publisher._SLOTS)
+assert baseline == [None] * 16
+before = threading.active_count()
+reserved = []
+with namespace["pytest"].MonkeyPatch.context() as patch:
+    namespace["_sixteen_slot_fixture"](patch, on_reserve=reserved.append)
+assert len(reserved) == 16
+assert len({id(slot) for slot in reserved}) == 16
+assert list(publisher._SLOTS) == baseline
+assert threading.active_count() == before
+print("009-P-SIXTEEN-SLOT-ISOLATION-OK")
+"""
+
+
+def test_sixteen_slots_refuse_seventeenth_without_open():
+    # 009-p isolation: the one 16-slot case runs its unchanged
+    # obligations in one fresh bounded process, not in the pytest
+    # session.  The exact resolved physical test path is the sole
+    # argument of the fixed inline child program; the child loads this
+    # module with runpy, checks the existing origin assertions and
+    # calls the unchanged shared fixture under a real
+    # pytest.MonkeyPatch context with a genuine-reservation observer -
+    # 16 distinct real reservations, baseline registry restoration,
+    # the refused 17th publication before open and real worker
+    # termination all stay fixture assertions inside the child.  No
+    # pytest recursion, no preexec_fn: the child self-binds CPU 5s,
+    # AS 512 MiB, CORE 0 and FSIZE 16 MiB before any test or product
+    # import.  The parent bounds the child to 20 seconds and requires
+    # zero exit plus the one fixed success marker emitted only after
+    # those assertions; timeout, nonzero exit or missing marker fails.
+    import subprocess
+    import sys
+
+    test_path = os.path.realpath(os.path.abspath(__file__))
+    checkout_root = os.path.realpath(os.path.join(os.path.dirname(test_path), "..", ".."))
+    environment = _child_environment()
+    environment["PYTHONPATH"] = os.path.join(checkout_root, "src")
+    # 009-p amendment: one child-only glibc arena control (single
+    # arena bound); the shared helper and all other subprocesses
+    # stay untouched, and all four child resource limits are kept.
+    environment["MALLOC_ARENA_MAX"] = "1"
+    child = subprocess.Popen(
+        [sys.executable, "-c", _SIXTEEN_SLOT_CHILD, test_path],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        env=environment,
+        cwd=checkout_root,
+    )
+    try:
+        out, err = child.communicate(timeout=20)
+    except subprocess.TimeoutExpired:
+        child.kill()
+        child.communicate(timeout=5)
+        pytest.fail("009-p sixteen-slot isolated child exceeded the 20-second bound")
+    assert child.returncode == 0, err
+    lines = [line for line in out.splitlines() if line]
+    assert lines and lines[-1] == _SIXTEEN_SLOT_MARKER, (out, err)
 
 
 def test_partial_startup_preserves_failure_and_terminates_workers(monkeypatch):

@@ -1333,6 +1333,63 @@ failure goes to Root for bounded next diagnosis, never auto-retry.
 Baseline NOT_RUN; protected authority/hardware/right/license/MVP and
 release gates open; whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-p publisher concurrency-case isolation (same 009 continuation)
+
+Run 44662270802 at the 009-o report head e9f24bae completed FAILURE:
+both Product legs (Python 3.12 and 3.14) with the observed
+OPENBLAS_NUM_THREADS=1 step env again collected 2731, passed 2730,
+and failed the same 16-slot publisher test with RuntimeError (can't
+start new thread) inside the fixture's Thread.start; the cleanup
+regression and the 96-descriptor bound passed; the three OAP jobs
+succeeded; mandatory downstream steps were skipped. The global step
+env was insufficient on hosted runners; the hosted limiting resource
+remains unproven.
+
+Two scoped changes: (1) the two experiment env lines are removed
+from the Product test suite step, restoring
+`.github/workflows/oap.yml` byte-for-byte to the pre-experiment
+21341795 preimage (SHA256 29a44dd6) including original suite
+selection and downstream steps; (2) the one 16-slot testcase is
+isolated into one fresh `sys.executable -c` process: the exact
+resolved physical test path is the sole argument of a fixed inline
+child program that self-binds CPU 5s, AS 512 MiB, CORE 0 and FSIZE
+16 MiB before any test or product import, runpy-loads the exact
+given test, checks the existing origin assertions, and calls the
+unchanged shared fixture under a real pytest.MonkeyPatch context
+with a genuine-reservation observer - 16 distinct real reservations,
+baseline registry restoration, the refused 17th publication before
+open and real worker termination all stay fixture assertions inside
+the child. The parent bounds the child to 20 seconds and requires
+zero exit plus the one fixed success marker emitted only after those
+assertions; timeout, nonzero exit or missing marker fails. No pytest
+recursion, no preexec_fn; the shared fixture and the two-thread
+partial-startup regression stay byte-identical in pytest, and the
+default collection expectation remains 2731.
+
+Local actual results (private audit only, never in Git): the first
+bounded publisher-module run (existing venv; CPU 60s / AS 2 GiB /
+TERM 120s then KILL 5s; fresh private direct /tmp basetemp;
+canonical src) passed 88/89 - the isolated child failed at real
+Thread.start under its own 512 MiB cap (520260 KiB VmSize with 11
+threads before the next start, initial increments 73748 KiB).
+Root's controlled diagnosis ran the same instrumented program with
+caps inside-only and exec+inside (both failing at the same point)
+and the single MALLOC_ARENA_MAX=1 child env (all 16 real
+reservations passed; +8212 KiB per sampled start, 168096 KiB with 16
+threads before the final start; glibc 2.43). The authorized one
+child-only line (shared _child_environment helper and all other
+subprocesses untouched; all four child limits kept) made the one
+bounded changed-byte re-run under the same exact envelope pass
+89/89. This proves the named local command only; the hosted limiting
+resource and hosted benefit remain unproven until actual CI
+evidence.
+
+Fresh full Product matrix plus all OAP checks at the new report head
+are pending (the strategic gate after publication); a CI failure
+goes to Root for bounded next diagnosis, never auto-retry. Baseline
+NOT_RUN; protected authority/hardware/right/license/MVP and release
+gates open; whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
