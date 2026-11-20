@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-s
+- Current (2026-11-20): active objective 009, current slice 009-t
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -787,6 +787,53 @@
   the 3.12 signal sender even on a green result. Baseline NOT_RUN;
   whole 009 PARTIAL; protected authority/hardware/right/license/MVP
   and release gates open; no merge; DHA NONE.
+  Slice 009-t is the pure policy component transfer (same 009
+  continuation, AMEND PR 11 at round base d731dea7, the 009-s
+  report-only head whose run 44711903559 attempt 1 passed all five
+  jobs and all steps: both Product legs passed the ordered 2,731
+  units - 1,421 in group A and 1,310 in group B - plus the
+  independent full integration; the earlier SIGKILL cause remains
+  unproven). Four reviewed parallel-lane component scopes are
+  transferred byte-exact from their indexed implementation commits
+  (16 payload paths: four product modules, four unit modules, four
+  component docs, four original lane orders), keeping their reviewed
+  unit contracts and immutable provenance: (1) supplied-policy -
+  the typed supplied-policy declaration, domain-separated framed
+  identity and supplied-credential matching via hmac.compare_digest
+  (labelled SUPPLIED_POLICY_MATCH_ONLY: supplied declaration plus
+  admitted-credential evidence only, never current application
+  authorization or current-policy verification), 124 units; (2)
+  supplied-policy-wire - the canonical wire reader, 95 units; (3)
+  policy-selection-record - the selected-view record, 47 units; (4)
+  supplied-membership-eligibility - the pinned-membership
+  eligibility primitive, 18 units. The four original lane
+  report-only SELF commits' archival reports are copied byte-exact
+  (historical SELF markers preserved) to oap/provenance/009-t/;
+  no lane commit, PR or report is amended, imported or
+  cherry-picked. The three inherited dependency blobs
+  (provenance_records, raw_snapshot_membership, qualification/
+  parity_io) were verified byte-identical at the round base and are
+  reused unchanged. The transferred primitives admit explicit
+  caller-supplied policy data for later operator composition; the
+  slice contains no protected policy service, no live credentials,
+  no model dispatch and no representative held-out qualification.
+  Actual local proof at the exact implementation head under the
+  ordered caps (CPU 60 s / AS 1 GiB / wall 120 s KILL 5 s,
+  PYTHONDONTWRITEBYTECODE=1, OPENBLAS_NUM_THREADS=1, one-thread
+  affinity for the ruff worker pool, fresh private basetemp, no
+  cacheprovider): one targeted ruff check over the eight copied
+  Python files clean (exit 0); one bounded pytest invocation of
+  all four new default unit modules 284 passed (124 typed, 95
+  wire, 47 selection, 18 eligibility; exit 0); one bounded origin
+  check confirmed every imported product module resolves to the
+  canonical repository src/ with the exact indexed blob hashes.
+  Expected (not yet measured) at the new report head: group A
+  1,421, group B 1,594, total 3,015, plus the separate integration
+  and all unchanged required jobs/steps. The fresh full hosted
+  comparison at the exact new report head is pending at report
+  authoring; Root owns the fresh CI and terminal review. Baseline
+  NOT_RUN; whole 009 PARTIAL; protected authority/hardware/right/
+  license/MVP and release gates open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

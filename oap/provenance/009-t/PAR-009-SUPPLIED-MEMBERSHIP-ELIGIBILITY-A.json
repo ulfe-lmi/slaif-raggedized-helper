@@ -1,0 +1,138 @@
+{
+ "lane_id": "PAR-009-SUPPLIED-MEMBERSHIP-ELIGIBILITY-A",
+ "result": "COMPLETE",
+ "implementation_head": "7f6190adf3d8092f2381505b45185db78db901d0",
+ "report_publication_commit": "SELF",
+ "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-supplied-membership-eligibility",
+ "branch": "oap/parallel-009-supplied-membership-eligibility",
+ "base": "191139254f327dd9d987f60db4102f2916e55611",
+ "control": "EXACT_OK_CONSUMED 2026-11-20T03:57:13.827195+00:00 (original, once; never reread or replayed)",
+ "reviews": [
+  {
+   "checkpoint": "4f9f38454aa0579e4cc19516021ab178e3ae5459",
+   "decision": "FIX",
+   "sha256": "589da2226f84cb6e60c78c7fd69dda6434830de9fcb57d07add651d42446526f",
+   "fix": "full type/field DTO agreement: exact builtin scalar/tuple/Entry contracts before any comparison (bool row_count=1 and bool ordinals refused), tuple lengths vs admitted reference before traversal, foreign equality sentinels added with hook call-list asserted empty"
+  },
+  {
+   "checkpoint": "1a1abd1fc2395721b6cd237cd4c9733c46fc85a7",
+   "decision": "FIX",
+   "sha256": "10d2ee2e1a4633b4ba2aa2bebb1faf4ccb0456176e100cd73ac7739e3078aeab",
+   "fix": "withdrawn_revisions same-length bound added to the existing exact tuple type condition before the element loop; single-condition change, no new API/tests/input formats"
+  },
+  {
+   "checkpoint": "7f6190adf3d8092f2381505b45185db78db901d0",
+   "decision": "REPORT",
+   "sha256": "b506e090b0926b4346ceab2d06ec7b66bf99980e0b10fe5d63001e4c99c3acb7",
+   "root_review": "Root-review-7f6190ad.json",
+   "root_review_sha256": "31f753c00bf728d2edf87ebaecb2a64043b981428ddfe4b64f90d26956f54f94"
+  }
+ ],
+ "changes": [
+  "new module src/slaif_raggedized_helper/supplied_policy_eligibility.py: pure unavailable_partitions(policy, membership) -> tuple[str, ...]; PolicyEligibilityError(ValueError) fixed input-free, no caught cause/context, interruption identity propagates",
+  "exact factory-owned SuppliedPolicy carrying the existing typed admission marker; exact Membership class (nominal constructible DTO, constructor never assumed to authenticate)",
+  "existing 8 MiB byte bound, then strict ASCII decode, then established qualification.parity_io._depth_check, then existing raw_snapshot_membership.parse re-admission of the exact canonical membership_bytes",
+  "full type/field agreement: exact builtin str/int/bytes/tuple/Entry contracts verified before any comparison (exact int refuses bool), entries and per-Entry ordinals and withdrawn_revisions tuple lengths checked against the admitted reference before traversal; only verified exact values compared; re-admitted entries used downstream",
+  "per entry: real provenance_records.admit_record('Scope', entry.scope_bytes) for document_id; binary search over the already canonical sorted policy documents; exact (revision_id, source_scope_sha256) pair rule; missing rule/pair or empty rule makes the complete entry partition unavailable; zero-row admitted entries included; unique sorted tuple; no policy copy/reparse/rebuild, no principal traversal, no credential handling, no filesystem, no current-policy verification",
+  "new tests/unit/test_supplied_policy_eligibility.py: 18 pure synthetic cases (exact positive incl. zero-row entry and 64-pair positive boundary, scope-hash change, missing/emptied rules, mixed-partition unique sorted denial, unaffected scope, clean same-partition replacement, old data again under unchanged policy, nominal inconsistent inputs, bool row_count/ordinal malformed pairs, foreign equality hook never invoked, depth guard before parser with boundary witness, byte bound before depth/parser, error hygiene fixed message with no cause/context, interrupt identity propagation, import-time worktree origin witness)"
+ ],
+ "files": {
+  "src/slaif_raggedized_helper/supplied_policy_eligibility.py": "b9e82599158341ceef1be510a55b7eb41ffaa05684e5b5e1fb174bd4166c9eb9",
+  "tests/unit/test_supplied_policy_eligibility.py": "f908df900a01165f246b895bfa63ec1f586b1565e71c44d033c5af174b360d21",
+  "oap/parallel/orders/PAR-009-SUPPLIED-MEMBERSHIP-ELIGIBILITY-A.md": "bc5d7d6db95af2c388755d7f222868e62be7abdf439ed34fd778593a872a5d9b"
+ },
+ "checks": [
+  {
+   "cmd": "ruff format --check + ruff check (two new lane files, RAYON_NUM_THREADS=1) - initial attempt",
+   "exit": "format-check 1 then 0 after one ruff format pass on the two new files only; check 0"
+  },
+  {
+   "cmd": "pytest round 1 (original bytes, private fresh basetemp /tmp/spe-basetemp.TmIdSC)",
+   "exit": 1,
+   "passed": 12,
+   "failed": 3,
+   "failure_cause": "test bugs only (list-vs-tuple assertion in two spy tests; _matching_policy did not group pairs per document)",
+   "log": "parallel/supplied-membership-eligibility/pytest-fix-1.log",
+   "log_sha256": "75eef23b831aabb3b5026c758ef2a3a16be06a14fceab3c0e0c477c1b9869069",
+   "user_cpu_s": 1.09,
+   "wall_s": 1.17,
+   "max_rss_kib": 80164
+  },
+  {
+   "cmd": "pytest round 2 (test-byte corrections, private fresh basetemp /tmp/spe-basetemp.uXqR6H)",
+   "exit": 0,
+   "passed": 15,
+   "log": "parallel/supplied-membership-eligibility/pytest-fix-2.log",
+   "log_sha256": "1c0f1675ec9454ed20a6c6109ed2b426dc84b161d7fbbc3b536d055655c2b0cf",
+   "user_cpu_s": 1.03,
+   "wall_s": 1.11,
+   "max_rss_kib": 78228
+  },
+  {
+   "cmd": "ruff format --check + ruff check (after FIX-1 changed bytes)",
+   "exit": 0
+  },
+  {
+   "cmd": "pytest round 3 (FIX-1 changed bytes, private fresh basetemp /tmp/spe-basetemp.IZwWAG)",
+   "exit": 0,
+   "passed": 18,
+   "log": "parallel/supplied-membership-eligibility/pytest-fix-3.log",
+   "log_sha256": "c819426ea1095c6e3884a7527771ed82b47704434f4f6e9c2c098965f43952dd",
+   "user_cpu_s": 1.06,
+   "wall_s": 1.14,
+   "max_rss_kib": 78700
+  },
+  {
+   "cmd": "ruff format --check + ruff check (after FIX-2 changed bytes)",
+   "exit": 0
+  },
+  {
+   "cmd": "pytest round 4 final 18-case bounded proof (FIX-2 changed bytes, private fresh basetemp /tmp/spe-basetemp.3w4uqh)",
+   "exit": 0,
+   "passed": 18,
+   "log": "parallel/supplied-membership-eligibility/pytest-fix-4.log",
+   "log_sha256": "f66b2104c5e29062f7103484ab99378ec023793eee08c0146cb2cbf528026b76",
+   "user_cpu_s": 1.05,
+   "wall_s": 1.13,
+   "max_rss_kib": 78808
+  },
+  {
+   "cmd": "all bounded selected runs: env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=<worktree>/src timeout --kill-after=5s 60s /usr/bin/time -v prlimit --cpu=30 --as=1073741824 <existing venv> python -m pytest -p no:cacheprovider --basetemp=<fresh private mktemp dir> tests/unit/test_supplied_policy_eligibility.py",
+   "exit": 0,
+   "venv": "/home/janezp/codex-work/slaif-raggedized-helper/.venv (read-only, no installation; Python 3.14.4, pytest 8.4.2, ruff 0.17.4, pydantic 2.14.3)"
+  }
+ ],
+ "evidence": {
+  "evidence-4f9f384fix.json": "62e7da2f406afba17cd40e1855c88da686b1418f3e71b15dc92ca90fc624501c",
+  "evidence-1a1abd1fix.json": "1ffa650e3967bfecb7c898dff8de57f417e46b2c5e587764551cd1de446ebe87",
+  "note": "lane-directory evidence with exact commands, origins, caps, true exits and full outputs for all attempts"
+ },
+ "origins": {
+  "index_sources_verified_at_base": {
+   "src/slaif_raggedized_helper/supplied_policy.py": "7e59a94b98ee9b58af53bd4f350b992dbb0b91c547fd428b31b43b7009927195",
+   "src/slaif_raggedized_helper/raw_snapshot_membership.py": "506b8c727c89b99990c4270a4a06e549438b90a3efc7efc7618276265eeed2a7",
+   "src/slaif_raggedized_helper/provenance_records.py": "88d3edfcfbfd7cb44a7d2a3fbd84d6fd01525a11e5c07a4416a6a316a57178a9",
+   "src/slaif_raggedized_helper/qualification/parity_io.py": "4dcb77c7ad38ae58b1211aa701b97650eb10a0ac1d6e275104157c41b6d98bf3",
+   "src/slaif_raggedized_helper/raw_snapshot_query.py": "aced05dea7dc3019390676d8fc509e65c672accff4090a87acbaaf24ac292541",
+   "tests/unit/test_raw_snapshot_membership.py": "83424df35efc056f1827c9ea9dc5de56e0f8a6eab5a094757c0a04e47d94470e"
+  },
+  "order_sha256": "bc5d7d6db95af2c388755d7f222868e62be7abdf439ed34fd778593a872a5d9b",
+  "source_inputs_sha256": "c1fcc2c27df3fd6a8a94c28a363b26e2bdbb518ba922bb211f2d504007ebe885",
+  "previous_receipt": "PAR-009-SUPPLIED-POLICY-A implementation_head 191139254f327dd9d987f60db4102f2916e55611 == this lane base",
+  "test_origin_witness": "import-time fail-closed origin assertion (parents[2]/src) covers supplied_policy_eligibility, supplied_policy, raw_snapshot_membership, provenance_records, parity_io"
+ },
+ "preserved": [
+  "prior checkpoints 4f9f384/1a1abd1/7f6190a and all review/consumption receipts",
+  "pytest-fix-1..4.log full logs with true exits and resource counts",
+  "evidence-4f9f384fix.json and evidence-1a1abd1fix.json",
+  "control receipt and coordinate.log",
+  "all pre-existing source files, tests and error contracts unchanged (lane diff contains exactly the three ordered paths per round)"
+ ],
+ "limitations": [
+  "candidate-local pure-unit evidence only (18 bounded synthetic cases); observed CPU/RSS, not a heap/RSS theorem",
+  "supplied policy plus supplied raw membership eligibility is supplied declaration and admitted-capture evidence only: not current application authorization, not current-policy verification, no real capture, no authenticated dispatch, no encode/score/ground/delivery composition; full CI NOT_RUN; gates OPEN",
+  "no enriched/visual or full-MVP claim follows from this component"
+ ],
+ "no_merge": true,
+ "DHA": "NONE"
+}

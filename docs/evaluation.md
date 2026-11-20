@@ -1711,6 +1711,70 @@ signal sender even on a green result. Baseline NOT_RUN; protected
 authority/hardware/right/license/MVP and release gates open; whole
 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-t pure policy component transfer (same 009 continuation)
+
+Four reviewed parallel-lane component scopes were transferred
+byte-exact onto the current evaluation PR (round base d731dea7,
+the 009-s report-only head whose run 44711903559 attempt 1 passed
+all five jobs and all steps, both Product legs passing the ordered
+2,731 units - 1,421 group A, 1,310 group B - plus the independent
+full integration; the earlier SIGKILL cause remains unproven):
+
+- supplied-policy (`src/slaif_raggedized_helper/supplied_policy.py`,
+  124 units): closed typed admission of a caller-supplied policy
+  view, exact domain-separated framed identity computed by a
+  bounded stream, and genuine fullscan supplied-credential matching
+  through `hmac.compare_digest`. A successful match is labelled
+  `SUPPLIED_POLICY_MATCH_ONLY` - supplied declaration plus
+  admitted-credential evidence only, not current application
+  authorization, current-policy verification, credential
+  provisioning, deployment or release.
+- supplied-policy-wire (`supplied_policy_wire.py`, 95 units): the
+  canonical wire reader for the supplied-policy declaration.
+- policy-selection-record (`policy_selection.py`, 47 units): the
+  selected-view record.
+- supplied-membership-eligibility
+  (`supplied_policy_eligibility.py`, 18 units): the
+  pinned-membership eligibility primitive.
+
+Provenance: each file was copied byte-exact (mode, size, SHA-256
+and Git blob OID verified against the transfer index) from its
+indexed implementation commit; the four original lane report-only
+SELF commits' archival reports were copied byte-exact with their
+historical SELF markers preserved to `oap/provenance/009-t/`; the
+three inherited dependency blobs (`provenance_records`,
+`raw_snapshot_membership`, `qualification/parity_io`) were
+verified byte-identical at the round base and are reused
+unchanged. No branch history was imported, cherry-picked or
+amended.
+
+Supplied-policy limit: these primitives admit explicit
+caller-supplied policy data for later operator composition. They
+hash only explicitly supplied bytes, perform no I/O, no
+configuration, no model/provider work and no credential
+acquisition. Nothing in this slice is a protected policy service,
+live credential store, current-policy verification, model
+dispatch, or representative held-out qualification.
+
+Actual local 009-t proof (locked .venv, fresh private 0700
+scratch, PYTHONDONTWRITEBYTECODE=1, OPENBLAS_NUM_THREADS=1, each
+invocation bounded by CPU 60 s / AS 1 GiB / wall 120 s KILL 5 s):
+one targeted ruff check over the eight copied Python files clean;
+one bounded pytest invocation of the four new default unit modules
+284 passed (124 typed, 95 wire, 47 selection, 18 eligibility);
+one bounded origin check confirmed every imported product module
+resolves to the canonical repository `src/` with the exact indexed
+blob hashes. Expected (not yet measured) at the new report head:
+group A 1,421, group B 1,594, total 3,015, plus the separate
+integration and all unchanged required jobs/steps.
+
+The actual full Product matrix (both legs) and all OAP
+checks/steps at the new report head are pending (the strategic
+gate after publication); Root reviews the exact fresh CI and the
+honest terminal assessment. Baseline NOT_RUN; protected
+authority/hardware/right/license/MVP and release gates open;
+whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

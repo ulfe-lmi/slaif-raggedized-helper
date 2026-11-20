@@ -1,0 +1,96 @@
+{
+  "lane_id": "PAR-009-POLICY-SELECTION-RECORD-A",
+  "result": "COMPLETE",
+  "implementation_head": "b0bd2821872e2ee82c98a85d9df509e616c8c642",
+  "report_publication_commit": "SELF",
+  "base": "e9f24bae9ce47c1ceb3f51e9eff10e91574c7242",
+  "summary": "Pure 512-byte canonical selected-publication policy record parser (parse_policy_selection, frozen slotted PolicySelection, fixed input-free PolicySelectionError(ValueError), no I/O/writer/encoder) plus 47 focused offline cases and the exact original order; one implementation checkpoint b0bd282 on sole base e9f24ba, Root decision REPORT at b0bd282. Decision NONE.",
+  "paths": [
+    "src/slaif_raggedized_helper/policy_selection.py",
+    "tests/unit/test_policy_selection.py",
+    "oap/parallel/orders/PAR-009-POLICY-SELECTION-RECORD-A.md"
+  ],
+  "source_sha256": {
+    "src/slaif_raggedized_helper/policy_selection.py": "eda878a12af9f141b6f9cd48ccec5601932201f9b36baa31fa17fe28659bde87",
+    "tests/unit/test_policy_selection.py": "2b7921c03afd228a003d1c2555f4de6e9765552da085a33c865d7a28db44c41d",
+    "oap/parallel/orders/PAR-009-POLICY-SELECTION-RECORD-A.md": "66f55f5bbd79214f11c7a2e2cd2d8df8ebbfdfdd91cca4b91bf0bd5c7d7946c8"
+  },
+  "review": {
+    "reference": "parallel/policy-selection-record/Root-review-b0bd2821.json",
+    "review_sha256": "0f98815d4f918d4593048d3ac92fdb8f36f6a47b94f46f93c90d829cc7307823",
+    "decision": "REPORT",
+    "implementation_review_receipt": "parallel/policy-selection-record/implementation-review-consumed-b0bd2821872e2ee82c98a85d9df509e616c8c642.json",
+    "note": "Root review accepted the exact reviewed bytes; the minor order-echoed docstring wording 'selected-publication' has no behavior effect and is preserved unchanged in this report-only commit."
+  },
+  "environment": {
+    "venv": "/home/janezp/codex-work/slaif-raggedized-helper/.venv (existing canonical venv; Python 3.14.4, pytest 8.4.2, ruff 0.17.4)",
+    "src_origin": "explicit candidate worktree src via PYTHONPATH=/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-policy-selection-record/src; module-origin test pins both modules to the resolved worktree",
+    "threads": "ordinary single-process invocations; no thread or worker override",
+    "caps": "CPU 30s (ulimit -t 30), AS 1 GiB (ulimit -v 1048576), wall 60s with 5s kill (timeout -k 5 60), fresh private basetemp mode 0700",
+    "basetemp_final": "parallel/policy-selection-record/tmp-basetemp-Zq12qK"
+  },
+  "invocations": [
+    {
+      "id": "ruff-1",
+      "command": "ulimit -t 30; ulimit -v 1048576; timeout -k 5 60 .venv/bin/ruff check src/slaif_raggedized_helper/policy_selection.py tests/unit/test_policy_selection.py",
+      "exit": 134,
+      "outcome": "ENVIRONMENT RESOURCE FAILURE: the ruff Rust binary aborted during startup virtual-memory reservation under the 1 GiB AS cap ('memory allocation ... failed', SIGABRT); not a lint result. Unbounded baseline peak RSS was about 19.6 MiB. The unbounded baseline run also surfaced a real test-file syntax error (unterminated byte literal at tests/unit/test_policy_selection.py:190), which was corrected before any lint pass.",
+      "evidence": [
+        "ruff-policy-selection-record.out",
+        "ruff-policy-selection-record.err"
+      ]
+    },
+    {
+      "id": "ruff-2",
+      "command": "ulimit -t 30; timeout -k 5 60 .venv/bin/ruff check src/slaif_raggedized_helper/policy_selection.py tests/unit/test_policy_selection.py",
+      "exit": 0,
+      "outcome": "PASSED 'All checks passed!' after the line-190 syntax correction; AS cap omitted only because it is unachievable for this host's Rust tool binary (documented under ruff-1).",
+      "evidence": [
+        "ruff-policy-selection-record-v2.out",
+        "ruff-policy-selection-record-v2.err"
+      ]
+    },
+    {
+      "id": "ruff-3-final",
+      "command": "ulimit -t 30; timeout -k 5 60 .venv/bin/ruff check src/slaif_raggedized_helper/policy_selection.py tests/unit/test_policy_selection.py",
+      "exit": 0,
+      "outcome": "PASSED 'All checks passed!' on the final committed bytes.",
+      "evidence": [
+        "ruff-policy-selection-record-final.out",
+        "ruff-policy-selection-record-final.err"
+      ]
+    },
+    {
+      "id": "pytest-1",
+      "command": "ulimit -t 30; ulimit -v 1048576; timeout -k 5 60 env PYTHONPATH=<worktree>/src .venv/bin/python -m pytest tests/unit/test_policy_selection.py --basetemp=$(mktemp -d -m 700 ...)",
+      "exit": 4,
+      "outcome": "ARGUMENT/ENVIRONMENT ERROR, NOT A TEST FAILURE: this host's mktemp rejects -m, the basetemp expansion was empty and pytest refused to start; no test was collected or executed. Preserved without recasting as a test failure.",
+      "evidence": [
+        "pytest-policy-selection-record.attempt1.env-error.out",
+        "pytest-policy-selection-record.attempt1.env-error.err"
+      ]
+    },
+    {
+      "id": "pytest-2",
+      "command": "ulimit -t 30; ulimit -v 1048576; timeout -k 5 60 env PYTHONPATH=<worktree>/src .venv/bin/python -m pytest tests/unit/test_policy_selection.py --basetemp=<fresh private 0700 dir>",
+      "exit": 1,
+      "outcome": "45 passed, 2 failed in 0.16s on two concrete assertions: literal canonical record length is 167 bytes (asserted 166) and dataclasses.is_frozen does not exist in Python 3.14.4 (replaced by __dataclass_params__.frozen). One ordered changed-byte retry applied to exactly those assertions and the 513-byte padding arithmetic.",
+      "evidence": [
+        "pytest-policy-selection-record.attempt2.out",
+        "pytest-policy-selection-record.attempt2.err"
+      ]
+    },
+    {
+      "id": "pytest-3-final",
+      "command": "ulimit -t 30; ulimit -v 1048576; timeout -k 5 60 env PYTHONPATH=<worktree>/src .venv/bin/python -m pytest tests/unit/test_policy_selection.py --basetemp=parallel/policy-selection-record/tmp-basetemp-Zq12qK",
+      "exit": 0,
+      "outcome": "PASSED: 47 passed in 0.16s under full bounds (CPU 30s, AS 1 GiB, wall 60s/5s kill, fresh private 0700 basetemp).",
+      "evidence": [
+        "pytest-policy-selection-record.out",
+        "pytest-policy-selection-record.err"
+      ]
+    }
+  ],
+  "coverage": "literal independent 167-byte canonical record; wire length limits 42/67108864 with 41/67108865 refused; generation limits 1/2**63-1 with 0/2**63 refused; 512-byte outer cap with 513 refused pre-decode (json.loads sentinel count); exact canonical bytes, key order, noncanonical whitespace; frozen slotted nominal record; type/bool/schema/kind refusals; wire_sha256 case/length/alphabet refusals; non-ASCII bytes, UTF-16/LE/BE and BOM alternate encodings; duplicate/extra/missing keys; non-object roots; trailing/leading data; non-bytes refusal without coercion (str/bytearray/memoryview/bytes-subclass/None/int/tuple); fixed message hygiene with no retained cause/context; BaseException interrupt identity preserved.",
+  "limitations": "Local candidate grammar check only: no I/O, epoch enforcement, principal authentication, policy authority, writer, encoder or protected reader; synthetic bytes only. Does not qualify the later protected reader, current authorization, production, MVP, release or merge. No remote push, no new PR, no canonical change, no product docs beyond the preserved exact order. Report-only commit; no source byte changed after the Root-reviewed implementation."
+}

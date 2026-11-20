@@ -1,0 +1,111 @@
+{
+ "lane_id": "PAR-009-SUPPLIED-POLICY-A",
+ "result": "COMPLETE",
+ "implementation_head": "191139254f327dd9d987f60db4102f2916e55611",
+ "report_publication_commit": "SELF",
+ "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-supplied-policy",
+ "branch": "oap/parallel-009-supplied-policy",
+ "base": "494a1908b3f0719c0eb78becdcbcb6c5c3ac0d74",
+ "control": "EXACT_OK_CONSUMED 2026-11-17T06:00:35Z (original, once; never reread or replayed)",
+ "review_path": [
+  {
+   "checkpoint": "3889d730b46d89cb1a6ddf4012e6dfb00cad2415",
+   "decision": "FIX",
+   "sha256": "829b43d49cb0535f9e728848afe9c2d6e3f9e3910bb3263619275d77fba23059"
+  },
+  {
+   "clarification": "5a3eac43267cc364d5e1e3a3ee5b7c3b89060bdd5e552e007466d547c5cf6f16 (pre-checkpoint; production seam removed)"
+  },
+  {
+   "checkpoint": "191139254f327dd9d987f60db4102f2916e55611",
+   "decision": "REPORT",
+   "independent_review_sha256": "912237c17f901bbaa21c0e56da9f354abdc2196e6a80436c848083e7ed069da9"
+  }
+ ],
+ "changes": [
+  "F5: test module-origin assertion derived from resolved physical test-file location (parents[2]/src); fail-closed at import; no hard-coded machine/worktree path",
+  "F4-followup: per Grants value in traversal order: exact type + O(1) codepoint pre-bound -> genuine bounded UTF8 count charged to M -> 67108864 aggregate check -> only then adjacent order comparison; uncharged string-order pre-traversal removed",
+  "F6: required-subset test covers all six valid subsets (answer+search and search+sources:read added; explicit answer-only case preserved)",
+  "clarification: no production test hook; no-later-work witnessed by a test-local recorder that monkeypatches _utf8_byte_length to delegate to the real routine, record filtered to the genuine test Grants strings by object identity"
+ ],
+ "files": {
+  "src/slaif_raggedized_helper/supplied_policy.py": "7e59a94b98ee9b58af53bd4f350b992dbb0b91c547fd428b31b43b7009927195",
+  "tests/unit/test_supplied_policy.py": "fcda195ab96170524d5e7472055e994a3b23c3c7128d125dd4f456de69630f01",
+  "docs/parallel/supplied-policy-primitives-api.md": "79cd1adf2ddae40d8bf15317949bef7b5cc4baa5d939d5c144b5c9fc69d7f341",
+  "docs/parallel/supplied-policy-primitives-v1.md": "9bcfe68dd5a80c2d07f19e9a0a2f97a73da4521de5c9bd9fc71d87c4ed247af7",
+  "oap/parallel/orders/PAR-009-SUPPLIED-POLICY-A.md": "1171f096b82ec4fb0dedd67e9ece84893da43fadaaa584bb289f514108d1d2ac"
+ },
+ "checks": [
+  {
+   "cmd": "ruff format + ruff check (two lane Python files)",
+   "exit": 0
+  },
+  {
+   "cmd": "ruff format --check + ruff check (one focused check after clarification byte change)",
+   "exit": 0
+  },
+  {
+   "cmd": "pytest pre-correction (seam version, exact tested bytes)",
+   "exit": 0,
+   "passed": 124,
+   "case_count": 124,
+   "log": "pytest-fix-3.log",
+   "user_cpu_s": 4.42,
+   "wall_s": 4.63,
+   "max_rss_kib": 227356
+  },
+  {
+   "cmd": "pytest final bytes: timeout --kill-after=5s 180s /usr/bin/time -v prlimit --cpu=120 --as=1073741824 .venv python -m pytest -q (own test, PYTHONPATH=own src)",
+   "exit": 0,
+   "passed": 124,
+   "failed": 0,
+   "skipped": 0,
+   "case_count": 124,
+   "log": "pytest-fix-4.log",
+   "user_cpu_s": 4.47,
+   "wall_s": 4.66,
+   "max_rss_kib": 227400
+  }
+ ],
+ "attempts": {
+  "ruff_cycles": 2,
+  "pytest_processes": 2,
+  "note": "one process per actual byte change; no retry of unchanged bytes; no skipped/pending"
+ },
+ "caps": {
+  "M_bytes": 67108864,
+  "C_bytes": 67108864,
+  "per_string_utf8_bytes": 1048576,
+  "principals": 256,
+  "documents": 20000,
+  "admitted_pairs_total": 65536,
+  "grants_values_per_vector": 128
+ },
+ "witnesses": [
+  "20000-declaration M/H/C = 2840039/320074/3160113; zero-principal 2840000/320042/3160042 (independent test-side golden framing)",
+  "above-sufficient material admitted M 66487296 > 66021078, C 66611242 <= cap",
+  "canonical-cap crossing: C 67103018 admitted vs C 67131946 refused while M 67008000 <= cap",
+  "aggregate refusal no-later-work: 65 filler principals spend M exactly to the cap; 66th base lands on it; first 2000-byte value overflows the zero remaining allowance; test-local record == 65 filler lengths + [2000]; the 127 later values are never counted",
+  "frozen admitted records; input-free caught-error hygiene (__context__ None); genuine fullscan compare_digest; bounded chunk count/hash passes"
+ ],
+ "origins": "test-startup (import-time, fail-closed) asserted both imported modules resolve under the worktree src derived from the physical test-file location; passed at final bytes",
+ "preserved": [
+  "checkpoint refs 1593aa60/3889d730/19113925",
+  "evidence.json, evidence-1593aa6.json, evidence-3889d730fix.json, evidence-1911392.json",
+  "pytest-fix-1/2/3/4.log"
+ ],
+ "commit_correction": "local mis-parented 050f52b96a7f9547fb89186110483d1d6e5f5ca9 (parent 3889d730) replaced pre-checkpoint via commit-tree+update-ref with identical tree; replacement 19113925 sole parent 494a1908; never pushed",
+ "copy_accounting": "hash-only byte I/O (sha256sum/wc) distinct from semantic allowance; no corpus copy",
+ "semantic_ledger_kb_approx": {
+  "cumulative_read": 298,
+  "allowance": 384,
+  "note": "honest estimates; round-3 ~60KB + report phase ~6KB"
+ },
+ "limitations": [
+  "candidate-local pure-unit evidence only (124 cases); observed CPU/RSS, not a heap/RSS theorem",
+  "SUPPLIED_POLICY_MATCH_ONLY: no current protected authority, integration, merge, full baseline, release or deployment",
+  "no real provider/Scope join/epoch/dispatch/delivery composition; real baseline NOT_RUN; gates OPEN"
+ ],
+ "no_merge": true,
+ "DHA": "NONE"
+}
