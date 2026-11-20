@@ -1,0 +1,375 @@
+{
+  "at": "2026-11-20T16:56:55.689911+00:00",
+  "state": "EXACT_FROZEN_009_AA_TRANSFER_INPUTS",
+  "base": "ca8e9c8a98281ba8e426788459ff40a694bae020",
+  "scope": "Eight exact transfers of the private joint declaration and current borrowed-pin eligibility, without new execution or authority.",
+  "exact_receiver_projection": {
+    "path": "drafts/009-aa-joint-and-pin-receiving-projection-INERT.json",
+    "bytes": 17515,
+    "sha256": "d1c61c3eb5ebf86dc144214ac8d4a0bcb955c75647a476841da4a52ecc5b4743"
+  },
+  "components": [
+    {
+      "lane_id": "PAR-009-JOINT-EVALUATION-DECLARATION-A",
+      "implementation": "0a816ab06500c8b7090e3afbdae76e86ae788afa",
+      "effective_base": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+      "receipt": {
+        "path": "parallel/joint-evaluation-declaration/response-consumed.json",
+        "bytes": 713,
+        "sha256": "88b478485039ab967556b91e14889353720863d7b0176c3ebde1ab544e4ee59a"
+      },
+      "local_resolution": {
+        "path": "audit/009-joint-evaluation-declaration-local-resolution.json",
+        "bytes": 14277,
+        "sha256": "9b88ff058d7765a72600d6e12e9a7d99355703e439bef795ec7595929b8fac4f"
+      },
+      "implementation_files": [
+        {
+          "commit": "0a816ab06500c8b7090e3afbdae76e86ae788afa",
+          "path": "oap/parallel/orders/PAR-009-JOINT-EVALUATION-DECLARATION-A.md",
+          "mode": "100644",
+          "blob": "224ab7a7b424bc0a3dc3737adaf6379a9ae32ff4",
+          "bytes": 5825,
+          "sha256": "65ade514c1f961d198fa8ac917fb46558cc123422a74d8646b2323a2ed92e2ae"
+        },
+        {
+          "commit": "0a816ab06500c8b7090e3afbdae76e86ae788afa",
+          "path": "src/slaif_raggedized_helper/private_evaluation_preflight.py",
+          "mode": "100644",
+          "blob": "20a41167ad61f01b1d7aff5290a6e0a754d41b18",
+          "bytes": 7140,
+          "sha256": "5ef16bec3a48fc497a147a5ddded156fa2a55ad6551fdc7fde82b3ce6aea60a6"
+        },
+        {
+          "commit": "0a816ab06500c8b7090e3afbdae76e86ae788afa",
+          "path": "tests/unit/test_private_evaluation_preflight.py",
+          "mode": "100644",
+          "blob": "f2899fd5a4c041e5057ad386033a201b5561a3d7",
+          "bytes": 37427,
+          "sha256": "ae90709f1813ac4bdfb0e79152fe0fd3544eee1468c93acdd38c3ce7905bedb8"
+        }
+      ],
+      "required_canonical_preimages": [
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "src/slaif_raggedized_helper/source_cohort_runner.py",
+          "mode": "100644",
+          "blob": "1664f813c5af7a5fa6c3ac2020db401723a62bac",
+          "bytes": 49662,
+          "sha256": "040f6813d6f2d5772392dca49daf57e6ba2b6b5a94fe3dd6bd5e7fd324b7580f"
+        },
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "src/slaif_raggedized_helper/evaluation_program.py",
+          "mode": "100644",
+          "blob": "6358144619e587a938b86f5fe524fafa3594a3e7",
+          "bytes": 34416,
+          "sha256": "fc00a26059e73f9c5d1f35354b7d22b57bb76a73697b0e2ee5c6f92728d2474d"
+        },
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "src/slaif_raggedized_helper/source_bound_stage_loss.py",
+          "mode": "100644",
+          "blob": "85c7ce3c1dea1a3ac1ae70925ce1734b8e073d66",
+          "bytes": 91797,
+          "sha256": "caf22819c1148dd3dcadf368904fdd4f98475451ff2f0c50fc7e51caa37fe546"
+        },
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "src/slaif_raggedized_helper/evaluation_plan_wire.py",
+          "mode": "100644",
+          "blob": "f6e325f0df89d72a2d8c74af07dd34cd196743aa",
+          "bytes": 14848,
+          "sha256": "528e6391a3fdb64b0656f73f4712a16e2bec9e0cfc2c42dd563eefbe4f1c8a2a"
+        },
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "tests/unit/test_source_cohort_declaration_preflight.py",
+          "mode": "100644",
+          "blob": "8c7b2fac3e54a34d805ad53003ec15f5e76c88f0",
+          "bytes": 30088,
+          "sha256": "126cac8862946742b1429367308daeb443643df49dece85a5838af3058fed21e"
+        },
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "tests/unit/test_evaluation_grade_preflight.py",
+          "mode": "100644",
+          "blob": "476e50ccc70a29589232577f59e1e3dae2510117",
+          "bytes": 23010,
+          "sha256": "524325d12033581bcda67a7f1f9c7457df17fbd2ec922454148f2662c9ebdc12"
+        },
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "tests/unit/test_source_cohort_runner.py",
+          "mode": "100644",
+          "blob": "5cd43827c542e1c4c966612fe6fa908faa34ec30",
+          "bytes": 31638,
+          "sha256": "4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b"
+        },
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "tests/unit/test_evaluation_program.py",
+          "mode": "100644",
+          "blob": "9945d95eb4cb0a5220834a92ef60dc894f022ae7",
+          "bytes": 24445,
+          "sha256": "59f093b45a471e04ac21ad555643c6899cac3d972c47e1aea4756904525b39b0"
+        },
+        {
+          "commit": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+          "path": "tests/unit/test_evaluation_plan_wire.py",
+          "mode": "100644",
+          "blob": "7e14cdedf8b0f0aeacdb4cc3fc2bf64de69e667d",
+          "bytes": 32850,
+          "sha256": "afdd69731f08265f12b3e8b4cae3fcbafaa896870592eeac38aaad3ece3efaac"
+        }
+      ],
+      "archival_report": {
+        "commit": "cfb7ef41a14851530f4eefc173335aaebd5ec0e0",
+        "path": "oap/parallel/reports/PAR-009-JOINT-EVALUATION-DECLARATION-A.json",
+        "mode": "100644",
+        "blob": "b974ed9dd7d327388a3eb5ecc73307e824ee5d66",
+        "bytes": 18640,
+        "sha256": "e899bae105966be38a769afb2b3f14784493e040bbca7f7d472de06a316121dd"
+      },
+      "new_cases": 42,
+      "receiver_preimages_verified": 9,
+      "archive_destination": "oap/provenance/009-aa/PAR-009-JOINT-EVALUATION-DECLARATION-A.json"
+    },
+    {
+      "lane_id": "PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A",
+      "implementation": "57d463a5d19b22059d9f0eaf4361ffe03ec91ab5",
+      "effective_base": "9e6283fe554ebae8c93ea133765119622dca3a77",
+      "receipt": {
+        "path": "parallel/current-policy-pin-eligibility/response-consumed.json",
+        "bytes": 723,
+        "sha256": "cbfaf227b443f3eedf0074c09dbac96ce4e9edbe81f61acf3bed7f9371c1dfbb"
+      },
+      "local_resolution": {
+        "path": "audit/009-current-policy-pin-eligibility-local-resolution.json",
+        "bytes": 15937,
+        "sha256": "aa3e48af3ad9fdb2b11114bbf14d19d0117ff0b5c7471e87d757e51fe204a713"
+      },
+      "implementation_files": [
+        {
+          "commit": "57d463a5d19b22059d9f0eaf4361ffe03ec91ab5",
+          "path": "oap/parallel/orders/PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A.md",
+          "mode": "100644",
+          "blob": "f56d25d7aed3519523807449b1d571f5131d4a26",
+          "bytes": 6376,
+          "sha256": "7523127383be53549d9f328c88a1abe58a14d92d67355e854ca4f9dbac11626c"
+        },
+        {
+          "commit": "57d463a5d19b22059d9f0eaf4361ffe03ec91ab5",
+          "path": "src/slaif_raggedized_helper/private_policy_pin_eligibility.py",
+          "mode": "100644",
+          "blob": "0530541297222ba7653ad8d15c72bae3d700fb7f",
+          "bytes": 19591,
+          "sha256": "a09c501656a6b39973bc5d4cae9a8e8e089ee1c39f95359f06c586a5be55dfb3"
+        },
+        {
+          "commit": "57d463a5d19b22059d9f0eaf4361ffe03ec91ab5",
+          "path": "tests/unit/test_private_policy_pin_eligibility.py",
+          "mode": "100644",
+          "blob": "4ea14debeaa40f8bb3674a35661a197f5ed0cd7d",
+          "bytes": 70832,
+          "sha256": "afae35e211143d66bd647a8afb211555909c4590257d6a7a1898b9d3a6d75970"
+        }
+      ],
+      "required_canonical_preimages": [
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/private_policy_request.py",
+          "mode": "100644",
+          "blob": "7b2a24d3fea6cca9e1cd67310987fdc6194db7f9",
+          "bytes": 14885,
+          "sha256": "1b52e832ca7f65925bf129958b80b99d3a1a4260dddaa29f06db371505979e44",
+          "receiver_state": "REQUIRES_EXACT_CURRENT_VIEW_TRANSFER"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/provenance_records.py",
+          "mode": "100644",
+          "blob": "7601167d7fa078b48067cf45866f515c4393dc65",
+          "bytes": 19936,
+          "sha256": "88d3edfcfbfd7cb44a7d2a3fbd84d6fd01525a11e5c07a4416a6a316a57178a9",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/raw_lexical_search.py",
+          "mode": "100644",
+          "blob": "cff773fc3b32e8d5c947e5461feb82a0c76b43f0",
+          "bytes": 17814,
+          "sha256": "66e90a988fdb15f8cf65006a78e1ab3bb99013bc66ce05481053009ec24034f3",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/raw_snapshot_directory.py",
+          "mode": "100644",
+          "blob": "92fdc6ba643e6d3bc372ffd153b3dccb44779a56",
+          "bytes": 8795,
+          "sha256": "e2448d9babe4d57e9601e8eeee46b4a5fc305b84ad7074ca91ee69a330aeece0",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/raw_snapshot_files.py",
+          "mode": "100644",
+          "blob": "ba4697e674ebb5a0afa6003ca35383b25d04da7f",
+          "bytes": 6649,
+          "sha256": "da682cdc07ed0538245addad518e9d5bd190b830b369d7cd01324a97d05885b8",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/raw_snapshot_manifest.py",
+          "mode": "100644",
+          "blob": "7f4889b9fd85e24e2251102b1206668b8a8ac8ec",
+          "bytes": 6462,
+          "sha256": "9a2b27ea2b166952fac7bd3a2e27ba366569fcc48ad7c6473458e6528a3654eb",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/raw_snapshot_membership.py",
+          "mode": "100644",
+          "blob": "b0511079cc32255b279e7368360e4903efed4aba",
+          "bytes": 13491,
+          "sha256": "506b8c727c89b99990c4270a4a06e549438b90a3efc7efc7618276265eeed2a7",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/raw_snapshot_pin.py",
+          "mode": "100644",
+          "blob": "fd9425ed414a2b0e43c8dd4b0d6491f33e35cf49",
+          "bytes": 9471,
+          "sha256": "3b1677826804ed7a247b48026feb2292a9bc4c05d667afba80206498391643ac",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/raw_snapshot_query.py",
+          "mode": "100644",
+          "blob": "022549e1b0244255217115afa7df463d5bd53cc8",
+          "bytes": 8782,
+          "sha256": "aced05dea7dc3019390676d8fc509e65c672accff4090a87acbaaf24ac292541",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/supplied_policy_eligibility.py",
+          "mode": "100644",
+          "blob": "338825e2146cbe100c88ffceb2cd9ef779a17968",
+          "bytes": 8642,
+          "sha256": "b9e82599158341ceef1be510a55b7eb41ffaa05684e5b5e1fb174bd4166c9eb9",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "tests/unit/test_private_policy_request.py",
+          "mode": "100644",
+          "blob": "a2bb6642dea1e7be046b3fcb4717fb5d6bf0b450",
+          "bytes": 42773,
+          "sha256": "f8491635ce587f1bbf8a61811e9492a015f88d4ad921284a7025961b2f4a663d",
+          "receiver_state": "REQUIRES_EXACT_CURRENT_VIEW_TRANSFER"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "tests/unit/test_raw_snapshot_pin.py",
+          "mode": "100644",
+          "blob": "ba6060efdfd686596c21303e16172272a8496bda",
+          "bytes": 3932,
+          "sha256": "9d3ae5b45e7c7cf8626469252e8871f223d0e7ecded99dff21dd634274a92a6f",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "tests/unit/test_supplied_policy_eligibility.py",
+          "mode": "100644",
+          "blob": "e0cb6d227c1ea06b757759bff1632266627c776e",
+          "bytes": 19732,
+          "sha256": "f908df900a01165f246b895bfa63ec1f586b1565e71c44d033c5af174b360d21",
+          "receiver_state": "IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/supplied_policy.py",
+          "mode": "100644",
+          "blob": "f003704389a90e021cd40eef3a723194e2585b77",
+          "bytes": 16721,
+          "sha256": "7e59a94b98ee9b58af53bd4f350b992dbb0b91c547fd428b31b43b7009927195",
+          "receiver_state": "ADDITIONAL_TRANSITIVE_SOURCE_IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/raw_snapshot_selection.py",
+          "mode": "100644",
+          "blob": "62b61692094a5acfb2a1c18f96a6970b3df32aae",
+          "bytes": 11190,
+          "sha256": "8cb52c4d8158831d1da876e0baf9811b5f6462389b8e9e97d75c2f745b04e81f",
+          "receiver_state": "ADDITIONAL_TRANSITIVE_SOURCE_IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/policy_selection.py",
+          "mode": "100644",
+          "blob": "d47ae4187089b30f885eccfc56259aa566062453",
+          "bytes": 2526,
+          "sha256": "eda878a12af9f141b6f9cd48ccec5601932201f9b36baa31fa17fe28659bde87",
+          "receiver_state": "ADDITIONAL_TRANSITIVE_SOURCE_IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/private_policy_capture.py",
+          "mode": "100644",
+          "blob": "68941f04e136fe340979713729a759c5b3389379",
+          "bytes": 14974,
+          "sha256": "4d0c3b8002c6c4fabe3c3be3a08d851375249ad2fb807260f56e5fa9e3e7f0fc",
+          "receiver_state": "ADDITIONAL_TRANSITIVE_SOURCE_IDENTICAL_AT_009Y_REPORT_HEAD"
+        },
+        {
+          "commit": "9e6283fe554ebae8c93ea133765119622dca3a77",
+          "path": "src/slaif_raggedized_helper/supplied_policy_wire.py",
+          "mode": "100644",
+          "blob": "ad380f5a824af348a58e23e7fb634ae9ba914a6f",
+          "bytes": 10556,
+          "sha256": "d18a93996baa36ea88b538f439994e9d658eb1fe4de32fb6daac15068ec4805a",
+          "receiver_state": "ADDITIONAL_TRANSITIVE_SOURCE_IDENTICAL_AT_009Y_REPORT_HEAD"
+        }
+      ],
+      "archival_report": {
+        "commit": "dc28c0d242d899c4b03579019ad7e87357a84704",
+        "path": "oap/parallel/reports/PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A.json",
+        "mode": "100644",
+        "blob": "f8bef0dfcc73f36ae36e8bd01fca8fe080dc0b30",
+        "bytes": 35496,
+        "sha256": "ea78972b03d5b8ae5b2fa59bdde8b848ff83e4d8dc1e6cc19a81cfde0cb5788e"
+      },
+      "new_cases": 53,
+      "preparation_parents": [
+        "4b798897dcc3b6194eeda960046d0bf040747dfe",
+        "7f6190adf3d8092f2381505b45185db78db901d0"
+      ],
+      "preparation_tree": "0279879f4a3aa87e6c448cad43261ffdb7bf19af",
+      "receiver_preimages_verified": 18,
+      "archive_destination": "oap/provenance/009-aa/PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A.json"
+    }
+  ],
+  "expected_exact_destinations": 8,
+  "expected": {
+    "focused": 208,
+    "A": 1440,
+    "B": 1930,
+    "unit_total": 3370,
+    "new_unit_total": 95,
+    "integration": 951,
+    "ordered_inventories": {
+      "path": "audit/009-aa-preview-inventory/Root-projection.json",
+      "bytes": 1189,
+      "sha256": "5dbce70c1ca6adbdd8e2ad6349bc1bc7d54369cfe9ccc8c625332d7da898630d"
+    }
+  },
+  "DHA": "NONE"
+}
