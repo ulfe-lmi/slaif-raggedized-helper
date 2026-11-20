@@ -2071,6 +2071,76 @@ operator, the real representative baseline, source rights and model
 gates remain open; the representative baseline remains NOT_RUN and
 whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-y procfs exit observation (same 009 continuation)
+
+Test-only remediation on the same PR 11 (round base 53937d7e, the
+009-x report-only head) for the one failed required check of the
+exact 009-x hosted run 44760385202 attempt 1: the Product Python
+3.14 job (136371029375) unit step failed at the inherited
+test_timeout_kills_owned_descendant with its six downstream steps
+skipped, while the Python 3.12 full leg (3,196 ordered units), all
+62 new payload cases on both Products and all three OAP jobs
+passed. The prior resolution indexes the consumed 009-x report,
+receipt, terminal review and the witness evidence at their exact
+hashes, and the accepted isolated candidates remain outside this
+continuation.
+
+The inherited timeout test proves the parent timeout kills its
+owned descendant by polling /proc/<pid>/stat for a missing path or a
+zombie state. Linux offers a third form: a stat file opened before
+the task disappears can yield ESRCH when read after disappearance
+(Root independently reproduced the kernel sequence in the legacy
+witness: ProcessLookupError/ESRCH on the held record read,
+FileNotFoundError/ENOENT on the absent record open; controlled
+ENOENT injected at the owned stat poll already passed the base test
+while controlled ESRCH and EACCES escaped). The observed CI failure
+was the ESRCH read form at the stat poll, after the actual expected
+parent timeout, on the 3.14 leg.
+
+The correction is confined to the two process-observation cuts in
+that one test. The stat poll accepts FileNotFoundError at open and
+ProcessLookupError at read as the two observations of record
+disappearance. In the existing pidfd-bound cleanup, the new
+FileNotFoundError handling surrounds only the procfs stat read; a
+missing stat record after successful pidfd acquisition is accepted
+as disappearance, and the PID/start-time comparison and the existing
+pidfd signal stay outside that handler, inside the existing fd-close
+span, with the original outer ProcessLookupError behavior exact. The
+actual parent timeout assertion, the two-second observation
+deadline, the zombie check, the probe.UNREAPED assertion, the
+same-handle pidfd_send_signal path, the exact PID/start-time check
+before any conditional signal, the still-live failure path, the
+descriptor close and all 28 module cases are preserved; other I/O
+errors and malformed evidence keep their failure behavior (the
+controlled EACCES witness still escapes). No product source,
+workflow, test inventory, resource or timeout budget, test runner,
+process-signal or PID/start-time binding outside the two cuts
+changed.
+
+Actual local proof at the implementation head (locked .venv Python
+3.14.4 / pytest 8.4.2 / ruff 0.17.4; fresh private 0700 scratch
+under sticky /tmp; OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1,
+private basetemp, cacheprovider disabled; each invocation bounded by
+timeout -k 5 120 prlimit --cpu=60 --as=1073741824): the whole
+inherited test module once (28/28 cases, exit 0); the existing
+strategic witness diagnostic once through the canonical Python from
+the canonical repository with its own private scratch path (actual
+Linux read forms observed; controlled ENOENT and ESRCH at the owned
+stat poll accepted by the changed test, controlled EACCES still
+escaping); one targeted ruff check on the changed test module
+(exit 0). The synthetic injected observations are distinct from the
+actual timeout and kernel evidence in that output. The fresh full
+hosted CI at the exact report head - both Product legs 3.12/3.14,
+each expected A 1,440 and B 1,756 units, the separate 951-case
+integration and the same three OAP jobs, every existing step
+succeeding - is PENDING at report authoring and is a distinct gate
+from the local proof; Root owns the fresh CI and terminal review.
+No full transfer or qualification acceptance flows from
+publication alone; the open governed operator, the real
+representative baseline, source rights and model gates remain open;
+the representative baseline remains NOT_RUN and whole 009 PARTIAL;
+no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

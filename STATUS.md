@@ -4,6 +4,7 @@
 
 - Current (2026-11-20): active objective 009, current slice 009-w
  - Current (2026-11-20): active objective 009, current slice 009-x
+  - Current (2026-11-20): active objective 009, current slice 009-y
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1000,6 +1001,47 @@
   model gates remain open.  Baseline NOT_RUN; whole 009 PARTIAL;
   protected authority/hardware/right/license/MVP and release gates
   open; no merge; DHA NONE.
+  Slice 009-y is the test-only procfs exit-observation correction
+  (same 009 continuation, AMEND PR 11 at round base 53937d7e, the
+  009-x report-only head).  The required hosted check of the adopted
+  prior resolution failed at exactly the 009-x run 44760385202
+  attempt 1: the Product Python 3.14 job (136371029375) unit step
+  failed at the inherited
+  tests/unit/test_real_cpu_toy_probe.py::test_timeout_kills_owned_descendant
+  and its six downstream steps were skipped; the Python 3.12 full leg
+  (3,196 ordered units), all 62 new payload cases on both Products and
+  all three OAP jobs passed.  The inherited timeout test observes the
+  owned descendant's exit only through a missing procfs stat path or a
+  zombie state.  Linux can instead return ESRCH while reading an
+  already-opened stat record after the task disappears (Root
+  independently reproduced the kernel sequence: ESRCH on the held
+  record read, ENOENT on the absent record open); the observed CI
+  failure was that second form at the stat poll after the expected
+  parent timeout, escaping as ProcessLookupError.  The correction is
+  scoped to that one test: the stat poll now accepts FileNotFoundError
+  at open and ProcessLookupError at read as the two observations of
+  record disappearance, and the existing pidfd-bound cleanup accepts a
+  missing stat record after successful pidfd acquisition; the parent
+  timeout, observation deadline, zombie check, UNREAPED assertion,
+  same-handle signal path, PID/start-time check, still-live failure
+  path and descriptor close are preserved, and every other I/O and
+  malformed-evidence failure behavior is unchanged.  No product
+  source, workflow, test inventory, budget or other test changed.
+  Actual local proof at the implementation bytes under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds with OPENBLAS_NUM_THREADS=1,
+  PYTHONDONTWRITEBYTECODE=1, fresh private 0700 scratch and no
+  cacheprovider: the whole inherited module once (28/28 cases, exit
+  0), the existing strategic witness diagnostic once with the changed
+  test (actual Linux forms ESRCH-held/ENOENT-absent; controlled ENOENT
+  and ESRCH at the owned stat poll accepted, controlled EACCES still
+  escaping), and one targeted ruff check on the changed module (exit
+  0).  The fresh full hosted CI at the exact report head (both
+  Product legs, each expected A 1,440 and B 1,756 units, the separate
+  951-case integration and the same three OAP jobs) is PENDING at
+  report authoring, with Root owning the fresh CI and terminal review;
+  it is distinct from the local proof above.  Baseline NOT_RUN; whole
+  009 PARTIAL; protected authority/hardware/right/license/MVP and
+  release gates open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
