@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-20T01:59:03.618644+00:00",
+  "identifier": "009-n",
+  "head": "21341795babef15de2913fd50c4f66d20abca2b1",
+  "implementation": "09f1633b36b05fec7bea2cb24e33a60fdaef4434",
+  "report_sha256": "a37c762aa2ea6854e9f1208283c02640e6ad53d0e3059b416a9c998e1ae1121b",
+  "source_graph_review": "audit/009-n-check/Root-reviewed-final-code-before-publication.json",
+  "normal_verified_receipt": {
+    "identifier": "009-n",
+    "pr": 11,
+    "implementation": "09f1633b36b05fec7bea2cb24e33a60fdaef4434",
+    "report_commit": "21341795babef15de2913fd50c4f66d20abca2b1",
+    "report_sha256": "a37c762aa2ea6854e9f1208283c02640e6ad53d0e3059b416a9c998e1ae1121b",
+    "verified_at": "2026-11-20T01:51:35.452662+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "decision": "NOT_ACCEPTED_CURRENT_REQUIRED_CI_FAILURE_CONTINUE_SAME009_WITH_BOUNDED_CI_ENVIRONMENT_CORRECTION",
+  "terminal_review": "audit/009-n-ci-terminal/Root-terminal-review.json",
+  "terminal_review_sha256": "536460ebcdb16a92de5e130a099938c375bbe4b70f52f0f4e75bb044123a6643",
+  "strongest_reason_not_to_merge": "Both Product matrices have a real publisher failure and downstream mandatory checks are skipped. The controlled local environment change passed the same test; the hosted cause is unknown and fresh required CI decides the outcome.",
+  "report_metadata_precision": "The immutable report describes current-head pending checks as observed inside the pre-push report and labels the phase amendment hash as order SHA. Root verified the actual post-push head and original transcript independently.",
+  "explicit_replan": "Continue on open PR 11 at the same numeric objective with 009-o. Frozen policy checkpoint and isolated wire/design scopes may continue independently without full-suite or current-policy claims.",
+  "DHA": "NONE"
+}
