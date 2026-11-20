@@ -240,6 +240,8 @@ jobs:
       # no keys, network, GPU or model downloads. pytest exits 5 on empty
       # discovery, so the suite cannot be falsely green.
       - name: Product test suite
+        env:
+          OPENBLAS_NUM_THREADS: '1'
         run: |
           test -x /usr/bin/time
           PYTHONUNBUFFERED=1 /usr/bin/time -v python3 oap/bin/ci_unit_diagnostics.py

@@ -1298,6 +1298,41 @@ the full hosted run. Baseline NOT_RUN; protected
 authority/hardware/right/license/MVP and release gates open; whole 009
 PARTIAL; no merge; DHA NONE.
 
+## The 009-o Product CI thread-budget continuation (same 009 continuation)
+
+Run 44656541114 at the 009-n report head 21341795 completed FAILURE:
+both Product legs (Python 3.12 and 3.14) collected 2731, passed 2730,
+and failed the 16-slot publisher test with RuntimeError (can't start
+new thread) inside the fixture's Thread.start. The cleanup
+regression, the reader cases and the four other previously failing
+publisher cases passed; the three OAP jobs succeeded; mandatory
+downstream steps in the two Product jobs were skipped; the previous
+fatal exits 139/137 did not recur. The OS thread-refusal cause on
+hosted runners is unproven.
+
+The bounded local comparison (private audit only, never in Git) is
+reproduced for CI: under the 2 GiB address-space cap with ordinary
+unit collection, the original publisher case used 40 OS threads and
+1,838,972 KiB VmSize; changing only OPENBLAS_NUM_THREADS to 1
+reduced collection to one OS thread and 241,244 KiB VmSize and made
+the same case pass, and the publisher-only selection with the same
+setting passed all 88 cases. This justifies the narrowly scoped CI
+comparison only; it does not establish the underlying hosted cause.
+
+The Product test suite step (unique, covering both Python matrix
+legs) of `.github/workflows/oap.yml` gains the two-line step env
+`OPENBLAS_NUM_THREADS: '1'`; no other workflow, product, test,
+fixture, job, deadline or limit change. The 16 real concurrent
+publication reservations and all test assertions are preserved; the
+test supervisor bytes are unchanged and its `run_child` call inherits
+the step env through Popen without override.
+
+The actual full Product matrix and all OAP checks/steps at the new
+report head are pending (the strategic gate after publication); a CI
+failure goes to Root for bounded next diagnosis, never auto-retry.
+Baseline NOT_RUN; protected authority/hardware/right/license/MVP and
+release gates open; whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

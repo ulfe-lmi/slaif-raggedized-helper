@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-n
+- Current (2026-11-20): active objective 009, current slice 009-o
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -532,6 +532,33 @@
   actual CI; no narrower CI selection). Baseline NOT_RUN; protected
   authority/hardware/right/license/MVP and release gates open; whole
   009 PARTIAL; no merge; DHA NONE.
+
+  Slice 009-o is the Product CI thread-budget continuation (same 009
+  continuation, AMEND PR 11 at round base 21341795, the 009-n report
+  head whose run 44656541114 completed FAILURE: both Product legs
+  (Python 3.12 and 3.14) collected 2731, passed 2730, and failed the
+  16-slot publisher test with RuntimeError (can't start new thread)
+  inside the fixture's Thread.start; the cleanup regression, the
+  reader cases and the four other previously failing publisher cases
+  passed, the three OAP jobs succeeded, mandatory downstream steps
+  were skipped, and the earlier fatal exits 139/137 did not recur; the
+  hosted OS thread-refusal cause remains unproven). The single scoped
+  change adds the two-line step env OPENBLAS_NUM_THREADS='1' to the
+  unique Product test suite step (both Python matrix legs) of the
+  unchanged .github/workflows/oap.yml, reproducing the bounded local
+  comparison in which only that setting changed collection from 40 OS
+  threads to one, VmSize from 1,838,972 to 241,244 KiB, and made the
+  same publisher case pass (publisher-only selection 88/88) - a local
+  comparison, not proof of the hosted cause. No product or test
+  edits, no fixture weakening, no job/deadline/limit or other thread
+  setting change; the 16 real concurrent publication reservations and
+  all test assertions are preserved; the supervisor bytes are
+  unchanged and its run_child call inherits the step env through
+  Popen without override. Fresh full Product matrix plus all OAP
+  checks at the new report head decide the outcome (pending at report
+  authoring); baseline NOT_RUN; protected authority/hardware/right/
+  license/MVP and release gates open; whole 009 PARTIAL; no merge;
+  DHA NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
