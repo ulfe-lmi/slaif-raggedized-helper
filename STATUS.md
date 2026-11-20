@@ -12,6 +12,7 @@
        - Current (2026-11-20): active objective 009, current slice 009-ad
         - Current (2026-11-20): active objective 009, current slice 009-ae
          - Current (2026-11-20): active objective 009, current slice 009-af
+          - Current (2026-11-20): active objective 009, current slice 009-ag
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1573,6 +1574,67 @@
   publisher, authenticated delivery, governed full evaluation and
   the representative baseline remain open; baseline NOT_RUN; whole
   009 PARTIAL; no merge; DHA NONE.
+  Slice 009-ag transfers the independently reviewed guarded encoder
+  transport paths and hosted composition by exact blobs (same 009
+  continuation, AMEND PR 11 at round base 36f61c2, the accepted
+  009-af report-only head whose required hosted run 44828910327
+  attempt 1 passed all five jobs and every step, each Product at
+  3,438 ordered units and the separate 965-case integration). The
+  exact order (SHA-256
+  d2948644cade3d7f851a4cdfe2e966e72deb05482e44462732df34f262eea4e6)
+  and the two indexed strategic control JSONs (SHA-256
+  7fc858b9e35b2200b952138b8cae35a89e9612e55b5a4241445d72571e120c4e
+  and b88262da9f2331d6c3c183e5a4876dbb601b7c617fa0e0a1cba3a6efe6b95bd8)
+  are committed transcript-first byte-exact under oap/orders/ and
+  oap/reviews/.  The implementation touches exactly seven paths: the
+  five byte-exact objects of the reviewed candidate
+  3aec8ee1852bd94554196dfa3f96437c3e748a34 (sole child of
+  00743eca3c351d57e45ec81004f52e519ebec00a, report-only SELF
+  51909d2e6cc6ac19b90cac266ead29d0aa5a60c1, candidate history not
+  cherry-picked): src/slaif_raggedized_helper/query_embedding.py
+  (13,713 B, SHA-256
+  91246e7ef7036bd285a5433ad36e58074e836436a453303555902217f76081b9,
+  blob 7b900ca0c1c0372d16f3424597a9cada0d688fb2),
+  src/slaif_raggedized_helper/isolated_cpu_embedding.py (24,284 B,
+  SHA-256 b2295535cc8ab3d1f7644fe42efa6a00210e9372eebc9710323c5f3575bc458a,
+  blob 9a3b01a8fc1f8f6f8b1d11cecc9bf576d4746bfe),
+  src/slaif_raggedized_helper/embedding_tokenizer.py (16,498 B,
+  SHA-256 946ebf22caba55c7d10e517a273a9e3c258c1a4a185dc647d1ae30f1371ee934,
+  blob 370d538af21f3dc3edaa627710c50dd64f4c146d),
+  src/slaif_raggedized_helper/cpu_embedding_worker.py (28,621 B,
+  SHA-256 b47888851b5ffd6852478b23d3fbb12ff17611776231e3669c78b6613b303fbe,
+  blob 082f52dbbe6b4b6f2f28f1968ef1428390cb6211) and the new
+  tests/integration/test_guarded_encoder_transport_composition.py
+  (39,582 B, SHA-256
+  8d795b198dfb35f984f1e7b09b8fd862730d5347be5c58ebdbb9eef8073b61be,
+  blob fb4f33fbbb2fe859fc1963c89886213c7b4cfb45) with its five
+  default hosted nodes; plus these two documents.  Everything else
+  stays byte-exact, including all 37 indexed receiving objects. The
+  transferred boundary ties the closed private resident
+  single-query entry to the exact admitted current request and one
+  clipped absolute end under the actual existing encoder and
+  session: the one bounded operation end is carried through both
+  real child pipe starts (genuine selected observation at the
+  tokenizer text-write cut and the worker forward-payload cut) and
+  to both final result validations, with measured new identity, the
+  reconstructed prior expectations from the exact worker and bridge
+  preimages, legacy signatures/handshake and layered cleanup
+  preserved.  Actual local proof under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds: one capped inherited focus of
+  201 units (51 + 40 + 65 + 45) exit 0, one capped collect-only of
+  the five new hosted nodes exit 0, one scoped five-file one-core
+  Ruff exit 0, one bounded physical product import-origin probe
+  ORIGINS_OK exit 0.  The five real hosted compositions are
+  hosted-only, so the five integration outcomes are PENDING at
+  report authoring.  Expected at the exact report head: fresh hosted
+  CI with all five required jobs and every required step, both
+  Products passing the unchanged ordered A 1,440 and B 1,998 plus a
+  separate full 970 integration (965 prior + 5 new hosted), with
+  Root independently reviewing the exact report-head logs and
+  receiving scope.  Real source rights, subsequent ranking,
+  grading, publisher, authenticated delivery, governed full
+  evaluation and the representative baseline remain open; baseline
+  NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

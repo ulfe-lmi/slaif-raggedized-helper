@@ -195,6 +195,22 @@ class TokenIDSession:
             raise native.TokenizerError('tokenizer session refused')
 
     def encode(self, text):
+        # Public legacy entry: the original unguarded delegation shape.
+        return self._encode_body(text, None, None)
+
+    def _encode_guarded(self, text, admission, op_end):
+        # Explicit private guarded entry for the admitted operation.  The
+        # exact real admission is required, never None or a stand-in.
+        from . import private_policy_request as ppr
+
+        if (type(admission) is not ppr.PolicyRequestAdmission
+                or type(op_end) is not float or not math.isfinite(op_end)
+                or op_end <= 0):
+            raise ValueError
+        op_end = min(op_end, admission._end)
+        return self._encode_body(text, admission, op_end)
+
+    def _encode_body(self, text, admission, op_end):
         self._check_creator()
         try:
             if (self._child is None or self._child.poll() is not None or type(text) is not str
@@ -212,6 +228,10 @@ class TokenIDSession:
                     or self._input > self._policy.max_input_bytes):
                 raise ValueError
             deadline = min(self._deadline, time.monotonic() + self._policy.request_seconds)
+            if admission is not None:
+                # Tighten the per-child wait against the one bounded
+                # operation end; it can only shorten, never extend.
+                deadline = min(deadline, op_end)
             with selectors.DefaultSelector() as sel:
                 sel.register(self._child.stdin, selectors.EVENT_WRITE)
                 sent = 0
@@ -219,6 +239,31 @@ class TokenIDSession:
                     remaining = deadline - time.monotonic()
                     if remaining <= 0 or not sel.select(remaining):
                         raise ValueError
+                    if admission is not None:
+                        # Real remaining after genuine write readiness,
+                        # before any guarded write.  The first selected read
+                        # stays after that readiness and fires once; resumed
+                        # partial writes re-check remaining only, without a
+                        # second selected observation.
+                        remaining = deadline - time.monotonic()
+                        if remaining <= 0:
+                            raise ValueError
+                        if sent == 0:
+                            # One genuine selected observation immediately
+                            # before the first real host tokenizer text
+                            # os.write; the fresh remaining is clamped to the
+                            # accepted 1..30000 ms reader range, rechecked
+                            # after the observation, and the admission's one
+                            # absolute end is never reset.
+                            call_ms = int(remaining * 1000)
+                            if call_ms < 1:
+                                raise ValueError
+                            call_ms = min(call_ms, 30000)
+                            if not admission.recheck(deadline_ms=call_ms):
+                                raise ValueError
+                            remaining = deadline - time.monotonic()
+                            if remaining <= 0:
+                                raise ValueError
                     sent += os.write(self._child.stdin.fileno(), wire[sent:])
             result = self._parse(self._read(deadline))
             with selectors.DefaultSelector() as sel:

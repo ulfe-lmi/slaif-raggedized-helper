@@ -2881,6 +2881,100 @@ authenticated delivery, governed full evaluation and the
 representative baseline stay explicitly open; baseline NOT_RUN;
 whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-ag guarded encoder transport transfer (same 009
+continuation)
+
+The five byte-exact objects of the independently reviewed guarded
+encoder candidate 3aec8ee1852bd94554196dfa3f96437c3e748a34 (sole
+child of 00743eca3c351d57e45ec81004f52e519ebec00a; report-only SELF
+51909d2e6cc6ac19b90cac266ead29d0aa5a60c1, report bytes SHA-256
+6e3bc428ddc37545acda00b57b097dea0f06bd28453276440eb4d71ca0a5e45a)
+are transferred by blob identity only, without cherry-picking the
+candidate's committed history; the exact order (SHA-256
+d2948644cade3d7f851a4cdfe2e966e72deb05482e44462732df34f262eea4e6)
+and the two indexed strategic control JSONs (SHA-256
+7fc858b9e35b2200b952138b8cae35a89e9612e55b5a4241445d72571e120c4e
+and b88262da9f2331d6c3c183e5a4876dbb601b7c617fa0e0a1cba3a6efe6b95bd8)
+were committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/ (round base 36f61c2, the accepted 009-af report-only
+head whose required hosted run 44828910327 attempt 1 passed all
+five jobs and every step, each Product at 3,438 ordered units and
+the separate 965-case integration).
+
+Transferred objects: query_embedding.py (13,713 B, SHA-256
+91246e7ef7036bd285a5433ad36e58074e836436a453303555902217f76081b9,
+blob 7b900ca0c1c0372d16f3424597a9cada0d688fb2),
+isolated_cpu_embedding.py (24,284 B, SHA-256
+b2295535cc8ab3d1f7644fe42efa6a00210e9372eebc9710323c5f3575bc458a,
+blob 9a3b01a8fc1f8f6f8b1d11cecc9bf576d4746bfe),
+embedding_tokenizer.py (16,498 B, SHA-256
+946ebf22caba55c7d10e517a273a9e3c258c1a4a185dc647d1ae30f1371ee934,
+blob 370d538af21f3dc3edaa627710c50dd64f4c146d),
+cpu_embedding_worker.py (28,621 B, SHA-256
+b47888851b5ffd6852478b23d3fbb12ff17611776231e3669c78b6613b303fbe,
+blob 082f52dbbe6b4b6f2f28f1968ef1428390cb6211) and the new
+tests/integration/test_guarded_encoder_transport_composition.py
+(39,582 B, SHA-256
+8d795b198dfb35f984f1e7b09b8fd862730d5347be5c58ebdbb9eef8073b61be,
+blob fb4f33fbbb2fe859fc1963c89886213c7b4cfb45).
+
+Behavior: the closed private resident single-query entry
+(_encode_expected_identity_admitted) binds one query to the exact
+existing expected identity tuple and one real exact
+PolicyRequestAdmission under the actual existing encoder and
+session; the one bounded operation end is the sum of the two
+existing per-child budgets clipped to the admission's original
+absolute end and is carried through the isolated session, the
+native tokenizer child and the CPU worker child to both final
+result validations, where a result that became late is refused
+against that same actual end, never reset or extended. The
+tokenizer cut (T1) makes one genuine selected observation, clamped
+to the accepted 1..30000 ms reader range and rechecked after, after
+the actual native renewal and genuine write readiness and before
+the first real text bytes; the worker cut (T2) makes the genuine
+receipt validation and actual CPU write readiness precede the first
+real forward payload, with resumed partial writes re-checking
+remaining only and no second selected observation. Both public
+legacy entries keep the original unguarded delegation shape, and
+the legacy signatures/handshake, measured identity and layered
+cleanup are preserved. In the hosted suite both children are real:
+the native tokenizer child runs the real embedding_tokenizer_worker
+protocol under the configured trusted backend and the CPU sandbox
+child runs the genuine cpu_embedding_worker_main entry with the
+independent host-declared code handshake re-verification; the model
+framework is the trusted synthetic delegate (never real neural
+loading), so this is bounded synthetic software evidence with the
+actual protected pipe commencement.
+
+Hosted witnesses (five default hosted nodes, hosted-only): positive
+planned/actual measured equality with the same-runtime legacy
+result, the renewed T1 and receipt-bound T2 negatives with no
+forbidden real kernel bytes, the old expected binding mismatch
+before protected exposure, and the actual late observation and
+interruption custody. The old expectations are clearly labeled
+test-side reconstructions from the exact eight worker and four
+bridge code preimages at the accepted base, separated from prior
+accepted runtime evidence; the actual new host/child measured code
+identity changes while the intended definition/device/dtype
+identity remains the same.
+
+Verification and open evidence: actual local proof under the
+ordered CPU60s/AS1GiB/wall120s KILL5 bounds - one capped inherited
+focus of 201 units (51 + 40 + 65 + 45, with the three
+fixture-dependent worker nodes deselected locally and still
+required in hosted group A), one capped collect-only of the five
+new hosted nodes, one scoped five-file one-core Ruff and one
+bounded physical product import-origin probe - all exit 0. Local
+collection alone does not prove the hosted outcomes: the fresh
+receiving CI at the exact report-only head requires all five
+required jobs and every required step, both Products passing the
+unchanged ordered A 1,440 and B 1,998 plus exactly 970 separate
+integrations (965 prior + 5 new hosted), with Root independently
+reviewing the exact report-head logs and receiving scope. Later
+current delivery, authenticated operator assembly, source rights,
+real hardware and the representative baseline remain open;
+baseline NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

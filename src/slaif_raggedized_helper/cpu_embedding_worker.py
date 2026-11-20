@@ -444,7 +444,13 @@ class CPUEmbeddingWorker:
                 raise
             raise WorkerRefused("worker refused") from None
 
-    def _exchange(self, value, timeout):
+    def _exchange(self, value, timeout, admission=None, op_end=None):
+        # Legacy calls and the startup handshake keep the original unguarded
+        # two-argument delegation shape; a real exact
+        # PolicyRequestAdmission, when threaded by a guarded forward,
+        # tightens this exchange's deadline against the one bounded
+        # operation end and adds one genuine selected observation
+        # immediately before the first real forward write.
         wire = _json(value) + b"\n"
         if (
             len(wire) > self.policy.request_bytes
@@ -452,6 +458,10 @@ class CPUEmbeddingWorker:
         ):
             raise ValueError
         deadline = min(self._deadline, time.monotonic() + timeout)
+        if admission is not None:
+            # Tighten the per-child wait against the one bounded operation
+            # end; it can only shorten, never extend.
+            deadline = min(deadline, op_end)
         child = self._child
         sent = 0
         with selectors.DefaultSelector() as sel:
@@ -466,6 +476,31 @@ class CPUEmbeddingWorker:
                     raise ValueError
                 for key, _ in events:
                     if key.fileobj is child.stdin:
+                        if admission is not None:
+                            # Real remaining after genuine write readiness,
+                            # before any guarded write.  The first selected
+                            # read stays after that readiness and fires once;
+                            # resumed partial writes re-check remaining only,
+                            # without a second selected observation.
+                            remaining = deadline - time.monotonic()
+                            if remaining <= 0:
+                                raise ValueError
+                            if sent == 0:
+                                # One genuine selected observation immediately
+                                # before the first real forward token-ID
+                                # os.write; the fresh remaining is clamped to
+                                # the accepted 1..30000 ms reader range,
+                                # rechecked after the observation, and the
+                                # admission's one absolute end is never reset.
+                                call_ms = int(remaining * 1000)
+                                if call_ms < 1:
+                                    raise ValueError
+                                call_ms = min(call_ms, 30000)
+                                if not admission.recheck(deadline_ms=call_ms):
+                                    raise ValueError
+                                remaining = deadline - time.monotonic()
+                                if remaining <= 0:
+                                    raise ValueError
                         sent += os.write(child.stdin.fileno(), wire[sent:])
                         if sent == len(wire):
                             sel.unregister(child.stdin)
@@ -499,6 +534,22 @@ class CPUEmbeddingWorker:
                             return result
 
     def forward_cls(self, sequences):
+        # Public legacy entry: the original unguarded delegation shape.
+        return self._forward_cls_body(sequences, None, None)
+
+    def _forward_guarded(self, sequences, admission, op_end):
+        # Explicit private guarded entry.  The exact real admission is
+        # required, never None or a stand-in.
+        from . import private_policy_request as ppr
+
+        if (type(admission) is not ppr.PolicyRequestAdmission
+                or type(op_end) is not float or not math.isfinite(op_end)
+                or op_end <= 0):
+            raise ValueError
+        op_end = min(op_end, admission._end)
+        return self._forward_cls_body(sequences, admission, op_end)
+
+    def _forward_cls_body(self, sequences, admission, op_end):
         if not self._guard.acquire(blocking=False):
             raise WorkerRefused("worker busy")
         try:
@@ -509,9 +560,22 @@ class CPUEmbeddingWorker:
             digest = hashlib.sha256(_json(batch)).hexdigest()
             nonce = uuid.uuid4().hex
             operation_deadline = min(self._deadline, time.monotonic() + self.policy.forward_seconds)
-            reply = self._exchange(
-                {"nonce": nonce, "digest": digest, "rows": batch}, self.policy.forward_seconds
-            )
+            if admission is not None:
+                # Tighten the per-child wait against the one bounded
+                # operation end; it can only shorten, never extend.
+                operation_deadline = min(operation_deadline, op_end)
+            if admission is None:
+                reply = self._exchange(
+                    {"nonce": nonce, "digest": digest, "rows": batch},
+                    self.policy.forward_seconds,
+                )
+            else:
+                reply = self._exchange(
+                    {"nonce": nonce, "digest": digest, "rows": batch},
+                    self.policy.forward_seconds,
+                    admission,
+                    op_end,
+                )
             if (
                 type(reply) is not dict
                 or set(reply) != {"nonce", "digest", "space", "profile", "rows"}
