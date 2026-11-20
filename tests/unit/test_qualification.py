@@ -646,18 +646,46 @@ class TestSpecInputReader:
         with pytest.raises(ValueError):
             _json.loads('{"a": ' + "9" * 5000 + '}')
 
-    def test_deep_nesting_is_typed(self, tmp_path):
-        # Within the 64 KiB file bound the C decoder of current
-        # interpreters copes; the typed branch is exercised at the
-        # parse boundary where the interpreter's recursion bound trips
-        # (200k levels), and any interpreter that trips earlier on a
-        # file still gets the same typed refusal (never a crash).
+    def test_deep_nesting_is_typed(self, monkeypatch):
+        # Bounded case immediately above the 64-container application
+        # guard (65 containers, 130 bytes): the typed refusal must
+        # come from the guard itself, so an independent sentinel
+        # proves the illegal depth never reaches json.loads — no
+        # historic extreme-depth crash reproduction.
+        from slaif_raggedized_helper.qualification import specio
         from slaif_raggedized_helper.qualification.specio import (
+            SPEC_ERROR_INVALID,
             parse_spec_json)
-        deep = "[" * 200_000 + "]" * 200_000
+        reached = []
+
+        def sentinel(*args, **kwargs):
+            reached.append(1)
+            raise AssertionError("illegal depth reached json.loads")
+
+        monkeypatch.setattr(specio.json, "loads", sentinel)
+        deep = "[" * 65 + "]" * 65
         result, refusal = parse_spec_json(deep)
         assert result is None
+        assert refusal.error == SPEC_ERROR_INVALID
         assert refusal.reason == REASON_TOO_DEEP
+        assert reached == []
+
+    def test_depth_at_limit_parses_escaped_content(self):
+        # At the guard limit (64 containers) the real decoder parses;
+        # the innermost string carries brackets/braces, an escaped
+        # quote and a backslash, so only a quote-aware guard admits
+        # it.
+        from slaif_raggedized_helper.qualification.specio import (
+            parse_spec_json)
+        inner = '"[\\"}\\\\]"'
+        payload = "[" * 64 + inner + "]" * 64
+        result, refusal = parse_spec_json(payload)
+        assert refusal is None
+        value = result
+        for _ in range(64):
+            assert isinstance(value, list) and len(value) == 1
+            value = value[0]
+        assert value == '["}\\]'
 
     def test_refusal_messages_never_echo_the_path(self, tmp_path):
         path = self._write(tmp_path, "secret-name.json", b"\xff")

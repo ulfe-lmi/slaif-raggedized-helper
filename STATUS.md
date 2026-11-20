@@ -1,8 +1,8 @@
 # Project status
 
-## Current state (2026-11-16)
+## Current state (2026-11-20)
 
-- Current (2026-11-16): active objective 009, current slice 009-m
+- Current (2026-11-20): active objective 009, current slice 009-n
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -501,6 +501,37 @@
   labels, full baseline NOT_RUN and rights/privacy/visual/security/
   license/hardware/merged-ICA/MVP/release gates preserved; whole 009
   PARTIAL, no deployment readiness implied, no 010, no merge; DHA NONE.
+
+  Slice 009-n is the diagnostic-to-publication continuation (same 009
+  continuation, AMEND PR 11 at round base 0b131157, the 009-m report
+  head whose run 44028728886 completed FAILURE with only the two
+  Product unit steps (3.14/3.12) failed and all OAP jobs SUCCESS; the
+  earlier five unit failures UNTRACED and the native exit causes (139
+  on 3.14, 137 on 3.12) UNPROVEN; the 009-l report/CI evidence at
+  494a1908 run 44022614755 SUCCESS preserved). Bounded local
+  diagnostics (private audit only): with the original configuration
+  the comparison observed 40 OS threads and nearly exhausted virtual
+  address space (RuntimeError at the 8th partially-started publisher
+  thread); only OPENBLAS_NUM_THREADS=1 in the test subprocess changed
+  collection to one OS thread and made the same case pass; publisher
+  88/88, and after the fixture correction 89/89 with the fixture
+  owning partially-started threads (abort barrier/signal, bounded
+  joins, re-raise of the exact original exception) - local comparison
+  and selected tests, not actual CI, no native pool owner or CI cause
+  claimed.
+  Changed semantics: specio parse_spec_json runs the quote-aware
+  64-container parity_io depth check before json.loads (native
+  RecursionError fallback kept); the manifest read loop bounded to
+  captured size plus one with immediate excess refusal (O(captured
+  size), reaching the existing global limit only at that size); one
+  Ruff exit 0 on the two refined files and one bounded selection
+  19 passed, no skips (observer n=19 sel=0); publisher bytes keep
+  their accepted 89-case evidence. Two new default cases (publisher
+  partial-start cleanup; one at-limit spec parsing) make the full
+  default count EXPECTED 2731 = 2729 + 2 (expectation only, awaiting
+  actual CI; no narrower CI selection). Baseline NOT_RUN; protected
+  authority/hardware/right/license/MVP and release gates open; whole
+  009 PARTIAL; no merge; DHA NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed

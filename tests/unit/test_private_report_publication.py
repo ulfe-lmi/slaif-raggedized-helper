@@ -696,7 +696,16 @@ def test_symlink_final_conflicts_in_fresh_process(tmp_path):
     assert completed.returncode == 0, completed.stderr
 
 
-def test_sixteen_slots_refuse_seventeenth_without_open(monkeypatch):
+def _sixteen_slot_fixture(monkeypatch, start_fault=None, started=None, on_reserve=None):
+    # Shared 16-slot refusal harness: every successfully started worker
+    # is owned until it has terminated.  start_fault is a narrow
+    # optional seam invoked before each real Thread.start; when a start
+    # fails (seam or platform), the unreachable barrier is aborted,
+    # waiting workers are signalled, the started workers are
+    # bounded-joined and the exact initiating exception is re-raised
+    # unchanged so pytest reports it.
+    # on_reserve is a narrow optional observer of the real _reserve()
+    # return value, invoked in the reserving worker before the barrier.
     import threading
 
     barrier = threading.Barrier(17, timeout=8)
@@ -707,6 +716,8 @@ def test_sixteen_slots_refuse_seventeenth_without_open(monkeypatch):
         slot = None
         try:
             slot = publisher._reserve()
+            if on_reserve is not None:
+                on_reserve(slot)
             barrier.wait()
             assert release.wait(8)
         except BaseException as exc:
@@ -717,8 +728,25 @@ def test_sixteen_slots_refuse_seventeenth_without_open(monkeypatch):
                 slot.guard.release()
 
     threads = [threading.Thread(target=own_slot) for _ in range(16)]
-    for thread in threads:
-        thread.start()
+    owned = []
+    try:
+        for thread in threads:
+            if start_fault is not None:
+                start_fault()
+            thread.start()
+            owned.append(thread)
+            if started is not None:
+                started.append(thread)
+    except BaseException:
+        # Partial startup: the 17-party barrier can never trip, so
+        # abort it to release waiting workers, signal the release
+        # gate, own the started workers to bounded termination and
+        # preserve the exact initiating failure.
+        barrier.abort()
+        release.set()
+        for thread in owned:
+            thread.join(timeout=8)
+        raise
     try:
         barrier.wait()
         calls = []
@@ -733,6 +761,57 @@ def test_sixteen_slots_refuse_seventeenth_without_open(monkeypatch):
             thread.join(timeout=8)
     assert not failures
     assert all(not thread.is_alive() for thread in threads)
+
+
+def test_sixteen_slots_refuse_seventeenth_without_open(monkeypatch):
+    _sixteen_slot_fixture(monkeypatch)
+
+
+def test_partial_startup_preserves_failure_and_terminates_workers(monkeypatch):
+    # Controlled ordinary failure at the third start, after two genuine
+    # workers are already running and each holds a real reservation:
+    # the exact initiating exception must escape, both acquired slot
+    # identities must be observed present in the real broker before the
+    # fault, the started workers must terminate through the production
+    # release path, and the registry's exact identities and order must
+    # be restored afterwards.  No fake start success, no fake
+    # allocator, no pool reset, no registry clearing, no sleep
+    # oracles; a synchronization timeout is a test failure.
+    import threading
+
+    initiating = RuntimeError("controlled partial startup failure")
+    attempts = []
+    started = []
+    reserved = []
+    both_reserved = threading.Event()
+
+    def on_reserve(slot):
+        reserved.append(slot)
+        if len(reserved) == 2:
+            both_reserved.set()
+
+    def flaky_start():
+        attempts.append(1)
+        if len(attempts) >= 3:
+            if not both_reserved.wait(8):
+                raise AssertionError("synchronization timeout before fault")
+            assert reserved[0] is not reserved[1]
+            for slot in reserved:
+                assert any(current is slot for current in publisher._SLOTS)
+            raise initiating
+
+    initial_registry = list(publisher._SLOTS)
+    with pytest.raises(RuntimeError) as caught:
+        _sixteen_slot_fixture(
+            monkeypatch, start_fault=flaky_start, started=started, on_reserve=on_reserve
+        )
+    assert caught.value is initiating
+    assert len(attempts) == 3
+    assert len(started) == 2
+    assert all(not thread.is_alive() for thread in started)
+    for slot in reserved:
+        assert not any(current is slot for current in publisher._SLOTS)
+    assert list(publisher._SLOTS) == initial_registry
 
 
 def _child_limits():

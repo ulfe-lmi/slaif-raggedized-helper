@@ -46,6 +46,9 @@ def test_unicode_and_json_boundaries():
 
 def test_manifest_descriptor_bounds_and_special_files(tmp_path):
     path = tmp_path / "manifest"
+    # Stable input at the exact MAX_MANIFEST limit: admitted, full bytes.
+    path.write_bytes(b" " * 256000)
+    assert _manifest_bytes(str(path)) == b" " * 256000
     path.write_bytes(b" " * 256001)
     with pytest.raises(ValueError):
         _manifest_bytes(str(path))
@@ -82,16 +85,28 @@ def test_verified_original_reads_and_detects_corruption(tmp_path):
 def test_manifest_growth_refused(tmp_path, monkeypatch):
     path = tmp_path / "manifest"
     path.write_bytes(b"{}")
+    captured = 2
     actual = os.read
+    work = {"calls": 0, "requested": 0, "returned": 0}
 
     def grow(fd, count):
+        work["calls"] += 1
+        work["requested"] += count
         with path.open("ab") as f:
             f.write(b"!")
-        return actual(fd, count)
+        result = actual(fd, count)
+        work["returned"] += len(result)
+        return result
 
     monkeypatch.setattr(os, "read", grow)
     with pytest.raises(ValueError):
         _manifest_bytes(str(path))
+    # Fully exercised fixture: one read of the captured two bytes
+    # plus one actually observed extra byte (never the 256 KiB
+    # manifest limit), refused immediately after the first extra byte.
+    assert work["calls"] == 1
+    assert work["requested"] == captured + 1
+    assert work["returned"] == captured + 1
 
 
 def test_verified_read_detects_mid_read_mutation(tmp_path, monkeypatch):

@@ -1254,6 +1254,50 @@ visual/security/license/hardware/merged-ICA/MVP/release gates
 preserved. Whole 009 PARTIAL; no deployment readiness implied; no
 010, no merge; DHA NONE.
 
+## The 009-n diagnostic-to-publication continuation (same 009 continuation)
+
+Run 44028728886 on the 009-m report head 0b131157 completed FAILURE:
+only the two Product unit steps (3.14 and 3.12) failed, all OAP jobs
+succeeded. The earlier five unit failures are UNTRACED and the native
+exit causes (139 on 3.14, 137 on 3.12) are UNPROVEN; the historical
+009-l evidence (run 44022614755 SUCCESS at 494a1908) is preserved.
+
+Bounded local diagnostics (private audit only, never in Git): with the
+original configuration the comparison observed 40 OS threads and
+nearly exhausted virtual address space, and RuntimeError (can't start
+new thread) at the 8th partially-started publisher thread (p2); only
+setting OPENBLAS_NUM_THREADS=1 in the test subprocess changed
+collection to one OS thread and made the same case pass (p3); the
+publisher module passed 88/88 (p4) and, after the fixture correction,
+89/89 with the fixture owning partially-started threads (abort
+barrier/signal, bounded joins, re-raise of the exact original
+exception). These are local comparison and selected tests, not actual
+CI, and no native pool owner or CI cause is claimed.
+
+Changed semantics across the five paths: (1) specio parse_spec_json
+now runs the package-internal quote-aware parity_io._depth_check
+(existing 64-container envelope) before json.loads, translating only
+its refusal to the fixed SPEC_INVALID/too_deep result, with the native
+RecursionError fallback kept; (2) the _manifest_bytes read loop is
+bounded to the captured initial regular size plus one - the first
+unexpected extra byte or early EOF ends the read and the excess is
+refused immediately, so work is O(captured size), reaching the
+existing global limit only when the captured size is that large;
+(3) the publisher unit fixture owns partially-started threads on
+cleanup failure. Final checks: one Ruff exit 0 on the two refined
+files and one bounded selection (TestSpecInputReader +
+test_source_cli.py) 19 passed, no skips, observer n=19 sel=0 exit=0
+under the earlier reader-checkpoint envelope; the publisher bytes keep
+their accepted 89-case evidence without re-run.
+
+Two new default cases overall (publisher partial-start cleanup; one
+at-limit spec parsing test) make the current full default count
+EXPECTED 2731 = 2729 + 2 - an expectation only, awaiting actual CI
+evidence. No narrower CI selection; local results never substitute for
+the full hosted run. Baseline NOT_RUN; protected
+authority/hardware/right/license/MVP and release gates open; whole 009
+PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
