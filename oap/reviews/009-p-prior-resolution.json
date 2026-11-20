@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-20T02:43:25.259361+00:00",
+  "identifier": "009-o",
+  "head": "e9f24bae9ce47c1ceb3f51e9eff10e91574c7242",
+  "implementation": "1f8d84a4c6f11170c642751a4b96f438e70077bf",
+  "report_sha256": "52a9f79a2e85e9998c50d29e46234753dc0b082203503f6bb88390b45adae5d9",
+  "receipt": {
+    "identifier": "009-o",
+    "pr": 11,
+    "implementation": "1f8d84a4c6f11170c642751a4b96f438e70077bf",
+    "report_commit": "e9f24bae9ce47c1ceb3f51e9eff10e91574c7242",
+    "report_sha256": "52a9f79a2e85e9998c50d29e46234753dc0b082203503f6bb88390b45adae5d9",
+    "verified_at": "2026-11-20T02:42:19.462642+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "terminal_review": "audit/009-o-ci-terminal/Root-terminal-review.json",
+  "terminal_review_sha256": "9003c156bb4f2a66c123ea41ed0634e52c981b652829e4b9d7478b5d5ec94b91",
+  "implementation_review": "audit/009-o-check/Root-implementation-review.json",
+  "decision": "NOT_ACCEPTED_CURRENT_REQUIRED_CI_FAILURE_CONTINUE_SAME009_WITH_PUBLISHER_CASE_ISOLATION",
+  "strongest_reason_not_to_merge": "The only changed workflow setting was insufficient in both hosted matrices. Downstream required steps were skipped. Local fresh-process success preserves the assertions and supports a narrower test-only correction; it does not prove the hosted cause or future CI.",
+  "explicit_replan": "009-p isolates one test case within the test suite at unchanged assertions and full concurrency. Keep independent frozen typed/wire policy candidates, transfer only after canonical green CI resets the evidence baseline. Whole 009/MVP gates remain open.",
+  "DHA": "NONE"
+}
