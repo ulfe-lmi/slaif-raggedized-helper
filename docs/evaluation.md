@@ -2698,6 +2698,107 @@ live operator, the encoder and the representative baseline stay open;
 the representative baseline remains NOT_RUN and whole 009 PARTIAL; no
 merge; DHA NONE.
 
+## The 009-ae private case-bound hybrid (same 009 continuation)
+
+The bounded private case-bound entry in the same held-pin hybrid
+operation (round base df480130, the accepted 009-ad report-only head
+whose required hosted run 44810977091 attempt 1 passed all five jobs
+and every step, each Product at 3,438 ordered units and the separate
+958-case integration). The exact order (SHA-256
+425f57f1ce19d7e2cd304f0597a8725f128a00c83b80fe4e6228a41aeee78c7e) and
+the two indexed strategic control JSONs (SHA-256
+5df8e00528c88216cf2776ba9e815d654cb897a03ec43be4c77b3112fe1e7b08 and
+21dcfab02a302b5c4bbfea8e7f3f9563399aa80e9005b6e44157dbc7168ed9e9) are
+committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Source scope: the implementation touches only
+src/slaif_raggedized_helper/raw_hybrid_search.py, the new
+tests/integration/test_private_case_bound_hybrid_composition.py and
+these two documents; the existing product/public search, the exact
+full-principal pinned entry, all lower engines and existing callers,
+the pin and policy libraries, the publisher, evaluator, native
+encoder, existing tests/workflow and resource setup stay byte-exact,
+and no relabeling of prior immutable evidence happens.
+
+Exact case-scope authority: the new fixed private entry
+`search_pinned_case` binds the exact current PolicyRequestAdmission,
+the exact active PinOwner, bounded canonical dataset bytes and one
+exact case ID, taking no caller text, grants, restrictions, stores,
+root, snapshot, credential, callback or clock. The dataset is admitted
+under the genuine canonical parser through the same clipped absolute
+budget. The full principal immutable policy-derived value stays bound
+to the detached current authority comparisons (the O1 and final O5
+checks), while the narrower effective case value is derived from that
+exact full anchor and the admitted case declaration through the
+genuine existing case-scope intersection, with no additional
+restriction; the effective value serves the actual eligibility and the
+engines, including the authority hash bound to the result, and the
+result keeps the exact case authority. The case question is the exact
+admitted case question. A missing or invalid case refuses without
+widening; if an unavailable partition is outside the actual effective
+readable scope it does not block the unaffected scope, while
+unavailability inside the readable scope refuses before the first
+catalog. No claims about prior trusted internal snapshot integrity
+reads or additional rights are made.
+
+Reuse and interruption: the same private preparation, one real
+nonblocking owner guard, live association, one shared hybrid body and
+the five genuine current observations (O1 after pure admission,
+case-scope derivation, nonblocking owner custody and in-memory capture
+verification; O2 after verified scope and actual association before
+the first real catalog call; O3 after real dense; O4 after real
+lexical; O5 after the final actual pin association/full revalidation
+and its post-load association, with the final exact authority check
+against the full anchor and the true remaining deadline) are reused,
+with the fixed ordinary refusal, the exact original interruption
+identity, owner restoration and no post-deadline usable result
+preserved, and no duplicate engine loop.
+
+Actual witnesses (two new default hosted nodes, hosted-only): the
+cases use the real `make_owned_support` and `dataset_and_bundles`
+fixtures over the real raw selected pin and the existing reviewed
+synthetic wire/selector fixtures, with counters starting after real
+setup, selection and pin. The actual positive witness (h1) genuinely
+narrows to (one, v1, no secret): the real policy withholds the
+corpus-two b partition, which is outside the effective readable scope
+and does not block it, so only a/c contribute; the effective
+authority and the exact real case question match the genuine legacy
+body explicitly run with those effective grants (five real
+observations and the real positive engine/owner proof counted, legacy
+counted separately). The actual negative witness (h2) under the same
+admitted synthetic policy reads (one, two, v1, secret): the withheld b
+is now inside the readable scope and the dispatch refuses with the
+actual policy admission and case declaration before any new catalog,
+directory, dense, lexical or fusion call; the same node attests the
+absent and invalid case refusals (before custody and any observation),
+the restored owner guard/deadline and the fixed content-free ordinary
+refusal, with no fixture rejection as passing evidence. The existing
+seven private integration nodes and 958 total prior integrations stay
+exact.
+
+Local evidence: under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds
+with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+0700 scratch under sticky /tmp, raw logs outside the private pytest
+basetemp and no cacheprovider - one bounded inherited focus of the four
+ordered unit files (15 + 53 + 45 + 8 = 121 cases, exit 0 in 1.75 s),
+one capped collect-only of the two new hosted nodes (exit 0), one
+targeted Ruff on the two changed Python paths on one local core (exit
+0) and one bounded physical product import-origin probe (ORIGINS_OK,
+exit 0). The actual native fixture is hosted-only; no native proof
+execution, substitute, install or other setup ran locally, so the two
+real integration outcomes remain hosted-only and PENDING at report
+authoring; expected at the exact report head: ordered hosted Product
+units unchanged at 3,438 each (A 1,440 and B 1,998) with the separate
+960 default integrations each (958 prior + 2 new), both Products, all
+three OAP jobs and every prior required step passing, with Root
+owning the hosted review.
+
+Open gates: the guarded model, actual operator assembly,
+Gold/rank/grade/delivery, real source rights and representative
+evaluation stay open; the representative baseline remains NOT_RUN and
+whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

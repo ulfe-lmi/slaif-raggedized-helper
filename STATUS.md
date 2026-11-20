@@ -10,6 +10,7 @@
      - Current (2026-11-20): active objective 009, current slice 009-ab
       - Current (2026-11-20): active objective 009, current slice 009-ac
        - Current (2026-11-20): active objective 009, current slice 009-ad
+        - Current (2026-11-20): active objective 009, current slice 009-ae
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1421,6 +1422,85 @@
   review.  The evaluator, encoder, source/grade/delivery, rights,
   governed live operator and representative baseline gates stay open;
   baseline NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
+  Slice 009-ae adds the bounded private case-bound entry to the same
+  held-pin hybrid operation (same 009 continuation, AMEND PR 11 at
+  round base df480130, the accepted 009-ad report-only head whose
+  required hosted run 44810977091 attempt 1 passed all five jobs and
+  every step, each Product at 3,438 ordered units and the separate
+  958-case integration).  The exact order (SHA-256
+  425f57f1ce19d7e2cd304f0597a8725f128a00c83b80fe4e6228a41aeee78c7e)
+  and the two indexed strategic control JSONs
+  (009-ae-case-bound-source-inputs.json SHA-256
+  5df8e00528c88216cf2776ba9e815d654cb897a03ec43be4c77b3112fe1e7b08 and
+  009-ae-prior-resolution.json SHA-256
+  21dcfab02a302b5c4bbfea8e7f3f9563399aa80e9005b6e44157dbc7168ed9e9)
+  are committed transcript-first byte-exact under oap/orders/ and
+  oap/reviews/.  The implementation touches only
+  src/slaif_raggedized_helper/raw_hybrid_search.py, the new
+  tests/integration/test_private_case_bound_hybrid_composition.py,
+  STATUS.md and docs/evaluation.md; the existing product/public
+  search, the exact full-principal pinned entry, all lower engines and
+  existing callers, the pin and policy libraries, the publisher,
+  evaluator, native encoder, existing tests/workflow and resource
+  setup stay byte-exact.  The new fixed private entry
+  search_pinned_case binds the exact current PolicyRequestAdmission,
+  the exact active PinOwner, bounded canonical dataset bytes and one
+  exact case ID, taking no caller text, grants, restrictions, stores,
+  root, snapshot, credential, callback or clock.  The dataset is
+  admitted under the genuine parser through the same clipped absolute
+  budget; the exact admitted case question and the narrower effective
+  case value come from the genuine existing case-scope intersection
+  over the exact full principal anchor with no additional
+  restriction; the full principal immutable policy-derived value stays
+  bound to the detached current authority comparisons while the
+  effective value serves the actual eligibility and engines,
+  including the authority hash bound to the result.  The same private
+  preparation, one real nonblocking owner guard, live association, one
+  shared hybrid body and five genuine current observations (O1-O5) are
+  reused; a missing or invalid case, or unavailability inside the
+  effective readable scope, refuses before the first catalog, while an
+  unavailable partition outside it does not block the unaffected scope
+  and the scope is never widened; the fixed ordinary refusal and the
+  exact original interruption identity, owner restoration and no
+  post-deadline usable result are preserved, with no duplicate engine
+  loop.  The two new default hosted cases use the real
+  make_owned_support and dataset_and_bundles fixtures (h1/h2 over the
+  real raw selected pin and the existing reviewed synthetic
+  wire/selector fixtures): h1 genuinely narrows to (one, v1, no
+  secret) with the real policy withholding the corpus-two b partition
+  outside the effective readable scope, so only a/c contribute, the
+  effective authority and the exact real case question match the
+  genuine legacy body explicitly run with those effective grants, and
+  the five real observations plus the real positive engine/owner proof
+  are counted (legacy counted separately); h2 under the same admitted
+  synthetic policy reads (one, two, v1, secret), the withheld b is now
+  inside the readable scope and refuses with the actual policy
+  admission and case declaration before any new catalog, directory,
+  dense, lexical or fusion call, with the absent/invalid case
+  refusals, the restored owner guard/deadline and the fixed
+  content-free ordinary refusal attested in the same node.  Counters
+  start after real setup, selection and pin; the existing seven
+  private integration nodes and 958 total prior integrations stay
+  exact.  Actual local proof under the ordered CPU60s/AS1GiB/wall120s
+  KILL5 bounds with OPENBLAS_NUM_THREADS=1,
+  PYTHONDONTWRITEBYTECODE=1, fresh private 0700 scratch under sticky
+  /tmp, raw logs outside the private pytest basetemp and no
+  cacheprovider: one bounded inherited unit focus of the four ordered
+  files (15 + 53 + 45 + 8 = 121 cases, exit 0 in 1.75 s), one capped
+  collect-only of the two new hosted nodes (exit 0), one targeted
+  Ruff on the two changed Python paths on one local core (exit 0) and
+  one bounded physical product import-origin probe (ORIGINS_OK,
+  exit 0).  The actual native fixture is hosted-only; no native proof
+  execution, substitute, install or other setup ran locally, so the
+  two real integration outcomes are hosted-only and PENDING at report
+  authoring.  Expected at the exact report head: ordered hosted
+  Product units unchanged at 3,438 each (A 1,440 and B 1,998) with
+  the separate 960 default integrations each (958 prior + 2 new),
+  both Products, all three OAP jobs and every prior required step
+  passing; Root owns the hosted review.  The guarded model, actual
+  operator assembly, Gold/rank/grade/delivery, real source rights and
+  representative evaluation gates stay open; baseline NOT_RUN; whole
+  009 PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
