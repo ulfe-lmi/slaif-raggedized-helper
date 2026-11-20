@@ -678,10 +678,76 @@ def _stage_ok(slot, size):
     )
 
 
-def publish(report, *, directory, deadline_ms=30000):
-    end = _deadline(deadline_ms)
-    _creator()
-    parts, final, data = _admit(report, directory, end)
+def _store(slot, name, data, parts, end):
+    # Generic admitted-content storage shared by the trusted entries:
+    # the unnamed stage, the normative prelink recheck, the single
+    # no-replace link, the full held-fd verification and both fsync
+    # boundaries.  No destructive namespace operation exists here or in
+    # any caller: a collision and every unresolved post-attempt state
+    # are handled by the caller's conservative state and verification
+    # rules, never by rollback.
+    _stage(slot, data, end)
+    _namespace(slot, parts, end)
+    _tick(end)
+    if not _stage_ok(slot, len(data)):
+        raise _Failure()
+    _tick(end)
+    slot.state = Publication.POSSIBLY_PUBLISHED
+    try:
+        os.link(
+            "/proc/self/fd/%d" % slot.stage,
+            name,
+            dst_dir_fd=slot.root,
+            follow_symlinks=True,
+        )
+    except FileExistsError:
+        # One bounded recovery-verification branch: the collision
+        # itself cannot publish this staged inode, and the observed
+        # exception alone does not prove that the link had no
+        # effect, so POSSIBLY_PUBLISHED is retained until the full
+        # generic held-fd verification (including its file flush)
+        # proves an identical final.
+        if not _verify(slot, name, data, end):
+            raise _Failure()
+        _tick(end)
+        os.fsync(slot.root)
+        _tick(end)
+        _namespace(slot, parts, end)
+        slot.state = Publication.DURABLE
+        return Outcome.EXISTING
+    _tick(end)
+    st = os.fstat(slot.stage)
+    _tick(end)
+    if (
+        (st.st_dev, st.st_ino) != slot.stage_identity
+        or not stat.S_ISREG(st.st_mode)
+        or st.st_nlink != 1
+    ):
+        raise _Failure()
+    if not _verify(slot, name, data, end, expected_identity=slot.stage_identity):
+        raise _Failure()
+    _tick(end)
+    os.fsync(slot.root)
+    _tick(end)
+    _namespace(slot, parts, end)
+    slot.state = Publication.DURABLE
+    return Outcome.PUBLISHED
+
+
+def _transact(parts, name, data, end, *, error, note):
+    # The complete shared admitted-content transaction, performed once
+    # for every trusted entry after its own admission: pool
+    # reservation, no-follow namespace walk, directory-inode writer
+    # lock, namespace stability, the exact-existing final
+    # verification or the generic storage core, the conservative
+    # state, the cleanup/retirement and guard policy and the
+    # ordinary-failure normalization.  ``error`` maps the truthful
+    # (publication, cleanup) state to the calling entry's fixed
+    # content-free refusal; ``note`` is the cleanup-pending note
+    # attached to a non-Exception primary that still owns
+    # descriptors.  Non-Exception interruptions preserve identity and
+    # never enter the fixed refusal.  Returns the shared ``Outcome``
+    # only after the complete storage and verification sequence.
     slot = _reserve()
     outcome = None
     failure = None
@@ -689,7 +755,7 @@ def publish(report, *, directory, deadline_ms=30000):
         slot.root = _walk(slot, parts, end)
         _lock(slot, end)
         _namespace(slot, parts, end)
-        if _verify(slot, final, data, end):
+        if _verify(slot, name, data, end):
             _tick(end)
             os.fsync(slot.root)
             _tick(end)
@@ -697,53 +763,7 @@ def publish(report, *, directory, deadline_ms=30000):
             slot.state = Publication.DURABLE
             outcome = Outcome.EXISTING
         else:
-            _stage(slot, data, end)
-            _namespace(slot, parts, end)
-            _tick(end)
-            if not _stage_ok(slot, len(data)):
-                raise _Failure()
-            _tick(end)
-            slot.state = Publication.POSSIBLY_PUBLISHED
-            try:
-                os.link(
-                    "/proc/self/fd/%d" % slot.stage,
-                    final,
-                    dst_dir_fd=slot.root,
-                    follow_symlinks=True,
-                )
-            except FileExistsError:
-                # One bounded recovery-verification branch: the collision
-                # itself cannot publish this staged inode, and the observed
-                # exception alone does not prove that the link had no
-                # effect, so POSSIBLY_PUBLISHED is retained until the full
-                # generic held-fd verification (including its file flush)
-                # proves an identical final.
-                if not _verify(slot, final, data, end):
-                    raise _Failure()
-                _tick(end)
-                os.fsync(slot.root)
-                _tick(end)
-                _namespace(slot, parts, end)
-                slot.state = Publication.DURABLE
-                outcome = Outcome.EXISTING
-            else:
-                _tick(end)
-                st = os.fstat(slot.stage)
-                _tick(end)
-                if (
-                    (st.st_dev, st.st_ino) != slot.stage_identity
-                    or not stat.S_ISREG(st.st_mode)
-                    or st.st_nlink != 1
-                ):
-                    raise _Failure()
-                if not _verify(slot, final, data, end, expected_identity=slot.stage_identity):
-                    raise _Failure()
-                _tick(end)
-                os.fsync(slot.root)
-                _tick(end)
-                _namespace(slot, parts, end)
-                slot.state = Publication.DURABLE
-                outcome = Outcome.PUBLISHED
+            outcome = _store(slot, name, data, parts, end)
         _tick(end)
     except BaseException as exc:
         failure = exc
@@ -801,10 +821,29 @@ def publish(report, *, directory, deadline_ms=30000):
     if failure is not None and not isinstance(failure, Exception):
         if not clean:
             try:
-                failure.add_note("private report publication cleanup pending")
+                failure.add_note(note)
             except BaseException:
                 pass
         raise failure
     if failure is not None or not clean:
-        raise PublicationError(state, Cleanup.CLEAN if clean else Cleanup.PENDING) from None
+        raise error(state, Cleanup.CLEAN if clean else Cleanup.PENDING) from None
+    return outcome
+
+
+def _publication_error(installation, cleanup):
+    return PublicationError(installation, cleanup)
+
+
+def publish(report, *, directory, deadline_ms=30000):
+    end = _deadline(deadline_ms)
+    _creator()
+    parts, final, data = _admit(report, directory, end)
+    outcome = _transact(
+        parts,
+        final,
+        data,
+        end,
+        error=_publication_error,
+        note="private report publication cleanup pending",
+    )
     return Receipt(outcome, Publication.DURABLE, Cleanup.CLEAN)

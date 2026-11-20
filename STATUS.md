@@ -3,6 +3,7 @@
 ## Current state (2026-11-20)
 
 - Current (2026-11-20): active objective 009, current slice 009-w
+ - Current (2026-11-20): active objective 009, current slice 009-x
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -952,6 +953,53 @@
   rights and model gates remain open. Baseline NOT_RUN; whole 009
   PARTIAL; protected authority/hardware/right/license/MVP and
   release gates open; no merge; DHA NONE.
+  Slice 009-x is the one private policy payload install entry (same
+  009 continuation, AMEND PR 11 at round base ed48ca58, the 009-w
+  report-only head whose adopted hosted run 44737907992 attempt 1
+  passed all five jobs and all steps: both Product legs 3,134 units
+  (1,440 group A, 1,694 group B) plus a separate 951-case
+  integration run).  The entry takes the exact wire bytes, the
+  trusted private directory and one bounded monotonic deadline; it
+  rejects invalid inputs before any protected namespace work, admits
+  the entire candidate through the production admit_policy_bytes
+  with the established wire envelope, and installs the admitted
+  bytes at their SHA-256 digest name (<64 lowercase hex>.bin) in
+  bounded chunks.  The visible publisher now exposes the complete
+  admitted-content transaction (fixed slot pool, directory-inode
+  lock, no-follow walk, unnamed O_TMPFILE stage, immutable mode,
+  one no-overwrite link, byte+inode verification, both fsync
+  boundaries, conservative state and the existing retry_cleanup)
+  exactly once, and both trusted entries go through it; the legacy
+  report publication code, ordering and outputs and the original
+  capture helpers are exact.  Every ordinary initial, deadline or
+  slot failure normalizes to the entry's fixed content-free refusal
+  with the truthful installation and cleanup state, BaseException
+  identity is preserved, the shared publisher error is wrapped to
+  the entry's fixed error, and the shared transaction outcomes map
+  explicitly to the entry's own new-installation and existing
+  distinction.  The receipt reports installation state, cleanup
+  state, exact byte length and wire digest; it confers no selection
+  authority, and the existing selector's bytes and linked inode
+  remain unchanged.  One new 62-case synthetic unit suite covers
+  the zero-namespace refusals, the early post-decode and post-hash
+  deadline cuts, the pool and refusal wrapping, the new and raced
+  existing outcome types, the truthful late durable return and the
+  counted real I/O operation order.  Actual local proof at the
+  implementation head under the ordered CPU60s/AS1GiB/wall120s
+  KILL5 bounds: one targeted ruff check on the three changed Python
+  files (exit 0), one combined focused pytest of the new suite plus
+  the two exact inherited publisher and capture suites (222 = 62
+  new + 160 inherited nodes, exit 0) and one bounded
+  canonical-origin check (every imported product module resolves to
+  the canonical src, every unchanged input at its prior-resolution
+  hash).  The fresh full hosted CI at the exact report head is
+  PENDING with Root owning it and the terminal review; expected
+  until measured A 1,440, B 1,694 plus the 62 new unit nodes,
+  integration 951 and every downstream step.  The open governed
+  operator, the real representative baseline, source rights and
+  model gates remain open.  Baseline NOT_RUN; whole 009 PARTIAL;
+  protected authority/hardware/right/license/MVP and release gates
+  open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

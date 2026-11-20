@@ -1993,6 +1993,84 @@ representative baseline, source rights and model gates remain open;
 the representative baseline remains NOT_RUN and whole 009 PARTIAL;
 no merge; DHA NONE.
 
+## The 009-x protected policy payload install (same 009 continuation)
+
+One private payload install entry on the same PR 11 (round base
+ed48ca58, the 009-w report-only head): the operator-side storage
+prerequisite for future policy selection installs genuinely
+admitted wire bytes at their immutable digest name in an
+operator-owned root, preserving the current selector. The adopted
+prior resolution records the exact hosted evidence (run
+44737907992 attempt 1: all five jobs and all steps passed; both
+Product legs 3,134 units - 1,440 group A, 1,694 group B - plus a
+separate 951-case integration run) and indexes the nine unchanged
+input files at the round base.
+
+The entry (install_policy_payload) takes the exact wire bytes, the
+trusted private directory and one bounded monotonic admission
+deadline (1..30000 ms). Invalid inputs - non-bytes wire, out-of-
+bounds length, invalid directory grammar, invalid deadline, foreign
+pool creator - are rejected before any protected namespace work.
+The entire candidate is admitted by the production
+admit_policy_bytes with the established wire envelope; the sole
+final name is the SHA-256 of the exact bytes (<64 lowercase
+hex>.bin), derived in bounded chunks. The input supplies no
+explicit name, digest, generation, parsed DTO, callback or
+selector.
+
+The visible module no longer duplicates the storage protocol: the
+complete admitted-content transaction - the exact fixed
+process-wide slot pool, the directory-inode writer lock, the
+no-follow namespace traversal, the existing unnamed O_TMPFILE
+stage, the immutable mode, the one no-overwrite link, the byte and
+inode verification, both fsync boundaries, the conservative state
+and the existing retry_cleanup - is performed exactly once in the
+publisher, shared by the report publisher and this entry, with the
+legacy code, ordering and outputs and the original capture helpers
+exact. A new installation and an existing exact final are distinct
+outcomes mapped explicitly from the shared transaction; every
+ordinary initial, deadline or slot failure normalizes to the
+entry's fixed content-free refusal (PayloadInstallError) with the
+truthful installation and cleanup state, the shared publisher's
+error type is wrapped to that same fixed error, and selected
+non-Exception BaseException identity is preserved.
+
+The receipt (PayloadInstallReceipt) reports the installation
+state, the cleanup state, the exact byte length and the wire
+digest. It establishes content storage only: it confers no
+authority to select a policy or use protected data, the existing
+selector's bytes and linked inode remain unchanged, and a
+pre-existing foreign final is never clobbered (byte, mode and
+special-entry conflicts refuse). Sixty-two new synthetic unit cases
+cover the zero-namespace refusals, the early post-decode and
+post-hash deadline cuts, the pool and refusal wrapping, the new and
+raced existing outcome types, the truthful late durable return, the
+counted real I/O operation order and the stable selected-reader
+interop.
+
+Actual local proof at the implementation head (synthetic ephemeral
+filesystem only; locked .venv Python 3.14.4 / pytest 8.4.2 / ruff
+0.17.4; fresh private 0700 scratch; OPENBLAS_NUM_THREADS=1,
+PYTHONDONTWRITEBYTECODE=1, private basetemp, cacheprovider
+disabled; each invocation bounded by timeout -k 5 120 prlimit
+--cpu=60 --as=1073741824): one targeted ruff check on the three
+changed Python files (exit 0); one combined focused pytest
+invocation of the new suite plus the two exact inherited publisher
+and capture suites (exit 0, 222 = 62 new + 160 inherited nodes);
+one bounded origin check (every imported product module resolves to
+the canonical repository src, with the exact prior-resolution
+SHA-256 for every unchanged input).
+
+The fresh full hosted CI at the exact report head is PENDING at
+report authoring; Root owns the fresh CI and terminal review.
+Expected until measured: group A 1,440, group B 1,694 plus the 62
+new unit nodes, the unchanged 951-case integration and every
+downstream step and OAP job. No full transfer or qualification
+acceptance flows from publication alone; the open governed
+operator, the real representative baseline, source rights and model
+gates remain open; the representative baseline remains NOT_RUN and
+whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
