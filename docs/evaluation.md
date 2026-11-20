@@ -2975,6 +2975,55 @@ current delivery, authenticated operator assembly, source rights,
 real hardware and the representative baseline remain open;
 baseline NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-ah tokenizer renewal output baseline (same 009
+continuation)
+
+Slice 009-ah (AMEND PR 11 at round base 1fa6bc8, the accepted
+009-ag report-only head) corrects the guarded tokenizer T1 renewal
+witness after the exact prior failure: required hosted run
+44834284664 attempt 1 at that head passed the three OAP jobs and
+both ordered unit inventories (1,440 + 1,998 each) and failed both
+Product integrations at exactly one node,
+test_t1_selected_change_after_renewal_before_text_bytes, with
+assert 19 == 0, the later required steps skipped. The real
+tokenizer child emits its startup ready frame and the real
+constructor consumes it with TokenIDSession._read, which increments
+_output on all actual reads, before any query; the earlier witness
+therefore asserted a zero total at the refused T1 after the real
+startup frame had already been counted.
+
+The correction is confined to that one node: at the real _renew
+return the renewed tokenizer's actual startup output counter is
+captured in the existing renewed child/pipe record as
+tokenizer_startup_output; the witness asserts the captured value is
+positive and the later refused T1 output equals that same snapshot.
+The exact untouched assertions are preserved: the real renewed
+child and pipe identity (new pid, old child reaped, retained live
+fd and pipe), the selected observation, the expected booked
+counters (_calls 1, _input the exact 60-byte framed hello), zero
+kernel writes to either tokenizer or CPU stdin, zero receipt and
+forward, the admission latch (invalid, no recheck on further
+rotation) and fresh re-admission on the new generation, and the
+real closure/custody (encoder refused, session closed,
+tokenizer/worker/stage None); the independent CPU worker
+startup_output assertions stay as before. No hardcoded expected
+startup byte count, counter reset, reduced observations, test
+skip, loosened predicate or unchanged CI retry; the method name
+and all five hosted collection nodes are unchanged.
+
+Local proof under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds:
+one capped collect-only of the five unchanged hosted nodes and one
+scoped one-core Ruff on the changed test file, both exit 0; no
+local native result, no setup or install. The fresh receiving CI at
+the exact report-only head requires all five required jobs and
+every required step, both Products passing the unchanged ordered
+A 1,440 and B 1,998 plus exactly 970 passing integrations (969
+prior + 1 corrected), with Root independently reviewing the
+exact report-head logs and receiving scope. Later current
+delivery, authenticated operator assembly, source rights, real
+hardware and the representative baseline remain open; baseline
+NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

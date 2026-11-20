@@ -13,6 +13,7 @@
         - Current (2026-11-20): active objective 009, current slice 009-ae
          - Current (2026-11-20): active objective 009, current slice 009-af
           - Current (2026-11-20): active objective 009, current slice 009-ag
+           - Current (2026-11-20): active objective 009, current slice 009-ah
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1635,6 +1636,50 @@
   grading, publisher, authenticated delivery, governed full
   evaluation and the representative baseline remain open; baseline
   NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
+  Slice 009-ah corrects the guarded tokenizer T1 renewal witness
+  (same 009 continuation, AMEND PR 11 at round base 1fa6bc8, the
+  accepted 009-ag report-only head whose exact required hosted run
+  44834284664 attempt 1 at that head passed the three OAP jobs and
+  both ordered unit inventories, 1,440 + 1,998 each, and failed
+  both Product integrations at exactly one node:
+  test_t1_selected_change_after_renewal_before_text_bytes with
+  assert 19 == 0, the later required steps skipped).  The exact
+  order (SHA-256
+  67312079f767ece92039f95d0b644a3461cc8d8fca8b879e9ceac41a47cf7070)
+  and the two indexed strategic control JSONs (SHA-256
+  2ca353c87c7c35d67643c4c3661e0ed5331a70a2460f1d59ec477d40bc43df7f
+  and b3df41743871a4e7e1881c9cfbc19dc40024ee966926a001d00bb153373603b0)
+  are committed transcript-first byte-exact under oap/orders/ and
+  oap/reviews/.  The implementation changes exactly three paths:
+  tests/integration/test_guarded_encoder_transport_composition.py
+  exclusively in that T1 node, plus these two documents.  The
+  renewed tokenizer's real startup ready frame is consumed by the
+  real constructor through _read, which counts every actual read
+  into _output before any query; the witness now captures that
+  genuine startup output counter in the existing renewed
+  child/pipe record at the real _renew return, asserts the captured
+  value is positive, and asserts the later refused T1 output equals
+  that same snapshot, with the real renewed child and pipe
+  identity, the selected observation, the expected booked
+  counters, the zero kernel writes to either tokenizer or CPU
+  stdin, the zero receipt and forward, the admission latch and
+  fresh re-admission, and the real closure/custody assertions
+  preserved untouched.  No hardcoded startup byte count, counter
+  reset, reduced observation, skip, loosened predicate or CI retry;
+  the method name and all five hosted collection nodes stay
+  unchanged.  Actual local proof under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds: one capped collect-only of
+  the five unchanged hosted nodes exit 0 and one scoped one-core
+  Ruff on the changed test file exit 0; no local native result.
+  Expected at the exact report head: fresh hosted CI with all five
+  required jobs and every required step, both Products passing the
+  unchanged ordered A 1,440 and B 1,998 plus exactly 970 passing
+  integrations (969 prior + 1 corrected), with Root independently
+  reviewing the exact report-head logs and receiving scope.  Real
+  source rights, subsequent ranking, grading, publisher,
+  authenticated delivery, governed full evaluation and the
+  representative baseline remain open; baseline NOT_RUN; whole 009
+  PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

@@ -487,8 +487,14 @@ def test_t1_selected_change_after_renewal_before_text_bytes(tmp_path, monkeypatc
             # retain both for post-cleanup identity checks and write tracking.
             new_pipe = new_child.stdin
             tracked_pipes.append(new_pipe)
+            # The real constructor already consumed the renewed child's
+            # startup ready frame through _read, which counts every actual
+            # read into _output before any query; at the real _renew return
+            # this is the renewed tokenizer's genuine startup output counter.
+            tokenizer_startup_output = new_tokenizer._output
             renewals.append((new_tokenizer, new_child,
-                             new_pipe.fileno(), new_pipe))
+                             new_pipe.fileno(), new_pipe,
+                             tokenizer_startup_output))
             # Instrument the actual renewed guarded tokenizer: delegate to
             # its real method and record the actual entry (which yields zero
             # receipt result, refusing at the T1 cut).
@@ -544,8 +550,10 @@ def test_t1_selected_change_after_renewal_before_text_bytes(tmp_path, monkeypatc
         # live fd and pipe identity captured during renewal are used after
         # the real cleanup closed that descriptor.
         assert len(renewals) == 1
-        new_tokenizer, new_child, new_fd, new_pipe = renewals[0]
+        new_tokenizer, new_child, new_fd, new_pipe, \
+            tokenizer_startup_output = renewals[0]
         assert type(new_fd) is int and new_fd >= 0  # captured live, renewal
+        assert tokenizer_startup_output > 0  # real startup frame consumed by _read
         assert new_tokenizer is not old_tokenizer
         assert new_child.pid != old_child.pid
         assert old_child.poll() is not None
@@ -561,7 +569,12 @@ def test_t1_selected_change_after_renewal_before_text_bytes(tmp_path, monkeypatc
         assert new_tokenizer._calls == 1
         assert new_tokenizer._input == _frame_len("hello")
         assert _frame_len("hello") == 60  # the exact named framed hello wire
-        assert new_tokenizer._output == 0
+        # The renewed child's genuine startup ready frame was already
+        # counted into _output by the real constructor's _read before any
+        # query; the refused T1 added no further bytes, so the total equals
+        # the positive snapshot captured at the real _renew return (no
+        # hardcoded startup byte count and no counter reset).
+        assert new_tokenizer._output == tokenizer_startup_output
         assert new_tokenizer._child is None  # reaped by the real cleanup
         # No kernel write reached either tokenizer stdin pipe identity (old
         # or renewed); the tokenizer child sends its ready line without a
