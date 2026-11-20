@@ -8,6 +8,7 @@
    - Current (2026-11-20): active objective 009, current slice 009-z
     - Current (2026-11-20): active objective 009, current slice 009-aa
      - Current (2026-11-20): active objective 009, current slice 009-ab
+      - Current (2026-11-20): active objective 009, current slice 009-ac
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1277,6 +1278,82 @@
   explicit open cut for this first synthetic seam (fusion's existing data scope
   checks still run); the evaluator, encoder, real operator, source/rights,
   release and representative evaluation gates stay open.  Baseline NOT_RUN;
+  whole 009 PARTIAL; no merge; DHA NONE.
+  Slice 009-ac is the byte-exact transfer of the independently reviewed
+  private installed-policy selector and its synthetic regression suite
+  (same 009 continuation, AMEND PR 11 at round base 8f1ba9aa, the
+  accepted 009-ab report-only head whose required hosted run
+  44796492067 attempt 1 passed all five jobs and every step, each
+  Product at 3,370 ordered units and the separate 957-case integration).
+  The exact order (SHA-256
+  0a29116b36fb4c72ac76c6d38b6b836035927230327883852c6554e6966b985b) and
+  the two indexed strategic control JSONs
+  (009-ac-selected-installed-policy-transfer-index.json SHA-256
+  711bf2b8851b81e889e3837c0941c0e06e8479a2e0800c4468f3e8781257e2dc and
+  009-ac-prior-resolution.json SHA-256
+  d6448b4fa86a6e1355fbffc20281752c41277895f67b2812f72a0cd1ebb426ba) are
+  committed transcript-first byte-exact under oap/orders/ and
+  oap/reviews/.  The implementation adds only the four transferred
+  artifacts -
+  src/slaif_raggedized_helper/private_policy_selection.py (26,825 B),
+  tests/unit/test_private_policy_selection.py (68 synthetic cases,
+  74,745 B), the original lane order
+  oap/parallel/orders/PAR-009-SELECT-INSTALLED-POLICY-A.md (7,982 B) and
+  the original immutable SELF report archived at
+  oap/provenance/009-ac/PAR-009-SELECT-INSTALLED-POLICY-A.original.json
+  (8,488 B) - plus these two documents; the nine frozen dependency
+  objects (report publication, payload installer, capture, policy
+  selection, supplied policy and wire, and the three inherited unit
+  suites), the workflow, the CI partition and every other path stay
+  byte-exact, and the separate immutable payload installer is preserved
+  untouched.  select_installed_policy updates an existing selector
+  using already installed admissible bytes under the one shared root
+  writer lock: the production admit_policy_bytes admits the entire
+  candidate before any protected namespace work, the canonical digest
+  name is the SHA-256 of the exact bytes, the short-lived registry
+  mutex only reserves and retires the shared slot while one held slot
+  guard and the root-directory (directory-inode) writer flock cover the
+  bounded transaction (the payload installer and the shared _transact
+  are never called, so no second directory lock exists), one
+  reserved per-root .current-policy.stage refuses any preexisting entry
+  of any identity before any namespace change, and the final fd-relative
+  os.replace publishes the new selector only after the staged-name
+  verify plus the final pre-replace namespace and prior-selector full
+  stable metadata signature rechecks, and the linked new record is read
+  back only after the replace and again after the verified directory
+  flush and namespace recheck; the content-free PolicySelectError
+  separates selection state
+  from descriptor cleanup and reports the reserved stage as an observed
+  state only, with UNRESOLVED wherever the name was not observed or the
+  observation was uncertain, and there is no automatic rollback or
+  stale-stage recovery.  Actual local proof under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds with OPENBLAS_NUM_THREADS=1,
+  PYTHONDONTWRITEBYTECODE=1, fresh 0700 scratch directly under sticky
+  /tmp, private basetemp, raw logs outside basetemp and no
+  cacheprovider: one bounded four-module focused unit proof
+  (test_private_policy_selection.py 68 + test_private_policy_payload.py
+  62 + test_private_policy_capture.py 71 +
+  test_private_report_publication.py 89 = 290 cases, exit 0), one
+  targeted one-core Ruff on the two copied Python files (exit 0) and one
+  bounded physical import-origin probe of the six product modules (all
+  resolve to the canonical repository src, exit 0).  The immutable
+  original SELF report is preserved unchanged; Root's raw reconciliation
+  identifies its omitted Ruff line and its repeated origins line with
+  two inaccurate origin digests from the retained raw command/exit files
+  and Root's independent capped proof at the identical tree (290 focus,
+  Ruff and origins all exit 0), and the historical pre-recovery 267/21
+  combined failure, the transient F841 and the invalid -B harness
+  deviation remain excluded failure evidence at their prior inputs.
+  Expected at the exact report head: group A 1,440 and group B 1,998
+  (3,438 ordered units per Product, 68 new B cases), the separate
+  957-case integration, and all five required jobs with every previous
+  required step; Root owns the fresh hosted CI and terminal review.  The
+  fixed reserved staging path can remain occupied after an uncertain
+  attempt or restart, blocking a new selection pending separate
+  operator-authorized recovery; caller-facing policy admission, payload
+  installation, private retrieval, evaluation and publication behavior,
+  real root initialization, protected recovery, source rights and
+  baseline qualification remain separate gates.  Baseline NOT_RUN;
   whole 009 PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed

@@ -2513,6 +2513,112 @@ source/rights, release and representative evaluation gates stay open;
 the representative baseline remains NOT_RUN and whole 009 PARTIAL; no
 merge; DHA NONE.
 
+## The 009-ac selected installed policy transfer (same 009
+continuation)
+
+Byte-exact transfer of the independently reviewed private
+installed-policy selector and its synthetic regression suite (round
+base 8f1ba9aa, the accepted 009-ab report-only head whose required
+hosted run 44796492067 attempt 1 passed all five jobs and every step,
+each Product at 3,370 ordered units and the separate 957-case
+integration). The exact order (SHA-256
+0a29116b36fb4c72ac76c6d38b6b836035927230327883852c6554e6966b985b) and
+the two indexed strategic control JSONs (SHA-256
+711bf2b8851b81e889e3837c0941c0e06e8479a2e0800c4468f3e8781257e2dc and
+d6448b4fa86a6e1355fbffc20281752c41277895f67b2812f72a0cd1ebb426ba) are
+committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Source scope: the implementation adds only the four transferred
+artifacts -
+src/slaif_raggedized_helper/private_policy_selection.py (26,825 B,
+SHA-256 e929ccc1b4ecc9c7637c6d958022e5c97eae7f9172bbe5012c7bc05b8e3b33c1),
+tests/unit/test_private_policy_selection.py (68 synthetic cases,
+74,745 B, SHA-256
+22c9b9a349acaf3fa30bc568f5d77cf256a5acbee2029d21267cbae885a63f00), the
+original lane order
+oap/parallel/orders/PAR-009-SELECT-INSTALLED-POLICY-A.md (7,982 B,
+SHA-256 69545b67ae9b84a8366822381fef83103d41a5b3d6117740fdc534e7b3ac3862)
+and the original immutable SELF report archived at
+oap/provenance/009-ac/PAR-009-SELECT-INSTALLED-POLICY-A.original.json
+(8,488 B, SHA-256
+6a02bf7846d96543ba940ec1ea388c996659e630c2f17e4f8fc7519ddf9b9f92) - plus
+these two documents. The nine frozen dependency objects (report
+publication, payload installer, capture, policy selection, supplied
+policy and wire, and the three inherited unit suites), the workflow,
+the CI partition, the prior hybrid code and tests and the fixtures stay
+byte-exact; the separate immutable payload installer is preserved
+untouched and no other product path or output envelope changes.
+
+The new fixed private entry select_installed_policy(wire_bytes, *,
+directory, deadline_ms=30000) updates an existing selector using
+already installed admissible bytes under the one shared root writer
+lock. The operating cuts: the production admit_policy_bytes admits the
+entire candidate before any protected namespace work (zero-namespace
+invalid-input refusals open nothing); the canonical digest name is the
+SHA-256 of the exact bytes in bounded chunks; the short-lived registry
+mutex only reserves and retires the shared slot while one held slot
+guard and the root-directory (directory-inode) writer flock cover the
+bounded transaction (the payload installer and the shared _transact are
+never called, so no second directory lock exists) across the no-follow
+walk, the namespace stability check, the exact current record read and
+parse under the lock, the next-generation derivation, the derived
+canonical record
+through the real parser, the held-fd verification of the installed
+digest-named payload against the exact admitted bytes including the
+file flush, the verified root-directory flush before the new selector
+becomes visible, and, after the complete staged-name verify and
+immediately before the one fd-relative os.replace, the final
+pre-replace namespace and prior-selection full stable metadata
+signature rechecks (metadata only, no second read); the actual linked
+new record readback happens after the replace, and again after the
+verified directory flush and the namespace recheck. One reserved
+per-root .current-policy.stage refuses any
+preexisting entry of any identity or type before any namespace change.
+The content-free PolicySelectError separates selection state
+(NOT_PUBLISHED/POSSIBLY_PUBLISHED/DURABLE/CONFLICT) from descriptor
+cleanup (CLEAN/PENDING) and reports the reserved stage as an observed
+state only (ABSENT/PRESENT/UNRESOLVED), with UNRESOLVED wherever the
+reserved name was not observed or the observation was uncertain; a
+failed pre- or post-replace namespace recheck invalidates the verified
+association (the requested path is probed by the real no-follow walk,
+which is what detects the mismatch, while the replacement root's stage
+is neither observed nor mutated), the positively owned staging inode is
+cleaned only under the same held lock with one never-retried
+pre-attempt unlink, and no selector rollback is claimed. There is no
+automatic rollback and no automatic stale-stage recovery: the fixed
+reserved staging path can remain occupied after an
+uncertain attempt or restart, blocking a new selection pending separate
+operator-authorized recovery.
+
+Verification: one bounded four-module focused unit proof under the
+ordered CPU60s/AS1GiB/wall120s KILL5 bounds (test_private_policy_
+selection.py 68 + test_private_policy_payload.py 62 +
+test_private_policy_capture.py 71 +
+test_private_report_publication.py 89 = 290 cases, exit 0), one
+targeted one-core Ruff on the two copied Python files (exit 0) and one
+bounded physical import-origin probe of the six product modules (all
+resolve to the canonical repository src, exit 0). The immutable
+original SELF report is preserved unchanged; Root's raw reconciliation
+identifies its omitted Ruff line and its repeated origins line with two
+inaccurate origin digests from the retained raw command/exit files and
+Root's independent capped proof at the identical tree (290 focus, Ruff
+and origins all exit 0). The historical pre-recovery 267/21 combined
+failure, the transient F841 lint fault and the invalid -B harness
+deviation remain excluded failure evidence at their prior inputs.
+Expected at the exact report head: group A 1,440 and group B 1,998
+(3,438 ordered units per Product, 68 new B cases) plus the separate
+957-case integration, with all five required jobs and every previous
+required step; the fresh hosted CI is PENDING at report authoring with
+Root owning it and the terminal review.
+
+Open gates: caller-facing policy admission, payload installation,
+private retrieval, evaluation and publication behavior, real root
+initialization, protected recovery, source rights, guarded encoding and
+protected delivery, and representative evaluation gates stay open; the
+representative baseline remains NOT_RUN and whole 009 PARTIAL; no
+merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
