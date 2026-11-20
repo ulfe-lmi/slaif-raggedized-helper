@@ -1370,25 +1370,67 @@ Local actual results (private audit only, never in Git): the first
 bounded publisher-module run (existing venv; CPU 60s / AS 2 GiB /
 TERM 120s then KILL 5s; fresh private direct /tmp basetemp;
 canonical src) passed 88/89 - the isolated child failed at real
-Thread.start under its own 512 MiB cap (520260 KiB VmSize with 11
-threads before the next start, initial increments 73748 KiB).
-Root's controlled diagnosis ran the same instrumented program with
-caps inside-only and exec+inside (both failing at the same point)
-and the single MALLOC_ARENA_MAX=1 child env (all 16 real
-reservations passed; +8212 KiB per sampled start, 168096 KiB with 16
-threads before the final start; glibc 2.43). The authorized one
-child-only line (shared _child_environment helper and all other
-subprocesses untouched; all four child limits kept) made the one
-bounded changed-byte re-run under the same exact envelope pass
-89/89. This proves the named local command only; the hosted limiting
-resource and hosted benefit remain unproven until actual CI
-evidence.
+Thread.start under its own 512 MiB cap, and that first
+publisher-module failure itself established the traceback and the
+88/89 result. Root's controlled diagnosis ran the same instrumented
+program in separate baseline trials: caps inside-only and exec+inside
+(both failing at the same point; the 520260 KiB VmSize with 11
+threads before the next start and the first 73748 KiB increments
+belong to those separate instrumented baseline trials) and the single
+MALLOC_ARENA_MAX=1 child env (all 16 real reservations passed;
++8212 KiB per sampled start, 168096 KiB with 16 threads before the
+final start; glibc 2.43). The authorized one child-only line (shared
+_child_environment helper and all other subprocesses untouched; all
+four child limits kept) made the one bounded changed-byte re-run
+under the same exact envelope pass 89/89. This proves the named
+local command only; the hosted limiting resource and hosted benefit
+remain unproven until actual CI evidence.
 
 Fresh full Product matrix plus all OAP checks at the new report head
 are pending (the strategic gate after publication); a CI failure
 goes to Root for bounded next diagnosis, never auto-retry. Baseline
 NOT_RUN; protected authority/hardware/right/license/MVP and release
 gates open; whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-q combined CI process-resource comparison (same 009 continuation)
+
+Run 44667676605 at the 009-p report head 3522d263 completed
+FAILURE: Python 3.12 Product collected 2731 with all 24 steps
+succeeded (2731 unit passes including integration); Python 3.14
+collected 2731 and emitted 2532 pass marks before child exit 137
+without a final summary - last unfinished forwarded node
+test_controlled_two_partition_full_stages_exceed_return_cap, its
+six subsequent steps skipped; both versions passed the corrected
+16-slot publisher case; the three OAP jobs succeeded. Neither the
+exit status nor that last forwarded node establishes the cause.
+
+The 009-o Product-step OPENBLAS_NUM_THREADS=1 trial alone left the
+publisher thread-start failure on both versions while each job
+completed the other 2730 cases, including the 3.14 last forwarded
+node above, and a separate local controlled probe reduced
+collection from 40 native OS threads to one. The bounded comparison
+therefore keeps the successful 009-p isolated-child allocator
+setting and adds the earlier exact Product-step control for a
+changed comparison; this evidence justifies a bounded resource
+control without attributing the hosted exit to OpenBLAS, and both
+full hosted Product matrices are required again.
+
+The single scoped change restores the exact two-line env stanza
+OPENBLAS_NUM_THREADS='1' under the unique Product test suite step
+(both Python matrix legs) of .github/workflows/oap.yml; the whole
+workflow equals the e9f24bae postimage byte-for-byte (SHA256
+b9195355) with no other workflow, product, test, fixture, job,
+deadline, limit, retry, selection or downstream-step change. The
+unchanged publisher test (SHA256 1b8cb255) and supervisor (SHA256
+3e15bf1c) bytes are preserved; the 16 real concurrent publication
+reservations and all test assertions remain.
+
+The actual full Product matrix (both legs) and all OAP
+checks/steps at the new report head are pending (the strategic gate
+after publication); a CI failure goes to Root for bounded next
+diagnosis with cause evidence, never auto-retry. Baseline NOT_RUN;
+protected authority/hardware/right/license/MVP and release gates
+open; whole 009 PARTIAL; no merge; DHA NONE.
 
 ## Input contracts and bounds
 

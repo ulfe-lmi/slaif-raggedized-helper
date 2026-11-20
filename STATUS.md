@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-p
+- Current (2026-11-20): active objective 009, current slice 009-q
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -595,6 +595,36 @@
   report head decide the hosted outcome (pending at report
   authoring); the hosted limiting resource and hosted benefit remain
   unproven. Baseline NOT_RUN; protected authority/hardware/right/
+  license/MVP and release gates open; whole 009 PARTIAL; no merge;
+  DHA NONE.
+
+  Slice 009-q is the combined CI process-resource comparison (same
+  009 continuation, AMEND PR 11 at round base 3522d263, the 009-p
+  report head whose run 44667676605 completed FAILURE: Python 3.12
+  Product collected 2731 with all 24 steps succeeded (2731 unit
+  passes including integration); Python 3.14 collected 2731 and
+  emitted 2532 pass marks before child exit 137 without a final
+  summary, last unfinished forwarded node
+  test_controlled_two_partition_full_stages_exceed_return_cap with
+  its six subsequent steps skipped; both versions passed the
+  corrected 16-slot publisher case; the three OAP jobs succeeded;
+  neither the exit status nor that last forwarded node establishes
+  the cause). The 009-o Product-step OPENBLAS_NUM_THREADS=1 trial
+  alone left the publisher thread-start failure on both versions
+  while each job completed the other 2730 cases, including that 3.14
+  last forwarded node, and a separate local controlled probe reduced
+  collection from 40 native OS threads to one. The scoped change
+  restores the exact two-line env stanza OPENBLAS_NUM_THREADS='1'
+  under the unique Product test suite step (both Python matrix legs)
+  of .github/workflows/oap.yml, making the whole workflow byte-for-
+  byte equal to the e9f24bae postimage (SHA256 b9195355) while
+  retaining the successful 009-p isolated-child allocator setting,
+  every test and required check, suite selection, downstream steps
+  and all limits - a bounded combined comparison without attributing
+  the hosted exit to OpenBLAS. Both full hosted Product matrices are
+  required again. Fresh full Product matrix plus all OAP checks at
+  the new report head decide the hosted outcome (pending at report
+  authoring); baseline NOT_RUN; protected authority/hardware/right/
   license/MVP and release gates open; whole 009 PARTIAL; no merge;
   DHA NONE.
 
