@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-20T19:16:10.595338+00:00",
+  "state": "EXACT_009_AB_DEVELOPMENT_SLICE_ACCEPTED_WHOLE_009_PARTIAL",
+  "next": "009-ac",
+  "canonical_main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "canonical_base_report": "8f1ba9aa38f38cffc3d8a9adc66ea1a7bbfa1459",
+  "pr": {
+    "number": 11,
+    "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/pull/11",
+    "state": "OPEN",
+    "isDraft": false,
+    "baseRefName": "main",
+    "baseRefOid": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+    "headRefName": "oap/009-evaluation-baseline",
+    "headRefOid": "8f1ba9aa38f38cffc3d8a9adc66ea1a7bbfa1459",
+    "mergeable": "MERGEABLE",
+    "mergeStateStatus": "CLEAN",
+    "reviewDecision": null,
+    "autoMergeRequest": null,
+    "reviewThreads": {
+      "totalCount": 0,
+      "nodes": []
+    }
+  },
+  "prior_consumed_response": {
+    "path": ".oap-state/response-consumed-009-ab.json",
+    "bytes": 347,
+    "sha256": "a1ab94c7d6cb785ebce660376b9363ec5a3a2d00a0f4e0b85269d6dbb9cdbbe9"
+  },
+  "prior_exact_terminal_review": {
+    "path": "audit/009-ab-check/Root-terminal-review.json",
+    "bytes": 5566,
+    "sha256": "7b69c35334dae037691b1b119212cf660813ac715af8e204d983dafbd2a8aed5"
+  },
+  "prior_run": {
+    "id": 44796492067,
+    "attempt": 1,
+    "all_five_jobs_and_steps_pass": true,
+    "unit_each": 3370,
+    "integration_each": 957
+  },
+  "future_boundaries": "Exact writer transfer only. Baseline NOT_RUN, whole 009 PARTIAL, DHA NONE, no merge."
+}
