@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-t
+- Current (2026-11-20): active objective 009, current slice 009-u
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -834,6 +834,34 @@
   authoring; Root owns the fresh CI and terminal review. Baseline
   NOT_RUN; whole 009 PARTIAL; protected authority/hardware/right/
   license/MVP and release gates open; no merge; DHA NONE.
+  Slice 009-u is the one changed CI job-limit comparison (same 009
+  continuation, AMEND PR 11 at round base e97d29fb, the 009-t
+  report-only head). The exact prior round run 44717676140 attempt 1
+  ended CANCELLED: both Product unit steps passed all 3,015 units
+  (1,421 in group A, 1,594 in group B), including the four added
+  policy modules with the expected 47/124/18/95 file counts; Python
+  3.14 completed the separate integration and all 24 steps; all
+  three OAP jobs passed; Python 3.12 started at 10:15:30 UTC,
+  completed the unit step at 10:17:35, and its integration log
+  reached 90% at 10:32:54 before cancellation at 10:35:42 -
+  check-run 136225094911 explicitly reports the maximum execution
+  time of 20m0s, the integration step was cancelled and five later
+  steps were skipped; the exact integration wall-time variance and
+  the active test at cancellation remain unproven. The only
+  workflow byte change is the product-tests job-level
+  timeout-minutes integer 20 to 30 (verified preimage b9195355,
+  14,235 B, to target 54e66869, 14,235 B, single line-70 change;
+  the three OAP jobs keep 10 minutes and all action, setup and step
+  bytes remain exact). The bounded headroom targets the proven CI
+  platform cancellation after successful units; its effect must be
+  observed before the policy capture transfer can advance. The
+  fresh full hosted comparison at the exact report head is PENDING
+  at report authoring (exact pending status before remote CI);
+  Root owns the fresh CI terminal review of the new exact
+  report-head run and the remaining uncertainty. A second timeout
+  or partial run cannot close the gate. Baseline NOT_RUN; whole 009
+  PARTIAL; protected authority/hardware/right/license/MVP and
+  release gates open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

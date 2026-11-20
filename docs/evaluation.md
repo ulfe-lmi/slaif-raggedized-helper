@@ -1775,6 +1775,52 @@ honest terminal assessment. Baseline NOT_RUN; protected
 authority/hardware/right/license/MVP and release gates open;
 whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-u product CI job-limit comparison (same 009 continuation)
+
+One changed CI job limit on the same PR 11 (round base e97d29fb,
+the 009-t report-only head): the Product job-level
+`timeout-minutes` integer changes from 20 to 30 in
+`.github/workflows/oap.yml` (the single intended byte change;
+verified preimage b9195355, 14,235 B, to target 54e66869, 14,235
+B). The three OAP jobs keep their 10-minute bounds and all action,
+setup and step bytes remain exact; both matrices, permissions, pins
+and the 180 s unit-process budget are unchanged.
+
+Reason for the bounded comparison: the exact prior round run
+44717676140 attempt 1 ended CANCELLED after the work had already
+succeeded. Both Product unit steps passed all 3,015 units (1,421
+group A and 1,594 group B), including the four added policy modules
+with the expected 47/124/18/95 file counts; Python 3.14 completed
+the separate integration and all 24 steps; all three OAP jobs
+passed. Python 3.12 started at 10:15:30 UTC, completed the unit
+step at 10:17:35, and its integration log reached 90% at 10:32:54
+before cancellation at 10:35:42; check-run 136225094911 explicitly
+reports the maximum execution time of 20m0s, the integration step
+was cancelled and five later steps were skipped. The exact
+integration wall-time variance and the active test at cancellation
+remain unproven. The new 30-minute bound adds bounded headroom
+against exactly that observed platform cancellation after
+successful units; no other CI behavior, test set, partition or
+requirement changes, and the capture transfer and any product
+modification stay for a later exact order.
+
+The effect must be observed on the fresh run at the exact report
+head before the policy capture transfer can advance: both Product
+legs must pass 3,015 actual units (1,421 and 1,594) with the same
+independent integration command and complete successful later
+steps, all original hosted requirements kept, and the three OAP
+checks retained. The fresh full hosted CI at the exact report head
+is PENDING at report authoring; Root owns the fresh CI terminal
+review of the new exact report-head run and the remaining
+uncertainty. A second timeout or partial run cannot close the
+gate; any early end or failure retains actual output and stops for
+review. Baseline NOT_RUN; protected
+authority/hardware/right/license/MVP and release gates open; whole
+009 PARTIAL; no merge; DHA NONE.
+
+The previous 20-minute bound and its observed cancellation remain
+historical facts in the earlier sections of this document.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
