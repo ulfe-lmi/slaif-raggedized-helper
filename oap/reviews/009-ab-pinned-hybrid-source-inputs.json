@@ -1,0 +1,198 @@
+{
+  "at": "2026-11-20T17:41:37.539407+00:00",
+  "identifier": "009-ab",
+  "base": "ebbce25705c41c1db9e8f2ec1c4d3a0b833d476f",
+  "scope": "Exact code and fixture identities. Hash all entries. Read the relevant controlled spans in the order and peer projection.",
+  "peer_resolution": {
+    "path": "audit/009-pinned-hybrid-authority-seam-peer-resolution.json",
+    "bytes": 6128,
+    "sha256": "2b86fceb07136682b79f643cc3298f233ac0b611287401f81326eec2bf63479a"
+  },
+  "peer_index": {
+    "path": "parallel/audit-pinned-hybrid-authority-seam/source-inputs.json",
+    "bytes": 11321,
+    "sha256": "f039963258cedac51994fb7d6cfec22ffa434b24dfe46b855d039a7aa4ba6acc"
+  },
+  "native_fixture_local_presence": {
+    "SLAIF_NATIVE_TEST_ROOT": "UNSET",
+    "SLAIF_NATIVE_TEST_PACKAGES": "UNSET",
+    "SLAIF_NATIVE_TEST_PYTHON": "UNSET"
+  },
+  "existing_objects": {
+    ".github/workflows/oap.yml": {
+      "mode": "100644",
+      "blob": "58eee45c59bab5a002ea36831850b02c59106b28",
+      "bytes": 14235,
+      "sha256": "54e66869d9a2a02e95202ed3eaecba199a2494ca6f6c5742554e722cf14367c6"
+    },
+    "pyproject.toml": {
+      "mode": "100644",
+      "blob": "1c38fab37589a8f7ea074d65cb64fbcd9675a73b",
+      "bytes": 2025,
+      "sha256": "a4c6c55eb4f84107600bc1dab6761128c4304cc8dbf39c4a24a8e25e5d2c392f"
+    },
+    "src/slaif_raggedized_helper/policy_selection.py": {
+      "mode": "100644",
+      "blob": "d47ae4187089b30f885eccfc56259aa566062453",
+      "bytes": 2526,
+      "sha256": "eda878a12af9f141b6f9cd48ccec5601932201f9b36baa31fa17fe28659bde87"
+    },
+    "src/slaif_raggedized_helper/private_policy_capture.py": {
+      "mode": "100644",
+      "blob": "68941f04e136fe340979713729a759c5b3389379",
+      "bytes": 14974,
+      "sha256": "4d0c3b8002c6c4fabe3c3be3a08d851375249ad2fb807260f56e5fa9e3e7f0fc"
+    },
+    "src/slaif_raggedized_helper/private_policy_payload.py": {
+      "mode": "100644",
+      "blob": "a96af29c897cf98f785e85f8c51d56fd18e7c491",
+      "bytes": 7421,
+      "sha256": "48bf5ec415e049f265c6e90a68caa08283495bf3c07dbace90495f57e041193d"
+    },
+    "src/slaif_raggedized_helper/private_policy_pin_eligibility.py": {
+      "mode": "100644",
+      "blob": "0530541297222ba7653ad8d15c72bae3d700fb7f",
+      "bytes": 19591,
+      "sha256": "a09c501656a6b39973bc5d4cae9a8e8e089ee1c39f95359f06c586a5be55dfb3"
+    },
+    "src/slaif_raggedized_helper/private_policy_request.py": {
+      "mode": "100644",
+      "blob": "7b2a24d3fea6cca9e1cd67310987fdc6194db7f9",
+      "bytes": 14885,
+      "sha256": "1b52e832ca7f65925bf129958b80b99d3a1a4260dddaa29f06db371505979e44"
+    },
+    "src/slaif_raggedized_helper/raw_dense_search.py": {
+      "mode": "100644",
+      "blob": "ba729b464787798392c1f79385e52916ea2cad96",
+      "bytes": 17407,
+      "sha256": "1dbb05a0bd5c2937e9f65a3685de150b2a0c69e4687c30dfd94e1f048ba9e643"
+    },
+    "src/slaif_raggedized_helper/raw_hybrid_search.py": {
+      "mode": "100644",
+      "blob": "e95501c00256c2f84895068294b41d36d27091e9",
+      "bytes": 14600,
+      "sha256": "ab1f804150362ca240e25fcfdf167725800adb7771cf85fbaefed6628b9b1a14"
+    },
+    "src/slaif_raggedized_helper/raw_lexical_search.py": {
+      "mode": "100644",
+      "blob": "cff773fc3b32e8d5c947e5461feb82a0c76b43f0",
+      "bytes": 17814,
+      "sha256": "66e90a988fdb15f8cf65006a78e1ab3bb99013bc66ce05481053009ec24034f3"
+    },
+    "src/slaif_raggedized_helper/raw_rank_fusion.py": {
+      "mode": "100644",
+      "blob": "266535046839ed4654e33874e55f02fb5f77a2bd",
+      "bytes": 10840,
+      "sha256": "ffcb9b500b3e10a214c9ca0452a18c8d8c2ac9bf6c26ba1be9173aa2bc7fc91a"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_catalog.py": {
+      "mode": "100644",
+      "blob": "1522104ead341d13e7d944de0d2b3f5e0b4b84a2",
+      "bytes": 8710,
+      "sha256": "027f50ec3c4becd1eb61b96f4ef30feda414c1f7c36fcad4316b77386f7ab73c"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_directory.py": {
+      "mode": "100644",
+      "blob": "92fdc6ba643e6d3bc372ffd153b3dccb44779a56",
+      "bytes": 8795,
+      "sha256": "e2448d9babe4d57e9601e8eeee46b4a5fc305b84ad7074ca91ee69a330aeece0"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_files.py": {
+      "mode": "100644",
+      "blob": "ba4697e674ebb5a0afa6003ca35383b25d04da7f",
+      "bytes": 6649,
+      "sha256": "da682cdc07ed0538245addad518e9d5bd190b830b369d7cd01324a97d05885b8"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_pin.py": {
+      "mode": "100644",
+      "blob": "fd9425ed414a2b0e43c8dd4b0d6491f33e35cf49",
+      "bytes": 9471,
+      "sha256": "3b1677826804ed7a247b48026feb2292a9bc4c05d667afba80206498391643ac"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_selection.py": {
+      "mode": "100644",
+      "blob": "62b61692094a5acfb2a1c18f96a6970b3df32aae",
+      "bytes": 11190,
+      "sha256": "8cb52c4d8158831d1da876e0baf9811b5f6462389b8e9e97d75c2f745b04e81f"
+    },
+    "src/slaif_raggedized_helper/supplied_policy.py": {
+      "mode": "100644",
+      "blob": "f003704389a90e021cd40eef3a723194e2585b77",
+      "bytes": 16721,
+      "sha256": "7e59a94b98ee9b58af53bd4f350b992dbb0b91c547fd428b31b43b7009927195"
+    },
+    "src/slaif_raggedized_helper/supplied_policy_wire.py": {
+      "mode": "100644",
+      "blob": "ad380f5a824af348a58e23e7fb634ae9ba914a6f",
+      "bytes": 10556,
+      "sha256": "d18a93996baa36ea88b538f439994e9d658eb1fe4de32fb6daac15068ec4805a"
+    },
+    "tests/integration/conftest.py": {
+      "mode": "100644",
+      "blob": "0a6dc73e981c0b9994336f0962137c894221075b",
+      "bytes": 6883,
+      "sha256": "6e21f7ffd1a07e91e8027a5e9d313fdfb5ff4ec5ae901c4576d54d562494845c"
+    },
+    "tests/integration/test_raw_hybrid_search_composition.py": {
+      "mode": "100644",
+      "blob": "34be1e8a320f9fbb9d55b54ad80aa8d43e1fa507",
+      "bytes": 19567,
+      "sha256": "2454e240155e211313f00862cb9b4a686f2e95e26d269e27a7e7e07cc9272620"
+    },
+    "tests/integration/test_raw_snapshot_directory_composition.py": {
+      "mode": "100644",
+      "blob": "9a44232b89ddae7bcae32740d0ee5187412322df",
+      "bytes": 10154,
+      "sha256": "7bfe80019559a1db4708a17dc5deb44623e3693765277fbc7f94256bddc1005e"
+    },
+    "tests/integration/test_raw_snapshot_files_composition.py": {
+      "mode": "100644",
+      "blob": "cf7cba14afa27532ad5927165d4854de785ca9bd",
+      "bytes": 10841,
+      "sha256": "a2e982b616088e90a03f71054d17b78ce3ccdeb5d50f560da57fe22f5012e467"
+    },
+    "tests/unit/test_native_tokenizers.py": {
+      "mode": "100644",
+      "blob": "37a07507e5fa5c38eb50cdb0c83999fb3e995dd9",
+      "bytes": 12647,
+      "sha256": "3249fdc66c90cd96e7d4f0e85de651529f6a6610469aed6ff8f45a96348869a6"
+    },
+    "tests/unit/test_private_policy_pin_eligibility.py": {
+      "mode": "100644",
+      "blob": "4ea14debeaa40f8bb3674a35661a197f5ed0cd7d",
+      "bytes": 70832,
+      "sha256": "afae35e211143d66bd647a8afb211555909c4590257d6a7a1898b9d3a6d75970"
+    },
+    "tests/unit/test_private_policy_request.py": {
+      "mode": "100644",
+      "blob": "a2bb6642dea1e7be046b3fcb4717fb5d6bf0b450",
+      "bytes": 42773,
+      "sha256": "f8491635ce587f1bbf8a61811e9492a015f88d4ad921284a7025961b2f4a663d"
+    },
+    "tests/unit/test_raw_hybrid_search.py": {
+      "mode": "100644",
+      "blob": "51a3e57ab4603d248dcead77bbd8a41f4229d9b7",
+      "bytes": 3302,
+      "sha256": "a64505d0ec605d9a91f6596685a6e4e320c60a81b0252c578e759fbd3ef7c9e0"
+    },
+    "tests/unit/test_raw_snapshot_pin.py": {
+      "mode": "100644",
+      "blob": "ba6060efdfd686596c21303e16172272a8496bda",
+      "bytes": 3932,
+      "sha256": "9d3ae5b45e7c7cf8626469252e8871f223d0e7ecded99dff21dd634274a92a6f"
+    }
+  },
+  "indexed_identity_bytes": 389341,
+  "expected_group_a": 1440,
+  "expected_group_b": 1930,
+  "expected_unit_total": 3370,
+  "expected_new_hosted_integration": 6,
+  "expected_integration_total": 957,
+  "expected_local_unit_focus": 121,
+  "old_ordered_unit_inventory": {
+    "path": "audit/009-aa-preview-inventory/Root-projection.json",
+    "bytes": 1189,
+    "sha256": "5dbce70c1ca6adbdd8e2ad6349bc1bc7d54369cfe9ccc8c625332d7da898630d"
+  },
+  "DHA": "NONE"
+}
