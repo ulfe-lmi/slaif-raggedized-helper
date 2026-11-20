@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-v
+- Current (2026-11-20): active objective 009, current slice 009-w
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -904,6 +904,54 @@
   until measured A 1,421, B 1,665, total 3,086. Baseline NOT_RUN;
   whole 009 PARTIAL; protected authority/hardware/right/license/
   MVP and release gates open; no merge; DHA NONE.
+  Slice 009-w is the byte-exact three-component transfer of the
+  reviewed declaration-side preflight scopes (same 009 continuation,
+  AMEND PR 11 at round base 0f24c91c, the 009-v report-only head
+  whose adopted hosted run 44731327493 attempt 1 passed all five
+  jobs and all steps: both Product legs 3,086 units (1,421 group A,
+  1,665 group B) plus a separate 951-case integration run). Per
+  oap/reviews/009-w-declaration-transfer-index.json, three changed
+  product preimages, three new unit suites, three original lane
+  orders and three original lane report-only SELF archival reports
+  (12 indexed paths, all verified mode 100644 / size / SHA-256 /
+  Git blob OID at the exact source commits, at the receiving
+  working-tree paths before commit and again at the implementation
+  head): the shared binder declaration-only admission
+  (source_bound_stage_loss.py 91,797 B, 8 new unit cases, from
+  cacc5b36 on base 416009c9), the private query-free cohort
+  declaration envelope with shared ordered source selection
+  (source_cohort_runner.py 49,662 B, 21 new unit cases, from
+  ab832488 on the exact accepted binder implementation cacc5b36)
+  and the private grade declaration envelope (evaluation_program.py
+  34,416 B, 19 new unit cases, from d052c3c9 on base dfe301c7).
+  The existing query-dependent admission and grade behaviors,
+  order, metering and report identity remain governed by their
+  inherited tests (the legacy binder payload gate keeps its
+  original position before any reserve, the legacy cohort entry
+  keeps its query comparison and full vector binder check before
+  the dataset, and the legacy grade budget bound keeps its
+  original first point); the query-independent pieces add
+  declaration-only synthetic admission with no actual encoder,
+  pin/catalog, publisher, delivery, current-policy authentication,
+  fixture replacement or CI change. The three original lane orders
+  (5,013/5,144/4,586 B) and the three original SELF archival
+  reports are preserved with their historical SELF markers
+  unchanged, archived at oap/provenance/009-w/. Actual local proof
+  at the implementation head under the ordered CPU60s/AS1GiB/
+  wall120s KILL5 bounds: one targeted ruff check on the six
+  changed Python files (exit 0), one combined focused pytest of
+  the three new unit suites plus the eight exact inherited
+  selectors (58 = 48 new + 10 inherited parameterized nodes, exit
+  0) and one bounded canonical-origin check (all imported product
+  modules resolve to the canonical src with exact indexed hashes).
+  The fresh full hosted CI at the exact report head is PENDING
+  with Root owning it and the terminal review; expected until
+  measured A 1,440, B 1,694, total 3,134 plus the unchanged
+  complete integration and every downstream step. The open
+  governed operator, the real representative baseline, source
+  rights and model gates remain open. Baseline NOT_RUN; whole 009
+  PARTIAL; protected authority/hardware/right/license/MVP and
+  release gates open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

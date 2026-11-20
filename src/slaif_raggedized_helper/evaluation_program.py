@@ -293,8 +293,16 @@ class _State:
         self.reserve_work = self.reserve_payload = 0
 
 
-def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, config, budget, clock):
-    from . import source_bound_stage_loss as binder, source_cohort_runner as source
+def _prepare_plan(state, dataset, selected, clock):
+    """Query-independent graded plan admission and conservative envelope.
+
+    Establishes the grade meter, admits the complete declared plan through the
+    shared admission (which charges the actual declaration work), and checks
+    the remaining capacity against the conservative envelope without reserving
+    or debiting it. It returns only the preparation values consumed by the
+    legacy remainder; it does not authorize execution.
+    """
+    from . import source_cohort_runner as source
 
     grade_budget = state.budget
     if not _closed(grade_budget, GradeBudget):
@@ -309,8 +317,9 @@ def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, con
     entries, _, report_bound = _plan_admission(
         state.plan, grade_budget, dataset, selected, meter, clock
     )
-    # Reserve a conservative envelope for preflight metadata and the report before
-    # any source use. Actual operations are charged separately as they occur.
+    # Check the remaining capacity against the conservative preflight metadata
+    # and report envelope before any source use. The comparison reserves and
+    # debits nothing; actual operations are charged separately as they occur.
     n = len(selected)
     grades = entries - 60 * n
     minimum_work = 4000000 + 220000 * n + 8000 * grades + 16 * report_bound
@@ -320,6 +329,16 @@ def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, con
         or minimum_payload > grade_budget.local_payload - meter.payload
     ):
         raise ValueError
+    return entries, minimum_work, minimum_payload
+
+
+def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, config, budget, clock):
+    from . import source_bound_stage_loss as binder, source_cohort_runner as source
+
+    grade_budget = state.budget
+    entries, minimum_work, minimum_payload = _prepare_plan(state, dataset, selected, clock)
+    meter = state.meter
+    n = len(selected)
     state.expected = _expected_queries(state.plan, selected, queries, meter, clock)
     meter.reserve(4096 + 256 * n + 128 * entries, 4096 + 512 * n + 256 * entries)
     query_records = tuple(

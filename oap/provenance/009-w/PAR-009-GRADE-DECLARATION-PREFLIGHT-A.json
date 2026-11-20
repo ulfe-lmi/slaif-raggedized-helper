@@ -1,0 +1,63 @@
+{
+  "lane_id": "PAR-009-GRADE-DECLARATION-PREFLIGHT-A",
+  "result": "COMPLETE",
+  "implementation_head": "d052c3c978a7b97b18eb5580a6ffe04692bdde4f",
+  "report_publication_commit": "SELF",
+  "base": "dfe301c7c5796dc6de2bf8309f885dfc3b1cd2af",
+  "branch": "oap/parallel-009-grade-declaration-preflight",
+  "order": {
+    "path": "oap/parallel/orders/PAR-009-GRADE-DECLARATION-PREFLIGHT-A.md",
+    "sha256": "95cdc21579cc2b51e794afc7b783a91796ef0b87a7fcfc30d4ec44582d8a52c4",
+    "status": "FINAL, committed byte-identical in the implementation checkpoint"
+  },
+  "source_inputs": {
+    "sha256": "0e822c11df217c10c593eb1ea20c3f4852bc95c052d40155334a8a37db84c280",
+    "base_source_sha256": {
+      "src/slaif_raggedized_helper/evaluation_program.py": "84aceffc09ec7e53fcf96913ad0cb409616b31223d71915e60fbd750300b9b90",
+      "tests/unit/test_evaluation_program.py": "59f093b45a471e04ac21ad555643c6899cac3d972c47e1aea4756904525b39b0"
+    }
+  },
+  "witness_sha256": {
+    "src/slaif_raggedized_helper/evaluation_program.py": "fc00a26059e73f9c5d1f35354b7d22b57bb76a73697b0e2ee5c6f92728d2474d",
+    "tests/unit/test_evaluation_grade_preflight.py": "524325d12033581bcda67a7f1f9c7457df17fbd2ec922454148f2662c9ebdc12",
+    "oap/parallel/orders/PAR-009-GRADE-DECLARATION-PREFLIGHT-A.md": "95cdc21579cc2b51e794afc7b783a91796ef0b87a7fcfc30d4ec44582d8a52c4"
+  },
+  "change": "Extracted the exact original _prepare block 299-322 into one private reusable unit _prepare_plan(state, dataset, selected, clock): closed/cap GradeBudget gates, the single source._Meter established on state.meter at the original point (observable on the same partial-refusal boundary), the shared _plan_admission (which charges the actual declaration work), and the conservative envelope capacity check that reserves and debits nothing, returning exactly (entries, minimum_work, minimum_payload) with no query/payload/expected-identity/pin/catalog/dispatch argument and no duplicated validator, meter, ownership transfer or phase touch. Legacy _prepare keeps its argument list and relative order: the helper call at the original point, grade_budget bound early at the original first point and serialized from that same admitted reference at the identity site (exact old snapshot semantics, fixed per Root probe Root-exact-legacy-snapshot-probe-e2db0a0c at FIX-1), _expected_queries timing, the fixed 324 charge, query-record and canonical plan-identity construction, 359-363 state mutations, and the final residual meter check 364-368 re-tested after actual query identity work. No changes to source-cohort runner, stage-loss binder, public API/exports, existing tests, config, dependencies, fixtures or workflow.",
+  "evidence": "19-case new focused module with physical assigned-worktree import proof derived from the resolved test module path (no hardcoded directory, fallback or override): helper argument-shape guard; real bounded synthetic declarations admitted through runner._input_admission; exact metered declaration (the helper meters nothing beyond the shared admission, envelope formula cross-checked from the witnessed report_bound); nine bad-plan and two bad-budget early refusals with exact partial-refusal meter equality against the shared admission's own refusal boundary and zero identity/source invocation; envelope shortfall at the boundary for both work and payload; delegating-witness legacy _prepare proof of exact event order (declaration, identities, fixed charge exactly between identity work and the plan hash, seven canonical hashes with exact limits 262144/262144/default x2 queries plus 8388608), exact cumulative meter preimage, exact plan-identity preimage built in-test and re-hashed with the shared primitive, first-error placement before identity work for bad plan and envelope shortfall, after-identity residual refusal with identity and reserves already set, and the FIX-1 narrow delegated witness swapping a distinct real budget into state.budget during identity work and requiring the old early-budget identity. Root independently verified both checkpoints, the order bytes, and the exact capped 24-pass run; the FIX-1 probe shows normal identity/meter equality plus closure of the late re-read (candidate_uses_replaced_budget_in_identity=true at e2db0a0c, absent at d052c3c).",
+  "commands": [
+    {
+      "round": "IMPL-1",
+      "command": "ulimit -t 60; ulimit -v 1048576; timeout -k 5 120 ruff check src/slaif_raggedized_helper/evaluation_program.py tests/unit/test_evaluation_grade_preflight.py",
+      "exit": 0,
+      "result": "All checks passed! (impl1-ruff.out/exit)"
+    },
+    {
+      "round": "IMPL-1",
+      "command": "ulimit -t 60; ulimit -v 1048576; timeout -k 5 120 pytest -p no:cacheprovider -v tests/unit/test_evaluation_grade_preflight.py tests/unit/test_evaluation_program.py::test_budget_refusal_before_pin tests/unit/test_evaluation_program.py::test_local_and_output_preflight_refuse_before_pin tests/unit/test_evaluation_program.py::test_two_cases_empty_and_unretrieved_positive",
+      "exit": 1,
+      "result": "pre-collection exit, zero stdout/stderr: fixture import chain (numpy/scipy OpenBLAS) allocation failure under inherited OpenBLAS threads at the unchanged 1 GiB AS cap; original empty outputs preserved (impl1-pytest.out/stderr), actual exit recorded (impl1-pytest.exit); Root A/B reproduction under Root-import-boundary-experiment/ (inherited.exit=1 'OpenBLAS error: Memory allocation still failed after 10 retries', one-thread.exit=0 with OPENBLAS_NUM_THREADS=1)"
+    },
+    {
+      "round": "IMPL-1",
+      "command": "env OPENBLAS_NUM_THREADS=1 pytest -p no:cacheprovider -v <same selected targets>",
+      "exit": 0,
+      "result": "23 passed in 1.04s (18 new + exact 5 existing focused) under the same caps; OPENBLAS_NUM_THREADS=1 scoped to the private pytest command only, the existing Product step projection (impl2-pytest.out/exit)"
+    },
+    {
+      "round": "FIX-1",
+      "command": "ulimit -t 60; ulimit -v 1048576; timeout -k 5 120 ruff check src/slaif_raggedized_helper/evaluation_program.py tests/unit/test_evaluation_grade_preflight.py",
+      "exit": 0,
+      "result": "All checks passed! (impl3-ruff.out/exit)"
+    },
+    {
+      "round": "FIX-1",
+      "command": "env OPENBLAS_NUM_THREADS=1 pytest -p no:cacheprovider -v tests/unit/test_evaluation_grade_preflight.py tests/unit/test_evaluation_program.py::test_budget_refusal_before_pin tests/unit/test_evaluation_program.py::test_local_and_output_preflight_refuse_before_pin tests/unit/test_evaluation_program.py::test_two_cases_empty_and_unretrieved_positive",
+      "exit": 0,
+      "result": "24 passed in 1.06s (19 new + exact 5 existing focused) under the same caps (impl3-pytest.out/exit)"
+    }
+  ],
+  "environment": "Canonical locked venv /home/janezp/codex-work/slaif-raggedized-helper/.venv (Python 3.14.4, pytest 8.4.2, ruff 0.17.4); import origin PYTHONPATH=<worktree>/src; MALLOC_ARENA_MAX=1; PYTHONDONTWRITEBYTECODE=1; fresh private TMPDIR per run; all synthetic controlled fixtures, no network, keys, GPU, model or real corpus",
+  "disclosure": "The IMPL-1 first selected pytest attempt failed pre-collection (exit 1, zero output) under the ordered caps because the fixture import chain hits an OpenBLAS allocation failure with inherited thread count at 1 GiB AS; Root reproduced it A/B and authorized the scoped OPENBLAS_NUM_THREADS=1 product projection for the private pytest command only. No dependency install, no limit increase, no code workaround; source bytes were unchanged between attempts. IMPL-1 checkpoint e2db0a0c consumed a FIX for an avoidable legacy budget snapshot change (late state.budget re-read at the identity site); the corrected d052c3c retains all IMPL-1 artifacts, the Root import A/B evidence, and the 23-pass log.",
+  "limits": "Local isolated candidate only. The pre-encoding declaration admission guarantees bounded shape and a conservative envelope, not query/plan identity, actual residual budget, encoder output, authorization or any qualification; snapshot/catalog IDs are declaration shapes until actual probe/capture comparison. No push, PR, CI, integration, merge, acceptance, release or MVP claim; DHA NONE.",
+  "DHA Decision": "NONE"
+}

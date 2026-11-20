@@ -1897,6 +1897,102 @@ whole 009 PARTIAL. The real protected runtime and operator
 current-authorization qualification remain open; no merge;
 DHA NONE.
 
+## The 009-w evaluation declarations transfer (same 009 continuation)
+
+One byte-exact three-component transfer on the same PR 11 (round
+base 0f24c91c, the 009-v report-only head): the reviewed
+declaration-side preflight scopes from three exact lane
+implementations, per oap/reviews/009-w-declaration-transfer-index.json
+(SHA-256 34c34d71...). The adopted prior resolution records the
+exact hosted evidence (run 44731327493 attempt 1: all five jobs
+and all steps passed; both Product legs 3,086 units - 1,421 group
+A, 1,665 group B - plus a separate 951-case integration run).
+
+Shared binder declaration-only admission (source_bound_stage_loss.py,
+91,797 B, from cacc5b36 on base 416009c9): the original mixed shape
+gate is now shared by the legacy and declaration entries through one
+mode-controlled preflight. The legacy entry keeps its exact original
+payload type/size check in its original left-to-right position
+between the Gold shape and deadline checks, before any reserve, for
+every payload object, then the vector admission; the declaration
+entry performs the same gate with the payload gate omitted before the
+first metered canonical validation and stops before vector
+reservation, struct unpack, finite/norm checks or any dependency or
+source access, establishing identifier grammar only - not provenance
+or equality with real encoded outputs. Omission is selected by the
+private declaration mode only, never inferred from any payload
+object. Eight new synthetic unit cases cover this slice.
+
+Private query-free cohort declaration envelope (source_cohort_runner.py,
+49,662 B, from ab832488 on the exact accepted binder implementation
+cacc5b36): the closed input envelope, fixed meter/config admission,
+nominal per-case reserve and case-ID bounds, the ordered case-ID
+grammar and the single ordered dataset admission and
+scope/selection tail are now shared private pieces invoked by both
+entries. The legacy entry retains its query comparison and full
+vector binder check at its original point before the dataset, with
+exact meter reserves, clock ticks and first-fault points unchanged;
+the new declaration entry admits the complete declared cohort
+query-free over the accepted query-free binder, differing only at
+the genuinely different case inputs. The declaration envelope is a
+private pre-encode twin of the existing admission: no actual source
+I/O, encoder, dispatch, current-policy authentication or
+protected-runtime use. Twenty-one new synthetic unit cases cover
+this slice.
+
+Private grade declaration envelope (evaluation_program.py, 34,416 B,
+from d052c3c9 on base dfe301c7): the legacy grade flow keeps its
+budget bound at the original first point and serializes that same
+admitted budget at the identity site (old snapshot semantics
+preserved for a budget swapped during identity work); the early
+declaration path checks capacity against the conservative envelope
+and charges only the actual admitted declaration work, with the
+single meter, timing and state mutations unchanged. The grader's
+declaration envelope alone establishes no query identity, actual
+pin/catalog or current policy. Nineteen new synthetic unit cases
+cover this slice.
+
+Exact archival provenance: the nine implementation blobs and the
+three original lane report-only SELF archival reports were copied
+verbatim from the exact lane commits (implementation files at
+cacc5b36/ab832488/d052c3c9; archival reports at their report-only
+commits 63e36735/00940a6d/66f0c98a, each with the implementation as
+sole parent and exactly one changed report path) to the receiving
+paths, with the reports archived at
+oap/provenance/009-w/PAR-009-ENCODER-DECLARATION-PREFLIGHT-A.json,
+oap/provenance/009-w/PAR-009-COHORT-DECLARATION-PREFLIGHT-A.json and
+oap/provenance/009-w/PAR-009-GRADE-DECLARATION-PREFLIGHT-A.json. All
+twelve were verified mode 100644 / size / SHA-256 / Git blob OID at
+the exact source commits, at the receiving paths before commit and
+again at the implementation head, and the historical SELF markers
+are preserved as the original report identity. The three receiving
+product preimages matched their ordered SHA-256 at the round base
+(the cohort preimage byte-identical at the lane base cacc5b36); all
+nine additive destination paths were absent at the round base.
+
+Actual local proof at the implementation head (synthetic ephemeral
+filesystem only; locked .venv Python 3.14.4 / pytest 8.4.2 / ruff
+0.17.4; fresh private 0700 scratch; OPENBLAS_NUM_THREADS=1,
+PYTHONDONTWRITEBYTECODE=1, private basetemp, cacheprovider disabled;
+each invocation bounded by timeout -k 5 120 prlimit --cpu=60
+--as=1073741824): one targeted ruff check on the six changed Python
+files (exit 0, "All checks passed!", one-core affinity
+accommodation); one combined focused pytest invocation of the three
+new unit suites plus the eight exact inherited selectors (exit 0,
+58 = 48 new + 10 inherited parameterized nodes); one bounded
+origin check (every imported product module resolves to the
+canonical repository src with the exact indexed SHA-256).
+
+The fresh full hosted CI at the exact report head is PENDING at
+report authoring; Root owns the fresh CI and terminal review.
+Expected until measured: group A 1,440, group B 1,694, total 3,134
+units plus the unchanged complete integration and every downstream
+step and OAP job. No full transfer or qualification acceptance
+flows from publication alone; the open governed operator, the real
+representative baseline, source rights and model gates remain open;
+the representative baseline remains NOT_RUN and whole 009 PARTIAL;
+no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

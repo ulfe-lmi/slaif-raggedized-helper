@@ -237,48 +237,33 @@ class _Deadline:
         return min(value, cap)
 
 
-def _input_admission(
-    originals,
-    derived,
-    root,
-    owner,
-    data,
-    cohort,
-    queries,
-    gold_ids,
-    grants,
-    restrictions,
-    config,
-    budget,
-    clock,
-):
-    """Admit the complete declaration and all selected inputs before source use."""
-    import re
-
-    from . import derived_store, raw_snapshot_pin, source_bound_stage_loss as binder
-    from . import text_evaluation_dataset as dataset_module
+def _envelope_closed(originals, derived, owner, cohort, case_records, config, budget, data):
+    """The exact closed input envelope, shared by both admission entries."""
+    from . import derived_store, raw_snapshot_pin
     from .source_admission import OriginalStore
 
-    clock.check()
-    if (
-        type(originals) is not OriginalStore
-        or type(derived) is not derived_store.Store
-        or type(owner) is not raw_snapshot_pin.PinOwner
-        or not _closed(cohort, Cohort)
-        or type(queries) is not tuple
-        or not _closed(config, Config)
-        or not _closed(budget, Budget)
-        or type(data) is not bytes
-        or not 1 <= len(data) <= 1048576
-        or type(cohort.split) is not str
-        or cohort.split not in ("tuning", "held_out")
-        or type(cohort.case_ids) is not tuple
-        or not 1 <= len(cohort.case_ids) <= 256
-        or len(queries) != len(cohort.case_ids)
-    ):
-        raise ValueError
-    count = len(cohort.case_ids)
-    _validate_budget(budget, count)
+    return (
+        type(originals) is OriginalStore
+        and type(derived) is derived_store.Store
+        and type(owner) is raw_snapshot_pin.PinOwner
+        and _closed(cohort, Cohort)
+        and type(case_records) is tuple
+        and _closed(config, Config)
+        and _closed(budget, Budget)
+        and type(data) is bytes
+        and 1 <= len(data) <= 1048576
+        and type(cohort.split) is str
+        and cohort.split in ("tuning", "held_out")
+        and type(cohort.case_ids) is tuple
+        and 1 <= len(cohort.case_ids) <= 256
+        and len(case_records) == len(cohort.case_ids)
+    )
+
+
+def _fixed_admission(config, budget, clock):
+    """Create the meter and reserve the fixed content-free admission prefix."""
+    import re
+
     meter = _Meter(budget.local_work, budget.local_payload, clock.check)
     # This precharge reserves the fixed, content-free failure prefix, even if a
     # later operation exhausts the caller's local budget.
@@ -292,36 +277,34 @@ def _input_admission(
         meter.reserve(len(ident) + 1)
         if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}", ident) is None:
             raise ValueError
-    previous = None
-    for ident, query in zip(cohort.case_ids, queries, strict=True):
-        meter.reserve(1024, 1024)
-        if type(ident) is not str or not 1 <= len(ident) <= 128 or not _closed(query, Query):
-            raise ValueError
-        if meter.compare_strings(query.case_id, ident):
-            raise ValueError
-        meter.reserve(len(ident) + 1)
-        if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}", ident) is None:
-            raise ValueError
-        if previous is not None and meter.compare_strings(previous, ident) >= 0:
-            raise ValueError
-        previous = ident
-        # Pinned binder admission enforces path, Gold ID and exact vector/ID
-        # grammar; it does no source I/O and accepts this meter's interface.
-        binder._preflight_inputs(
-            root,
-            data,
-            ident,
-            gold_ids,
-            query.payload,
-            (
-                query.space_id,
-                query.definition_fingerprint,
-                query.policy_id,
-                query.execution_fingerprint,
-            ),
-            min(clock.remaining(120000), 120000),
-            meter,
-        )
+    return meter
+
+
+def _case_id_shape(meter, ident):
+    """Nominal per-case envelope: the fixed reserve and case-ID bounds."""
+    meter.reserve(1024, 1024)
+    if type(ident) is not str or not 1 <= len(ident) <= 128:
+        raise ValueError
+
+
+def _case_id_grammar(meter, ident, previous):
+    """Ordered case-ID grammar; returns the admitted id as the new previous."""
+    import re
+
+    meter.reserve(len(ident) + 1)
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}", ident) is None:
+        raise ValueError
+    if previous is not None and meter.compare_strings(previous, ident) >= 0:
+        raise ValueError
+    return ident
+
+
+def _dataset_selection_tail(data, cohort, grants, restrictions, meter, clock):
+    """The single ordered dataset admission and scope/selection tail."""
+    from . import source_bound_stage_loss as binder
+    from . import text_evaluation_dataset as dataset_module
+
+    count = len(cohort.case_ids)
     meter.reserve(len(data) + 1, len(data))
     clock.check()
     dataset = _admit_dataset(data, deadline_ms=clock.remaining(5000))
@@ -360,7 +343,120 @@ def _input_admission(
         raise ValueError
     meter.reserve(count + len(split_ids), 128 * len(split_ids))
     selection = "FULL_ADMITTED_SPLIT" if tuple(split_ids) == cohort.case_ids else "DECLARED_SUBSET"
-    return dataset, tuple(selected), selection, meter
+    return dataset, tuple(selected), selection
+
+
+def _input_admission(
+    originals,
+    derived,
+    root,
+    owner,
+    data,
+    cohort,
+    queries,
+    gold_ids,
+    grants,
+    restrictions,
+    config,
+    budget,
+    clock,
+):
+    """Admit the complete declaration and all selected inputs before source use."""
+    from . import source_bound_stage_loss as binder
+
+    clock.check()
+    if not _envelope_closed(originals, derived, owner, cohort, queries, config, budget, data):
+        raise ValueError
+    count = len(cohort.case_ids)
+    _validate_budget(budget, count)
+    meter = _fixed_admission(config, budget, clock)
+    previous = None
+    for ident, query in zip(cohort.case_ids, queries, strict=True):
+        _case_id_shape(meter, ident)
+        if not _closed(query, Query):
+            raise ValueError
+        if meter.compare_strings(query.case_id, ident):
+            raise ValueError
+        previous = _case_id_grammar(meter, ident, previous)
+        # Pinned binder admission enforces path, Gold ID and exact vector/ID
+        # grammar; it does no source I/O and accepts this meter's interface.
+        binder._preflight_inputs(
+            root,
+            data,
+            ident,
+            gold_ids,
+            query.payload,
+            (
+                query.space_id,
+                query.definition_fingerprint,
+                query.policy_id,
+                query.execution_fingerprint,
+            ),
+            min(clock.remaining(120000), 120000),
+            meter,
+        )
+    dataset, selected, selection = _dataset_selection_tail(
+        data, cohort, grants, restrictions, meter, clock
+    )
+    return dataset, selected, selection, meter
+
+
+def _declaration_admission(
+    originals,
+    derived,
+    root,
+    owner,
+    data,
+    cohort,
+    identifiers,
+    gold_ids,
+    grants,
+    restrictions,
+    config,
+    budget,
+    clock,
+):
+    """Admit the complete declared cohort before any source use, query-free.
+
+    Private pre-encode twin of _input_admission over the shared private
+    pieces: the exact closed envelope, the fixed meter/config admission,
+    the ordered case-ID grammar and the single dataset/scope/selection
+    tail.  Each declared case differs only in its nominal record check
+    and the accepted query-free binder declaration primitive, which
+    establishes root, Gold ID and encoder identifier grammar only.  No
+    Query, payload or vector work occurs, and no pin, catalog, producer,
+    encoding, current policy or source-rights claim is made or checked.
+    """
+    from . import source_bound_stage_loss as binder
+
+    clock.check()
+    if not _envelope_closed(originals, derived, owner, cohort, identifiers, config, budget, data):
+        raise ValueError
+    count = len(cohort.case_ids)
+    _validate_budget(budget, count)
+    meter = _fixed_admission(config, budget, clock)
+    previous = None
+    for ident, case_identifiers in zip(cohort.case_ids, identifiers, strict=True):
+        _case_id_shape(meter, ident)
+        if type(case_identifiers) is not tuple:
+            raise ValueError
+        previous = _case_id_grammar(meter, ident, previous)
+        # Query-free binder declaration admission enforces path, Gold ID and
+        # declared identifier grammar only; it does no source I/O, no vector
+        # work, and accepts this meter's interface.
+        binder._preflight_declaration(
+            root,
+            data,
+            ident,
+            gold_ids,
+            case_identifiers,
+            min(clock.remaining(120000), 120000),
+            meter,
+        )
+    dataset, selected, selection = _dataset_selection_tail(
+        data, cohort, grants, restrictions, meter, clock
+    )
+    return dataset, selected, selection, meter
 
 
 def _pin_observation(owner, originals, derived, root, prior, meter, clock):

@@ -520,12 +520,67 @@ def _preflight_hit(hit, meter, *, fusion_hit, dense_hit):
     return len(hit.scope_bytes) + len(chunk)
 
 
+_LEGACY_PAYLOAD_MODE = object()
+_DECLARATION_MODE = object()
+
+
 def _preflight_inputs(
     root, dataset_bytes, case_id, gold_bundle_ids, query_payload, identifiers, deadline_ms, meter
 ):
-    import math
+    _declaration_preflight(
+        root,
+        dataset_bytes,
+        case_id,
+        gold_bundle_ids,
+        query_payload,
+        identifiers,
+        deadline_ms,
+        meter,
+        mode=_LEGACY_PAYLOAD_MODE,
+    )
+    _preflight_vector(query_payload, meter)
+
+
+def _preflight_declaration(
+    root, dataset_bytes, case_id, gold_bundle_ids, identifiers, deadline_ms, meter
+):
+    """Shared binder admission for actual declarations, without a query.
+
+    Performs the original mixed shape gate with the payload gate omitted,
+    before the first metered canonical validation, then the metered root,
+    case ID, Gold ID and declared-identifier checks.  Stops before vector
+    reservation, struct unpack, finite/norm checks or any dependency or
+    source access.  Establishes identifier grammar only, not provenance
+    or equality with real encoded outputs.  Omission is selected by the
+    private declaration mode chosen here only, never inferred from any
+    payload object.
+    """
+    _declaration_preflight(
+        root,
+        dataset_bytes,
+        case_id,
+        gold_bundle_ids,
+        None,
+        identifiers,
+        deadline_ms,
+        meter,
+        mode=_DECLARATION_MODE,
+    )
+
+
+def _declaration_preflight(
+    root, dataset_bytes, case_id, gold_bundle_ids, query_payload, identifiers, deadline_ms, meter,
+    *, mode,
+):
+    """Original gate and metered canonical checks, mode-controlled.
+
+    The legacy entry always performs the original payload type/size check
+    in its original left-to-right position between the Gold shape and
+    deadline checks, before any reserve, for every payload object.  The
+    declaration entry selects the declaration mode, in which the payload
+    gate is not claimed and the placeholder argument is never inspected.
+    """
     import re
-    import struct
     import unicodedata
 
     if (
@@ -537,8 +592,10 @@ def _preflight_inputs(
         or not 1 <= len(case_id) <= 128
         or type(gold_bundle_ids) is not tuple
         or len(gold_bundle_ids) > 128
-        or type(query_payload) is not bytes
-        or len(query_payload) != 4096
+        or (
+            mode is _LEGACY_PAYLOAD_MODE
+            and (type(query_payload) is not bytes or len(query_payload) != 4096)
+        )
         or type(deadline_ms) is not int
         or not 1 <= deadline_ms <= 120000
         or type(identifiers) is not tuple
@@ -584,6 +641,19 @@ def _preflight_inputs(
         prefix = "sha256:" if index == 1 else ""
         if not re.fullmatch(prefix + r"[0-9a-f]{64}", ident):
             raise ValueError
+
+
+def _preflight_vector(query_payload, meter):
+    """Legacy-path admission of the actual 4096-byte finite unit vector.
+
+    Runs after the declaration checks at the original position and keeps
+    the original reservation, unpack, finite and unit-norm bounds.
+    """
+    import math
+    import struct
+
+    if type(query_payload) is not bytes or len(query_payload) != 4096:
+        raise ValueError
     meter.reserve(len(query_payload) + 1 + 4 * 1024, len(query_payload) + 128 * 1024)
     vector = struct.unpack("<1024f", query_payload)
     norm_squared = 0.0

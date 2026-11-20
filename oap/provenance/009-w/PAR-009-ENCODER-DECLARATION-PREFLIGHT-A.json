@@ -1,0 +1,41 @@
+{
+  "lane_id": "PAR-009-ENCODER-DECLARATION-PREFLIGHT-A",
+  "result": "COMPLETE",
+  "scope_result": "Bounded shared binder declaration slice complete: query-independent admission for the actual root, dataset envelope, case ID, Gold IDs, encoder declarations and deadline with the caller's meter, plus selected bounded tests; all-case preparation, source/grade preparation, encoder/current-policy checks and dispatch remain outside this slice.",
+  "implementation_head": "cacc5b362574638e09862a0d82e14e53bd1abef1",
+  "implementation_parent": "416009c94a6759c9a42e9c19dab688c0f54d9650",
+  "base": "416009c94a6759c9a42e9c19dab688c0f54d9650",
+  "report_publication_commit": "SELF",
+  "api": "Private binder additions: _preflight_declaration(root, dataset_bytes, case_id, gold_bundle_ids, identifiers, deadline_ms, meter) accepts the actual declarations and the caller's meter with no query or payload argument; shared _declaration_preflight performs the original gate and metered canonical checks under a private caller-selected admission mode (_LEGACY_PAYLOAD_MODE for the legacy entry, _DECLARATION_MODE chosen only by the declaration entry); _preflight_vector keeps the legacy admission of the actual 4096-byte finite unit vector. The legacy _preflight_inputs entry keeps its exact signature and caller behavior: the original payload type/size check always runs in its original left-to-right position between Gold shape and deadline before any reserve, for every payload object; the declaration path stops before vector reservation, struct unpack, finite/norm checks or any dependency or source access and establishes identifier grammar only, not provenance or equality with real encoded outputs.",
+  "paths": [
+    "src/slaif_raggedized_helper/source_bound_stage_loss.py",
+    "tests/unit/test_source_bound_stage_loss_preflight.py",
+    "oap/parallel/orders/PAR-009-ENCODER-DECLARATION-PREFLIGHT-A.md"
+  ],
+  "identities": {
+    "base_source_full_sha256": "168fca4b151c01c89a66ac1fe50d907758fe8402ea24c0c30303a9aea92773b8",
+    "order_sha256": "dc98acb1dadc9d2c3990d5c9190d201bf8accb0e784f6b3a194894baf77c9042",
+    "source_input_index_sha256": "50f345dc340adbe9f108e7ec35c71a5f378f46070759b92634e9e7d558de04df",
+    "audit_draft_sha256": "62d4552aab04327049f0dfaeb9d930f51a7625229ab63b42be6c9c246367eab6",
+    "audit_root_review_sha256": "735a0912c7def713a86b459de711ea31d0ba42aad31b245e92a4b2205cb48f54",
+    "implementation_source_git_blob": "85c7ce3c1dea1a3ac1ae70925ce1734b8e073d66",
+    "implementation_test_git_blob": "9e33fadd0c35aacd0400e81411458b3b856b790c",
+    "fix1_ruff_out_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "fix1_pytest_out_sha256": "66a625690bb13102b1977ebcf5b862fcc0b4fec0bfe084fb9d6fbe8cc5ab2fca",
+    "fix1_provenance_sha256": "e80530629f599b3cc666ca9102206e9cb0e60a466ed88220025dbb50554ccd9b",
+    "control_consumed_receipt_sha256": "ac21cd3c408c277ae791cadc16298c923cc49e4c7b2ee9b40ba57baf8c6ed6a4",
+    "control_recovery_authorization_sha256": "2094dd38922ed468c22d9a0272f68ab70b7d527b90280622f5b56a5f6575c9fc"
+  },
+  "verification": {
+    "ruff": "PASS: lane artifact fix1-ruff.out with exit 0 (fix1-ruff.exit), focused two candidate paths, canonical locked venv ruff 0.17.4, ulimit CPU 60 s and AS 1 GiB, wall 120 s + KILL 5, MALLOC_ARENA_MAX=1, PYTHONDONTWRITEBYTECODE=1, private fresh temp.",
+    "unit": "PASS: lane artifact fix1-pytest.out with exit 0 (fix1-pytest.exit), 9 passed in 0.23 s (new tests/unit/test_source_bound_stage_loss_preflight.py plus exact existing tests/unit/test_source_bound_stage_loss.py::test_input_preflight_rejects_bad_types_and_nonfinite_payload), canonical locked venv Python 3.14.4 / pytest 8.4.2, candidate worktree src as import origin via PYTHONPATH, same bounds and private fresh temp; matched an independent exact 9-pass capped Root run.",
+    "origin": "test_binder_import_originates_from_test_module_checkout compares the resolved package module file to the exact source file derived from the resolved physical test module path; no hardcoded local directory, fallback or override.",
+    "first_checkpoint": "First checkpoint 1424b66ca9e8b45a502df36f9603cfa240a8bb1f received FIX. Findings: (1) the payload-identity sentinel let the unchanged legacy entry signature admit the module's own marker object past the shape gate - exact preimage refused it before the first meter event at (0,0) while the candidate charged (570,8272) before refusing (Root-legacy-boundary-probe-1424b66c.json); (2) the origin test hardcoded the lane worktree path and would fail after canonical transfer or on GitHub. Both closed in this implementation: omission is now a private caller-selected admission mode, never inferred from any payload object, and the origin test derives the expected package file from the resolved test module path."
+  },
+  "initial_run_outputs": "Yes, retained. The initial bounded pytest run against the first checkpoint (3 failed, 6 passed, exit 1; failures were test-side assertion constants and spy attempt/commit semantics, corrected once as authorized), the first passing ruff/pytest pair (ruff exit 0, 9 passed, exit 0), and the first sub-bound ruff abort (exit 134, Rust/glibc virtual reservation above 1 GiB AS without MALLOC_ARENA_MAX=1) are preserved in private temp dirs /tmp/slaif-par009-preflight.mi2l35, /tmp/slaif-par009-preflight.b7o2xN and /tmp/slaif-par009-preflight.rOx06d. The lane directory retained no initial Ruff/pytest log files; fix1-provenance.json (lane, sha256 e80530629f599b3cc666ca9102206e9cb0e60a466ed88220025dbb50554ccd9b) records those actual outcomes and paths with provenance instead of invented evidence.",
+  "control_recovery_disclosure": "During startup, an unauthorized direct diagnostic probe in this coding context consumed the lane's sole exact ASCII OK from control.fifo before the ordered wait-control helper ran. Root verified the consumption from the original tool transcript and recorded a distinct recovered-consumption receipt under the original lock: control-consumed.json (state RECOVERED_ALREADY_CONSUMED_EXACT_OK_NO_REPLAY) with authorization Root-exact-control-consumption-recovery.json. No second control was written or read by this lane, and no control FIFO was inspected, restored or replayed after the recovery.",
+  "review": "Root checkpoint REPORT at cacc5b362574638e09862a0d82e14e53bd1abef1 (implementation-review-cacc5b362574638e09862a0d82e14e53bd1abef1.json, consumed by the owned review helper) authorizes publication only; independent acceptance remains separate.",
+  "accounting_and_limits": "Meter charges are static logical reservations, not measured physical I/O or permission to consume the worst case. The declaration path establishes identifier grammar and shared admission bounds only; synthetic declaration shapes and synthetic payloads only. No claim about full pre-encode preparation or actual evaluation.",
+  "not_run_or_open": "All-case preparation, source/grade preparation, encoder/current-policy checks and dispatch remain outside this slice. No broad unit, integration or dynamic source fixture execution, no product/model/data access, no network, no dependency setup, no push, PR, merge, acceptance, integration, release or ICA. Baseline NOT_RUN.",
+  "DHA": "NONE"
+}
