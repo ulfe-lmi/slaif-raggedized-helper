@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-r
+- Current (2026-11-20): active objective 009, current slice 009-s
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -703,6 +703,90 @@
   NOT_RUN; whole 009 PARTIAL; actual credential/current policy and
   MVP gates open; no merge; DHA NONE.
 
+  Slice 009-s is the bounded unit process partition (same 009
+  continuation, AMEND PR 11 at round base dfe301c7, the 009-r
+  report head whose run 44688983707 completed TERMINAL_FAILURE per
+  the Root terminal review: the Python 3.12 direct supervised pytest
+  was SIGKILLed before the normal group teardown, supervisor exit
+  131, 2731 collected and 2391 forwarded pass marks, no final
+  pytest summary, wall 63.56 s including cleanup, six downstream
+  required steps skipped; Python 3.14 completed all 2731 units, the
+  separate integration step and all 24 job steps (supervisor wall
+  78.58 s including cleanup); both legs showed unlimited inherited
+  RLIMIT_CPU and zero selected own-cgroup deltas; the three OAP
+  jobs were green; signal origin unproven, including on any green
+  result). Scoped changes: main of
+  oap/bin/ci_unit_diagnostics.py now supervises TWO bounded
+  sequential direct pytest-console processes (group A then group B;
+  same fixed installed console, exact repo cwd, unchanged inherited
+  environment projection and same trailing suite args after the
+  path selectors - only the ordered path selectors differ) under
+  ONE aggregate monotonic 180 s observation/dispatch budget: A
+  receives the full remaining budget and display/raw-log byte
+  ceilings, B receives the exact remaining aggregate budget
+  (monotonic, including A's run and owned cleanup) and the remaining
+  aggregate ceilings via the existing run_child arguments; the
+  remaining time is recomputed immediately before each dispatch
+  (after the optional per-child pre-snapshot) and the dispatch is
+  vetoed on exhaustion - no child ever receives a stale deadline;
+  no dispatch after the first nonzero/unproven child, after an
+  exhausted budget, or after a final display refusal; an
+  unavailable second dispatch is an explicit nonzero 130, never a
+  synthetic second result; the exact first nonzero and the original
+  child wait distinctions are preserved; bounded 10 s/5 s owned
+  group cleanup per launched child; per-child status-neutral
+  own-cgroup/RLIMIT observation; each bounded per-process summary
+  carries a bounded group label (unit_group=A/B) and the actual
+  child deadline; run_child, the owned process cleanup and the
+  observer primitives are unchanged, as is the direct-console
+  admission. NEW stdlib-only oap/bin/ci_unit_partition.py: bounded
+  one-level inventory under a finite pre-materialization entry
+  ceiling (1024), exact regular path admission of the two default
+  patterns (test_*.py, *_test.py); the generated __pycache__ is not
+  a test entry; ordinary non-test files and hidden entries are not
+  test entries; unsupported nonhidden nested layouts, symlinked
+  scope entries, non-regular entries, an absent cut file or an empty
+  group are refused, never silently omitted; group B begins at
+  test_owned_gpu_worker.py. Actual group sizes at the exact base:
+  62 files / 1421 nodes (A, ending test_native_tokenizers.py) and
+  56 files / 1310 nodes (B). Bounded three-way collect-only
+  equivalence under the original caps (CPU 60 s / AS 1 GiB / wall
+  120 s KILL 5 s per observation; the one-thread Product setting
+  OPENBLAS_NUM_THREADS=1 plus PYTHONDONTWRITEBYTECODE=1, fresh
+  private /tmp basetemp, no cacheprovider, local locked venv): all
+  three observations exit 0, the concatenated ordered A+B nodes are
+  byte-equal to the full ordered 2731-node list and byte-equal to
+  Root's full ordered collection from the exact dfe301c (canonical
+  SHA256 60da7304…; groups 9bec4a3d… / 5001c6f3… matching Root's
+  expected projections), with no duplicate, omission, extra or
+  failed collection. One bounded local stdlib run of the two
+  changed test modules (explicit selection; CPU 60 s / AS 1 GiB /
+  wall 120 s then KILL 5 s): first run 39 tests with 2 failures
+  (exit 1; assertion outcomes in the new 009-s cases - the default
+  10 s teardown grace instead of the module's short synthetic
+  bounds, and a same-deadline body-identity algebra error) fixed in
+  the same authorized changed-byte correction; the one re-run under
+  the same exact cap passed 41 tests (exit 0, wall 32.90 s).
+  Collected setup/deviation disclosure: the first full-directory
+  collect-only observation under the caps WITHOUT the one-thread
+  setting failed silently (exit 1, no output - setup failure); two
+  out-of-scope diagnostic probes (AS 1.5 GiB segfault exit 139; AS
+  2/3 GiB and one uncapped /usr/bin/time -v run) were stopped on
+  Root's order, preserved and never used as proof; the ordered
+  batch then ran under Root's exact one-thread setting. ruff shows
+  no new findings (product lint scope untouched; OAP is governance-
+  owned compact style outside product lint); compileall clean;
+  git diff --check exit 0. The workflow, all product and pytest
+  files, the current package environment and prior logs/reports are
+  unchanged (protected workflow SHA256 b9195355 verified; unit and
+  integration remain separate CI steps). The fresh full hosted
+  comparison (both Product legs plus all OAP jobs) at the exact
+  report head is pending at report authoring; Root owns the fresh
+  CI and honest terminal assessment; a required failure remains a
+  failure even if one partition or job passed; no attribution of
+  the 3.12 signal sender even on a green result. Baseline NOT_RUN;
+  whole 009 PARTIAL; protected authority/hardware/right/license/MVP
+  and release gates open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

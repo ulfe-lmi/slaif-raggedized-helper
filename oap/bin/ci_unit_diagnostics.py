@@ -77,10 +77,41 @@ fragment is appended to the existing bounded final summary, and
 observation availability or any delta never determines child status,
 acceptance, or which member failed.
 
+Order 009-s (main only): the fixed installed pytest console is
+invoked TWICE, as two bounded sequential direct processes covering
+the exact complete default unit collection - group A then group B
+under ONE aggregate monotonic 180 s observation/dispatch budget.
+Before any child exists the exact flat tests/unit layout is
+bounded-partitioned (oap/bin/ci_unit_partition.py: one-level
+inventory under a finite pre-materialization entry ceiling, with
+exact regular path admission of the two default patterns test_*.py
+and *_test.py; unsupported nonhidden nested layouts, symlinked
+scope entries and oversized scopes are refused, never silently
+omitted); group B begins at test_owned_gpu_worker.py. Both
+invocations share the fixed console, the exact repo cwd, the
+unchanged inherited environment projection and the unchanged
+trailing suite args; only the ordered path selectors differ. The
+first child receives the full remaining budget and the full
+display/raw-log byte ceilings; the second receives the EXACT
+remaining aggregate budget (monotonic, including the first group's
+run and owned cleanup) and the remaining aggregate ceilings. No
+dispatch happens after the first nonzero or unproven child, after
+the exhausted budget, or after a final display refusal; an
+unavailable second dispatch is an explicit nonzero (130), never a
+synthetic second result. The bounded per-process summary carries a
+bounded group label (unit_group=A/B) and the deadline that child
+actually received; the remaining budget is recomputed immediately
+before each dispatch (after the optional per-child pre-snapshot,
+which itself spends aggregate budget) so no child ever receives a
+stale deadline; the bounded optional own-cgroup/RLIMIT observation
+is now per child and stays status-neutral.
+
 Exit codes: 0 (child zero + proven teardown), the child's exact nonzero
 exit code (preserved), 124 TIMEOUT, 125 CLEANUP_UNPROVEN, 126
 OBSERVER_FAILURE, 127 LOG_FAILURE, 128 OVERSIZE, 129 PREREQUISITE, 130
-LAUNCH_FAILURE, 131 CHILD_SIGNALED, 132 GROUP_UNPROVEN. (A child that
+LAUNCH_FAILURE (also an unavailable later ordered dispatch, with a
+bounded stderr token and no synthetic child result), 131
+CHILD_SIGNALED, 132 GROUP_UNPROVEN. (A child that
 itself exits with a code in 124-132 on a clean completion is passed
 through unchanged and is indistinguishable from the same supervisor
 code; documented accepted ambiguity.)
@@ -106,8 +137,9 @@ The private ``run_child`` function accepts explicit synthetic argv and
 short synthetic bounds (for its own unittest cases only, via
 log_path/read_hook/extra_fds/sink/interrupt_check/budget seams); the
 production defaults and the exclusive 0700/0600 generated log path
-cannot be changed by caller environment or CLI - ``main`` always uses
-the generated exclusive log and the fixed production command.
+cannot be changed by caller environment or CLI - ``main`` always
+uses the generated exclusive log and the fixed production console
+with the bounded partitioned path selectors.
 """
 from __future__ import annotations
 
@@ -129,6 +161,14 @@ try:
     import ci_unit_resources as _ci_unit_resources
 except ImportError:
     _ci_unit_resources = None
+
+try:
+    # Bounded one-level tests/unit partition (order 009-s),
+    # co-shipped in this same directory; its absence fails main
+    # closed before any child exists.
+    import ci_unit_partition as _ci_unit_partition
+except ImportError:
+    _ci_unit_partition = None
 
 # Order 009-r: main supervises the repo's own installed pytest console
 # entrypoint directly (absolute fixed path <root>/.venv/bin/pytest,
@@ -714,7 +754,7 @@ def _write_status_record(owned_dir, result):
                 pass
 
 
-def _summary(result, deadline_s):
+def _summary(result, deadline_s, group_label=None):
     exit_desc = ("none" if result["child_exit"] is None
                  else str(result["child_exit"]))
     sig_desc = ("none" if result["child_signal"] is None
@@ -725,20 +765,28 @@ def _summary(result, deadline_s):
                  else "%dB" % result["forward_stopped_at_log_offset"])
     by_desc = ("none" if result["terminated_by"] is None
                else str(result["terminated_by"]))
-    summary = ("ci-unit-diagnostics status=%s child_exit=%s child_signal=%s "
-            "deadline=%.1fs elapsed=%.2fs forwarded=%dB/%dB truncated=%s "
-            "refused=%s stop_offset=%s log_bytes=%s raw_log=exact "
-            "display_decode=utf8-replace group=%s group_term=%s "
-            "group_kill=%s cleanup=%s terminated_by=%s"
-            % (result["status"], exit_desc, sig_desc, deadline_s,
-               result["elapsed"] if result["elapsed"] is not None else 0.0,
-               result["forwarded_bytes"], result["cap"],
-               "yes" if result["forward_truncated"] else "no",
-               "yes" if result["forward_refused"] else "no",
-               stop_desc, log_desc, result["group_state"],
-               "yes" if result["group_term_issued"] else "no",
-               "yes" if result["group_kill_issued"] else "no",
-               result["cleanup"], by_desc))
+    body = ("status=%s child_exit=%s child_signal=%s "
+           "deadline=%.1fs elapsed=%.2fs forwarded=%dB/%dB truncated=%s "
+           "refused=%s stop_offset=%s log_bytes=%s raw_log=exact "
+           "display_decode=utf8-replace group=%s group_term=%s "
+           "group_kill=%s cleanup=%s terminated_by=%s"
+           % (result["status"], exit_desc, sig_desc, deadline_s,
+              result["elapsed"] if result["elapsed"] is not None else 0.0,
+              result["forwarded_bytes"], result["cap"],
+              "yes" if result["forward_truncated"] else "no",
+              "yes" if result["forward_refused"] else "no",
+              stop_desc, log_desc, result["group_state"],
+              "yes" if result["group_term_issued"] else "no",
+              "yes" if result["group_kill_issued"] else "no",
+              result["cleanup"], by_desc))
+    if group_label is not None:
+        # Order 009-s: the bounded group label ties this summary to
+        # its own process (group A or B of the ordered direct
+        # invocations).
+        summary = "ci-unit-diagnostics unit_group=%s " % group_label
+    else:
+        summary = "ci-unit-diagnostics "
+    summary += body
     # Order 009-r: the bounded optional own-cgroup fragment is wired
     # into THIS fixed final summary only; its availability or any
     # delta never changes the status/exit computed above.
@@ -794,13 +842,17 @@ def _write_summary_record(owned_dir, result, exit_code):
             pass
 
 
-def _summary_phase(result, writer):
+def _summary_phase(result, writer, group_label=None,
+                   deadline_s=PRODUCTION_DEADLINE_S):
     """K18 phase 2 (main only): bounded display of the final summary
-    through the reviewed production display path. Returns None when
-    forwarded; on refusal/unavailable persists the distinct
-    final-summary record (exact nonzero outcome, truthful run-record
-    metadata) and returns that exact nonzero exit."""
-    summary = (_summary(result, PRODUCTION_DEADLINE_S) + "\n")
+    through the reviewed production display path. ``group_label``
+    (order 009-s) ties the summary to its own process;
+    ``deadline_s`` is the actual deadline the supervised child
+    received. Returns None when forwarded; on refusal/unavailable
+    persists the distinct final-summary record (exact nonzero
+    outcome, truthful run-record metadata) and returns that exact
+    nonzero exit."""
+    summary = (_summary(result, deadline_s, group_label) + "\n")
     try:
         writer(summary.encode("utf-8"))
     except _SinkRefused:
@@ -1150,6 +1202,146 @@ def run_child(argv, *, deadline_s=PRODUCTION_DEADLINE_S,
     return result
 
 
+def group_launch_argv(console, group_a, group_b):
+    """Order 009-s: the two exact launch argv for the ordered direct
+    invocations (group A then group B).
+
+    Both share the fixed installed console verbatim and the
+    unchanged trailing suite args; only the ordered path selectors
+    differ (the exact bounded partition result, one path per
+    selector, in partition order). No argv override, no shell, no
+    extra option, no selector cleanup."""
+    trailing = list(TEST_SUITE_ARGS[1:])
+    return ([console] + list(group_a) + trailing,
+            [console] + list(group_b) + trailing)
+
+
+def supervise_ordered_groups(argv_groups, *, budget_s, temp_root, cwd,
+                             environment, interrupt_check=None, sink=None,
+                             forward_total=FORWARD_TOTAL_BYTES,
+                             log_limit=LOG_LIMIT_BYTES,
+                             kill_grace_s=PRODUCTION_KILL_GRACE_S,
+                             post_kill_s=POST_KILL_OBSERVE_S,
+                             post_drain_s=POST_DRAIN_S,
+                             summarize=None, run=run_child,
+                             resource_pre=None, resource_post=None):
+    """Supervise the ordered direct invocations (order 009-s: group
+    A then group B) under ONE aggregate monotonic observation /
+    dispatch budget.
+
+    Each group is a SEPARATE direct child through the unchanged
+    run_child: same exact cwd and environment, same bounded owned
+    teardown (10 s grace, 5 s post-KILL observation per launched
+    child), same per-line and per-operation output safety, and the
+    exact original child wait/exit/signal distinctions. The first
+    group receives the full remaining budget and the full
+    display/raw-log byte ceilings; each later group receives the
+    EXACT remaining aggregate budget (monotonic, including the
+    earlier group's run and owned cleanup) and the remaining
+    aggregate display and raw-log byte ceilings. The remaining
+    time is RECOMPUTED immediately before each dispatch (after the
+    optional per-child pre-snapshot, which itself spends aggregate
+    budget) and the dispatch is vetoed on exhaustion - no child
+    ever receives a stale deadline.
+
+    No new dispatch happens after the first nonzero or unproven
+    child, after the aggregate budget is exhausted, or after a
+    final display refusal; an unavailable later dispatch is an
+    explicit nonzero (EXIT_LAUNCH_FAILURE) and never a synthetic
+    child result. The first nonzero child's exact exit is
+    preserved; only every dispatched child zero with proven
+    teardown returns 0.
+
+    summarize(result, label, deadline_s) -> Optional[int] emits
+    the bounded per-process summary and returns its refusal exit
+    (None when forwarded). resource_pre(label) -> (before, rlimit)
+    and resource_post(label, before, rlimit) ->
+    display-string-or-None are the bounded per-child
+    own-cgroup/RLIMIT observation hooks; their availability or any
+    delta never changes the computed status or exit (status-
+    neutral). run is the child supervisor (the real run_child in
+    production; the private synthetic seam in tests).
+
+    Returns {"results": [(label, result), ...], "dispatched": int,
+    "unavailable": None|token, "display_refusal": bool,
+    "exit_code": int}.
+    """
+    budget_start = time.monotonic()
+    results = []
+    unavailable = None
+    refusal_exit = None
+    for index, argv in enumerate(argv_groups):
+        if results and any(exit_code_for(prev) != 0
+                           for _, prev in results):
+            break  # no dispatch after the first nonzero/unproven child
+        if refusal_exit is not None:
+            break  # no dispatch after a final display refusal
+        if budget_s - (time.monotonic() - budget_start) <= 0.0:
+            unavailable = "aggregate-budget-exhausted"
+            break
+        label = chr(ord("A") + index)
+        prior_forwarded = sum(prev["forwarded_bytes"]
+                              for _, prev in results)
+        prior_log = sum((prev["log_bytes"] or 0)
+                        for _, prev in results)
+        try:
+            pre = (resource_pre(label) if resource_pre is not None
+                   else (None, None))
+        except Exception:
+            pre = (None, None)
+        # The optional per-child pre-snapshot itself spends
+        # aggregate budget: the remaining time is RECOMPUTED
+        # immediately before the dispatch and the dispatch is vetoed
+        # on exhaustion - a child never receives a stale deadline.
+        remaining = budget_s - (time.monotonic() - budget_start)
+        if remaining <= 0.0:
+            unavailable = "aggregate-budget-exhausted"
+            break
+        result = None
+        try:
+            result = run(list(argv), deadline_s=remaining,
+                         kill_grace_s=kill_grace_s,
+                         post_kill_s=post_kill_s,
+                         post_drain_s=post_drain_s,
+                         forward_total=max(forward_total -
+                                           prior_forwarded, 0),
+                         forward_line_chars=FORWARD_LINE_CHARS,
+                         log_limit=max(log_limit - prior_log, 0),
+                         temp_root=temp_root, cwd=cwd,
+                         environment=environment, sink=sink,
+                         interrupt_check=interrupt_check)
+        finally:
+            # The post-teardown snapshot belongs to THIS child; a
+            # hook failure degrades to unavailable, never the run.
+            if resource_post is not None and result is not None:
+                try:
+                    result["resource_display"] = resource_post(
+                        label, pre)
+                except Exception:
+                    result["resource_display"] = None
+        results.append((label, result))
+        if summarize is not None:
+            refused = summarize(result, label, remaining)
+            if refused is not None:
+                refusal_exit = refused
+                break
+    if refusal_exit is not None:
+        exit_code = refusal_exit
+    elif unavailable is not None:
+        exit_code = EXIT_LAUNCH_FAILURE
+    else:
+        exit_code = 0
+        for _, prev in results:
+            code = exit_code_for(prev)
+            if code != 0:
+                exit_code = code
+                break
+    return {"results": results, "dispatched": len(results),
+            "unavailable": unavailable,
+            "display_refusal": refusal_exit is not None,
+            "exit_code": exit_code}
+
+
 def _repo_root():
     """oap/bin/ci_unit_diagnostics.py -> two levels up is the
     repository root, independent of the caller's working directory."""
@@ -1263,7 +1455,24 @@ def main(argv=None):
             "ci-unit-diagnostics: prerequisite missing: fixed installed "
             "pytest console in the repo .venv\n")
         return EXIT_PREREQUISITE
-    launch_argv, launch_env = projection
+    # Order 009-s: the exact flat tests/unit layout is bounded-
+    # partitioned BEFORE any child exists into two ordered disjoint
+    # direct invocations (group A then group B, B beginning at the
+    # fixed file); an unsupported layout fails closed with no child.
+    if _ci_unit_partition is None:
+        sys.stderr.write(
+            "ci-unit-diagnostics: prerequisite missing: "
+            "ci_unit_partition\n")
+        return EXIT_PREREQUISITE
+    try:
+        group_a, group_b = _ci_unit_partition.partition_unit_tests(
+            os.path.join(root, "tests", "unit"))
+    except _ci_unit_partition.PartitionRefusal:
+        sys.stderr.write(
+            "ci-unit-diagnostics: prerequisite missing: bounded "
+            "tests/unit partition (unsupported layout)\n")
+        return EXIT_PREREQUISITE
+    argv_groups = group_launch_argv(projection[0][0], group_a, group_b)
     runner_temp = os.environ.get("RUNNER_TEMP")
     latched = {"flag": False}
 
@@ -1277,47 +1486,13 @@ def main(argv=None):
             previous[signum] = signal.signal(signum, _latch)
         except (ValueError, OSError):
             pass
-    # Order 009-r: bounded optional own-cgroup observation. The
-    # prelaunch snapshot and the inherited prelaunch RLIMIT_CPU are
-    # captured BEFORE any child exists; the post-teardown snapshot is
-    # taken only after run_child's bounded owned teardown completed.
-    # Observation availability or any delta never determines child
-    # status, acceptance, or which member failed.
-    res_before = None
-    res_rlimit = None
-    if _ci_unit_resources is not None:
-        try:
-            res_before = _ci_unit_resources.snapshot()
-            res_rlimit = _ci_unit_resources.rlimit_cpu()
-        except Exception:
-            res_before = None
-            res_rlimit = None
-    try:
-        result = run_child(
-            launch_argv, temp_root=runner_temp, cwd=root,
-            environment=launch_env,
-            interrupt_check=lambda: latched["flag"])
-    finally:
-        for signum, handler in previous.items():
-            try:
-                signal.signal(signum, handler)
-            except (ValueError, OSError):
-                pass
-    res_after = None
-    if _ci_unit_resources is not None:
-        try:
-            res_after = _ci_unit_resources.snapshot()
-        except Exception:
-            res_after = None
-    if _ci_unit_resources is not None:
-        result["resource_display"] = (
-            _ci_unit_resources.render(res_rlimit, res_before, res_after))
     # K12/K18: the final summary uses the same bounded production
     # display path as forwarding (finite wall/byte/chunk budgets on
     # the real channel fd; no shared-fd flag mutation, no threads, no
     # helper child). A channel refusal is not success: the distinct
     # bounded phase-2 record persists the exact nonzero outcome and
-    # truthful run-record metadata, then an honest nonzero returns.
+    # truthful run-record metadata, then an honest nonzero returns;
+    # the refusal also blocks any later ordered dispatch.
     writer = None
     try:
         writer = _backpressured_writer(
@@ -1325,10 +1500,62 @@ def main(argv=None):
             FORWARD_WALL_BUDGET_S)
     except (AttributeError, OSError, ValueError):
         pass
-    phase_exit = _summary_phase(result, writer)
-    if phase_exit is not None:
-        return phase_exit
-    return exit_code_for(result)
+
+    def _summarize(result, label, deadline_s):
+        # Order 009-s: the bounded group label ties this summary to
+        # its own process; the deadline is the one this child
+        # actually received.
+        return _summary_phase(result, writer, group_label=label,
+                              deadline_s=deadline_s)
+
+    def _resource_pre(label):
+        # Order 009-r observation, per child (order 009-s): the
+        # snapshot and the inherited RLIMIT_CPU are captured before
+        # THIS child exists. Availability or any delta never
+        # determines child status, acceptance, or which member
+        # failed (status-neutral).
+        if _ci_unit_resources is None:
+            return (None, None)
+        try:
+            return (_ci_unit_resources.snapshot(),
+                    _ci_unit_resources.rlimit_cpu())
+        except Exception:
+            return (None, None)
+
+    def _resource_post(label, pre):
+        # The post-teardown snapshot is taken only after THIS
+        # child's bounded owned teardown completed.
+        if _ci_unit_resources is None:
+            return None
+        before, rlimit = pre
+        try:
+            after = _ci_unit_resources.snapshot()
+        except Exception:
+            after = None
+        try:
+            return _ci_unit_resources.render(rlimit, before, after)
+        except Exception:
+            return None
+
+    try:
+        outcome = supervise_ordered_groups(
+            argv_groups, budget_s=PRODUCTION_DEADLINE_S,
+            temp_root=runner_temp, cwd=root,
+            environment=projection[1],
+            interrupt_check=lambda: latched["flag"],
+            summarize=_summarize,
+            resource_pre=_resource_pre, resource_post=_resource_post)
+    finally:
+        for signum, handler in previous.items():
+            try:
+                signal.signal(signum, handler)
+            except (ValueError, OSError):
+                pass
+    if outcome["unavailable"] is not None:
+        sys.stderr.write(
+            "ci-unit-diagnostics: dispatch unavailable: "
+            + outcome["unavailable"] + "\n")
+    return outcome["exit_code"]
 
 
 if __name__ == "__main__":

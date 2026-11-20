@@ -4,17 +4,18 @@ supervisor).
 
 Fixed census specified BEFORE execution (not adjusted afterwards):
 
-* 21 test methods in one single-threaded module (unittest main thread
-  only; no extra threads, no fork anywhere);
-* 15 returned/owned direct children TOTAL (test 1: 1, test 2: 2,
-  tests 3-6: 1 each, test 10: 1, test 11: 1, test 13: 1, test 14: 1,
-  test 15: 1, test 18: 1, test 20: 2; tests 8-9, 12, 16, 17, 19 and
-  21: 0), every one reaped inside the supervised run's owned
-  teardown; PLUS test 7's 1 FAILED Popen constructor/exec launch
-  attempt (no returned child; low-level creation on a failed
-  constructor is platform/stdlib dependent, so creation attempts are
-  conservatively budgeted 16; the stdlib constructor owns its
-  failed-exec reap; the utility invents no PID);
+* 29 test methods in one single-threaded module (unittest main
+  thread only; no extra threads, no fork anywhere);
+* 20 returned/owned direct children TOTAL (test 1: 1, test 2: 2,
+  tests 3-6: 1 each, test 10: 1, test 11: 1, test 13: 1, test 14:
+  1, test 15: 1, test 18: 1, test 20: 2, test 23: 2, test 24: 1,
+  test 25: 1, test 27: 1; tests 8-9, 12, 16, 17, 19, 21, 22, 26,
+  28 and 29: 0), every one reaped inside the supervised run's
+  owned teardown; PLUS test 7's 1 FAILED Popen constructor/exec
+  launch attempt (no returned child; low-level creation on a
+  failed constructor is platform/stdlib dependent, so creation
+  attempts are conservatively budgeted 21; the stdlib constructor
+  owns its failed-exec reap; the utility invents no PID);
 * 0 grandchildren (the retained-handle case holds the extra fd in the
   test parent itself - an honest model, no orphan experiment);
 * max 1 concurrent owned process (sequential runs);
@@ -78,6 +79,36 @@ waitpid after identity release. The process-free summary-phase case
 summary-refusal boundary via private seams only (distinct exclusive
 record, exact persisted nonzero, truthful run-record path/byte
 metadata, no overwrite).
+The order 009-s bounded synthetic OAP checks (tests 22-28)
+cover the ordered two-process execution mode: the launch
+construction (test 22) shares the fixed console verbatim and the
+unchanged trailing suite args across both ordered invocations with
+only the ordered path selectors differing; the sequenced success
+case (test 23) runs TWO real stdlib children (group A then group
+B) under one aggregate monotonic budget and asserts the EXACT
+remaining budget delivered to B (monotonic, including A's run and
+owned cleanup, recovered algebraically from A's own
+deadline/monotonic pair within a 50 ms clock bound), the same
+environment object for both launches, the remaining aggregate
+display/raw-log byte ceilings carried to B from A's actual result,
+the per-child resource hook order and the bounded per-process
+summary label; no second dispatch happens after the first nonzero
+child (test 24: exact preserved 7, unavailable stays None), after
+the first child's own SIGKILL (test 25: the distinct child-signal
+wait result, 131), on the exhausted aggregate budget (test 26: a
+bounded synthetic model with no process - the explicit nonzero 130
+and its fixed token, never a synthetic second result), or after the
+final summary display refusal (test 27: the phase-2 refusal exit
+126 preserved); and the process-free summary group-label format
+(test 28) proves the bounded label right after the fixed prefix
+with the actual child deadline, and byte-identical body output
+without a label at the same deadline. The stale-deadline
+correction probe (test 29, bounded synthetic model without a
+process) exercises the exact clock advance: the optional per-
+child pre-snapshot spends the remaining aggregate budget, the
+remaining time is recomputed immediately before the dispatch and
+the dispatch is vetoed - no child ever receives a stale deadline
+(explicit nonzero 130, zero dispatched).
 Controlled models are not real kernel/OOM/signal qualification.
 """
 import fcntl
@@ -951,6 +982,392 @@ class CiUnitDiagnosticsTest(unittest.TestCase):
         self.assertIsNone(cud.direct_launch_projection(root))
         os.unlink(venv)
         os.rename(venv + "-real", venv)
+
+    def test_22_group_launch_argv_shares_console_and_trailing(self):
+        # Order 009-s launch construction (process-free): both
+        # ordered invocations share the fixed console verbatim and
+        # the unchanged trailing suite args; only the ordered path
+        # selectors differ (exact partition order, disjoint, no
+        # argv override).
+        console = "/synthetic/venv/bin/pytest"
+        group_a = ["/repo/tests/unit/test_a.py",
+                   "/repo/tests/unit/b_test.py"]
+        group_b = ["/repo/tests/unit/test_owned_gpu_worker.py",
+                   "/repo/tests/unit/test_z.py"]
+        argv_a, argv_b = cud.group_launch_argv(console, group_a,
+                                               group_b)
+        trailing = list(cud.TEST_SUITE_ARGS[1:])
+        self.assertEqual(argv_a, [console] + group_a + trailing)
+        self.assertEqual(argv_b, [console] + group_b + trailing)
+        # The same console object, verbatim, in both launches.
+        self.assertIs(argv_a[0], argv_b[0])
+        self.assertEqual(argv_a[-len(trailing):], trailing)
+        self.assertEqual(argv_b[-len(trailing):], trailing)
+        selectors_a = argv_a[1:1 + len(group_a)]
+        selectors_b = argv_b[1:1 + len(group_b)]
+        self.assertEqual(selectors_a, group_a)
+        self.assertEqual(selectors_b, group_b)
+        self.assertEqual(set(selectors_a) & set(selectors_b), set())
+
+    def test_23_ordered_groups_sequenced_success_exact_remaining_budget(
+            self):
+        # Order 009-s: two ordered REAL stdlib children (group A
+        # then group B) under ONE aggregate monotonic budget: B
+        # receives the EXACT remaining budget (monotonic, including
+        # A's run and owned cleanup) and the remaining aggregate
+        # display/raw-log byte ceilings; the SAME environment
+        # object is passed to both launches; the per-child resource
+        # hooks fire in order and stay status-neutral; both
+        # per-process summaries carry the bounded group label; exit
+        # 0 only after both children zero with proven teardown.
+        calls = []
+        sinks = [bytearray(), bytearray()]
+
+        def recording_run(argv, **kwargs):
+            idx = len(calls)
+            calls.append({"argv": list(argv),
+                          "deadline_s": kwargs["deadline_s"],
+                          "forward_total": kwargs["forward_total"],
+                          "log_limit": kwargs["log_limit"],
+                          "environment": kwargs["environment"],
+                          "mono": time.monotonic()})
+            kwargs["sink"] = sinks[idx].extend
+            return cud.run_child(argv, **kwargs)
+
+        def summarize(result, label, deadline_s):
+            # Forwarded (no real channel here): the bounded
+            # per-process summary binds the label exactly once.
+            self.assertEqual(
+                cud._summary(result, deadline_s, label)
+                .count("unit_group=%s " % label), 1,
+                cud._summary(result, deadline_s, label))
+            return None
+
+        resources = []
+
+        def resource_pre(label):
+            resources.append(("pre", label))
+            return (None, None)
+
+        def resource_post(label, pre):
+            resources.append(("post", label))
+            return ("rlimit_cpu=unlimited:unlimited "
+                    "cgroup=mem_max+0:oom+0:oom_kill+0:pids_max+0")
+
+        env = dict(os.environ)
+        budget = 20.0
+        outcome = cud.supervise_ordered_groups(
+            ([[sys.executable, "-c",
+               "import sys\n"
+               "sys.stdout.write('A-done\\n')\n"
+               "sys.stdout.flush()\n"
+               "sys.exit(0)\n"],
+              [sys.executable, "-c",
+               "import sys\n"
+               "sys.stdout.write('B-done\\n')\n"
+               "sys.stdout.flush()\n"
+               "sys.exit(0)\n"]]),
+            budget_s=budget, temp_root=self.root, cwd=self.root,
+            environment=env,
+            kill_grace_s=1.0, post_kill_s=1.0, post_drain_s=1.0,
+            run=recording_run,
+            summarize=summarize,
+            resource_pre=resource_pre,
+            resource_post=resource_post)
+        self.assertEqual(outcome["dispatched"], 2, outcome)
+        self.assertEqual(outcome["exit_code"], 0, outcome)
+        self.assertIsNone(outcome["unavailable"], outcome)
+        self.assertFalse(outcome["display_refusal"], outcome)
+        labels, results = zip(*outcome["results"])
+        self.assertEqual(labels, ("A", "B"))
+        fragment = ("rlimit_cpu=unlimited:unlimited "
+                    "cgroup=mem_max+0:oom+0:oom_kill+0:pids_max+0")
+        for res in results:
+            self.assertEqual(res["status"], cud.STATUS_OK, res)
+            self.assertEqual(res["child_exit"], 0, res)
+            self.assertIsNone(res["child_signal"], res)
+            self.assertEqual(res["cleanup"], "PROVEN", res)
+            self.assertEqual(res["resource_display"], fragment, res)
+            self.assertTrue(_pid_gone(res["direct_pid"]))
+        self.assertIn(cud.LABEL + b"A-done\n", bytes(sinks[0]))
+        self.assertIn(cud.LABEL + b"B-done\n", bytes(sinks[1]))
+        # The SAME environment object for both launches.
+        self.assertIs(calls[0]["environment"], calls[1]["environment"])
+        self.assertIs(calls[0]["environment"], env)
+        # Exact remaining budget: deadline_i = budget - (mono_i -
+        # budget_start) on one monotonic clock, so
+        # budget_start = mono_0 - (budget - deadline_0) and B's
+        # deadline must equal the exact remainder (50 ms clock
+        # bound around the module's dispatch-time measurement; the
+        # pre-dispatch recomputation after the optional pre-
+        # snapshot uses the same clock).
+        budget_start = (calls[0]["mono"] - (budget
+                                            - calls[0]["deadline_s"]))
+        expected_b = budget - (calls[1]["mono"] - budget_start)
+        self.assertAlmostEqual(calls[1]["deadline_s"], expected_b,
+                               delta=0.05)
+        self.assertLess(calls[1]["deadline_s"],
+                        calls[0]["deadline_s"])
+        # A's full wall (child + the bounded 1 s synthetic grace
+        # sweep + cleanup) is what B's remainder excludes.
+        self.assertGreater(calls[1]["deadline_s"], budget - 5.0)
+        # Remaining aggregate display/raw-log ceilings carry over
+        # from A's ACTUAL result via the existing run_child args.
+        self.assertEqual(calls[0]["forward_total"],
+                         cud.FORWARD_TOTAL_BYTES)
+        self.assertEqual(calls[0]["log_limit"], cud.LOG_LIMIT_BYTES)
+        self.assertEqual(calls[1]["forward_total"],
+                         cud.FORWARD_TOTAL_BYTES
+                         - results[0]["forwarded_bytes"])
+        self.assertEqual(calls[1]["log_limit"],
+                         cud.LOG_LIMIT_BYTES - results[0]["log_bytes"])
+        # Per-child observation order; the fragment is
+        # status-neutral (statuses/exits asserted above are
+        # unaffected by it).
+        self.assertEqual(resources,
+                         [("pre", "A"), ("post", "A"),
+                          ("pre", "B"), ("post", "B")])
+
+    def test_24_no_second_dispatch_after_first_nonzero(self):
+        # Order 009-s: after the first child's exact nonzero (7),
+        # NO second dispatch happens; the exact first nonzero is
+        # preserved and the unavailable token stays None (a
+        # completed nonzero child is not an unavailable dispatch).
+        calls = []
+
+        def recording_run(argv, **kwargs):
+            calls.append(list(argv))
+            kwargs["sink"] = bytearray().extend
+            return cud.run_child(argv, **kwargs)
+
+        outcome = cud.supervise_ordered_groups(
+            ([[sys.executable, "-c", "import sys\nsys.exit(7)\n"],
+              [sys.executable, "-c", "import sys\nsys.exit(0)\n"]]),
+            budget_s=20.0, temp_root=self.root, cwd=self.root,
+            environment=dict(os.environ),
+            kill_grace_s=1.0, post_kill_s=1.0, post_drain_s=1.0,
+            run=recording_run,
+            summarize=lambda result, label, deadline_s: None)
+        self.assertEqual(len(calls), 1,
+                         "the second dispatch must not happen")
+        self.assertEqual(outcome["dispatched"], 1, outcome)
+        self.assertEqual(outcome["exit_code"], 7, outcome)
+        self.assertIsNone(outcome["unavailable"], outcome)
+        self.assertFalse(outcome["display_refusal"], outcome)
+        label, result = outcome["results"][0]
+        self.assertEqual(label, "A")
+        self.assertEqual(result["status"], cud.STATUS_OK, result)
+        self.assertEqual(result["child_exit"], 7, result)
+        self.assertEqual(result["cleanup"], "PROVEN", result)
+        self.assertTrue(_pid_gone(result["direct_pid"]))
+
+    def test_25_no_second_dispatch_after_first_child_signal(self):
+        # Order 009-s: a first child terminated by its OWN SIGKILL
+        # (the distinct child-signal wait result, never a
+        # 128-addition) still blocks the second dispatch; the
+        # exact original child wait distinction (131) is preserved.
+        calls = []
+
+        def recording_run(argv, **kwargs):
+            calls.append(list(argv))
+            kwargs["sink"] = bytearray().extend
+            return cud.run_child(argv, **kwargs)
+
+        script = ("import os, signal, sys\n"
+                  "os.kill(os.getpid(), signal.SIGKILL)\n")
+        outcome = cud.supervise_ordered_groups(
+            ([[sys.executable, "-c", script],
+              [sys.executable, "-c", "import sys\nsys.exit(0)\n"]]),
+            budget_s=20.0, temp_root=self.root, cwd=self.root,
+            environment=dict(os.environ),
+            kill_grace_s=1.0, post_kill_s=1.0, post_drain_s=1.0,
+            run=recording_run,
+            summarize=lambda result, label, deadline_s: None)
+        self.assertEqual(len(calls), 1,
+                         "the second dispatch must not happen")
+        self.assertEqual(outcome["dispatched"], 1, outcome)
+        self.assertEqual(outcome["exit_code"],
+                         cud.EXIT_CHILD_SIGNALED, outcome)
+        self.assertIsNone(outcome["unavailable"], outcome)
+        label, result = outcome["results"][0]
+        self.assertEqual(label, "A")
+        self.assertEqual(result["status"],
+                         cud.STATUS_CHILD_SIGNALED, result)
+        self.assertIsNone(result["child_exit"], result)
+        self.assertEqual(result["child_signal"],
+                         signal.SIGKILL, result)
+        self.assertEqual(result["cleanup"], "PROVEN", result)
+        self.assertTrue(_pid_gone(result["direct_pid"]))
+
+    def test_26_no_second_dispatch_on_exhausted_aggregate_budget(
+            self):
+        # Order 009-s (bounded synthetic model, NO process): the
+        # first dispatch returns an exact zero child result but its
+        # wall (run plus owned cleanup, modeled) exhausts the
+        # aggregate monotonic budget before the second admission;
+        # the second dispatch is UNAVAILABLE - an explicit nonzero
+        # 130 with the fixed token, never a synthetic second
+        # result.
+        calls = []
+
+        def spending_run(argv, **kwargs):
+            calls.append(kwargs["deadline_s"])
+            time.sleep(0.2)  # model the first group's run + cleanup
+            result = cud._new_result(cud.FORWARD_TOTAL_BYTES,
+                                     cud.FORWARD_LINE_CHARS)
+            result.update({"status": cud.STATUS_OK,
+                           "child_exit": 0, "child_signal": None,
+                           "cleanup": "PROVEN",
+                           "group_state": "kill-issued",
+                           "elapsed": 0.2, "forwarded_bytes": 0,
+                           "log_bytes": 0, "terminated_by": None})
+            return result
+
+        outcome = cud.supervise_ordered_groups(
+            (["first"], ["second"]),
+            budget_s=0.1, temp_root=self.root, cwd=self.root,
+            environment=dict(os.environ), run=spending_run,
+            summarize=lambda result, label, deadline_s: None)
+        self.assertEqual(len(calls), 1,
+                         "the second dispatch must not happen")
+        self.assertEqual(outcome["dispatched"], 1, outcome)
+        self.assertEqual(outcome["exit_code"],
+                         cud.EXIT_LAUNCH_FAILURE, outcome)
+        self.assertEqual(outcome["unavailable"],
+                         "aggregate-budget-exhausted", outcome)
+        self.assertFalse(outcome["display_refusal"], outcome)
+        self.assertEqual(len(outcome["results"]), 1, outcome)
+
+    def test_27_no_second_dispatch_after_final_display_refusal(self):
+        # Order 009-s: after the first child's final summary
+        # display refusal (the phase-2 boundary; its record path is
+        # already proven in test 17), NO second dispatch happens;
+        # the refusal exit (126) is preserved even though the child
+        # itself was zero with proven teardown.
+        calls = []
+
+        def recording_run(argv, **kwargs):
+            calls.append(list(argv))
+            kwargs["sink"] = bytearray().extend
+            return cud.run_child(argv, **kwargs)
+
+        def refusing_summarize(result, label, deadline_s):
+            result["summary_display"] = "refused"
+            return cud.EXIT_OBSERVER_FAILURE
+
+        outcome = cud.supervise_ordered_groups(
+            ([[sys.executable, "-c", "import sys\nsys.exit(0)\n"],
+              [sys.executable, "-c", "import sys\nsys.exit(0)\n"]]),
+            budget_s=20.0, temp_root=self.root, cwd=self.root,
+            environment=dict(os.environ), run=recording_run,
+            summarize=refusing_summarize)
+        self.assertEqual(len(calls), 1,
+                         "no dispatch after a final display refusal")
+        self.assertEqual(outcome["dispatched"], 1, outcome)
+        self.assertEqual(outcome["exit_code"],
+                         cud.EXIT_OBSERVER_FAILURE, outcome)
+        self.assertTrue(outcome["display_refusal"], outcome)
+        self.assertIsNone(outcome["unavailable"], outcome)
+        label, result = outcome["results"][0]
+        self.assertEqual(label, "A")
+        self.assertEqual(result["child_exit"], 0, result)
+        self.assertEqual(result["cleanup"], "PROVEN", result)
+        self.assertTrue(_pid_gone(result["direct_pid"]))
+
+    def test_28_summary_group_label_bounded_format(self):
+        # Order 009-s (process-free): the bounded group label sits
+        # right after the fixed summary prefix and carries the
+        # actual child deadline; WITHOUT a label the summary bytes
+        # are exactly the pre-009-s format (the existing summary
+        # tests stay byte-valid).
+        r = cud._new_result(cud.FORWARD_TOTAL_BYTES,
+                            cud.FORWARD_LINE_CHARS)
+        r.update({"cleanup": "PROVEN", "child_exit": 0,
+                 "child_signal": None,
+                 "group_state": "kill-issued",
+                 "status": cud.STATUS_OK, "elapsed": 0.12,
+                 "log_bytes": 10, "terminated_by": None})
+        unlabeled = cud._summary(r, 180.0)
+        self.assertTrue(unlabeled.startswith(
+            "ci-unit-diagnostics status=OK "), unlabeled)
+        self.assertNotIn("unit_group", unlabeled)
+        labeled = cud._summary(r, 42.5, "A")
+        self.assertTrue(labeled.startswith(
+            "ci-unit-diagnostics unit_group=A status=OK "),
+            labeled)
+        self.assertIn("deadline=42.5s", labeled)
+        # Labeled output is exactly the fixed prefix + label + the
+        # SAME body the unlabeled summary carries at the SAME
+        # actual child deadline.
+        prefix = "ci-unit-diagnostics "
+        unlabeled_same = cud._summary(r, 42.5)
+        self.assertEqual(
+            labeled, "ci-unit-diagnostics unit_group=A "
+            + unlabeled_same[len(prefix):])
+        # The phase-2 path honors the per-child label and the
+        # actual child deadline on the real bounded display.
+        out = bytearray()
+        r2 = cud._new_result(cud.FORWARD_TOTAL_BYTES,
+                             cud.FORWARD_LINE_CHARS)
+        r2.update({"cleanup": "PROVEN", "child_exit": 0,
+                   "child_signal": None,
+                   "group_state": "kill-issued",
+                   "status": cud.STATUS_OK, "elapsed": 0.1,
+                   "log_bytes": 10, "owned_dir": None,
+                   "terminated_by": None})
+        self.assertIsNone(cud._summary_phase(r2, out.extend,
+                                             group_label="B",
+                                             deadline_s=97.2))
+        text = bytes(out)
+        self.assertIn(
+            b"ci-unit-diagnostics unit_group=B status=OK ", text)
+        self.assertIn(b"deadline=97.2s", text)
+        self.assertIn(b"terminated_by=none", text)
+
+    def test_29_pre_snapshot_exhausts_budget_no_stale_dispatch(self):
+        # Order 009-s stale-deadline correction (Root provisional
+        # probe; bounded synthetic model WITHOUT a process): the
+        # optional per-child pre-snapshot advances the clock past
+        # the aggregate budget; the remaining time is recomputed
+        # immediately before the dispatch and the dispatch is
+        # vetoed on exhaustion - the run stub is never called, no
+        # child ever receives a stale deadline, and the outcome is
+        # the explicit nonzero 130 with the fixed token (zero
+        # dispatched, no synthetic result).
+        calls = []
+
+        def recording_run(argv, **kwargs):
+            calls.append(kwargs["deadline_s"])
+            result = cud._new_result(cud.FORWARD_TOTAL_BYTES,
+                                     cud.FORWARD_LINE_CHARS)
+            result.update({"status": cud.STATUS_OK,
+                           "child_exit": 0, "child_signal": None,
+                           "cleanup": "PROVEN",
+                           "group_state": "kill-issued",
+                           "elapsed": 0.0, "forwarded_bytes": 0,
+                           "log_bytes": 0, "terminated_by": None})
+            return result
+
+        def spending_pre(label):
+            # The exact clock advance of the probe, without a real
+            # child: the pre-snapshot spends the remaining budget.
+            time.sleep(0.2)
+            return (None, None)
+
+        outcome = cud.supervise_ordered_groups(
+            (["first"], ["second"]),
+            budget_s=0.1, temp_root=self.root, cwd=self.root,
+            environment=dict(os.environ), run=recording_run,
+            resource_pre=spending_pre)
+        self.assertEqual(calls, [],
+                         "no dispatch may receive a stale deadline")
+        self.assertEqual(outcome["dispatched"], 0, outcome)
+        self.assertEqual(outcome["exit_code"],
+                         cud.EXIT_LAUNCH_FAILURE, outcome)
+        self.assertEqual(outcome["unavailable"],
+                         "aggregate-budget-exhausted", outcome)
+        self.assertFalse(outcome["display_refusal"], outcome)
+        self.assertEqual(len(outcome["results"]), 0, outcome)
 
 if __name__ == "__main__":
     unittest.main()

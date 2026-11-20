@@ -1557,6 +1557,160 @@ unsupported cause claim follows even on matching counters.
 Baseline NOT_RUN; protected authority/hardware/right/license/MVP
 and release gates open; whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-s bounded unit process partition (same 009 continuation)
+
+Run 44688983707 at the 009-r report head dfe301c7 completed
+TERMINAL_FAILURE: Python 3.12 collected 2731, forwarded 2391 pass
+marks and the direct supervised pytest was observed by waitid with
+SIGKILL before the normal group teardown (supervisor exit 131, no
+final pytest summary, last forwarded line a pass with cause
+unproven, wall 63.56 s including cleanup, six downstream required
+steps skipped); Python 3.14 completed all 2731 units, the separate
+integration step and all 24 job steps (8 warnings in 66.90 s;
+supervisor wall 78.58 s including cleanup, longer than the failing
+3.12 instance, so a universal elapsed limit is unsupported); both
+legs showed unlimited inherited RLIMIT_CPU and zero deltas in the
+four fixed local cgroup counters; the three OAP jobs succeeded.
+The evidence supports a CHANGED execution comparison - two bounded
+sequential direct pytest processes covering the exact complete
+default unit collection - and no attribution to a specific test,
+timer or cgroup event, including on a green result.
+
+Scoped changes. (1) main of
+`oap/bin/ci_unit_diagnostics.py` now supervises TWO bounded
+sequential direct invocations of the fixed installed pytest
+console (group A then group B): same exact cwd, unchanged
+inherited environment projection, same trailing suite args after
+the path selectors; only the ordered path selectors differ. The
+two processes run under ONE aggregate monotonic 180 s
+observation/dispatch budget: the first receives the full remaining
+budget and the full display/raw-log byte ceilings; the second
+receives the EXACT remaining aggregate budget (monotonic,
+including the first group's run and owned cleanup) and the
+remaining aggregate ceilings via the existing run_child arguments.
+The remaining time is recomputed immediately before each dispatch
+(after the optional per-child pre-snapshot, which itself spends
+aggregate budget) and the dispatch is vetoed on exhaustion - no
+child ever receives a stale deadline. No new dispatch happens after
+the first nonzero or unproven child, after an exhausted budget, or
+after a final display refusal; an unavailable second dispatch is an
+explicit nonzero 130 with a bounded stderr token, never a
+synthetic second result. The exact first nonzero and the original
+child wait/exit/signal distinctions are preserved; the bounded 10 s
+grace and 5 s post-KILL owned group cleanup run per launched
+child; the per-line and per-operation output safety is retained;
+the per-child own-cgroup/RLIMIT observation stays status-neutral;
+and each bounded per-process summary carries a bounded group label
+(unit_group=A/B) and the actual child deadline. run_child, the
+owned process cleanup, the observer primitives and the
+direct-console admission are unchanged. (2) NEW stdlib-only
+`oap/bin/ci_unit_partition.py` derives the two groups from a
+bounded one-level inventory of the flat tests/unit layout under a
+finite pre-materialization entry ceiling (1024), with exact
+regular path admission of the two default patterns (test_*.py and
+*_test.py): the generated __pycache__ is not a test entry;
+ordinary non-test files and hidden entries are not test entries;
+unsupported nonhidden nested layouts, symlinked scope entries,
+non-regular entries, an entry vanishing under the inventory, the
+absent fixed cut file, or an empty derived group are refused with
+a bounded reason token - never a partial or silently omitted
+membership. Group B begins at
+tests/unit/test_owned_gpu_worker.py; group A is exactly the
+entries ordered before it (name-sorted, the locked pytest
+collection order for a flat directory without __init__.py).
+
+Measured group sizes and collection equality. At the exact base
+the partition is 62 files / 1421 nodes (A, ending
+test_native_tokenizers.py) and 56 files / 1310 nodes (B, 2731
+total). The bounded three-way collect-only batch (full directory,
+then the two actual launch-path groups) under the original caps
+(CPU 60 s, AS 1 GiB, wall 120 s then KILL 5 s per observation)
+with the one-thread Product setting (OPENBLAS_NUM_THREADS=1,
+PYTHONDONTWRITEBYTECODE=1, fresh private /tmp basetemp, no
+cacheprovider, the local locked venv console) observed: all three
+exits 0 (walls 2.27 s / 3.02 s / 2.85 s); the concatenated unique
+ordered A+B node list equals the full ordered 2731-node list
+byte-for-byte, with both groups nonempty and no duplicate,
+omission, extra or failed collection; canonical SHA256 of the full
+list 60da730445d66ef81c1d20cbb367f2dc1203469a28e6309ca86461bd8d764834
+(groups 9bec4a3d52e1b7d23f59921efbe2fd421d7b6e78a0c6188d1168fc2ed4a8c069
+and 5001c6f38cc6eec55abf53936347cb4a223f69e03396cadc4d6d3a9d27a30570),
+byte-equal to Root's full ordered collection from the exact
+dfe301c (audit/009-s-check/Root-base-collect-only/Root-full-ordered-
+collection.json, actual exit 0, 2731 nodes, 118 files). No total
+count was asserted from the prior round without matching: the
+observed 2731/1421/1310 were measured in this round and matched
+against Root's reference. The hosted positive gate on each Product
+leg still requires both pytest success summaries, the observed
+combined complete unit census and every later required step.
+
+Tests. The existing supervisor wait/cleanup and summary tests are
+retained unchanged. New bounded synthetic OAP cases in
+tests/oap/test_ci_unit_diagnostics.py (22-29): the launch
+construction shares the fixed console verbatim and the unchanged
+trailing suite args across both ordered invocations with only the
+ordered path selectors differing; a sequenced two-real-child
+success under one aggregate monotonic budget asserts the EXACT
+remaining budget delivered to B (recovered algebraically from A's
+own deadline/monotonic pair within a 50 ms clock bound), the same
+environment object for both launches, the remaining aggregate
+display/raw-log ceilings carried from A's actual result, the
+per-child resource hook order and the bounded per-process summary
+label; no second dispatch after the first nonzero (exact preserved
+7), after the first child's own SIGKILL (the distinct child-signal
+wait result, 131), on the exhausted aggregate budget (bounded
+synthetic model, explicit 130), or after the final summary display
+refusal (126); the process-free summary group-label format
+(byte-identical body without a label at the same deadline); and the
+stale-deadline correction probe (bounded synthetic model without a
+process) where the pre-snapshot spends the remaining budget and
+the recomputed dispatch is vetoed - the run stub is never called
+and zero children are dispatched. NEW focused
+tests/oap/test_ci_unit_partition.py (12 process-free cases on owned
+synthetic 0700 trees): both-pattern admission, deterministic
+repeat, absolute in-scope paths, disjoint complete membership, and
+refusals with exact bounded reason tokens (empty scope, missing
+cut file, cut file sorting first, nested nonhidden directory,
+symlinked test/non-test entries, symlinked scope, FIFO entry,
+missing/file scope, hidden-and-ordinary non-entries, and the
+finite pre-materialization entry ceiling).
+
+Local evidence (private audit only, never in Git). One bounded
+targeted stdlib run of the two changed test modules (explicit
+module selection; CPU 60 s, AS 1 GiB, wall 120 s then KILL 5 s):
+the first run completed 39 tests with 2 failures (actual exit 1)
+- both assertion outcomes in the new 009-s cases: the sequenced
+success case used the default 10 s teardown grace instead of the
+module's short synthetic bounds, and the process-free label-format
+case compared the labeled summary against the unlabeled body at a
+different deadline - fixed in the same authorized changed-byte
+correction (short synthetic bounds on the process cases; same-
+deadline body-identity comparison), and the one changed-byte
+re-run under the same exact cap passed 41 tests (actual exit 0,
+wall 32.90 s). The three-way collect-only batch above ran under
+the same cap. Setup/deviation disclosure preserved: the first
+full-directory collect-only observation under the caps WITHOUT the
+one-thread setting failed silently (exit 1, no output); two
+out-of-scope diagnostic probes (an AS 1.5 GiB run, segfault exit
+139; AS 2/3 GiB runs and one uncapped /usr/bin/time -v run) were
+stopped on Root's order, preserved, and never used as proof; the
+ordered batch then ran under Root's exact one-thread setting.
+ruff reports no new findings (product lint scope src/tests/unit/
+tests/integration untouched; OAP is governance-owned compact style
+outside product lint); compileall clean; git diff --check exit 0.
+The workflow (SHA256 b9195355), all product and pytest files, the
+package environment and prior logs/reports are unchanged; unit and
+integration remain separate CI steps.
+
+The actual full Product matrix (both legs) and all OAP
+checks/steps at the new report head are pending (the strategic
+gate after publication); Root reviews the exact fresh CI and the
+honest terminal assessment; a required failure remains a failure
+even if one partition or job passed; no attribution of the 3.12
+signal sender even on a green result. Baseline NOT_RUN; protected
+authority/hardware/right/license/MVP and release gates open; whole
+009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
