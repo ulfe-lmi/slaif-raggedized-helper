@@ -1,0 +1,131 @@
+{
+  "DHA": "NONE",
+  "PR": 11,
+  "allowed_existing_changed_function": "test_t1_selected_change_after_renewal_before_text_bytes",
+  "allowed_implementation_paths": [
+    "STATUS.md",
+    "docs/evaluation.md",
+    "tests/integration/test_guarded_encoder_transport_composition.py"
+  ],
+  "at": "2026-11-20T23:31:28.829454+00:00",
+  "base": "1fa6bc87dcb5dbdddc9fd317c1e9b662b5fd7c59",
+  "expected_new_hosted_each_product": {
+    "A": 1440,
+    "B": 1998,
+    "integration": 970,
+    "units": 3438
+  },
+  "identifier": "009-ah",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "prior_exact_failed_run": {
+    "attempt": 1,
+    "each_product_integration_failed": 1,
+    "each_product_integration_passed": 969,
+    "each_product_units": 3438,
+    "id": 44834284664
+  },
+  "receiver_existing_objects": {
+    ".github/workflows/oap.yml": {
+      "blob": "58eee45c59bab5a002ea36831850b02c59106b28",
+      "bytes": 14235,
+      "mode": "100644",
+      "sha256": "54e66869d9a2a02e95202ed3eaecba199a2494ca6f6c5742554e722cf14367c6"
+    },
+    "ARCHITECTURE.md": {
+      "blob": "da56d21de0a56666bbd77edeba5b3153330c8f43",
+      "bytes": 128390,
+      "mode": "100644",
+      "sha256": "4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a"
+    },
+    "CRITICAL.md": {
+      "blob": "136ecf3371969be09a58cbeb3a9e5f730bf83ad7",
+      "bytes": 759,
+      "mode": "100644",
+      "sha256": "2ce0012b6659a050225ddfe8cc82ae76bc8385ec6b8772d612c4264d745bf995"
+    },
+    "STATUS.md": {
+      "blob": "d921dbc4a101e21883a13473a2dc8dcf07751b1d",
+      "bytes": 190552,
+      "mode": "100644",
+      "sha256": "d46bebf0d965ccd993222eb612b8b69cb24b06397e050efc6baf3e5bdd409607"
+    },
+    "docs/evaluation.md": {
+      "blob": "81990dabed4a12ec7ff167bfd49263e9283556ae",
+      "bytes": 189596,
+      "mode": "100644",
+      "sha256": "43e43344b31c9f038894e8e80b8c31ab661566ec0080f945a2d727fceca3b432"
+    },
+    "oap/active": {
+      "blob": "7800aa34171359d083b4d029fbc58a2c04515d34",
+      "bytes": 7,
+      "mode": "100644",
+      "sha256": "07efc8bb45ee76e2a91ac0416b4a491c136b1c7eddcfa96972ddb8218cbd603c"
+    },
+    "oap/orders/009-ag-guarded-encoder-transport-transfer.md": {
+      "blob": "eadfd393ef8d840d2c9ff2be925ad136a4dfd3ef",
+      "bytes": 8701,
+      "mode": "100644",
+      "sha256": "d2948644cade3d7f851a4cdfe2e966e72deb05482e44462732df34f262eea4e6"
+    },
+    "oap/reports/009-ag-guarded-encoder-transport-transfer.md": {
+      "blob": "122336a11e203a0fe1c7539fd919deaa98d98ad4",
+      "bytes": 17997,
+      "mode": "100644",
+      "sha256": "2c13ddf6b0fad5f8c88284523ba53fb75d1a71b522b76fa27cb9d22bd5c4c39f"
+    },
+    "oap/reviews/009-ag-guarded-encoder-transport-transfer-index.json": {
+      "blob": "4916e23467206ac29ad2c4ca426445c147ad7f40",
+      "bytes": 14537,
+      "mode": "100644",
+      "sha256": "7fc858b9e35b2200b952138b8cae35a89e9612e55b5a4241445d72571e120c4e"
+    },
+    "oap/reviews/009-ag-prior-resolution.json": {
+      "blob": "3f76583a273b1726a7c45913fba578434b7df5db",
+      "bytes": 701,
+      "mode": "100644",
+      "sha256": "b88262da9f2331d6c3c183e5a4876dbb601b7c617fa0e0a1cba3a6efe6b95bd8"
+    },
+    "src/slaif_raggedized_helper/cpu_embedding_worker.py": {
+      "blob": "082f52dbbe6b4b6f2f28f1968ef1428390cb6211",
+      "bytes": 28621,
+      "mode": "100644",
+      "sha256": "b47888851b5ffd6852478b23d3fbb12ff17611776231e3669c78b6613b303fbe"
+    },
+    "src/slaif_raggedized_helper/embedding_tokenizer.py": {
+      "blob": "370d538af21f3dc3edaa627710c50dd64f4c146d",
+      "bytes": 16498,
+      "mode": "100644",
+      "sha256": "946ebf22caba55c7d10e517a273a9e3c258c1a4a185dc647d1ae30f1371ee934"
+    },
+    "src/slaif_raggedized_helper/embedding_tokenizer_worker.py": {
+      "blob": "d7b716c4843210cbf96e4f1a7520a62498c4ab0d",
+      "bytes": 2547,
+      "mode": "100644",
+      "sha256": "ce0c2fc12dac3a1fe5053afa85688a0f8a8837b34d0936256ba736dc177a35a3"
+    },
+    "src/slaif_raggedized_helper/isolated_cpu_embedding.py": {
+      "blob": "9a3b01a8fc1f8f6f8b1d11cecc9bf576d4746bfe",
+      "bytes": 24284,
+      "mode": "100644",
+      "sha256": "b2295535cc8ab3d1f7644fe42efa6a00210e9372eebc9710323c5f3575bc458a"
+    },
+    "src/slaif_raggedized_helper/private_policy_request.py": {
+      "blob": "7b2a24d3fea6cca9e1cd67310987fdc6194db7f9",
+      "bytes": 14885,
+      "mode": "100644",
+      "sha256": "1b52e832ca7f65925bf129958b80b99d3a1a4260dddaa29f06db371505979e44"
+    },
+    "src/slaif_raggedized_helper/query_embedding.py": {
+      "blob": "7b900ca0c1c0372d16f3424597a9cada0d688fb2",
+      "bytes": 13713,
+      "mode": "100644",
+      "sha256": "91246e7ef7036bd285a5433ad36e58074e836436a453303555902217f76081b9"
+    },
+    "tests/integration/test_guarded_encoder_transport_composition.py": {
+      "blob": "fb4f33fbbb2fe859fc1963c89886213c7b4cfb45",
+      "bytes": 39582,
+      "mode": "100644",
+      "sha256": "8d795b198dfb35f984f1e7b09b8fd862730d5347be5c58ebdbb9eef8073b61be"
+    }
+  }
+}
