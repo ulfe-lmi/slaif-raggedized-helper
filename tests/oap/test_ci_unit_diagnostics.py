@@ -4,17 +4,17 @@ supervisor).
 
 Fixed census specified BEFORE execution (not adjusted afterwards):
 
-* 19 test methods in one single-threaded module (unittest main thread
+* 21 test methods in one single-threaded module (unittest main thread
   only; no extra threads, no fork anywhere);
-* 13 returned/owned direct children TOTAL (test 1: 1, test 2: 2,
+* 15 returned/owned direct children TOTAL (test 1: 1, test 2: 2,
   tests 3-6: 1 each, test 10: 1, test 11: 1, test 13: 1, test 14: 1,
-  test 15: 1, test 18: 1; tests 8-9, 12, 16, 17 and 19: 0), every one
-  reaped inside the supervised run's owned teardown; PLUS test 7's 1
-  FAILED Popen constructor/exec launch attempt (no returned child;
-  low-level creation on a failed constructor is platform/stdlib
-  dependent, so creation attempts are conservatively budgeted 14; the
-  stdlib constructor owns its failed-exec reap; the utility invents no
-  PID);
+  test 15: 1, test 18: 1, test 20: 2; tests 8-9, 12, 16, 17, 19 and
+  21: 0), every one reaped inside the supervised run's owned
+  teardown; PLUS test 7's 1 FAILED Popen constructor/exec launch
+  attempt (no returned child; low-level creation on a failed
+  constructor is platform/stdlib dependent, so creation attempts are
+  conservatively budgeted 16; the stdlib constructor owns its
+  failed-exec reap; the utility invents no PID);
 * 0 grandchildren (the retained-handle case holds the extra fd in the
   test parent itself - an honest model, no orphan experiment);
 * max 1 concurrent owned process (sequential runs);
@@ -51,7 +51,26 @@ maps to an honest nonzero, the child is reaped, raw log preserved. The
 prelaunch sink-unavailable case (test 19) is process-free with zero
 Popen attempts: a safe owned temp root yields the bounded private
 evidence record (truthful PREREQUISITE/sink-unavailable); missing or
-unsafe roots stay honest no-artifact (tests 8-9). Proven-reap cases
+unsafe roots stay honest no-artifact (tests 8-9). The order 009-r
+bounded synthetic OAP check (test 20) drives two real stdlib children
+through the unchanged supervisor: a positive exit 137 (the hosted
+wrapper exit code) and a real direct self-issued SIGKILL produce
+DISTINCT owned wait results - exact normal exit 137 with child_signal
+None (status OK, exit 137 preserved, reconciled Popen returncode)
+versus the separate child-signal field with child_exit None (status
+CHILD_SIGNALED, exit 131), never a 128-addition; the SIGKILL child
+installs a SIGTERM marker handler before its self-kill and the marker
+is never written, proving the identity-verified owned group sweep
+signalled no live process outside the child's own self-kill (an
+unowned process is never signalled). The main-only direct
+pytest-console projection (test 21) is process-free (no child, no
+launch): the exact projected argv (fixed installed console plus the
+unchanged trailing suite args) and environment (inherited env plus
+repo .venv VIRTUAL_ENV and its bin as the first PATH entry) over an
+owned synthetic repo tree, plus the clean prelaunch refusal (None)
+for a missing, non-executable, external-shebang, no-shebang,
+non-ASCII-shebang, interpreter-less, pyvenv.cfg-less or
+symlinked-venv console. Proven-reap cases
 (1, 2, 3, 4) observe the reconciled Popen returncode bookkeeping
 (0/7/5, -15, -9), so the stdlib destructor performs no numeric
 waitpid after identity release. The process-free summary-phase case
@@ -781,6 +800,157 @@ class CiUnitDiagnosticsTest(unittest.TestCase):
         self.assertEqual(result["status_record_bytes"],
                          os.lstat(rec).st_size)
 
+
+    def test_20_exit_137_vs_direct_sigkill_wait_results(self):
+        # Order 009-r bounded synthetic OAP check: a positive exit
+        # 137 (the hosted wrapper exit code) and a real direct
+        # SIGKILL have DISTINCT owned wait results - 137 stays an
+        # exact normal exit (child_signal None, status OK, exit 137
+        # preserved); the self-issued SIGKILL is the separate
+        # child-signal field (child_exit None, status CHILD_SIGNALED,
+        # exit 131), never a 128-addition. The SIGKILL child
+        # installs a SIGTERM marker handler BEFORE its self-kill:
+        # the marker is never written, proving the identity-verified
+        # owned group sweep signalled no live process outside the
+        # child's own self-kill (an unowned process is never
+        # signalled).
+        log137 = self._owned_log("exit137.log")
+        result137, _ = _run_case(
+            _child("import sys\n"
+                   "sys.exit(137)\n"),
+            self.root, log_path=log137)
+        self.assertEqual(result137["status"], cud.STATUS_OK)
+        self.assertEqual(result137["child_exit"], 137)
+        self.assertIsNone(result137["child_signal"])
+        self.assertEqual(cud.exit_code_for(result137), 137)
+        self.assertEqual(result137["cleanup"], "PROVEN")
+        self.assertEqual(result137["popen_returncode"], 137)
+        log9 = self._owned_log("sigkill.log")
+        marker = os.path.join(self.root, "term-marker")
+        script = (
+            "import os, signal, sys\n"
+            "marker = sys.argv[1]\n"
+            "def handler(signum, frame):\n"
+            "    with open(marker, 'wb') as f:\n"
+            "        f.write(b'term')\n"
+            "signal.signal(signal.SIGTERM, handler)\n"
+            "os.kill(os.getpid(), signal.SIGKILL)\n"
+        )
+        result9, _ = _run_case(
+            [sys.executable, "-c", script, marker],
+            self.root, log_path=log9)
+        self.assertEqual(result9["status"], cud.STATUS_CHILD_SIGNALED)
+        self.assertIsNone(result9["child_exit"])
+        self.assertEqual(result9["child_signal"], signal.SIGKILL)
+        self.assertEqual(cud.exit_code_for(result9),
+                         cud.EXIT_CHILD_SIGNALED)
+        self.assertEqual(result9["cleanup"], "PROVEN")
+        self.assertEqual(result9["popen_returncode"], -signal.SIGKILL)
+        self.assertFalse(os.path.exists(marker))
+        # The two wait results are genuinely distinct.
+        self.assertNotEqual(
+            (result137["child_exit"], result137["child_signal"]),
+            (result9["child_exit"], result9["child_signal"]))
+        self.assertNotEqual((137, None), (None, signal.SIGKILL))
+
+    def test_21_direct_launch_projection_and_clean_refusal(self):
+        # Order 009-r main-only projection: the exact direct console
+        # argv/env and the clean prelaunch refusal when the fixed
+        # installed console (or its local environment) is missing.
+        # Process-free (no child, no launch).
+        root = os.path.join(self.root, "proj-root")
+        venv = os.path.join(root, ".venv")
+        bin_dir = os.path.join(venv, "bin")
+        os.makedirs(bin_dir)
+        with open(os.path.join(venv, "pyvenv.cfg"), "wb") as f:
+            f.write(b"home = /usr/bin\nversion_info = 3.12.1\n")
+        interpreter = os.path.join(bin_dir, "python")
+        with open(interpreter, "wb") as f:
+            f.write(b"")
+        os.chmod(interpreter, 0o755)
+        console = os.path.join(bin_dir, "pytest")
+
+        def valid_console():
+            with open(console, "wb") as f:
+                f.write(b"#!" + interpreter.encode("ascii")
+                        + b"\n"
+                        + b"# -*- coding: utf-8 -*-\n")
+            os.chmod(console, 0o755)
+
+        valid_console()
+        sentinel = "oap-projection-sentinel-009r"
+        old_sentinel = os.environ.get(sentinel)
+        os.environ[sentinel] = "kept"
+        try:
+            projection = cud.direct_launch_projection(root)
+            self.assertIsNotNone(projection, "valid projection refused")
+            argv, env = projection
+            self.assertEqual(
+                argv, [console, "tests/unit", "-o", "addopts=",
+                       "-vv", "-o", "faulthandler_timeout=60"])
+            self.assertEqual(env["VIRTUAL_ENV"], venv)
+            inherited_path = os.environ.get("PATH", "")
+            self.assertEqual(
+                env["PATH"],
+                (bin_dir + os.pathsep + inherited_path
+                 if inherited_path else bin_dir))
+            self.assertEqual(env[sentinel], "kept")
+            # Inherited environment otherwise unchanged.
+            for key, value in os.environ.items():
+                if key in ("VIRTUAL_ENV", "PATH"):
+                    continue
+                self.assertEqual(env[key], value)
+        finally:
+            if old_sentinel is None:
+                os.environ.pop(sentinel, None)
+            else:
+                os.environ[sentinel] = old_sentinel
+        # Clean refusal: the fixed installed console missing...
+        os.unlink(console)
+        self.assertIsNone(cud.direct_launch_projection(root))
+        # ...or non-executable...
+        valid_console()
+        os.chmod(console, 0o644)
+        self.assertIsNone(cud.direct_launch_projection(root))
+        # ...or an external shebang interpreter ("env python")...
+        valid_console()
+        with open(console, "wb") as f:
+            f.write(b"#!/usr/bin/env python\n")
+        os.chmod(console, 0o755)
+        self.assertIsNone(cud.direct_launch_projection(root))
+        # ...or an absolute shebang outside the local venv bin...
+        with open(console, "wb") as f:
+            f.write(b"#!/usr/bin/python3\n")
+        os.chmod(console, 0o755)
+        self.assertIsNone(cud.direct_launch_projection(root))
+        # ...or no shebang at all...
+        with open(console, "wb") as f:
+            f.write(b"import sys\n")
+        os.chmod(console, 0o755)
+        self.assertIsNone(cud.direct_launch_projection(root))
+        # ...or a non-ASCII shebang byte...
+        with open(console, "wb") as f:
+            f.write(b"#!" + interpreter.encode("ascii") + b"\xff\n")
+        os.chmod(console, 0o755)
+        self.assertIsNone(cud.direct_launch_projection(root))
+        # ...or a missing interpreter...
+        valid_console()
+        os.unlink(interpreter)
+        self.assertIsNone(cud.direct_launch_projection(root))
+        # ...or a missing pyvenv.cfg...
+        with open(interpreter, "wb") as f:
+            f.write(b"")
+        os.chmod(interpreter, 0o755)
+        os.unlink(os.path.join(venv, "pyvenv.cfg"))
+        self.assertIsNone(cud.direct_launch_projection(root))
+        # ...or a symlinked (non-local) venv...
+        with open(os.path.join(venv, "pyvenv.cfg"), "wb") as f:
+            f.write(b"home = /usr/bin\n")
+        os.rename(venv, venv + "-real")
+        os.symlink(venv + "-real", venv)
+        self.assertIsNone(cud.direct_launch_projection(root))
+        os.unlink(venv)
+        os.rename(venv + "-real", venv)
 
 if __name__ == "__main__":
     unittest.main()

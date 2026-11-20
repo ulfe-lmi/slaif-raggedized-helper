@@ -1396,9 +1396,10 @@ gates open; whole 009 PARTIAL; no merge; DHA NONE.
 
 Run 44667676605 at the 009-p report head 3522d263 completed
 FAILURE: Python 3.12 Product collected 2731 with all 24 steps
-succeeded (2731 unit passes including integration); Python 3.14
-collected 2731 and emitted 2532 pass marks before child exit 137
-without a final summary - last unfinished forwarded node
+succeeded (2731 unit passes; the separate integration step and
+all other required steps succeeded); Python 3.14 collected 2731
+and emitted 2532 pass marks before child exit 137 without a final
+summary - last unfinished forwarded node
 test_controlled_two_partition_full_stages_exceed_return_cap, its
 six subsequent steps skipped; both versions passed the corrected
 16-slot publisher case; the three OAP jobs succeeded. Neither the
@@ -1431,6 +1432,130 @@ after publication); a CI failure goes to Root for bounded next
 diagnosis with cause evidence, never auto-retry. Baseline NOT_RUN;
 protected authority/hardware/right/license/MVP and release gates
 open; whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-r direct unit launch and bounded cgroup evidence (same 009 continuation)
+
+Run 44672714984 at the 009-q report head 416009c9 completed
+TERMINAL_FAILURE: both Product legs with the confirmed
+OPENBLAS_NUM_THREADS=1 step env collected 2731; both passed the
+named isolated 16-slot publisher case; Python 3.12 forwarded 2532
+pass marks and Python 3.14 forwarded 2505; both direct supervised
+uv processes exited positive 137 with no signal field, no
+supervisor termination reason and no display refusal; the last
+unfinished forwarded nodes differ
+(test_controlled_two_partition_full_stages_exceed_return_cap on
+3.12, test_controlled_flat_denominator_and_rank_21 on 3.14);
+neither leg printed a final pytest summary; both elapsed around
+63 s including existing cleanup; six downstream required steps
+were skipped per leg; the three OAP jobs succeeded. The existing
+supervisor directly owns the uv wrapper; its waitid result
+reports no signal for that direct program, so a numeric 137 does
+not identify who or what terminated pytest, and no causal claim
+about a source test, OOM, scheduler or host process is made.
+Unit and integration remain separate CI steps (the Product test
+suite step runs the supervised unit selection; the integration
+step runs `uv run pytest tests/integration -q` separately).
+
+Scoped changes. (1) main of
+`oap/bin/ci_unit_diagnostics.py` now supervises the repository's
+own installed pytest console directly: the absolute fixed
+executable path `<root>/.venv/bin/pytest` with the unchanged
+trailing suite args (`tests/unit -o addopts= -vv -o
+faulthandler_timeout=60`) and the exact repo cwd; the uv wrapper
+is no longer invoked. A fail-closed prelaunch projection
+(direct_launch_projection) requires the fixed installed console
+(real regular executable file), an interpreter shebang inside the
+same local venv bin, a real local venv (pyvenv.cfg) and a real
+bin directory before any child exists; any absence returns
+EXIT_PREREQUISITE with no fallback. The child environment is the
+inherited environment plus the repo .venv VIRTUAL_ENV and its bin
+as the first PATH entry - the reviewed local launch projection
+(inside already-synced env, local pytest console, local
+VIRTUAL_ENV, local PATH head) reproduced without any new uv
+operation, shell or argv override. run_child receives this
+explicit argv and environment and keeps all resource
+execution/ownership behavior; the exact old child signal/exit
+and nonzero/failure behavior is preserved. (2) NEW stdlib-only
+`oap/bin/ci_unit_resources.py` adds the bounded optional
+own-cgroup observation: one snapshot immediately before launch
+and one after the owned teardown. It reads only /proc/self/cgroup
+and the fixed local event files (memory.events.local,
+pids.events.local) under the trusted fixed mount /sys/fs/cgroup
+for the process's own unified cgroup: exactly one unified row,
+validated canonical path components, an lstat-verified component
+chain (no path scan, no symlink traversal, no caller-selected
+input), and an EOF-driven read under a strict cap-plus-one
+because procfs/cgroupfs pseudofiles report a stat size that does
+not describe the generated text (/proc/self/cgroup reports zero
+while returning data). It reports no paths - only the cgroup
+directory (st_dev, st_ino) identity plus bounded nonnegative
+counter values - and only nonnegative deltas of
+memory.events.local max/oom/oom_kill and pids.events.local max
+when the same identity holds across both snapshots and the
+counters are monotone; missing, malformed, oversize, unstable or
+counter-reset observations report unavailable. The kernel
+documents untracked valid keys in the same event files (low/high,
+oom_group_kill, sock_throttled); they are parsed and ignored
+under the bounded ASCII key/value grammar, and a malformed value
+(including non-ASCII numeric text) refuses the whole file without
+raising. The inherited prelaunch RLIMIT_CPU soft/hard is recorded
+as bounded decimal/unlimited/unavailable. The fixed-length
+fragment is wired only into the supervisor's existing bounded
+final summary; observer availability or a delta never
+determines child status, acceptance, or which member failed.
+
+Tests. The existing stdlib narrow supervisor unittest selection
+gains two bounded synthetic OAP cases: a positive exit 137 and a
+real direct self-issued SIGKILL produce distinct owned wait
+results (exact normal exit 137 with child_signal None, status
+OK, exit 137 preserved, versus the separate child-signal field
+with child_exit None, status CHILD_SIGNALED, exit 131 - never a
+128-addition), and the SIGKILL child's SIGTERM marker handler is
+never written, proving the identity-verified owned group sweep
+signalled no live process outside the child's own self-kill (an
+unowned process is never signalled); plus the exact direct
+projected argv/env (inherited env plus local VIRTUAL_ENV and
+PATH head) and the clean prelaunch refusal for a missing,
+non-executable, external-shebang, shebang-less, non-ASCII-
+shebang, interpreter-less, pyvenv.cfg-less or symlinked-venv
+console. NEW focused `tests/oap/test_ci_unit_resources.py`
+covers the pure bounded parsers and the stable/missing/
+malformed/reset behavior with owned synthetic fixtures only (no
+real cgroup mutation or privilege), including a read-only
+zero-size procfs pseudofile real-read case. The original
+supervisor runtime limits, owned process tests and summary tests
+still pass.
+
+Local evidence (private audit only, never in Git). One bounded
+targeted stdlib run of the two changed test modules (explicit
+module selection; CPU 60 s, AS 1 GiB, wall 120 s then KILL 5 s):
+the first run completed 30 tests with 1 failure and 2 errors
+(actual exit 1) - an actual read/parser boundary in the new
+module: the stat-sized read could not observe the real zero-size
+/proc/self/cgroup pseudofile, and the strict key set rejected
+complete normal kernel event files carrying documented untracked
+keys - fixed in the same authorized correction (EOF-driven
+strict cap-plus-one read keeping the file/identity checks;
+bounded ASCII key/value grammar that ignores untracked valid
+keys and refuses malformed values without throwing), and the one
+changed-byte re-run under the same exact cap passed 31 tests
+(actual exit 0). ruff reports no new findings (one pre-existing
+unused-import F401 in the base test module, outside the product
+lint scope); compileall clean; a read-only real-route smoke on
+the canonical host returned the real own-cgroup identity, all
+four tracked counters and `rlimit_cpu=unlimited:unlimited
+cgroup=mem_max+0:oom+0:oom_kill+0:pids_max+0`. No local full
+product run or CI rerun; the hosted full proof remains the exact
+report head.
+
+The actual full Product matrix (both legs) and all OAP
+checks/steps at the new report head are pending (the strategic
+gate after publication); Root reviews the exact fresh CI and any
+actual resource signals; a CI failure goes to Root for bounded
+next diagnosis with cause evidence, never auto-retry, and no
+unsupported cause claim follows even on matching counters.
+Baseline NOT_RUN; protected authority/hardware/right/license/MVP
+and release gates open; whole 009 PARTIAL; no merge; DHA NONE.
 
 ## Input contracts and bounds
 

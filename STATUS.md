@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-q
+- Current (2026-11-20): active objective 009, current slice 009-r
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -602,9 +602,10 @@
   009 continuation, AMEND PR 11 at round base 3522d263, the 009-p
   report head whose run 44667676605 completed FAILURE: Python 3.12
   Product collected 2731 with all 24 steps succeeded (2731 unit
-  passes including integration); Python 3.14 collected 2731 and
-  emitted 2532 pass marks before child exit 137 without a final
-  summary, last unfinished forwarded node
+  passes; the separate integration step and all other required
+  steps succeeded); Python 3.14 collected 2731 and emitted 2532
+  pass marks before child exit 137 without a final summary, last
+  unfinished forwarded node
   test_controlled_two_partition_full_stages_exceed_return_cap with
   its six subsequent steps skipped; both versions passed the
   corrected 16-slot publisher case; the three OAP jobs succeeded;
@@ -627,6 +628,80 @@
   authoring); baseline NOT_RUN; protected authority/hardware/right/
   license/MVP and release gates open; whole 009 PARTIAL; no merge;
   DHA NONE.
+
+  Slice 009-r is the direct unit launch and bounded cgroup evidence
+  (same 009 continuation, AMEND PR 11 at round base 416009c9, the
+  009-q report head whose run 44672714984 completed TERMINAL_
+  FAILURE: both Product legs with the confirmed
+  OPENBLAS_NUM_THREADS=1 step env collected 2731, both passed the
+  named isolated 16-slot publisher case, Python 3.12 forwarded 2532
+  pass marks and Python 3.14 forwarded 2505, both direct supervised
+  uv processes exited positive 137 with no signal field, no
+  supervisor termination reason and no display refusal, different
+  last unfinished source-stage nodes with no final summary, both
+  around 63 s including existing cleanup, six downstream required
+  steps skipped per leg, three OAP jobs succeeded; no causal claim
+  about a source test, OOM, scheduler or host process). Scoped
+  changes: main of oap/bin/ci_unit_diagnostics.py now supervises
+  the repo's own installed pytest console (<root>/.venv/bin/pytest,
+  absolute fixed path, unchanged trailing suite args, exact repo
+  cwd) directly - the uv wrapper is no longer invoked - with a
+  fail-closed prelaunch projection (fixed installed console, same-
+  local-venv shebang, real local venv and bin) and the reviewed
+  local launch projection as child env (inherited env plus repo
+  .venv VIRTUAL_ENV and its bin as the first PATH entry; no new uv
+  operation, shell, argv override or fallback); run_child keeps
+  every resource execution/ownership behavior and the exact old
+  child signal/exit and nonzero/failure behavior. NEW stdlib-only
+  oap/bin/ci_unit_resources.py adds the bounded optional own-cgroup
+  observation: one snapshot immediately before launch and one after
+  the owned teardown (exactly one unified /proc/self/cgroup row,
+  validated canonical components, EOF-driven bounded read of the
+  fixed local event files under trusted /sys/fs/cgroup - procfs
+  pseudofiles report zero stat size but return data - no path
+  scan, symlink traversal or path output), reporting only
+  nonnegative deltas of memory.events.local max/oom/oom_kill and
+  pids.events.local max for the same cgroup device/inode with
+  monotone counters, plus the inherited prelaunch RLIMIT_CPU
+  soft/hard as bounded decimal/unlimited/unavailable; missing,
+  malformed, oversize, unstable or counter-reset observations
+  report unavailable, kernel-documented untracked event keys
+  (low/high/oom_group_kill/sock_throttled) are parsed and ignored,
+  and the fixed-length fragment is wired only into the
+  supervisor's existing bounded final summary (observer
+  availability or a delta never determines child status,
+  acceptance, or which member failed). New bounded synthetic OAP
+  checks: positive exit 137 and real direct SIGKILL produce
+  distinct owned wait results (exact normal exit 137 vs separate
+  child-signal field, no 128 addition) with no signal to any
+  process outside the owned group, plus the direct projected
+  argv/env and clean prelaunch refusal for a missing or
+  non-local console; the new pure bounded parser and
+  stable/missing/malformed/reset resource tests use owned
+  synthetic fixtures only (no real cgroup mutation or privilege).
+  The workflow, all product and pytest files, the current package
+  environment and prior logs/reports are unchanged (protected
+  workflow SHA256 b9195355 verified; unit and integration remain
+  separate CI steps). One bounded local stdlib run of the two
+  changed test modules (explicit selection, CPU 60 s / AS 1 GiB /
+  wall 120 s then KILL 5 s): first run 30 tests with 1 failure and
+  2 errors (exit 1) - an actual read/parser boundary: the stat-
+  sized read could not observe the zero-size /proc/self/cgroup
+  pseudofile, and the strict key set rejected complete normal
+  kernel event files carrying documented untracked keys - fixed in
+  the same authorized correction (EOF-driven strict cap-plus-one
+  read; bounded ASCII key/value grammar that ignores untracked
+  valid keys and refuses malformed values without raising), and
+  the one changed-byte re-run under the same cap passed 31 tests
+  (exit 0); ruff shows no new findings (one pre-existing F401 in
+  the base test module, outside the product lint scope); no local
+  full product run or CI rerun. The full hosted comparison under
+  unchanged test and timeout/cleanup policy is the exact report
+  head's fresh CI (pending at report authoring), which Root
+  reviews for exact fresh CI and any actual resource signals; no
+  unsupported cause claim even on matching counters. Baseline
+  NOT_RUN; whole 009 PARTIAL; actual credential/current policy and
+  MVP gates open; no merge; DHA NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed

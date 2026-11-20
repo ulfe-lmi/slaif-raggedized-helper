@@ -56,6 +56,27 @@ GitHub runner output pipe:
   handlers are restored. This is not SIGKILL/crash/OS-blocking immunity;
   private caller BaseException paths still perform owned teardown.
 
+Order 009-r (main only): the fixed production command is now the
+repository's own installed pytest console entrypoint
+(``<root>/.venv/bin/pytest``) with the unchanged trailing suite args,
+supervised directly - the uv wrapper is no longer invoked. The
+prelaunch projection (direct_launch_projection) requires the fixed
+installed console (real regular executable file), an interpreter
+shebang inside that same local venv bin, a real local venv
+(pyvenv.cfg) and a real bin directory; any absence fails closed with
+EXIT_PREREQUISITE before any child exists. The child environment is
+the inherited environment plus the repo .venv VIRTUAL_ENV and its bin
+as the first PATH entry; no new uv operation, shell, argv override or
+fallback. run_child receives this explicit argv and environment and
+keeps every resource execution/ownership behavior unchanged. A
+bounded optional own-cgroup observation (oap/bin/ci_unit_resources.py)
+snapshots the supervisor's own cgroup event counters immediately
+before launch and after the owned teardown, and records the
+inherited prelaunch RLIMIT_CPU soft/hard; only a fixed-length numeric
+fragment is appended to the existing bounded final summary, and
+observation availability or any delta never determines child status,
+acceptance, or which member failed.
+
 Exit codes: 0 (child zero + proven teardown), the child's exact nonzero
 exit code (preserved), 124 TIMEOUT, 125 CLEANUP_UNPROVEN, 126
 OBSERVER_FAILURE, 127 LOG_FAILURE, 128 OVERSIZE, 129 PREREQUISITE, 130
@@ -94,7 +115,6 @@ import codecs
 import json
 import os
 import select
-import shutil
 import signal
 import stat
 import subprocess
@@ -102,10 +122,27 @@ import sys
 import tempfile
 import time
 
-PRODUCTION_COMMAND = (
-    "uv", "run", "pytest", "tests/unit",
-    "-o", "addopts=", "-vv", "-o", "faulthandler_timeout=60",
+try:
+    # Optional bounded own-cgroup observation (order 009-r),
+    # co-shipped in this same directory; its absence degrades the
+    # summary fragment to unavailable, never the run.
+    import ci_unit_resources as _ci_unit_resources
+except ImportError:
+    _ci_unit_resources = None
+
+# Order 009-r: main supervises the repo's own installed pytest console
+# entrypoint directly (absolute fixed path <root>/.venv/bin/pytest,
+# validated by direct_launch_projection before any child exists); the
+# trailing suite args are unchanged from the 009-k uv wrapper, and the
+# uv wrapper itself is no longer invoked.
+TEST_SUITE_ARGS = (
+    "tests/unit", "-o", "addopts=", "-vv",
+    "-o", "faulthandler_timeout=60",
 )
+VENV_RELPATH = ".venv"
+BIN_RELPATH = "bin"
+CONSOLE_RELPATH = "pytest"
+SHEBANG_READ_BYTES = 4096
 PRODUCTION_DEADLINE_S = 180.0
 PRODUCTION_KILL_GRACE_S = 10.0
 POST_KILL_OBSERVE_S = 5.0
@@ -688,7 +725,7 @@ def _summary(result, deadline_s):
                  else "%dB" % result["forward_stopped_at_log_offset"])
     by_desc = ("none" if result["terminated_by"] is None
                else str(result["terminated_by"]))
-    return ("ci-unit-diagnostics status=%s child_exit=%s child_signal=%s "
+    summary = ("ci-unit-diagnostics status=%s child_exit=%s child_signal=%s "
             "deadline=%.1fs elapsed=%.2fs forwarded=%dB/%dB truncated=%s "
             "refused=%s stop_offset=%s log_bytes=%s raw_log=exact "
             "display_decode=utf8-replace group=%s group_term=%s "
@@ -702,6 +739,13 @@ def _summary(result, deadline_s):
                "yes" if result["group_term_issued"] else "no",
                "yes" if result["group_kill_issued"] else "no",
                result["cleanup"], by_desc))
+    # Order 009-r: the bounded optional own-cgroup fragment is wired
+    # into THIS fixed final summary only; its availability or any
+    # delta never changes the status/exit computed above.
+    resource_display = result.get("resource_display")
+    if resource_display:
+        summary = summary + " " + resource_display
+    return summary
 
 
 def _write_summary_record(owned_dir, result, exit_code):
@@ -1113,6 +1157,87 @@ def _repo_root():
         os.path.abspath(__file__))))
 
 
+def direct_launch_projection(root):
+    """Fixed direct pytest-console launch projection (main only).
+
+    Returns (argv, env) for the repo's own installed console with the
+    unchanged trailing suite args, or None to fail closed before any
+    child exists. Every component is a bounded check of fixed local
+    paths (no path scan, no caller-selected input, no shell, no uv,
+    no fallback, no output framing change):
+
+    * <root>/.venv and <root>/.venv/bin are real directories (lstat:
+      a symlinked venv is refused);
+    * <root>/.venv/pyvenv.cfg is a real regular file (local venv);
+    * <root>/.venv/bin/pytest is a real regular executable file (the
+      fixed installed console);
+    * its shebang names an existing executable interpreter inside
+      that same local bin directory (the console runs the local venv
+      python, not an arbitrary external interpreter);
+    * the child environment is the inherited environment plus
+      VIRTUAL_ENV=<root>/.venv and <root>/.venv/bin as the first PATH
+      entry (the reviewed local launch projection).
+    """
+    venv = os.path.join(root, VENV_RELPATH)
+    bin_dir = os.path.join(venv, BIN_RELPATH)
+    console = os.path.join(bin_dir, CONSOLE_RELPATH)
+    try:
+        venv_st = os.lstat(venv)
+        bin_st = os.lstat(bin_dir)
+        cfg_st = os.lstat(os.path.join(venv, "pyvenv.cfg"))
+        console_st = os.lstat(console)
+        interp_st = os.lstat(os.path.join(bin_dir, "python"))
+    except (OSError, TypeError):
+        return None
+    if not (stat.S_ISDIR(venv_st.st_mode)
+            and stat.S_ISDIR(bin_st.st_mode)
+            and stat.S_ISREG(cfg_st.st_mode)
+            and stat.S_ISREG(console_st.st_mode)
+            and (stat.S_ISREG(interp_st.st_mode)
+                 or stat.S_ISLNK(interp_st.st_mode))):
+        return None
+    if not (os.access(console, os.X_OK) and os.access(
+            os.path.join(bin_dir, "python"), os.X_OK)):
+        return None
+    # Bounded shebang read: the first line of the fixed console must
+    # name an interpreter inside the same local bin directory.
+    try:
+        fd = os.open(console, os.O_RDONLY | os.O_NOFOLLOW)
+    except OSError:
+        return None
+    try:
+        head = os.read(fd, SHEBANG_READ_BYTES)
+    except OSError:
+        head = None
+    finally:
+        try:
+            os.close(fd)
+        except OSError:
+            pass
+    if head is None:
+        return None
+    line = head.split(b"\n", 1)[0]
+    if not line.startswith(b"#!"):
+        return None
+    interpreter = line[2:].strip()
+    if (not interpreter.startswith(b"/") or b" " in interpreter
+            or b"\x00" in interpreter):
+        return None
+    try:
+        interp_text = interpreter.decode("ascii")
+    except UnicodeDecodeError:
+        return None
+    if os.path.dirname(interp_text) != bin_dir:
+        return None
+    env = dict(os.environ)
+    env["VIRTUAL_ENV"] = venv
+    inherited_path = env.get("PATH", "")
+    env["PATH"] = (bin_dir + os.pathsep + inherited_path
+                   if inherited_path else bin_dir)
+    argv = [console] + list(TEST_SUITE_ARGS)
+    return argv, env
+
+
 def main(argv=None):
     args = sys.argv[1:] if argv is None else list(argv)
     if args:
@@ -1126,16 +1251,19 @@ def main(argv=None):
             "ci-unit-diagnostics: prerequisite missing: "
             "/usr/bin/time not executable\n")
         return EXIT_PREREQUISITE
-    if shutil.which("uv") is None:
-        sys.stderr.write(
-            "ci-unit-diagnostics: prerequisite missing: uv not on PATH\n")
-        return EXIT_PREREQUISITE
     root = _repo_root()
     if not os.path.isdir(os.path.join(root, "tests", "unit")):
         sys.stderr.write(
             "ci-unit-diagnostics: prerequisite missing: tests/unit under "
             + root + "\n")
         return EXIT_PREREQUISITE
+    projection = direct_launch_projection(root)
+    if projection is None:
+        sys.stderr.write(
+            "ci-unit-diagnostics: prerequisite missing: fixed installed "
+            "pytest console in the repo .venv\n")
+        return EXIT_PREREQUISITE
+    launch_argv, launch_env = projection
     runner_temp = os.environ.get("RUNNER_TEMP")
     latched = {"flag": False}
 
@@ -1149,9 +1277,25 @@ def main(argv=None):
             previous[signum] = signal.signal(signum, _latch)
         except (ValueError, OSError):
             pass
+    # Order 009-r: bounded optional own-cgroup observation. The
+    # prelaunch snapshot and the inherited prelaunch RLIMIT_CPU are
+    # captured BEFORE any child exists; the post-teardown snapshot is
+    # taken only after run_child's bounded owned teardown completed.
+    # Observation availability or any delta never determines child
+    # status, acceptance, or which member failed.
+    res_before = None
+    res_rlimit = None
+    if _ci_unit_resources is not None:
+        try:
+            res_before = _ci_unit_resources.snapshot()
+            res_rlimit = _ci_unit_resources.rlimit_cpu()
+        except Exception:
+            res_before = None
+            res_rlimit = None
     try:
         result = run_child(
-            PRODUCTION_COMMAND, temp_root=runner_temp, cwd=root,
+            launch_argv, temp_root=runner_temp, cwd=root,
+            environment=launch_env,
             interrupt_check=lambda: latched["flag"])
     finally:
         for signum, handler in previous.items():
@@ -1159,6 +1303,15 @@ def main(argv=None):
                 signal.signal(signum, handler)
             except (ValueError, OSError):
                 pass
+    res_after = None
+    if _ci_unit_resources is not None:
+        try:
+            res_after = _ci_unit_resources.snapshot()
+        except Exception:
+            res_after = None
+    if _ci_unit_resources is not None:
+        result["resource_display"] = (
+            _ci_unit_resources.render(res_rlimit, res_before, res_after))
     # K12/K18: the final summary uses the same bounded production
     # display path as forwarding (finite wall/byte/chunk budgets on
     # the real channel fd; no shared-fd flag mutation, no threads, no
