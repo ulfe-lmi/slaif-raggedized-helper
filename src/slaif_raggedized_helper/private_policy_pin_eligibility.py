@@ -258,6 +258,68 @@ def _scope_refused(policy_snapshot, membership, grants, restrictions) -> bool:
     return not usable
 
 
+def _borrowed_owner(owner):
+    # The extracted nonblocking custody entrance: the creator-PID check
+    # and the owner's own nonblocking guard, shared with the pinned
+    # hybrid dispatch so the same already-held operations stay in one
+    # place.  The caller owns the release on every exit; a foreign
+    # creator PID and a busy owner are refused nonblocking before any
+    # capture use.
+    if owner.pid != os.getpid():
+        raise _Refused()
+    if not owner.guard.acquire(blocking=False):
+        raise _Refused()
+
+
+def _held_capture(owner):
+    # The extracted non-reacquiring held verification of the active
+    # in-memory capture, shared with the pinned hybrid dispatch: called
+    # only while the caller already holds the owner's guard, it never
+    # reacquires it, never reloads and performs no I/O.  The capture is
+    # verified, never trusted: owner state, pin/pointer/bound-data
+    # types, snapshot identity, core digest, the parsed manifest's own
+    # snapshot ID and the captured membership bytes bound to the
+    # manifest's membership descriptor all refuse with the fixed error.
+    if owner.state != "ACTIVE" or owner.value is None:
+        raise _Refused()
+    value = owner.value
+    if type(value) is not PinData:
+        raise _Refused()
+    pointer, data = value.pointer, value.data
+    if type(pointer) is not Pointer or type(data) is not BoundSnapshotData:
+        raise _Refused()
+    if pointer.snapshot_id != data.snapshot_id:
+        raise _Refused()
+    core = data.core_bytes
+    if type(core) is not bytes:
+        raise _Refused()
+    # Exact snapshot identity and core digest binding.
+    if hashlib.sha256(core).hexdigest() != pointer.core_sha256:
+        raise _Refused()
+    # Pure in-memory manifest re-admission of the captured core; the
+    # parsed manifest's own snapshot ID must bind to the capture.
+    manifest = raw_snapshot_manifest.parse(core)
+    if manifest.snapshot_id != data.snapshot_id:
+        raise _Refused()
+    membership = data.membership
+    if type(membership) is not Membership:
+        raise _Refused()
+    membership_bytes = membership.membership_bytes
+    if type(membership_bytes) is not bytes:
+        raise _Refused()
+    path = json.loads(core.decode("ascii"))["membership_path"]
+    descriptor = next((f for f in manifest.files if f.path == path), None)
+    if (
+        descriptor is None
+        or descriptor.role != "source_membership"
+        or descriptor.schema != "slaif-raw-source-membership-v1"
+        or descriptor.bytes != len(membership_bytes)
+        or descriptor.sha256 != hashlib.sha256(membership_bytes).hexdigest()
+    ):
+        raise _Refused()
+    return pointer, core, membership, membership_bytes
+
+
 def _observed(admission, owner, end, policy_snapshot, grants, restrictions):
     # Read-only borrow that keeps the owner's own nonblocking
     # creator/operation guard across the in-memory capture, the scope
@@ -266,48 +328,9 @@ def _observed(admission, owner, end, policy_snapshot, grants, restrictions):
     # receive a returned preparation, and a busy owner is refused
     # nonblocking.  The active in-memory capture is verified, never
     # reloaded.
-    if owner.pid != os.getpid():
-        raise _Refused()
-    if not owner.guard.acquire(blocking=False):
-        raise _Refused()
+    _borrowed_owner(owner)
     try:
-        if owner.state != "ACTIVE" or owner.value is None:
-            raise _Refused()
-        value = owner.value
-        if type(value) is not PinData:
-            raise _Refused()
-        pointer, data = value.pointer, value.data
-        if type(pointer) is not Pointer or type(data) is not BoundSnapshotData:
-            raise _Refused()
-        if pointer.snapshot_id != data.snapshot_id:
-            raise _Refused()
-        core = data.core_bytes
-        if type(core) is not bytes:
-            raise _Refused()
-        # Exact snapshot identity and core digest binding.
-        if hashlib.sha256(core).hexdigest() != pointer.core_sha256:
-            raise _Refused()
-        # Pure in-memory manifest re-admission of the captured core; the
-        # parsed manifest's own snapshot ID must bind to the capture.
-        manifest = raw_snapshot_manifest.parse(core)
-        if manifest.snapshot_id != data.snapshot_id:
-            raise _Refused()
-        membership = data.membership
-        if type(membership) is not Membership:
-            raise _Refused()
-        membership_bytes = membership.membership_bytes
-        if type(membership_bytes) is not bytes:
-            raise _Refused()
-        path = json.loads(core.decode("ascii"))["membership_path"]
-        descriptor = next((f for f in manifest.files if f.path == path), None)
-        if (
-            descriptor is None
-            or descriptor.role != "source_membership"
-            or descriptor.schema != "slaif-raw-source-membership-v1"
-            or descriptor.bytes != len(membership_bytes)
-            or descriptor.sha256 != hashlib.sha256(membership_bytes).hexdigest()
-        ):
-            raise _Refused()
+        pointer, core, membership, membership_bytes = _held_capture(owner)
         _still_within(end)
         refused = _scope_refused(policy_snapshot, membership, grants, restrictions)
         _still_within(end)

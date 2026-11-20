@@ -8,8 +8,11 @@ import re
 import time
 import unicodedata
 
-from . import derived_store, raw_dense_search as dense, raw_lexical_search as lexical
+from . import derived_store, private_policy_pin_eligibility as pin_eligibility
+from . import raw_dense_search as dense, raw_lexical_search as lexical
 from . import raw_rank_fusion as fusion, raw_snapshot_catalog as catalog
+from .private_policy_request import PolicyRequestAdmission
+from .raw_snapshot_pin import PinOwner
 from .source_admission import OriginalStore
 
 
@@ -184,9 +187,10 @@ def search(originals, derived, store_root, snapshot_id, text, query_payload, *, 
 
 
 def _search(originals, derived, root, snapshot, text, payload, space, definition, policy,
-            execution, grants, restrictions, dense_k, lexical_k, cap, k, deadline_ms, trace):
+            execution, grants, restrictions, dense_k, lexical_k, cap, k, deadline_ms, trace,
+            *, owner=None, admission=None, end=None, held=None):
     _check(type(deadline_ms) is int and 1 <= deadline_ms <= 120000)
-    end = time.monotonic() + deadline_ms / 1000
+    end = time.monotonic() + deadline_ms / 1000 if end is None else end
 
     def remaining():
         ms = math.floor((end - time.monotonic()) * 1000)
@@ -221,6 +225,12 @@ def _search(originals, derived, root, snapshot, text, payload, space, definition
     query = np.frombuffer(payload, dtype='<f4')
     _check(bool(np.isfinite(query).all()) and abs(float(np.linalg.norm(query)) - 1) <= 1e-4)
     text_sha, payload_sha = _sha(text_bytes), _sha(payload)
+    if owner is not None:
+        # O2: the second genuine current observation, after verified
+        # scope and actual association, after all earlier shared-body
+        # validation and before the first real catalog call.
+        pin_eligibility._genuine_recheck(admission, end)
+        remaining()
     source = catalog.load_catalog(originals, derived, root, snapshot, deadline_ms=remaining())
     remaining()
     _check(type(source) is catalog.Catalog and source.snapshot_id == snapshot)
@@ -242,6 +252,14 @@ def _search(originals, derived, root, snapshot, text, payload, space, definition
            (dr.snapshot_id, dr.catalog_id, dr.query_payload_sha256, dr.query_origin,
             dr.qualification) == (snapshot, source.catalog_id, payload_sha,
                                   'SUPPLIED_UNVERIFIED', 'NOT_QUALIFIED'))
+    if owner is not None:
+        # O3: the third genuine current observation, after the real
+        # dense output completes and before any real lexical call; a
+        # detected change refuses here with zero new lexical and
+        # fusion calls - an already-started earlier operation cannot
+        # be undone.
+        pin_eligibility._genuine_recheck(admission, end)
+        remaining()
     lr = lexical.search(originals, derived, root, snapshot, text, grants=grants,
                         restrictions=restrictions, k=lexical_k, partition_cap=cap,
                         deadline_ms=remaining(), trace=trace)
@@ -277,7 +295,141 @@ def _search(originals, derived, root, snapshot, text, payload, space, definition
     fresh = catalog.load_catalog(originals, derived, root, snapshot, deadline_ms=remaining())
     remaining()
     _check(fresh == source and fresh.catalog_id == source.catalog_id)
+    if owner is not None:
+        # Final owned validation under the single held guard: the
+        # actual owner sequence with the association before and after
+        # the one distinct last full reload, compared with the exact
+        # originally held PinData bound before the body, not a newly
+        # read alias.
+        owner._association()
+        loaded = owner._load(snapshot)
+        owner._association()
+        _check(loaded == held.data)
+        remaining()
     result = HybridResult(snapshot, source.catalog_id, query_id, text_sha, payload_sha,
                           authority_sha, 'SUPPLIED_UNVERIFIED', 'NOT_QUALIFIED', dr, lr, fr)
     remaining()
     return result
+
+
+def search_pinned(admission, owner, text, query_payload, *, query_space_id,
+                  query_definition_fingerprint, query_policy_id,
+                  query_execution_fingerprint, dense_k=60, lexical_k=60,
+                  partition_cap=60, k=60, deadline_ms=30000, trace=False):
+    """One fixed private held-pin route through the real hybrid search.
+
+    Binds the exact admitted current selected-policy request
+    (``private_policy_request.PolicyRequestAdmission``) and the exact
+    active operator-owned pin (``raw_snapshot_pin.PinOwner``) to the
+    existing hybrid engines: the stores, store root, snapshot identity
+    and admitted grants come only from the actual owner and verified
+    selected material; the principal's exact admitted scope is used
+    with no additional caller restriction.  The caller supplies no
+    root, stores, snapshot ID, grants, provider, callable, alternate
+    clock or credential.  One real nonblocking owner guard is held
+    through the one existing hybrid body; the span never calls
+    ``PinOwner.check`` or re-enters the borrowed preparation guard,
+    and the private operation does not acquire, close or return
+    ownership of the input pin.  One original absolute operation
+    deadline, bounded to the accepted 1..30000 ms reader range, is
+    clipped to the current request lifetime and anchors
+    the owner operation's ``op.end`` only while held, restoring its
+    original exact value in a finally before guard release on
+    success, ordinary refusal and interruption.  Four genuine current
+    observations run at the precisely named cuts: O1 after pure
+    admission and nonblocking owner custody, with no association,
+    catalog or source I/O; O2 after verified scope and actual
+    association, before the first real catalog call in the shared
+    body; O3 after real dense output completes, before any real
+    lexical call, where a detected change refuses with zero new
+    lexical and fusion calls; O4 after the final actual pin
+    association/full revalidation and its post-load association, with
+    the final exact authority check and the true remaining deadline,
+    before usable return.  Scope drift, expired budget and late
+    usable results refuse throughout.  The public :func:`search`
+    signature, normal deadline and outcomes and every original caller
+    path stay exact; this route exposes one fixed content-free
+    ordinary refusal and preserves a non-Exception interruption
+    object by identity.
+    """
+    try:
+        _check(type(trace) is bool)
+        return _search_pinned(admission, owner, text, query_payload, query_space_id,
+                              query_definition_fingerprint, query_policy_id,
+                              query_execution_fingerprint, dense_k, lexical_k,
+                              partition_cap, k, deadline_ms, trace)
+    except Exception:
+        raise HybridSearchError('hybrid search refused') from None
+
+
+def _search_pinned(admission, owner, text, payload, space, definition, policy,
+                   execution, dense_k, lexical_k, cap, k, deadline_ms, trace):
+    # Fixed private entry: exact admission and exact owner only.
+    if type(admission) is not PolicyRequestAdmission or type(owner) is not PinOwner:
+        raise pin_eligibility._Refused()
+    if not pin_eligibility._deadline_accepted(deadline_ms):
+        raise pin_eligibility._Refused()
+    # One bounded 1..30000 ms operation deadline clipped to the current
+    # request lifetime; the request end is never reset or extended.
+    end = min(time.monotonic() + deadline_ms / 1000.0, admission._end)
+    pin_eligibility._still_within(end)
+    # Pure admission: the isolated selected-policy snapshot and the
+    # admitted principal's exact bound grants (verified scope), before
+    # any owner custody or I/O.
+    policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+    pin_eligibility._still_within(end)
+    anchor = pin_eligibility._bounded_admission(
+        pin_eligibility._admitted_principal_grants(
+            policy_snapshot, admission.principal_id))
+    grants = pin_eligibility._bound_grants(admission, anchor)
+    pin_eligibility._still_within(end)
+    # One real nonblocking owner guard, held through the entire span.
+    pin_eligibility._borrowed_owner(owner)
+    original_end = None
+    try:
+        if owner.op is None or owner.state != 'ACTIVE':
+            raise pin_eligibility._Refused()
+        original_end = owner.op.end
+        owner.op.end = end
+        # In-memory held capture verification only, no I/O; the
+        # captured membership is the only scope material this span
+        # evaluates.
+        _, _, membership, _ = pin_eligibility._held_capture(owner)
+        # The originally held PinData bound before the body; the final
+        # full revalidation compares against it, not a newly read alias.
+        held = owner.value
+        pin_eligibility._still_within(end)
+        # O1: the first genuine current observation, after pure
+        # admission, nonblocking owner custody and in-memory capture
+        # verification, before captured scope use, with no
+        # association, catalog or source I/O.
+        pin_eligibility._genuine_recheck(admission, end)
+        pin_eligibility._still_within(end)
+        # The genuine isolated policy and captured membership scope
+        # rules: an unavailable or unusable scope refuses before any
+        # catalog or source I/O.
+        if pin_eligibility._scope_refused(policy_snapshot, membership, grants, None):
+            raise pin_eligibility._Refused()
+        pin_eligibility._still_within(end)
+        # Live namespace and pin association before the shared body;
+        # the root is the actual association's validated root string,
+        # not the held root file descriptor.
+        owner._association()
+        pin_eligibility._still_within(end)
+        result = _search(owner.originals, owner.derived, owner.op.path,
+                         held.data.snapshot_id, text, payload, space, definition,
+                         policy, execution, grants, None, dense_k, lexical_k, cap, k,
+                         deadline_ms, trace, owner=owner, admission=admission, end=end,
+                         held=held)
+        # O4: after the final actual pin association/full revalidation
+        # and its post-load association, with the final exact authority
+        # check and the true remaining deadline, before usable return.
+        pin_eligibility._genuine_recheck(admission, end)
+        if pin_eligibility._bound_grants(admission, grants) != grants:
+            raise pin_eligibility._Refused()
+        pin_eligibility._still_within(end)
+        return result
+    finally:
+        if original_end is not None:
+            owner.op.end = original_end
+        owner.guard.release()

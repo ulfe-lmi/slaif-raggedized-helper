@@ -2390,6 +2390,129 @@ writer, request execution, source rights, model and hardware gates
 remain open; the representative baseline remains NOT_RUN and whole
 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-ab private pinned hybrid dispatch (same 009 continuation)
+
+The first private held-pin route through the one real hybrid search
+(round base ebbce257, the accepted 009-aa report-only head whose
+required hosted run 44781112453 attempt 1 passed all five jobs and every
+step). The exact order (SHA-256
+ff53578831be4665251fb35d0570ab97ad009dc4733a3d4137910f564baff4c5) and
+the two indexed strategic control JSONs (SHA-256
+7233946e4435825b1cdedf87b7ee8c550b69f28cf7fb55c432b82cf203d14e31 and
+325535e330705a7421f069ce689d4a797f0db67e5d1594244119c91e4eaee2b8) are
+committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Source scope: the implementation changes only
+src/slaif_raggedized_helper/raw_hybrid_search.py,
+src/slaif_raggedized_helper/private_policy_pin_eligibility.py, the new
+tests/integration/test_private_pinned_hybrid_composition.py (six default
+hosted nodes) and these two documents; PinOwner, the selection
+operations, all engines, the legacy tests, the unit inventory, the
+configured workflow, the fixtures and the measured bridge sources stay
+byte-exact, and no other product path or output envelope changes.
+
+The new fixed private entry search_pinned takes an exact
+PolicyRequestAdmission, an exact active PinOwner and the existing
+bounded query parameters. It derives the stores, store root, snapshot
+identity and admitted grants only from the actual owners and verified
+selected material: the stores from the owner, the root from the actual
+association's validated root string (the held root file descriptor is
+never used), the snapshot from the verified held PinData and the grants
+from the admission's bound principal with restrictions None, so the
+principal's exact admitted scope is used with no additional caller
+restriction. The caller supplies no root, stores, snapshot ID, grants,
+provider, callable, alternate clock or credential. The public search
+signature, its normal 1..120000 ms deadline and outcomes and every
+original caller path stay exact; this route's deadline is bounded to the
+accepted 1..30000 ms reader range.
+
+Owner and deadline semantics: one real nonblocking owner guard is held
+through the one existing hybrid body; the span never calls
+PinOwner.check or re-enters the borrowed preparation guard, and the
+private operation does not acquire, close or return ownership of the
+input pin. One original absolute operation deadline is clipped to the
+current request lifetime (the request end is never reset or extended)
+and anchors the actual op.end only while held; its original exact value
+is restored in a finally before guard release on success, ordinary
+refusal and interruption.
+
+The four actual checks: O1 runs after pure admission, nonblocking owner
+custody and in-memory capture verification, before captured scope use,
+with no association, catalog or source I/O; the genuine isolated policy
+and captured membership scope rules then refuse an unavailable or
+unusable scope before any catalog I/O; O2 runs inside the shared body
+after verified scope, actual association and all earlier body
+validation, before the first real catalog call; O3 runs after the real
+dense output completes and before any real lexical call, where a
+detected change refuses with zero new lexical and fusion calls (an
+already-started earlier operation cannot be undone); O4 runs after the
+final actual pin association/full revalidation and its post-load
+association, with the final exact authority check and the true remaining
+deadline, before usable return. The final full revalidation compares the
+fresh full load against the exact originally held PinData bound before
+the body, not a newly read alias. Scope drift, expired budget and late
+usable results refuse throughout; a fixed content-free ordinary refusal
+is exposed and a non-Exception interruption is preserved by identity.
+
+Integration scope: the six default nodes use the real hosted
+make_sources fixture (pinned synthetic native tokenizer, genuine source
+catalog, NumPy, BM25 and SciPy engine inputs), the real raw snapshot
+selector compare_and_select_data and the actual
+PinOwner.acquire_selected_data; the exact synthetic policy wire bytes
+are installed through the existing payload installer, a clearly
+attributed test-local atomic selector fixture serves the actual
+capture/decoder/request methods (no writer qualification), the policy
+documents are derived from the real captured membership, and the
+supported request lifetime begins after the expensive fixture setup. The
+nodes attest: the real positive journey (exact authority, semantic
+identities, real legacy-equivalent engine counts - eight catalog calls,
+sixteen full directory validations plus the one distinct final full
+owner validation - and the expired prior acquisition end returning); the
+post-dense selected-generation change with the identical wire payload
+latching the old request before real lexical/fusion, with a fresh
+admission succeeding only through the actual reader/matcher; the real
+principal revocation after admission and before dispatch refusing before
+source/catalog use, and the fresh admission of the revoked synthetic
+credential also refusing; the selected-record change during the real
+final owner validation refusing the usable return with guard and
+original deadline restored; the held-pin refusals (malformed capture,
+busy custody, foreign creator PID, closed ownership, and the genuine
+isolated-policy captured-membership scope refusal over an exact owned
+second fixture) before engine work with zero relevant dispatch and
+stable owner/reader state; and the controlled non-Exception interruption
+at the third real read with exact identity, owned deadline restoration,
+released guard and zero later protected dispatch, plus the actual late-
+deadline cut - a legitimately admitted short-lived request whose real
+deadline is crossed during the operation, after the one genuinely
+delegated policy read, under a bounded real wait on the real monotonic
+clock, refusing with no further protected stage and restored custody.
+
+Local evidence: under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds
+with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+0700 scratch and no cacheprovider - one bounded unit focus of the four
+ordered files (15 + 53 + 45 + 8 = 121 cases, exit 0 in 1.76 s), one
+capped collect-only of the new integration file (six nodes, exit 0), one
+targeted Ruff on the three changed Python paths on one process-local
+core (exit 0) and one capped physical import-origin check (both product
+modules resolve to the canonical repository src, working-tree SHA-256
+7ba08bbd5b32df62c1270a29e30ca3e9e9c3784eedead0b883e4656d35e09309 and
+7dc89e5277032d2f3bb24143e3f878e6a5a85ccc46d514b35c37b418214daf3b). The
+local hosted native test environment is absent and was not installed or
+simulated, so the six real integration outcomes remain hosted-only and
+PENDING at report authoring; expected at the report head: group A 1,440
+and group B 1,930 unchanged (3,370 units each Product) plus the separate
+957-case integration (951 inherited plus six new default nodes), with
+all five required jobs and every existing step at the exact new report
+head.
+
+Open gates: the lexical-to-fusion current-policy check remains an
+explicit open cut for this first synthetic seam (fusion's existing data
+scope checks still run); the evaluator, encoder, real operator,
+source/rights, release and representative evaluation gates stay open;
+the representative baseline remains NOT_RUN and whole 009 PARTIAL; no
+merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

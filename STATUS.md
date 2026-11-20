@@ -7,6 +7,7 @@
   - Current (2026-11-20): active objective 009, current slice 009-y
    - Current (2026-11-20): active objective 009, current slice 009-z
     - Current (2026-11-20): active objective 009, current slice 009-aa
+     - Current (2026-11-20): active objective 009, current slice 009-ab
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1189,6 +1190,94 @@
   Baseline NOT_RUN; whole 009 PARTIAL; the remaining real operator,
   current writer, request execution, rights, baseline and hardware
   gates stay open; no merge; DHA NONE.
+  Slice 009-ab is the first private held-pin route through the one real hybrid
+  search (same 009 continuation, AMEND PR 11 at round base ebbce257, the
+  accepted 009-aa report-only head whose required hosted run 44781112453
+  attempt 1 passed all five jobs and every step, both Products at 3,370 ordered
+  units and the separate 951-case integration).  The exact order (SHA-256
+  ff53578831be4665251fb35d0570ab97ad009dc4733a3d4137910f564baff4c5) and the two
+  indexed strategic control JSONs (009-ab-pinned-hybrid-source-inputs.json
+  SHA-256 7233946e4435825b1cdedf87b7ee8c550b69f28cf7fb55c432b82cf203d14e31 and
+  009-ab-prior-resolution.json SHA-256
+  325535e330705a7421f069ce689d4a797f0db67e5d1594244119c91e4eaee2b8) are
+  committed transcript-first byte-exact under oap/orders/ and oap/reviews/.
+  The implementation changes only
+  src/slaif_raggedized_helper/raw_hybrid_search.py,
+  src/slaif_raggedized_helper/private_policy_pin_eligibility.py, the new
+  tests/integration/test_private_pinned_hybrid_composition.py (six default
+  hosted nodes), STATUS.md and docs/evaluation.md; PinOwner, the selection
+  operations, all engines, the legacy tests, the unit inventory, the configured
+  workflow, the fixtures and the measured bridge sources stay byte-exact.  The
+  new fixed private entry search_pinned binds the exact admitted
+  PolicyRequestAdmission and the exact active PinOwner to the existing hybrid
+  engines: the stores, store root, snapshot identity and admitted grants come
+  only from the actual owners and verified selected material, the principal's
+  exact admitted scope is used with no additional caller restriction, and the
+  caller supplies no root, stores, snapshot ID, grants, provider, callable,
+  alternate clock or credential.  One real nonblocking owner guard is held
+  through the one existing hybrid body without ever calling PinOwner.check or
+  re-entering the borrowed preparation guard; one bounded 1..30000 ms operation
+  deadline clipped to the current request lifetime anchors the actual op.end
+  only while held and restores its original exact value in a finally before
+  guard release on success, ordinary refusal and interruption; the private
+  operation does not acquire, close or return ownership of the input pin.  Four
+  genuine current observations run at the precisely named cuts: O1 after pure
+  admission, nonblocking owner custody and in-memory capture verification,
+  before captured scope use, with no association, catalog or source I/O; the
+  genuine isolated policy and captured membership scope rules then refuse an
+  unavailable or unusable scope before any catalog I/O; O2 inside the shared
+  body after verified scope, actual association and all earlier body
+  validation, before the first real catalog call; O3 after the real dense
+  output completes and before any real lexical call, where a detected change
+  refuses with zero new lexical and fusion calls; O4 after the final actual pin
+  association/full revalidation and its post-load association, with the final
+  exact authority check and the true remaining deadline, before usable return.
+  The final full revalidation compares against the exact originally held
+  PinData bound before the body, not a newly read alias, and the root is the
+  actual association's validated root string, not the held root file
+  descriptor.  The eligibility refactor extracts only the genuinely shared
+  already-held operations (the nonblocking borrowed custody and the held
+  capture verification), keeping the 53-case eligibility suite behavior exact.
+  The six default integration nodes use the real hosted make_sources fixture,
+  the real raw snapshot selector and the actual PinOwner.acquire_selected_data,
+  install exact synthetic wire bytes through the existing payload installer,
+  use a clearly attributed test-local atomic selector fixture for the actual
+  capture/decoder/request methods, and begin the supported request lifetime
+  after the expensive fixture setup; they attest the real positive journey with
+  exact authority, semantic identities, real legacy-equivalent engine counts
+  and the expired prior acquisition end returning, the post-dense selected-
+  generation change with the identical wire payload latching the old request
+  before real lexical/fusion, the real principal revocation refusing before
+  source/catalog use, the selected-record change during the real final owner
+  validation refusing the usable return with guard and original deadline
+  restored, the held-pin refusals (malformed capture, busy, foreign and closed
+  ownership, and the genuine isolated-policy captured-membership scope refusal)
+  before engine work, and the controlled non-Exception interruption with exact
+  identity plus the actual late-deadline cut crossed during the operation after
+  a genuinely delegated policy read under a bounded real wait on the real
+  monotonic clock.  Actual local proof under the ordered CPU60s/AS1GiB/wall120s
+  KILL5 bounds with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh
+  private 0700 scratch and no cacheprovider: one bounded unit focus of the four
+  ordered files (test_raw_hybrid_search.py 15,
+  test_private_policy_pin_eligibility.py 53, test_private_policy_request.py 45,
+  test_raw_snapshot_pin.py 8 = 121 cases, exit 0 in 1.76 s), one capped
+  collect-only of the new integration file (six nodes, exit 0), one targeted
+  Ruff on the three changed Python paths on one process-local core (exit 0) and
+  one capped physical import-origin check (both product modules resolve to the
+  canonical repository src with working-tree SHA-256
+  7ba08bbd5b32df62c1270a29e30ca3e9e9c3784eedead0b883e4656d35e09309 and
+  7dc89e5277032d2f3bb24143e3f878e6a5a85ccc46d514b35c37b418214daf3b). The local
+  hosted native test environment is absent and was not installed or simulated,
+  so the six real integration outcomes are hosted-only and PENDING at report
+  authoring.  Expected at the report head: group A 1,440 unchanged, group B
+  1,930, 3,370 total units each Product, plus the separate 957-case integration
+  (the 951 inherited cases plus the six new default nodes) and all five
+  required jobs with every existing step; Root owns the fresh hosted CI and
+  terminal review.  The lexical-to-fusion current-policy check remains an
+  explicit open cut for this first synthetic seam (fusion's existing data scope
+  checks still run); the evaluator, encoder, real operator, source/rights,
+  release and representative evaluation gates stay open.  Baseline NOT_RUN;
+  whole 009 PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
