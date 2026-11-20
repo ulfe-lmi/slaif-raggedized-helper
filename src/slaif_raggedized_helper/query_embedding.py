@@ -5,10 +5,12 @@ import hashlib
 import math
 import os
 from pathlib import Path
+import re
 import struct
 import threading
 
-from . import cpu_execution_contract, embedding_vectors, isolated_cpu_embedding, native_tokenizers
+from . import (cpu_embedding_worker as cpu, cpu_execution_contract, embedding_vectors,
+               isolated_cpu_embedding, native_tokenizers)
 from .schema import EmbeddingExecution, fingerprint
 
 _POLICY = (b'{"max_characters":8192,"max_utf8_bytes":32768,"normalization":'
@@ -108,6 +110,44 @@ class ResidentQueryEncoder:
             self._lock.release()
 
     def encode_query(self, text):
+        return self._encode_guarded(text, None, checked_identity=False)
+
+    def _expected_identity(self, expected):
+        # Nominal four-field declaration: bare space, sha256: definition, bare
+        # policy, bare execution, in the existing downstream declaration order.
+        if (type(expected) is not tuple or len(expected) != 4
+                or any(type(field) is not str for field in expected)
+                or re.fullmatch(r'[0-9a-f]{64}', expected[0]) is None
+                or re.fullmatch(r'sha256:[0-9a-f]{64}', expected[1]) is None
+                or re.fullmatch(r'[0-9a-f]{64}', expected[2]) is None
+                or re.fullmatch(r'[0-9a-f]{64}', expected[3]) is None):
+            raise ValueError
+
+    def _admitted_identity(self, session, expected):
+        # Pre-dispatch gate: the current record and fingerprint must equal the frozen
+        # admission, the actual worker identity (real policy digest) the record, and the
+        # measured bridge, before the session encode can run.
+        record = cpu_execution_contract._validate(session.execution_record)
+        if (session.execution_record != session._record_snapshot
+                or session.execution_fingerprint != session._fingerprint_snapshot
+                or session.execution_fingerprint != fingerprint(
+                    {'kind': 'isolated-cpu-embedding-execution-v2', **record})
+                or record['space'] != session.space.space_id
+                or record['definition'] != session.definition.fingerprint()
+                or record['definition'] != session.space.definition_fingerprint
+                or session._worker_identity() != record['worker']
+                or cpu._policy_identity(session._worker.policy) != record['worker']['policy']
+                or cpu_execution_contract._bridge() != record['bridge']
+                or record['space'] != expected[0]
+                or record['definition'] != expected[1]
+                or _POLICY_DIGEST != expected[2]
+                or session.execution_fingerprint != 'sha256:' + expected[3]):
+            raise ValueError
+
+    def _encode_guarded(self, text, expected, *, checked_identity):
+        # Shared guarded encode under the existing encoder lock. The mode is an
+        # internal keyword-only flag chosen by the entry, never by a value in the
+        # caller-supplied expected declaration.
         self._acquire()
         try:
             if self._state != 'open':
@@ -116,9 +156,16 @@ class ResidentQueryEncoder:
                 _query(text)
             except (ValueError, UnicodeError):
                 raise QueryRefused('query encoder refused') from None
+            if checked_identity:
+                try:
+                    self._expected_identity(expected)
+                except ValueError:
+                    raise QueryRefused('query encoder refused') from None
             s = self._session
             try:
                 self._check()
+                if checked_identity:
+                    self._admitted_identity(s, expected)
                 batch = s.encode([text])
                 self._check()
                 if type(batch) is not isolated_cpu_embedding.EncodedBatch:
@@ -166,6 +213,10 @@ class ResidentQueryEncoder:
                 self._failed(error)
         finally:
             self._lock.release()
+
+    def _encode_expected_identity(self, text, expected):
+        # Closed private resident query path; the identity gate precedes the session encode.
+        return self._encode_guarded(text, expected, checked_identity=True)
 
     def close(self):
         self._acquire()

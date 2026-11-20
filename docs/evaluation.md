@@ -2141,6 +2141,123 @@ representative baseline, source rights and model gates remain open;
 the representative baseline remains NOT_RUN and whole 009 PARTIAL;
 no merge; DHA NONE.
 
+## The 009-z current-view and encoder transfer (same 009 continuation)
+
+Byte-exact transfer of the two independently reviewed isolated
+development lanes into the canonical PR 11 (round base 0b337ec, the
+accepted 009-y report-only head whose required hosted run
+44768398812 attempt 1 passed all five jobs and every step, both
+Products at 3,196 ordered units and the separate 951-case
+integration; the earlier failed 009-x run 44760385202 remains as
+recorded). The frozen Root transfer index (SHA-256
+d6a249fbd1162cbdc831b3961ebc49602fc93fa9db24a0afe513ede56f39124f)
+pins both lane implementations, exact source copies, original
+reports and destination identities; the prior resolution (SHA-256
+9fabdabc8cdfff363ae796f059ab57d60550b536ff8a6fd5782b2ad420b46eb5)
+binds the consumed 009-y report, its receipt and the terminal review.
+Both control files are preserved verbatim under oap/reviews/ and the
+two consumed lane receipts plus the two local Root resolutions were
+verified at their indexed SHA-256s.
+
+Lane 1, current-view-request (PAR-009-CURRENT-VIEW-REQUEST-A,
+implementation 4b798897 on effective base c9332238 with preparation
+tree 01c91d3d and exact parents 6e8922c6 + 89946522), transfers the
+new private entry request_current_view and its error/admission DTOs
+(14,885 B) plus the 45-case unit suite (42,773 B) and the original
+verbatim lane order (5,675 B). The original immutable lane SELF
+report (publication commit 037e238a, 27,304 B, SHA-256
+e5d870507903bd6d18a6225daa349a940a2fc9dadf03c267f0af6fc01437e0f1)
+is preserved at
+oap/provenance/009-z/PAR-009-CURRENT-VIEW-REQUEST-A.json. The entry
+composes, under one trusted operator-owned PolicyCaptureReader, the
+real capture, the pure supplied-policy wire admission and the
+genuine fullscan supplied-credential match with the exact required
+operations ("search", "sources:read"): one absolute
+creator-process deadline is established on entry and only ever
+tightened, every reader call is capped by the current remaining
+request time and the reader cap, a fresh actual read_selection()
+after decode and match must equal the captured selected publication
+before any admission is yielded, and one nonblocking request
+ownership span serializes latch check, budget check, bounded read,
+exact comparison, cutoff, latch and success; changed generation or
+bytes, malformed or absent selection, expiry, foreign creator PID or
+contended span refuse the whole request, and entered observation
+failure latches the admission invalid permanently. The 45 local
+witnesses exercise the real reader, wire decode and match paths
+under synthetic installed policy and synthetic ephemeral roots only:
+they prove request admission and freshness refusal behavior, not
+trusted credential provisioning, actual pin, source, scoring, model
+or publication authority.
+
+Lane 2, encoder-runtime-identity (PAR-009-ENCODER-RUNTIME-IDENTITY-A,
+implementation 7ac6994c on effective base 416009c9), transfers the
+extended query_embedding.py (10,872 B, replacing the 7,907 B
+preimage) plus the extended 51-case unit suite (24,884 B, replacing
+the 8,731 B preimage) and the original verbatim lane order (5,006
+B). The original immutable lane SELF report (publication commit
+84b0a6f3, 13,264 B, SHA-256
+026163cfda20254d7984ca8472b54bd6b03baeba04a8ecc3148e11a47aa8c794)
+is preserved at
+oap/provenance/009-z/PAR-009-ENCODER-RUNTIME-IDENTITY-A.json. The
+addition is one explicit private guarded entry that, under the
+existing encoder lock, validates the expected four-field nominal
+encoder identity (three bare lowercase 64-hex space/policy/execution
+fields plus the sha256-prefixed definition, in existing case order),
+normalizes the existing sha256: execution representation, and
+compares the live admitted session and worker record with the exact
+expected tuple before invoking the existing session encode; an
+invalid expected identity cannot fall through to the unguarded
+entry. Every original unguarded public signature, shared encoding,
+returned payload, receipt and identity validation, failure and
+cleanup behavior is preserved, and the original 17 suite nodes are
+an exact ordered prefix of the transferred 51-node suite (34
+added). The 34 new witnesses run the actual resident wrapper and
+session boundary with synthetic controlled delegates: they prove
+the pre-dispatch runtime-identity gate, not safe actual tokenizer
+and CPU transport, concurrent external session-reference behavior
+or any real model dispatch.
+
+All eight transfer objects were verified at the exact source
+commits and at the receiving tree for mode 100644, size, SHA-256
+and blob OID; every indexed receiving preimage was verified
+byte-exact at the round base, including the unchanged reader
+(private_policy_capture.py), both workers, the
+wire/selection/provenance sources and the 009-x measured bridge
+bytes (private_policy_payload.py, test_private_policy_payload.py),
+with the current publisher's full SHA-256
+(d7c5410280f158cb4cc7c258e06522bb3809aa2c836a79c8b2252b50575ece3e)
+and its exact 22,985-byte original capture prefix (SHA-256
+0e43bb1141d1e122c2f745433716a19a8c99b85d3b431bf0b8499d0f7e29899c)
+unchanged through 009-x and 009-y. Actual local proof at the
+implementation bytes under the ordered CPU60s/AS1GiB/wall120s KILL5
+bounds with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh
+private 0700 scratch and no cacheprovider: one bounded combined
+focus of the five ordered modules
+(test_private_policy_request.py 45, test_query_embedding.py 51,
+test_private_policy_capture.py 71, test_supplied_policy_wire.py 95,
+test_private_policy_payload.py 62) passed 324/324 in 7.77 s (exit
+0), including the exact passing installed-payload interoperability
+suite against the current reader; one four-file Ruff check exited
+0; one bounded import-origin check confirmed both transferred
+product modules resolve to the canonical repository src with the
+exact indexed hashes. Expected at the report head: group A 1,440
+unchanged, group B 1,835 (all 79 new default nodes in B; the 17
+inherited encoder nodes retain their order), 3,275 total units, the
+separate 951-case integration and the same three OAP jobs; the
+fresh full hosted CI at the exact report head is PENDING at report
+authoring and is a distinct gate from the local proof; Root owns
+the fresh CI and terminal review. The exact transferred bytes and
+eligible declarations remain separate from real runtime or
+authority qualification, and the four distinctions stay exact:
+current selection (the fresh reread), the immutable payload (the
+published bytes), contained request freshness (the one absolute
+deadline), and the explicit guarded encoding mode (the identity
+check before dispatch). No full transfer or qualification
+acceptance flows from publication alone; the open governed
+operator, the real representative baseline, source rights and model
+gates remain open; the representative baseline remains NOT_RUN and
+whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

@@ -5,6 +5,7 @@
 - Current (2026-11-20): active objective 009, current slice 009-w
  - Current (2026-11-20): active objective 009, current slice 009-x
   - Current (2026-11-20): active objective 009, current slice 009-y
+   - Current (2026-11-20): active objective 009, current slice 009-z
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1042,6 +1043,73 @@
   it is distinct from the local proof above.  Baseline NOT_RUN; whole
   009 PARTIAL; protected authority/hardware/right/license/MVP and
   release gates open; no merge; DHA NONE.
+  Slice 009-z is the byte-exact canonical transfer of the two
+  independently reviewed isolated development lanes (same 009
+  continuation, AMEND PR 11 at round base 0b337ec, the accepted
+  009-y report-only head; required run 44768398812 attempt 1 passed
+  all five jobs and every step).  The frozen Root transfer index
+  (17,348 B, SHA-256
+  d6a249fbd1162cbdc831b3961ebc49602fc93fa9db24a0afe513ede56f39124f)
+  and prior resolution (1,968 B, SHA-256
+  9fabdabc8cdfff363ae796f059ab57d60550b536ff8a6fd5782b2ad420b46eb5)
+  are preserved byte-exact under oap/reviews/.  Lane 1,
+  current-view-request (PAR-009-CURRENT-VIEW-REQUEST-A; implementation
+  4b798897 on effective base c9332238, preparation tree 01c91d3d with
+  exact parents 6e8922c6 + 89946522): the new private current-view
+  request entry private_policy_request.py (14,885 B) composes the
+  accepted reader capture, the pure wire admission and the genuine
+  supplied-credential match under one trusted operator-owned reader,
+  one absolute creator-process deadline and one nonblocking recheck
+  span, plus the 45-case test_private_policy_request.py (42,773 B)
+  and the original verbatim lane order (5,675 B); the original
+  immutable lane SELF report (publication 037e238a, 27,304 B) is
+  preserved at
+  oap/provenance/009-z/PAR-009-CURRENT-VIEW-REQUEST-A.json.  Lane 2,
+  encoder-runtime-identity (PAR-009-ENCODER-RUNTIME-IDENTITY-A;
+  implementation 7ac6994c on effective base 416009c9): the extended
+  query_embedding.py (10,872 B, replacing the 7,907 B preimage) adds
+  one explicit guarded entry that, under the existing encoder lock,
+  compares the live admitted session and worker record with the exact
+  expected four-field encoder identity tuple before invoking the
+  existing session encode, keeping every original unguarded
+  signature, check, identity, failure and cleanup behavior, plus the
+  extended 51-case test_query_embedding.py (24,884 B, replacing the
+  8,731 B preimage with the original 17 nodes an exact ordered
+  prefix and 34 added) and the original verbatim lane order (5,006
+  B); the original immutable lane SELF report (publication 84b0a6f3,
+  13,264 B) is preserved at
+  oap/provenance/009-z/PAR-009-ENCODER-RUNTIME-IDENTITY-A.json.
+  All eight transfer objects were verified at the exact source
+  commits and at the receiving tree for mode 100644, size, SHA-256
+  and blob OID; all indexed receiving preimages were verified
+  byte-exact at the round base, including the unchanged reader, both
+  workers, the wire/selection/provenance sources and the 009-x
+  measured bridge bytes, with the current publisher's full SHA-256
+  and its exact 22,985-byte original capture prefix unchanged through
+  009-x and 009-y.  Actual local proof at the implementation bytes
+  under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds with
+  OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+  0700 scratch and no cacheprovider: one bounded combined focus of
+  the five ordered modules (45 + 51 + 71 + 95 + 62 = 324 cases, exit
+  0 in 7.77 s, including the exact passing installed-payload
+  interoperability suite against the current reader), one four-file
+  Ruff check (exit 0) and one bounded import-origin check (both
+  transferred product modules resolve to the canonical repository
+  src with the exact indexed hashes).  The transferred bytes and
+  eligible declarations remain separate from real runtime or
+  authority qualification: the request entry exercises real request
+  and authentication checks under synthetic installed policy only,
+  and the guarded encoder exercises the actual resident wrapper and
+  session boundary with synthetic controlled delegates only.
+  Expected at the report head: group A 1,440 unchanged, group B
+  1,835 (all 79 new default nodes in B, the 17 inherited encoder
+  nodes retaining their order), 3,275 total units, the separate
+  951-case integration and the same three OAP jobs; the fresh full
+  hosted CI at the exact report head is PENDING at report authoring,
+  with Root owning the fresh CI and terminal review; it is distinct
+  from the local proof above.  Baseline NOT_RUN; whole 009 PARTIAL;
+  protected authority/hardware/right/license/MVP and release gates
+  open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

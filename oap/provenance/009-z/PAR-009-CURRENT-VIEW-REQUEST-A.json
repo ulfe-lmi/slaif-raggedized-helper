@@ -1,0 +1,228 @@
+{
+  "lane_id": "PAR-009-CURRENT-VIEW-REQUEST-A",
+  "result": "COMPLETE",
+  "implementation_head": "4b798897dcc3b6194eeda960046d0bf040747dfe",
+  "report_publication_commit": "SELF",
+  "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-current-view-request",
+  "branch": "oap/parallel-009-current-view-request",
+  "base": "6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a",
+  "preparation_heads": [
+    "c933223897514b525e0c976cfbb7bd1e87d3cc95"
+  ],
+  "implementation_head_sha_note": "Implementation head SHA: 4b798897dcc3b6194eeda960046d0bf040747dfe (sole parent c933223897514b525e0c976cfbb7bd1e87d3cc95, the exact ordered preparation head; tree 01c91d3d8f2440c378f2050a2255f4547c09d050 with first parent 6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a and second parent 899465220ac2108388845d6926209448f41fdadb). Superseded candidates 8c94f9952312f69f3553f06fda49f155676393ec (FIX) and b1b79770ada44e69100affbeb63bdf43bf67431b (FIX-1) are preserved by checkpoint refs; no report was published for them.",
+  "control": "EXACT_OK_CONSUMED 2026-11-20T10:36:34Z via the single owned helper lane_signal.py wait-control current-view-request (receipt control-consumed.json sha256 94de281ce983a35ede80ab8c93d7726e4bd1e1c0c5b35d43feb14755a2395805; control-send.json sha256 707e5e6da4e253ed16b26da952909f95760807231d5007f4ad2f429f3503ac96); never reread or replayed; no direct FIFO access; no second helper reader or signal. Ordered bytes verified before code: order.md 61a9e2e7fb4a564d3ed65c5206953b83920286e79e8fa04bdfdeae11dafb4fb3, source-inputs.json 891ecb6390171455dc57b6c791974c578ae90cfc08c1f2804c5bf9ee19ec63bc, manifest.json 218e2329071e6232472e9ecd9878d4f6fc47f8180eab937c6110b02e1e5a96c3 (all 12 input files verified). Root prepublication request-lifetime guidance read once before the bounded proof and applied (source_sha256 309196545afae9a694cb63afdd9c729ca6a35ed49188322e2ab1c065cc9b1fa6; file Root-prepublication-request-lifetime-guidance.json sha256 237298235025d7bba992db58d84a86bab1abafe57d0dd9a8ddd4d736bf5adbbb): one absolute creator-process deadline established at entry and carried through every recheck (per-check argument only tightens, never resets); recheck serializes check+read+compare+latch+success in one nonblocking span; foreign PID refused before the lock; deterministic event-based witnesses.",
+  "review_path": [
+    {
+      "checkpoint": "8c94f9952312f69f3553f06fda49f155676393ec",
+      "decision": "FIX",
+      "note": "Root verified exact source and reproduced a substantive contract gap with the actual protected synthetic capture/admission/read_selection (Root-exact-review-8c94f995/stdout sha256 6c39805fa323a3ca98afbb69a2e4f55fef2df942e084018b05eefc2874b6d174, exit 0): missing and malformed selection each refused the current check yet the same previously refused request succeeded after exact restoration (retained_after_restoration true), and the fixed ordinary credential refusal's own retained entry frame still held the raw synthetic credential as a local (ordinary_refusal_frame_retains_synthetic_credential true). Verdict Root-fix-8c94f995.json sha256 66432e8227e9f5083b02ca737ff4b235807d5b2780e6410f7385e13006d179b0: conservatively latch on any ordinary observation failure after entering the real read, enforce the tightened operation cutoff at the caller, clear the credential from the entry's own retained frame. Candidate preserved by checkpoint ref; no report published for it."
+    },
+    {
+      "checkpoint": "b1b79770ada44e69100affbeb63bdf43bf67431b",
+      "decision": "FIX",
+      "note": "The missing/malformed permanent invalidation and the credential-frame cleanup were verified corrected and kept. One remaining defect: the caller's tightened recheck cutoff still checked only self._end after comparison, so a 50 ms delegated read that returned 65 ms later under an otherwise live 30 s original deadline (29,935 ms remaining) returned True and made another actual read on reuse; expected refuse+latch with no subsequent read. Verdict Root-fix-b1b79770.json sha256 b6d97e46b8be91cd1675908b14605da66fdb2a0ced3bbe124f45143eccb650ab with both positive and negative evidence in Root-exact-review-b1b79770/stdout sha256 ed71a94e060e1a98bdb19f2355de66ee6581eaa8af9214e1134fdded629025d1 (exit 0). Candidate preserved by checkpoint ref."
+    },
+    {
+      "checkpoint": "4b798897dcc3b6194eeda960046d0bf040747dfe",
+      "decision": "REPORT",
+      "note": "Independent Root proof at canonical caps: 45 focused cases passed (Root-exact-review-4b798897/focused.stdout sha256 7a2a159d2358c1b637d1feb6501e5e4a5f4056b9dd3d5caf49398dd909fb08cd, focused.exit sha256 9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa) plus actual reader probes (Root-exact-review-4b798897/witness.stdout sha256 6ae40075870a925ecec527e8e9b5b99df614dcc52e4150e93ffb5f50685c5830, witness.exit sha256 9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa) covering missing/malformed-and-restored selection, old request latching with zero new reads, a separate post-restoration new request, refusal-frame credential cleanup, and the 50 ms shortened operation under an otherwise live 30 s request (early positive, late false at 65 ms after the delegated read with 29,935 ms remaining in the original deadline, exactly two delegated reads across three attempts). Verdict Root-report-4b798897.json sha256 1c309bc75eb8617972aec993bbd3140666872f7e2734a8868a37d3ff160ee48d. Object bytes verified: src 1b52e832ca7f65925bf129958b80b99d3a1a4260dddaa29f06db371505979e44, tests f8491635ce587f1bbf8a61811e9492a015f88d4ad921284a7025961b2f4a663d, order 61a9e2e7fb4a564d3ed65c5206953b83920286e79e8fa04bdfdeae11dafb4fb3."
+    }
+  ],
+  "changes": [
+    "New private module src/slaif_raggedized_helper/private_policy_request.py (304 lines) plus focused tests/unit/test_private_policy_request.py (994 lines) and the verbatim lane order copy. Exact existing dependencies (private_policy_capture, supplied_policy, supplied_policy_wire, policy_selection, provenance_records) and public supplied-policy behavior preserved; the new private entry performs only selected-view admission, credential match and freshness observation.",
+    "request_current_view: exact typed admission (type(reader) is PolicyCaptureReader, nothing else) and bounded int deadline 1..30000 (bool refused); one absolute creator-process deadline established on entry (time.monotonic() + deadline_ms/1000) spanning capture -> check -> pure admit_policy_bytes decode -> check -> genuine match_supplied with the exact required operations (\"search\", \"sources:read\") -> check -> fresh actual read_selection -> check -> exact selected-publication bytes compare -> admission construction -> final post-construction check. Every reader call is capped by min(int(remaining_ms), 30000) (the accepted reader cap) and refused before the call when the remaining budget cannot cover the reader's 1 ms floor. One fixed input-free PolicyRequestError (ValueError, message 'private policy request refused') is raised after the handler with __cause__/__context__ None; a non-Exception BaseException propagates by identity, preserving the owned reader's system interruption and cleanup semantics. The raw credential is used only for the bounded initial match and is cleared from the request entry's own retained frame on success and failure (entry-scope rebind in the outer finally), without changing the fixed content-free error, the shared matcher or interruption identity (not a zeroization claim).",
+    "PolicyRequestAdmission: frozen/slots/init=False dataclass, factory-only (its constructor raises the fixed error), redacted repr; binds the admitted principal match (principal_id, real controlled-mapping Grants, operations), the admitted immutable policy's policy_id and authorization_status (SUPPLIED_POLICY_MATCH_ONLY), and the frozen selected publication (PolicySelection record plus the exact selected record bytes) together with the independent semantic policy identity from the pure wire decoder, to the trusted reader under the one absolute deadline; it carries no raw credential.",
+    "recheck(deadline_ms): same 1..30000 int validation; foreign creator PID refused before the lock; one nonblocking request-ownership span serializing the latch check, the budget check (original end, 1 ms floor, refused without any reader call even under a fresh-looking per-check timeout), the bounded read, the exact bytes compare, the post-comparison operation cutoff, the latch and the success decision. A contended span refuses with zero observations and does not latch (contention is separately identifiable from an entered observation). An ordinary observation failure after entering the real read (the admitted reader's one content-free PolicyCaptureError for missing, malformed, latched-owner or expired conditions) conservatively latches the admission invalid permanently under the held span: no filesystem or lock cause is inferred from the error and no extra read is made. An observed changed selection latches the same way. The tightened operation cutoff at the caller checks the fixed local observation end (the monotonic time before the real call plus the capped call duration, clipped to the fixed original request end, keeping the existing integer reader limit and the 1 ms lower floor) after the observation and the exact comparison and latches on late completion; the original request end is preserved for any subsequent check and is never reset. A latched admission remains invalid under concurrent use even if the record is restored; a separate request captures and admits fresh bytes (one full wire admission per successful request; later rechecks reopen only the bounded selector, never re-admitting the full wire bytes); the shared reader itself is never latched by a request latch.",
+    "FIX round 1 (8c94f995 -> b1b79770): permanent invalidation for missing/malformed selections (actual-reader tests with counted delegated read, zero reads on old reuse after exact restoration, separate successful newly admitted request), the entry-frame credential clearing (focused ordinary refusal witness inspecting only the entry frame, no credentials printed, caller frame ownership distinguished) and docstring conformance.",
+    "FIX round 2 (b1b79770 -> 4b798897): the post-comparison cutoff now enforces the fixed local observation end (capped call duration from the monotonic time before the real call, clipped to the fixed original end) instead of only the original end; the late witness advances a controlled monotonic clock only after an actual delegated read (original 30 s deadline held, 50 ms recheck budget, +10 ms early success within the operation end, +65 ms late refusal past it with the original end demonstrably live, zero subsequent reads by the refused admission)."
+  ],
+  "files": {
+    "src/slaif_raggedized_helper/private_policy_request.py": "1b52e832ca7f65925bf129958b80b99d3a1a4260dddaa29f06db371505979e44",
+    "tests/unit/test_private_policy_request.py": "f8491635ce587f1bbf8a61811e9492a015f88d4ad921284a7025961b2f4a663d",
+    "oap/parallel/orders/PAR-009-CURRENT-VIEW-REQUEST-A.md": "61a9e2e7fb4a564d3ed65c5206953b83920286e79e8fa04bdfdeae11dafb4fb3"
+  },
+  "checks": [
+    {
+      "cmd": "QUALIFYING focused pytest at 4b798897: cd <worktree> && PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=<worktree>/src timeout -k 5 120 prlimit --cpu=60 --as=1073741824 <canonical .venv>/bin/python -m pytest -p no:cacheprovider --basetemp=/tmp/cvr-proof-fix2.sSxK7v/basetemp tests/unit/test_private_policy_request.py (basetemp beneath a fresh mode-0700 mktemp -d directly under sticky /tmp; git rev-parse HEAD recorded in the log)",
+      "exit": 0,
+      "passed": 45,
+      "failed": 0,
+      "wall_s_observed": 0.68,
+      "log": "parallel/current-view-request/proof-pytest-fix2.out",
+      "log_sha256": "ea880e244e0bcc5a005a8aae6a1e7379a18a1c5fa861d0dca8a5059158f67ef1"
+    },
+    {
+      "cmd": "QUALIFYING one-core Ruff at 4b798897: same caps (timeout -k 5 120 prlimit --cpu=60 --as=1073741824), canonical .venv ruff, taskset -c 0 (lowest set bit of the process-local allowed affinity mask ffffffffff), both changed files",
+      "exit": 0,
+      "result": "All checks passed!",
+      "log": "parallel/current-view-request/proof-ruff-fix2.out",
+      "log_sha256": "8d4ee62a10648d353288b64dd4cd9506a98040c7f282193e5a976c8e494b6bc2"
+    },
+    {
+      "cmd": "Independent Root bounded proof at 4b798897 (canonical caps, synthetic operator-owned ephemeral paths directly beneath sticky /tmp): focused 45-case run plus actual-reader witness probe",
+      "exit": 0,
+      "evidence": {
+        "focused.stdout": "7a2a159d2358c1b637d1feb6501e5e4a5f4056b9dd3d5caf49398dd909fb08cd",
+        "focused.command": "e4f9aecbf2ec4c516790618bbe90178d2bcd2540706532beaf977f868804b136",
+        "focused.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "focused.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "witness.stdout": "6ae40075870a925ecec527e8e9b5b99df614dcc52e4150e93ffb5f50685c5830",
+        "witness.command": "780f64b0faeec3da6351e937ec33ca9910a439c084822d50a80af5ff62b8ebec",
+        "witness.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "witness.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "cmd": "Superseded bounded focused pytest at b1b79770 (fresh 0700 mktemp beneath /tmp, same caps): 45 passed",
+      "exit": 0,
+      "passed": 45,
+      "log": "parallel/current-view-request/proof-pytest-fix.out",
+      "log_sha256": "8446140a4eea4d6ab37e2d43467493089256f1c2a5c83002b1a17c07543706ed"
+    },
+    {
+      "cmd": "Superseded one-core Ruff at b1b79770 (same caps): All checks passed!",
+      "exit": 0,
+      "log": "parallel/current-view-request/proof-ruff-fix.out",
+      "log_sha256": "ce7ad5dcc87f46dbaea567575f8fdf084cf8df1601b64734118b336ddb1d7038"
+    },
+    {
+      "cmd": "Authorized recovery focused pytest at 8c94f995 after Root-proof-setup-recovery.json (fresh 0700 mktemp directly beneath sticky /tmp, basetemp beneath it, same caps): 41 passed",
+      "exit": 0,
+      "passed": 41,
+      "log": "parallel/current-view-request/proof-pytest-recovery.out",
+      "log_sha256": "ff5689db49bdece6df09bc7a9e2bbd90df83984976f719ef6608f3ec4e75e918"
+    },
+    {
+      "cmd": "Authorized recovery one-core Ruff at 8c94f995 (same caps, core 0): All checks passed! (The file's first section records a pre-run setup deviation: the core selector passed the hex affinity mask ffffffffff as a CPU list, taskset exited 1 and ruff never ran; the authorized single ruff invocation followed with core 0, the lowest set bit.)",
+      "exit": 0,
+      "log": "parallel/current-view-request/proof-ruff-recovery.out",
+      "log_sha256": "730b68957c163cd0432eee988df6f95f8fe9f031f459558fec69e2d46de32f9b"
+    }
+  ],
+  "excluded_evidence": [
+    {
+      "file": "parallel/current-view-request/proof-ruff.out",
+      "sha256": "d8e0e47d5ef8a7e06663ff660aec6102c3321d5d3676338080d058880eb2d942",
+      "exit": 101,
+      "cause": "Capped Ruff (CPU 60 s, AS 1 GiB) crashed in Rayon global thread pool initialization (ThreadPoolBuildError WouldBlock) before checking any file; preserved immutable and excluded from qualifying proof; recovered by the authorized one-core process-local affinity run."
+    },
+    {
+      "file": "parallel/current-view-request/proof-pytest.out",
+      "sha256": "b6f977ccbafb01a9a575defec362820d41589c0f2f276d518f5cfe279d5cc75d",
+      "exit": 1,
+      "passed": 17,
+      "failed": 24,
+      "cause": "Capped focused pytest whose basetemp was beneath the group-writable strategic parallel directory (.../parallel drwxrwxr-x); the admitted reader refused that unsafe ancestor, so every test requiring a successful capture was refused; Root namei-confirmed the ancestry (Root-proof-setup-recovery.json sha256 12be8469eb405c69d9881b8c8aa31da5b0f991f789274cc4d18d316f0a0b5e14); preserved and excluded."
+    },
+    {
+      "file": "parallel/current-view-request/proof-pytest-2.out",
+      "sha256": "501f7b610ff365cc2f9bc06e072089ce1dd91fff856cf9618ec4e7b61ebe9878",
+      "exit": 1,
+      "passed": 17,
+      "failed": 24,
+      "cause": "Repeat of the same unsafe-ancestry invocation ordered before Root's recovery guidance arrived; identical 24/17 outcome; preserved and excluded."
+    },
+    {
+      "file": "parallel/current-view-request/dev-run-6.out",
+      "sha256": "13a05b5a5e9ca4f7d2504d3052727f9336051166740771b5ae064b8596565636",
+      "exit": 0,
+      "passed": 45,
+      "failed": 0,
+      "cause": "Explicit UNCAPPED dev run (45 passed, PYTEST_EXIT=0) on the b1b79770 bytes after the first review; a setup deviation from the prescribed bounded-only proof sequence; command, output and actual exit preserved; excluded from qualifying proof."
+    },
+    {
+      "file": "parallel/current-view-request/dev-run-1-preserved-attempt.txt",
+      "sha256": "222eacc17ca40487e620edc0e0a48a5109c6d02a64c16a93aa7e443f4f3f58ec",
+      "exit": null,
+      "passed": 33,
+      "failed": 4,
+      "cause": "Pre-guidance exploratory dev run (33 passed / 4 failed; four documented test-fixture bugs). Recorded evidence gap: the full original stdout was not tee-d to file at the time; the result line, failure list and per-test tracebacks were observed in the terminal and are described in the file. Superseded by the guidance-conformed bytes."
+    },
+    {
+      "file": "parallel/current-view-request/dev-run-2.out",
+      "sha256": "fd91d58f64a7718c3daa0e9ee0b807b4ad25331f3919cec9de16f9276f821c41",
+      "exit": 1,
+      "passed": 39,
+      "failed": 2,
+      "cause": "Exploratory dev loop bytes (guidance conformance in progress); preserved; excluded."
+    },
+    {
+      "file": "parallel/current-view-request/dev-run-3.out",
+      "sha256": "3d71ae4d0093a71f5af717658c7f150f566d4d026e8ecf63c5689dc68695779c",
+      "exit": 1,
+      "passed": 40,
+      "failed": 1,
+      "cause": "Exploratory dev loop bytes (foreign-PID witness correction); preserved; excluded."
+    },
+    {
+      "file": "parallel/current-view-request/dev-run-4.out",
+      "sha256": "9342c4cebc47721fbda71cec810ec6aecb97e4a8c9a575040a1ddff0369563b6",
+      "exit": 0,
+      "passed": 41,
+      "failed": 0,
+      "cause": "First fully green dev loop bytes (pre-ruff-format); preserved; excluded."
+    },
+    {
+      "file": "parallel/current-view-request/dev-run-5.out",
+      "sha256": "639990e9e0b84b7a3053feb3ff212cbd4bc3ae955ca8d87939ee016d0e0a70b4",
+      "exit": 0,
+      "passed": 41,
+      "failed": 0,
+      "cause": "Post-ruff-format dev bytes (the 8c94f995 candidate bytes); preserved; excluded."
+    },
+    {
+      "note": "Pre-commit compile-only syntax checks (python -m py_compile, no test execution) were run on the b1b79770 and 4b798897 candidate bytes before each commit; they are hygiene checks, not proof runs, and are disclosed here rather than counted as bounded proofs."
+    }
+  ],
+  "attempts": {
+    "implementation_commits": 3,
+    "checkpoint_refs_preserved": [
+      "refs/oap/implementation-checkpoints/current-view-request/8c94f9952312f69f3553f06fda49f155676393ec",
+      "refs/oap/implementation-checkpoints/current-view-request/b1b79770ada44e69100affbeb63bdf43bf67431b",
+      "refs/oap/implementation-checkpoints/current-view-request/4b798897dcc3b6194eeda960046d0bf040747dfe"
+    ],
+    "review_rounds": 3,
+    "qualifying_bounded_processes_at_final_checkpoint": 2,
+    "note": "One implementation commit per review verdict, each on the exact sole parent (preparation head c9332238) with only the three allowed paths. One bounded changed-byte pytest and one targeted one-core Ruff exactly once at each corrected checkpoint, using the pre-existing canonical .venv, exact physical worktree origins and the prescribed caps. No more development runs or tests while reporting. All earlier exploratory/uncapped dev runs and setup failures are preserved above and excluded from the qualifying proof."
+  },
+  "caps": {
+    "request_deadline_ms": "1..30000 inclusive (type is int; bool refused)",
+    "reader_call_cap_ms": 30000,
+    "pre_call_remaining_floor_ms": 1,
+    "required_operations": [
+      "search",
+      "sources:read"
+    ],
+    "process_caps_qualifying_proof": {
+      "cpu_s": 60,
+      "as_bytes": 1073741824,
+      "wall_s": 120,
+      "kill_grace_s": 5,
+      "one_thread_product_setting": "OPENBLAS_NUM_THREADS=1"
+    }
+  },
+  "witnesses": [
+    "Actual selected auth input operations: the genuine fullscan matcher is invoked exactly once per successful request with the exact required operations (\"search\", \"sources:read\") (counted); unknown-credential and missing-operation requests are refused before the final reread with zero selection reads, and a separate new request on the clean owner admits the same view.",
+    "Frozen selected publication vs semantic identity: the admission binds the exact selected record bytes (frozen publication) and the independent semantic policy identity (real typed SuppliedPolicy.policy_id from the pure wire decoder); a same-semantic view published at a new selection generation refuses on the changed publication identity, and pointer swaps at the decode boundary and between match and final reread refuse the request.",
+    "Live genuine capture/decode/match: one full wire admission per successful request (1 capture, 1 admit, 1 match, 1 bounded final selection reread - all counted wrappers delegating real functions); all subsequent rechecks are real selector-only observations (genuine read_selection with counted delegation) that never re-admit the full wire bytes; repeated stable selection keeps qualifying.",
+    "PID/locking: foreign creator PID refused before attempting the lock or any reader call; same-admission pre-read lock contention refused nonblocking with zero observations and without latching (deterministic event-based serialized-span witness); a latched admission remains invalid under concurrent use; concurrent reader-guard acquisition is refused with zero observations while a request is in flight; a latched shared reader stays latched and refuses subsequent requests.",
+    "Conservative sticky refusal after actual ordinary reader unavailability: missing and malformed selections (actual reader, real files) refuse the recheck after it enters its real read - the admitted reader reports one content-free ordinary error for different unavailable conditions - and the admission latches permanently: exact restoration does not requalify it (zero further reads), while a separate newly admitted request succeeds with counted delegation, and the shared reader is never latched by the request latch. The separately identifiable zero-observation contention case refuses without latching and without a read.",
+    "Deadline cuts: the one absolute creator-process deadline established on entry is carried through every recheck and never reset (exhausted original budget refuses without any reader call despite a fresh-looking 30000 ms per-check timeout); actual remaining-clock lateness (100 ms capture delay against a 50 ms budget) refuses the late usable success after capture with zero further phase work; controlled-clock witnesses cover post-capture, post-match (refused before the final reread) and the post-comparison operation cutoff: fixed local observation end (capped call duration from the monotonic time before the real call, clipped to the fixed original end) checked after the observation and the exact comparison under the request lock - early positive at +10 ms within the 50 ms operation end, late refusal at +65 ms with the original 30 s end demonstrably live (29,935 ms remaining in Root's independent probe; exactly two delegated reads across three attempts), latching with zero subsequent reads.",
+    "Credential hygiene: the fixed ordinary credential refusal's retained request entry frame no longer holds the raw synthetic credential as a local (cleared on success and failure), the existing caller frame keeps its own local, no credential value is printed or compared by text, and the admission record carries no credential; the fixed error stays content-free (__cause__/__context__ None) and BaseException interruption identity is unchanged.",
+    "Non-nominal inputs: reader None/str path/object and deadline True/0/30001/\"30000\"/30000.5/-1 all refused with the fixed input-free error; recheck deadline True/0/30001/\"30000\" refused and boundary rechecks at 1 and 30000 accepted under a controlled clock; stable and refusal paths compared so a permanent refusal cannot qualify."
+  ],
+  "origins": "Fail-closed module-origin assertion (test_module_origin_is_assigned_worktree) derives the worktree src root from this test file's resolved physical location (tests/unit/ -> ../../src) and asserts private_policy_request, private_policy_capture, policy_selection, supplied_policy, supplied_policy_wire and provenance_records all resolve beneath it; passed at the final bytes. The qualifying bounded proofs and the independent Root proof ran from the exact physical worktree origins (PYTHONPATH=<worktree>/src, cwd=<worktree>), shadowing the canonical editable install.",
+  "preserved": [
+    "checkpoint refs refs/oap/implementation-checkpoints/current-view-request/{8c94f995, b1b79770, 4b798897} (full SHAs in attempts.checkpoint_refs_preserved)",
+    "all lane evidence immutable in parallel/current-view-request/: control receipts (control-consumed.json, control-send.json), Root guidance/verdict json files (activation, startup-wake, control-order-reminder, helper-handle, prepublication guidance, proof-setup recovery, provisional-final-source-review, fix-8c94f995, fix-b1b79770, report-4b798897, real-reader-state-probe.py, lane_signal.before.py), all proof-*.out and dev-run-1..6 logs, the three Root-exact-review-* witness sets, and the implementation-reader/ready/review receipts for all three candidates"
+  ],
+  "limitations": [
+    "Candidate-local pure-unit evidence only (45 focused cases plus the independent Root bounded proof at the exact checkpoint); observed behavior on the host, not a kernel or capacity theorem; does not certify canonical combined CI.",
+    "Deadlines are cooperative: the per-call caps and the entry/recheck checks refuse late usable successes, but the observation does not stop all kernel work on expiry; this scope measures observations and does not replace the trusted monotonic-generation writer protocol, the explicit operator recovery protocol, pinned membership eligibility, or actual dispatch/delivery authorization.",
+    "The conservative sticky refusal trades availability for soundness: any ordinary observation failure after entering the real read (including transient unavailability reported as the reader's one content-free error) permanently invalidates that admission; a separate new request is the recovery path.",
+    "The composed route ends at private admission under the SUPPLIED_POLICY_MATCH_ONLY authorization status; no policy writer, no real credential, no protected workload, no network, no remote push, no merge; independent report/receipt and exact integration remain pending."
+  ],
+  "no_merge": true,
+  "no_remote_publication": true,
+  "DHA": "NONE"
+}
