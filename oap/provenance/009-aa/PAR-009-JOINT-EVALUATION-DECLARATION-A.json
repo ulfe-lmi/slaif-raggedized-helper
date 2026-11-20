@@ -1,0 +1,103 @@
+{
+  "lane_id": "PAR-009-JOINT-EVALUATION-DECLARATION-A",
+  "result": "COMPLETE",
+  "implementation_head": "0a816ab06500c8b7090e3afbdae76e86ae788afa",
+  "report_publication_commit": "SELF",
+  "api": "private_evaluation_preflight._prepare_declaration(plan_wire, originals, derived, root, owner, data, cohort, identifiers, gold_ids, grants, restrictions, config, source_budget, grade_budget, *, deadline_ms) - the single private joint declaration preparation entry. Inside one ordinary refusal boundary it creates the one existing source _Deadline (documented positive bounded range 1..1200000 ms) from the process monotonic clock at entry, before any snapshot or admission work, and reuses it through return, checking it after the pre-admission snapshots and before the genuine wire call and again after the prepared result is assembled. The exact evaluation_plan_wire.admit runs first, then the genuine source cohort _declaration_admission on checked owned pre-admission nominal records with its preserved binder calls and runner meter, then the actual grade _prepare_plan against the exact same admitted dataset and ordered selected values with its separate owned grade budget record. The exact nominal config, source budget and grade budget are checked with source._closed and snapshotted to owned primitive tuples before admission, so the result retains the gate-admitted values even if the caller-owned objects are mutated later. A PreparedDeclaration couples the admitted identities (exact validated per-case encoder-identifier tuples tied to the selected order, exact validated Gold bundle ID tuple, pre-admission config/source/grade budget snapshots in field order), the selected data and the measured declarations. Every ordinary Exception is translated, after the caught handler has left, into the fixed content-free PreparationError with no retained cause or context; BaseException interruption identities propagate unchanged. No alternate caller clock, callable or pre-admitted Plan is exposed, and no pin, privileged source, encoder, producer, scorer, report or publication work occurs.",
+  "evidence": "Origin: isolated physical worktree /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-joint-evaluation-declaration on branch oap/parallel-009-joint-evaluation-declaration, exact base ed48ca58934b21003ba57d057be1a9921d666e1c, single implementation commit 0a816ab06500c8b7090e3afbdae76e86ae788afa with that sole parent; the ordered order bytes (sha256 65ade514c1f961d198fa8ac917fb46558cc123422a74d8646b2323a2ed92e2ae) are committed unchanged at oap/parallel/orders/PAR-009-JOINT-EVALUATION-DECLARATION-A.md; all nine preserved source and test objects are byte-identical to the ordered source-inputs (hashes in witness_sha256); the new suite import-origin node pins the executed module to the physical worktree path. Focused proof: one ordered capped pair at the exact final head - 84 passed in 1.60s, exit 0 (42 new + 21 complete test_source_cohort_declaration_preflight.py + 19 complete test_evaluation_grade_preflight.py + test_source_cohort_runner.py::test_success_and_private_report + test_evaluation_program.py::test_two_cases_empty_and_unretrieved_positive) and one targeted one-core Ruff, All checks passed, exit 0. The 42-node suite drives the real wire admit, the real source cohort _declaration_admission (preserved binder calls and runner meter) and the real grade _prepare_plan through the new private entry with delegating witnesses that record and call the real implementations: two-case positive with one shared entry deadline, same admitted dataset/selected identity across phases, separate meters, retained exact validated per-case encoder-identifier tuples tied to the selected order, the exact validated Gold bundle ID tuple and the pre-admission config/source/grade budget snapshots; subset order preservation; exact-legal versus undersized source and grade budgets; malformed and non-bytes wire before source; invalid deadline (0, -1, 1200001, boundary 1200000 accepted, True) and non-tuple identifiers before wire; invalid last declaration case and undersized budgets before grade; valid-wire dataset/split/order/budget disagreement before prepared output; deadline-exhausted-after-wire and late-success-after-complete-grade refusals; small-deadline admission under a controlled clock; mismatched split and out-of-scope case; Gold declaration faults; nominal owner and config layout; coincident-fault precedence; interruption identity at wire and source; fixed ordinary content-free refusal with no retained cause or context; distinct Gold/config/grade-limit declarations remain distinguishable; ordinary exceptions translated after a real delegated phase; the round-2 alias-mutation witness proving the genuine gates ran on owned nominal records (real grade observed limit 134217728) while the result retains gate-admitted values. The round-3 entry-deadline test uses a controlled monotonic clock in the seconds domain: the real delegated config snapshot check advances the fake clock by 65.0 s; the early phase is a stable positive under a 120000 ms (120 s) budget, and the late phase is a fixed refusal with zero wire, source and grade boundary events under a 50 ms (0.05 s) entry deadline. Root's separate independent probe measured the same boundary in real milliseconds: with a 50 ms requested total and the real nominal config snapshot gate returning at 65 ms elapsed (elapsed_ms_at_snapshot=65, requested_total_ms=50), the pre-fix candidate returned PreparedDeclaration (Root-exact-review-76c1ba7e/stdout) and the final head refuses (Root-exact-review-0a816ab0/witness.stdout). Independent Root evidence at the exact final head reconfirmed 84 focused passes (1.56 s), distinct results for different valid Gold and grade declarations, input-free ordinary fault normalization after a real delegated phase, stable accepted config and work budgets after caller-object mutation, and the 65 ms/50 ms entry-deadline refusal (artifact hashes in root_review_evidence). The owned review loop consumed three FIX rounds (d5c4dba8319f9d3400d5c7ba0244428888fb4748 collapsed Gold/config/budget identity and caught only ValueError; 770b00dc2d7b802bfdc4c7ccf85c5fd11881f0a7 leaked post-admission caller-alias mutation into the result; 76c1ba7ed869641826f75dc58a4a1778bd7eff79 ran pre-admission snapshot work before the entry deadline) and the final REPORT for this exact head, all through the implementation-cycle helper.",
+  "commands": [
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-joint-evaluation-declaration && OPENBLAS_NUM_THREADS=1 PYTHONPATH=/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-joint-evaluation-declaration/src TMPDIR=/tmp/joint-evaluation-declaration.a52LHm PYTHONDONTWRITEBYTECODE=1 timeout -k 5 120 prlimit --cpu=60 --as=1073741824 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/pytest --basetemp=/tmp/joint-evaluation-declaration.a52LHm/pytest -p no:cacheprovider -o addopts= -v tests/unit/test_private_evaluation_preflight.py tests/unit/test_source_cohort_declaration_preflight.py tests/unit/test_evaluation_grade_preflight.py \"tests/unit/test_source_cohort_runner.py::test_success_and_private_report\" \"tests/unit/test_evaluation_program.py::test_two_cases_empty_and_unretrieved_positive\"",
+      "exit": 0,
+      "result": "84 passed in 1.60s - the single ordered bounded focus proof at the exact final head (fresh mode-0700 scratch directly under sticky /tmp, private basetemp, no cacheprovider)"
+    },
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-joint-evaluation-declaration && OPENBLAS_NUM_THREADS=1 PYTHONPATH=/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-joint-evaluation-declaration/src PYTHONDONTWRITEBYTECODE=1 timeout -k 5 120 prlimit --cpu=60 --as=1073741824 taskset -c 0 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check src/slaif_raggedized_helper/private_evaluation_preflight.py tests/unit/test_private_evaluation_preflight.py",
+      "exit": 0,
+      "result": "All checks passed! - the single ordered targeted one-core Ruff at the exact final head"
+    }
+  ],
+  "excluded_or_excess_runs": [
+    {
+      "command": "same capped pytest form under fresh scratch /tmp/joint-evaluation-declaration.q3Auhz (three runs) on the pre-commit first-candidate draft",
+      "exit": 1,
+      "result": "First-candidate development iterations: three failing runs (two delegating-spy wiring bugs - spies must wrap the currently patched attribute, not the raw real functions - and one PinOwner subclass attempt; PinOwner cannot be subclassed and was replaced by a bare inert object()). Development verification only; not proof. Scratch preserved."
+    },
+    {
+      "command": "same capped pytest + one-core ruff form under fresh scratch /tmp/joint-evaluation-declaration.dE9qpQ",
+      "exit": 0,
+      "result": "First passing bounded-format pair on a pre-round-1 development candidate (38-node draft suite): 80 passed. Superseded by the first review FIX; not an ordered proof. Scratch preserved."
+    },
+    {
+      "command": "same capped pytest + one-core ruff form under fresh scratch /tmp/joint-evaluation-declaration.BAYcnl",
+      "exit": 0,
+      "result": "Bounded pair on superseded candidate 770b00dc2d7b802bfdc4c7ccf85c5fd11881f0a7 (first FIX applied): 82 passed, ruff clean. Superseded by the second review FIX (post-admission caller-alias mutation leaked unadmitted values into the result). Not the final ordered proof. Scratch preserved."
+    },
+    {
+      "command": "same capped pytest + one-core ruff form under fresh scratch /tmp/joint-evaluation-declaration.VFbsYx",
+      "exit": 0,
+      "result": "Bounded pair on superseded candidate 76c1ba7ed869641826f75dc58a4a1778bd7eff79 (second FIX applied): 83 passed in 1.57s, ruff clean. Superseded by the third review FIX (pre-admission snapshot work preceded the entry deadline). Not the final ordered proof. Scratch preserved."
+    },
+    {
+      "command": "same capped pytest + one-core ruff form under fresh scratch /tmp/joint-evaluation-declaration.uz52NO",
+      "exit": 1,
+      "result": "Bounded pair on first round-3 candidate 97f8518a6a32e11e42c8e8e9f8e4ff88a6c9fd14: 2 failed, 82 passed. The new deadline test advanced the controlled seconds clock twice (130 s against the 120 s positive budget, because the real admission re-checks the Config record through _closed) and the non-tuple-identifier deadline-count assertion predated the entry-deadline order. Fixed in 0a816ab06500c8b7090e3afbdae76e86ae788afa; not a proof. Scratch preserved."
+    },
+    {
+      "command": "same capped pytest form, single test file, plus two capped python diagnostic probes (internal admission refusal trace), under fresh mode-0700 mktemp -d /tmp/joint-evaluation-declaration-inspect.XXXXXX scratches",
+      "exit": 0,
+      "result": "Round-3 development gate: 42 passed in 1.04s on the final test file after the spy-flag and deadline-count corrections, plus two capped diagnostic probes isolating the meter deadline refusal inside _declaration_admission. Development verification only; not proof."
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/python -m py_compile (both new files); awk line-length <= 100 (both new files); taskset -c 0 prlimit --cpu=60 --as=1073741824 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check (both new paths) - static checks before each amend",
+      "exit": 0,
+      "result": "COMPILE_OK, LINES_OK and All checks passed at every amend step. Static checks only; not proof."
+    },
+    {
+      "command": "Root-owned bounded probes and exact reviews: parallel/joint-evaluation-declaration/Root-exact-review-d5c4dba8, Root-exact-review-770b00dc, Root-exact-review-76c1ba7e (FIX rounds) and Root-exact-review-0a816ab0 (final focused + witness)",
+      "exit": 0,
+      "result": "Independent strategic review evidence, not a coding proof run."
+    },
+    {
+      "command": "process recovery only (no candidate execution): Root review-channel provisioning at 14:43 UTC (Root provisioned the omitted implementation-review.fifo after proving no active reader and no consumed review; prior failed reader claim sha256 3613aa464f078d14dcb5382236bdb36f3e8ae35d0e2ec5d5491c2b42aecf0b24) and foreground reader recovery at 14:47 UTC (detached nohup reader PID 2431393 died as the exec tool shell ended; lock free, no review sent; replaced by one foreground unified-exec session per recovery guidance)",
+      "exit": 0,
+      "result": "Review channel and reader recovery; recorded in Root-review-channel-provisioning-recovery.json, Root-foreground-reader-recovery.json and the lane review records."
+    }
+  ],
+  "witness_sha256": {
+    "src/slaif_raggedized_helper/private_evaluation_preflight.py": "5ef16bec3a48fc497a147a5ddded156fa2a55ad6551fdc7fde82b3ce6aea60a6",
+    "tests/unit/test_private_evaluation_preflight.py": "ae90709f1813ac4bdfb0e79152fe0fd3544eee1468c93acdd38c3ce7905bedb8",
+    "oap/parallel/orders/PAR-009-JOINT-EVALUATION-DECLARATION-A.md": "65ade514c1f961d198fa8ac917fb46558cc123422a74d8646b2323a2ed92e2ae",
+    "src/slaif_raggedized_helper/source_cohort_runner.py": "040f6813d6f2d5772392dca49daf57e6ba2b6b5a94fe3dd6bd5e7fd324b7580f",
+    "src/slaif_raggedized_helper/evaluation_program.py": "fc00a26059e73f9c5d1f35354b7d22b57bb76a73697b0e2ee5c6f92728d2474d",
+    "src/slaif_raggedized_helper/source_bound_stage_loss.py": "caf22819c1148dd3dcadf368904fdd4f98475451ff2f0c50fc7e51caa37fe546",
+    "src/slaif_raggedized_helper/evaluation_plan_wire.py": "528e6391a3fdb64b0656f73f4712a16e2bec9e0cfc2c42dd563eefbe4f1c8a2a",
+    "tests/unit/test_source_cohort_declaration_preflight.py": "126cac8862946742b1429367308daeb443643df49dece85a5838af3058fed21e",
+    "tests/unit/test_evaluation_grade_preflight.py": "524325d12033581bcda67a7f1f9c7457df17fbd2ec922454148f2662c9ebdc12",
+    "tests/unit/test_source_cohort_runner.py": "4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b",
+    "tests/unit/test_evaluation_program.py": "59f093b45a471e04ac21ad555643c6899cac3d972c47e1aea4756904525b39b0",
+    "tests/unit/test_evaluation_plan_wire.py": "afdd69731f08265f12b3e8b4cae3fcbafaa896870592eeac38aaad3ece3efaac"
+  },
+  "root_review_evidence": {
+    "implementation": "0a816ab06500c8b7090e3afbdae76e86ae788afa",
+    "decision": "REPORT (consumed by the owned implementation-cycle helper at 2026-11-20T15:30:36Z)",
+    "artifacts": {
+      "Root-exact-review-0a816ab0/focused.command": "d0ae73769cb504d955d4fd78eb7933609db2fb81866b78d322022dc961cfb3b1",
+      "Root-exact-review-0a816ab0/focused.stdout": "95b815742fca2676602a9d5d72da3a28c84a17caded3326c21c6aad152030d9e",
+      "Root-exact-review-0a816ab0/focused.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Root-exact-review-0a816ab0/focused.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "Root-exact-review-0a816ab0/witness.command": "f5824a7246e995cc5e17272369874c5281657fda7247e5c77e5b91580f6e768c",
+      "Root-exact-review-0a816ab0/witness.stdout": "fc8edae67522d32ef0bbe266d0ae472bf61a3f87ff967d66e47f2d8953415453",
+      "Root-exact-review-0a816ab0/witness.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Root-exact-review-0a816ab0/witness.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "focused_passes": 84,
+    "new_cases": 42,
+    "inherited_cases": 42,
+    "review_loop": "Three owned FIX rounds consumed through the helper: d5c4dba8319f9d3400d5c7ba0244428888fb4748 (collapsed Gold/config/budget identity; ValueError-only catch), 770b00dc2d7b802bfdc4c7ccf85c5fd11881f0a7 (post-admission caller-alias mutation leaked unadmitted values into the result), 76c1ba7ed869641826f75dc58a4a1778bd7eff79 (pre-admission snapshot work preceded the entry deadline); final REPORT at 0a816ab06500c8b7090e3afbdae76e86ae788afa",
+    "verified_unchanged_preserved_objects": true
+  },
+  "limits": "The single ordered bounded proof used only the pre-existing canonical /home/janezp/codex-work/slaif-raggedized-helper/.venv binaries directly (no uv run, no installs, no setup), the exact physical worktree on PYTHONPATH, a fresh mode-0700 mktemp -d directly beneath sticky /tmp with a private basetemp, -p no:cacheprovider -o addopts=, PYTHONDONTWRITEBYTECODE=1, OPENBLAS_NUM_THREADS=1, timeout -k 5 120 prlimit --cpu=60 --as=1073741824, and one allowed process-local core (taskset -c 0) for Ruff. Synthetic evidence only: synthetic metadata, inert owner references, controlled clocks and owned synthetic records; no pin check/catalog/materialization, no real source or Gold access, no vectors or encoder, no producer, no scorer, no publication, no current-policy or live authorization, no network, no GPU, no real model or hardware, no baseline. Local isolated worktree only: no GitHub, no push, no PR change, no CI, no merge, no integration. No authorization, scoring, estimator or result publication claim. Raw outputs retained: final pair scratch /tmp/joint-evaluation-declaration.a52LHm (mode 0700); preserved superseded and development scratches /tmp/joint-evaluation-declaration.q3Auhz, .dE9qpQ, .BAYcnl, .VFbsYx, .uz52NO; lane Root-exact-review directories and review records in parallel/joint-evaluation-declaration/.",
+  "strongest_counterargument": "The prepared declaration is a declaration-only joint admission over synthetic fixtures: it binds the genuine wire, cohort and grade admission gates before any execution or protected read, but it authorizes and executes nothing. The one entry deadline is process-local - the committed test proves the ordering on a controlled seconds-domain fake clock (65.0 s advance against a 120 s positive budget and a 0.05 s late budget) while Root's separate probe reconfirmed the boundary in real milliseconds (65 ms elapsed against a 50 ms request) - so it is a single-process budget bound, not a distributed or real-time guarantee. The retained budgets are nominal accounting snapshots checked against closed records, not physical resource limits, and the synthetic evidence does not establish real encoder or transport compatibility, real data parity, authorization, rights, license or hardware qualification. All later fixed-path use remains gated by the existing downstream checks.",
+  "DHA Decision": "NONE"
+}

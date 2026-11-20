@@ -2258,6 +2258,138 @@ operator, the real representative baseline, source rights and model
 gates remain open; the representative baseline remains NOT_RUN and
 whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-aa joint declaration and current pin transfer (same 009
+continuation)
+
+Byte-exact transfer of the two independently reviewed isolated
+development lanes into the canonical PR 11 (round base ca8e9c8a, the
+accepted 009-z report-only head whose required hosted run
+44775148168 attempt 1 passed all five jobs and every step, both
+Products at 3,275 ordered units (1,440 A plus 1,835 B) and the
+separate 951-case integration each). The frozen Root transfer index
+(SHA-256
+9bd1da70a5cf37a91b90d6c11f4f16dc8c791eb91ab46736c686b2a58ddd35e4)
+pins both lane implementations, exact source copies, original
+reports and destination identities; the prior resolution (SHA-256
+dbc5d5006a6073aa0473218ccdcf56f33a4a2def442b4e5ffbed20fa1d8c3d8b)
+binds the exact accepted 009-z report, its consumed regular receipt
+and the terminal Root gate. Both control files are preserved
+verbatim under oap/reviews/ and the two consumed lane receipts plus
+the two local Root resolutions were verified at their indexed
+SHA-256s.
+
+Lane 1, joint-evaluation-declaration (PAR-009-JOINT-EVALUATION-DECLARATION-A,
+implementation 0a816ab0 on effective base ed48ca58), transfers the
+new private joint declaration preparation entry (7,140 B) plus the
+42-case unit suite (37,427 B) and the original verbatim lane order
+(5,825 B). The original immutable lane SELF report (publication
+commit cfb7ef41, 18,640 B, SHA-256
+e899bae105966be38a769afb2b3f14784493e040bbca7f7d472de06a316121dd)
+is preserved at
+oap/provenance/009-aa/PAR-009-JOINT-EVALUATION-DECLARATION-A.json.
+The entry binds, in one bounded pass, the exact evaluation plan wire
+admission, the genuine source cohort declaration admission and the
+actual grade declaration preparation against the exact same admitted
+dataset and ordered selected values: one existing source deadline
+(an int of 1..1,200,000 ms) is created at entry before the wire
+phase and used through return, the nominal config, source budget and
+grade budget are snapshotted to owned primitive values before
+admission, and a prepared declaration is returned only after every
+declared case and the complete grade scope have passed, retaining
+the exact validated per-case encoder-identifier tuples, the exact
+validated Gold bundle ID tuple and the pre-admission snapshots. No
+pin, privileged source, encoder, producer, scorer, report or
+publication work occurs, and the entry exposes no alternate caller
+clock, callable or pre-admitted plan. The 42 local witnesses
+exercise the genuine wire, cohort and grade admission paths and the
+bounded deadline behavior over synthetic declared datasets only:
+they prove the paired declaration preparation and its refusal
+boundaries, not evaluation execution, retrieval quality, current
+policy or any publication authority.
+
+Lane 2, current-policy-pin-eligibility
+(PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A, implementation 57d463a5
+on the ordered preparation head 9e6283fe with tree 0279879f and
+exact parents 4b798897 + 7f6190ad), transfers the new private
+current-policy partition eligibility entry (19,591 B) plus the
+53-case unit suite (70,832 B) and the original verbatim lane order
+(6,376 B). The original immutable lane SELF report (publication
+commit dc28c0d2, 35,496 B, SHA-256
+ea78972b03d5b8ae5b2fa59bdde8b848ff83e4d8dc1e6cc19a81cfde0cb5788e)
+is preserved at
+oap/provenance/009-aa/PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A.json.
+The entry composes the exact admitted current selected-policy
+request (private_policy_request.PolicyRequestAdmission) with the
+already admitted in-memory capture of one exact borrowed
+operator-owned active PinOwner: one absolute cooperative deadline
+bound to this operation honors the shorter remaining current
+request lifetime, the genuine recheck runs before using pin data
+and again after scope computation, and the real
+supplied_policy_eligibility.unavailable_partitions over the exact
+retained current policy and captured membership with the real
+narrowed scope rules decides one fixed, content-free eligible or
+unavailable outcome. The caller supplies no policy bytes, stored
+root, provider, raw credential, arbitrary grants or clock; the
+entry only borrows the already created capture, keeps the owner's
+existing nonblocking guard across the in-memory capture, scope
+computation, final current check and result assembly, and releases
+it on every exit. The retained selected policy is re-admitted in
+memory as one bounded coherent isolated snapshot through the
+genuine closed supplied-policy admission and verified against the
+exact semantic identity bound by the original admission before any
+of its principal or document rules are used, so no exposed mutable
+nominal DTO - detached or nested - can anchor authority; a changed
+or invalid detached authority is refused at the initial and final
+observation cuts. PinOwner.check, namespace revalidation,
+snapshot/source file opens, catalog, pin acquisition, encoding,
+scoring and publication are outside this operation, and the
+observation exposes no partition identity. The 53 local witnesses
+run the real request rechecks, the genuine admission re-derivation
+and the unavailable-partitions rules over the in-memory borrowed
+capture with synthetic controlled delegates only: they prove the
+borrowed-pin eligibility observation under current policy, not
+actual pin or file freshness, durable writer authority, current
+authority invocation, scoring or delivery.
+
+All eight transfer objects were verified at the exact source
+commits and at the receiving tree for mode 100644, size, SHA-256
+and blob OID; all 27 indexed receiving preimages were verified
+byte-exact at the round base, including the actually inherited
+current-view files (private_policy_request.py, 14,885 B;
+test_private_policy_request.py, 42,773 B), the pin ownership
+sources (raw_snapshot_pin.py, 9,471 B, and the raw_snapshot_*
+readers) and the genuine policy admission code (supplied_policy.py,
+16,721 B; policy_selection.py; private_policy_capture.py, 14,974 B;
+supplied_policy_wire.py). Actual local proof at the implementation
+bytes under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds with
+OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+0700 scratch and no cacheprovider: one bounded focus of the nine
+ordered entries (test_private_evaluation_preflight.py 42,
+test_source_cohort_declaration_preflight.py 21,
+test_evaluation_grade_preflight.py 19,
+test_source_cohort_runner.py::test_success_and_private_report 1,
+test_evaluation_program.py::test_two_cases_empty_and_unretrieved_positive
+1, test_private_policy_pin_eligibility.py 53,
+test_supplied_policy_eligibility.py 18, test_private_policy_request.py
+45, test_raw_snapshot_pin.py 8) passed 208/208 in 2.65 s (exit 0);
+one four-file Ruff check on one process-local core exited 0; one
+bounded import-origin check confirmed both transferred product
+modules resolve to the canonical repository src with the exact
+indexed SHA-256s. Expected at the report head: group A 1,440
+unchanged, group B 1,930 (all 95 new default nodes in B), 3,370
+total units each Product, the separate 951-case integration, all
+five required jobs (the two Product legs and the three OAP legs)
+and every existing step; the fresh full hosted CI at the exact
+report head is PENDING at report authoring and is a distinct gate
+from the local proof; Root owns the fresh CI and terminal review.
+The accepted artifacts do not connect evaluation execution to
+either entry, and the existing public entry points are preserved.
+No full transfer or qualification acceptance flows from
+publication alone; the open governed operator, the current durable
+writer, request execution, source rights, model and hardware gates
+remain open; the representative baseline remains NOT_RUN and whole
+009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

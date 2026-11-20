@@ -1,0 +1,247 @@
+{
+  "lane_id": "PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A",
+  "result": "COMPLETE",
+  "implementation_head": "57d463a5d19b22059d9f0eaf4361ffe03ec91ab5",
+  "report_publication_commit": "SELF",
+  "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-current-policy-pin-eligibility",
+  "branch": "oap/parallel-009-current-policy-pin-eligibility",
+  "base": "4b798897dcc3b6194eeda960046d0bf040747dfe",
+  "preparation_heads": [
+    "9e6283fe554ebae8c93ea133765119622dca3a77"
+  ],
+  "implementation_head_sha_note": "Implementation head SHA: 57d463a5d19b22059d9f0eaf4361ffe03ec91ab5 (sole parent 9e6283fe554ebae8c93ea133765119622dca3a77, the exact ordered preparation head; tree 885e8e1e5cd9480003f6fa01c59f18f2a111132f; preparation parents 4b798897dcc3b6194eeda960046d0bf040747dfe and 7f6190adf3d8092f2381505b45185db78db901d0, preparation tree 0279879f4a3aa87e6c448cad43261ffdb7bf19af, both Root-verified in Root-verified-preparation.json). Superseded candidates 6b7a3b8f24fe2063cfdad481a44476ce03fe1639 (FIX) and d959b83b1eaa458690bc8ce0ab2109d57b3c5b1c (FIX-1) are preserved by checkpoint refs; no report was published for them.",
+  "control": "EXACT_OK_CONSUMED 2026-11-20T13:40:17Z via the single owned helper lane_signal.py wait-control current-policy-pin-eligibility (receipt control-consumed.json sha256 d5a0903cbcc40fcc540eb9cf8be5fe5b295bb02103b6f21c62ca0256c9913b7e; control-send.json sha256 af138787ff4a6bf85a9378008a94ff46dca05939ed4778097aaa7b56e5fb7666); never reread or replayed; no direct FIFO access; no second helper reader or signal. Ordered bytes verified before code: order.md 7523127383be53549d9f328c88a1abe58a14d92d67355e854ca4f9dbac11626c, source-inputs.json aa5f2eac3cb1be5fecdf90d82d648e5fe08fe6d56d3e0186cc77e623326eb786, manifest.json 0af3e79eb71c20e1c34ae148f525b84cf741682dd167fba72b39a7bbf005804f. Root pre-proof guidance read once before the bounded proof and applied (file Root-pre-proof-guidance.json sha256 b2521728b4d7575d36f3ee80af8615f14c07cba16635b6d77f9aa948b9150356; provisional module sha256 5bc8cff86374b02ad7f902deafb07c41c710bd510e9a3d21a5508cba62a16a8a confirmed on disk): the real owner guard held across in-memory capture, scope computation, final current check and result assembly with release on all exits; the parsed manifest's own snapshot ID verified; the opaque result retaining the exact core/membership bytes and normalized narrowed-authority identity without partition identities; the zero-readable-membership shortcut corrected; the single deadline started before restriction work; one foreground implementation_cycle.py request with a yielded tool session.",
+  "review_path": [
+    {
+      "checkpoint": "6b7a3b8f24fe2063cfdad481a44476ce03fe1639",
+      "decision": "FIX",
+      "note": "Root reproduced a substantive authority-binding defect with the lane's real request and pin fixture (PAIRS_B_STALE): the admission's detached nominal Grants DTO carries an exposed mutable field dictionary, and removing only label-b from vars(admission.grants) - with the selected policy's independently admitted principal grant, selected bytes, generation and unavailable partition set unchanged - flipped the genuine result from UNAVAILABLE to ELIGIBLE after the same real two rechecks (witness observations: before_eligible false, after_eligible true, same_unavailable_partitions true, observed_freshness_calls_including_initial_capture 4; witness.stdout sha256 2f2d4a0d36f8479a9aaeae8a2c08027938ed5ac7ab13b54afc71905af3e91114, exit sha256 9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa). Verdict implementation-review-6b7a3b8f.json sha256 70ffe332a8da1a1c8d51a6a745d84f1786f7f14beffd76f2e62658640fd3a559, consumed by the owned helper (implementation-review-consumed-6b7a3b8f.json sha256 8a5913e494b6964f7924fa492601db347b56794943b0f3dcdd83a5ab130a0efe). Candidate preserved by checkpoint ref; no report published for it."
+    },
+    {
+      "checkpoint": "d959b83b1eaa458690bc8ce0ab2109d57b3c5b1c",
+      "decision": "FIX",
+      "note": "Root independently confirmed 122 focused passes and that the original detached-only regression was corrected (detached_alias_only REFUSED) and that mutation immediately after the second successful genuine recheck is refused (final_check REFUSED with both real rechecks). One policy-identity defect remained: the independently retained SuppliedPolicy exposes a nested nominal Grants DTO too; setting both exposed grant DTO label tuples to the same narrowed values returned ELIGIBLE while the originally admitted scope was UNAVAILABLE (both_existing_copies_agree_after_mutation ELIGIBLE; policy_identifier_and_selector_unchanged true; same_unavailable_partition true; authority-witness.py sha256 b79757a0f5a6b28c51ef5f2767d42603f618b98632cbf4cfbb5fa681bade68bb, witness.stdout sha256 c4098be3e7b3009eb0134a645c8b08945f59b2709faf4f6717904f6f5e293ed6, focused.stdout sha256 d2def21877937f881671c364ebf0b8d4bdbec23dea45e07ad1d6aabad7a40d87, exit sha256 9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa). Agreement between two mutable copies cannot anchor authority. Verdict implementation-review-d959b83b.json sha256 d4a1e4c109afd28e8178bb5b43b32df34d1067abf318ee2a5fa03a015f78aceb, consumed (implementation-review-consumed-d959b83b.json sha256 5b5d50cdf7ce3838364ec577de5f9029dc989c96b822b6a1f749c36bbe995265). Candidate preserved by checkpoint ref; no report published for it."
+    },
+    {
+      "checkpoint": "57d463a5d19b22059d9f0eaf4361ffe03ec91ab5",
+      "decision": "REPORT",
+      "note": "Independent Root proof at canonical caps: 124 focused cases passed (53 new, 71 inherited; focused.stdout sha256 3106d70042147a2c27ff8844f65108d36ec13ff4844ddbb4c3f7aed2dbb66bb2, commands sha256 de43c3687fa4871e5d4b1e6e5fed3b102202d9270ce76ad3c344f5ac973fef24, exit sha256 9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa) plus the authority witness probe (witness.stdout sha256 f5257f9680eff3f66529d8b4d7939adfb377a2cff7165daafdb712c8a180e11b, exit sha256 9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa) confirming unmodified_original_scope UNAVAILABLE, detached_alias_only REFUSED, both_existing_copies_agree_after_mutation REFUSED, policy_identifier_and_selector_unchanged true, same_unavailable_partition true, and final_check REFUSED with both real rechecks; positive native in-memory policy and guarded borrowed real owner behavior, and the exact original unavailable behavior for the withdrawn within-scope partition. The new genuine bounded re-admission uses the semantic ID from the original request before the verified isolated view is used; the controlled-clock late test refuses before selection observation. Verdict implementation-review-57d463a5.json sha256 66279133c6ce43659d3de2c2193d1132133efa01ffcb78090aa024d6a4546ee5, consumed (implementation-review-consumed-57d463a5.json sha256 9d8be9f7b4d944fa851b015bc8eb32d868c4f42f0f0a7b4586bceef584e5fb5b). Object bytes verified at the checkpoint: src a09c501656a6b39973bc5d4cae9a8e8e089ee1c39f95359f06c586a5be55dfb3, tests afae35e211143d66bd647a8afb211555909c4590257d6a7a1898b9d3a6d75970, order 7523127383be53549d9f328c88a1abe58a14d92d67355e854ca4f9dbac11626c."
+    }
+  ],
+  "changes": [
+    "New private module src/slaif_raggedized_helper/private_policy_pin_eligibility.py (438 lines) plus focused tests/unit/test_private_policy_pin_eligibility.py (1688 lines) and the verbatim lane order copy. Exact existing dependencies (private_policy_request, private_policy_capture, supplied_policy, supplied_policy_eligibility, provenance_records, raw_lexical_search, raw_snapshot_manifest, raw_snapshot_membership, raw_snapshot_files, raw_snapshot_pin, raw_snapshot_selection, source_admission, derived_store) and their public behavior preserved; the new private entry performs only in-memory eligibility observation over one borrowed active pin.",
+    "prepare_current_pin_eligibility: exact typed admission (type is PolicyRequestAdmission) and owner (type is PinOwner); bounded int deadline 1..30000 (bool refused); the single absolute cooperative deadline bound to this operation starts before any restriction work as min(monotonic()+deadline_ms/1000, admission._end), honoring the shorter remaining current request lifetime, never reset or extended, with a late usable success refused after every phase; restrictions validated only through the existing bounded authority bounder (raw_lexical_search._authority, None or exact Restrictions DTO); the retained selected policy is re-admitted in memory as one bounded coherent isolated snapshot through the genuine closed supplied_policy.admit_policy with its existing bounds and canonical hash, verified against the exact semantic policy identity bound by the original admission before any of its principal or document rules are used (no stored policy bytes re-opened); the admission's detached nominal authority value is bound to the verified snapshot's exact admitted principal grant through the same bounded DTO admission, one coherent isolated grants snapshot serving both scope evaluation (reader_allows) and the opaque binding, and re-verified at the final observation cut so a changed or invalid detached authority refuses with the fixed error.",
+    "Borrowed pin under the real gate: the entry keeps the owner's existing nonblocking creator/operation guard across the in-memory capture, the scope computation, the final current check and the result assembly, releasing it on every exit; a concurrently closed owner can never receive a returned preparation (close refused while the gate is held), a busy owner is refused nonblocking with zero observations, and a foreign creator PID is refused before the gate. The active capture is verified without any reload: exact PinData/Pointer/BoundSnapshotData types, pointer/data snapshot identity, exact core digest against pointer.core_sha256, the pure in-memory manifest re-admission with the parsed manifest's own snapshot ID bound to the capture, and the captured membership bytes bound to the admitted manifest's membership descriptor (role, schema, bytes, sha256).",
+    "Scope rule: the real supplied_policy_eligibility.unavailable_partitions over the verified isolated policy snapshot and captured membership, intersected with the real narrowed scope rules (provenance_records.admit_record Scope plus reader_allows with the admitted principal grants and the normalized narrowed restrictions): an unavailable partition inside the requested readable scope refuses the whole scope (eligible False observation), a scope narrowed to zero readable membership entries has no usable scope and reports the same fixed unavailable outcome (the empty-unavailable shortcut is gone), and a withdrawn partition outside the readable scope does not block an unaffected scope.",
+    "PinEligibilityObservation: frozen/slots/init=False dataclass, factory-only (its constructor raises the fixed error), redacted repr; exposes exactly eligible, snapshot_id, policy_id, principal_id, selection_generation; privately and opaquely retains the borrowed owner, the admission, the exact captured core and membership bytes, the coherent checked grants snapshot and the normalized narrowed restrictions snapshot; no partition identity or source text in any exposed attribute. One fixed input-free PolicyPinEligibilityError (ValueError, 'private pin eligibility refused') is raised after the handler with __cause__/__context__ None; a non-Exception BaseException propagates by identity through the released guard, preserving interruption and cleanup semantics.",
+    "FIX round 1 (6b7a3b8f -> d959b83b): detached authority binding (see review_path): the detached admission.grants value is admitted and compared against the policy-side admitted principal grant before the first recheck and re-admitted at the final observation cut; scope evaluation and the opaque _grants binding use one coherent isolated snapshot; the real-owned synthetic witnesses add the exact false-to-true label-removal case (before ineligible, mutated refusal with no freshness or scope work, restored ineligible), a widening mutation slipping past the initial cut during the scope/freshness window refused at the final cut with an ordinary positive control, and an invalid non-tuple detached value refused before any freshness call.",
+    "FIX round 2 (d959b83b -> 57d463a5): the nested nominal Grants DTO exposed inside the independently retained SuppliedPolicy is also mutable, so agreement between two mutated copies could not anchor authority; the retained selected policy is now re-admitted as one bounded coherent in-memory isolated snapshot through the genuine closed supplied_policy.admit_policy (existing bounds and canonical hash covering principals including grants and document rules), verified against the exact semantic policy_id bound by the original admission before its principal or document rules are used; the verified snapshot is the only policy object used for the grant anchor and the unavailable-partition derivation, and the observation binds the same coherent checked grants authority with no mutable alias as proof. Witnesses: the exact two-copy changed case on the same real admission, pin and PAIRS_B_STALE fixture (both exposed grant DTOs narrowed to equal values refuses; selected record, stored bytes, semantic policy ID and unavailable partition set unchanged; restored state and an all-admitted real unchanged positive requalify) and the genuine lateness of the added snapshot work under the same absolute deadline (controlled clock advanced past the one operation end inside the admission refuses the late usable success with no observation, no freshness read and no scope work; the same admission qualifies inside the lifetime again)."
+  ],
+  "files": {
+    "src/slaif_raggedized_helper/private_policy_pin_eligibility.py": "a09c501656a6b39973bc5d4cae9a8e8e089ee1c39f95359f06c586a5be55dfb3",
+    "tests/unit/test_private_policy_pin_eligibility.py": "afae35e211143d66bd647a8afb211555909c4590257d6a7a1898b9d3a6d75970",
+    "oap/parallel/orders/PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A.md": "7523127383be53549d9f328c88a1abe58a14d92d67355e854ca4f9dbac11626c"
+  },
+  "checks": [
+    {
+      "cmd": "QUALIFYING focused pytest at 57d463a5 (four files: new tests + test_supplied_policy_eligibility.py + test_private_policy_request.py + test_raw_snapshot_pin.py): cd <worktree> && PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=<worktree>/src timeout -k 5 120 prlimit --cpu=60 --as=1073741824 <canonical .venv>/bin/python -m pytest -o addopts= -p no:cacheprovider --basetemp=<fresh 0700 mktemp -d directly under sticky /tmp>/basetemp (git rev-parse HEAD recorded in the log)",
+      "exit": 0,
+      "passed": 124,
+      "failed": 0,
+      "summary": "124 passed in 2.07s (53 new + 71 inherited)",
+      "log": "parallel/current-policy-pin-eligibility/proof-pytest-3.out",
+      "log_sha256": "0863c96aed0fe9c0b01822aefc054d529d717392f473927dcf39cd1df10be66a"
+    },
+    {
+      "cmd": "QUALIFYING one-core Ruff at 57d463a5: same caps (timeout -k 5 120 prlimit --cpu=60 --as=1073741824), canonical .venv ruff, taskset -c 0 (lowest set bit of the process-local allowed affinity mask), both changed files",
+      "exit": 0,
+      "result": "All checks passed!",
+      "log": "parallel/current-policy-pin-eligibility/proof-ruff-3.out",
+      "log_sha256": "b0c4b5ba0f5d3dae7a57ab6fcc681c276b11f2ea1d23be0356080fc3b8066d45"
+    },
+    {
+      "cmd": "Independent Root bounded proof at 57d463a5 (canonical caps, synthetic operator-owned ephemeral paths directly beneath sticky /tmp): focused 124-case run plus authority witness probe",
+      "exit": 0,
+      "evidence": {
+        "focused.stdout": "3106d70042147a2c27ff8844f65108d36ec13ff4844ddbb4c3f7aed2dbb66bb2",
+        "focused.command": "de43c3687fa4871e5d4b1e6e5fed3b102202d9270ce76ad3c344f5ac973fef24",
+        "focused.stderr": "e3b0c44298fc1c149afbf4c8996fb4a42b9c487d83b17904f6f5e293ed6",
+        "focused.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "witness.stdout": "f5257f9680eff3f66529d8b4d7939adfb377a2cff7165daafdb712c8a180e11b",
+        "witness.stderr": "e3b0c44298fc1c149afbf4c8996fb4a42b9c487d83b17904f6f5e293ed6",
+        "witness.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      }
+    },
+    {
+      "cmd": "Superseded bounded focused pytest at d959b83b (fresh 0700 mktemp beneath /tmp, same caps): 122 passed",
+      "exit": 0,
+      "passed": 122,
+      "log": "parallel/current-policy-pin-eligibility/proof-pytest-2.out",
+      "log_sha256": "8ee4c1cb0d2079cd792ca892f8bd81c85ca573390613b3ad238b4816d18bcc2d"
+    },
+    {
+      "cmd": "Superseded one-core Ruff at d959b83b (same caps): All checks passed!",
+      "exit": 0,
+      "log": "parallel/current-policy-pin-eligibility/proof-ruff-2.out",
+      "log_sha256": "7f7f514a249c8c82e4025b7e16603a03ae644a6155d038b6f4b7437dd805abfc"
+    },
+    {
+      "cmd": "Superseded bounded focused pytest at 6b7a3b8f (fresh 0700 mktemp beneath /tmp, same caps): 119 passed",
+      "exit": 0,
+      "passed": 119,
+      "log": "parallel/current-policy-pin-eligibility/proof-pytest-1.out",
+      "log_sha256": "7c86746f4cd3d5c406cb6aef51c51a8fc260152af96fa1d9c3833229dc6fd4aa"
+    },
+    {
+      "cmd": "Superseded one-core Ruff at 6b7a3b8f (same caps): All checks passed!",
+      "exit": 0,
+      "log": "parallel/current-policy-pin-eligibility/proof-ruff-1.out",
+      "log_sha256": "edddac9ca06bb18549cea222fb450eed04756bafcf461bdc515aca45109d2f83"
+    }
+  ],
+  "excluded_evidence": [
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-run-1.out",
+      "sha256": "3ead6b5bd2b2da302c5f128dc6555a05a58a92f3691c0534e928f0835edeabee",
+      "exit": 1,
+      "passed": 2,
+      "failed": 42,
+      "cause": "First dev run on the provisional bytes: the _make_store fixture created the 0o500 snapshot target directory before writing the .core.json/membership.json/row_map.json files, so every scenario build raised PermissionError (42 failed / 2 passed - only the two origin/API tests that build no store). Preserved and excluded."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-run-2.out",
+      "sha256": "a54418b11a068e2bf5b28ffb5e8aa88208fc368db693decb4b20d576ed69137f",
+      "exit": 1,
+      "passed": 38,
+      "failed": 10,
+      "cause": "After the fixture correction, five latent test-side defects surfaced: the boundary-deadline loop expected deadline_ms=1 to succeed end to end (a 1 ms operation budget can never deterministically cover the reader's 1 ms floor under real-clock drift), the (None, None) type-refusal parametrize passed the fully valid pair into a raises block, two authority-count expectations assumed the restriction-less call validates through _authority, and the shorter-lifetime test sliced the recorded recheck reads assuming the admission's pre-wrapper read was recorded. Module behavior was correct in all five; the tests were corrected (white-box gate-boundary witness plus 30 s end-to-end acceptance, valid-pair success branch, corrected counts, correct read slicing). Preserved and excluded."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-run-3.out",
+      "sha256": "3cc30d066a9541e126ba3e1b28435877a34ed7dc69153e1f374e1c42f5e86bbb",
+      "exit": 2,
+      "passed": 0,
+      "failed": 0,
+      "cause": "Collection error (IndentationError at line 694) from a patch applied with 12-space indentation into an 8-space test body; fixed before re-run. Preserved and excluded."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-run-4.out",
+      "sha256": "380705c563d8653cb566b5254073124620efb30582dd1b499611ab6541909d6c",
+      "exit": 0,
+      "passed": 48,
+      "failed": 0,
+      "cause": "First fully green dev bytes (identical pytest output to dev-run-5 because the intervening change removed an unused module import without altering any test output); preserved; excluded from qualifying proof."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-run-5.out",
+      "sha256": "380705c563d8653cb566b5254073124620efb30582dd1b499611ab6541909d6c",
+      "exit": 0,
+      "passed": 48,
+      "failed": 0,
+      "cause": "Post-ruff-correction dev bytes (the 6b7a3b8f candidate bytes: unused import removed, five 102-char E501 lines wrapped); preserved; excluded from qualifying proof."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-run-6.out",
+      "sha256": "aacad7829959d2e0fd79c11b817a1a7d7da2bd739be271022a3aa530eb580e22",
+      "exit": 0,
+      "passed": 51,
+      "failed": 0,
+      "cause": "Green dev bytes after the FIX round 1 authority-binding correction (the d959b83b candidate bytes); preserved; excluded from qualifying proof."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-run-7.out",
+      "sha256": "ce8485b4d1d1b97e45276ecc91e4898dbb2b6cd1c99e10869776873192d846ec",
+      "exit": 1,
+      "passed": 52,
+      "failed": 1,
+      "cause": "After the FIX-2 isolated-policy-snapshot correction, the new two-copy witness's second scenario base directory did not exist before _build_scenario created its children (FileNotFoundError at root.mkdir); corrected by creating the 0700 base directory in the test. Preserved and excluded."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-run-8.out",
+      "sha256": "fc0f26b92bb1f229724a099a1e21df4d008d4db74431d028d75ac91fb32a78b6",
+      "exit": 0,
+      "passed": 53,
+      "failed": 0,
+      "cause": "Final green dev bytes (the 57d463a5 candidate bytes); preserved; excluded from qualifying proof."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-ruff-1.out",
+      "sha256": "9ebf5fc873c71966cfd77ea1d18737cbc357518944b2d09bff622c757c0bb278",
+      "exit": 1,
+      "cause": "First capped one-core Ruff: one pre-existing F401 (unused raw_snapshot_membership import in the module) and five pre-existing E501 lines (102 chars) in the tests, all present in the provisional bytes; corrected in the same dev loop. Preserved and excluded."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-ruff-2.out",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "exit": 0,
+      "cause": "Green capped one-core Ruff after the lint corrections (identical bytes to dev-ruff-3/dev-ruff-4; same caps, core 0). Preserved; excluded from qualifying proof."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-ruff-3.out",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "exit": 0,
+      "cause": "Green dev-loop Ruff after FIX round 1 (identical bytes to dev-ruff-2). Preserved; excluded."
+    },
+    {
+      "file": "parallel/current-policy-pin-eligibility/dev-ruff-4.out",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "exit": 0,
+      "cause": "Green dev-loop Ruff during the FIX-2 loop (identical bytes to dev-ruff-2; the final qualifying lint is proof-ruff-3). Preserved; excluded."
+    },
+    {
+      "note": "Pre-commit compile-only syntax checks (python -m py_compile under the same caps, no test execution) were run on the candidate bytes before commits; they are hygiene checks, not proof runs, and are disclosed here rather than counted as bounded proofs. All bounded processes used the pre-existing canonical .venv binaries directly; no uv setup, no extra or uncapped runs."
+    }
+  ],
+  "attempts": {
+    "implementation_commits": 3,
+    "checkpoint_refs_preserved": [
+      "refs/oap/implementation-checkpoints/current-policy-pin-eligibility/6b7a3b8f24fe2063cfdad481a44476ce03fe1639",
+      "refs/oap/implementation-checkpoints/current-policy-pin-eligibility/d959b83b1eaa458690bc8ce0ab2109d57b3c5b1c",
+      "refs/oap/implementation-checkpoints/current-policy-pin-eligibility/57d463a5d19b22059d9f0eaf4361ffe03ec91ab5"
+    ],
+    "review_rounds": 3,
+    "qualifying_bounded_processes_at_final_checkpoint": 2,
+    "note": "One implementation commit per review verdict, each on the exact sole parent (preparation head 9e6283fe554ebae8c93ea133765119622dca3a77) with only the three allowed paths; each prior candidate preserved by its checkpoint ref. One bounded changed-input focused pytest and one targeted one-core Ruff exactly once at each corrected checkpoint, using the pre-existing canonical .venv, the exact physical worktree origins, fresh 0700 mktemp basetemps directly under sticky /tmp, and the prescribed caps (CPU 60 s, AS 1 GiB, wall 120 s, KILL 5 s, OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1). Each owned checkpoint used one foreground implementation_cycle.py request in a yielded tool session (no detached helper, no direct pipe). All dev-loop, failed and superseded attempts are preserved above and excluded from the qualifying proof."
+  },
+  "caps": {
+    "request_deadline_ms": "1..30000 inclusive (type is int; bool refused)",
+    "reader_call_cap_ms": 30000,
+    "pre_call_remaining_floor_ms": 1,
+    "required_operations": [
+      "search",
+      "sources:read"
+    ],
+    "process_caps_qualifying_proof": {
+      "cpu_s": 60,
+      "as_bytes": 1073741824,
+      "wall_s": 120,
+      "kill_grace_s": 5,
+      "one_thread_product_setting": "OPENBLAS_NUM_THREADS=1"
+    }
+  },
+  "witnesses": [
+    "Real admission, real pin, governed synthetic acquisition: every scenario builds an actual PolicyCaptureReader root, a genuine request_current_view admission (test-side wire emitter is an independent re-derivation of the typed component grammar) and a real PinOwner acquisition - real OriginalStore/derived Store objects, real private store namespace with exact 0700/0500/0400 modes, real canonical pointer, real lock and association steps, real canonical manifest/row-map/membership bytes with real digests. The explicit substituted boundary is isolated and distinguished: only raw_snapshot_directory.load_directory is delegated during test preparation (real canonical manifest.parse, rows.bind, membership.bind and core-digest agreement over the same real bytes; partitions=(); no dense/lexical payload, no originals-backed rebuild, no directory walk). The owner's acquisition, ownership, capture association, cleanup and the entry's own freshness (genuine read_selection rechecks) and eligibility (unavailable_partitions, reader_allows, admit_record, the closed admit_policy re-admission) paths are all real product code; the entry itself performs no snapshot reload, source access or index work (counted wrappers and canaries witness load_directory, PinOwner.check, validate_files and OriginalStore._read at zero with exactly two genuine bounded rechecks).",
+    "Owner guard held: the entry keeps the owner's real nonblocking creator/operation guard across the in-memory capture, the scope computation, the final current check and the result assembly; a concurrent owner.close() attempted mid-computation (after scope, before the final check) is refused with PinError and the guard cannot be taken (probe == [close-refused, guard-held]); the guard is released on the exit so the same owner still qualifies and closes afterwards; a busy owner is refused nonblocking with zero observations and no latch; NEW/closed/CLEANUP_PENDING owners and a foreign creator PID are refused; the creator guard is released even through a Hostile BaseException during the borrow.",
+    "Scope rule and zero usable scope: the real unavailable-partition derivation over the verified isolated policy and captured membership (zero-row entries on distinct partitions, real withdrawn revision) plus the real narrowed scope rules - an unavailable partition inside the requested readable scope refuses the whole scope (eligible False, fixed content-free observation with no partition identity or source text exposed); a restriction narrowing the scope to zero readable membership entries (empty-unavailable case included) reports the unavailable outcome (the old shortcut is gone); a withdrawn partition outside the readable scope does not block an unaffected scope; a corpus restriction narrowing to a valid unaffected authorized scope stays eligible.",
+    "Detached authority binding (FIX round 1): the admission's detached nominal Grants DTO is mutable; removing only label-b from vars(admission.grants) with the selected policy's admitted principal grant, selected bytes, generation and unavailable partition set unchanged no longer flips the PAIRS_B_STALE refusal (before ineligible, mutated refusal with no freshness read and no scope computation, restored ineligible); a widening mutation that slips past the initial binding cut during the scope/freshness window is refused at the final observation cut with an ordinary positive control; an invalid non-tuple detached value is refused before any freshness call.",
+    "Two-copy agreement cannot anchor authority (FIX round 2): with both exposed grant DTOs - the detached admission value and the policy's nested principal grant - mutated to the same narrowed values, the verified isolated policy snapshot's canonical hash no longer matches the bound semantic policy_id and the entry refuses, while the selected record, immutable stored bytes, semantic policy ID and unavailable partition set remain unchanged; restored state and an all-admitted real unchanged positive requalify. The genuine closed re-admission is the single cost: one bounded in-memory admit_policy per entry (canonical hash over the admitted principals including grants and document rules, existing material bounds, no filesystem, no stored policy bytes re-opened), performed under the same absolute deadline with genuine lateness witnessed (controlled clock advanced past the one operation end inside the admission refuses the late usable success with no observation, no selection read and no scope work; inside the lifetime again the same admission qualifies).",
+    "Deadline and lifetime: the single absolute deadline starts before any restriction work and honors the shorter remaining request lifetime (controlled-clock 125 ms remainder bounds both genuine rechecks to 120..125 ms); an exhausted lifetime refuses before the recheck; late usable successes are refused after scope (real-clock and controlled-clock witnesses) without latching the admission; selected change before eligibility refuses with zero scope computation, and a change observed during computation latches the admission permanently while a separate fresh request on generation 2 succeeds on the same borrowed owner.",
+    "Capture agreement: seven tampered-capture variants refuse and requalify on restoration (core digest, the parsed manifest's own snapshot ID with pointer/data agreeing on a foreign ID, stale membership bytes, membership type, pointer type, value None, value type); the fixed input-free error carries no caught cause or context even after a genuine internal fault; interruption identity (Hostile BaseException in the manifest parse, KeyboardInterrupt in the recheck) propagates by identity with the guard released and nothing latched.",
+    "Restriction gate and origin: exact-class Restrictions validation through the existing bounded authority bounder (a Grants DTO, non-DTO values, a bypassed 129-value vector and an extra-field DTO all refused before any freshness call); fail-closed module-origin assertion derives the worktree src root from the test file's resolved physical location and asserts all imported product modules resolve beneath it."
+  ],
+  "origins": "Fail-closed module-origin assertion (test_module_origin_is_assigned_worktree) derives the worktree src root from this test file's resolved physical location (tests/unit/ -> ../../src) and asserts private_policy_pin_eligibility, private_policy_request, private_policy_capture, supplied_policy, supplied_policy_eligibility, raw_snapshot_pin, raw_snapshot_selection, raw_snapshot_directory, raw_snapshot_manifest, raw_snapshot_membership, raw_snapshot_rows, raw_snapshot_files, provenance_records, raw_lexical_search, derived_store and source_admission all resolve beneath it; passed at the final bytes. The qualifying bounded proofs and the independent Root proof ran from the exact physical worktree origins (PYTHONPATH=<worktree>/src, cwd=<worktree>), shadowing the canonical editable install; the pre-existing canonical .venv binaries were used directly (no uv setup).",
+  "preserved": [
+    "checkpoint refs refs/oap/implementation-checkpoints/current-policy-pin-eligibility/{6b7a3b8f24fe2063cfdad481a44476ce03fe1639, d959b83b1eaa458690bc8ce0ab2109d57b3c5b1c, 57d463a5d19b22059d9f0eaf4361ffe03ec91ab5}",
+    "all lane evidence immutable in parallel/current-policy-pin-eligibility/: control receipts (control-consumed.json, control-send.json, control-reader.lock), Root json files (activation sha256 786b6e38e0fa8c77b479d5a8409a43a2e84bff80a5d91fb99e3d7010134dca4f, startup-wake sha256 9df7ab7d61654905d2b1a8062c2a541f5888bfa6701fb035d962ad491bae6a58, helper-handle sha256 41840a2aada0f3389c908ba85a4f954f86b9afd7325a1388fa1a304bf6f38716, verified-preparation sha256 7bdd086e43a4a73ae13d1d68375538c1a48e0c0e3b561fcf45f5849853021c8a, pre-proof-guidance sha256 b2521728b4d7575d36f3ee80af8615f14c07cba16635b6d77f9aa948b9150356, and the Root review-channel provisioning recovery sha256 0da485a2cb22ecaeb7752abb0d51df7dc39814fb148e79c8d4cad8b7cd43cc78 that re-provisioned the omitted checkpoint review pipe after proving no active reader and no consumed review), lane_signal.before.py, all dev-run-1..8 and dev-ruff-1..4 logs, proof-pytest-1..3 and proof-ruff-1..3, the three Root-exact-review-* witness sets, and the implementation-reader/ready/review/send/review-consumed receipts for all three candidates"
+  ],
+  "limitations": [
+    "Candidate-local pure-unit evidence only (53 focused cases of this lane plus 71 inherited cases from the four proof files, and the independent Root bounded proof at the exact checkpoint); observed behavior on this host, not a kernel, capacity or availability theorem; does not certify canonical combined CI or the full 009 objective.",
+    "The current envelope is test-only and synthetic: every root is a private temporary directory owned by the test, every byte is generated in-test, and the full-dataset native CI fixture is unavailable in this environment, so source loading is exercised only through the explicit governed delegation during owner acquisition; no real protected path, credential, network route, model or service is touched.",
+    "Deadlines are cooperative: the per-call caps, the entry/final-cut checks and the absolute operation end refuse late usable successes, but the observation does not stop all kernel work on expiry.",
+    "The one genuine closed in-memory re-admission per entry is a bounded cost (canonical hash over the admitted principals including grants and document rules under the existing material bounds) taken to make agreement between mutable copies unable to anchor authority; it is in-memory only and adds no filesystem or stored-policy re-open.",
+    "Strongest open items: actual namespace or file freshness, durability and the selected writer, protected engines, and outward release authorization remain open and distinct gates; this scope observes in-memory membership under genuine selected policy only. No GitHub, no merge, no integration or whole-009 claim."
+  ],
+  "no_merge": true,
+  "no_remote_publication": true,
+  "DHA": "NONE"
+}

@@ -6,6 +6,7 @@
  - Current (2026-11-20): active objective 009, current slice 009-x
   - Current (2026-11-20): active objective 009, current slice 009-y
    - Current (2026-11-20): active objective 009, current slice 009-z
+    - Current (2026-11-20): active objective 009, current slice 009-aa
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1110,6 +1111,84 @@
   from the local proof above.  Baseline NOT_RUN; whole 009 PARTIAL;
   protected authority/hardware/right/license/MVP and release gates
   open; no merge; DHA NONE.
+  Slice 009-aa is the byte-exact canonical transfer of the two
+  independently reviewed isolated development lanes (same 009
+  continuation, AMEND PR 11 at round base ca8e9c8a, the accepted
+  009-z report-only head whose required hosted run 44775148168
+  attempt 1 passed all five jobs and every step, both Products at
+  3,275 ordered units and the separate 951-case integration).  The
+  frozen Root transfer index (16,828 B, SHA-256
+  9bd1da70a5cf37a91b90d6c11f4f16dc8c791eb91ab46736c686b2a58ddd35e4)
+  and prior resolution (1,724 B, SHA-256
+  dbc5d5006a6073aa0473218ccdcf56f33a4a2def442b4e5ffbed20fa1d8c3d8b)
+  are preserved byte-exact under oap/reviews/.  Lane 1,
+  joint-evaluation-declaration
+  (PAR-009-JOINT-EVALUATION-DECLARATION-A; implementation 0a816ab0 on
+  effective base ed48ca58): the new private joint declaration
+  preparation entry private_evaluation_preflight.py (7,140 B) binds
+  the exact evaluation plan wire admission, the genuine source cohort
+  declaration admission and the actual grade declaration preparation
+  over the exact same admitted dataset and ordered selected values
+  under one existing bounded deadline created at entry, plus the
+  42-case test_private_evaluation_preflight.py (37,427 B) and the
+  original verbatim lane order (5,825 B); the original immutable lane
+  SELF report (publication cfb7ef41, 18,640 B) is preserved at
+  oap/provenance/009-aa/PAR-009-JOINT-EVALUATION-DECLARATION-A.json.
+  Lane 2, current-policy-pin-eligibility
+  (PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A; implementation 57d463a5
+  on the ordered preparation head 9e6283fe with tree 0279879f and
+  exact parents 4b798897 + 7f6190ad): the new private current-policy
+  partition eligibility entry
+  private_policy_pin_eligibility.py (19,591 B) composes the exact
+  admitted current selected-policy request with the already admitted
+  in-memory capture of one exact borrowed operator-owned PinOwner
+  under one absolute cooperative deadline, with the genuine recheck
+  before and after scope computation and the real
+  unavailable-partitions rules over the retained current policy, and
+  the retained selected policy re-admitted in memory as one bounded
+  coherent isolated snapshot through the genuine closed
+  supplied-policy admission before any of its rules are used, plus
+  the 53-case test_private_policy_pin_eligibility.py (70,832 B) and
+  the original verbatim lane order (6,376 B); the original immutable
+  lane SELF report (publication dc28c0d2, 35,496 B) is preserved at
+  oap/provenance/009-aa/PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A.json.
+  All eight transfer objects were verified at the exact source
+  commits and at the receiving tree for mode 100644, size, SHA-256
+  and blob OID; all 27 indexed receiving preimages were verified
+  byte-exact at the round base, including the actually inherited
+  current-view files (private_policy_request.py and
+  test_private_policy_request.py), the pin ownership sources
+  (raw_snapshot_pin.py and the raw_snapshot_* readers), and the
+  genuine policy admission code (supplied_policy.py,
+  policy_selection.py, private_policy_capture.py,
+  supplied_policy_wire.py).  Actual local proof at the implementation
+  bytes under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds with
+  OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+  0700 scratch and no cacheprovider: one bounded focus of the nine
+  ordered entries (42 + 21 + 19 + 1 + 1 + 53 + 18 + 45 + 8 = 208
+  cases, exit 0 in 2.65 s, all 95 new cases in the two transferred
+  suites), one four-file Ruff check on one process-local core
+  (exit 0) and one bounded import-origin check (both transferred
+  product modules resolve to the canonical repository src with the
+  exact indexed SHA-256s).  The transferred bytes and eligible
+  declarations remain separate from real runtime or authority
+  qualification: the joint entry exercises the genuine wire, cohort
+  and grade admission paths and bounded deadline behavior over
+  synthetic declared datasets only, and the pin entry exercises the
+  real request rechecks and unavailable-partitions rules over an
+  in-memory borrowed capture with synthetic controlled delegates
+  only; the accepted artifacts do not connect evaluation execution
+  to either entry, and the existing public entry points are
+  preserved.  Expected at the report head: group A 1,440 unchanged,
+  group B 1,930 (all 95 new default nodes in B), 3,370 total units
+  each Product, the separate 951-case integration and all five
+  required jobs (the two Product legs and the three OAP legs) with
+  every existing step; the fresh full hosted CI at the exact report
+  head is PENDING at report authoring, with Root owning the fresh CI
+  and terminal review; it is distinct from the local proof above.
+  Baseline NOT_RUN; whole 009 PARTIAL; the remaining real operator,
+  current writer, request execution, rights, baseline and hardware
+  gates stay open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,
