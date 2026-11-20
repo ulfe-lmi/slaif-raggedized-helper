@@ -1,0 +1,198 @@
+{
+  "at": "2026-11-20T12:14:12.132064+00:00",
+  "status": "EXACT_FINAL_ORDER_INPUT",
+  "expected_active": "009-v",
+  "base": "0f24c91c1c04931ffbc3a82d896ce08afc816d05",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "pr": 11,
+  "source": "drafts/009-joint-declaration-preflight-transfer-projection-CANDIDATE.json",
+  "source_sha256": "7929a290c6e0cca7027cd72f4bfaf11941e8cb4df3d15c682d6e0be0fdb032a3",
+  "components": [
+    {
+      "lane": "encoder-declaration-preflight",
+      "source_index": "drafts/009-encoder-declaration-preflight-transfer-index-CANDIDATE.json",
+      "source_index_sha256": "102204b0e17f835295d2215eacdcbc00b53f1a56400a99a881fdba74901d195d",
+      "at": "2026-11-20T07:28:27.609280+00:00",
+      "status": "INERT_CANONICAL_CI_GATE_AND_SCOPE_RECONCILIATION",
+      "implementation": "cacc5b362574638e09862a0d82e14e53bd1abef1",
+      "effective_base": "416009c94a6759c9a42e9c19dab688c0f54d9650",
+      "resolution": "audit/009-binder-declaration-preflight-local-resolution.json",
+      "resolution_sha256": "77d25a57fc3403bc34f7b5267ea3c3d562aec65ec8f978ca58a14c69a630937f",
+      "implementation_files": [
+        {
+          "commit": "cacc5b362574638e09862a0d82e14e53bd1abef1",
+          "path": "src/slaif_raggedized_helper/source_bound_stage_loss.py",
+          "mode": "100644",
+          "blob": "85c7ce3c1dea1a3ac1ae70925ce1734b8e073d66",
+          "bytes": 91797,
+          "sha256": "caf22819c1148dd3dcadf368904fdd4f98475451ff2f0c50fc7e51caa37fe546"
+        },
+        {
+          "commit": "cacc5b362574638e09862a0d82e14e53bd1abef1",
+          "path": "tests/unit/test_source_bound_stage_loss_preflight.py",
+          "mode": "100644",
+          "blob": "9e33fadd0c35aacd0400e81411458b3b856b790c",
+          "bytes": 9051,
+          "sha256": "cc8a9c00c2466d60809f5630e533e549392b84f910e6961d81347149c923e6f5"
+        },
+        {
+          "commit": "cacc5b362574638e09862a0d82e14e53bd1abef1",
+          "path": "oap/parallel/orders/PAR-009-ENCODER-DECLARATION-PREFLIGHT-A.md",
+          "mode": "100644",
+          "blob": "988c5862251a1bdbaddf51a1e7388eae662c7460",
+          "bytes": 5013,
+          "sha256": "dc98acb1dadc9d2c3990d5c9190d201bf8accb0e784f6b3a194894baf77c9042"
+        }
+      ],
+      "archival_report": {
+        "commit": "63e36735376e72e64abf239ba4d77d518c72731f",
+        "path": "oap/parallel/reports/PAR-009-ENCODER-DECLARATION-PREFLIGHT-A.json",
+        "mode": "100644",
+        "blob": "dae9d2a67a90de293d2333773a7656ba40412f35",
+        "bytes": 7267,
+        "sha256": "d1a3a6647b1aae4dc1951a6902c9a954c37c8526c45d7e38e621f6aa81f86bda"
+      },
+      "archive_destination_pending_authorized_suffix_under": "oap/provenance/<approved-suffix>/",
+      "required_canonical_preimage": {
+        "path": "src/slaif_raggedized_helper/source_bound_stage_loss.py",
+        "sha256": "168fca4b151c01c89a66ac1fe50d907758fe8402ea24c0c30303a9aea92773b8"
+      },
+      "expected_new_default_cases": 8,
+      "scope": "Shared binder declaration-only admission, no real authority, product execution or full preflight claim.",
+      "archive_destination": "oap/provenance/009-w/PAR-009-ENCODER-DECLARATION-PREFLIGHT-A.json",
+      "receipt": "parallel/encoder-declaration-preflight/response-consumed.json",
+      "receipt_sha256": "65f494c8886ecb1f96b8a97d1d08e4d30796ed1c53d37467392c341fd6de1d89"
+    },
+    {
+      "lane": "cohort-declaration-preflight",
+      "source_index": "drafts/009-cohort-declaration-preflight-transfer-index-CANDIDATE.json",
+      "source_index_sha256": "1bfd290036fe48848c3f744be7282b0598bcb18c4d4d3020a75628bb0edf6ece",
+      "at": "2026-11-20T09:21:22.423814+00:00",
+      "status": "INERT_CANONICAL_CI_GATE_AND_SCOPE_RECONCILIATION",
+      "implementation": "ab832488600088b6717d4a4d59758495e91a7dc9",
+      "effective_base": "cacc5b362574638e09862a0d82e14e53bd1abef1",
+      "resolution": "audit/009-cohort-declaration-preflight-local-resolution.json",
+      "resolution_sha256": "c29a937c1e6fbef48a12698cb935d380465d120ea02a64b4220831b796dd1c9c",
+      "implementation_files": [
+        {
+          "commit": "ab832488600088b6717d4a4d59758495e91a7dc9",
+          "path": "src/slaif_raggedized_helper/source_cohort_runner.py",
+          "mode": "100644",
+          "blob": "1664f813c5af7a5fa6c3ac2020db401723a62bac",
+          "bytes": 49662,
+          "sha256": "040f6813d6f2d5772392dca49daf57e6ba2b6b5a94fe3dd6bd5e7fd324b7580f"
+        },
+        {
+          "commit": "ab832488600088b6717d4a4d59758495e91a7dc9",
+          "path": "tests/unit/test_source_cohort_declaration_preflight.py",
+          "mode": "100644",
+          "blob": "8c7b2fac3e54a34d805ad53003ec15f5e76c88f0",
+          "bytes": 30088,
+          "sha256": "126cac8862946742b1429367308daeb443643df49dece85a5838af3058fed21e"
+        },
+        {
+          "commit": "ab832488600088b6717d4a4d59758495e91a7dc9",
+          "path": "oap/parallel/orders/PAR-009-COHORT-DECLARATION-PREFLIGHT-A.md",
+          "mode": "100644",
+          "blob": "ee18b6c37af9c95ac2760339837d610bc40f94b9",
+          "bytes": 5144,
+          "sha256": "ac4684085b0e700303d89957351c04598b2031e8a94063cdb310f332024ffcfd"
+        }
+      ],
+      "archival_report": {
+        "commit": "00940a6def4bf03c779fae8c4a0949402960f4bf",
+        "path": "oap/parallel/reports/PAR-009-COHORT-DECLARATION-PREFLIGHT-A.json",
+        "mode": "100644",
+        "blob": "dc24247c02f98f44a3080f9153ed83660bd088e1",
+        "bytes": 12019,
+        "sha256": "cbaeabf00af20ed75c95322108fb97d6b6da033c28f3dab3bf993cafcd176cd4"
+      },
+      "archive_destination_pending_authorized_suffix_under": "oap/provenance/<approved-suffix>/",
+      "required_canonical_preimage": {
+        "commit": "cacc5b362574638e09862a0d82e14e53bd1abef1",
+        "path": "src/slaif_raggedized_helper/source_cohort_runner.py",
+        "mode": "100644",
+        "blob": "da462dd96bbee534f001e2841f8ed1aa03e085a3",
+        "bytes": 46404,
+        "sha256": "d9f1b0e8f748be9c5b32b6e6d45e8228ace43b397517a41e6187638d4c296faf"
+      },
+      "required_accepted_binder_dependency": {
+        "implementation": "cacc5b362574638e09862a0d82e14e53bd1abef1",
+        "report_self": "63e36735376e72e64abf239ba4d77d518c72731f",
+        "resolution": "audit/009-binder-declaration-preflight-local-resolution.json",
+        "resolution_sha256": "77d25a57fc3403bc34f7b5267ea3c3d562aec65ec8f978ca58a14c69a630937f"
+      },
+      "expected_new_default_cases": 21,
+      "scope": "Private query-free cohort declaration envelope and shared ordered source selection only. No current-policy authentication, actual source I/O, encoder or dispatch.",
+      "archive_destination": "oap/provenance/009-w/PAR-009-COHORT-DECLARATION-PREFLIGHT-A.json",
+      "receipt": "parallel/cohort-declaration-preflight/response-consumed.json",
+      "receipt_sha256": "55649af55e789c6053bd68b1f72f4fe57b3bf3df5b8fb57542d4906666843749"
+    },
+    {
+      "lane": "grade-declaration-preflight",
+      "source_index": "drafts/009-grade-declaration-preflight-transfer-index-CANDIDATE.json",
+      "source_index_sha256": "6bc3004282ec7bd4b626f7a2bb22b568438aa0621dfc995aede962e5cd832084",
+      "at": "2026-11-20T08:40:56.167702+00:00",
+      "status": "INERT_CANONICAL_CI_GATE_AND_SCOPE_RECONCILIATION",
+      "implementation": "d052c3c978a7b97b18eb5580a6ffe04692bdde4f",
+      "effective_base": "dfe301c7c5796dc6de2bf8309f885dfc3b1cd2af",
+      "resolution": "audit/009-grade-declaration-preflight-local-resolution.json",
+      "resolution_sha256": "e51177e12a2b6d57ddea3402ac3d717ce71eea4250d6e4e98a7f199398eef817",
+      "implementation_files": [
+        {
+          "commit": "d052c3c978a7b97b18eb5580a6ffe04692bdde4f",
+          "path": "src/slaif_raggedized_helper/evaluation_program.py",
+          "mode": "100644",
+          "blob": "6358144619e587a938b86f5fe524fafa3594a3e7",
+          "bytes": 34416,
+          "sha256": "fc00a26059e73f9c5d1f35354b7d22b57bb76a73697b0e2ee5c6f92728d2474d"
+        },
+        {
+          "commit": "d052c3c978a7b97b18eb5580a6ffe04692bdde4f",
+          "path": "tests/unit/test_evaluation_grade_preflight.py",
+          "mode": "100644",
+          "blob": "476e50ccc70a29589232577f59e1e3dae2510117",
+          "bytes": 23010,
+          "sha256": "524325d12033581bcda67a7f1f9c7457df17fbd2ec922454148f2662c9ebdc12"
+        },
+        {
+          "commit": "d052c3c978a7b97b18eb5580a6ffe04692bdde4f",
+          "path": "oap/parallel/orders/PAR-009-GRADE-DECLARATION-PREFLIGHT-A.md",
+          "mode": "100644",
+          "blob": "2a25ee73d3cdc832e10244268681e01cba783986",
+          "bytes": 4586,
+          "sha256": "95cdc21579cc2b51e794afc7b783a91796ef0b87a7fcfc30d4ec44582d8a52c4"
+        }
+      ],
+      "archival_report": {
+        "commit": "66f0c98a3fa561f406cdf2d993ba094cda3468ad",
+        "path": "oap/parallel/reports/PAR-009-GRADE-DECLARATION-PREFLIGHT-A.json",
+        "mode": "100644",
+        "blob": "770f59def3b612691f01b94c0053e5b32953b0b6",
+        "bytes": 8207,
+        "sha256": "ed6bd81db938537c264a7377baa3f2fecf2a89cc11d5fde6b588676d873d8eeb"
+      },
+      "archive_destination_pending_authorized_suffix_under": "oap/provenance/<approved-suffix>/",
+      "required_canonical_preimage": {
+        "path": "src/slaif_raggedized_helper/evaluation_program.py",
+        "sha256": "84aceffc09ec7e53fcf96913ad0cb409616b31223d71915e60fbd750300b9b90"
+      },
+      "expected_new_default_cases": 19,
+      "scope": "Private declaration envelope only. No actual encoder, policy or dispatch.",
+      "archive_destination": "oap/provenance/009-w/PAR-009-GRADE-DECLARATION-PREFLIGHT-A.json",
+      "receipt": "parallel/grade-declaration-preflight/response-consumed.json",
+      "receipt_sha256": "bc972b7c0c1843fb03cf9d7691008d556e5c80d27686b2bc39456372b3109ff1"
+    }
+  ],
+  "expected_units": {
+    "A": 1440,
+    "B": 1694,
+    "total": 3134
+  },
+  "expected_focused": 58,
+  "DHA": "NONE",
+  "identifier": "009-w",
+  "terminal_review": "audit/009-v-check/Root-terminal-review.json",
+  "terminal_review_sha256": "fd1c6a5cd0492b052d1492973479523c0b0efdb1d9133f7054d1e336062eb905",
+  "projection_sha256": "de5cbe61fa047edec0eac55ae6413e7c2a96566ef3ae6f41930d694c5dc77121"
+}

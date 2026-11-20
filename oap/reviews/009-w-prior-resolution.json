@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-20T12:14:12.132064+00:00",
+  "identifier": "009-v",
+  "pr": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "report_head": "0f24c91c1c04931ffbc3a82d896ce08afc816d05",
+  "report_sha256": "fef468962f5b90b45004cf9351459d3d5acf389f5f538a4b6ff98b53eb6e6814",
+  "response_receipt": ".oap-state/response-consumed-009-v.json",
+  "response_receipt_sha256": "559bebaae27f2f9ec710d7078f6e9b472a5f90b8da13c920bb74161584168582",
+  "ci_run": 44731327493,
+  "terminal_review": "audit/009-v-check/Root-terminal-review.json",
+  "terminal_review_sha256": "fd1c6a5cd0492b052d1492973479523c0b0efdb1d9133f7054d1e336062eb905",
+  "result": "ACCEPT_EXACT_CAPTURE_TRANSFER_FULL_HOSTED_CI_CONTINUE_SAME_OBJECTIVE",
+  "units": 3086,
+  "groups": [
+    1421,
+    1665
+  ],
+  "integration_pass_marks": 951,
+  "all_five_jobs_all_steps_success": true,
+  "baseline": "NOT_RUN",
+  "DHA": "NONE",
+  "next_identifier": "009-w"
+}
