@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-20)
 
-- Current (2026-11-20): active objective 009, current slice 009-u
+- Current (2026-11-20): active objective 009, current slice 009-v
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -862,6 +862,48 @@
   or partial run cannot close the gate. Baseline NOT_RUN; whole 009
   PARTIAL; protected authority/hardware/right/license/MVP and
   release gates open; no merge; DHA NONE.
+  Slice 009-v is the byte-exact four-payload transfer of the
+  reviewed private policy selection reread and selected wire-byte
+  capture scope (same 009 continuation, AMEND PR 11 at round base
+  851a1e29, the 009-u report-only head whose run 44724323631
+  attempt 1 passed all five jobs and all steps: both Product legs
+  passed 3,015 units (1,421 group A, 1,594 group B) plus a
+  separate 951-case integration run, both within the former
+  20-minute limit; the 30-minute bound remains current and prior
+  wall-time variance remains unproven). Per
+  oap/reviews/009-v-capture-transfer-index.json, from the exact
+  lane implementation 6e8922c6 on base b0bd2821: the
+  private_policy_capture source module (14,974 B), the new focus
+  suite (37,256 B) and the original lane order (5,807 B), plus the
+  original lane report-only SELF archival report (10,890 B) from
+  its report-only commit ff876ee7 - all four verified mode 100644
+  / size / SHA-256 / Git blob OID at the exact source commits, at
+  the receiving working-tree paths before commit and again at the
+  implementation head, with the historical SELF markers preserved
+  at oap/provenance/009-v/PAR-009-PRIVATE-POLICY-CAPTURE-A.json.
+  The two inherited dependency blobs (policy_selection,
+  private_report_publication) are byte-identical at the round base
+  and reused unchanged. The selected identity is
+  current-policy.json with its digest-named opaque wire-byte
+  payload, read through a protected request from one explicit
+  trusted operator-owned root; the bounded owner is one private
+  offline evaluation invocation (ARCH 13.3-13.4/A23/A24) with
+  reader-owned fixed six-cell descriptor slots, deadline and
+  refusal proofs, no writer, no actual current-auth invocation and
+  no protected-runtime use. Actual local proof at the
+  implementation head under the ordered CPU60s/AS1GiB/wall120s
+  KILL5 bounds: one targeted ruff check on the two new Python
+  files (exit 0), one bounded pytest invocation of the new focus
+  suite plus the inherited selection suite (118 = 71 new + 47
+  inherited, exit 0, exactly 118 progress dots; the configured
+  double -q suppresses the final summary line, preserved as raw
+  output) and one bounded canonical-origin check (all three
+  imported modules resolve to the canonical src with exact indexed
+  hashes). The fresh full hosted CI at the exact report head is
+  PENDING with Root owning it and the terminal review; expected
+  until measured A 1,421, B 1,665, total 3,086. Baseline NOT_RUN;
+  whole 009 PARTIAL; protected authority/hardware/right/license/
+  MVP and release gates open; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

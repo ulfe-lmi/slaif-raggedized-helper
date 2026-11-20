@@ -1,0 +1,127 @@
+{
+  "lane_id": "PAR-009-PRIVATE-POLICY-CAPTURE-A",
+  "result": "COMPLETE",
+  "implementation_head": "6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a",
+  "report_publication_commit": "SELF",
+  "base": "b0bd2821872e2ee82c98a85d9df509e616c8c642",
+  "summary": "Private offline policy wire capture reader (PolicyCaptureReader.read_selection/capture from one explicit trusted constructor root, immutable CapturedPolicyBytes, fixed input-free PolicyCaptureError(ValueError)) reusing the publisher's exact fixed six-cell descriptor protocol with reader-owned slots: creator-PID check before lock entrance, nonblocking one-active-operation guard, poison latch plus retained unresolved slot published under the guard, no-time-cutoff six-cell teardown that closes every definitely owned cell even after cooperative expiry, and a final deadline checkpoint refusing any success delivered after expiry without latching a clean owner; publisher root admission mirrored in the private constructor (<=4096 chars checked before encoding, <=4096 UTF-8 bytes, 1..64 components, <=255 UTF-8 bytes and path charset per component). 71 focused offline cases plus 47 inherited selection-record cases (118 total), exact original order, one implementation checkpoint 6e8922c on sole base b0bd282 after three ordered FIX rounds (c94eccc, 50f8d56, 2b03690) and Root decision REPORT at 6e8922c. Decision NONE.",
+  "paths": [
+    "src/slaif_raggedized_helper/private_policy_capture.py",
+    "tests/unit/test_private_policy_capture.py",
+    "oap/parallel/orders/PAR-009-PRIVATE-POLICY-CAPTURE-A.md"
+  ],
+  "source_sha256": {
+    "src/slaif_raggedized_helper/private_policy_capture.py": "4d0c3b8002c6c4fabe3c3be3a08d851375249ad2fb807260f56e5fa9e3e7f0fc",
+    "tests/unit/test_private_policy_capture.py": "bb1fccfeddf28c8ecba464fa4f392e6b830f2fc07291a44a65978b19b670f7b9",
+    "oap/parallel/orders/PAR-009-PRIVATE-POLICY-CAPTURE-A.md": "f53de63dce3a4dfbd1e0dc0b8962c832fc9cd46502c38016edadf58c7be0b720"
+  },
+  "review": {
+    "reference": "parallel/private-policy-capture/implementation-review-6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a.json",
+    "review_sha256": "6159c2e0a98a35ac1285540bd1fc2a9f38705e2c6e70c40bd1028077b43f7d93",
+    "decision": "REPORT",
+    "implementation_review_receipt": "parallel/private-policy-capture/implementation-review-consumed-6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a.json",
+    "note": "Root verified the exact clean sole-parent implementation, original order identity, unchanged selection and publisher bytes, and test-only fixes across three FIX rounds; the final two regression witnesses prove the no-time-cutoff teardown still closes both definitely owned cells after a second past-budget clock advance and that a clean late success is refused at the final deadline checkpoint with an unlatched reusable owner. Root's independent corrected scratch run passed all 118 cases. Disclosure: the first v3 pytest attempt (~06:45) failed solely on test_constructor_accepts_boundary_length_root (asserted 4095 bytes; the corrected admissible boundary path encodes to exactly 4096 bytes) and its stdout was then overwritten in place by the corrected passing 06:47 attempt under the same v3 filenames; the distinction and verbatim failure block are preserved in parallel/private-policy-capture/evidence-v3-attempt1-disclosure.txt (sha256 42681b24c070b2bec433a7e8ba220d3e5d5994417f25824ee4e9ffa2e0263b93). All evidence is synthesized offline."
+  },
+  "environment": {
+    "venv": "/home/janezp/codex-work/slaif-raggedized-helper/.venv (existing canonical venv; Python 3.14.4, pytest 8.4.2, ruff 0.17.4)",
+    "src_origin": "explicit candidate worktree src via PYTHONPATH=/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-private-policy-capture/src; module-origin test pins both modules to the resolved worktree (physical source-origin check in every selected run)",
+    "threads": "ordinary single-process invocations; two lane tests spawn short-lived worker threads under narrow delegated fault witnesses (both joined before the witness returns); no thread or worker override",
+    "caps": "CPU 60s (ulimit -t 60), AS 1 GiB (ulimit -v 1048576), wall 120s with 5s kill (timeout -k 5 120), fresh private basetemp mode 0700 under /tmp (lane-dir ancestors contain 0775 dirs the no-follow walk refuses)",
+    "basetemp_final": "parallel/private-policy-capture/tmp-basetemp-v4"
+  },
+  "invocations": [
+    {
+      "id": "ruff-1",
+      "command": "ulimit -t 60; ulimit -v 1048576; timeout -k 5 120 env RAYON_NUM_THREADS=1 .venv/bin/ruff check src/slaif_raggedized_helper/private_policy_capture.py tests/unit/test_private_policy_capture.py",
+      "exit": 0,
+      "outcome": "PASSED 'All checks passed!' on the first implementation bytes.",
+      "evidence": [
+        "ruff-private-policy-capture.out",
+        "ruff-private-policy-capture.err"
+      ]
+    },
+    {
+      "id": "pytest-1",
+      "command": "ulimit -t 60; ulimit -v 1048576; timeout -k 5 120 env PYTHONPATH=<worktree>/src .venv/bin/python -m pytest tests/unit/test_private_policy_capture.py tests/unit/test_policy_selection.py --basetemp=<fresh private 0700 dir under /tmp>",
+      "exit": 0,
+      "outcome": "PASSED: 109 passed in 1.06s under full bounds; basetemp archived as tmp-basetemp-3p55rW.",
+      "evidence": [
+        "pytest-private-policy-capture.out",
+        "pytest-private-policy-capture.err"
+      ]
+    },
+    {
+      "id": "ruff-2",
+      "command": "same focused ruff command as ruff-1",
+      "exit": 0,
+      "outcome": "PASSED on the first-FIX checkpoint bytes (c94eccd).",
+      "evidence": [
+        "ruff-private-policy-capture-v2.out",
+        "ruff-private-policy-capture-v2.err"
+      ]
+    },
+    {
+      "id": "pytest-2",
+      "command": "same bounded selected pytest command as pytest-1",
+      "exit": 0,
+      "outcome": "PASSED: 114 passed in 1.08s under full bounds; basetemp archived as tmp-basetemp-v2.",
+      "evidence": [
+        "pytest-private-policy-capture-v2.out",
+        "pytest-private-policy-capture-v2.err"
+      ]
+    },
+    {
+      "id": "ruff-3",
+      "command": "same focused ruff command as ruff-1",
+      "exit": 0,
+      "outcome": "PASSED on the second-FIX checkpoint bytes (50f8d56).",
+      "evidence": [
+        "ruff-v3.out",
+        "ruff-v3.err"
+      ]
+    },
+    {
+      "id": "pytest-3-attempt1",
+      "command": "same bounded selected pytest command as pytest-1",
+      "exit": 1,
+      "outcome": "FAILED with exactly one case: test_constructor_accepts_boundary_length_root asserted len(root.encode('utf-8')) == 4095 while the corrected admissible boundary path '/' + '/'.join('a' * 255 for _ in range(16)) encodes to exactly 4096 bytes (the admitted limit); all other 116 collected cases passed. DISCLOSURE: this attempt's stdout was overwritten in place by the corrected attempt under the same v3 filenames; the verbatim failure block and the distinction are preserved in parallel/private-policy-capture/evidence-v3-attempt1-disclosure.txt.",
+      "evidence": [
+        "evidence-v3-attempt1-disclosure.txt"
+      ]
+    },
+    {
+      "id": "pytest-3-corrected",
+      "command": "same bounded selected pytest command as pytest-1",
+      "exit": 0,
+      "outcome": "PASSED: 117 passed under full bounds after the single corrected assertion (== 4096); this corrected result is what the v3 filenames hold. basetemp archived as tmp-basetemp-v3.",
+      "evidence": [
+        "pytest-v3.out",
+        "pytest-v3.err",
+        "pytest-private-policy-capture-v3.out",
+        "pytest-private-policy-capture-v3.err"
+      ]
+    },
+    {
+      "id": "ruff-4-final",
+      "command": "ulimit -t 60; ulimit -v 1048576; timeout -k 5 120 env RAYON_NUM_THREADS=1 .venv/bin/ruff check tests/unit/test_private_policy_capture.py",
+      "exit": 0,
+      "outcome": "PASSED 'All checks passed!' on the final committed bytes (focused on the only changed file of the third FIX round; no production change was ordered).",
+      "evidence": [
+        "ruff-v4.out",
+        "ruff-v4.err"
+      ]
+    },
+    {
+      "id": "pytest-4-final",
+      "command": "same bounded selected pytest command as pytest-1",
+      "exit": 0,
+      "outcome": "PASSED: 118 passed under full bounds on the final changed bytes (71 capture + 47 selection cases) including both new regression witnesses; Root's independent corrected scratch run also passed all 118 cases. basetemp archived as tmp-basetemp-v4.",
+      "evidence": [
+        "pytest-v4.out",
+        "pytest-v4.err"
+      ]
+    }
+  ],
+  "coverage": "constructor root admission (grammar, charset, <=4096 chars before encoding, <=4096 UTF-8 bytes, 1..64 components, <=255 UTF-8 bytes per component, lone-surrogate refusal without context, exact 4096-byte admissible boundary); fixed input-free error hygiene; frozen slotted nominal record without descriptor state; valid selection observation and capture with digest-derived payload name; real descriptor ownership matched by (dev,ino); per-root binding; payload byte/length mismatch; canonical wire grammar refusals (6 cases); root/selection/payload mode refusals; symlinked entry, symlinked intermediate, hard-link and special-file refusals before open; missing selection/payload; payload growth and pointer replacement during capture; selection replacement between observations and around the final namespace check (both capture and read_selection); measured bounded selection read requests; deadline admission (9 invalid) and boundary acceptance; cooperative expiry with two definitely owned descriptors closed by the no-time-cutoff teardown after a second past-budget clock advance, without latch and with reuse; successful observation refused at the final deadline checkpoint with an unlatched reusable owner; injected uncertain close, interrupt close (first-interruption identity preserved) and lock-admission interleaving (nonblocking overlap refusal plus release-window admission refused at the poison check, zero opens in both, delegated real closes with no leaked test descriptors); creator-PID check before lock; declared payload boundaries 42/67108864; clean failure without latch and later success; plus the 47 inherited policy-selection-record cases.",
+  "limitations": "Synthesized offline scope only: every root is a private temporary directory owned by the test, every byte is generated in-test, and no real protected path, credential, network route, model, service or actual current auth invocation is touched; the trust model is a configured root and a trusted immutable writer, with no hostile same-UID, special-device race or guaranteed kernel I/O timeout claim. Local candidate only: no I/O to product source, no canonical change, no remote push, no PR, no CI certification, no integration, no acceptance, no policy authority. Report-only commit; no source byte changed after the Root-reviewed implementation at 6e8922c."
+}

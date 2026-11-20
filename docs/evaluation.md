@@ -1821,6 +1821,82 @@ authority/hardware/right/license/MVP and release gates open; whole
 The previous 20-minute bound and its observed cancellation remain
 historical facts in the earlier sections of this document.
 
+## The 009-v private policy capture transfer (same 009 continuation)
+
+One byte-exact four-payload transfer on the same PR 11 (round base
+851a1e29, the 009-u report-only head): the reviewed private policy
+selection reread and selected wire-byte capture scope from the exact
+lane implementation 6e8922c6 on base b0bd2821, per
+oap/reviews/009-v-capture-transfer-index.json (SHA-256
+de87eba3...). The adopted prior resolution records the exact
+hosted evidence (run 44724323631 attempt 1: all five jobs and all
+steps passed; both Product legs 3,015 units - 1,421 group A, 1,594
+group B - plus a separate 951-case integration run, both within the
+former 20-minute limit; the 30-minute bound remains current); prior
+wall-time variance remains unproven.
+
+Selected identity and opaque wire bytes: the reader observes the
+current selection from current-policy.json in one explicit trusted
+operator-owned root and captures the selected payload's opaque
+wire bytes (payload filename derived only from the admitted
+SHA-256 digest, no caller entry path) into an immutable
+CapturedPolicyBytes(selection, wire_bytes) record; the payload is
+never decoded, matched or interpreted in this transfer, and no
+semantic identity, principal verification, writer, cache or
+delivery integration is admitted.
+
+Bounded owner: one private offline evaluation invocation
+(ARCH 13.3-13.4/A23/A24 boundary, provenance E). Descriptor
+custody is independent from the publisher: reader-owned fixed
+six-cell slots through the publisher's exact protocol, never its
+publication pool; creator-PID check before lock entrance,
+latched-closed state checked under the guard, no-time-cutoff
+six-cell teardown that closes every definitely owned cell even
+after cooperative expiry, and a final checkpoint refusing any
+success delivered after expiry. No protected policy service,
+live credentials, model dispatch, actual current-auth invocation
+or protected-runtime qualification exists or is implied.
+
+Exact archival provenance: the three payload blobs
+(private_policy_capture.py 14,974 B, test_private_policy_capture.py
+37,256 B, PAR-009-PRIVATE-POLICY-CAPTURE-A.md 5,807 B) were copied
+verbatim from 6e8922c6 and the original lane report-only SELF
+archival report (10,890 B) from ff876ee7 to
+oap/provenance/009-v/PAR-009-PRIVATE-POLICY-CAPTURE-A.json; all
+four were verified mode 100644 / size / SHA-256 / Git blob OID at
+the exact source commits, at the receiving paths before commit and
+again at the implementation head, and the historical SELF markers
+are preserved as the original report identity. The two inherited
+dependency blobs (policy_selection, private_report_publication)
+are byte-identical at the round base and reused unchanged; all
+four destination paths were absent at the round base.
+
+Actual local proof at the implementation head (synthetic ephemeral
+filesystem only; locked .venv; fresh private 0700 scratch;
+OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, private
+basetemp, cacheprovider disabled; each invocation bounded by
+timeout -k 5 120 prlimit --cpu=60 --as=1073741824): one targeted
+ruff check on the two new Python files (exit 0, "All checks
+passed!", one-core affinity accommodation); one bounded pytest
+invocation of tests/unit/test_private_policy_capture.py and
+tests/unit/test_policy_selection.py (exit 0, exactly 118 progress
+dots = 71 new + 47 inherited, no failure markers; the repository
+addopts -q plus the invocation -q suppress the final summary line
+in the preserved raw output); one bounded origin check (all three
+imported product modules resolve to the canonical repository src
+with the exact indexed SHA-256). No failure required a fix, so no
+repacking, edits or retries.
+
+The fresh full hosted CI at the exact report head is PENDING at
+report authoring; Root owns the fresh CI and terminal review.
+Expected until measured: group A 1,421, group B 1,665, total 3,086
+units plus the separate full integration and every subsequent and
+OAP check. No full transfer or qualification acceptance flows from
+publication alone; the representative baseline remains NOT_RUN and
+whole 009 PARTIAL. The real protected runtime and operator
+current-authorization qualification remain open; no merge;
+DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
