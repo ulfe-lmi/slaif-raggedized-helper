@@ -209,6 +209,27 @@ def test_case_bound_withheld_partition_refuses_before_catalog(tmp_path, monkeypa
         assert counts["read"] == 1
         assert owner.op.end == original_end
         assert not owner.guard.locked()
+        # (4) None dataset: the nominal case input is validated as
+        # exact canonical dataset bytes at the entry itself, so the
+        # fixed content-free refusal happens before the shared body
+        # can interpret the legacy sentinel, before owner custody,
+        # before the first genuine observation, before any live
+        # namespace association and before any protected dispatch:
+        # no new observation, no engine or catalog work, no custody.
+        with pytest.raises(hybrid.HybridSearchError, match="^hybrid search refused$"):
+            _dispatch_case(admission, owner, None, "h1", embedding)
+        assert _engine_counts(counts) == (0, 0, 0, 0, 0)
+        assert counts["read"] == 1
+        assert owner.op.end == original_end
+        assert not owner.guard.locked()
+        # Any other non-bytes dataset input is refused at the same
+        # early cut with the same zero work.
+        with pytest.raises(hybrid.HybridSearchError, match="^hybrid search refused$"):
+            _dispatch_case(admission, owner, "not dataset", "h1", embedding)
+        assert _engine_counts(counts) == (0, 0, 0, 0, 0)
+        assert counts["read"] == 1
+        assert owner.op.end == original_end
+        assert not owner.guard.locked()
         # The owner and reader state is stable across every refusal.
         assert owner.value is not None
         assert owner.state == "ACTIVE"

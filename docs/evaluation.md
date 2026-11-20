@@ -2799,6 +2799,88 @@ Gold/rank/grade/delivery, real source rights and representative
 evaluation stay open; the representative baseline remains NOT_RUN and
 whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-af Gold dispatch transfer and case input (same 009
+continuation)
+
+Two precise boundaries on the same 009 continuation (round base
+de62aeb, the accepted 009-ae report-only head whose required hosted
+run 44822395486 attempt 1 passed all five jobs and every step, each
+Product at 3,438 ordered units and the separate 960-case
+integration). The exact order (SHA-256
+6dbc22b0c5b13fac7e7b8693b75bb0c7d2d50ad944ed7d6871) and the two
+indexed strategic control JSONs (SHA-256
+87e37bce939161788d57b49b3479b25c29949c9fb8e9bc361a96e9078314bd38 and
+3e2837ba48bc21ce43045431903abe5446872a9ec73c3896046b8ea995cb10e9)
+are committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Gold dispatch transfer: the two exact tree objects of the
+independently reviewed standalone private Gold candidate
+51ffb8ce2b521a229a5b518869ab90b8e8132a8b (sole child of
+00743eca3c351d57e45ec81004f52e519ebec00a) are transferred by blob
+identity only — src/slaif_raggedized_helper/text_evaluation_gold_binding.py
+(20,215 B, SHA-256
+e712c9d579585c43b5790d83367d04415de5fe166fef39398b445f26be488494,
+blob 85cdcaded451501a900e552be6a5257eaef9949d) and the new
+tests/integration/test_current_gold_dispatch_composition.py (28,197
+B, SHA-256
+934537cf536e8934da1b80c1e38795b585ce626574ed8e9eaf57531955540083,
+blob 2bcfc506a91d0b60b2e61e6433aaaa8e3f25276f); the candidate's
+committed history is not cherry-picked and its parallel branch and
+report stay immutable. The transferred boundary is the start of the
+private guarded Gold bundle dispatch: one closed private entry
+`bind_pinned` binding the exact admitted PolicyRequestAdmission and
+exact active PinOwner to the single existing Gold body; stores from
+the actual owner only; effective case grants from the exact admitted
+principal intersected with the genuine case declaration under a
+bounded meter and the span deadline check; one real nonblocking owner
+guard held across the pure pre-dispatch gate, the shared body and the
+pin tie, with op.end anchored under the guard and its exact prior
+value restored on every exit; the whole-dataset atoms and only the
+actual declared bundle IDs gated under the genuine effective case
+authority, with unknown, ambiguous, unreadable, unavailable or
+uncovered declared entries refusing before any protected bundle
+load; and the genuine selected reread immediately before each actual
+bundle load in both observation passes, keeping the post-load pin
+identity, legacy compatibility and exception custody. The five
+default hosted nodes witness the real per-load counts of
+six/three/one bundle, derived and verified original calls across the
+positive, declared-only and change nodes, the distinct a/c-only
+dataset with the undeclared unavailable b still pinned, the
+existing-but-unpinned unknown bundle, changes after one and three
+real loads, restored custody and the actual late read; they are
+hosted-only, so their real outcomes are PENDING fresh exact
+report-head CI.
+
+Case input gate: `search_pinned_case` now validates the exact
+dataset bytes type at the nominal case-bound hybrid entry before
+calling the shared method or interpreting the internal sentinel. A
+None dataset or any non-bytes dataset receives the existing fixed
+content-free refusal before owner custody, before O1, before any
+live namespace association and before any protected dispatch; the
+legacy public signatures and call shape, the five valid-case
+observation positions and the effective-authority-versus-full-anchor
+binding are unchanged. The one existing negative hosted node carries
+the added None subcase and the non-bytes probe over its genuine
+fixture and counters: the fixed refusal at zero engine/catalog work,
+no new observation, no custody, and stable owner and reader state.
+
+Verification and open evidence: actual local proof under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds — one capped inherited focus of
+142 units (21 + 15 + 53 + 45 + 8), one capped collect-only of the
+five Gold and two case-bound hosted nodes, one targeted four-file
+one-core Ruff and one bounded physical product import-origin probe —
+all exit 0. Local collection alone does not prove the hosted
+outcomes: the fresh receiving CI at the exact report-only head
+requires all five required jobs and every required step, both
+Products passing the unchanged ordered A 1,440 and B 1,998 plus a
+separate full 965 integration, with Root independently reviewing the
+exact report-head logs and receiving scope. Real source rights,
+encoder transport, subsequent ranking, grading, publisher,
+authenticated delivery, governed full evaluation and the
+representative baseline stay explicitly open; baseline NOT_RUN;
+whole 009 PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

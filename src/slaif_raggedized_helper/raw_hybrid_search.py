@@ -524,6 +524,12 @@ def search_pinned_case(admission, owner, dataset_bytes, case_id, query_payload, 
     genuinely admitted dataset and its case declaration; the caller
     supplies no text, grants, restrictions, stores, root, snapshot
     ID, provider, callable, alternate clock or credential.  The
+    dataset input is validated as exact canonical dataset bytes at
+    the entry: a None dataset or any other non-bytes value receives
+    this entry's fixed content-free refusal before the shared body,
+    before owner custody, before the first genuine observation,
+    before any live namespace association and before any protected
+    dispatch.  The
     dataset is admitted through the genuine canonical parser under
     the same clipped absolute budget, and the narrower effective
     case value is derived through the genuine existing case-scope
@@ -559,6 +565,14 @@ def search_pinned_case(admission, owner, dataset_bytes, case_id, query_payload, 
     """
     try:
         _check(type(trace) is bool)
+        # Exact nominal case input: the bounded canonical dataset
+        # must already be exact dataset bytes.  A None dataset (the
+        # legacy sentinel of the shared body) or any other non-bytes
+        # value is refused here, before the shared body can interpret
+        # the sentinel, before owner custody, before the first
+        # genuine observation and before any live namespace
+        # association or protected dispatch.
+        _check(type(dataset_bytes) is bytes)
         return _search_pinned(admission, owner, None, query_payload, query_space_id,
                               query_definition_fingerprint, query_policy_id,
                               query_execution_fingerprint, dense_k, lexical_k,

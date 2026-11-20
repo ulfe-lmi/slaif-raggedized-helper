@@ -11,6 +11,7 @@
       - Current (2026-11-20): active objective 009, current slice 009-ac
        - Current (2026-11-20): active objective 009, current slice 009-ad
         - Current (2026-11-20): active objective 009, current slice 009-ae
+         - Current (2026-11-20): active objective 009, current slice 009-af
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1500,6 +1501,77 @@
   passing; Root owns the hosted review.  The guarded model, actual
   operator assembly, Gold/rank/grade/delivery, real source rights and
   representative evaluation gates stay open; baseline NOT_RUN; whole
+  009 PARTIAL; no merge; DHA NONE.
+  Slice 009-af transfers the independently reviewed standalone private
+  Gold bundle dispatch start boundary by exact blobs (same 009
+  continuation, AMEND PR 11 at round base de62aeb, the accepted
+  009-ae report-only head whose required hosted run 44822395486
+  attempt 1 passed all five jobs and every step, each Product at
+  3,438 ordered units and the separate 960-case integration) and
+  closes the observed 009-ae None dataset edge at the existing
+  private case-bound hybrid entry before shared custody or policy
+  observation.  The exact order (SHA-256
+  6dbc22b0c5b13fac7e7b8693b75bb0c7d2d5886890e10672d50ad944ed7d6871)
+  and the two indexed strategic control JSONs (SHA-256
+  87e37bce939161788d57b49b3479b25c29949c9fb8e9bc361a96e9078314bd38
+  and 3e2837ba48bc21ce43045431903abe5446872a9ec73c3896046b8ea995cb10e9)
+  are committed transcript-first byte-exact under oap/orders/ and
+  oap/reviews/.  The implementation touches exactly six paths: the
+  byte-exact Gold candidate objects from the index,
+  src/slaif_raggedized_helper/text_evaluation_gold_binding.py
+  (20,215 B, SHA-256
+  e712c9d579585c43b5790d83367d04415de5fe166fef39398b445f26be488494,
+  exact tree blob 85cdcaded451501a900e552be6a5257eaef9949d of the
+  reviewed candidate 51ffb8ce2b521a229a5b518869ab90b8e8132a8b, sole
+  child of 00743eca3c351d57e45ec81004f52e519ebec00a, with the
+  candidate history not cherry-picked) and the new
+  tests/integration/test_current_gold_dispatch_composition.py
+  (28,197 B, SHA-256
+  934537cf536e8934da1b80c1e38795b585ce626574ed8e9eaf57531955540083,
+  exact tree blob 2bcfc506a91d0b60b2e61e6433aaaa8e3f25276f) with its
+  five default hosted nodes; the narrow nominal dataset gate in
+  search_pinned_case of raw_hybrid_search.py, where the exact
+  dataset input is validated as bytes at the entry so a None dataset
+  or any non-bytes dataset receives the entry's fixed content-free
+  refusal before the shared body can interpret the legacy sentinel,
+  before owner custody, before O1, before any live namespace
+  association and before any protected dispatch (signature, call
+  shape, legacy path and all five observation positions unchanged);
+  the one existing-node None subcase plus the non-bytes probe in
+  test_case_bound_withheld_partition_refuses_before_catalog, whose
+  genuine fixture and counters prove the early cut (fixed refusal,
+  zero engine/catalog work, no new observation, custody never
+  acquired); and these two documents.  Everything else stays
+  byte-exact, including all 46 indexed receiving objects.  The
+  transferred Gold boundary is one closed private entry bind_pinned
+  over the one existing Gold body (one binder, one hybrid body
+  retained), the complete admitted dataset atom set and only the
+  actual declared bundle IDs gated under the genuine effective case
+  authority, unknown, ambiguous, unreadable, unavailable or
+  uncovered declared entries refusing before any protected bundle
+  load, one real owner guard retaining and restoring its operation
+  end, and the genuine selected reread immediately before each
+  actual bundle load in both observation passes with post-load pin
+  identity, legacy compatibility and exception custody preserved;
+  the five hosted nodes witness the real per-load counts of
+  six/three/one bundle, derived and verified original calls across
+  the positive, declared-only and change nodes.  Actual local proof
+  under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds: one capped
+  inherited focus of 142 units (21 + 15 + 53 + 45 + 8) exit 0, one
+  capped collect-only of the five Gold and two case-bound hosted
+  nodes exit 0, one targeted four-file one-core Ruff exit 0, one
+  bounded physical product import-origin probe ORIGINS_OK exit 0.
+  The real native fixtures are hosted-only, so the five Gold
+  integration and two case-bound integration outcomes are PENDING at
+  report authoring.  Expected at the exact report head: fresh hosted
+  CI with all five required jobs and every required step, both
+  Products passing the unchanged ordered A 1,440 and B 1,998 plus a
+  separate full 965 integration (960 prior + 5 new Gold; the two
+  case-bound nodes are unchanged nodes), with Root independently
+  reviewing the exact report-head logs and receiving scope.  Real
+  source rights, encoder transport, subsequent ranking, grading,
+  publisher, authenticated delivery, governed full evaluation and
+  the representative baseline remain open; baseline NOT_RUN; whole
   009 PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
