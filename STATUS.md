@@ -14,6 +14,7 @@
          - Current (2026-11-20): active objective 009, current slice 009-af
           - Current (2026-11-20): active objective 009, current slice 009-ag
            - Current (2026-11-20): active objective 009, current slice 009-ah
+            - Current (2026-11-21): active objective 009, current slice 009-ai
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1680,6 +1681,79 @@
   authenticated delivery, governed full evaluation and the
   representative baseline remain open; baseline NOT_RUN; whole 009
   PARTIAL; no merge; DHA NONE.
+  Slice 009-ai transfers the exact reviewed private
+  case-bound ranking dispatch and its five hosted
+  controlled-source witnesses (same 009 continuation,
+  AMEND PR 11 at round base 78ffe74, the accepted 009-ah
+  report-only head whose exact required hosted run
+  44840111535 attempt 1 at that head passed all five jobs
+  and steps with ordered 1,440 + 1,998 units and 970
+  integrations in each Product).  The exact order (SHA-256
+  d03c7f36718545eeb56814ce40e9d8c26a9be30deba70c26247dce3702c1b7af)
+  and the two indexed strategic control JSONs (SHA-256
+  9677c4fd57ccaaaa1d87095fde474505d9db31cb9a84bdbf7e23a4a88df33980
+  and dd6dbe3248e70742c50da274023af350ac4880976ed5564d9bbe7b471d294d50)
+  are committed transcript-first byte-exact under oap/orders/
+  and oap/reviews/.  The implementation changes exactly four
+  paths: the two reviewed candidate blobs transferred by
+  blob identity without the candidate history, order or
+  report, src/slaif_raggedized_helper/source_bound_ranking.py
+  (30,098 B, SHA-256
+  74c9bc48016ade6aa1527f5f1b10cff58f67c65fa33cb4e58d22478f71a99d41)
+  and tests/integration/test_current_ranking_dispatch_composition.py
+  (33,958 B, SHA-256
+  8764690ca30fde5cee48fe0155f99292e7ebb1831a252ddf829df9dd227ef059),
+  plus these two documents.  The one fixed private bind_pinned
+  case entry binds the exact admitted request and the exact
+  active pin owner to the single inherited ranking body,
+  with stores and snapshot from the actual owner only, the
+  full principal anchor separated from the narrower
+  effective case grants, and one real nonreentrant owner
+  guard held across the pure pre-dispatch gate, the shared
+  body and the pin tie with one end clipped to the request
+  lifetime and the owner end restored on every exit.  The
+  complete ordered selected batch is bound through the
+  actual pure row and membership binds before any new
+  source I/O, so unknown, malformed, unreadable or
+  unavailable selected entries refuse the full batch while
+  an unselected unavailable bundle never refuses by itself;
+  one genuine selected observation precedes each retained
+  actual catalog dispatch and each actual selected bundle
+  load in both observation passes under the one clipped
+  absolute end, with the post-load nominal scope, revision,
+  extraction and metadata compared to the exact held pin in
+  both passes and the final pure detached full-anchor
+  comparison preserved; legacy interfaces, identities and
+  interruption custody are preserved, and the nested
+  catalog integrity still reaches unrequested pinned
+  sources without per-original authorization or delivery
+  attestation.  The five new default hosted nodes
+  (test_pinned_positive_h2_matches_legacy,
+  test_unavailable_b_retained_and_ac_dispatch,
+  test_precheck_refusals_zero_source_io,
+  test_change_after_last_pass_one_load_denies_catalog_two,
+  test_change_after_first_catalog_and_observational_bounds)
+  attribute the real physical original reads per catalog at
+  2*M+B+2*G+4*P ingestion loads over the actual fixture.
+  The prior bounded candidate local checks and the Root
+  terminal review of the accepted 009-ah head are the prior
+  evidence; the receiving local proof under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds (fresh mode-0700
+  scratch directly under sticky /dev/shm after the
+  demonstrated /tmp inode exhaustion): one inherited
+  121-node unit focus, one bounded collect-only of the five
+  new hosted nodes, one scoped two-file one-core Ruff and
+  the physical import-origin probe, all exit 0; no local
+  native result.  Expected at the exact report head: fresh
+  hosted CI with all five required jobs and every required
+  step, both Products passing the unchanged ordered A 1,440
+  and B 1,998 plus exactly 975 passing integrations (970
+  prior + 5 new), with Root independently reviewing the
+  exact report-head logs and receiving scope.  Real source
+  rights, subsequent ranking, grading, publisher,
+  authenticated delivery, governed full evaluation and the
+  representative baseline remain open; baseline NOT_RUN;
+  whole 009 PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

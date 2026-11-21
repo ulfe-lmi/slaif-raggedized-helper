@@ -3024,6 +3024,85 @@ delivery, authenticated operator assembly, source rights, real
 hardware and the representative baseline remain open; baseline
 NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
 
+## The 009-ai current ranking dispatch transfer (same 009
+continuation)
+
+Slice 009-ai (AMEND PR 11 at round base 78ffe74, the
+accepted 009-ah report-only head whose exact required
+hosted run 44840111535 attempt 1 passed all five jobs and
+steps with ordered 1,440 + 1,998 units and 970 integrations
+in each Product) transfers the exact reviewed private
+case-bound ranking dispatch by blob identity: the two
+reviewed objects (source_bound_ranking.py and
+test_current_ranking_dispatch_composition.py) are
+byte-exact, and the candidate's commit history, its order
+and its report are not copied into the receiving branch.
+
+The one fixed private bind_pinned case entry accepts only
+the exact PolicyRequestAdmission, the exact active
+PinOwner, bounded canonical dataset bytes, the exact case
+ID, the bounded expected catalog ID, the ordered unique
+requested chunk IDs and one cooperative 1..30,000 ms
+deadline; the caller supplies no scope token, grants,
+path, snapshot, supplied Catalog, provider, callback or
+clock.  Stores and snapshot come only from the actual
+owner, and the full principal anchor stays separate from
+the narrower effective case value derived through the
+genuine case declaration.  One real nonreentrant owner
+guard is held across the pure pre-dispatch gate, the
+shared ranking body and the pin tie, with one end clipped
+to the request lifetime and the owner operation end
+restored on every exit.  The complete ordered selected
+batch is bound through the actual pure row and membership
+binds against the exact held core, row map and membership
+before any new catalog or bundle load, so unknown,
+malformed, unreadable or unavailable selected entries
+refuse the full batch at zero new source I/O while an
+unselected unavailable bundle never refuses by itself.
+One genuine selected observation precedes each retained
+actual catalog dispatch and each actual selected bundle
+load in both observation passes under the one clipped
+absolute end, with the remaining time checked after every
+genuine reread and after the nested dispatches; the
+observed bundle revision, extraction, metadata and
+admitted scope are compared to the exact held pin in both
+passes, and the final authority comparison stays the pure
+detached full-anchor check.  Legacy interfaces, legacy
+identities, the fixed content-free refusal and the
+non-Exception interruption identity are preserved.  The
+nested catalog integrity still reaches unrequested pinned
+sources; it supplies no per-original current-policy
+authorization and no delivery attestation.
+
+The five new default hosted nodes witness the stable h2
+legacy equality; the retained unavailable unrequested b
+with selected a/c; the zero-new-source-I/O precheck
+refusals; the real change after the last pass-one direct
+load denying catalog two; and the real change after
+catalog one denying its first direct load with the bounded
+subcases.  Per catalog, the two directory validations
+plus the explicit loops give 2*M+B+2*G+4*P ingestion
+loads using the actual fixture, with membership and both
+dense/lexical group trees in each directory.
+
+Local proof on the receiving bytes under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds, in a fresh mode-0700
+scratch directly under sticky /dev/shm (the local /tmp
+had exhausted its inode limit): one inherited 121-node
+unit focus (15 + 53 + 45 + 8), one bounded collect-only
+of the five new hosted nodes, one scoped two-file
+one-core Ruff and the physical import-origin probe, all
+exit 0; no setup, install, local native execution or
+unchanged repeat.  The fresh exact report-head hosted CI
+is PENDING at authoring: all five jobs and every required
+step, both Products at ordered 1,440 + 1,998 units and
+exactly 975 separate integration passes (970 prior + 5
+new).  No baseline measurement or qualification claim is
+made; the remaining stage, cohort, grade, publication and
+delivery gates, the source rights and the representative
+baseline stay open; whole 009 PARTIAL, baseline NOT_RUN,
+no merge, DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
