@@ -50,6 +50,7 @@ from slaif_raggedized_helper import evaluation_program as program  # noqa: E402
 from slaif_raggedized_helper import private_policy_pin_eligibility as pin_eligibility  # noqa: E402
 from slaif_raggedized_helper import private_policy_request as ppr  # noqa: E402
 from slaif_raggedized_helper import private_report_publication as publisher  # noqa: E402
+from slaif_raggedized_helper import supplied_policy_eligibility as policy_eligibility  # noqa: E402
 from slaif_raggedized_helper import text_evaluation_dataset  # noqa: E402
 import test_current_cohort_encoder_producer_composition as producer_fixture  # noqa: E402
 import test_current_gold_dispatch_composition as gold_fixture  # noqa: E402
@@ -247,11 +248,17 @@ def _fixture(tmp_path, monkeypatch, sc, expected, ctx, dataset,
     assert len(declared) == 2
     b_id = next(ident for ident in bundle_ids if ident not in declared)
     assert member_b.bundle_container_id == b_id
-    held_rows = {
-        (r.bundle_container_id, r.batch_container_id)
-        for r in owner.value.data.row_map.rows}
-    assert (b_id, member_b.batch_container_id) in held_rows
-    assert member_b.revision_id
+    held_rows = tuple(owner.value.data.row_map.rows)
+    assert member_b.ordinals
+    for ordinal in member_b.ordinals:
+        matches = [
+            row for row in held_rows
+            if row.ordinal == ordinal
+            and row.bundle_container_id == b_id
+            and row.revision_id == member_b.revision_id
+            and row.extraction_id == member_b.extraction_id
+            and row.partition_id == member_b.partition_id]
+        assert len(matches) == 1
     ctx.pointer_generation = owner.value.pointer.generation
     held = owner.value
     prior_end = time.monotonic() - 60.0
@@ -263,6 +270,12 @@ def _fixture(tmp_path, monkeypatch, sc, expected, ctx, dataset,
         pin_eligibility._admitted_principal_grants(
             policy_snapshot, admission.principal_id))
     full_grants = pin_eligibility._bound_grants(admission, anchor)
+    # The corpus-two partition is genuinely unavailable under
+    # the selected policy while the same real pin still holds
+    # it.
+    unavailable = set(policy_eligibility.unavailable_partitions(
+        policy_snapshot, held.data.membership))
+    assert member_b.partition_id in unavailable
     wire = grade_fixture._plan_wire(ctx, admitted_ac, ctx.catalog_id,
                                     (("h1", ((chunks["a"], 3),)),
                                      ("h4", ())),)
