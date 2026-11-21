@@ -1574,10 +1574,18 @@ def _geometry_inputs(
     return tuple(rows), stages, work, budget
 
 
-def _pin_check(owner, originals, derived, root, prior, meter, clock):
-    """Check one borrowed pin observation without consulting current selection."""
+def _pin_check(owner, originals, derived, root, prior, meter, clock,
+               *, current=None, data=None, case_id=None):
+    """Check one borrowed pin observation without consulting current selection.
+
+    The legacy dispatch selection is the owner's own bounded check; the
+    fixed private current-mode switch selects the reviewed case-bound
+    revalidation instead, and both selections share this stage's nominal,
+    identity and metering checks on the returned retained capture.
+    """
     import hashlib
 
+    from . import private_policy_pin_eligibility as pin_eligibility
     from . import raw_snapshot_files, raw_snapshot_pin, raw_snapshot_rows, raw_snapshot_selection
 
     if (
@@ -1591,7 +1599,16 @@ def _pin_check(owner, originals, derived, root, prior, meter, clock):
         raise ValueError
     meter.reserve(1)
     clock.check()
-    captured = owner.check(deadline_ms=clock.remaining(120000))
+    if current is None:
+        captured = owner.check(deadline_ms=clock.remaining(120000))
+    else:
+        # The fixed protected current dispatch selection: the reviewed
+        # case-bound revalidation owns its one nonreentrant borrow and
+        # clips its 30,000 ms operation allowance to the same recorded
+        # admission end as the stage clock.
+        captured = pin_eligibility.revalidate_current_pin_case(
+            current.admission, owner, data, case_id, deadline_ms=30000
+        )
     clock.check()
     if (
         type(captured) is not raw_snapshot_pin.PinData
@@ -2255,14 +2272,24 @@ def _bind_stages(
     restrictions,
     deadline_ms,
     start,
+    *,
+    current=None,
 ):
     from . import declared_stage_geometry, derived_store
+    from . import private_policy_pin_eligibility as pin_eligibility
     from . import source_bound_ranking, text_evaluation_gold_binding
     from .source_admission import OriginalStore
 
+    if current is not None and type(current) is not _CurrentStageMode:
+        raise ValueError
     meter = _Meter()
     clock = _Deadline(start, deadline_ms)
     meter.check = clock.check
+    if current is not None:
+        # One exact real stage clock under the actual original admitted
+        # request end, captured before any semantic work; the request end
+        # is never reset or extended.
+        clock.end = min(clock.end, current.admission._end)
     clock.check()
     ids = (space, definition, policy, execution)
     _preflight_inputs(root, data, case_id, gold_ids, payload, ids, deadline_ms, meter)
@@ -2293,11 +2320,24 @@ def _bind_stages(
         clock.check,
     )
     envelope = _source_envelope()
-    captured = _pin_check(owner, originals, derived, root, None, meter, clock)
-    catalog = _stage_catalog_dispatch(
-        originals, derived, root, captured.pointer.snapshot_id, meter, clock
-    )
-    _pin_check(owner, originals, derived, root, captured, meter, clock)
+    captured = _pin_check(owner, originals, derived, root, None, meter, clock,
+                          current=current, data=data, case_id=case_id)
+    if current is None:
+        catalog = _stage_catalog_dispatch(
+            originals, derived, root, captured.pointer.snapshot_id, meter, clock
+        )
+    else:
+        # The fixed protected current dispatch selection: the exact
+        # reviewed trusted stage catalog once, under the same stage
+        # metering and deadline.
+        meter.reserve(1)
+        clock.check()
+        catalog = bind_stage_catalog(
+            current.admission, owner, data, case_id, deadline_ms=30000
+        )
+        clock.check()
+    _pin_check(owner, originals, derived, root, captured, meter, clock,
+               current=current, data=data, case_id=case_id)
     _catalog_identity(catalog, meter, clock.check)
     eligible = _catalog_eligible(catalog, captured, effective, restricted, meter, clock.check)
     text_sha, payload_sha, authority_sha, query_id, analyzer = _query_identity(
@@ -2326,11 +2366,20 @@ def _bind_stages(
     )
     meter.reserve(1)
     clock.check()
-    gold = text_evaluation_gold_binding.bind(
-        originals, derived, data, gold_ids, deadline_ms=clock.remaining(30000)
-    )
+    if current is None:
+        gold = text_evaluation_gold_binding.bind(
+            originals, derived, data, gold_ids, deadline_ms=clock.remaining(30000)
+        )
+    else:
+        # The fixed protected current dispatch selection: the genuine
+        # pinned Gold body for the complete declared atom batch under the
+        # effective case.
+        gold = text_evaluation_gold_binding.bind_pinned(
+            current.admission, owner, data, case_id, gold_ids, deadline_ms=30000
+        )
     clock.check()
-    _pin_check(owner, originals, derived, root, captured, meter, clock)
+    _pin_check(owner, originals, derived, root, captured, meter, clock,
+               current=current, data=data, case_id=case_id)
     _validate_gold(gold, dataset, data, gold_ids, meter, clock.check)
     meter.reserve(len(eligible), 128 * len(eligible))
     chunk_ids = []
@@ -2339,19 +2388,29 @@ def _bind_stages(
         chunk_ids.append(row.chunk_id)
     meter.reserve(1)
     clock.check()
-    binding = source_bound_ranking.bind(
-        originals,
-        derived,
-        root,
-        catalog.snapshot_id,
-        catalog.catalog_id,
-        tuple(chunk_ids),
-        grants=effective,
-        restrictions=restricted,
-        deadline_ms=clock.remaining(30000),
-    )
+    if current is None:
+        binding = source_bound_ranking.bind(
+            originals,
+            derived,
+            root,
+            catalog.snapshot_id,
+            catalog.catalog_id,
+            tuple(chunk_ids),
+            grants=effective,
+            restrictions=restricted,
+            deadline_ms=clock.remaining(30000),
+        )
+    else:
+        # The fixed protected current dispatch selection: the genuine
+        # pinned ranking body for the exact eligible chunk tuple and
+        # catalog identity.
+        binding = source_bound_ranking.bind_pinned(
+            current.admission, owner, data, case_id, catalog.catalog_id,
+            tuple(chunk_ids), deadline_ms=30000,
+        )
     clock.check()
-    _pin_check(owner, originals, derived, root, captured, meter, clock)
+    _pin_check(owner, originals, derived, root, captured, meter, clock,
+               current=current, data=data, case_id=case_id)
     rows, stages, pure_work, pure_budget = _geometry_inputs(
         binding,
         eligible,
@@ -2380,7 +2439,8 @@ def _bind_stages(
         or geometry.qualification != "NOT_QUALIFIED"
     ):
         raise ValueError
-    _pin_check(owner, originals, derived, root, captured, meter, clock)
+    _pin_check(owner, originals, derived, root, captured, meter, clock,
+               current=current, data=data, case_id=case_id)
     import hashlib
 
     pointer_bytes = captured.pointer.pointer_bytes
@@ -2481,6 +2541,44 @@ def _bind_stages(
         checkpoint_categories,
         final_categories,
     )
+    if current is not None:
+        # The actual final stage result cutoff: the assembled diagnosis is
+        # refused unless one genuine selected observation under a suitable
+        # short exclusive acquisition of the same owner, under the one
+        # clipped request end, still agrees with the exact unchanged
+        # capture anchored from the first guarded reload.  The exact
+        # operation object is captured and validated under the guard
+        # before its end is assigned, and the retained object saves,
+        # takes and restores the exact prior end; the association must
+        # still use that same operation and the captured PinData; the
+        # guard is released from an unconditional inner finally even if
+        # the restore fails.
+        pin_eligibility._borrowed_owner(owner)
+        op = None
+        original_end = None
+        try:
+            op = owner.op
+            if op is None or op.path != root:
+                raise ValueError
+            original_end = op.end
+            op.end = clock.end
+            if owner.state != "ACTIVE" or owner.value is not captured:
+                raise ValueError
+            owner._association()
+            if owner.op is not op or owner.value is not captured:
+                raise ValueError
+            pin_eligibility._genuine_recheck(current.admission, clock.end)
+            if pin_eligibility._bound_grants(
+                current.admission, current.anchor
+            ) != grants:
+                raise ValueError
+            clock.check()
+        finally:
+            try:
+                if op is not None and original_end is not None:
+                    op.end = original_end
+            finally:
+                owner.guard.release()
     clock.check()
     return output
 
@@ -2671,3 +2769,145 @@ def bind_stage_catalog(admission, owner, dataset_bytes, case_id, *, deadline_ms=
         return _bind_stage_catalog(admission, owner, dataset_bytes, case_id, deadline_ms)
     except Exception:
         raise StageBindingError("stage catalog commencement refused") from None
+
+
+class _CurrentStageMode:
+    """Fixed private current-mode switch for the shared stage algorithm.
+
+    Carries only the exact admitted current selected-policy request and
+    its verified immutable full principal anchor.  It selects the fixed
+    protected current dispatches (the reviewed case-bound pin
+    revalidation, the exact trusted stage catalog, the genuine pinned
+    Gold and ranking bodies) and the current final guarded cutoff, and
+    is no hook, provider or alternate binder.
+    """
+
+    __slots__ = ("admission", "anchor")
+
+    def __init__(self, admission, anchor):
+        self.admission = admission
+        self.anchor = anchor
+
+
+def bind_stage_owned_dispatch(
+    admission,
+    owner,
+    dataset_bytes,
+    case_id,
+    hybrid_result,
+    query_payload,
+    *,
+    query_space_id,
+    query_definition_fingerprint,
+    query_policy_id,
+    query_execution_fingerprint,
+    gold_bundle_ids,
+):
+    """Compose the owned source checks in one private stage diagnosis.
+
+    Binds the exact admitted current selected-policy request
+    (``private_policy_request.PolicyRequestAdmission``), the exact active
+    operator-owned pin (``raw_snapshot_pin.PinOwner``), the bounded
+    canonical text-evaluation dataset bytes, the one exact case ID, the
+    existing typed supplied hybrid result
+    (``raw_hybrid_search.HybridResult``), the query payload with its
+    exact four declared identity fields and the bounded declared Gold
+    bundle ID tuple to the single existing stage algorithm.  The stores,
+    root, capture and snapshot come only from the actual owner, whose
+    actual root passes the original mixed shape gate and the metered
+    root, dataset, case, Gold ID, payload and declared-identifier
+    checks, and the genuine current admitted principal and the one exact
+    case derive the original/effective scope with no restriction and no
+    caller grants through the verified immutable full principal anchor
+    intersected with the genuine case declaration through the same
+    ``_admit_authority`` intersection, never a second unverified read of
+    the exposed nominal DTO.  One exact real stage clock is captured
+    before any semantic work from the accepted 30,000 ms maximum and
+    clipped to the actual original admitted request end, and anchors all
+    stage work through all dispatches to the final return, never reset
+    or extended.  The fixed private current-mode switch routes the
+    shared algorithm to the fixed protected current dispatches only:
+    the five actual pin checks are the reviewed
+    ``revalidate_current_pin_case`` sharing the stage nominal, identity
+    and metering checks with the legacy pin helper, the direct catalog
+    is the exact ``bind_stage_catalog`` once, the complete declared atom
+    batch dispatches the genuine
+    ``text_evaluation_gold_binding.bind_pinned`` under the effective
+    case, and the exact eligible chunk tuple and catalog identity
+    dispatch ``source_bound_ranking.bind_pinned``; every other
+    declaration, trace, bounds, geometry, metering, identity and output
+    check, order and reservation is the existing stage algorithm, and
+    each delegate owns its one nonreentrant borrow, starts after
+    admission and clips its 30,000 ms operation allowance to the same
+    recorded admission end, so one exact common operation end spans
+    every borrowed span, the exact prior owner end is preserved on every
+    exit and the stage guard is never held across borrowers, while the
+    remaining relative milliseconds forwarded to genuine lower I/O stay
+    cooperative budgets with no new relative round.  The exact live
+    PinData identity is anchored from the first guarded reload through
+    all phases, and the actual final stage result cutoff is one genuine
+    selected observation under a suitable short exclusive acquisition of
+    the same owner immediately before the usable return, which retains
+    the exact associated operation, saves and restores its exact prior
+    end on every exit, rechecks the exact unchanged capture, the real
+    association, the detached full principal anchor and the deadline
+    before any diagnosis is returned.  The caller supplies no caller
+    clock, deadline, provider, callbacks, alternate binder or source
+    routing, and the supplied hybrid result carries no demonstrated
+    current producer, encoder, grade or report provenance: the validated
+    result of this path is a private stage diagnosis.  Every ordinary
+    failure is one fixed content-free :class:`StageBindingError`; a
+    non-Exception interruption object propagates by identity,
+    preserving interruption and cleanup semantics.
+    """
+    import time
+
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as policy_request
+    from . import raw_snapshot_pin
+
+    try:
+        start = time.monotonic()
+        if (
+            type(admission) is not policy_request.PolicyRequestAdmission
+            or type(owner) is not raw_snapshot_pin.PinOwner
+        ):
+            raise ValueError
+        # The actual admitted end bounds the pure admission before any
+        # owner custody: the isolated selected-policy snapshot and the
+        # admitted principal's exact bound grants (the verified
+        # immutable full principal anchor) with no added restriction,
+        # checked against that end before and after the bounded work;
+        # the same captured start is passed to the shared stage
+        # algorithm, which constructs the one exact real stage clock.
+        pin_eligibility._still_within(admission._end)
+        policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+        anchor = pin_eligibility._bounded_admission(
+            pin_eligibility._admitted_principal_grants(
+                policy_snapshot, admission.principal_id
+            )
+        )
+        grants = pin_eligibility._bound_grants(admission, anchor)
+        pin_eligibility._still_within(admission._end)
+        return _bind_stages(
+            owner.originals,
+            owner.derived,
+            owner.op.path,
+            owner,
+            dataset_bytes,
+            case_id,
+            gold_bundle_ids,
+            hybrid_result,
+            query_payload,
+            query_space_id,
+            query_definition_fingerprint,
+            query_policy_id,
+            query_execution_fingerprint,
+            grants,
+            None,
+            30000,
+            start,
+            current=_CurrentStageMode(admission, anchor),
+        )
+    except Exception:
+        raise StageBindingError("owned stage diagnosis refused") from None

@@ -18,6 +18,7 @@
              - Current (2026-11-21): active objective 009, current slice 009-aj
               - Current (2026-11-21): active objective 009, current slice 009-ak
                - Current (2026-11-21): active objective 009, current slice 009-al
+                - Current (2026-11-21): active objective 009, current slice 009-am
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -2199,6 +2200,209 @@
   open without exclusivity or release claims;
   baseline NOT_RUN; whole 009 PARTIAL; no merge;
   DHA NONE.
+  Slice 009-am transfers the exact reviewed guarded
+  stage-owned dispatch and the initial
+  source-cohort pin with their six hosted
+  synthetic witnesses (same 009 continuation,
+  AMEND PR 11 at round base 256d1b9, the accepted
+  009-al report-only head whose exact required
+  hosted run 44867051253 attempt 1 passed all
+  five jobs and steps with ordered 1,440 + 1,998
+  units and 985 integrations in each Product).
+  The exact order (SHA-256
+  d6f51cdccdfa9515e8f72f2cbdb8b7f2922a2ef1dddc43087f6ca3652bab2df5)
+  and the two indexed strategic control JSONs
+  (SHA-256
+  2cd5ec6e7fa6847cc2e4a596e38c15a03a22a3b671429a30726df92cc7aa7196
+  and
+  3ab5e240ea75065e79fb8934fa43cd449d7427942f710d8d360628feb55cd68e)
+  are committed transcript-first byte-exact under
+  oap/orders/ and oap/reviews/.  The
+  implementation changes exactly six paths: the
+  four reviewed candidate blobs transferred by
+  blob identity without the candidate history,
+  order or report,
+  src/slaif_raggedized_helper/source_bound_stage_
+  loss.py (113,596 B, SHA-256
+  807acca02c4fc99e69fcb98a520b1005b049d24d3967b29b18933da7c10051be),
+  src/slaif_raggedized_helper/source_cohort_
+  runner.py (63,299 B, SHA-256
+  bd97dbd4f152cac6e3ab10129e98f1ebd1c32948eb1a6b054e6f5a2c75c4965e),
+  tests/integration/test_current_stage_owned_
+  dispatch_composition.py (28,499 B, SHA-256
+  ffa81a00eb33fff845e82538cfe109cfe23653d07aa3097f4198015c5174c41e)
+  and
+  tests/integration/test_current_cohort_initial_
+  pin_composition.py (25,347 B, SHA-256
+  b944b289162cd0bbb33c731352f49b72c57be74fc4d4592ca86598c88b599862),
+  plus these two documents.  The stage keeps the
+  single shared stage algorithm: the new fixed
+  private case-bound entry
+  bind_stage_owned_dispatch routes the exact
+  admitted current selected-policy request and
+  the exact live operator-owned pin owner
+  through the fixed private current-mode switch
+  of the existing _bind_stages - the five actual
+  pin revalidations are the reviewed
+  revalidate_current_pin_case sharing the legacy
+  stage nominal, identity and metering checks,
+  the direct catalog is the exact reviewed
+  bind_stage_catalog once, the complete declared
+  atom batch dispatches the genuine
+  text_evaluation_gold_binding.bind_pinned under
+  the effective case, and the exact eligible
+  chunk tuple and catalog identity dispatch
+  source_bound_ranking.bind_pinned - with every
+  other declaration, trace, bounds, geometry,
+  metering, identity and output check, order and
+  reservation preserved, the complete Gold scope
+  and the independent full grant anchor
+  retained, and one exact common operation end
+  spanning all full directories under the one
+  stage clock clipped to the actual original
+  admitted request end.  The exact live PinData
+  identity is anchored from the first guarded
+  reload through all phases, and the actual
+  final stage result cutoff assembles the
+  actual diagnosis first, then one genuine
+  selected observation under the short exclusive
+  acquisition of the same owner immediately
+  before the usable return, capturing and
+  validating the exact operation object under
+  the guard, rechecking the detached full
+  principal anchor and the deadline, restoring
+  the exact prior operation end and releasing
+  the guard unconditionally even if the restore
+  fails; it returns only the private stage
+  diagnosis with the supplied HybridResult's
+  existing qualification and origin, and every
+  ordinary failure is one fixed content-free
+  StageBindingError with non-Exception
+  interruption propagated by identity.  The
+  cohort preserves one actual initial full
+  directory reload and the shared legacy
+  post-reload pointer/core/row-map/identity
+  work (the extracted byte-order-exact
+  _pin_capture_identity runnable by both paths
+  with the retained pre-dispatch value as
+  prior).  The new fixed private
+  _current_cohort_initial_pin entry accepts only
+  the genuine current PolicyRequestAdmission,
+  the exact live PinOwner which alone selects
+  the origin stores, root and capture, bounded
+  canonical dataset bytes, the exact closed
+  Cohort, the declared encoder identifier and
+  Gold ID tuples, the exact Config, the bounded
+  source Budget and one 1..30,000 ms deadline,
+  with no caller grants, restrictions, path or
+  stores, snapshot, Plan, query payload,
+  provider, callback or clock.  The exact
+  owner-selected operation, root and stores are
+  retained before the genuine source declaration
+  admission, whose pure query-free per-case
+  readable-availability admission for every
+  ordered effective case completes before any
+  new physical work; under one genuine
+  nonblocking borrowed owner guard the exact
+  stores, saved operation, root and retained
+  PinData are tied before protected work, the
+  genuine selected reads run before the real
+  reload and as the final cut after the full
+  identity and grant checks under one exact
+  deadline, and the original PREFLIGHT
+  progress, the saved end and the guard
+  restoration are retained with non-Exception
+  identity; no required grade catalog or case
+  dispatch occurs in that operation, and an
+  admitted refusal preserves the intended count
+  under the fixed content-free
+  CohortRunnerError.  The six new default
+  hosted nodes keep completed versus attempted
+  physical work, logical meters and
+  fixture/baseline scopes distinct.  The stage
+  nodes reuse the 009-ai ranking fixture over
+  the inherited support and source cohort
+  fixtures: test_owned_h2_matches_legacy_stage
+  reproduces the legacy diagnosis with eleven
+  actual directories (five revalidations, the
+  one direct catalog's two trees and the two
+  retained ranking catalogs' four trees),
+  three catalogs, the measured selected reads
+  and the exact common deadline and custody;
+  test_owned_change_after_catalog_denies_next_
+  pin witnesses the real generation change
+  after the completed catalog denying the next
+  pin before any directory or source load with
+  the latched admission and the same held pin
+  and restored custody; test_owned_final_cutoff_
+  denies_assembled_result witnesses the
+  same-wire change armed immediately before the
+  exact one-based final reader read refusing the
+  assembled diagnosis at the final cutoff, with
+  the bounded interruption subcase asserting
+  the exact marker by identity.  The cohort
+  nodes directly reuse the 009-af Gold dispatch
+  fixture: test_initial_cohort_h1_h4_matches_
+  legacy_observation succeeds under the actual
+  withheld b outside the effective h1/h4 case
+  scopes with one full directory and two
+  genuine selected observations, the trusted
+  nested broader rebuild reaching the retained b
+  revision while the separately measured legacy
+  _pin_observation matches;
+  test_initial_cohort_h2_denies_unavailable_
+  scope_before_protected_work refuses the exact
+  ordered cohort before any new I/O or selected
+  check with zero directory starts and
+  incomplete attempts zero;
+  test_initial_cohort_generation_change_refuses_
+  without_usable_pin witnesses the same-pin
+  generation change denied before the reload
+  with zero new reads and after one completed
+  physical reload producing no usable pin, with
+  the exact interruption identity, keeping the
+  early pure-admission and final-cutoff
+  boundaries distinct.  The one reconciled
+  stage dependency keeps the 009-ak shared
+  catalog extraction and receives the exact
+  stage donor change in this round, with the
+  used _preflight_declaration,
+  _admit_authority and _Meter exact across the
+  donor, receiving and combined versions
+  (top-level definition digest); the legacy
+  _run_cohort, _declaration_admission and
+  _case_checks remain exact before and after
+  transfer, and the rank gate's four used
+  symbols are exact across donor and receiver.
+  The prior bounded candidate local checks and
+  the Root terminal review of the accepted
+  009-al head are the prior evidence; the
+  receiving local proof under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds in a fresh
+  mode-0700 scratch directly under sticky
+  /dev/shm (one inherited 202-node unit focus
+  (51 stage + 8 raw pin + 15 ranking + 21 Gold
+  + 54 cohort + 53 current eligibility), one
+  bounded collect-only of the six new hosted
+  nodes, one scoped four-file one-core Ruff
+  with one Rayon thread and the physical
+  import-origin probe in fresh stage-first and
+  cohort-first processes, all exit 0; no local
+  native result).  Expected at the exact report
+  head: fresh hosted CI with all five required
+  jobs and every required step, both Products
+  passing the unchanged ordered A 1,440 and B
+  1,998 plus exactly 991 passing integrations
+  (985 prior + 6 new), with Root independently
+  reviewing the exact report-head logs and
+  receiving scope.  The remaining full cohort
+  execution, encoder/producer and grading
+  wiring, report provenance/publication,
+  delivery, runtime qualification and real
+  held-out evaluation remain open without
+  exclusivity or release claims; baseline
+  NOT_RUN; whole 009 PARTIAL; no merge; DHA
+  NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

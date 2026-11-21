@@ -3565,6 +3565,345 @@ and baseline qualification gates stay open without
 exclusivity or release claims; whole 009 PARTIAL,
 baseline NOT_RUN, no merge, DHA NONE.
 
+## The 009-am current stage cohort transfer (same
+009 continuation)
+
+Slice 009-am (AMEND PR 11 at round base 256d1b9,
+the accepted 009-al report-only head whose exact
+required hosted run 44867051253 attempt 1 passed
+all five jobs and steps with ordered 1,440 +
+1,998 units and 985 integrations in each
+Product) transfers the exact reviewed guarded
+stage-owned dispatch and the initial
+source-cohort pin, each with its three hosted
+synthetic witnesses, by blob identity: the four
+reviewed objects (source_bound_stage_loss.py,
+source_cohort_runner.py,
+test_current_stage_owned_dispatch_composition.py
+and
+test_current_cohort_initial_pin_composition.py)
+are byte-exact, and the candidates' commit
+histories, orders and reports are not copied
+into the receiving branch.  The legacy
+_run_cohort, _declaration_admission and
+_case_checks remain exact before and after
+transfer, and the stage file's used
+_preflight_declaration, _admit_authority and
+_Meter are exact across the donor, receiving
+and combined versions.
+
+The stage keeps the single shared stage
+algorithm.  The new fixed private case-bound
+entry bind_stage_owned_dispatch accepts only
+the exact admitted current selected-policy
+request (PolicyRequestAdmission), the exact
+live operator-owned pin owner, the bounded
+canonical dataset bytes (1..16,777,216), the
+one exact case ID (1..128), the existing typed
+supplied hybrid result, the query payload with
+its exact four declared identity fields and
+the bounded declared Gold bundle ID tuple; the
+owner alone chooses its stores, root, capture
+and snapshot, and the genuine current admitted
+principal and the exact case derive the
+original/effective scope through the same
+_admit_authority case-scope intersection with
+no restriction and no caller grants, never a
+second unverified read of the exposed nominal
+DTO.  The entry captures the exact start and
+checks the actual admitted end before and
+after that bounded pure admission work, then
+passes the same start to the shared stage
+algorithm, which constructs the one exact real
+stage clock from the accepted 30,000 ms
+maximum clipped to the actual original
+admitted request end before any semantic work
+and never reset or extended.  The fixed
+private current-mode switch routes the single
+existing _bind_stages algorithm to the fixed
+protected current dispatches only: the five
+actual pin checks are the reviewed
+revalidate_current_pin_case sharing the stage
+nominal, identity and metering checks with
+the legacy pin helper; the direct catalog is
+the exact reviewed bind_stage_catalog once;
+the complete declared atom batch dispatches
+the genuine text_evaluation_gold_binding.
+bind_pinned under the effective case, keeping
+the complete Gold scope; and the exact
+eligible chunk tuple and catalog identity
+dispatch source_bound_ranking.bind_pinned,
+with the independent full grant anchor
+retained.  Every other declaration, trace,
+bounds, geometry, metering, identity and
+output check, order and reservation is
+preserved from the existing stage algorithm;
+there is no generic hook, provider or second
+algorithm, and each delegate owns its one
+nonreentrant borrow, starting after admission
+and clipping its 30,000 ms operation
+allowance to the same recorded admission end,
+so one exact common operation end spans every
+full directory and the exact prior owner end
+is preserved on every exit of each actual
+borrowed span.  The exact live PinData
+identity is anchored from the first guarded
+reload through all phases, and the actual
+final stage result cutoff assembles the
+actual _Diagnosis first, then one genuine
+selected observation under a suitable short
+exclusive acquisition of the same owner
+immediately before the usable return: it
+captures and validates the exact operation
+object under the guard, uses that retained
+object to save its prior end and set it to the
+actual stage end before the real association,
+confirms the association still uses the same
+owner operation and the captured PinData,
+rechecks the detached full principal anchor
+and the deadline, and restores the exact
+prior operation end and releases the guard
+from an unconditional inner finally even if
+the restore fails.  It returns only the
+private stage diagnosis with the supplied
+HybridResult's existing qualification and
+origin; every ordinary failure is one fixed
+content-free StageBindingError, and a
+non-Exception interruption propagates by
+identity with custody preserved.
+
+The cohort keeps one actual initial full
+directory reload and the shared legacy
+post-reload pointer/core/row-map/identity
+work: the bounded identity checks are
+extracted byte-order-exact into
+_pin_capture_identity, runnable by both the
+legacy _pin_observation and the new entry
+with the retained pre-dispatch value passed
+as prior.  The new fixed private
+_current_cohort_initial_pin entry accepts
+only the genuine current PolicyRequestAdmission,
+the exact live PinOwner which alone selects
+the origin stores, root and capture, bounded
+canonical dataset bytes, the exact closed
+Cohort (case_ids validated as an exact tuple
+within the envelope 1..256 bounds before the
+identifier length comparison), the declared
+encoder identifier tuples, the declared Gold
+ID tuple, the exact Config, the bounded
+source Budget and one 1..30,000 ms deadline,
+with no caller grants, restrictions, path or
+stores, snapshot, Plan, query payload,
+provider, callback or clock.  The exact
+owner-selected operation, root and stores are
+retained before the admission and passed to
+the genuine source _declaration_admission
+over the canonical dataset and exact
+selected cohort with the verified full
+principal anchor and no added restriction,
+under one actual source _Deadline started
+once and clipped to the admission original
+end before any semantic work; the clipped
+deadline is checked immediately before the
+authority snapshot work and its bounded
+completion is validated.  Under one genuine
+nonblocking borrowed owner guard, the
+active owner is tied to the exact retained
+operation, root and stores before any
+protected work and the pre-dispatch PinData
+is retained; the actual canonical row
+binding from the retained value and one
+unavailable table with the real reader
+checks complete the pure query-free per-case
+readable-availability admission for every
+ordered effective case before any new full
+directory or source read, each retained
+scope admitted once as its typed canonical
+record and reused by the per-case scan.  The
+same held value and operation are required
+at the pre-load association, then the actual
+metadata association and one genuine
+same-admission selected reread immediately
+before the real fixed PinOwner.
+_held_revalidation body (one borrow and one
+physical reload, no second full pin and no
+nested custody); the shared identity checks
+with the retained value as prior complete
+before the final genuine selected
+observation, the remaining pure accounting
+(the detached full-grants verification
+against the immutable anchor) and the
+trailing meter charge complete before it,
+after which only the exact cutoff and the
+required restoration/release intervene on
+all exits: the saved operation's actual
+prior end is restored and the guard is
+released unconditionally on refusal or
+interruption.  The original PREFLIGHT
+progress, the saved end and the guard
+restoration are retained, a non-Exception
+interruption propagates by identity, and an
+admitted initial refusal preserves the
+intended count under the fixed content-free
+CohortRunnerError; no required grade
+catalog or case dispatch occurs in that
+operation, and the trusted nested broader
+full-directory rebuild may still reach
+retained sources outside the effective case
+scope while the early pure-admission and
+final-cutoff boundaries stay distinct.
+
+The six new default hosted nodes keep
+completed versus attempted physical work,
+logical meters and fixture/baseline scopes
+distinct.  The stage nodes reuse the 009-ai
+ranking fixture over the inherited support
+and source cohort fixtures, with its
+attributed synthetic selected policy and
+fresh admissions after the unguarded
+comparison setup, counting pin, catalog,
+directory, bundle, derived, original-store
+verified read and owner-load calls at the
+intended boundaries.
+test_owned_h2_matches_legacy_stage
+reproduces the legacy diagnosis with eleven
+actual full directories (five independent
+pin revalidations, the one direct stage
+catalog's two load_directory trees and the
+two retained ranking catalogs' two trees
+each), three completed catalogs, the
+measured selected reads (two per
+revalidation, two for the direct catalog,
+one before each Gold bundle load in both
+passes, one before each ranking catalog
+dispatch and selected bundle load in both
+passes, and one at the actual final stage
+result cutoff) and the exact common
+operation end under the guard, with the
+exact prior owner end preserved across all
+eight borrowed spans and restored after the
+fifteenth association.
+test_owned_change_after_catalog_denies_next_
+pin witnesses the real current generation
+change after the actual direct catalog
+completes and between real stage guards
+denying the next physical pin start before
+any directory or source load, freezing the
+same raw pointer/owner with positive prior
+physical work (one completed revalidation
+and one complete catalog with their real
+reads), the actual current denial latched
+with no extra reads, zero later guarded
+stages and no diagnosis, the same held pin
+and the restored guard/end.
+test_owned_final_cutoff_denies_assembled_
+result witnesses the actually completed
+final pin revalidation and the real
+selected generation change armed
+immediately before the real read at the
+exact one-based final reader index proving
+the final cutoff refusing the assembled
+result with that same pin, exact owner end
+and guard restore, actual read/latch at
+that exact final reader, no extra full
+source load and directory completion
+counted only after the real delegate
+returns successfully; its bounded
+interruption subcase asserts the exact
+marker object by identity through the short
+exclusive acquisition at the route's
+fifteenth and final association with the
+real owner custody preserved and no usable
+diagnosis.  The cohort nodes directly reuse
+the 009-af Gold dispatch fixture, with the
+measured M+2*P bundle/original and M+6*P
+derived full-directory shape derived purely
+from the held pin data before the current
+admission.
+test_initial_cohort_h1_h4_matches_legacy_
+observation witnesses the stable ordered
+h1/h4 under the real withheld b case scope
+matching the separately measured legacy
+_pin_observation with one real full
+directory (delegated raw directory start /
+successful completion 1/1), two genuine
+selected observations, the exact retained
+raw value, the one clipped cooperative end
+observed at both the actual association and
+the loader and equal to the fresh
+admission's own end, the actual installed
+withdrawal for b (the installed selected
+policy retains b's document but withdraws
+b's exact revision pair, so b's partition
+is genuinely unavailable under the retained
+membership) and both exact narrowed case
+scopes excluding b, with the baseline and
+fixture counters kept separate from the
+entry and legacy spans and the trusted
+rebuild reaching the retained b revision.
+test_initial_cohort_h2_denies_unavailable_
+scope_before_protected_work witnesses the
+later broad h2 with readable unavailable b
+failing the exact ordered cohort before
+any new pin, directory, ingestion, original
+or selected check, with zero directory
+starts/completions, incomplete attempts
+zero, the admission not latched, and the
+guard and prior end retained.
+test_initial_cohort_generation_change_
+refuses_without_usable_pin witnesses the
+real selected-generation change under the
+same raw pointer and owner refusing before
+the reload with one genuine selected
+denial and zero new directory or source
+reads, and a post-reload actual
+selection-change subcase under a separate
+fresh admission (whose own initial
+selected read is excluded from the counted
+span) in the same node so one complete
+reload produces no usable pin, one
+delegated raw directory start successfully
+completing, the exact same pre-dispatch
+held value and raw pointer across both
+genuine selected generation mutations,
+each subcase resetting monkeypatch between
+the subcases before its next fresh
+admission and fresh witness so the
+inherited Gold witness never nests old
+count wrappers, plus a bounded exact
+interruption witness with zero directory
+starts/completions.
+
+Local proof on the receiving bytes under the
+ordered CPU60s/AS1GiB/wall120s KILL5 bounds,
+in a fresh mode-0700 scratch directly under
+sticky /dev/shm with the canonical venv and
+canonical physical src: one inherited 202-
+node unit focus (51 stage + 8 raw pin + 15
+ranking + 21 Gold + 54 cohort + 53 current
+eligibility), one bounded collect-only of
+the six new hosted nodes, one scoped
+four-file one-core Ruff with one Rayon
+thread and the physical canonical import-
+origin probe in fresh stage-first and
+cohort-first processes, all exit 0; no
+setup, install, local native execution or
+unchanged repeat.  The fresh exact
+report-head hosted CI is PENDING at
+authoring: all five jobs and every
+required step, both Products at ordered
+1,440 + 1,998 units and exactly 991
+separate integration passes (985 prior + 6
+new), no missing or skipped evidence.  No
+baseline measurement or qualification
+claim is made; full cohort execution,
+encoder/producer and grading wiring,
+report provenance/publication, delivery,
+runtime qualification and real held-out
+evaluation stay open without exclusivity or
+release claims; whole 009 PARTIAL, baseline
+NOT_RUN, no merge, DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

@@ -459,25 +459,21 @@ def _declaration_admission(
     return dataset, selected, selection, meter
 
 
-def _pin_observation(owner, originals, derived, root, prior, meter, clock):
-    """Revalidate the same borrowed capture, including its bounded row map."""
+def _pin_capture_identity(owner, captured, prior, meter, clock):
+    """Bounded pointer/core/row-map/identity evidence for one post-reload capture.
+
+    Shared by the legacy owned observation and the guarded private
+    initial cohort pin path: the caller performs the genuine reload
+    first - the legacy owned ``check`` or the fixed non-reacquiring
+    ``PinOwner._held_revalidation`` body while already holding the
+    owner guard - and this helper applies the exact same bounded
+    pointer, core-digest and row-map identity checks in their original
+    order, without re-acquiring custody.
+    """
     import hashlib
 
     from . import raw_snapshot_files, raw_snapshot_pin, raw_snapshot_rows, raw_snapshot_selection
 
-    if (
-        type(owner) is not raw_snapshot_pin.PinOwner
-        or owner.state != "ACTIVE"
-        or owner.originals is not originals
-        or owner.derived is not derived
-        or owner.op is None
-        or owner.op.path != root
-    ):
-        raise ValueError
-    meter.reserve(1)
-    clock.check()
-    captured = _owner_check(owner, deadline_ms=clock.remaining(120000))
-    clock.check()
     if (
         type(captured) is not raw_snapshot_pin.PinData
         or type(captured.pointer) is not raw_snapshot_selection.Pointer
@@ -521,6 +517,26 @@ def _pin_observation(owner, originals, derived, root, prior, meter, clock):
     if parsed != row_map:
         raise ValueError
     return captured
+
+
+def _pin_observation(owner, originals, derived, root, prior, meter, clock):
+    """Revalidate the same borrowed capture, including its bounded row map."""
+    from . import raw_snapshot_pin
+
+    if (
+        type(owner) is not raw_snapshot_pin.PinOwner
+        or owner.state != "ACTIVE"
+        or owner.originals is not originals
+        or owner.derived is not derived
+        or owner.op is None
+        or owner.op.path != root
+    ):
+        raise ValueError
+    meter.reserve(1)
+    clock.check()
+    captured = _owner_check(owner, deadline_ms=clock.remaining(120000))
+    clock.check()
+    return _pin_capture_identity(owner, captured, prior, meter, clock)
 
 
 def _pure_payload(report, pairs, meter, clock, max_work, max_payload):
@@ -1469,3 +1485,271 @@ def _run_cohort(
                 )
             raise CohortRunnerError(progress) from None
     raise grade_error from None
+
+
+def _current_cohort_initial_pin(
+    admission,
+    pin_owner,
+    dataset_bytes,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    budget,
+    *,
+    deadline_ms,
+):
+    """Guard the initial full pin read for one declared source cohort.
+
+    The fixed private initial source-cohort pin entry: only the genuine
+    current ``PolicyRequestAdmission``, the exact live ``PinOwner``
+    (which alone selects the origin stores, root and capture), the
+    bounded canonical dataset bytes, the exact closed ``Cohort``, the
+    declared encoder identifier tuples, the declared Gold ID tuple, the
+    exact ``Config``, the bounded source ``Budget`` and one 1..30000 ms
+    deadline.  No caller grants, restrictions, path/stores, snapshot,
+    Plan, query payload, provider, callback or clock is accepted, and at
+    most one private trusted initial ``PinData`` value is returned.
+
+    The exact owner-selected operation, root and stores are retained
+    before the admission and passed to it.  The genuine source
+    ``_declaration_admission`` admits the canonical dataset and exact
+    selected cohort over the supplied declaration grammar and the
+    verified full principal anchor with no added restriction, under one
+    actual source ``_Deadline`` started once and clipped to the genuine
+    admission's original end before any semantic work - checked again
+    immediately before the authority snapshot work and its bounded
+    completion - and the request end is never reset or extended.  Under
+    one genuine nonblocking borrowed owner guard the pre-dispatch PinData
+    is retained, the active owner is tied to the exact retained
+    operation, root and stores before any protected work, and the saved
+    operation carries the prior end.  After the pure scope admission -
+    every derived per-case scope has readable members and every readable
+    retained member is available for every exact selected case, over one
+    captured sealed membership, the actual canonical row binding from
+    the retained value and one unavailable table with the real reader
+    checks, in the original declaration order, each retained scope
+    admitted once as its typed canonical record and reused by the
+    per-case scan - the same held value and operation are required at
+    the pre-load association, then the actual metadata association and
+    the genuine same-admission selected reread run immediately before
+    the real fixed ``PinOwner._held_revalidation`` body that calls
+    ``_load`` and the full directory.  The same held value and
+    operation are verified after the actual reload, the shared bounded
+    pointer/core/row-map identity checks run with the retained value as
+    prior, then the remaining pure accounting - the detached
+    full-grants verification against the immutable anchor - and the
+    trailing meter charge complete before the final real selected
+    observation, after which only the exact cutoff and the required
+    restoration/release intervene.  The saved operation's end is
+    restored and the guard released on all exits; no nested borrow,
+    extra pin, catalog, producer, grading or report execution occurs.
+    Every ordinary failure is the fixed
+    content-free ``CohortRunnerError`` - an admitted initial refusal
+    retains the PREFLIGHT prefix with the actual intended count and no
+    attempted or refused cases - while a non-Exception BaseException
+    propagates by identity.
+    """
+    import time
+
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as policy_request
+    from . import provenance_records as provenance
+    from . import raw_snapshot_pin, raw_snapshot_rows
+    from . import raw_snapshot_selection as snapshot_selection
+    from . import supplied_policy_eligibility as policy_eligibility
+
+    admitted = False
+    intended = 0
+    try:
+        if (
+            type(admission) is not policy_request.PolicyRequestAdmission
+            or type(pin_owner) is not raw_snapshot_pin.PinOwner
+            or type(dataset_bytes) is not bytes
+            or not 1 <= len(dataset_bytes) <= 1048576
+            or not _closed(cohort, Cohort)
+            or not _closed(config, Config)
+            or not _closed(budget, Budget)
+            or type(cohort.case_ids) is not tuple
+            or not 1 <= len(cohort.case_ids) <= 256
+            or type(identifiers) is not tuple
+            or len(identifiers) != len(cohort.case_ids)
+            or type(gold_ids) is not tuple
+            or type(deadline_ms) is not int
+            or not 1 <= deadline_ms <= 30000
+            or pin_owner.op is None
+            or pin_owner.value is None
+            or pin_owner.originals is None
+            or pin_owner.derived is None
+        ):
+            raise ValueError
+        # The exact owner-selected operation, root and stores retained
+        # for the genuine declaration admission; the active owner is
+        # tied to them under the guard before any protected work.
+        saved_op = pin_owner.op
+        saved_originals = pin_owner.originals
+        saved_derived = pin_owner.derived
+        saved_root = saved_op.path
+        # One actual source deadline, started once and clipped to the
+        # genuine admission's original end before any semantic work; the
+        # request end is never reset or extended.
+        started = time.monotonic()
+        clock = _Deadline(started, deadline_ms)
+        clock.end = min(clock.end, admission._end)
+        clock.check()
+        # Reuse the isolated selected-policy and bounded full principal
+        # primitives: one bounded coherent in-memory isolated snapshot of
+        # the retained selected policy, the verified immutable full
+        # principal anchor and the detached nominal authority bound to
+        # it; no independent parse or trust of caller-selected authority.
+        policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+        anchor_snapshot = pin_eligibility._bounded_admission(
+            pin_eligibility._admitted_principal_grants(policy_snapshot, admission.principal_id)
+        )
+        grants = pin_eligibility._bound_grants(admission, anchor_snapshot)
+        clock.check()
+        # The genuine source declaration admission over the canonical
+        # dataset and exact selected cohort, supplied declaration grammar
+        # and verified full principal anchor, with no added restriction.
+        dataset, selected, selection, meter = _declaration_admission(
+            saved_originals,
+            saved_derived,
+            saved_root,
+            pin_owner,
+            dataset_bytes,
+            cohort,
+            identifiers,
+            gold_ids,
+            grants,
+            None,
+            config,
+            budget,
+            clock,
+        )
+        intended = len(selected)
+        admitted = True
+        # One genuine nonblocking borrowed owner guard; the exact
+        # original operation, value and their association are retained
+        # and verified, never trusted.
+        pin_eligibility._borrowed_owner(pin_owner)
+        try:
+            # The pre-dispatch PinData retained under the genuine guard;
+            # the active owner is tied to the exact retained operation,
+            # root and stores before any protected work, never trusted.
+            saved_value = pin_owner.value
+            if (
+                pin_owner.state != "ACTIVE"
+                or pin_owner.op is not saved_op
+                or saved_op.path != saved_root
+                or pin_owner.originals is not saved_originals
+                or pin_owner.derived is not saved_derived
+                or type(saved_op) is not snapshot_selection._Operation
+                or type(saved_value) is not raw_snapshot_pin.PinData
+            ):
+                raise ValueError
+            meter.reserve(1)
+            clock.check()
+            _pointer, core, membership, _membership_bytes = pin_eligibility._held_capture(
+                pin_owner
+            )
+            meter.reserve(1)
+            clock.check()
+            # One unavailable table and the actual canonical row binding
+            # under the guard, from the retained pre-dispatch value.
+            unavailable = set(
+                policy_eligibility.unavailable_partitions(policy_snapshot, membership)
+            )
+            meter.reserve(1)
+            row_map = saved_value.data.row_map
+            if type(row_map) is not raw_snapshot_rows.RawRowMap:
+                raise ValueError
+            if raw_snapshot_rows.bind(core, row_map.map_bytes) != row_map:
+                raise ValueError
+            meter.reserve(len(row_map.map_bytes) + 1, len(row_map.map_bytes))
+            clock.check()
+            # Bounded scope admission with the real reader checks, in
+            # the original declaration order: every derived per-case
+            # scope must have readable members and every readable
+            # retained member must be available for every exact selected
+            # case before any new full directory or source read; an
+            # unavailable partition outside the effective case scope does
+            # not deny the case.  Each retained scope is admitted once
+            # as its typed canonical record and reused by the per-case
+            # scan instead of re-parsing the same whole scopes.
+            scoped = []
+            for entry in membership.entries:
+                meter.reserve(1)
+                scoped.append(
+                    (entry, provenance.admit_record("Scope", entry.scope_bytes))
+                )
+            meter.reserve(1)
+            clock.check()
+            for _case, _original, effective, _restricted in selected:
+                meter.reserve(1)
+                usable = False
+                for entry, scope in scoped:
+                    meter.reserve(1)
+                    if not provenance.reader_allows(scope, effective, None):
+                        continue
+                    usable = True
+                    if entry.partition_id in unavailable:
+                        raise ValueError
+                if not usable:
+                    raise ValueError
+                meter.reserve(1)
+                clock.check()
+            # The guarded variant: the actual clipped cooperative end
+            # on the saved operation, with its actual prior end restored
+            # on all exits.
+            prior_end = saved_op.end
+            saved_op.end = clock.end
+            try:
+                # The same held value and operation at the pre-load
+                # association, never trusted.
+                if pin_owner.op is not saved_op or pin_owner.value is not saved_value:
+                    raise ValueError
+                pin_owner._association()
+                meter.reserve(1)
+                clock.check()
+                # The genuine same-admission selected reread immediately
+                # before the real fixed _held_revalidation that calls
+                # _load and the full directory.
+                pin_eligibility._genuine_recheck(admission, clock.end)
+                value = pin_owner._held_revalidation()
+                meter.reserve(1)
+                clock.check()
+                # The same operation and pre-dispatch PinData after the
+                # real held revalidation, never trusted.
+                if pin_owner.op is not saved_op or value is not saved_value:
+                    raise ValueError
+                meter.reserve(1)
+                clock.check()
+                # The full retained pointer/core/row-map identity checks
+                # with the retained pre-dispatch value as prior, before
+                # the final genuine selected observation.
+                captured = _pin_capture_identity(pin_owner, value, saved_value,
+                                                 meter, clock)
+                meter.reserve(1)
+                clock.check()
+                # The remaining pure accounting: the detached full-grants
+                # verification against the immutable anchor, with the
+                # trailing meter charge before the final observation.
+                if pin_eligibility._bound_grants(admission, anchor_snapshot) != grants:
+                    raise ValueError
+                meter.reserve(1)
+                clock.check()
+                # The final genuine selected observation; after it only
+                # the exact cutoff and the required restoration/release
+                # intervene.
+                pin_eligibility._genuine_recheck(admission, clock.end)
+                clock.check()
+            finally:
+                saved_op.end = prior_end
+        finally:
+            pin_owner.guard.release()
+        return captured
+    except Exception:
+        progress = None
+        if admitted:
+            progress = FailurePrefix("PREFLIGHT", intended, 0, 0, 0, intended)
+        raise CohortRunnerError(progress) from None
