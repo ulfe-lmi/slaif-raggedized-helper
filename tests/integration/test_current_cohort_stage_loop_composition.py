@@ -26,8 +26,14 @@ and the mutation publishing one actual same-wire selected-policy
 generation after one actually completed case scope and before the
 second real CASE_PIN reread, proving zero second encoder/catalog/
 stage starts, one completed case, the exact prefix, the genuine
-admission latch and the retained exact raw pointer and owner.  No
-local native witness execution: only the configured hosted CI
+admission latch and the retained exact raw pointer and owner.  The
+stable h1/h4 and mutation witnesses project the owned fixture's
+declared Gold to the genuinely admissible a/c batch, because the
+existing whole-declared-Gold-batch gate refuses the complete
+declaration whenever the genuinely withheld corpus-two member b is
+declared while unavailable under the selected policy; the h1/h2
+witness keeps the exact original full declaration.  No local native
+witness execution: only the configured hosted CI
 executes the three real hosted nodes, and local proof of this module
 is collection only.
 """
@@ -48,14 +54,17 @@ from slaif_raggedized_helper import embedding_tokenizer  # noqa: E402
 from slaif_raggedized_helper import private_policy_capture as capture  # noqa: E402
 from slaif_raggedized_helper import private_policy_pin_eligibility as pin_eligibility  # noqa: E402
 from slaif_raggedized_helper import private_policy_request as ppr  # noqa: E402
+from slaif_raggedized_helper import provenance_records as p  # noqa: E402
 from slaif_raggedized_helper import raw_hybrid_search as hybrid  # noqa: E402
 from slaif_raggedized_helper import raw_snapshot_catalog as catalog  # noqa: E402
 from slaif_raggedized_helper import source_bound_stage_loss as stage_loss  # noqa: E402
 from slaif_raggedized_helper import source_cohort_runner as runner  # noqa: E402
+from slaif_raggedized_helper import supplied_policy_eligibility as policy_eligibility  # noqa: E402
 from slaif_raggedized_helper import text_evaluation_dataset  # noqa: E402
 import test_current_cohort_encoder_producer_composition as producer_fixture  # noqa: E402
 import test_current_gold_dispatch_composition as gold_fixture  # noqa: E402
 import test_guarded_encoder_transport_composition as transport  # noqa: E402
+import test_source_cohort_runner_composition as cohort_fixture  # noqa: E402
 
 QUESTION_H1 = "DistinctiveZephyr one?"
 QUESTION_H4 = "DistinctiveZephyr none?"
@@ -107,6 +116,80 @@ def _eligible(ctx, owner, dataset, case_id, full_grants):
             case, original, effective, restricted)
 
 
+def _admissible_gold_batch(owner, dataset, bundle_ids, admission):
+    """The one test-local projection of the full native fixture to
+    the genuinely admissible synthetic Gold batch, following the
+    already proven Gold witness.  The existing whole-declared-
+    Gold-batch gate authenticates the whole membership by the
+    genuine unavailable partitions but refuses the declared batch
+    whenever a declared entry's partition is unavailable under the
+    effective case scope; with the complete native declaration the
+    genuinely withheld corpus-two member b is declared and refused
+    while the same actual raw original pin still holds it.  The
+    projection resolves b from the actually retained membership and
+    its corpus scope, excludes its bundle ID from the declared
+    Gold, and projects every one of its revision/extraction spans
+    out of the entire declared five-case dataset, pruning only the
+    resulting emptied alternatives and requirements, reassembled
+    with the exact existing canonical JSON and source fixture.  The
+    h1/h4 case scopes and questions, the five dataset cases, the
+    six projected Gold atom occurrences and a/c as the two declared
+    Gold bundles are preserved, and b stays present in the pin and
+    genuinely unavailable under the selected policy.  Returns the
+    projected dataset bytes and the declared bundle ID tuple."""
+    entries = owner.value.data.membership.entries
+
+    def corpus_of(ident):
+        entry = next(e for e in entries
+                     if e.bundle_container_id == ident)
+        return p.admit_record("Scope", entry.scope_bytes).corpus
+
+    withheld_id = next(ident for ident in bundle_ids
+                       if corpus_of(ident) == "two")
+    withheld = next(e for e in entries
+                    if e.bundle_container_id == withheld_id)
+    unavailable = set(policy_eligibility.unavailable_partitions(
+        pin_eligibility._isolated_policy_snapshot(admission),
+        owner.value.data.membership))
+    assert withheld.partition_id in unavailable
+    dropped = {(entry.revision_id, entry.extraction_id)
+               for entry in entries
+               if entry.bundle_container_id == withheld_id}
+    base = json.loads(dataset)
+    for case in base["cases"]:
+        requirements = []
+        for requirement in case["requirements"]:
+            alternatives = []
+            for alternative in requirement["alternatives"]:
+                spans = [span for span in alternative
+                         if (span["revision_id"], span["extraction_id"])
+                         not in dropped]
+                if spans:
+                    alternatives.append(spans)
+            if alternatives:
+                requirements.append(requirement)
+        case["requirements"] = requirements
+    projected = cohort_fixture.canonical(base)
+    declared = tuple(ident for ident in bundle_ids
+                     if ident != withheld_id)
+    admitted = text_evaluation_dataset.admit(projected)
+    assert admitted.case_count == 5
+    assert admitted.gold_atom_count == 6
+    assert len(declared) == 2
+    return projected, declared
+
+
+def _unexpected_refusal(error, shapes):
+    """Bounded test-local diagnostic for an unexpected refusal: the
+    existing content-free progress prefix and the fixture aggregate
+    counts (membership entries, row-map bundles, source groups,
+    partition triples) only - no content, identity, path or byte
+    material."""
+    return AssertionError(
+        "unexpected stage-loop refusal progress=%s fixture=%s"
+        % (producer_fixture._refusal_prefix(error.progress), shapes))
+
+
 def _stage_loop(admission, owner, dataset, bundle_ids, case_ids,
                 identifiers, encoder):
     cohort = runner.Cohort("held_out", tuple(case_ids))
@@ -156,10 +239,18 @@ def test_stage_loop_positive_two_cases_match_legacy_dispatch(
                 pin_eligibility._admitted_principal_grants(
                     policy_snapshot, admission.principal_id))
             full_grants = pin_eligibility._bound_grants(admission, anchor)
+            # The complete native declaration is refused by the
+            # existing whole-declared-Gold-batch gate because the
+            # genuinely withheld corpus-two b is declared and
+            # unavailable; the stable witness uses the one test-local
+            # projection to the genuinely admissible a/c batch over
+            # the same actual raw original pin.
+            dataset_ac, declared_ac = _admissible_gold_batch(
+                owner, dataset, bundle_ids, admission)
             rows1, u1, _case1, _original1, _effective1, _restricted1 = (
-                _eligible(ctx, owner, dataset, "h1", full_grants))
+                _eligible(ctx, owner, dataset_ac, "h1", full_grants))
             rows4, u4, _case4, _original4, _effective4, _restricted4 = (
-                _eligible(ctx, owner, dataset, "h4", full_grants))
+                _eligible(ctx, owner, dataset_ac, "h4", full_grants))
             counts = producer_fixture._counts()
             restore = producer_fixture._install_counting(
                 monkeypatch, ctx, owner, reader, counts)
@@ -177,10 +268,13 @@ def test_stage_loop_positive_two_cases_match_legacy_dispatch(
                     [token_pipe, worker_pipe], writes)
                 try:
                     held = owner.value
-                    report = _stage_loop(
-                        admission, owner, dataset, bundle_ids,
-                        ("h1", "h4"), (expected, expected),
-                        sc["encoder"])
+                    try:
+                        report = _stage_loop(
+                            admission, owner, dataset_ac, declared_ac,
+                            ("h1", "h4"), (expected, expected),
+                            sc["encoder"])
+                    except runner.CohortRunnerError as error:
+                        raise _unexpected_refusal(error, (m, b, g, p))
                 finally:
                     os.write = real_write
                 # One genuine shared source cohort and stage result,
@@ -192,7 +286,7 @@ def test_stage_loop_positive_two_cases_match_legacy_dispatch(
                 assert document["selection_kind"] == "DECLARED_SUBSET"
                 assert document["selected_count"] == 2
                 assert document["dataset_case_count"] == 5
-                assert document["dataset_gold_occurrences"] == 7
+                assert document["dataset_gold_occurrences"] == 6
                 assert document["progress"] == {
                     "intended": 2, "attempted": 2, "completed": 2,
                     "refused": 0, "pending": 0}
@@ -284,8 +378,8 @@ def test_stage_loop_positive_two_cases_match_legacy_dispatch(
                 assert dir_counts == {"start": 59, "done": 59}
                 # The delegated bundle, derived and original loads of
                 # the initial pin plus the two actual cases.
-                case1 = _bundle_work(directory, catalog_shape, u1, 3)
-                case4 = _bundle_work(directory, catalog_shape, u4, 3)
+                case1 = _bundle_work(directory, catalog_shape, u1, 2)
+                case4 = _bundle_work(directory, catalog_shape, u4, 2)
                 assert (counts["bundle"], counts["derived"],
                         counts["original"]) == tuple(
                             directory[i] + case1[i] + case4[i]
@@ -294,8 +388,8 @@ def test_stage_loop_positive_two_cases_match_legacy_dispatch(
                 # scoped observation spans in declaration order, and
                 # the one genuine delegate observation of the final
                 # same-admission cut after the shared result work.
-                assert counts["read"] == [1, 1] + [1] * _case_reads(u1, 3) \
-                    + [1] * _case_reads(u4, 3) + [1]
+                assert counts["read"] == [1, 1] + [1] * _case_reads(u1, 2) \
+                    + [1] * _case_reads(u4, 2) + [1]
                 # Two direct plus nine nested catalog loads per case.
                 assert catalog_counts == {"direct": 4, "nested": 18}
                 # Two actual T1 text and T2 token-ID spans, one per
@@ -394,7 +488,7 @@ def test_stage_loop_positive_two_cases_match_legacy_dispatch(
                         bind_patch)
                     legacy_diag = stage_loss.bind_stages(
                         ctx.originals, ctx.derived, str(owner.op.path),
-                        owner, dataset, case.case_id, bundle_ids, legacy,
+                        owner, dataset_ac, case.case_id, declared_ac, legacy,
                         payload, query_space_id=expected[0],
                         query_definition_fingerprint=expected[1],
                         query_policy_id=expected[2],
@@ -525,8 +619,14 @@ def test_stage_loop_generation_change_after_first_case(tmp_path,
                 pin_eligibility._admitted_principal_grants(
                     policy_snapshot, admission.principal_id))
             full_grants = pin_eligibility._bound_grants(admission, anchor)
+            # The mutation witness uses the same one test-local
+            # projection to the genuinely admissible a/c batch over
+            # the same actual raw original pin with the withheld b
+            # still present and genuinely unavailable.
+            dataset_ac, declared_ac = _admissible_gold_batch(
+                owner, dataset, bundle_ids, admission)
             rows1, u1, _case1, _original1, _effective1, _restricted1 = (
-                _eligible(ctx, owner, dataset, "h1", full_grants))
+                _eligible(ctx, owner, dataset_ac, "h1", full_grants))
             counts = producer_fixture._counts()
             changed = {"flag": False}
             completed = []
@@ -572,7 +672,7 @@ def test_stage_loop_generation_change_after_first_case(tmp_path,
                     [token_pipe, worker_pipe], writes)
                 try:
                     with pytest.raises(runner.CohortRunnerError) as exc:
-                        _stage_loop(admission, owner, dataset, bundle_ids,
+                        _stage_loop(admission, owner, dataset_ac, declared_ac,
                                     ("h1", "h4"), (expected, expected),
                                     sc["encoder"])
                 finally:
@@ -583,6 +683,12 @@ def test_stage_loop_generation_change_after_first_case(tmp_path,
             # CASE_PIN reread observes the published same-wire
             # generation change and refuses the remainder before any
             # new second encoder, catalog, stage or full reload work.
+            # Any other refusal point is unexpected; the bounded
+            # content-free progress and fixture aggregate counts are
+            # the only diagnostic material.
+            if (producer_fixture._refusal_prefix(exc.value.progress)
+                    != ("CASE_PIN", 2, 2, 1, 1, 0)):
+                raise _unexpected_refusal(exc.value, (m, b, g, p))
             assert producer_fixture._refusal_prefix(
                 exc.value.progress) == ("CASE_PIN", 2, 2, 1, 1, 0)
             # One initial plus the seven actual case-one pin loads;
@@ -590,13 +696,13 @@ def test_stage_loop_generation_change_after_first_case(tmp_path,
             # load, directory, ingestion, original or catalog work.
             assert counts["pin_load"] == 8
             assert dir_counts == {"start": 30, "done": 30}
-            case1 = _bundle_work(directory, catalog_shape, u1, 3)
+            case1 = _bundle_work(directory, catalog_shape, u1, 2)
             assert (counts["bundle"], counts["derived"],
                     counts["original"]) == tuple(
                         directory[i] + case1[i] for i in range(3))
             # The initial two observations, the whole case-one span,
             # then the single refusing second CASE_PIN observation.
-            assert counts["read"] == [1] * (2 + _case_reads(u1, 3) + 1)
+            assert counts["read"] == [1] * (2 + _case_reads(u1, 2) + 1)
             assert catalog_counts == {"direct": 2, "nested": 9}
             # One actual T1 and T2 span, the case-one producer
             # dispatch once with the exact one-row payload, and zero
