@@ -15,6 +15,7 @@
           - Current (2026-11-20): active objective 009, current slice 009-ag
            - Current (2026-11-20): active objective 009, current slice 009-ah
             - Current (2026-11-21): active objective 009, current slice 009-ai
+             - Current (2026-11-21): active objective 009, current slice 009-aj
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1754,6 +1755,110 @@
   authenticated delivery, governed full evaluation and the
   representative baseline remain open; baseline NOT_RUN;
   whole 009 PARTIAL; no merge; DHA NONE.
+  Slice 009-aj transfers the exact reviewed private
+  case-bound current pin revalidation and its four
+  hosted synthetic witnesses (same 009 continuation,
+  AMEND PR 11 at round base 0ea63e9, the accepted 009-ai
+  report-only head whose exact required hosted run
+  44847591776 attempt 1 passed all five jobs and steps
+  with ordered 1,440 + 1,998 units and 975 integrations
+  in each Product).  The exact order (SHA-256
+  562235da97b30cc79526dd1129fbb42d16ad7ab25da1758b9ac6223cdc937b14)
+  and the two indexed strategic control JSONs (SHA-256
+  1ea03961188029203505a8af89d692118123a4aa70bc0b8560a75ca562532456
+  and 13cdfe383200b6e8ce60d681dd8fad0c0fd72d4172bc8376352b9d311f955397)
+  are committed transcript-first byte-exact under oap/orders/
+  and oap/reviews/.  The implementation changes exactly
+  five paths: the three reviewed candidate blobs
+  transferred by blob identity without the candidate
+  history, order or report,
+  src/slaif_raggedized_helper/raw_snapshot_pin.py
+  (10,382 B, SHA-256
+  aa3b312b6d7e18e84e8c478071e7c2199df7a0eac5bf47f3d62d632310113545),
+  src/slaif_raggedized_helper/private_policy_pin_eligibility.py
+  (29,913 B, SHA-256
+  4dfca12dcf067aebbe8d30422f2752afc4ff5873ba1f1e2aca0bfca380fc9827)
+  and
+  tests/integration/test_current_pin_revalidation_composition.py
+  (17,712 B, SHA-256
+  e2a49b82991a4e53d92dbc40f17cd18261271f91bc33b6981b02b2f238f4502f),
+  plus these two documents.  The one new fixed private
+  entry revalidate_current_pin_case in the existing
+  private_policy_pin_eligibility module (the pinned public
+  __all__ surface unchanged) accepts only the exact
+  admitted request, the exact borrowed active pin owner,
+  the bounded canonical dataset bytes (1..16,777,216), one
+  exact case ID (1..128) and one cooperative 1..30,000 ms
+  deadline, with no caller authority, path/stores,
+  snapshot, clock, generic hook or provider; the bounded
+  canonical bytes are admitted through the genuine
+  canonical case declaration, the verified immutable full
+  grants copy is bound to the selected policy's admitted
+  principal anchor and refused unless equal to that anchor,
+  and the case intersection runs through the existing
+  bounded authority admission with no added restriction
+  and never a second unverified read of the exposed
+  nominal DTO.  The genuine held capture and the pure
+  scope/availability gate under the case-bound effective
+  grants complete before any full directory or source
+  read, so an unavailable effective scope or an unadmitted
+  case refuses with zero new directory or source work;
+  only then does the guarded variant run the extracted
+  fixed non-reacquiring held validation body
+  (PinOwner._held_revalidation, shared byte-exact with the
+  legacy PinOwner.check whose signature, exception
+  behavior, independent full reload and exact
+  association/equality semantics are preserved) under one
+  borrowed owner guard and the actual clipped cooperative
+  end, with the actual prior op.end saved and restored on
+  all exits, the genuine recheck immediately before the
+  real full directory reload, the original post-load
+  association and exact held equality, the genuine final
+  selection observation, the pure detached full-grants
+  comparison and the final exact time cutoff; the trusted
+  full directory validation can read pinned sources
+  outside the effective case scope, and a real
+  selected-generation denial after the initial association
+  prevents all new directory and source reads.  The four
+  new default hosted nodes
+  (test_case_bound_h2_matches_legacy_check,
+  test_case_bound_gate_denies_unavailable_scope_before_protected_work,
+  test_case_bound_first_selection_denial_before_full_directory,
+  test_case_bound_final_observation_denial_after_full_reload)
+  reuse the actual 009-ai gold-dispatch fixture, attribute
+  the measured full-directory work shape M plus 2P source
+  groups derived purely from the held pin data before the
+  current admission, witness the stable h2 legacy
+  equality with one real full directory and two selected
+  observations, the pure h2 zero-read refusal for the
+  genuinely unavailable b while the distinct h1
+  acceptance has its trusted full directory rebuild still
+  read the withheld b revision, the real first selection
+  denial with zero full directory starts or source reads,
+  and the final observation denial after one completed
+  reload returning no usable guarded pin, with the
+  closed/busy-owner, exhausted-deadline and non-Exception
+  interruption subcases raising one exact marker instance
+  asserted by identity.  The prior bounded candidate
+  local checks and the Root terminal review of the
+  accepted 009-ai head are the prior evidence; the
+  receiving local proof under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds in a fresh mode-0700
+  scratch directly under sticky /dev/shm (one inherited
+  106-node unit focus, one bounded collect-only of the
+  four new hosted nodes, one scoped three-file one-core
+  Ruff and the physical import-origin probe, all exit 0;
+  no local native result).  Expected at the exact report
+  head: fresh hosted CI with all five required jobs and
+  every required step, both Products passing the unchanged
+  ordered A 1,440 and B 1,998 plus exactly 979 passing
+  integrations (975 prior + 4 new), with Root
+  independently reviewing the exact report-head logs and
+  receiving scope.  The remaining stage, cohort, grade,
+  publication, delivery, source rights and baseline
+  qualification remain open without exclusivity or
+  release claims; baseline NOT_RUN; whole 009 PARTIAL; no
+  merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

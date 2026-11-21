@@ -11,6 +11,26 @@ pin data and again after scope computation, and the real
 retained current policy and captured membership with the real narrowed
 scope rules (``provenance_records.reader_allows`` and canonical effective
 access) deciding one fixed, content-free eligible or unavailable outcome.
+A second fixed private entry (objective 009, PAR-009 current-pin
+revalidation) revalidates the same borrowed active pin for one exact
+canonical case: it admits the bounded canonical dataset bytes through the
+genuine canonical case declaration, intersects the verified immutable
+full grants copy (bound to the selected policy's admitted principal
+anchor) with that one case scope through the existing
+``source_bound_stage_loss._admit_authority`` with no added restriction,
+completes the genuine held capture and the pure scope/availability gate
+under the case-bound effective grants before any full directory or source
+read (an unavailable effective scope or an unadmitted case refuses), and
+only then runs the extracted fixed non-reacquiring held validation body
+of ``PinOwner.check`` under one borrowed owner guard and the actual
+clipped cooperative end: the existing metadata association, the genuine
+recheck immediately before the real ``_load`` that starts full directory
+validation, the original post-load association and exact held equality,
+the genuine final selection observation, the pure detached full-grants
+comparison and the final exact time cutoff before yielding the same
+validated held PinData, saving and restoring the actual prior ``op.end``
+on all exits and preserving non-Exception interruption identity and
+prior owner custody.
 
 Boundaries: the caller supplies no policy bytes/DTO, stored root,
 ``PinData``, provider, raw credential, arbitrary grants or clock.  The
@@ -66,8 +86,10 @@ from . import (
     provenance_records,
     raw_lexical_search,
     raw_snapshot_manifest,
+    source_bound_stage_loss,
     supplied_policy,
     supplied_policy_eligibility,
+    text_evaluation_dataset,
 )
 from .private_policy_request import PolicyRequestAdmission
 from .raw_snapshot_files import BoundSnapshotData
@@ -457,5 +479,165 @@ def prepare_current_pin_eligibility(admission, owner, *, deadline_ms, restrictio
     finally:
         # The entry retains no caller-owned nominal authority beyond the
         # bound observation locals; clear them from this retained frame.
+        error = None
+        result = None
+
+def _end_check(end):
+    # The bounded check callback for the authority meter under the one
+    # absolute end of this operation.
+    def check() -> None:
+        if time.monotonic() >= end:
+            raise ValueError
+
+    return check
+
+
+def revalidate_current_pin_case(admission, owner, dataset_bytes, case_id, *, deadline_ms):
+    """Revalidate one borrowed active pin under one fixed case-bound scope.
+
+    The exact admitted ``admission`` and the exact borrowed ``owner`` are
+    the only authority inputs; the bounded canonical ``dataset_bytes``
+    are admitted through the genuine canonical case declaration, the one
+    exact ``case_id`` is resolved within that admission, and the verified
+    immutable full grants copy (bound to the selected policy's admitted
+    principal anchor through the existing bounded DTO admission) is
+    intersected with the case scope through the existing
+    ``source_bound_stage_loss._admit_authority`` with no added
+    restriction, never a second unverified read of the exposed nominal
+    DTO.  The genuine held capture and the pure
+    scope/availability gate under the case-bound effective grants
+    complete before any full directory or source read, so an unavailable
+    effective scope or an unadmitted case refuses with zero new
+    directory or source work.  Only then does the guarded variant run
+    the extracted fixed non-reacquiring held validation body under one
+    borrowed owner guard and the actual clipped cooperative end: the
+    existing metadata association, the genuine recheck immediately
+    before the real ``_load`` that starts full directory validation, the
+    original post-load association and exact held equality, the genuine
+    final selection observation, the pure detached full-grants
+    comparison and the final exact time cutoff before yielding the same
+    validated held PinData.  The actual prior ``op.end`` is saved and
+    restored on all exits; a nested directory finishes its work under
+    its own bounded clock; this route guards its commencement and
+    refuses late output.  A non-Exception BaseException propagates by
+    identity, preserving prior owner custody; every ordinary failure is
+    the fixed input-free ``PolicyPinEligibilityError``.  No caller
+    authority, path/store, snapshot, clock, generic hook or provider is
+    accepted.
+    """
+    error = None
+    result = None
+    try:
+        try:
+            if not _deadline_accepted(deadline_ms):
+                raise _Refused()
+            if (
+                type(admission) is not PolicyRequestAdmission
+                or type(owner) is not PinOwner
+                or type(dataset_bytes) is not bytes
+                or not 1 <= len(dataset_bytes) <= 16777216
+                or type(case_id) is not str
+                or not 1 <= len(case_id) <= 128
+            ):
+                raise _Refused()
+            # The single absolute cooperative deadline bound to this
+            # operation starts before any case work, honoring the shorter
+            # remaining current request lifetime; the request end is
+            # never reset or extended.
+            end = min(time.monotonic() + deadline_ms / 1000.0, admission._end)
+            _still_within(end)
+            # One bounded coherent in-memory isolated snapshot of the
+            # retained selected policy, verified against the exact
+            # semantic identity bound by the original admission; it is
+            # the only policy object used for the availability gate and
+            # the final grants comparison.
+            policy_snapshot = _isolated_policy_snapshot(admission)
+            _still_within(end)
+            # Bind the detached nominal authority value to the verified
+            # snapshot's exact admitted principal grant: the complete
+            # immutable principal anchor, compared again purely at the
+            # final observation cut.
+            anchor_snapshot = _bounded_admission(
+                _admitted_principal_grants(policy_snapshot, admission.principal_id)
+            )
+            grants = _bound_grants(admission, anchor_snapshot)
+            _still_within(end)
+            # The genuine canonical case declaration over the bounded
+            # canonical dataset bytes, under the remaining budget.
+            remaining_ms = _remaining_ms(end)
+            if remaining_ms < _MIN_DEADLINE_MS:
+                raise _Refused()
+            dataset = text_evaluation_dataset.admit(
+                dataset_bytes, deadline_ms=min(int(remaining_ms), 5000)
+            )
+            _still_within(end)
+            # One exact case; an unadmitted case refuses before any
+            # owner work.
+            case = None
+            for candidate in dataset.cases:
+                if candidate.case_id == case_id:
+                    case = candidate
+            if case is None:
+                raise _Refused()
+            _still_within(end)
+            # The existing bounded authority admission: the verified
+            # immutable full grants copy (bound above to the selected
+            # policy's admitted principal anchor) intersected with the
+            # one exact case scope, with no added restriction and no
+            # second unverified read of the exposed nominal DTO.
+            meter = source_bound_stage_loss._Meter()
+            check = _end_check(end)
+            meter.check = check
+            _original, effective, _restricted = source_bound_stage_loss._admit_authority(
+                grants, None, case.scope, meter, check
+            )
+            _still_within(end)
+            # The genuine held capture and the pure scope/availability
+            # gate under the case-bound effective grants, complete
+            # before any full directory or source read: an unavailable
+            # effective scope refuses the whole case.
+            _borrowed_owner(owner)
+            try:
+                _pointer, _core, membership, _membership_bytes = _held_capture(owner)
+                _still_within(end)
+                if _scope_refused(policy_snapshot, membership, effective, None):
+                    raise _Refused()
+                _still_within(end)
+                # The guarded variant: one borrowed owner guard and the
+                # actual clipped cooperative end, saving and restoring
+                # the actual prior op.end on all exits.
+                prior_end = owner.op.end
+                owner.op.end = end
+                try:
+                    owner._association()
+                    # The genuine recheck immediately before the real
+                    # _load that starts full directory validation.
+                    _genuine_recheck(admission, end)
+                    value = owner._held_revalidation()
+                    # The genuine final selection observation and the
+                    # pure detached full-grants comparison, then the
+                    # final exact time cutoff before yielding the same
+                    # validated held PinData.
+                    _genuine_recheck(admission, end)
+                    if _bound_grants(admission, grants) != grants:
+                        raise _Refused()
+                    _still_within(end)
+                    result = value
+                finally:
+                    owner.op.end = prior_end
+            finally:
+                owner.guard.release()
+            _still_within(end)
+        except Exception:
+            error = PolicyPinEligibilityError()
+        # Raised after the handler exits: no caught cause or context is
+        # retained; a non-Exception BaseException already propagated by
+        # identity through the outer span.
+        if error is not None:
+            raise error
+        return result
+    finally:
+        # The entry retains no caller-owned nominal authority beyond the
+        # bound result local; clear it from this retained frame.
         error = None
         result = None

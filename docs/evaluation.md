@@ -3103,6 +3103,112 @@ delivery gates, the source rights and the representative
 baseline stay open; whole 009 PARTIAL, baseline NOT_RUN,
 no merge, DHA NONE.
 
+## The 009-aj current pin revalidation transfer (same 009
+continuation)
+
+Slice 009-aj (AMEND PR 11 at round base 0ea63e9, the
+accepted 009-ai report-only head whose exact required
+hosted run 44847591776 attempt 1 passed all five jobs and
+steps with ordered 1,440 + 1,998 units and 975 integrations
+in each Product) transfers the exact reviewed private
+case-bound current pin revalidation by blob identity: the
+three reviewed objects (raw_snapshot_pin.py,
+private_policy_pin_eligibility.py and
+test_current_pin_revalidation_composition.py) are
+byte-exact, and the candidate's commit history, its order
+and its report are not copied into the receiving branch.
+
+The one new fixed private entry revalidate_current_pin_case
+in the existing private_policy_pin_eligibility module (the
+pinned public __all__ surface unchanged) accepts only the
+exact PolicyRequestAdmission, the exact borrowed active
+PinOwner, the bounded canonical dataset bytes (1..16,777,216
+bytes), one exact case ID (1..128 characters) and one
+cooperative 1..30,000 ms deadline; the caller supplies no
+authority, path or stores, snapshot, clock, generic hook or
+provider.  The bounded canonical bytes are admitted through
+the genuine canonical case declaration under the remaining
+budget, the verified immutable full grants copy — the
+detached nominal authority value bound through the existing
+bounded DTO admission to the selected policy's admitted
+principal anchor and refused unless it equals that anchor —
+is intersected with the one exact case scope through the
+existing bounded authority admission with no added
+restriction, and never a second unverified read of the
+exposed nominal DTO is performed.  The genuine held capture
+and the pure scope/availability gate under the case-bound
+effective grants complete before any full directory or
+source read: an unavailable effective scope or an
+unadmitted case refuses with zero new directory or source
+work.  Only then does the guarded variant run the extracted
+fixed non-reacquiring held validation body (PinOwner.
+_held_revalidation, shared byte-exact with the unchanged
+legacy PinOwner.check, whose signature, exception behavior,
+independent full reload and exact association/equality
+semantics are preserved) under one borrowed nonreentrant
+owner guard and the actual clipped cooperative end, with
+the actual prior op.end saved and restored on all exits:
+the existing metadata association, the genuine recheck
+immediately before the real _load that starts the full
+directory validation, the original post-load association
+and exact held equality, the genuine final selection
+observation, the pure detached full-grants comparison and
+the final exact time cutoff before yielding the same
+validated held PinData; a non-Exception interruption
+propagates by identity and every ordinary failure is the
+fixed content-free refusal.
+
+The actual current selected-policy checks run at the
+genuine observation cuts under the one clipped end, while
+the trusted full directory integrity may still read pinned
+sources outside the effective case scope — the withheld
+member b revision is asserted among the actually verified
+original reads in the distinct h1 acceptance — and a real
+selected-generation denial after the initial association
+prevents all new directory and source reads.
+
+The four new default hosted nodes reuse the actual 009-ai
+gold-dispatch fixture and its attributed synthetic current
+policy with fresh admissions after the expensive setup:
+the stable h2 result matches the separately counted legacy
+check with one real full directory and two selected
+observations; the pure h2 refusal for the genuinely
+unavailable b happens before any protected work, while the
+distinct h1 acceptance after the case narrows to unaffected
+scope still has its trusted full directory rebuild read the
+withheld b revision through the delegated read_verified
+recording; the real first selection denial after the
+metadata association proves zero full directory starts and
+zero source reads; and the real selected denial after one
+completed reload returns no usable guarded pin with the
+actual final observation denial.  The closed/busy-owner,
+exhausted-deadline and non-Exception interruption subcases
+raise one exact marker instance asserted by identity with
+genuine pre-load observation and zero physical directory
+starts or source reads.  The measured full-directory work
+shape (M membership ingestions plus 2P per-partition dense
+and lexical source groups) is derived purely from the held
+pin data the fixture already captured before the current
+admission begins its request lifetime.
+
+Local proof on the receiving bytes under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds, in a fresh mode-0700
+scratch directly under sticky /dev/shm with the canonical
+venv: one inherited 106-node unit focus (8 + 53 + 45), one
+bounded collect-only of the four new hosted nodes, one
+scoped three-file one-core Ruff and the physical
+import-origin probe, all exit 0; no setup, install, local
+native execution or unchanged repeat.  The fresh exact
+report-head hosted CI is PENDING at authoring: all five
+jobs and every required step, both Products at ordered
+1,440 + 1,998 units and exactly 979 separate integration
+passes (975 prior + 4 new).  No baseline measurement or
+qualification claim is made; the remaining stage, cohort,
+grade, publication, delivery, source rights and baseline
+qualification gates stay open without exclusivity or
+release claims; whole 009 PARTIAL, baseline NOT_RUN, no
+merge, DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
