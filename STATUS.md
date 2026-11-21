@@ -16,6 +16,7 @@
            - Current (2026-11-20): active objective 009, current slice 009-ah
             - Current (2026-11-21): active objective 009, current slice 009-ai
              - Current (2026-11-21): active objective 009, current slice 009-aj
+              - Current (2026-11-21): active objective 009, current slice 009-ak
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -1825,7 +1826,8 @@
   test_case_bound_gate_denies_unavailable_scope_before_protected_work,
   test_case_bound_first_selection_denial_before_full_directory,
   test_case_bound_final_observation_denial_after_full_reload)
-  reuse the actual 009-ai gold-dispatch fixture, attribute
+  reuse the actual 009-af gold-dispatch fixture (the
+  009-ai slice transferred the ranking dispatch), attribute
   the measured full-directory work shape M plus 2P source
   groups derived purely from the held pin data before the
   current admission, witness the stable h2 legacy
@@ -1836,10 +1838,13 @@
   read the withheld b revision, the real first selection
   denial with zero full directory starts or source reads,
   and the final observation denial after one completed
-  reload returning no usable guarded pin, with the
-  closed/busy-owner, exhausted-deadline and non-Exception
-  interruption subcases raising one exact marker instance
-  asserted by identity.  The prior bounded candidate
+  reload returning no usable guarded pin; the closed,
+  busy-owner and exhausted-deadline subcases each
+  deliberately assert the ordinary content-free
+  PolicyPinEligibilityError refusal, and the single
+  separately scoped non-Exception interruption subcase
+  alone asserts the exact marker instance by object
+  identity.  The prior bounded candidate
   local checks and the Root terminal review of the
   accepted 009-ai head are the prior evidence; the
   receiving local proof under the ordered
@@ -1859,6 +1864,143 @@
   qualification remain open without exclusivity or
   release claims; baseline NOT_RUN; whole 009 PARTIAL; no
   merge; DHA NONE.
+  Slice 009-ak transfers the exact reviewed guarded
+  direct stage catalog and its three hosted synthetic
+  witnesses (same 009 continuation, AMEND PR 11 at round
+  base 57f916b, the accepted 009-aj report-only head whose
+  exact required hosted run 44852105955 attempt 1 passed
+  all five jobs and steps with ordered 1,440 + 1,998 units
+  and 979 integrations in each Product).  The exact order
+  (SHA-256
+  ed638f0edd9621eb97ac5dc4c6484dbfb35e0a563e95853aa092db0a955f87ba)
+  and the two indexed strategic control JSONs (SHA-256
+  0c73bac614ca8b5992520f7ac3a103678178a62fafaf45ba11bcd1860691e337
+  and 2e489265c7fcd66b0b848b57d7586f273ccddc81f6b86aadc036fc5316a5cba3)
+  are committed transcript-first byte-exact under oap/orders/
+  and oap/reviews/.  The implementation changes exactly
+  four paths: the two reviewed candidate blobs
+  transferred by blob identity without the candidate
+  history, order or report,
+  src/slaif_raggedized_helper/source_bound_stage_loss.py
+  (102,411 B, SHA-256
+  a4c707d1ba634e13f140b4ae21929d0182904152837fba7bf99bfbf4d7ba4ba2)
+  and
+  tests/integration/test_current_stage_catalog_composition.py
+  (27,182 B, SHA-256
+  fd27031cc4f51f29bea8104089473fc5183a8c34d2b9d794d8d8babef73a0e8f),
+  plus these two documents.  The existing direct stage
+  catalog dispatch is extracted into the single shared
+  private body _stage_catalog_dispatch (reserve/check, one
+  real raw_snapshot_catalog.load_catalog with the bounded
+  remaining time into the existing loader, check), used by
+  the legacy _bind_stages (call arguments, reservations,
+  effective deadline, later validation order, observable
+  identities, output and exception behavior preserved) and
+  by the new private trusted stage-input seam
+  bind_stage_catalog, which accepts only the exact
+  admitted current selected-policy request
+  (PolicyRequestAdmission), the exact active operator-owned
+  PinOwner, the canonical dataset bytes (1..16,777,216),
+  one exact case ID (1..128) and one cooperative 1..30,000
+  ms deadline, with no caller authority, path/stores,
+  snapshot, clock, generic hook or provider; one actual
+  monotonic end is captured before any semantic work and
+  clipped to the admission lifetime as the same absolute
+  end across all work, never reset or extended.  The one
+  canonical dataset/case/selected-atom admission
+  (_admit_stage_dataset, the same exact legacy meter call
+  order) and the same exact stage case declaration are
+  shared with the supplied stage path; the effective scope
+  is derived only from the verified immutable full
+  principal anchor (isolated selected-policy snapshot,
+  admitted principal grants, bound grants, final detached
+  full-anchor comparison) through the same _admit_authority
+  intersection with no added restriction.  Under one real
+  nonreentrant borrowed owner guard with the exact prior
+  owner end saved and restored on every exit: the real
+  held-capture verification and the bounded row-map bytes
+  are retained before any dispatch, the pure
+  effective-scope membership availability (an unadmitted
+  case, no readable usable effective scope and an
+  unavailable effective partition) refuses before any
+  directory/catalog/source read, the real metadata
+  association runs, and one genuine live same-admission
+  selection observation is the last eligibility step
+  immediately before the actual direct catalog call; the
+  returned object is gated to the exact nominal catalog
+  type and field shapes before any field is read or sized,
+  the real post-load metadata association and the exact
+  pre-dispatch held-value identity are checked, the
+  catalog snapshot/core/row-map ties to the same
+  pre-dispatch held pin, the exact nominal catalog
+  identity holds, one more genuine current selection
+  observation precedes the detached full principal anchor
+  check and the exact cutoff, and only the trusted
+  intermediate catalog is returned; ordinary failures are
+  one fixed input-free StageBindingError and a non-Exception
+  interruption propagates by identity with custody
+  restored.  The nested trusted catalog work keeps its own
+  bounded validation and may still reach pinned sources
+  outside the effective case scope.  The three new default
+  hosted nodes reuse the actual 009-ai ranking-dispatch
+  scenario fixture (whose Gold fixture 009-af transferred)
+  with the exact measured shapes (each full directory M
+  plus 2P ingestions; 2*M+B+2*G+4*P per complete catalog;
+  one verified original per real structured-text
+  ingestion): test_stage_catalog_h2_identity_and_restricted_h1
+  witnesses the stable h2 catalog identity/equality
+  against the separate real legacy catalog with one
+  guarded catalog, two genuine selected observations and
+  the exact pin/custody retained, the pure unknown-case
+  and unavailable h2 refusals with zero new
+  catalog/directory/source work, and the distinct
+  narrower h1 acceptance whose real trusted catalog
+  genuinely reads the retained withheld b by original
+  revision with the request selection scope kept
+  separate; test_stage_catalog_change_after_association_
+  denies_before_catalog witnesses a real completed prior
+  PinOwner.check in its own measured phase followed by a
+  fresh request establishment, the actual selected
+  generation advanced after the guarded route's real
+  association proving the real selected denial/latch at
+  the actual next stage catalog start with zero new
+  catalog, directory, bundle or store work in the denied
+  window and exactly one actual selected reread; and
+  test_stage_catalog_change_after_catalog_and_interruption
+  witnesses the real selection advanced after the real
+  full catalog returns, denying a usable catalog output
+  after one genuine complete catalog and two live
+  observations with association and prior custody
+  preserved, plus the bounded interruption subcase
+  asserting the exact marker object by identity through
+  the cleanup with no admission latch.  The two
+  reconciled 009-aj dependencies (the receiving raw pin
+  and private pin eligibility blobs) were rechecked at
+  their import origins with the candidate's used
+  guard/authority symbols compared and fresh isolated
+  imports in both module orders.  The prior bounded
+  candidate local checks and the Root terminal review of
+  the accepted 009-aj head are the prior evidence; the
+  receiving local proof under the ordered
+  CPU60s/AS1GiB/wall120s KILL5 bounds in a fresh mode-0700
+  scratch directly under sticky /dev/shm (one inherited
+  62-node unit focus (51 stage + 3 catalog + 8 raw pin),
+  one bounded collect-only of the three new hosted nodes,
+  one scoped two-file one-core Ruff with one Rayon thread
+  and the physical import-origin probe in fresh
+  stage-first and eligibility-first processes, all exit
+  0; no local native result).  Expected at the exact
+  report head: fresh hosted CI with all five required
+  jobs and every required step, both Products passing the
+  unchanged ordered A 1,440 and B 1,998 plus exactly 982
+  passing integrations (979 prior + 3 new), with Root
+  independently reviewing the exact report-head logs and
+  receiving scope.  The remaining whole stage
+  orchestration, alternate caller authority, operator
+  surfaces, cohort, grade, publication, delivery, source
+  rights and baseline qualification remain open without
+  exclusivity or release claims; baseline NOT_RUN; whole
+  009 PARTIAL; no merge; DHA NONE.
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

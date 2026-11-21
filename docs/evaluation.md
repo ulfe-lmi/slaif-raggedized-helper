@@ -3167,8 +3167,9 @@ original reads in the distinct h1 acceptance — and a real
 selected-generation denial after the initial association
 prevents all new directory and source reads.
 
-The four new default hosted nodes reuse the actual 009-ai
-gold-dispatch fixture and its attributed synthetic current
+The four new default hosted nodes reuse the actual 009-af
+gold-dispatch fixture (the 009-ai slice transferred the
+ranking dispatch) and its attributed synthetic current
 policy with fresh admissions after the expensive setup:
 the stable h2 result matches the separately counted legacy
 check with one real full directory and two selected
@@ -3181,11 +3182,14 @@ recording; the real first selection denial after the
 metadata association proves zero full directory starts and
 zero source reads; and the real selected denial after one
 completed reload returns no usable guarded pin with the
-actual final observation denial.  The closed/busy-owner,
-exhausted-deadline and non-Exception interruption subcases
-raise one exact marker instance asserted by identity with
-genuine pre-load observation and zero physical directory
-starts or source reads.  The measured full-directory work
+actual final observation denial.  The closed, busy-owner
+and exhausted-deadline subcases each deliberately assert
+the ordinary content-free PolicyPinEligibilityError
+refusal, and the single separately scoped non-Exception
+interruption subcase alone asserts the exact marker
+instance by object identity, in each case with genuine
+pre-load observation and zero physical directory starts or
+source reads.  The measured full-directory work
 shape (M membership ingestions plus 2P per-partition dense
 and lexical source groups) is derived purely from the held
 pin data the fixture already captured before the current
@@ -3208,6 +3212,154 @@ grade, publication, delivery, source rights and baseline
 qualification gates stay open without exclusivity or
 release claims; whole 009 PARTIAL, baseline NOT_RUN, no
 merge, DHA NONE.
+
+## The 009-ak current stage catalog transfer (same 009
+continuation)
+
+Slice 009-ak (AMEND PR 11 at round base 57f916b, the
+accepted 009-aj report-only head whose exact required
+hosted run 44852105955 attempt 1 passed all five jobs and
+steps with ordered 1,440 + 1,998 units and 979 integrations
+in each Product) transfers the exact reviewed guarded
+direct stage catalog by blob identity: the two reviewed
+objects (source_bound_stage_loss.py and
+test_current_stage_catalog_composition.py) are
+byte-exact, and the candidate's commit history, its order
+and its report are not copied into the receiving branch.
+
+The existing direct stage catalog dispatch is extracted
+into the single shared private body _stage_catalog_dispatch
+(reserve/check, one real raw_snapshot_catalog.load_catalog
+with the bounded remaining time into the existing loader,
+check) and is used by the legacy _bind_stages with its
+call arguments, reservations, effective deadline, later
+validation order, observable identities, output and
+exception behavior preserved.  The new private trusted
+stage-input seam bind_stage_catalog accepts only the exact
+admitted current selected-policy request
+(PolicyRequestAdmission), the exact active operator-owned
+PinOwner, the canonical dataset bytes (1..16,777,216
+bytes), one exact case ID (1..128 characters) and one
+cooperative 1..30,000 ms deadline; the caller supplies no
+alternative provider, supplied catalog, token, caller
+scope or grants, path or stores, snapshot, clock, generic
+hook or callback.  One actual monotonic end is captured
+before any semantic work and clipped to the current
+request lifetime; it is the same absolute end across all
+work and is never reset or extended.  The one canonical
+dataset/case/selected-atom admission
+(_admit_stage_dataset) is shared with the supplied stage
+path with the exact legacy meter call order, the same
+exact stage case declaration runs, and the effective scope
+is derived only from the verified immutable full principal
+anchor (the isolated selected-policy snapshot, the
+admitted principal grants, the bound grants, the final
+detached full-anchor comparison) through the same
+_admit_authority intersection with no added restriction.
+
+Under one real nonreentrant borrowed owner guard, with the
+exact prior owner operation end saved and restored on
+every exit, the guarded route performs the real
+held-capture verification and retains the verified held
+value and its bounded row-map bytes before any dispatch;
+the pure effective-scope membership availability
+(availability of every requested partition inside the
+readable scope and at least one readable usable entry)
+completes before any directory, catalog or source read, so
+an unadmitted case, no readable usable effective scope and
+an unavailable effective partition each refuse with zero
+new work; the real metadata association then runs, and one
+genuine live same-admission selection observation is the
+last eligibility step immediately before the actual direct
+catalog call.  The returned object must be the exact
+nominal catalog type with the exact snapshot/core/map
+field shapes before any of its fields is read or sized;
+the real post-load metadata association and the exact
+pre-dispatch held-value identity are checked, the catalog
+snapshot, core and row map tie to the same pre-dispatch
+held pin, the exact nominal catalog identity holds, one
+more genuine current selection observation precedes the
+detached full principal anchor check and the exact final
+cutoff, and only the trusted intermediate catalog is
+returned.  Ordinary failures are one fixed input-free
+StageBindingError; a non-Exception interruption object
+propagates by identity with the owner custody restored.
+
+The bounded private direct catalog is commencement only:
+the nested trusted directory keeps its own bounded
+validation and may still read pinned sources outside the
+effective case scope - the withheld member b revision is
+genuinely read by original revision during the trusted
+catalog validation in the distinct narrower h1 acceptance
+- while the request selection scope and the successful
+measured window are kept separate.  Whole stage
+orchestration, alternate caller authority, operator
+surfaces, cohort and grade authority, actual publication
+and delivery remain open.
+
+The three new default hosted nodes reuse the actual
+009-ai ranking-dispatch scenario fixture (whose Gold
+fixture 009-af transferred) and its attributed synthetic
+selected policy with fresh admissions after the expensive
+setup, counting real catalog, directory, bundle, derived,
+original-store verified read, owner-load and reader calls
+at the intended boundaries: the measured full-directory
+work shape is M plus 2P ingestions per full directory and
+2*M+B+2*G+4*P per complete catalog, with one verified
+original per real structured-text ingestion.
+test_stage_catalog_h2_identity_and_restricted_h1
+witnesses the stable synthetic h2 catalog
+identity/equality against the separate real legacy catalog
+with one guarded catalog, two genuine selected
+observations and the exact pin/custody retained; the pure
+unknown-case and unavailable h2 refusals happen with zero
+new catalog, directory or source work; and the distinct
+narrower h1 acceptance under the same restricted policy
+has its real trusted catalog reach the retained withheld b
+by original revision.  test_stage_catalog_change_after_
+association_denies_before_catalog witnesses a real
+completed prior PinOwner.check from the same owner in its
+own measured phase (one directory load, M+2P actual
+bundle and original ingests and M+6P derived loads, no
+catalog or selected-read work), followed by a fresh
+independent request establishment: the actual selected
+generation advanced immediately after the guarded route's
+real association, before the catalog call, witnesses the
+real selected denial/latch at the actual next stage
+catalog start with zero new catalog, directory, bundle or
+store work in the denied window and exactly one actual
+selected reread, and the latched recheck refuses with
+zero further reader calls.  test_stage_catalog_change_
+after_catalog_and_interruption witnesses the real
+selection advanced after the real full catalog returns,
+denying a usable catalog output after one genuine
+complete catalog and two live observations with
+association and prior custody preserved (a subsequent
+owner check still succeeds on the same held value), plus
+the bounded interruption subcase on the same node
+asserting the exact non-Exception marker object by
+identity through the cleanup with custody restored and no
+admission latch.
+
+Local proof on the receiving bytes under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds, in a fresh mode-0700
+scratch directly under sticky /dev/shm with the canonical
+venv: one inherited 62-node unit focus (51 stage + 3
+catalog + 8 raw pin), one bounded collect-only of the
+three new hosted nodes, one scoped two-file one-core
+Ruff with one Rayon thread and the physical canonical
+import-origin probe in fresh stage-first and
+eligibility-first processes, all exit 0; no setup,
+install, local native execution or unchanged repeat.  The
+fresh exact report-head hosted CI is PENDING at
+authoring: all five jobs and every required step, both
+Products at ordered 1,440 + 1,998 units and exactly 982
+separate integration passes (979 prior + 3 new).  No
+baseline measurement or qualification claim is made; the
+remaining stage, cohort, grade, publication, delivery,
+source rights and baseline qualification gates stay open
+without exclusivity or release claims; whole 009 PARTIAL,
+baseline NOT_RUN, no merge, DHA NONE.
 
 ## Input contracts and bounds
 

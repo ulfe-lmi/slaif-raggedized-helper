@@ -2127,6 +2127,69 @@ class _Diagnosis:
     accounting: str = dc_field(default="FINAL_TOTALS_NOT_IN_INVOCATION_ID", init=False)
 
 
+def _admit_stage_dataset(dataset_bytes, case_id, meter, clock):
+    """The one canonical dataset admission shared by both stage paths.
+
+    The genuine canonical admission, the same exact stage case
+    declaration and the selected-atom bound check, with the exact
+    legacy meter call order so the supplied path's measured work is
+    unchanged; each caller keeps only what its scope needs.
+    """
+    from . import text_evaluation_dataset
+
+    meter.reserve(len(dataset_bytes) + 1, len(dataset_bytes))
+    clock.check()
+    dataset = text_evaluation_dataset.admit(dataset_bytes, deadline_ms=clock.remaining(5000))
+    clock.check()
+    if (
+        type(dataset) is not text_evaluation_dataset.Dataset
+        or dataset.case_count > 256
+        or dataset.gold_atom_count > 512
+        or type(dataset.cases) is not tuple
+        or dataset.case_count != len(dataset.cases)
+    ):
+        raise ValueError
+    case = None
+    for candidate in dataset.cases:
+        meter.reserve(1)
+        if type(candidate) is not text_evaluation_dataset.Case:
+            raise ValueError
+        if meter.compare_strings(candidate.case_id, case_id) == 0:
+            if case is not None:
+                raise ValueError
+            case = candidate
+    if case is None:
+        raise ValueError
+    chosen_occurrences = 0
+    for requirement in case.requirements:
+        meter.reserve(1)
+        for alternative in requirement.alternatives:
+            meter.reserve(1)
+            chosen_occurrences += len(alternative)
+    if chosen_occurrences > dataset.gold_atom_count:
+        raise ValueError
+    return dataset, case, chosen_occurrences
+
+
+def _stage_catalog_dispatch(originals, derived, root, snapshot_id, meter, clock):
+    """The one direct stage catalog dispatch shared by every stage route.
+
+    One real ``raw_snapshot_catalog.load_catalog`` under the shared meter
+    and deadline, with the bounded remaining time passed into the
+    existing loader; the caller performs its own held-pin ties around
+    the dispatch and keeps its own later validation order.
+    """
+    from . import raw_snapshot_catalog
+
+    meter.reserve(1)
+    clock.check()
+    catalog = raw_snapshot_catalog.load_catalog(
+        originals, derived, root, snapshot_id, deadline_ms=clock.remaining(120000)
+    )
+    clock.check()
+    return catalog
+
+
 def bind_stages(
     originals,
     derived,
@@ -2193,8 +2256,8 @@ def _bind_stages(
     deadline_ms,
     start,
 ):
-    from . import declared_stage_geometry, derived_store, raw_snapshot_catalog
-    from . import source_bound_ranking, text_evaluation_dataset, text_evaluation_gold_binding
+    from . import declared_stage_geometry, derived_store
+    from . import source_bound_ranking, text_evaluation_gold_binding
     from .source_admission import OriginalStore
 
     meter = _Meter()
@@ -2206,37 +2269,7 @@ def _bind_stages(
     if type(originals) is not OriginalStore or type(derived) is not derived_store.Store:
         raise ValueError
     _preflight_result(result, meter)
-    meter.reserve(len(data) + 1, len(data))
-    clock.check()
-    dataset = text_evaluation_dataset.admit(data, deadline_ms=clock.remaining(5000))
-    clock.check()
-    if (
-        type(dataset) is not text_evaluation_dataset.Dataset
-        or dataset.case_count > 256
-        or dataset.gold_atom_count > 512
-        or type(dataset.cases) is not tuple
-        or dataset.case_count != len(dataset.cases)
-    ):
-        raise ValueError
-    case = None
-    for candidate in dataset.cases:
-        meter.reserve(1)
-        if type(candidate) is not text_evaluation_dataset.Case:
-            raise ValueError
-        if meter.compare_strings(candidate.case_id, case_id) == 0:
-            if case is not None:
-                raise ValueError
-            case = candidate
-    if case is None:
-        raise ValueError
-    chosen_occurrences = 0
-    for requirement in case.requirements:
-        meter.reserve(1)
-        for alternative in requirement.alternatives:
-            meter.reserve(1)
-            chosen_occurrences += len(alternative)
-    if chosen_occurrences > dataset.gold_atom_count:
-        raise ValueError
+    dataset, case, chosen_occurrences = _admit_stage_dataset(data, case_id, meter, clock)
     original_grants, effective, restricted = _admit_authority(
         grants, restrictions, case.scope, meter, clock.check
     )
@@ -2261,12 +2294,9 @@ def _bind_stages(
     )
     envelope = _source_envelope()
     captured = _pin_check(owner, originals, derived, root, None, meter, clock)
-    meter.reserve(1)
-    clock.check()
-    catalog = raw_snapshot_catalog.load_catalog(
-        originals, derived, root, captured.pointer.snapshot_id, deadline_ms=clock.remaining(120000)
+    catalog = _stage_catalog_dispatch(
+        originals, derived, root, captured.pointer.snapshot_id, meter, clock
     )
-    clock.check()
     _pin_check(owner, originals, derived, root, captured, meter, clock)
     _catalog_identity(catalog, meter, clock.check)
     eligible = _catalog_eligible(catalog, captured, effective, restricted, meter, clock.check)
@@ -2453,3 +2483,191 @@ def _bind_stages(
     )
     clock.check()
     return output
+
+
+def _bind_stage_catalog(admission, owner, dataset_bytes, case_id, deadline_ms):
+    # Fixed private stage-catalog entry: the exact admitted current
+    # selected-policy request and the exact active operator-owned pin
+    # only.  The returned trusted intermediate is the raw catalog
+    # itself, not a stage result: stores, root, identity and snapshot
+    # come from the actual owner, and the effective scope only from the
+    # verified immutable full principal anchor.  No alternative
+    # provider, supplied catalog, token, caller scope or grants, clock
+    # or callback is accepted.
+    import time
+
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as policy_request
+    from . import raw_snapshot_catalog
+    from . import raw_snapshot_pin
+
+    if (
+        type(admission) is not policy_request.PolicyRequestAdmission
+        or type(owner) is not raw_snapshot_pin.PinOwner
+        or type(dataset_bytes) is not bytes
+        or not 1 <= len(dataset_bytes) <= 16777216
+        or type(case_id) is not str
+        or not 1 <= len(case_id) <= 128
+        or not pin_eligibility._deadline_accepted(deadline_ms)
+    ):
+        raise ValueError
+    # One bounded 1..30000 ms cooperative deadline: the actual monotonic
+    # end is captured before any semantic work, clipped to the current
+    # request lifetime, and is the same absolute end across all work,
+    # never reset or extended.
+    start = time.monotonic()
+    meter = _Meter()
+    clock = _Deadline(start, deadline_ms)
+    clock.end = min(clock.end, admission._end)
+    pin_eligibility._still_within(clock.end)
+    meter.check = clock.check
+    clock.check()
+    # Pure admission before any owner custody: the isolated
+    # selected-policy snapshot and the admitted principal's exact bound
+    # grants (the verified immutable full principal anchor); the full
+    # anchor is preserved separately for the final detached admission
+    # agreement check.
+    policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+    pin_eligibility._still_within(clock.end)
+    anchor = pin_eligibility._bounded_admission(
+        pin_eligibility._admitted_principal_grants(policy_snapshot, admission.principal_id)
+    )
+    grants = pin_eligibility._bound_grants(admission, anchor)
+    pin_eligibility._still_within(clock.end)
+    # The one canonical dataset/case/selected-atom admission shared
+    # with the supplied stage path; only the case scope is kept here.
+    _dataset, case, _chosen = _admit_stage_dataset(dataset_bytes, case_id, meter, clock)
+    _original_grants, effective, _restricted = _admit_authority(
+        grants, None, case.scope, meter, clock.check
+    )
+    clock.check()
+    # One real nonblocking owner guard, held through the entire span;
+    # the exact prior owner end is saved and restored on every exit.
+    pin_eligibility._borrowed_owner(owner)
+    original_end = None
+    try:
+        if owner.op is None or owner.state != "ACTIVE":
+            raise ValueError
+        original_end = owner.op.end
+        # The same absolute end anchors the real owner operation.
+        owner.op.end = clock.end
+        clock.check()
+        # In-memory held capture verification only, no I/O: the exact
+        # held pointer, core, membership and membership bytes.
+        pointer, core, membership, _membership_bytes = pin_eligibility._held_capture(owner)
+        pin_eligibility._still_within(clock.end)
+        # Retain the verified exact held value and its bounded
+        # row-map bytes before any dispatch; the returned catalog must
+        # tie back to these pre-dispatch values.
+        held_value = owner.value
+        row_map_bytes = held_value.data.row_map.map_bytes
+        if type(row_map_bytes) is not bytes or not row_map_bytes:
+            raise ValueError
+        meter.reserve(len(row_map_bytes) + 1, len(row_map_bytes))
+        clock.check()
+        # The pure membership availability under the effective case
+        # scope: an unavailable partition inside the readable scope, or
+        # a scope with no readable usable entry, refuses before any
+        # directory/catalog/source read; a withdrawal outside that
+        # scope does not block the unaffected scope.
+        if pin_eligibility._scope_refused(policy_snapshot, membership, effective, None):
+            raise ValueError
+        clock.check()
+        # Genuine metadata-only association under the held guard; no
+        # nested owner guard and no implicit pin reload.
+        owner._association()
+        clock.check()
+        # The last eligibility step before the actual direct catalog
+        # call: one genuine live same-admission selection observation.
+        pin_eligibility._genuine_recheck(admission, clock.end)
+        clock.check()
+        # The actual direct catalog call: the one shared dispatch body,
+        # with the bounded remaining time into the existing loader.
+        catalog = _stage_catalog_dispatch(
+            owner.originals, owner.derived, owner.op.path, pointer.snapshot_id, meter, clock
+        )
+        clock.check()
+        # The returned object must be the exact nominal catalog type
+        # with the exact snapshot/core/map field shapes before any of
+        # its fields are read or sized.
+        if (
+            type(catalog) is not raw_snapshot_catalog.Catalog
+            or type(catalog.snapshot_id) is not str or not catalog.snapshot_id
+            or type(catalog.core_bytes) is not bytes
+            or type(catalog.row_map_bytes) is not bytes
+        ):
+            raise ValueError
+        # Real post-load metadata association, then the current held
+        # value must still be the exact pre-dispatch retained object.
+        owner._association()
+        clock.check()
+        if owner.value is not held_value:
+            raise ValueError
+        meter.reserve(len(catalog.core_bytes) + len(catalog.row_map_bytes) + 2)
+        for data in (catalog.core_bytes, catalog.row_map_bytes):
+            meter.reserve(len(data) + 1, len(data))
+        clock.check()
+        if (
+            catalog.snapshot_id != pointer.snapshot_id
+            or catalog.core_bytes != core
+            or catalog.row_map_bytes != row_map_bytes
+        ):
+            raise ValueError
+        _catalog_identity(catalog, meter, clock.check)
+        clock.check()
+        # Observe the genuine current selection again before the
+        # trusted intermediate is returned.
+        pin_eligibility._genuine_recheck(admission, clock.end)
+        clock.check()
+        # The full policy-derived anchor, preserved separately from the
+        # effective case grants, is re-verified against the detached
+        # admission through the existing bound grants: a pure check
+        # that adds no disk read or delivery attestation.
+        if pin_eligibility._bound_grants(admission, anchor) != grants:
+            raise ValueError
+        # No late usable trusted intermediate after the final cutoff.
+        pin_eligibility._still_within(clock.end)
+        return catalog
+    finally:
+        if original_end is not None:
+            owner.op.end = original_end
+        owner.guard.release()
+
+
+def bind_stage_catalog(admission, owner, dataset_bytes, case_id, *, deadline_ms=30000):
+    """Commence one trusted stage catalog under one admitted request and pin.
+
+    Binds the exact admitted current selected-policy request
+    (``private_policy_request.PolicyRequestAdmission``) and the exact
+    active operator-owned pin (``raw_snapshot_pin.PinOwner``) to the
+    fixed guarded stage-catalog entry: the stores, root, identity and
+    snapshot come only from the actual owner, and the effective scope
+    only from the verified immutable full principal anchor intersected
+    with the genuine stage case declaration through the same
+    ``_admit_authority`` intersection as the supplied path, with no
+    added restriction.  One real nonblocking owner guard is held across
+    the held-capture verification, the pure scope admission, the real
+    metadata association, the last live same-admission selection
+    observation and the actual direct catalog call, restoring the owner
+    operation's exact prior deadline before release on every exit.
+    Unadmitted case, no readable usable effective scope and an
+    unavailable effective partition refuse before any
+    directory/catalog/source read; the returned trusted intermediate is
+    the exact nominal catalog tied to the same held pin by its
+    snapshot/core/row-map identity and real post-load metadata
+    association, after one more genuine current selection observation,
+    the detached full principal anchor check and the exact cutoff.  The
+    boundary governs catalog commencement and late return; whole stage
+    execution/authority requires later wiring, and the nested trusted
+    directory keeps its own bounded validation while its work may reach
+    pinned originals outside case scope.  The caller supplies no
+    alternative provider, supplied catalog, token, caller scope or
+    grants, clock or callback.  Every ordinary failure is one fixed
+    input-free :class:`StageBindingError`; a non-Exception interruption
+    object propagates by identity, preserving interruption and cleanup
+    semantics.
+    """
+    try:
+        return _bind_stage_catalog(admission, owner, dataset_bytes, case_id, deadline_ms)
+    except Exception:
+        raise StageBindingError("stage catalog commencement refused") from None
