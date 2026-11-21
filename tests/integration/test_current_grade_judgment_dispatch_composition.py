@@ -639,14 +639,13 @@ def test_judgment_dispatch_pure_refusals_zero_new_reads(tmp_path, monkeypatch):
             "h9",
             plan_level,
         )
-        # (g) A declared plan judgment with no ordered prepared
-        # selection at the same position is a malformed plan for this
-        # operation and refuses before any new read.
+        # (g) An extra judgment fails joint preparation before admission.
+        # Refusal has no progress prefix and performs no new reads.
         refused(
             ("h1",),
             (("h1", ((chunks["a"], 3),)), ("h2", ((chunks["a"], 1),))),
             "h1",
-            plan_level,
+            None,
         )
     finally:
         if owner2 is not None:
