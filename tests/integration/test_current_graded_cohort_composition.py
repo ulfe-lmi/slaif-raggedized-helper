@@ -751,10 +751,13 @@ def test_graded_cohort_positive_two_cases_match_legacy_dispatch(
                 # The actual dense, lexical and fusion rankings of
                 # the same legacy search verify the reported metric
                 # query result for this exact query ID through the
-                # product's own serializer round trip: the h1
-                # grade-3 declared gold unit retrieved with the
-                # dense and fusion improvement and the lexical zero,
-                # and the h4 empty-gold cutoff rows undefined.
+                # product's own serializer round trip: each report
+                # variant is the already decoded dict in the grade
+                # document, the h1 single grade-3 declared gold
+                # chunk's retrieved status is derived at every
+                # cutoff from membership in the actual ranking
+                # prefix with the ideal gain 7, and the h4
+                # empty-gold cutoff rows stay undefined.
                 rankings = {
                     "dense": tuple(h.chunk_id for h in legacy.dense.hits),
                     "lexical": tuple(h.chunk_id
@@ -763,7 +766,7 @@ def test_graded_cohort_positive_two_cases_match_legacy_dispatch(
                 }
                 gold = ((chunks["a"], 3),) if case_id == "h1" else ()
                 for name, ranking in rankings.items():
-                    variant = json.loads(grade_doc["variants"][name])
+                    variant = grade_doc["variants"][name]
                     reported = next(
                         item for item in variant["query_results"]
                         if item["query_id"] == legacy.query_id)
@@ -774,8 +777,9 @@ def test_graded_cohort_positive_two_cases_match_legacy_dispatch(
                     assert reported == recomputed
                     if case_id == "h1":
                         assert reported["positive_gold_count"] == 1
-                        retrieved = name != "lexical"
                         for value in reported["at_k"]:
+                            retrieved = chunks["a"] in ranking[:value["k"]]
+                            assert value["idcg"] == 7.0
                             assert (value["relevant_returned"],
                                     value["recall"]) == (
                                         1 if retrieved else 0,
