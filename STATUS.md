@@ -19,6 +19,7 @@
               - Current (2026-11-21): active objective 009, current slice 009-ak
                - Current (2026-11-21): active objective 009, current slice 009-al
                 - Current (2026-11-21): active objective 009, current slice 009-am
+                 - Current (2026-11-21): active objective 009, current slice 009-an
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -2403,6 +2404,186 @@
   exclusivity or release claims; baseline
   NOT_RUN; whole 009 PARTIAL; no merge; DHA
   NONE.
+  Slice 009-an transfers the exact reviewed
+  guarded grade-owned judgment dispatch with
+  its three hosted synthetic witnesses (same
+  009 continuation, AMEND PR 11 at round base
+  0ea0344, the accepted 009-am report-only
+  head whose exact required hosted run
+  44870819167 attempt 1 passed all five jobs
+  and steps with ordered 1,440 + 1,998 units
+  and 991 integrations in each Product).
+  The exact order (SHA-256
+  4689f82fdfd4faf3098e888cc6616252155a4f4fcab37c3aa865f64cbb5bdf27)
+  and the two indexed strategic control JSONs
+  (SHA-256
+  c8405f1a770a901c18cdce1525c952ab8f1e9a034be2b36e3e7d74070087c660
+  and
+  9d3c0462e56820cf38724e2749ef2b77e0a946dd9b20a25f2b25c64b9f8863ff)
+  are committed transcript-first byte-exact
+  under oap/orders/ and oap/reviews/.  The
+  implementation changes exactly four paths:
+  the two reviewed candidate blobs
+  transferred by blob identity without the
+  candidate history, order or report,
+  src/slaif_raggedized_helper/evaluation_
+  program.py (67,029 B, SHA-256
+  cbbad5e07e3ef58123b119efdb7ac74fe5da6839f6aba2e7bf12c85be621adf7)
+  and
+  tests/integration/test_current_grade_
+  judgment_dispatch_composition.py (39,127
+  B, SHA-256
+  507c539701bf1dffc08fe428c1f0ee0c2d33d494a23e745f791a1febb72e8bc3),
+  plus these two documents.  The grade keeps
+  the single shared grading-owned
+  GRADE_PIN -> GRADE_BIND -> GRADE_PIN source
+  block, now the fixed private
+  _grade_judgment_dispatch: the legacy
+  grade route keeps its two actual full pins
+  (source_cohort_runner._pin_observation
+  against the exact prior capture) and its
+  actual ranking body (source_bound_
+  ranking.bind under the case's effective
+  grants and restrictions), and the one
+  fixed private current route replaces each
+  of the two actual full pins with the
+  existing private_policy_pin_
+  eligibility.revalidate_current_pin_case
+  and the actual ranking body with the
+  existing source_bound_ranking.bind_
+  pinned, passing the full fixed 30,000 ms
+  operation allowance to every genuine
+  guarded delegate, which starts later and
+  clips it to the exact original admission
+  end.  The exact capture, the binder output
+  gate, the empty-judgment behavior and the
+  remaining grade-case metric sequence are
+  preserved; the fixed current route passes
+  the already verified pre-dispatch retained
+  PinData as the shared captured argument
+  and requires both genuine guarded
+  revalidations to yield exactly that
+  retained value, verified by identity, the
+  first check before the actual grade
+  ranking dispatch.  The new fixed private
+  _commence_grade_judgment_dispatch entry
+  accepts only the genuine current
+  PolicyRequestAdmission, the exact live
+  PinOwner, the canonical plan wire and
+  dataset bytes (1..16,777,216), the exact
+  ordered cohort and declaration
+  identifiers, the declared Gold IDs, the
+  config and the bounded source and grade
+  budgets and one exact selected case ID
+  (1..128), with no grants or restrictions,
+  pre-admitted Plan or declaration, path or
+  store, catalog, callback, clock,
+  deadline, provider or raw credential.
+  The fixed private 30,000 ms operation
+  allowance is selected before any semantic
+  work, and the one exact monotonic end it
+  establishes clipped once to the original
+  current request lifetime is the shared
+  absolute extent for the genuine ordered
+  joint declaration preparation, the pure
+  case authority, the checks and meter and
+  the delegated pin revalidations and rank
+  binding.  Under one genuine borrowed
+  nonreentrant guard the exact held capture
+  is verified before any use, the verified
+  pre-dispatch pin data and bounded row-map
+  bytes are retained, the genuine metadata
+  association and the joint preparation
+  complete, the same pure case authority
+  verifies every ordered admitted case's
+  full readable held membership and every
+  ordered judgment before any new protected
+  read, and the plan snapshot/generation
+  concordance and the expected effective-
+  scope authority through the stage
+  _canonical_hash complete before the
+  unconditional guard release; the
+  delegated shared dispatch runs under the
+  one clipped end, and the final short
+  guard re-verifies the same operation and
+  retained PinData, the genuine held
+  capture and association and the detached
+  full anchor before the final same-
+  admission reread/cutoff, restoring the
+  exact prior operation end under its own
+  guard and releasing unconditionally, with
+  the final deadline check after custody
+  restores.  The return is at most the
+  internal bounded verified judgment
+  binding with its existing source,
+  authorization and qualification
+  categories, never a grade Report or a
+  delivery result; an admitted pure refusal
+  preserves the intended count under the
+  actual PREFLIGHT phase, delegated
+  failures preserve GRADE_PIN or GRADE_BIND,
+  an ordinary error uses the fixed
+  content-free EvaluationError, and a
+  non-Exception interruption propagates by
+  identity with prior custody preserved.
+  The three hosted witnesses reuse the
+  009-al grade catalog support over the
+  underlying genuine 009-ai ranking
+  scenario built on the inherited support
+  and source cohort fixtures: the stable
+  nonempty and unaffected empty spans each
+  perform six actual directory validations
+  (two independently guarded pins plus
+  four actual directories in two
+  catalogs) with the recorded metering,
+  exact original operation end and true
+  selection counts; the pure unreadable/
+  unavailable/unknown judgments refuse
+  before new full reads; and the advances
+  of the genuine selection after completed
+  actual first grade pin or actual rank
+  binding deny later starts while
+  preserving the same raw pin and fixed
+  custody.  The two reconciled 009-am
+  dependencies keep the receiver versions:
+  33 of the 35 frozen donor dependencies
+  match the receiving head, and the used
+  stage _canonical_hash, _Meter,
+  _admit_authority and _preflight_
+  declaration and the cohort _Meter,
+  _Deadline, _declaration_admission,
+  _case_checks, _run_cohort, Budget and
+  CohortReport are byte-exact by top-level
+  definition digest across donor base and
+  receiver, with the legacy _pin_
+  observation still performing the same
+  actual pin and delegating its unchanged
+  pointer/core/row-map validation tail.
+  Receiving local proof 168/168 inherited
+  unit focus (grade 50, ranking 15, current
+  eligibility 53, raw pin 8, joint
+  preflight 42), 3-node collect-only,
+  scoped two-file one-core Ruff with one
+  Rayon thread and ORIGINS_OK physical
+  import probe in fresh grade-first and
+  eligibility-first processes all exit 0
+  under CPU60s/AS1GiB/wall120s KILL5 in
+  fresh 0700 /dev/shm scratch, no local
+  native result; hosted outcomes PENDING
+  fresh exact report-head CI at A 1,440 +
+  B 1,998 ordered units and exactly 994
+  passing integrations per Product (991
+  prior + 3 new).  The full cohort and
+  grade execution, final grade pin,
+  encoder/producer and stage wiring,
+  report provenance/publication and
+  delivery, live-data maintenance and
+  held-out or hardware qualification
+  remain separate and open without
+  exclusivity or release claims; baseline
+  NOT_RUN; whole 009 PARTIAL; no merge;
+  DHA NONE.
+
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
   normalized FP32 NPY subset codec plus reproducible NumPy 2.5.4 pin,

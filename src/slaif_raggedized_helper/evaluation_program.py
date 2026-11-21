@@ -446,60 +446,141 @@ def _catalog(state, originals, derived, root, owner, captured, clock):
     state.phase = None
 
 
-def _case(
+def _grade_judgment_dispatch(
     state,
-    originals,
-    derived,
-    root,
-    owner,
-    captured,
-    case,
-    effective,
-    restricted,
-    result,
-    item,
+    judgment,
     clock,
+    *,
+    admission=None,
+    owner,
+    dataset_bytes=None,
+    case_id=None,
+    originals=None,
+    derived=None,
+    root=None,
+    captured=None,
+    effective=None,
+    restricted=None,
+    expected_authority,
 ):
-    from . import raw_dense_search, raw_lexical_search, raw_rank_fusion
-    from . import source_bound_ranking as binding, source_cohort_runner as source
-    from . import source_bound_stage_loss as binder
+    """The shared grading-owned GRADE_PIN -> GRADE_BIND -> GRADE_PIN dispatch.
+
+    Both the legacy grade route and the one fixed private current route
+    run the exact same declared judgment IDs and order, the same grade
+    meter and the same phase transitions through this one dispatch.
+    The legacy route keeps its two actual full pins (
+    ``source_cohort_runner._pin_observation`` against the exact prior
+    capture) and its actual ranking body (
+    ``source_bound_ranking.bind`` under the case's effective grants and
+    restrictions); the fixed current route replaces each of the two
+    actual full pins with the existing
+    ``private_policy_pin_eligibility.revalidate_current_pin_case`` and
+    the actual ranking body with the existing
+    ``source_bound_ranking.bind_pinned``, passing the full fixed
+    30,000 ms operation allowance to every genuine guarded delegate,
+    which starts later and clips it to the exact original admission
+    end.  The exact capture, the binder output gate, the empty-judgment
+    behavior and the remaining grade-case metric sequence are
+    preserved; no alternate binder, callback or stage algorithm is
+    introduced, and the shared gate verifies the delegated result's
+    exact snapshot, catalog, authority, rows, fragment count and fixed
+    status categories.  The fixed current route passes the already
+    verified pre-dispatch retained PinData as the shared captured
+    argument and requires both genuine guarded revalidations to yield
+    exactly that retained captured value, verified by identity, the
+    first check before the actual grade ranking dispatch.
+    """
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import source_bound_ranking as binding
+    from . import source_cohort_runner as source
 
     meter, plan = state.meter, state.plan
-    meter.reserve(2048, 2048)
-    index = len(state.cases)
-    expected = state.expected[index]
-    judgment = plan.judgments[index]
-    if (
-        result.catalog_id != plan.catalog_id
-        or result.query_id != expected[0]
-        or tuple(item[1:5]) != tuple(expected[1:5])
+    current = admission is not None
+    if current:
+        if (
+            type(dataset_bytes) is not bytes
+            or type(case_id) is not str
+            or not 1 <= len(case_id) <= 128
+            or originals is not None
+            or derived is not None
+            or root is not None
+            or effective is not None
+            or restricted is not None
+        ):
+            raise ValueError
+    elif (
+        dataset_bytes is not None
+        or case_id is not None
+        or originals is None
+        or derived is None
+        or root is None
+        or captured is None
+        or effective is None
     ):
         raise ValueError
     state.phase = "GRADE_PIN"
-    source._pin_observation(owner, originals, derived, root, captured, meter, clock)
+    if current:
+        pin_data = pin_eligibility.revalidate_current_pin_case(
+            admission,
+            owner,
+            dataset_bytes,
+            case_id,
+            deadline_ms=30000,
+        )
+        # The exact retained captured PinData through the first
+        # genuine guarded revalidation, before the actual grade
+        # ranking dispatch.
+        if pin_data is not captured:
+            raise ValueError
+    else:
+        source._pin_observation(owner, originals, derived, root, captured, meter, clock)
     meter.reserve(len(judgment.gold) + 1, 128 * len(judgment.gold))
     ids = tuple(pair[0] for pair in judgment.gold)
     state.phase = "GRADE_BIND"
-    bound = binding.bind(
-        originals,
-        derived,
-        root,
-        plan.snapshot_id,
-        plan.catalog_id,
-        ids,
-        grants=effective,
-        restrictions=restricted,
-        deadline_ms=clock.remaining(30000),
-    )
+    if current:
+        bound = binding.bind_pinned(
+            admission,
+            owner,
+            dataset_bytes,
+            case_id,
+            plan.catalog_id,
+            ids,
+            deadline_ms=30000,
+        )
+    else:
+        bound = binding.bind(
+            originals,
+            derived,
+            root,
+            plan.snapshot_id,
+            plan.catalog_id,
+            ids,
+            grants=effective,
+            restrictions=restricted,
+            deadline_ms=clock.remaining(30000),
+        )
     clock.check()
     state.phase = "GRADE_PIN"
-    source._pin_observation(owner, originals, derived, root, captured, meter, clock)
+    if current:
+        second = pin_eligibility.revalidate_current_pin_case(
+            admission,
+            owner,
+            dataset_bytes,
+            case_id,
+            deadline_ms=30000,
+        )
+        # The exact same retained captured PinData through the second
+        # genuine guarded revalidation.
+        if second is not captured:
+            raise ValueError
+    else:
+        source._pin_observation(owner, originals, derived, root, captured, meter, clock)
     state.phase = "GRADE_CASE"
     if (
         type(bound) is not binding.BoundRanking
         or bound.snapshot_id != plan.snapshot_id
         or bound.catalog_id != plan.catalog_id
-        or bound.authority_sha256 != expected[4]
+        or bound.authority_sha256 != expected_authority
         or type(bound.rows) is not tuple
         or type(bound.row_count) is not int
         or bound.row_count != len(ids)
@@ -546,6 +627,50 @@ def _case(
             raise ValueError
     if count != bound.fragment_count:
         raise ValueError
+    return bound
+
+
+def _case(
+    state,
+    originals,
+    derived,
+    root,
+    owner,
+    captured,
+    case,
+    effective,
+    restricted,
+    result,
+    item,
+    clock,
+):
+    from . import raw_dense_search, raw_lexical_search, raw_rank_fusion
+    from . import source_bound_stage_loss as binder
+
+    meter, plan = state.meter, state.plan
+    meter.reserve(2048, 2048)
+    index = len(state.cases)
+    expected = state.expected[index]
+    judgment = plan.judgments[index]
+    if (
+        result.catalog_id != plan.catalog_id
+        or result.query_id != expected[0]
+        or tuple(item[1:5]) != tuple(expected[1:5])
+    ):
+        raise ValueError
+    bound = _grade_judgment_dispatch(
+        state,
+        judgment,
+        clock,
+        owner=owner,
+        originals=originals,
+        derived=derived,
+        root=root,
+        captured=captured,
+        effective=effective,
+        restricted=restricted,
+        expected_authority=expected[4],
+    )
     rankings = []
     for actual, cls in (
         (result.dense, raw_dense_search.Hit),
@@ -1292,6 +1417,340 @@ def _commence_grade_catalog(
     except Exception:
         if admitted:
             progress = FailurePrefix("CATALOG", intended, 0, 0, 0, intended)
+        # The caught ordinary handler has now left; raising below is
+        # outside it, so the fixed error carries no caught context.
+    raise EvaluationError(progress)
+
+
+def _commence_grade_judgment_dispatch(
+    admission,
+    owner,
+    plan_wire,
+    dataset_bytes,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    source_budget,
+    grade_budget,
+    case_id,
+):
+    """Fixed private current commencement of the grade-owned judgment dispatch.
+
+    Binds the genuine current selected-policy request
+    (``private_policy_request.PolicyRequestAdmission``) and the exact
+    live operator-owned pin (``raw_snapshot_pin.PinOwner``) to the one
+    shared grading-owned dispatch of the exact selected case's declared
+    judgment: the stores, snapshot and catalog come from the actual
+    owner through the genuine ordered joint declaration preparation,
+    and the sequential delegates - the existing
+    ``private_policy_pin_eligibility.revalidate_current_pin_case`` for
+    each of the two actual full pins and the existing
+    ``source_bound_ranking.bind_pinned`` for the actual ranking body -
+    each acquire and release their own short owner guard, receiving
+    the full fixed 30,000 ms operation allowance and clipping it to
+    the exact original admission end.  The caller supplies only the
+    canonical plan wire and dataset bytes, the exact ordered cohort
+    and declaration identifiers, the declared Gold IDs, the config and
+    the bounded source and grade budgets and one exact selected case
+    ID: no grants or restrictions, pre-admitted Plan or declaration,
+    path or store, catalog, callback, clock, deadline, provider or raw
+    credential.  The fixed private 30,000 ms operation allowance is
+    selected before any semantic work, and the one exact monotonic end
+    it establishes clipped once to the original current request
+    lifetime is the shared absolute extent for the joint preparation,
+    the checks and meter and the delegated pin revalidations and rank
+    binding; every sequential delegate starts later and clips to that
+    same original end.  Each short borrow - the preparation span and
+    the final identity span, and every delegated pin and rank inside -
+    saves and sets the span end and restores the exact prior end under
+    its own guard and releases unconditionally, so the first borrow
+    leaves no assigned end after its guard release and no outer
+    restore runs after custody relinquishes.  Under the final short
+    guard the same operation, the same retained PinData, the genuine
+    held capture and metadata association and the detached full anchor
+    are verified, with the same actual operation and PinData confirmed
+    again after the genuine association, before the final same-
+    admission reread/cutoff, and the final deadline check runs after
+    custody restores.  The return
+    is at most the internal bounded verified judgment binding with its
+    existing source, authorization and qualification categories:
+    never a grade Report or a delivery result.  An admitted pure
+    refusal preserves the intended count under the actual PREFLIGHT
+    phase; delegated failures preserve GRADE_PIN or GRADE_BIND; an
+    ordinary error uses the fixed :class:`EvaluationError`; a
+    non-Exception interruption propagates by identity with prior
+    custody preserved.
+    """
+    import time
+
+    from . import derived_store
+    from . import private_evaluation_preflight as preflight
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as request
+    from . import raw_snapshot_pin
+    from . import source_bound_stage_loss as binder
+    from . import source_cohort_runner as source
+    from .source_admission import OriginalStore
+
+    admitted = False
+    state = None
+    intended = 1
+    attempted = 0
+    retained_op = None
+    retained = None
+    progress = None
+    try:
+        # The fixed private 30,000 ms operation allowance, selected
+        # before any semantic work.
+        allowance_ms = 30000
+        if (
+            type(admission) is not request.PolicyRequestAdmission
+            or type(owner) is not raw_snapshot_pin.PinOwner
+            or type(plan_wire) is not bytes
+            or type(dataset_bytes) is not bytes
+            or not 1 <= len(dataset_bytes) <= 16777216
+            or type(case_id) is not str
+            or not 1 <= len(case_id) <= 128
+            or not pin_eligibility._deadline_accepted(allowance_ms)
+        ):
+            raise ValueError
+        # The one exact monotonic end clipped to the original current
+        # request lifetime; never reset, resampled or extended.
+        started = time.monotonic()
+        end = min(started + allowance_ms / 1000, admission._end)
+        pin_eligibility._still_within(end)
+        # Frozen complete selected-policy snapshot and verified
+        # principal grant before any owner custody; the detached full
+        # anchor is preserved separately for the final admission
+        # agreement.
+        policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+        pin_eligibility._still_within(end)
+        anchor = pin_eligibility._bounded_admission(
+            pin_eligibility._admitted_principal_grants(
+                policy_snapshot, admission.principal_id
+            )
+        )
+        grants = pin_eligibility._bound_grants(admission, anchor)
+        pin_eligibility._still_within(end)
+        # The one actual source deadline, started once near the entry
+        # with its exact end clipped in place to the end above; it
+        # governs the joint preparation, the checks and meter and the
+        # delegated pin revalidations and rank binding as the one
+        # overall cutoff.
+        clock = source._Deadline(started, allowance_ms)
+        clock.end = end
+        clock.check()
+        # One genuine borrowed nonreentrant guard for the held capture,
+        # the association and the joint preparation; the sequential
+        # delegates acquire and release their own short guards.  This
+        # borrow saves and sets the span end and restores the exact
+        # prior end under its own guard before the unconditional
+        # release, leaving no assigned end after guard release.
+        pin_eligibility._borrowed_owner(owner)
+        try:
+            if owner.op is None or owner.state != "ACTIVE":
+                raise ValueError
+            if (
+                type(owner.originals) is not OriginalStore
+                or type(owner.derived) is not derived_store.Store
+            ):
+                raise ValueError
+            originals, derived, root = (
+                owner.originals,
+                owner.derived,
+                owner.op.path,
+            )
+            # The exact associated operation captured before its end
+            # is assigned; the span restores this exact object's prior
+            # end on every exit under its own guard.
+            retained_op = owner.op
+            span_end = retained_op.end
+            retained_op.end = end
+            try:
+                clock.check()
+                # The exact held capture against the real manifest and
+                # immutable pin, verified before any use; the verified
+                # pre-dispatch pin data and bounded row-map bytes are
+                # retained under the guard.
+                pointer, core, _membership, membership_bytes = (
+                    pin_eligibility._held_capture(owner)
+                )
+                clock.check()
+                retained = owner.value
+                row_map_bytes = retained.data.row_map.map_bytes
+                clock.check()
+                # Live namespace and genuine metadata-only association
+                # under the held guard.
+                owner._association()
+                clock.check()
+                prepared, state = preflight._prepare_declaration_body(
+                    plan_wire,
+                    originals,
+                    derived,
+                    root,
+                    owner,
+                    dataset_bytes,
+                    cohort,
+                    identifiers,
+                    gold_ids,
+                    grants,
+                    None,
+                    config,
+                    source_budget,
+                    grade_budget,
+                    clock,
+                )
+                clock.check()
+                admitted = True
+                meter = state.meter
+                plan = prepared.plan
+                # The declared plan judgments and the ordered prepared
+                # selection align case by case before any use.
+                for declared, selected_entry in zip(
+                    plan.judgments, prepared.selected, strict=True
+                ):
+                    if declared.case_id != selected_entry[0].case_id:
+                        raise ValueError
+                # The same pure case authority over every ordered
+                # admitted case and selected judgment before any new
+                # protected read.
+                _pure_case_authority(
+                    plan,
+                    prepared.selected,
+                    core,
+                    row_map_bytes,
+                    membership_bytes,
+                    policy_snapshot,
+                    meter,
+                    clock,
+                )
+                clock.check()
+                # The plan snapshot/generation concordance before the
+                # dispatch.
+                if (
+                    pointer.snapshot_id != plan.snapshot_id
+                    or pointer.generation != plan.generation
+                ):
+                    raise ValueError
+                # The one exact selected case: a declared plan judgment
+                # and an ordered prepared selection at the same
+                # position.
+                index = None
+                for position, declared in enumerate(plan.judgments):
+                    if declared.case_id == case_id:
+                        if index is not None:
+                            raise ValueError
+                        index = position
+                if index is None:
+                    raise ValueError
+                judgment = plan.judgments[index]
+                case, _original, effective, _restricted = prepared.selected[index]
+                if case.case_id != case_id:
+                    raise ValueError
+                # The expected effective-scope authority for the shared
+                # binder output gate: the exact admitted effective case
+                # grants with no restriction, canonically hashed the
+                # same way the delegated pinned rank binding computes
+                # its own.
+                meter.reserve(2048, 2048)
+                expected_authority = binder._canonical_hash(
+                    [effective.model_dump(mode="json"), None],
+                    b"",
+                    meter,
+                    clock.check,
+                    ensure_ascii=False,
+                    limit=262144,
+                )
+            finally:
+                retained_op.end = span_end
+        finally:
+            # The sequential delegates require the released owner
+            # guard; the release is unconditional.
+            owner.guard.release()
+        # The shared grading-owned dispatch: the two delegated full pin
+        # revalidations and the delegated pinned rank binding of the
+        # exact declared judgment IDs and order under the one clipped
+        # end, with the shared binder output gate.
+        attempted = 1
+        bound = _grade_judgment_dispatch(
+            state,
+            judgment,
+            clock,
+            admission=admission,
+            owner=owner,
+            dataset_bytes=dataset_bytes,
+            case_id=case_id,
+            captured=retained,
+            expected_authority=expected_authority,
+        )
+        clock.check()
+        # The exact same active operation and the same retained
+        # PinData through the delegated span, re-verified under one
+        # final short guard; the genuine held capture and metadata
+        # association and the detached full anchor are verified before
+        # the final same-admission reread/cutoff, the same actual
+        # operation and PinData are confirmed again after the genuine
+        # association, the exact prior end is restored on the retained
+        # operation under the guard and the final deadline check runs
+        # after custody restores.
+        pin_eligibility._borrowed_owner(owner)
+        try:
+            if (
+                owner.state != "ACTIVE"
+                or owner.op is not retained_op
+                or owner.value is not retained
+            ):
+                raise ValueError
+            pin_eligibility._held_capture(owner)
+            clock.check()
+            # The final short borrow saves and sets the span end on
+            # the retained operation itself and restores the exact
+            # prior end on every exit under its own guard.
+            prior_end = retained_op.end
+            retained_op.end = end
+            try:
+                # The genuine actual metadata association under the
+                # held guard.
+                owner._association()
+                clock.check()
+                # The same actual operation and PinData confirmed
+                # after the genuine association, before the final
+                # selected observation.
+                if (
+                    owner.op is not retained_op
+                    or owner.value is not retained
+                ):
+                    raise ValueError
+                # The detached full anchor before the final same-
+                # admission reread/cutoff.
+                if pin_eligibility._bound_grants(admission, anchor) != grants:
+                    raise ValueError
+                pin_eligibility._genuine_recheck(admission, end)
+            finally:
+                retained_op.end = prior_end
+        finally:
+            owner.guard.release()
+        # The final deadline check after custody restores.
+        pin_eligibility._still_within(end)
+        clock.check()
+        state.phase = None
+        return bound
+    except Exception:
+        if admitted:
+            # The actual PREFLIGHT phase for a pure refusal once
+            # admitted; delegated failures preserve the real
+            # GRADE_PIN or GRADE_BIND source phase.
+            active = "PREFLIGHT" if state.phase is None else state.phase
+            per_case = active in ("GRADE_PIN", "GRADE_BIND", "GRADE_CASE")
+            progress = FailurePrefix(
+                active,
+                intended,
+                attempted,
+                0,
+                1 if per_case and attempted else 0,
+                intended - attempted,
+            )
         # The caught ordinary handler has now left; raising below is
         # outside it, so the fixed error carries no caught context.
     raise EvaluationError(progress)

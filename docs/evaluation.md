@@ -3904,6 +3904,205 @@ evaluation stay open without exclusivity or
 release claims; whole 009 PARTIAL, baseline
 NOT_RUN, no merge, DHA NONE.
 
+## The 009-an current grade judgment transfer (same
+009 continuation)
+
+Slice 009-an (AMEND PR 11 at round base 0ea0344,
+the accepted 009-am report-only head whose exact
+required hosted run 44870819167 attempt 1 passed
+all five jobs and steps with ordered 1,440 +
+1,998 units and 991 integrations in each
+Product) transfers the exact reviewed guarded
+grade-owned judgment dispatch with its three
+hosted synthetic witnesses by blob identity:
+the two reviewed objects (evaluation_program.py
+and
+test_current_grade_judgment_dispatch_
+composition.py) are byte-exact, and the
+candidate's commit history, order and report
+are not copied into the receiving branch.
+The legacy grade behavior, dependency and CI
+configuration are preserved.
+
+The grade keeps the single shared
+grading-owned GRADE_PIN -> GRADE_BIND ->
+GRADE_PIN source block, now the fixed
+private _grade_judgment_dispatch.  The
+legacy route keeps its two actual full pins
+(source_cohort_runner._pin_observation
+against the exact prior capture) and its
+actual ranking body (source_bound_ranking.
+bind under the case's effective grants and
+restrictions) exactly as before, including
+the exact declared judgment IDs and order,
+the grade meter and the phase transitions.
+The one fixed private current route
+replaces each of the two actual full pins
+with the existing private_policy_pin_
+eligibility.revalidate_current_pin_case and
+the actual ranking body with the existing
+source_bound_ranking.bind_pinned, passing
+the full fixed 30,000 ms operation
+allowance to every genuine guarded
+delegate, which starts later and clips it
+to the exact original admission end.  The
+exact capture, the binder output gate, the
+empty-judgment behavior and the remaining
+grade-case metric sequence are preserved;
+no alternate binder, callback or stage
+algorithm is introduced, and the shared
+gate verifies the delegated result's exact
+snapshot, catalog, authority, rows,
+fragment count and fixed status
+categories.  The fixed current route
+passes the already verified pre-dispatch
+retained PinData as the shared captured
+argument and requires both genuine guarded
+revalidations to yield exactly that
+retained value, verified by identity, the
+first check before the actual grade
+ranking dispatch.
+
+The new fixed private _commence_grade_
+judgment_dispatch entry accepts only the
+genuine current selected-policy request
+(PolicyRequestAdmission), the exact live
+operator-owned pin (PinOwner), the
+canonical plan wire and dataset bytes
+(1..16,777,216), the exact ordered cohort
+and declaration identifiers, the declared
+Gold IDs, the config and the bounded
+source and grade budgets and one exact
+selected case ID (1..128): no grants or
+restrictions, pre-admitted Plan or
+declaration, path or store, catalog,
+callback, clock, deadline, provider or raw
+credential.  The stores, snapshot and
+catalog come from the actual owner through
+the genuine ordered joint declaration
+preparation, and the fixed private 30,000
+ms operation allowance is selected before
+any semantic work.  The one exact
+monotonic end it establishes clipped once
+to the original current request lifetime
+is the shared absolute extent for the
+joint preparation, the checks and meter
+and the delegated pin revalidations and
+rank binding; every sequential delegate
+starts later and clips to that same
+original end.  Under one genuine borrowed
+nonreentrant guard the exact held capture
+is verified before any use, the verified
+pre-dispatch pin data and bounded row-map
+bytes are retained, the genuine metadata
+association and the joint preparation
+complete, the same pure case authority
+verifies every ordered admitted case's
+full readable held membership and every
+ordered judgment before any new protected
+read, and the plan snapshot/generation
+concordance and the expected effective-
+scope authority through the stage
+_canonical_hash complete before the
+span's exact prior operation end is
+restored and the guard is released
+unconditionally.  The delegated shared
+dispatch then runs under the one clipped
+end.  The final short guard re-verifies
+the same active operation and the same
+retained PinData, the genuine held capture
+and metadata association and the detached
+full anchor, with the same actual
+operation and PinData confirmed again
+after the genuine association, before the
+final same-admission reread/cutoff; the
+exact prior end is restored on the
+retained operation under the guard and
+the guard is released unconditionally, and
+the final deadline check runs after
+custody restores.  The return is at most
+the internal bounded verified judgment
+binding with its existing source,
+authorization and qualification
+categories: never a grade Report or a
+delivery result.  An admitted pure refusal
+preserves the intended count under the
+actual PREFLIGHT phase; delegated
+failures preserve GRADE_PIN or GRADE_BIND;
+an ordinary error uses the fixed content-
+free EvaluationError; a non-Exception
+interruption propagates by identity with
+prior custody preserved.
+
+The three hosted witnesses are built on
+the 009-al grade catalog support over the
+underlying genuine 009-ai ranking
+scenario, on the inherited support and
+source cohort fixtures, with the actual
+raw snapshot selector and the real
+PinOwner.acquire_selected_data building
+the pinned data and the attributed
+same-wire generation change using the
+test-local atomic selector fixture
+(re-derived from the 009-z current-view
+lane fixture through the 009-ai ranking-
+dispatch test).  test_judgment_dispatch_
+stable_nonempty_and_empty_judgments
+completes the stable nonempty and the
+unaffected empty spans at one catalog
+identity each across two catalog loads
+with six actual directory
+validations (two independently guarded
+pins plus four actual directories in two
+catalogs), the recorded metering, the
+exact original operation end and the true
+selection counts.  test_judgment_dispatch_
+pure_refusals_zero_new_reads proves the
+pure unreadable, unavailable and unknown
+judgments refuse before any new full
+read.  test_judgment_dispatch_same_pin_
+generation_changes witnesses the advances
+of the genuine selection after a completed
+actual first grade pin or actual rank
+binding denying later starts while
+preserving the same raw pin and fixed
+custody.
+
+The two reconciled 009-am dependencies
+keep the receiver versions: 33 of the 35
+frozen donor dependencies match the
+receiving head, and the used stage
+_canonical_hash, _Meter, _admit_
+authority and _preflight_declaration and
+the cohort _Meter, _Deadline,
+_declaration_admission, _case_checks,
+_run_cohort, Budget and CohortReport are
+byte-exact by top-level definition digest
+across the donor base and the receiver,
+with the legacy _pin_observation still
+performing the same actual pin and
+delegating its unchanged pointer/core/
+row-map validation tail.  The receiving
+local proof is the 168/168 inherited unit
+focus (grade 50, ranking 15, current
+eligibility 53, raw pin 8, joint
+preflight 42), the 3-node collect-only,
+the scoped two-file one-core Ruff with
+one Rayon thread and the ORIGINS_OK
+physical import probe in fresh
+grade-first and eligibility-first
+processes, all exit 0 under CPU60s/AS1GiB/
+wall120s KILL5 in fresh 0700 /dev/shm
+scratch, with no local native result.
+The hosted outcomes are PENDING the fresh
+exact report-head CI at the ordered 1,440
++ 1,998 units and exactly 994 passing
+integrations per Product (991 prior + 3
+new); no hosted outcome, whole grade,
+encoder, report or delivery result is
+claimed here, and the representative
+baseline remains NOT_RUN.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a
