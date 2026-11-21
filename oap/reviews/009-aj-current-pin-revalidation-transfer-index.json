@@ -1,0 +1,264 @@
+{
+  "at": "2026-11-21T01:28:49.040894+00:00",
+  "identifier": "009-aj",
+  "PR": 11,
+  "base": "0ea63e91cf563ca1751bb373010d56ea8d884745",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "candidate": {
+    "base": "78ffe7473c8ab517c339c96c038c3f0e9c041d8c",
+    "implementation": "63936e7c2b9e3098bf039d57b3a8359ad326c746",
+    "report": {
+      "commit": "cb1373b50a097c7915f6438008f4e42d4cb55e43",
+      "path": "oap/parallel/reports/PAR-009-CURRENT-PIN-REVALIDATION-A.json",
+      "mode": "100644",
+      "blob": "116e247a06557bd02f23f958dc8159b225fd6b55",
+      "bytes": 8743,
+      "sha256": "06ef5866da8cf1bdd098c7fc39cd001c7a82b8340f3b482d69c0e057f1c50716"
+    },
+    "objects": {
+      "src/slaif_raggedized_helper/raw_snapshot_pin.py": {
+        "mode": "100644",
+        "blob": "25c9a745bc63a4e13747c9302b449aa5cb56e014",
+        "bytes": 10382,
+        "sha256": "aa3b312b6d7e18e84e8c478071e7c2199df7a0eac5bf47f3d62d632310113545"
+      },
+      "src/slaif_raggedized_helper/private_policy_pin_eligibility.py": {
+        "mode": "100644",
+        "blob": "3d8a54efb77de34baf143d6cccdcdc4c9f14cd96",
+        "bytes": 29913,
+        "sha256": "4dfca12dcf067aebbe8d30422f2752afc4ff5873ba1f1e2aca0bfca380fc9827"
+      },
+      "tests/integration/test_current_pin_revalidation_composition.py": {
+        "mode": "100644",
+        "blob": "dc255bcaf99da7b9a332a46593cfebf6dc247b9c",
+        "bytes": 17712,
+        "sha256": "e2a49b82991a4e53d92dbc40f17cd18261271f91bc33b6981b02b2f238f4502f"
+      }
+    }
+  },
+  "indexed_candidate_preimages_equal": 25,
+  "candidate_frozen_index": {
+    "path": "parallel/current-pin-revalidation/source-inputs.json",
+    "bytes": 15525,
+    "sha256": "1bcf00167e1efd843bc6c3ddf3efa41375f541824f90c73765bbbd7acd81247a"
+  },
+  "receiver_existing_objects": {
+    "src/slaif_raggedized_helper/raw_snapshot_pin.py": {
+      "mode": "100644",
+      "blob": "fd9425ed414a2b0e43c8dd4b0d6491f33e35cf49",
+      "bytes": 9471,
+      "sha256": "3b1677826804ed7a247b48026feb2292a9bc4c05d667afba80206498391643ac"
+    },
+    "src/slaif_raggedized_helper/private_policy_pin_eligibility.py": {
+      "mode": "100644",
+      "blob": "eb4a51d997ef1d9fca6d52c3f31cd84a67bb7360",
+      "bytes": 20581,
+      "sha256": "7dc89e5277032d2f3bb24143e3f878e6a5a85ccc46d514b35c37b418214daf3b"
+    },
+    "src/slaif_raggedized_helper/source_bound_stage_loss.py": {
+      "mode": "100644",
+      "blob": "85c7ce3c1dea1a3ac1ae70925ce1734b8e073d66",
+      "bytes": 91797,
+      "sha256": "caf22819c1148dd3dcadf368904fdd4f98475451ff2f0c50fc7e51caa37fe546"
+    },
+    "src/slaif_raggedized_helper/text_evaluation_dataset.py": {
+      "mode": "100644",
+      "blob": "80986f1951c8c1b965777423bd99b74e23dcfcf2",
+      "bytes": 11687,
+      "sha256": "923d34d26d6f040108f72ccb95726f91af213355dc68a2e3ca5dd17eeae4d17b"
+    },
+    "src/slaif_raggedized_helper/private_policy_request.py": {
+      "mode": "100644",
+      "blob": "7b2a24d3fea6cca9e1cd67310987fdc6194db7f9",
+      "bytes": 14885,
+      "sha256": "1b52e832ca7f65925bf129958b80b99d3a1a4260dddaa29f06db371505979e44"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_directory.py": {
+      "mode": "100644",
+      "blob": "92fdc6ba643e6d3bc372ffd153b3dccb44779a56",
+      "bytes": 8795,
+      "sha256": "e2448d9babe4d57e9601e8eeee46b4a5fc305b84ad7074ca91ee69a330aeece0"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_files.py": {
+      "mode": "100644",
+      "blob": "ba4697e674ebb5a0afa6003ca35383b25d04da7f",
+      "bytes": 6649,
+      "sha256": "da682cdc07ed0538245addad518e9d5bd190b830b369d7cd01324a97d05885b8"
+    },
+    "tests/integration/test_current_gold_dispatch_composition.py": {
+      "mode": "100644",
+      "blob": "2bcfc506a91d0b60b2e61e6433aaaa8e3f25276f",
+      "bytes": 28197,
+      "sha256": "934537cf536e8934da1b80c1e38795b585ce626574ed8e9eaf57531955540083"
+    },
+    "tests/integration/test_source_cohort_runner_composition.py": {
+      "mode": "100644",
+      "blob": "e385f8fc2500ad34b728cbb2f3ff1436e22109f0",
+      "bytes": 27711,
+      "sha256": "065b2cb4c2e67c35f4a76987cfeb991d65fd6e039f50de8dcd852cbe08794124"
+    },
+    "ARCHITECTURE.md": {
+      "mode": "100644",
+      "blob": "da56d21de0a56666bbd77edeba5b3153330c8f43",
+      "bytes": 128390,
+      "sha256": "4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a"
+    },
+    "tests/unit/test_raw_snapshot_pin.py": {
+      "mode": "100644",
+      "blob": "ba6060efdfd686596c21303e16172272a8496bda",
+      "bytes": 3932,
+      "sha256": "9d3ae5b45e7c7cf8626469252e8871f223d0e7ecded99dff21dd634274a92a6f"
+    },
+    "tests/unit/test_private_policy_pin_eligibility.py": {
+      "mode": "100644",
+      "blob": "4ea14debeaa40f8bb3674a35661a197f5ed0cd7d",
+      "bytes": 70832,
+      "sha256": "afae35e211143d66bd647a8afb211555909c4590257d6a7a1898b9d3a6d75970"
+    },
+    "tests/unit/test_private_policy_request.py": {
+      "mode": "100644",
+      "blob": "a2bb6642dea1e7be046b3fcb4717fb5d6bf0b450",
+      "bytes": 42773,
+      "sha256": "f8491635ce587f1bbf8a61811e9492a015f88d4ad921284a7025961b2f4a663d"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_selection.py": {
+      "mode": "100644",
+      "blob": "62b61692094a5acfb2a1c18f96a6970b3df32aae",
+      "bytes": 11190,
+      "sha256": "8cb52c4d8158831d1da876e0baf9811b5f6462389b8e9e97d75c2f745b04e81f"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_membership.py": {
+      "mode": "100644",
+      "blob": "b0511079cc32255b279e7368360e4903efed4aba",
+      "bytes": 13491,
+      "sha256": "506b8c727c89b99990c4270a4a06e549438b90a3efc7efc7618276265eeed2a7"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_catalog.py": {
+      "mode": "100644",
+      "blob": "1522104ead341d13e7d944de0d2b3f5e0b4b84a2",
+      "bytes": 8710,
+      "sha256": "027f50ec3c4becd1eb61b96f4ef30feda414c1f7c36fcad4316b77386f7ab73c"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_dense.py": {
+      "mode": "100644",
+      "blob": "35f4ca0b916401ac5e674552daedcab07b05c069",
+      "bytes": 5936,
+      "sha256": "a40dd743d264a1f3f6cae1918bd1bcfb4257675ed4cc22d24ceac4d12dfa9ef6"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_lexical.py": {
+      "mode": "100644",
+      "blob": "25d7bbaccb42d12ead8cd332688618bb9ddd6156",
+      "bytes": 8734,
+      "sha256": "3eaf7fa47a19f3df4466f45271cc5a53d15ad136ef42211676260b443ca3ef8b"
+    },
+    "src/slaif_raggedized_helper/raw_snapshot_source_rows.py": {
+      "mode": "100644",
+      "blob": "7dad982262e5aac04cdaf262c7c00b3b776ab8af",
+      "bytes": 7554,
+      "sha256": "bbdb37bf9b2ff2ee64f7bc4b9581d6fbdc7dbc39a352bb85e8ce2412848808d6"
+    },
+    "src/slaif_raggedized_helper/ingestion_store.py": {
+      "mode": "100644",
+      "blob": "5e65c51cbdc7f5e0a6936aa035b451eaf8fa0eaa",
+      "bytes": 1938,
+      "sha256": "1799ec8a79bea134e628e44147a9f83405c94640338973c8d557c6b2fdae1c7a"
+    },
+    "src/slaif_raggedized_helper/bundle_source_records.py": {
+      "mode": "100644",
+      "blob": "f83ef8adff8cddc0f650d13a138071a72a9e7c10",
+      "bytes": 5842,
+      "sha256": "15a1b70f3d2fa37122d7d51e84294f61d9e59e2b3420ffd5b10af25e3605b7e9"
+    },
+    "src/slaif_raggedized_helper/structured_text.py": {
+      "mode": "100644",
+      "blob": "589300dc22cbdb5cff33106fc595607b72883034",
+      "bytes": 7923,
+      "sha256": "9b630ce3f1cc6b1a2cdfc29710a7d3e828c10ac6ca295398eacc5e3115f6882b"
+    },
+    "tests/integration/test_source_bound_support_ci_composition.py": {
+      "mode": "100644",
+      "blob": "6d8496363a284810308be8ca1f00e805e88d2135",
+      "bytes": 10654,
+      "sha256": "ad6d3a1f7a669deb73fd972185dab92ba3938a215c4940363ef48f8b387ad854"
+    },
+    "tests/integration/test_raw_snapshot_directory_composition.py": {
+      "mode": "100644",
+      "blob": "9a44232b89ddae7bcae32740d0ee5187412322df",
+      "bytes": 10154,
+      "sha256": "7bfe80019559a1db4708a17dc5deb44623e3693765277fbc7f94256bddc1005e"
+    },
+    ".github/workflows/oap.yml": {
+      "mode": "100644",
+      "blob": "58eee45c59bab5a002ea36831850b02c59106b28",
+      "bytes": 14235,
+      "sha256": "54e66869d9a2a02e95202ed3eaecba199a2494ca6f6c5742554e722cf14367c6"
+    },
+    "STATUS.md": {
+      "mode": "100644",
+      "blob": "b9dd72cfc3dfd602c19fe6690fff3bdfef74b920",
+      "bytes": 197518,
+      "sha256": "c75e0471cf6bb0c85d17dc613004dd6944be774b568e030da402976cd36d52f0"
+    },
+    "docs/evaluation.md": {
+      "mode": "100644",
+      "blob": "e1cc81549aa594b28196e0b80d132199657aebfa",
+      "bytes": 196302,
+      "sha256": "f818ccbe621ccfc7f186094c744018144a2db4d5cc046379f74b3018cc2238b8"
+    },
+    "oap/active": {
+      "mode": "100644",
+      "blob": "ca3a08585de728b37bd9d298ffa542f59b469cf2",
+      "bytes": 7,
+      "sha256": "871a29435059cc7a61a4f01e56a8cc8af2e30fdbdc130b1fc4f75958dd433d3a"
+    },
+    "oap/reports/009-ai-current-ranking-dispatch-transfer.md": {
+      "mode": "100644",
+      "blob": "c090a251c0ee6907c1893ba2b72b2df6bbcef447",
+      "bytes": 17500,
+      "sha256": "f054d6ff00b48f7c8a17b75e2bb1ac0714088493b5ac6337f22ff5b05e091ee7"
+    },
+    "oap/orders/009-ai-current-ranking-dispatch-transfer.md": {
+      "mode": "100644",
+      "blob": "dc8f7ab3feca0e5a59172ab8044e9f0de01ac505",
+      "bytes": 6951,
+      "sha256": "d03c7f36718545eeb56814ce40e9d8c26a9be30deba70c26247dce3702c1b7af"
+    },
+    "oap/reviews/009-ai-current-ranking-dispatch-transfer-index.json": {
+      "mode": "100644",
+      "blob": "ea79ccc4c14ff2be4455a98154690530b56b9e9a",
+      "bytes": 14769,
+      "sha256": "9677c4fd57ccaaaa1d87095fde474505d9db31cb9a84bdbf7e23a4a88df33980"
+    },
+    "oap/reviews/009-ai-prior-resolution.json": {
+      "mode": "100644",
+      "blob": "19469ab81da13837bd8319cef8ecd91d75703a36",
+      "bytes": 814,
+      "sha256": "dd6dbe3248e70742c50da274023af350ac4880976ed5564d9bbe7b471d294d50"
+    }
+  },
+  "absent_owned_destinations": [
+    "tests/integration/test_current_pin_revalidation_composition.py"
+  ],
+  "local_focused": [
+    [
+      "tests/unit/test_raw_snapshot_pin.py",
+      8
+    ],
+    [
+      "tests/unit/test_private_policy_pin_eligibility.py",
+      53
+    ],
+    [
+      "tests/unit/test_private_policy_request.py",
+      45
+    ]
+  ],
+  "receiving_exact_units": {
+    "A": 1440,
+    "B": 1998,
+    "total": 3438
+  },
+  "receiving_exact_integration": 979,
+  "proof_environment": "Fresh 0700 /dev/shm scratch under sticky root, exact canonical .venv, caps preserved. /tmp inode exhaustion demonstrated.",
+  "DHA": "NONE"
+}
