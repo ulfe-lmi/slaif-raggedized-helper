@@ -48,7 +48,7 @@ import json
 import os
 import sys
 import time
-from dataclasses import FrozenInstanceError, fields
+from dataclasses import FrozenInstanceError, asdict, fields
 from pathlib import Path
 
 import pytest
@@ -67,6 +67,7 @@ from slaif_raggedized_helper import raw_snapshot_catalog as catalog  # noqa: E40
 from slaif_raggedized_helper import raw_snapshot_pin  # noqa: E402
 from slaif_raggedized_helper import source_bound_stage_loss as stage_loss  # noqa: E402
 from slaif_raggedized_helper import source_cohort_runner as runner  # noqa: E402
+from slaif_raggedized_helper import supplied_rank_metrics as metrics  # noqa: E402
 from slaif_raggedized_helper import supplied_policy_eligibility as policy_eligibility  # noqa: E402
 from slaif_raggedized_helper import text_evaluation_dataset  # noqa: E402
 import test_current_cohort_encoder_producer_composition as producer_fixture  # noqa: E402
@@ -354,9 +355,16 @@ def test_graded_cohort_positive_two_cases_match_legacy_dispatch(
                 assert report.identity == "sha256:" + hashlib.sha256(
                     b"slaif-graded-evaluation-program-v1\n"
                     + report.identity_payload).hexdigest()
-                assert 0 < report.final_work <= program._MAX_BUDGET[10]
+                # The exact named work and payload caps of the real
+                # source Budget and grade GradeBudget: the source
+                # ordinals 10 and 11 are the geometry and aggregate
+                # call limits, while the source work bounds are the
+                # named local work and payload fields.
+                budget_caps = runner.Budget(*runner._MAX_BUDGET)
+                grade_caps = program.GradeBudget(*program._MAX_BUDGET)
+                assert 0 < report.final_work <= grade_caps.local_work
                 assert (0 < report.final_payload
-                        <= program._MAX_BUDGET[11])
+                        <= grade_caps.local_payload)
                 # The original source payload embedded as an exact
                 # JSON value, once; the outer source identity is the
                 # domain digest of those exact bytes, re-derived
@@ -370,9 +378,9 @@ def test_graded_cohort_positive_two_cases_match_legacy_dispatch(
                         b"slaif-source-cohort-runner-v1\n"
                         + source_payload).hexdigest()
                 assert (0 < grade_doc["source_final_work"]
-                        <= runner._MAX_BUDGET[10])
+                        <= budget_caps.local_work)
                 assert (0 < grade_doc["source_final_payload"]
-                        <= runner._MAX_BUDGET[11])
+                        <= budget_caps.local_payload)
                 assert grade_doc["grade_budget"] == {
                     item.name: cap for item, cap in zip(
                         fields(program.GradeBudget), program._MAX_BUDGET)}
@@ -440,7 +448,6 @@ def test_graded_cohort_positive_two_cases_match_legacy_dispatch(
                     (item.name for item in fields(runner.Budget)),
                     runner._MAX_BUDGET))
                 pure = source_doc["pure"]
-                budget_caps = runner.Budget(*runner._MAX_BUDGET)
                 encoded = json.dumps(
                     pure["identity_payload"], ensure_ascii=True,
                     separators=(",", ":")).encode("ascii")
@@ -741,6 +748,47 @@ def test_graded_cohort_positive_two_cases_match_legacy_dispatch(
                     legacy_diag.chosen_atom_occurrences)
                 grade_case = cases_doc[0 if case_id == "h1" else 1]
                 assert grade_case["query_id"] == legacy.query_id
+                # The actual dense, lexical and fusion rankings of
+                # the same legacy search verify the reported metric
+                # query result for this exact query ID through the
+                # product's own serializer round trip: the h1
+                # grade-3 declared gold unit retrieved with the
+                # dense and fusion improvement and the lexical zero,
+                # and the h4 empty-gold cutoff rows undefined.
+                rankings = {
+                    "dense": tuple(h.chunk_id for h in legacy.dense.hits),
+                    "lexical": tuple(h.chunk_id
+                                     for h in legacy.lexical.hits),
+                    "fusion": tuple(h.chunk_id for h in legacy.fusion.hits),
+                }
+                gold = ((chunks["a"], 3),) if case_id == "h1" else ()
+                for name, ranking in rankings.items():
+                    variant = json.loads(grade_doc["variants"][name])
+                    reported = next(
+                        item for item in variant["query_results"]
+                        if item["query_id"] == legacy.query_id)
+                    recomputed = json.loads(json.dumps(asdict(
+                        metrics.score_query(
+                            legacy.query_id, gold, ranking,
+                            cutoffs=(20, 60), deadline_ms=5000))))
+                    assert reported == recomputed
+                    if case_id == "h1":
+                        assert reported["positive_gold_count"] == 1
+                        retrieved = name != "lexical"
+                        for value in reported["at_k"]:
+                            assert (value["relevant_returned"],
+                                    value["recall"]) == (
+                                        1 if retrieved else 0,
+                                        1.0 if retrieved else 0.0)
+                    else:
+                        assert reported["positive_gold_count"] == 0
+                        for value in reported["at_k"]:
+                            assert (value["relevant_returned"],
+                                    value["recall"],
+                                    value["reciprocal_rank"],
+                                    value["ndcg"]) == (0, None, None, None)
+                            assert value["undefined_reason"] == (
+                                "UNDEFINED_EMPTY_POSITIVE_GOLD")
         finally:
             gold_fixture._close_owned(ctx, owner)
     finally:
@@ -777,8 +825,14 @@ def test_graded_cohort_unavailable_declaration_refuses_without_work(
             admitted = text_evaluation_dataset.admit(dataset)
             wire = grade_fixture._plan_wire(
                 ctx, admitted, ctx.catalog_id,
-                (("h1", (((_c, 3),),)), ("h2", ())),
+                (("h1", ((_c, 3),)), ("h2", ())),
             )
+            # The real helper encodes exactly the singleton h1
+            # judgment pair and the empty h2 judgment.
+            assert json.loads(wire.decode("ascii"))["judgments"] == [
+                {"case_id": "h1", "gold": [[_c, 3]]},
+                {"case_id": "h2", "gold": []},
+            ]
             counts = producer_fixture._counts()
             restore = producer_fixture._install_counting(
                 monkeypatch, ctx, owner, reader, counts)
