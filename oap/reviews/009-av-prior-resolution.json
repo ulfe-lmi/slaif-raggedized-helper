@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-21T15:45:30.019151+00:00",
+  "identifier": "009-au",
+  "decision": "ACCEPT_EXACT_SCOPE_CONTINUATION_ONLY",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "accepted_report_head": "b0bed822c6f1724b702b962b3961a5f809baadf2",
+  "implementation": "0115d9bc471efae17cbddef9c23b41f3773bf7d1",
+  "report_run": 44913264880,
+  "report_run_attempt": 1,
+  "report": {
+    "commit": "b0bed822c6f1724b702b962b3961a5f809baadf2",
+    "path": "oap/reports/009-au-grade-metric-witness-decoder-repair.md",
+    "mode": "100644",
+    "blob": "a97a2083e89a6e240c115120f5751d815972aa06",
+    "bytes": 15013,
+    "sha256": "9573ab3ec399112cdc0bac0724c5268a505ea8c1109c0449900d550bcaa97506"
+  },
+  "terminal_review": {
+    "path": "audit/009-au-check/Root-terminal-review.json",
+    "bytes": 3886,
+    "sha256": "5d41c23bcd8c593e6f873c8cbdc8f353f9e4485abf4038043be39c1edeb8422f"
+  },
+  "verification": {
+    "all_five_required_jobs": "SUCCESS",
+    "every_required_step": "SUCCESS",
+    "ordered_units": [
+      1440,
+      1998
+    ],
+    "units_per_product": 3438,
+    "integrations_per_product": 1003
+  },
+  "scope": "Canonical genuine current guarded source and grade succeeded in the exact three named native witnesses. Stable a/c grade result, exact score metrics and 75 directories/21 full pins, h1/h2 zero-work whole declaration denial, unchanged selected-generation FINAL_PIN refusal with no private mint. Current fixture correction only, no product or other test changes since 009-as.",
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}
