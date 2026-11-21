@@ -4134,6 +4134,36 @@ ordered 1,440 + 1,998 units, exactly 997
 integrations.  Baseline NOT_RUN; whole 009
 PARTIAL; no merge; DHA NONE.
 
+## The 009-aq current cohort stage-loop transfer
+(same 009 continuation)
+
+Slice 009-aq (AMEND PR 11, round base 8d0729f)
+transfers, without candidate history, order or
+report, source_cohort_runner.py and its three
+hosted witnesses
+test_current_cohort_stage_loop_composition.py.
+One shared production iteration and result path
+serves both the legacy supplied and genuine
+current entries, the mode difference only the
+fixed case dispatch. Current reserves the extra
+owned-producer full-directory envelope per
+selected case over the legacy one before any
+semantic work, overflow refusing at admission,
+no cap raised, then the query-free full-cohort
+check, one initial pin, and per ordered case the
+CASE_PIN revalidation, real encode, same-payload
+pinned hybrid and stage-owned dispatch. Shared
+aggregate and serialization run once, current
+facts in the ledger, legacy bytes exact without
+them. Local proof: 319/319 focused units,
+four-file hosted collect-only, scoped two-file
+Ruff, fresh physical imports, all exit 0; no
+local native run. Expected hosted proof:
+report-head CI, both Products ordered 1,440 +
+1,998 units, exactly 1,000 integrations (997 + 3
+new). Baseline NOT_RUN; whole 009 PARTIAL; no
+merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

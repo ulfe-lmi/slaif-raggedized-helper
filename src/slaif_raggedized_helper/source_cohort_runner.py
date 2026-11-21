@@ -172,6 +172,35 @@ def _validate_budget(budget, count):
         raise ValueError
 
 
+def _current_owned_extra_reservation(count):
+    """The extra actual owned-producer full-directory envelope, current mode only.
+
+    The fixed current source execution entry completes one extra actual
+    full-directory revalidation per selected case that the legacy
+    unguarded producer never performs: the owned pinned hybrid route
+    ends with its own independent full reload under the one clipped
+    request end.  Each extra directory is reserved at the frozen
+    per-directory byte constant and the frozen per-case ingestion and
+    derived-batch rates of the shared source reservation, so the
+    legacy reservation, the fixed ceilings and the legacy
+    serialization all stay byte-exact.  A budget that cannot carry the
+    legacy envelope plus this extra current envelope refuses the new
+    cases at admission instead of silently raising any legacy cap.
+    """
+    if type(count) is not int or not 1 <= count <= 256:
+        raise ValueError
+    directories = count
+    ingestion = 9600 * count
+    batches = 10752 * count
+    size = (
+        count * 100925699
+        + (ingestion + batches) * 404750404
+        + ingestion * 2016386
+        + count * 4986555627809
+    )
+    return directories, ingestion, batches, size
+
+
 class _Meter:
     """Cumulative runner-owned reservations, separate from delegate ledgers."""
 
@@ -1007,6 +1036,42 @@ def _case_checks(
     )
 
 
+def _case_result_checks(
+    dataset, case, query, original, effective, restricted, captured, result, diagnosis, meter, clock
+):
+    """The shared per-case result checks, including the final bounds."""
+    item = _case_checks(
+        dataset,
+        case,
+        query,
+        original,
+        effective,
+        restricted,
+        captured,
+        result,
+        diagnosis,
+        meter,
+        clock,
+    )
+    if (
+        type(diagnosis.final_work) is not int
+        or not 0 <= diagnosis.final_work <= 134217728
+        or type(diagnosis.final_payload) is not int
+        or not 0 <= diagnosis.final_payload <= 268435456
+    ):
+        raise ValueError
+    return item, diagnosis
+
+
+def _case_record(binder_totals, metadata, pairs, item, diagnosis, meter, case_id):
+    """The shared per-case binder accounting and record append."""
+    binder_totals[0] += diagnosis.final_work
+    binder_totals[1] += diagnosis.final_payload
+    meter.reserve(4, 256)
+    metadata.append(item)
+    pairs.append((case_id, diagnosis.geometry))
+
+
 @dataclass(frozen=True, repr=False)
 class CohortReport:
     identity_payload: bytes
@@ -1028,8 +1093,17 @@ def _serialize(
     binder_totals,
     meter,
     clock,
+    *,
+    current_facts=None,
 ):
-    """Emit a bounded private identity, embedding the pure JSON value once."""
+    """Emit a bounded private identity, embedding the pure JSON value once.
+
+    The optional current facts record the separately admitted current
+    owned extra reservation and the actual scoped current statuses,
+    with the completed delegate pin observations kept apart from the
+    direct source pins; the legacy mode without them keeps its exact
+    bytes.
+    """
     import hashlib
     import json
     from dataclasses import fields
@@ -1070,6 +1144,12 @@ def _serialize(
     pointer_hash = hashlib.sha256(captured.pointer.pointer_bytes).hexdigest()
     caps = {item.name: getattr(budget, item.name) for item in fields(Budget)}
     sources = _source_reservation(count)
+    if current_facts is None:
+        current_rights_status = "NOT_CHECKED"
+        policy_status = "NOT_CHECKED"
+    else:
+        current_rights_status = "NOT_QUALIFIED"
+        policy_status = "CHECKED"
     ledger = {
         "direct_own_observed": {
             "dataset": 1,
@@ -1089,11 +1169,24 @@ def _serialize(
             "ranking": count,
             "geometry": count,
         },
-        "binder_callee_reported": binder_totals,
-        "dataset_internal": "UNMEASURED_BY_RUNNER",
-        "binder_geometry": "OVERLAPPING_NOT_ADDITIVE",
-        "source_observation": "SEQUENTIAL_NOT_ATOMIC",
     }
+    if current_facts is not None:
+        extra = current_facts["extra"]
+        ledger["current_owned_extra_reserved"] = {
+            "directories": extra[0],
+            "ingestion_loads": extra[1],
+            "derived_batch_loads": extra[2],
+            "bytes": extra[3],
+        }
+        # The completed exact delegates' per-case pin loads - the
+        # hybrid span's final full revalidation and the five stage pin
+        # loads - are distinct from the runner's direct pin
+        # observations above and from the legacy static reservation.
+        ledger["delegate_pin_observations"] = 6 * count
+    ledger["binder_callee_reported"] = binder_totals
+    ledger["dataset_internal"] = "UNMEASURED_BY_RUNNER"
+    ledger["binder_geometry"] = "OVERLAPPING_NOT_ADDITIVE"
+    ledger["source_observation"] = "SEQUENTIAL_NOT_ATOMIC"
     header = {
         "schema": "slaif-source-cohort-runner-v1",
         "formula": "source-cohort-v1",
@@ -1123,8 +1216,8 @@ def _serialize(
             "authorship": "DECLARED_UNVERIFIED",
             "rights": "DECLARED_UNVERIFIED",
             "producer": "COMPLETED",
-            "current_rights": "NOT_CHECKED",
-            "policy": "NOT_CHECKED",
+            "current_rights": current_rights_status,
+            "policy": policy_status,
             "encoder": "NOT_QUALIFIED",
             "model": "NOT_QUALIFIED",
             "baseline": "NOT_RUN",
@@ -1225,6 +1318,249 @@ def _aggregate(*args, **kwargs):
     return declared_cohort_metrics.aggregate(*args, **kwargs)
 
 
+def _source_aggregate(pairs, budget, meter, clock):
+    """The shared source aggregate over the completed per-case geometries."""
+    meter.reserve(len(pairs) + 1, 128 * len(pairs))
+    pairs = tuple(pairs)
+    clock.check()
+    aggregate = _aggregate(
+        pairs,
+        deadline_ms=clock.remaining(10000),
+        max_work=budget.aggregate_work,
+        max_payload=budget.aggregate_payload,
+    )
+    clock.check()
+    return pairs, aggregate
+
+
+def _source_serialize(
+    dataset,
+    cohort,
+    selection,
+    config,
+    budget,
+    captured,
+    metadata,
+    aggregate,
+    pairs,
+    binder_totals,
+    meter,
+    clock,
+    *,
+    current_facts=None,
+):
+    """The shared source result path: pure payload and serialization."""
+    payload = _pure_payload(
+        aggregate, pairs, meter, clock, budget.aggregate_work, budget.aggregate_payload
+    )
+    return _serialize(
+        dataset,
+        cohort,
+        selection,
+        config,
+        budget,
+        captured,
+        metadata,
+        aggregate,
+        payload,
+        {"work": binder_totals[0], "payload": binder_totals[1]},
+        meter,
+        clock,
+        current_facts=current_facts,
+    )
+
+
+def _production_iteration(
+    selected,
+    *,
+    meter,
+    clock,
+    pin_owner,
+    captured,
+    dataset,
+    metadata,
+    pairs,
+    binder_totals,
+    iter_state,
+    current=None,
+    grade=None,
+    originals=None,
+    derived=None,
+    root=None,
+    queries=None,
+    gold_bundle_ids=None,
+    admission=None,
+    encoder=None,
+    dataset_bytes=None,
+    original_op=None,
+    held_value=None,
+    saved_originals=None,
+    saved_derived=None,
+    saved_root=None,
+    identifiers=None,
+):
+    """One fixed private shared production iteration, reached by both entries.
+
+    The single shared ordered iteration over the exact selected cases:
+    the shared per-case attempt, result checks, binder accounting and
+    record append, with the mode difference only in the fixed case
+    dispatch - the legacy guarded pin, producer and binder against the
+    optionally existing supplied grade step, or the genuine current
+    CASE_PIN revalidation, the factored encode and same-payload pinned
+    hybrid subspan and the actual stage-owned dispatch.  One actual
+    Query is consumed at a time in the iteration, and the phase,
+    attempted and completed counters are owned through the shared
+    ``iter_state`` mapping.
+    """
+    if current is None:
+        if grade is not None:
+            from . import evaluation_program as graded
+
+        entries = zip(queries, selected, strict=True)
+    else:
+        from . import private_policy_pin_eligibility as pin_eligibility
+        from . import source_bound_stage_loss as stage_loss
+
+        entries = enumerate(selected)
+    for entry in entries:
+        iter_state["phase"] = "CASE_PIN"
+        iter_state["attempted"] += 1
+        meter.reserve(1)
+        if current is None:
+            query, (case, original, effective, restricted) = entry
+            _pin_observation(pin_owner, originals, derived, root, captured, meter, clock)
+            iter_state["phase"] = "PRODUCER"
+            meter.reserve(1)
+            clock.check()
+            result = _produce(
+                originals,
+                derived,
+                root,
+                captured.pointer.snapshot_id,
+                case.question,
+                query.payload,
+                query_space_id=query.space_id,
+                query_definition_fingerprint=query.definition_fingerprint,
+                query_policy_id=query.policy_id,
+                query_execution_fingerprint=query.execution_fingerprint,
+                grants=effective,
+                restrictions=restricted,
+                dense_k=60,
+                lexical_k=60,
+                partition_cap=60,
+                k=60,
+                deadline_ms=clock.remaining(120000),
+                trace=True,
+            )
+            clock.check()
+            iter_state["phase"] = "BINDER"
+            meter.reserve(1)
+            clock.check()
+            diagnosis = _bind(
+                originals,
+                derived,
+                root,
+                pin_owner,
+                dataset_bytes,
+                case.case_id,
+                gold_bundle_ids,
+                result,
+                query.payload,
+                query_space_id=query.space_id,
+                query_definition_fingerprint=query.definition_fingerprint,
+                query_policy_id=query.policy_id,
+                query_execution_fingerprint=query.execution_fingerprint,
+                grants=original,
+                restrictions=restricted,
+                deadline_ms=clock.remaining(120000),
+            )
+            clock.check()
+        else:
+            index, (case, original, effective, restricted) = entry
+            revalidated = pin_eligibility.revalidate_current_pin_case(
+                admission,
+                pin_owner,
+                dataset_bytes,
+                case.case_id,
+                deadline_ms=30000,
+            )
+            if revalidated is not captured:
+                raise ValueError
+            clock.check()
+            state = {"phase": "PREFLIGHT"}
+            iter_state["state"] = state
+            query, result = _current_cohort_case_produce(
+                admission,
+                encoder,
+                pin_owner,
+                original_op,
+                held_value,
+                saved_originals,
+                saved_derived,
+                saved_root,
+                captured,
+                case,
+                identifiers[index],
+                (identifiers[index],),
+                dataset_bytes,
+                meter,
+                clock,
+                state,
+            )
+            iter_state["phase"] = state["phase"]
+            iter_state["state"] = None
+            meter.reserve(1)
+            clock.check()
+            iter_state["phase"] = "STAGE"
+            diagnosis = stage_loss.bind_stage_owned_dispatch(
+                admission,
+                pin_owner,
+                dataset_bytes,
+                case.case_id,
+                result,
+                query.payload,
+                query_space_id=query.space_id,
+                query_definition_fingerprint=query.definition_fingerprint,
+                query_policy_id=query.policy_id,
+                query_execution_fingerprint=query.execution_fingerprint,
+                gold_bundle_ids=gold_bundle_ids,
+            )
+            clock.check()
+        item, diagnosis = _case_result_checks(
+            dataset,
+            case,
+            query,
+            original,
+            effective,
+            restricted,
+            captured,
+            result,
+            diagnosis,
+            meter,
+            clock,
+        )
+        if current is None and grade is not None:
+            iter_state["phase"] = "GRADE_PIN"
+            graded._case(
+                grade,
+                originals,
+                derived,
+                root,
+                pin_owner,
+                captured,
+                case,
+                effective,
+                restricted,
+                result,
+                item,
+                clock,
+            )
+            iter_state["phase"] = "GRADE_CASE"
+        _case_record(binder_totals, metadata, pairs, item, diagnosis, meter, case.case_id)
+        iter_state["completed"] += 1
+    iter_state["loop_complete"] = True
+
+
 def run_cohort(
     originals,
     derived,
@@ -1277,13 +1613,20 @@ def _run_cohort(
     _grade=None,
     _started=None,
 ):
-    """Fixed source loop; optional grading state is created only by its module."""
+    """Fixed source loop through the one shared production iteration."""
     import time
 
     started = time.monotonic() if _started is None else _started
     admitted = False
     phase = "PREFLIGHT"
-    intended = attempted = completed = 0
+    intended = 0
+    iter_state = {
+        "phase": "PREFLIGHT",
+        "attempted": 0,
+        "completed": 0,
+        "state": None,
+        "loop_complete": False,
+    }
     try:
         clock = _Deadline(started, deadline_ms)
         dataset, selected, selection, meter = _input_admission(
@@ -1329,117 +1672,36 @@ def _run_cohort(
             graded._catalog(_grade, originals, derived, root, pin_owner, captured, clock)
         metadata = []
         pairs = []
-        binder_work = binder_payload = 0
-        for query, (case, original, effective, restricted) in zip(queries, selected, strict=True):
-            phase = "CASE_PIN"
-            attempted += 1
-            meter.reserve(1)
-            _pin_observation(pin_owner, originals, derived, root, captured, meter, clock)
-            phase = "PRODUCER"
-            meter.reserve(1)
-            clock.check()
-            result = _produce(
-                originals,
-                derived,
-                root,
-                captured.pointer.snapshot_id,
-                case.question,
-                query.payload,
-                query_space_id=query.space_id,
-                query_definition_fingerprint=query.definition_fingerprint,
-                query_policy_id=query.policy_id,
-                query_execution_fingerprint=query.execution_fingerprint,
-                grants=effective,
-                restrictions=restricted,
-                dense_k=60,
-                lexical_k=60,
-                partition_cap=60,
-                k=60,
-                deadline_ms=clock.remaining(120000),
-                trace=True,
-            )
-            clock.check()
-            phase = "BINDER"
-            meter.reserve(1)
-            clock.check()
-            diagnosis = _bind(
-                originals,
-                derived,
-                root,
-                pin_owner,
-                dataset_bytes,
-                case.case_id,
-                gold_bundle_ids,
-                result,
-                query.payload,
-                query_space_id=query.space_id,
-                query_definition_fingerprint=query.definition_fingerprint,
-                query_policy_id=query.policy_id,
-                query_execution_fingerprint=query.execution_fingerprint,
-                grants=original,
-                restrictions=restricted,
-                deadline_ms=clock.remaining(120000),
-            )
-            clock.check()
-            item = _case_checks(
-                dataset,
-                case,
-                query,
-                original,
-                effective,
-                restricted,
-                captured,
-                result,
-                diagnosis,
-                meter,
-                clock,
-            )
-            if (
-                type(diagnosis.final_work) is not int
-                or not 0 <= diagnosis.final_work <= 134217728
-                or type(diagnosis.final_payload) is not int
-                or not 0 <= diagnosis.final_payload <= 268435456
-            ):
-                raise ValueError
-            binder_work += diagnosis.final_work
-            binder_payload += diagnosis.final_payload
-            if _grade is not None:
-                phase = "GRADE_PIN"
-                graded._case(
-                    _grade,
-                    originals,
-                    derived,
-                    root,
-                    pin_owner,
-                    captured,
-                    case,
-                    effective,
-                    restricted,
-                    result,
-                    item,
-                    clock,
-                )
-                phase = "GRADE_CASE"
-            meter.reserve(4, 256)
-            metadata.append(item)
-            pairs.append((case.case_id, diagnosis.geometry))
-            completed += 1
-        phase = "SOURCE_AGGREGATE" if _grade is not None else "AGGREGATE"
-        meter.reserve(len(pairs) + 1, 128 * len(pairs))
-        pairs = tuple(pairs)
-        clock.check()
-        aggregate = _aggregate(
-            pairs,
-            deadline_ms=clock.remaining(10000),
-            max_work=budget.aggregate_work,
-            max_payload=budget.aggregate_payload,
+        binder_totals = [0, 0]
+        _production_iteration(
+            selected,
+            meter=meter,
+            clock=clock,
+            pin_owner=pin_owner,
+            captured=captured,
+            dataset=dataset,
+            metadata=metadata,
+            pairs=pairs,
+            binder_totals=binder_totals,
+            iter_state=iter_state,
+            grade=_grade,
+            originals=originals,
+            derived=derived,
+            root=root,
+            queries=queries,
+            gold_bundle_ids=gold_bundle_ids,
+            dataset_bytes=dataset_bytes,
         )
-        clock.check()
-        phase = "SOURCE_SERIALIZE" if _grade is not None else "SERIALIZE"
-        payload = _pure_payload(
-            aggregate, pairs, meter, clock, budget.aggregate_work, budget.aggregate_payload
-        )
-        report = _serialize(
+        if _grade is not None:
+            phase = "SOURCE_AGGREGATE"
+        else:
+            phase = "AGGREGATE"
+        pairs, aggregate = _source_aggregate(pairs, budget, meter, clock)
+        if _grade is not None:
+            phase = "SOURCE_SERIALIZE"
+        else:
+            phase = "SERIALIZE"
+        report = _source_serialize(
             dataset,
             cohort,
             selection,
@@ -1448,8 +1710,8 @@ def _run_cohort(
             captured,
             metadata,
             aggregate,
-            payload,
-            {"work": binder_work, "payload": binder_payload},
+            pairs,
+            binder_totals,
             meter,
             clock,
         )
@@ -1472,16 +1734,30 @@ def _run_cohort(
         clock.check()
         return report
     except Exception:
+        if not iter_state["loop_complete"] and iter_state["attempted"]:
+            phase = iter_state["phase"]
         if _grade is not None:
             from . import evaluation_program as graded
 
-            grade_error = graded._failure(_grade, admitted, phase, intended, attempted, completed)
+            grade_error = graded._failure(
+                _grade,
+                admitted,
+                phase,
+                intended,
+                iter_state["attempted"],
+                iter_state["completed"],
+            )
         else:
             progress = None
             if admitted:
                 refused = 1 if phase in ("CASE_PIN", "PRODUCER", "BINDER") else 0
                 progress = FailurePrefix(
-                    phase, intended, attempted, completed, refused, intended - attempted
+                    phase,
+                    intended,
+                    iter_state["attempted"],
+                    iter_state["completed"],
+                    refused,
+                    intended - iter_state["attempted"],
                 )
             raise CohortRunnerError(progress) from None
     raise grade_error from None
@@ -1537,8 +1813,12 @@ def _current_cohort_prepared_pin(
     guard released on all exits.  When an exact selected case ID is
     supplied, the genuine declaration's exact selected case index is
     resolved from the one genuine declaration before the actual initial
-    reload and carried out as an internal result; the legacy path with
-    no case ID keeps the original body unchanged.  Ordinary refusal
+    reload and carried out as an internal result, together with the
+    exact detached full-grants anchor and value bound once in the
+    shared pure admission and verified there, which the caller's
+    final same-admission cut consumes without a second derivation;
+    the legacy path with no case ID keeps the original body
+    unchanged.  Ordinary refusal
     raises the internal ``_PreparedPinRefused`` carrying the admission
     stage; a non-Exception BaseException propagates by identity.
     """
@@ -1756,7 +2036,17 @@ def _current_cohort_prepared_pin(
                 saved_op.end = prior_end
         finally:
             pin_owner.guard.release()
-        return dataset, selected, selection, meter, clock, captured, position
+        return (
+            dataset,
+            selected,
+            selection,
+            meter,
+            clock,
+            captured,
+            position,
+            anchor_snapshot,
+            grants,
+        )
     except Exception:
         raise _PreparedPinRefused(admitted, intended) from None
 def _current_cohort_initial_pin(
@@ -1831,6 +2121,8 @@ def _current_cohort_initial_pin(
             _clock,
             captured,
             _position,
+            _anchor,
+            _grants,
         ) = _current_cohort_prepared_pin(
             admission,
             pin_owner,
@@ -1849,6 +2141,319 @@ def _current_cohort_initial_pin(
             progress = FailurePrefix("PREFLIGHT", error.intended, 0, 0,
                                      0, error.intended)
         raise CohortRunnerError(progress) from None
+
+
+def _current_cohort_case_produce(
+    admission,
+    encoder,
+    pin_owner,
+    original_op,
+    held_value,
+    saved_originals,
+    saved_derived,
+    saved_root,
+    captured,
+    case,
+    declared,
+    declared_tuples,
+    dataset_bytes,
+    meter,
+    clock,
+    state,
+):
+    """One genuine selected-case encode and same-payload pinned hybrid subspan.
+
+    The factored fixed internal per-case body shared by the genuine
+    encoder-to-producer selected case entry and the one genuine
+    current source execution entry, consuming the exact original
+    operation, PinData, original/derived stores and root retained
+    before the shared prepared pin, the exact held PinData capture,
+    the exact ordered case record, its declared encoder tuple, the
+    complete ordered declared tuple collection, the bounded canonical
+    dataset bytes and the shared meter, clock and phase state: under
+    one bounded genuine short borrow the exact saved operation,
+    PinData, original/derived stores and root are bound to the
+    already-proven capture, the exact prior operation end is saved on
+    the original operation marker itself and that marker is set to
+    the existing source clock end for the real association and all
+    checks, the same held live core is verified and every declared
+    encoder tuple is verified against the held core's exact four
+    immutable query identities, and the marker's exact prior end is
+    restored on all exits with the guard released independently.
+    The genuine resident's narrow fixed private pure multi-tuple
+    check then runs the exact declared tuple grammar and the exact
+    observed runtime/worker/bridge identity checks of the same
+    actual session under its own existing lock and the exact genuine
+    admission's checks from its actual end, released before the real
+    encoder invocation.  The actual encoder attempt is charged only
+    immediately before the exact case question is encoded once
+    through the existing real guarded resident operation; the
+    validated exact ``QueryEmbedding`` real one-row payload, hash
+    and query identifiers form the internal ``Query`` in the
+    currently defined bare and prefixed field formats.  Those exact
+    payload bytes and identity are used on one
+    ``raw_hybrid_search.search_pinned_case`` call, reported
+    separately from the encoder as its own PRODUCER phase, with the
+    same admission and owner, the original case bytes, the case ID,
+    the existing k and trace configuration and the real O1 through
+    O5, without supplementing O1 with a fictional pre-encode
+    observation, restarting the deadline or running another
+    producer.  The returned real result's retained snapshot, exact
+    canonical question and payload identity are verified, and the
+    exact same active operation, held value and store/root identity
+    are required after the real association under one brief genuine
+    bounded association with equivalent custody and restoration -
+    the prior operation end saved and restored on the original
+    operation marker itself and the actual clock checked only after
+    the independent unconditional release - before the private
+    return.  The phase is recorded through the shared state mapping
+    - T1 before the real encode and PRODUCER before the real
+    producer dispatch - with no guard spanning a second borrower,
+    the legitimate per-transport child caps shortening but never
+    extending the request, and the internal HybridResult status
+    fields preserved.  The entry returns at most the internal Query
+    and HybridResult, which is never a full stage, grade, report or
+    delivery attestation.
+    """
+    import hashlib
+    import json
+
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import query_embedding as embedding_module
+    from . import raw_hybrid_search
+    from . import raw_snapshot_pin
+    from . import raw_snapshot_selection as snapshot_selection
+
+    # Under one bounded genuine short borrow the exact saved
+    # operation, PinData, original/derived stores and root are
+    # bound to the already-proven capture; the exact prior
+    # operation end is saved on the original operation marker
+    # itself, that marker is set to the existing source clock end
+    # for the real association and all checks, restored on all
+    # exits and the guard released independently; the same
+    # original operation, held PinData, active state and
+    # stores/root are required after the real association, and the
+    # actual clock is checked only after the independent
+    # unconditional release; no selected reread or physical pin is
+    # added and the borrow never spans the encoder or producer.
+    if (pin_owner.value is not captured or pin_owner.value is not held_value):
+        raise ValueError
+    meter.reserve(1)
+    clock.check()
+    pin_eligibility._borrowed_owner(pin_owner)
+    try:
+        if (
+            pin_owner.state != "ACTIVE"
+            or type(pin_owner.op) is not snapshot_selection._Operation
+            or pin_owner.op is not original_op
+            or type(pin_owner.value) is not raw_snapshot_pin.PinData
+            or pin_owner.value is not captured
+            or pin_owner.originals is not saved_originals
+            or pin_owner.derived is not saved_derived
+            or pin_owner.op.path != saved_root
+        ):
+            raise ValueError
+        prior_end = original_op.end
+        original_op.end = clock.end
+        try:
+            pin_owner._association()
+            if (
+                pin_owner.state != "ACTIVE"
+                or pin_owner.op is not original_op
+                or pin_owner.value is not captured
+                or pin_owner.originals is not saved_originals
+                or pin_owner.derived is not saved_derived
+                or pin_owner.op.path != saved_root
+            ):
+                raise ValueError
+            meter.reserve(1)
+            clock.check()
+            core = captured.data.core_bytes
+            if type(core) is not bytes or len(core) > 262144:
+                raise ValueError
+            meter.reserve(len(core) + 66, 192)
+            clock.check()
+            if hashlib.sha256(core).hexdigest() != captured.pointer.core_sha256:
+                raise ValueError
+            embedding = json.loads(core.decode("ascii"))["embedding"]
+            core_tuple = (
+                embedding["space_id"],
+                embedding["definition_fingerprint"],
+                embedding["query_policy_fingerprint"],
+                embedding["query_execution_fingerprint"],
+            )
+            if any(type(value) is not str for value in core_tuple):
+                raise ValueError
+            meter.reserve(1)
+            clock.check()
+            # Every declared encoder tuple against the held core's
+            # exact four immutable query identities: the
+            # distinction between declaration grammar, scope, real
+            # held core and runtime identity is preserved, with no
+            # fallback.
+            for case_tuple in declared_tuples:
+                meter.reserve(1)
+                if type(case_tuple) is not tuple or len(case_tuple) != 4:
+                    raise ValueError
+                for left, right in zip(case_tuple, core_tuple, strict=True):
+                    meter.reserve(1)
+                    if meter.compare_strings(left, right) != 0:
+                        raise ValueError
+                meter.reserve(1)
+                clock.check()
+        finally:
+            original_op.end = prior_end
+    finally:
+        pin_owner.guard.release()
+    meter.reserve(1)
+    clock.check()
+    # The genuine resident's existing expected identity checks over
+    # the same declared tuples: the narrow fixed private resident
+    # pure multi-tuple check under its own existing ownership lock,
+    # the same actual session, exact observed runtime/worker/bridge
+    # data and the exact genuine admission's checks from its actual
+    # end, released before the real encoder invocation; a tuple or
+    # identity refusal here retains the PREFLIGHT phase.
+    encoder._check_declared_identities(tuple(declared_tuples), admission)
+    meter.reserve(1)
+    clock.check()
+    # The actual encoder attempt is charged only immediately before
+    # the exact selected case question is encoded once through the
+    # existing real guarded resident operation; each final per-
+    # encode runtime validation and the genuine T1 and T2 stay
+    # inside it.
+    state["phase"] = "T1"
+    embedding_result = encoder._encode_expected_identity_admitted(
+        case.question, declared, admission)
+    if (
+        type(embedding_result) is not embedding_module.QueryEmbedding
+        or type(embedding_result.payload) is not bytes
+        or len(embedding_result.payload) != 4096
+        or type(embedding_result.payload_sha256) is not str
+    ):
+        raise ValueError
+    meter.reserve(len(embedding_result.payload) + 132, 256)
+    clock.check()
+    if (hashlib.sha256(embedding_result.payload).hexdigest()
+            != embedding_result.payload_sha256):
+        raise ValueError
+    # The real one-row payload, hash and query identifiers bound to
+    # the declared tuple in the currently defined bare and prefixed
+    # field formats, with no fallback.
+    pairs = (
+        (embedding_result.space_id, declared[0]),
+        (embedding_result.definition_fingerprint, declared[1]),
+        (embedding_result.query_policy_id, declared[2]),
+        (embedding_result.execution_fingerprint, "sha256:" + declared[3]),
+    )
+    for left, right in pairs:
+        meter.reserve(1)
+        if meter.compare_strings(left, right) != 0:
+            raise ValueError
+    meter.reserve(1)
+    clock.check()
+    # The internal Query formed from the actual returned bytes and
+    # IDs, preserving the currently defined bare and prefixed field
+    # formats.
+    query = Query(
+        case_id=case.case_id,
+        payload=embedding_result.payload,
+        space_id=embedding_result.space_id,
+        definition_fingerprint=embedding_result.definition_fingerprint,
+        policy_id=embedding_result.query_policy_id,
+        execution_fingerprint=embedding_result.execution_fingerprint[7:],
+    )
+    meter.reserve(1)
+    clock.check()
+    # One producer dispatch: the exact payload bytes and identity on
+    # one search_pinned_case call with the same admission and owner,
+    # the original case bytes, the case ID, the existing k and trace
+    # configuration and the real O1 through O5; no fictional
+    # pre-encode observation supplements O1, no deadline restart, no
+    # second producer and the reported PRODUCER phase separate from
+    # the encoder's own T1 and T2.
+    state["phase"] = "PRODUCER"
+    result = raw_hybrid_search.search_pinned_case(
+        admission,
+        pin_owner,
+        dataset_bytes,
+        case.case_id,
+        query.payload,
+        query_space_id=query.space_id,
+        query_definition_fingerprint=query.definition_fingerprint,
+        query_policy_id=query.policy_id,
+        query_execution_fingerprint=query.execution_fingerprint,
+        dense_k=60,
+        lexical_k=60,
+        partition_cap=60,
+        k=60,
+        deadline_ms=30000,
+        trace=True,
+    )
+    meter.reserve(1)
+    clock.check()
+    if (
+        type(result) is not raw_hybrid_search.HybridResult
+        or result.query_origin != "SUPPLIED_UNVERIFIED"
+        or result.qualification != "NOT_QUALIFIED"
+    ):
+        raise ValueError
+    meter.reserve(1)
+    clock.check()
+    # The returned real result's retained snapshot, exact canonical
+    # question and payload identity, verified before the private
+    # return.
+    if (
+        result.snapshot_id != held_value.data.snapshot_id
+        or result.query_text_sha256 != hashlib.sha256(
+            case.question.encode()).hexdigest()
+        or result.query_payload_sha256 != hashlib.sha256(
+            query.payload).hexdigest()
+    ):
+        raise ValueError
+    # The exact same active operation, held value and store/root
+    # identity, required under one brief genuine bounded
+    # association with equivalent custody and restoration: the
+    # exact prior operation end is saved on the original operation
+    # marker itself, set to the existing source clock end for the
+    # real association, restored on all exits and the guard is
+    # released independently; the same original operation, held
+    # PinData, active state and stores/root are required after the
+    # real association, and the actual clock is checked only after
+    # the independent unconditional release; no selected reread or
+    # physical pin and the guard never spans the encoder or
+    # producer.
+    pin_eligibility._borrowed_owner(pin_owner)
+    try:
+        if (
+            pin_owner.state != "ACTIVE"
+            or pin_owner.op is not original_op
+            or pin_owner.value is not captured
+            or pin_owner.originals is not saved_originals
+            or pin_owner.derived is not saved_derived
+            or pin_owner.op.path != saved_root
+        ):
+            raise ValueError
+        prior_end = original_op.end
+        original_op.end = clock.end
+        try:
+            pin_owner._association()
+            if (
+                pin_owner.state != "ACTIVE"
+                or pin_owner.op is not original_op
+                or pin_owner.value is not captured
+                or pin_owner.originals is not saved_originals
+                or pin_owner.derived is not saved_derived
+                or pin_owner.op.path != saved_root
+            ):
+                raise ValueError
+        finally:
+            original_op.end = prior_end
+    finally:
+        pin_owner.guard.release()
+    meter.reserve(1)
+    clock.check()
+    return query, result
 
 
 def _current_cohort_encoder_producer(
@@ -1940,20 +2545,14 @@ def _current_cohort_encoder_producer(
     content-free ``CohortRunnerError`` with no scoped result exposed,
     while a non-Exception BaseException propagates by identity.
     """
-    import hashlib
-    import json
-
-    from . import private_policy_pin_eligibility as pin_eligibility
     from . import private_policy_request as policy_request
     from . import query_embedding as embedding_module
-    from . import raw_hybrid_search
     from . import raw_snapshot_pin
-    from . import raw_snapshot_selection as snapshot_selection
 
     admitted = False
     intended = 0
     phase = "PREFLIGHT"
-    attempted = 0
+    state = None
     try:
         if (
             type(admission) is not policy_request.PolicyRequestAdmission
@@ -2004,6 +2603,8 @@ def _current_cohort_encoder_producer(
             clock,
             captured,
             position,
+            _anchor,
+            _grants,
         ) = _current_cohort_prepared_pin(
             admission,
             pin_owner,
@@ -2021,22 +2622,291 @@ def _current_cohort_encoder_producer(
         meter.reserve(1)
         clock.check()
         selected_case = selected[position][0]
-        # Under one bounded genuine short borrow the exact saved
-        # operation, PinData, original/derived stores and root are
-        # bound to the already-proven capture; the exact prior
-        # operation end is saved on the original operation marker
-        # itself, that marker is set to the existing source clock end
-        # for the real association and all checks, restored on all
-        # exits and the guard released independently; the same
-        # original operation, held PinData, active state and
-        # stores/root are required after the real association, and the
-        # actual clock is checked only after the independent
-        # unconditional release; no selected reread or physical pin is
-        # added and the borrow never spans the encoder or producer.
-        if (pin_owner.value is not captured or pin_owner.value is not held_value):
+        state = {"phase": "PREFLIGHT"}
+        query, result = _current_cohort_case_produce(
+            admission,
+            encoder,
+            pin_owner,
+            original_op,
+            held_value,
+            saved_originals,
+            saved_derived,
+            saved_root,
+            captured,
+            selected_case,
+            identifiers[position],
+            tuple(identifiers),
+            dataset_bytes,
+            meter,
+            clock,
+            state,
+        )
+        return selected_case.case_id, query, result
+    except _PreparedPinRefused as error:
+        admitted = error.admitted
+        intended = error.intended
+        if state is not None:
+            phase = state["phase"]
+    except Exception:
+        if state is not None:
+            phase = state["phase"]
+    progress = None
+    if admitted:
+        attempted = 1 if phase in ("T1", "PRODUCER") else 0
+        refused = 1 if phase in ("T1", "PRODUCER") else 0
+        progress = FailurePrefix(phase, intended, attempted, 0, refused,
+                                 intended - attempted)
+    raise CohortRunnerError(progress) from None
+
+def _current_cohort_stage_loop(
+    admission,
+    pin_owner,
+    dataset_bytes,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    budget,
+    encoder,
+):
+    """Genuine guarded ordered shared source cohort and stage execution.
+
+    The one fixed private current source execution entry: only the
+    genuine current ``PolicyRequestAdmission``, the exact live
+    ``PinOwner`` (which alone selects the origin stores, root and
+    capture), the bounded canonical dataset bytes, the exact closed
+    ``Cohort``, the declared encoder identifier tuples, the declared
+    Gold ID tuple, the exact ``Config``, the bounded source
+    ``Budget`` and the exact open ``ResidentQueryEncoder``, with no
+    caller text/vector/grants/stores/root/clock/deadline, provider,
+    callback or generic hook.  The one operation clock is the fixed
+    30000 ms allowance from before any semantic work clipped to the
+    genuine admission's original guaranteed 1..30000 ms extent, and
+    every later call clips that same end, which is never reset or
+    extended.
+
+    Before the protected start the extra actual owned-producer
+    full directory per selected case and its conservative
+    ingestion/batch/payload work are reserved against the exact
+    current bounds on top of the legacy envelope admitted by the
+    shared declaration; a budget that cannot carry both refuses the
+    new cases here with zero new physical work, and no legacy cap is
+    silently raised.  The exact original operation and PinData are
+    retained, then the shared genuine query-free declaration and
+    guarded first cohort pin body completes its pure all-case
+    readable availabilities before any new physical source work and
+    one actual guarded initial pin.  Every declared runtime/core
+    identity is checked against the held core before the first
+    protected encoder exposure.  Each ordered case then runs the
+    real guarded source CASE_PIN revalidation over the exact current
+    case and retained original value, the factored actual encode and
+    same-payload pinned hybrid subspan - the genuine T1 and T2
+    encoder uses and the real O1 through O5 - exactly once for this
+    case, and the actual ``bind_stage_owned_dispatch`` over the same
+    case with its actual same-payload query and HybridResult, the
+    same admission and exact current PinOwner, completing the real
+    stage/Gold/rank dispatches without any alternate path around
+    them, all through the one fixed private shared production
+    iteration actually reached by the legacy entry as well.  The
+    shared per-case result checks and binder accounting, the actual
+    shared source aggregate and serialization each run once, no
+    vectors are retained and the actual Query is consumed one at a
+    time in the shared iteration.
+
+    The shared source aggregate and serialization then run once over
+    the same completed cases, with the actual current facts recorded
+    in the result ledger and the bounded final cut work debited
+    before the counters freeze, and the entry completes immediately
+    before the private ``CohortReport`` return with the final
+    same-admission selected cut, named the terminal CUT phase: the
+    exact held pin, the bound operation/source ownership and the
+    exact detached full grant and anchor carried from the shared pure
+    admission under one short genuine borrow, the genuine
+    same-admission recheck and the detached full-grants comparison,
+    restoring the exact saved end on the same operation and releasing
+    independently, with the actual time checked after the release.
+    The cut verifies the already-admitted selected pin without any
+    full raw reload or added independent final full directory, so a
+    policy selection change after the shared result work is observed
+    by the final reread before any report is returned, and no guard
+    extends across an already-borrowing operation.  A failure in the
+    CUT phase yields the fixed content-free ``CohortRunnerError``
+    with the clearly named CUT prefix.
+
+    Every ordinary failure is the fixed content-free
+    ``CohortRunnerError`` carrying the truthful terminal prefix with
+    no partial report, a fact-free ordinary refusal and
+    interruption by identity, while a non-Exception BaseException
+    propagates by identity.
+    """
+    from dataclasses import fields
+
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as policy_request
+    from . import query_embedding as embedding_module
+    from . import raw_snapshot_pin
+    from . import raw_snapshot_selection as snapshot_selection
+
+    admitted = False
+    intended = 0
+    phase = "PREFLIGHT"
+    iter_state = {
+        "phase": "PREFLIGHT",
+        "attempted": 0,
+        "completed": 0,
+        "state": None,
+        "loop_complete": False,
+    }
+    try:
+        if (
+            type(admission) is not policy_request.PolicyRequestAdmission
+            or type(pin_owner) is not raw_snapshot_pin.PinOwner
+            or type(dataset_bytes) is not bytes
+            or not 1 <= len(dataset_bytes) <= 1048576
+            or not _closed(cohort, Cohort)
+            or not _closed(config, Config)
+            or not _closed(budget, Budget)
+            or type(cohort.case_ids) is not tuple
+            or not 1 <= len(cohort.case_ids) <= 256
+            or type(identifiers) is not tuple
+            or len(identifiers) != len(cohort.case_ids)
+            or type(gold_ids) is not tuple
+            or type(encoder) is not embedding_module.ResidentQueryEncoder
+            or pin_owner.op is None
+            or pin_owner.value is None
+            or pin_owner.originals is None
+            or pin_owner.derived is None
+        ):
             raise ValueError
+        # The zero-work current-mode reservation, before any shared pin
+        # work: the legacy envelope is admitted by the shared
+        # declaration, and the extra owned-producer full directory per
+        # selected case must fit alongside it under the exact current
+        # bounds; a budget that cannot carry both refuses the new cases
+        # here with no new physical work and no raised legacy cap.
+        count = len(cohort.case_ids)
+        values = tuple(getattr(budget, item.name) for item in fields(Budget))
+        legacy = _source_reservation(count)
+        extra = _current_owned_extra_reservation(count)
+        if any(
+            available < legacy_need + extra_need
+            for available, legacy_need, extra_need in zip(values[:4], legacy, extra)
+        ):
+            raise ValueError
+        # The exact original operation and PinData retained before any
+        # shared work; the live core and the immutable query tuple are
+        # verified against them after the guarded reload.
+        original_op = pin_owner.op
+        held_value = pin_owner.value
+        saved_originals = pin_owner.originals
+        saved_derived = pin_owner.derived
+        saved_root = pin_owner.op.path
+        # The shared genuine query-free declaration and guarded first
+        # cohort pin body: its pure all-case scope precedes actual
+        # source I/O, one actual cohort pin reload and the original
+        # saved end, and the one operation clock started before any
+        # semantic work; the fixed 30000 ms allowance is clipped to
+        # the genuine admission's original extent, and the exact
+        # detached full-grants anchor and value bound once in its
+        # shared pure admission are carried out for the final
+        # same-admission cut.
+        (
+            dataset,
+            selected,
+            selection,
+            meter,
+            clock,
+            captured,
+            _position,
+            anchor,
+            original_grants,
+        ) = _current_cohort_prepared_pin(
+            admission,
+            pin_owner,
+            dataset_bytes,
+            cohort,
+            identifiers,
+            gold_ids,
+            config,
+            budget,
+            deadline_ms=30000,
+        )
+        admitted = True
+        intended = len(selected)
         meter.reserve(1)
         clock.check()
+        # Every declared encoder tuple against the held core's exact
+        # four immutable query identities before the first protected
+        # encoder exposure.
+        encoder._check_declared_identities(tuple(identifiers), admission)
+        meter.reserve(1)
+        clock.check()
+        # The actual current facts recorded in the shared source
+        # result path: the separately admitted extra reservation; the
+        # direct pin observations and the completed delegate pin
+        # loads are derived from the completed count.
+        current_facts = {"extra": extra}
+        metadata = []
+        pairs = []
+        binder_totals = [0, 0]
+        _production_iteration(
+            selected,
+            meter=meter,
+            clock=clock,
+            pin_owner=pin_owner,
+            captured=captured,
+            dataset=dataset,
+            metadata=metadata,
+            pairs=pairs,
+            binder_totals=binder_totals,
+            iter_state=iter_state,
+            current=True,
+            admission=admission,
+            encoder=encoder,
+            dataset_bytes=dataset_bytes,
+            original_op=original_op,
+            held_value=held_value,
+            saved_originals=saved_originals,
+            saved_derived=saved_derived,
+            saved_root=saved_root,
+            identifiers=identifiers,
+            gold_bundle_ids=gold_ids,
+        )
+        # The shared source result path over the same completed cases,
+        # with the actual current facts recorded in the result ledger.
+        phase = "AGGREGATE"
+        pairs, aggregate = _source_aggregate(pairs, budget, meter, clock)
+        phase = "SERIALIZE"
+        # The bounded final cut work, debited before the counters
+        # freeze so the returned private report covers it; the cut
+        # performs exactly this bounded work.
+        meter.reserve(2)
+        report = _source_serialize(
+            dataset,
+            cohort,
+            selection,
+            config,
+            budget,
+            captured,
+            metadata,
+            aggregate,
+            pairs,
+            binder_totals,
+            meter,
+            clock,
+            current_facts=current_facts,
+        )
+        # The final same-admission selected cut, named the terminal
+        # CUT phase: the exact held pin, the bound operation/source
+        # ownership and the exact detached full grant and anchor
+        # carried from the shared pure admission under one short
+        # genuine borrow, the genuine same-admission recheck and the
+        # detached full-grants comparison, restoring the exact saved
+        # end on the same operation and releasing independently, with
+        # the actual time checked after the release.
+        phase = "CUT"
+        if (pin_owner.value is not captured or pin_owner.value is not held_value):
+            raise ValueError
         pin_eligibility._borrowed_owner(pin_owner)
         try:
             if (
@@ -2063,204 +2933,33 @@ def _current_cohort_encoder_producer(
                     or pin_owner.op.path != saved_root
                 ):
                     raise ValueError
-                meter.reserve(1)
-                clock.check()
-                core = captured.data.core_bytes
-                if type(core) is not bytes or len(core) > 262144:
+                pin_eligibility._genuine_recheck(admission, clock.end)
+                if pin_eligibility._bound_grants(admission, anchor) != original_grants:
                     raise ValueError
-                meter.reserve(len(core) + 66, 192)
                 clock.check()
-                if hashlib.sha256(core).hexdigest() != captured.pointer.core_sha256:
-                    raise ValueError
-                embedding = json.loads(core.decode("ascii"))["embedding"]
-                core_tuple = (
-                    embedding["space_id"],
-                    embedding["definition_fingerprint"],
-                    embedding["query_policy_fingerprint"],
-                    embedding["query_execution_fingerprint"],
-                )
-                if any(type(value) is not str for value in core_tuple):
-                    raise ValueError
-                meter.reserve(1)
-                clock.check()
-                # Every declared encoder tuple against the held core's
-                # exact four immutable query identities: the
-                # distinction between declaration grammar, scope, real
-                # held core and runtime identity is preserved, with no
-                # fallback.
-                for declared in identifiers:
-                    meter.reserve(1)
-                    if type(declared) is not tuple or len(declared) != 4:
-                        raise ValueError
-                    for left, right in zip(declared, core_tuple, strict=True):
-                        meter.reserve(1)
-                        if meter.compare_strings(left, right) != 0:
-                            raise ValueError
-                    meter.reserve(1)
-                    clock.check()
             finally:
                 original_op.end = prior_end
         finally:
             pin_owner.guard.release()
-        meter.reserve(1)
         clock.check()
-        # The genuine resident's existing expected identity checks over
-        # the same declared tuples: the narrow fixed private resident
-        # pure multi-tuple check under its own existing ownership lock,
-        # the same actual session, exact observed runtime/worker/bridge
-        # data and the exact genuine admission's checks from its actual
-        # end, released before the real encoder invocation; a tuple or
-        # identity refusal here retains the PREFLIGHT phase.
-        encoder._check_declared_identities(tuple(identifiers), admission)
-        meter.reserve(1)
-        clock.check()
-        # The actual encoder attempt is charged only immediately before
-        # the exact selected case question is encoded once through the
-        # existing real guarded resident operation; each final per-
-        # encode runtime validation and the genuine T1 and T2 stay
-        # inside it.
-        phase = "T1"
-        attempted = 1
-        embedding_result = encoder._encode_expected_identity_admitted(
-            selected_case.question, identifiers[position], admission)
-        if (
-            type(embedding_result) is not embedding_module.QueryEmbedding
-            or type(embedding_result.payload) is not bytes
-            or len(embedding_result.payload) != 4096
-            or type(embedding_result.payload_sha256) is not str
-        ):
-            raise ValueError
-        meter.reserve(len(embedding_result.payload) + 132, 256)
-        clock.check()
-        if (hashlib.sha256(embedding_result.payload).hexdigest()
-                != embedding_result.payload_sha256):
-            raise ValueError
-        # The real one-row payload, hash and query identifiers bound to
-        # the declared tuple in the currently defined bare and prefixed
-        # field formats, with no fallback.
-        declared = identifiers[position]
-        pairs = (
-            (embedding_result.space_id, declared[0]),
-            (embedding_result.definition_fingerprint, declared[1]),
-            (embedding_result.query_policy_id, declared[2]),
-            (embedding_result.execution_fingerprint, "sha256:" + declared[3]),
-        )
-        for left, right in pairs:
-            meter.reserve(1)
-            if meter.compare_strings(left, right) != 0:
-                raise ValueError
-        meter.reserve(1)
-        clock.check()
-        # The internal Query formed from the actual returned bytes and
-        # IDs, preserving the currently defined bare and prefixed field
-        # formats.
-        query = Query(
-            case_id=selected_case.case_id,
-            payload=embedding_result.payload,
-            space_id=embedding_result.space_id,
-            definition_fingerprint=embedding_result.definition_fingerprint,
-            policy_id=embedding_result.query_policy_id,
-            execution_fingerprint=embedding_result.execution_fingerprint[7:],
-        )
-        meter.reserve(1)
-        clock.check()
-        # One producer dispatch: the exact payload bytes and identity on
-        # one search_pinned_case call with the same admission and owner,
-        # the original case bytes, the case ID, the existing k and trace
-        # configuration and the real O1 through O5; no fictional
-        # pre-encode observation supplements O1, no deadline restart, no
-        # second producer and the reported PRODUCER phase separate from
-        # the encoder's own T1 and T2.
-        phase = "PRODUCER"
-        result = raw_hybrid_search.search_pinned_case(
-            admission,
-            pin_owner,
-            dataset_bytes,
-            case_id,
-            query.payload,
-            query_space_id=query.space_id,
-            query_definition_fingerprint=query.definition_fingerprint,
-            query_policy_id=query.policy_id,
-            query_execution_fingerprint=query.execution_fingerprint,
-            dense_k=60,
-            lexical_k=60,
-            partition_cap=60,
-            k=60,
-            deadline_ms=30000,
-            trace=True,
-        )
-        meter.reserve(1)
-        clock.check()
-        if (
-            type(result) is not raw_hybrid_search.HybridResult
-            or result.query_origin != "SUPPLIED_UNVERIFIED"
-            or result.qualification != "NOT_QUALIFIED"
-        ):
-            raise ValueError
-        meter.reserve(1)
-        clock.check()
-        # The returned real result's retained snapshot, exact canonical
-        # question and payload identity, verified before the private
-        # return.
-        if (
-            result.snapshot_id != held_value.data.snapshot_id
-            or result.query_text_sha256 != hashlib.sha256(
-                selected_case.question.encode()).hexdigest()
-            or result.query_payload_sha256 != hashlib.sha256(
-                query.payload).hexdigest()
-        ):
-            raise ValueError
-        # The exact same active operation, held value and store/root
-        # identity, required under one brief genuine bounded
-        # association with equivalent custody and restoration: the
-        # exact prior operation end is saved on the original operation
-        # marker itself, set to the existing source clock end for the
-        # real association, restored on all exits and the guard is
-        # released independently; the same original operation, held
-        # PinData, active state and stores/root are required after the
-        # real association, and the actual clock is checked only after
-        # the independent unconditional release; no selected reread or
-        # physical pin and the guard never spans the encoder or
-        # producer.
-        pin_eligibility._borrowed_owner(pin_owner)
-        try:
-            if (
-                pin_owner.state != "ACTIVE"
-                or pin_owner.op is not original_op
-                or pin_owner.value is not captured
-                or pin_owner.originals is not saved_originals
-                or pin_owner.derived is not saved_derived
-                or pin_owner.op.path != saved_root
-            ):
-                raise ValueError
-            prior_end = original_op.end
-            original_op.end = clock.end
-            try:
-                pin_owner._association()
-                if (
-                    pin_owner.state != "ACTIVE"
-                    or pin_owner.op is not original_op
-                    or pin_owner.value is not captured
-                    or pin_owner.originals is not saved_originals
-                    or pin_owner.derived is not saved_derived
-                    or pin_owner.op.path != saved_root
-                ):
-                    raise ValueError
-            finally:
-                original_op.end = prior_end
-        finally:
-            pin_owner.guard.release()
-        meter.reserve(1)
-        clock.check()
-        return selected_case.case_id, query, result
+        return report
     except _PreparedPinRefused as error:
         admitted = error.admitted
         intended = error.intended
+        inner = iter_state["state"]
+        if inner is not None:
+            phase = inner["phase"]
     except Exception:
-        pass
+        if not iter_state["loop_complete"] and iter_state["attempted"]:
+            phase = iter_state["phase"]
+        inner = iter_state["state"]
+        if inner is not None:
+            phase = inner["phase"]
     progress = None
     if admitted:
-        refused = 1 if phase in ("T1", "PRODUCER") else 0
-        progress = FailurePrefix(phase, intended, attempted, 0, refused,
-                                 intended - attempted)
+        refused = 1 if phase in ("CASE_PIN", "T1", "PRODUCER", "STAGE") else 0
+        progress = FailurePrefix(
+            phase, intended, iter_state["attempted"], iter_state["completed"],
+            refused, intended - iter_state["attempted"],
+        )
     raise CohortRunnerError(progress) from None

@@ -21,6 +21,7 @@
                 - Current (2026-11-21): active objective 009, current slice 009-am
                  - Current (2026-11-21): active objective 009, current slice 009-an
                   - Current (2026-11-21): active objective 009, current slice 009-ap
+                   - Current (2026-11-21): active objective 009, current slice 009-aq
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -2608,6 +2609,34 @@
   Products ordered 1,440 + 1,998 units and exactly
   997 integrations (994 + 3 new). Baseline
   NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
+
+  Slice 009-aq (AMEND PR 11 at round base
+  8d0729f) transfers, without candidate history,
+  order or report, the two reviewed objects:
+  source_cohort_runner.py and the three hosted
+  witnesses
+  test_current_cohort_stage_loop_composition.py.
+  One shared production iteration and result
+  path now serves both supplied and genuine
+  guarded current entries, the mode difference
+  only the fixed case dispatch, current adding
+  the pre-work extra owned-producer
+  full-directory reservation, the query-free
+  full-cohort check, one initial pin, per-case
+  CASE_PIN revalidation, one real encode, one
+  same-payload pinned hybrid and the stage-owned
+  dispatch. Shared checks, aggregate and
+  serialization run once; current facts in the
+  ledger, legacy bytes exact without them. Local
+  proof 319/319 focused units (269 stage + 50
+  grade), three exact hosted collect-only,
+  scoped two-file Ruff, fresh physical imports,
+  all exit 0; no local native execution.
+  Expected hosted proof: report-head CI, both
+  Products ordered 1,440 + 1,998 units, exactly
+  1,000 integrations (997 + 3 new). Baseline
+  NOT_RUN; whole 009 PARTIAL; no merge; DHA
+  NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
