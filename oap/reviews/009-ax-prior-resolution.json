@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-21T17:42:50.199449+00:00",
+  "identifier": "009-aw",
+  "decision": "ACCEPT_EXACT_SCOPE_CONTINUATION_ONLY",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "accepted_report_head": "4e7236116492812ee3cd3b19fd4acf8730e0a9a6",
+  "implementation": "fc4c95a4979401a226d24094a60492a00afd7761",
+  "report": {
+    "commit": "4e7236116492812ee3cd3b19fd4acf8730e0a9a6",
+    "path": "oap/reports/009-aw-publisher-membership-witness-repair.md",
+    "mode": "100644",
+    "blob": "79282ff711b308a472893d9e2f0928361f8d31a8",
+    "bytes": 15435,
+    "sha256": "240a22a65da6b229de9a55022dee793cc6faf22056d2c085fbe69fa8a7a1c828"
+  },
+  "report_run": 44929451957,
+  "report_run_attempt": 1,
+  "terminal_review": {
+    "path": "audit/009-aw-check/Root-terminal-review.json",
+    "bytes": 3325,
+    "sha256": "b93c939071c2ba9460bef64f410d1df7f0cd75427edbe0f6ba2c34bad26c00f2"
+  },
+  "verification": {
+    "all_five_required_jobs": "SUCCESS",
+    "every_required_step": "SUCCESS",
+    "ordered_units": [
+      1440,
+      1998
+    ],
+    "units_per_product": 3438,
+    "integrations_per_product": 1006
+  },
+  "scope": "The actual guarded publisher passed all three ordered native composition nodes on both Products, with the 009-aw common fixture repaired and actual same-pin b withholding. No production file changed in 009-aw.",
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}
