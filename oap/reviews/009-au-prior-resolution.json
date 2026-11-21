@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-21T14:03:40.656840+00:00",
+  "identifier": "009-at",
+  "PR": 11,
+  "report_head": "a6daecf947447eb393722f2a8e818a1b172824e1",
+  "report_sha256": "b94b4bec822be067ef3f815cc2bb92660a3f9f4888810a838b189a6b7bb8f0c1",
+  "decision": "REJECT_EXACT_HOSTED_GATE_STABLE_METRIC_FIXTURE",
+  "head_run": 44909856462,
+  "attempt": 1,
+  "terminal_review": {
+    "path": "audit/009-at-check/Root-terminal-review.json",
+    "bytes": 2974,
+    "sha256": "63aa21cd999ef3069b563c0ca841d79c22971530d13cfa4d13d7a298c9dec00a"
+  },
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}
