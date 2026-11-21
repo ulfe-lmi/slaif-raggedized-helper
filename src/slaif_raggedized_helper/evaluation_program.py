@@ -200,72 +200,86 @@ def _plan_admission(plan, grade_budget, dataset, selected, meter, clock):
     return entries, work, report_bound
 
 
-def _expected_queries(plan, selected, queries, meter, clock):
-    """Derive producer identities before any source or pin observation."""
+def _expected_query_identity(plan, query, selected, meter, clock):
+    """The exact single-case producer identity under the bounded meter.
+
+    The actual canonical question/payload digests, the original/effective
+    authority hashes, the raw-hybrid-query identity domain with its exact
+    keys and the fixed producer caps; the shared per-case path does real
+    normally imported hashing with the same bounded meter charges and
+    clock order as the ordered caller it was cut from.
+    """
     import hashlib
 
     from . import source_bound_stage_loss as binder
 
+    case, original, effective, restricted = selected
+    clock.check()
+    meter.reserve(len(case.question) + 1, 4 * len(case.question))
+    question = case.question.encode("utf-8")
+    meter.reserve(len(question) + len(query.payload) + 132, 384)
+    question_hash = hashlib.sha256(question).hexdigest()
+    payload_hash = hashlib.sha256(query.payload).hexdigest()
+    hashes = []
+    for authority in (original, effective):
+        meter.reserve(2048, 2048)
+        collections = (
+            authority.corpora,
+            authority.versions,
+            authority.labels,
+            () if restricted is None or restricted.corpora is None else restricted.corpora,
+            () if restricted is None or restricted.versions is None else restricted.versions,
+        )
+        item_count = sum(len(group) for group in collections)
+        meter.reserve(item_count + 1)
+        chars = sum(len(value) for group in collections for value in group)
+        meter.reserve(chars + item_count + 1, 4096 + 16 * chars + 128 * item_count)
+        wire = [
+            authority.model_dump(mode="json"),
+            None if restricted is None else restricted.model_dump(mode="json"),
+        ]
+        hashes.append(
+            binder._canonical_hash(
+                wire, b"", meter, clock.check, ensure_ascii=False, limit=262144
+            )
+        )
+    original_hash, effective_hash = hashes
+    query_id = binder._canonical_hash(
+        {
+            "kind": "raw-hybrid-query/v1",
+            "snapshot_id": plan.snapshot_id,
+            "catalog_id": plan.catalog_id,
+            "query_text_sha256": question_hash,
+            "query_payload_sha256": payload_hash,
+            "query_space_id": query.space_id,
+            "query_definition_fingerprint": query.definition_fingerprint,
+            "query_policy_id": query.policy_id,
+            "query_execution_fingerprint": query.execution_fingerprint,
+            "authority_sha256": effective_hash,
+            "dense_k": 60,
+            "lexical_k": 60,
+            "partition_cap": 60,
+            "k": 60,
+        },
+        b"",
+        meter,
+        clock.check,
+        ensure_ascii=False,
+    )
+    meter.reserve(256, 512)
+    return query_id, question_hash, payload_hash, original_hash, effective_hash
+
+
+def _expected_queries(plan, selected, queries, meter, clock):
+    """Derive producer identities before any source or pin observation."""
     identities = []
     seen = set()
-    for query, (case, original, effective, restricted) in zip(queries, selected, strict=True):
-        clock.check()
-        meter.reserve(len(case.question) + 1, 4 * len(case.question))
-        question = case.question.encode("utf-8")
-        meter.reserve(len(question) + len(query.payload) + 132, 384)
-        question_hash = hashlib.sha256(question).hexdigest()
-        payload_hash = hashlib.sha256(query.payload).hexdigest()
-        hashes = []
-        for authority in (original, effective):
-            meter.reserve(2048, 2048)
-            collections = (
-                authority.corpora,
-                authority.versions,
-                authority.labels,
-                () if restricted is None or restricted.corpora is None else restricted.corpora,
-                () if restricted is None or restricted.versions is None else restricted.versions,
-            )
-            item_count = sum(len(group) for group in collections)
-            meter.reserve(item_count + 1)
-            chars = sum(len(value) for group in collections for value in group)
-            meter.reserve(chars + item_count + 1, 4096 + 16 * chars + 128 * item_count)
-            wire = [
-                authority.model_dump(mode="json"),
-                None if restricted is None else restricted.model_dump(mode="json"),
-            ]
-            hashes.append(
-                binder._canonical_hash(
-                    wire, b"", meter, clock.check, ensure_ascii=False, limit=262144
-                )
-            )
-        original_hash, effective_hash = hashes
-        query_id = binder._canonical_hash(
-            {
-                "kind": "raw-hybrid-query/v1",
-                "snapshot_id": plan.snapshot_id,
-                "catalog_id": plan.catalog_id,
-                "query_text_sha256": question_hash,
-                "query_payload_sha256": payload_hash,
-                "query_space_id": query.space_id,
-                "query_definition_fingerprint": query.definition_fingerprint,
-                "query_policy_id": query.policy_id,
-                "query_execution_fingerprint": query.execution_fingerprint,
-                "authority_sha256": effective_hash,
-                "dense_k": 60,
-                "lexical_k": 60,
-                "partition_cap": 60,
-                "k": 60,
-            },
-            b"",
-            meter,
-            clock.check,
-            ensure_ascii=False,
-        )
-        meter.reserve(256, 512)
-        if query_id in seen:
+    for query, entry in zip(queries, selected, strict=True):
+        identity = _expected_query_identity(plan, query, entry, meter, clock)
+        if identity[0] in seen:
             raise ValueError
-        seen.add(query_id)
-        identities.append((query_id, question_hash, payload_hash, original_hash, effective_hash))
+        seen.add(identity[0])
+        identities.append(identity)
     return tuple(identities)
 
 
@@ -332,31 +346,52 @@ def _prepare_plan(state, dataset, selected, clock):
     return entries, minimum_work, minimum_payload
 
 
-def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, config, budget, clock):
-    from . import source_bound_stage_loss as binder, source_cohort_runner as source
+def _plan_query_record(query, expected):
+    """The one ordered query's bounded plan metadata record.
 
-    grade_budget = state.budget
-    entries, minimum_work, minimum_payload = _prepare_plan(state, dataset, selected, clock)
-    meter = state.meter
-    n = len(selected)
-    state.expected = _expected_queries(state.plan, selected, queries, meter, clock)
-    meter.reserve(4096 + 256 * n + 128 * entries, 4096 + 512 * n + 256 * entries)
-    query_records = tuple(
-        {
-            "case_id": query.case_id,
-            "query_id": expected[0],
-            "question_sha256": expected[1],
-            "payload_sha256": expected[2],
-            "original_authority_sha256": expected[3],
-            "effective_authority_sha256": expected[4],
-            "space_id": query.space_id,
-            "definition_fingerprint": query.definition_fingerprint,
-            "policy_id": query.policy_id,
-            "execution_fingerprint": query.execution_fingerprint,
-        }
-        for query, expected in zip(queries, state.expected, strict=True)
-    )
-    plan = state.plan
+    The exact ten metadata fields for one actual query and its computed
+    identities; it retains no raw vector, text, query object, authority
+    object or source reference.
+    """
+    return {
+        "case_id": query.case_id,
+        "query_id": expected[0],
+        "question_sha256": expected[1],
+        "payload_sha256": expected[2],
+        "original_authority_sha256": expected[3],
+        "effective_authority_sha256": expected[4],
+        "space_id": query.space_id,
+        "definition_fingerprint": query.definition_fingerprint,
+        "policy_id": query.policy_id,
+        "execution_fingerprint": query.execution_fingerprint,
+    }
+
+
+def _reserve_plan_identity(count, entries, meter):
+    """The existing pure plan-identity metadata reservation.
+
+    The one bounded reservation for the ordered per-case metadata
+    records and the plan identity, reusable once before physical work by
+    a future fixed caller; the legacy _prepare calls it at its original
+    position after the expected identities and the plan identity hash
+    never charges it again.
+    """
+    meter.reserve(4096 + 256 * count + 128 * entries, 4096 + 512 * count + 256 * entries)
+
+
+def _plan_identity(plan, query_records, dataset_id, split_id, cohort, selection,
+                   config, gold_ids, source_budget, grade_budget, meter, clock):
+    """Assemble and hash the graded plan identity from prepared values.
+
+    Consumes the ordered per-case metadata records plus the already
+    prepared declaration values; the pure metadata reservation is not
+    charged here - the caller has already run _reserve_plan_identity -
+    and the existing declaration arithmetic and forecast envelope values
+    are not recomputed; the 8MiB canonical sizing, the legacy meter
+    charges and the output are unchanged.
+    """
+    from . import source_bound_stage_loss as binder
+
     identity = {
         "schema": "slaif-graded-evaluation-plan-v1",
         "plan": {
@@ -365,18 +400,46 @@ def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, con
             if field.name != "judgments"
         },
         "judgments": tuple((item.case_id, item.gold) for item in plan.judgments),
-        "dataset_id": dataset.dataset_id,
-        "split_id": dataset.split_id,
-        "cohort": (cohort.split, cohort.case_ids),
+        "dataset_id": dataset_id,
+        "split_id": split_id,
+        "cohort": cohort,
         "selection": selection,
-        "config": (config.config_id, config.declaration_id),
+        "config": config,
         "queries": query_records,
         "gold_bundle_ids": gold_ids,
-        "source_budget": tuple(getattr(budget, f.name) for f in fields(source.Budget)),
-        "grade_budget": tuple(getattr(grade_budget, f.name) for f in fields(GradeBudget)),
+        "source_budget": source_budget,
+        "grade_budget": grade_budget,
     }
-    state.plan_identity = "sha256:" + binder._canonical_hash(
+    return "sha256:" + binder._canonical_hash(
         identity, b"slaif-graded-evaluation-plan-v1\n", meter, clock.check, limit=8388608
+    )
+
+
+def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, config, budget, clock):
+    from . import source_cohort_runner as source
+
+    grade_budget = state.budget
+    entries, minimum_work, minimum_payload = _prepare_plan(state, dataset, selected, clock)
+    meter = state.meter
+    state.expected = _expected_queries(state.plan, selected, queries, meter, clock)
+    _reserve_plan_identity(len(selected), entries, meter)
+    query_records = tuple(
+        _plan_query_record(query, expected)
+        for query, expected in zip(queries, state.expected, strict=True)
+    )
+    state.plan_identity = _plan_identity(
+        state.plan,
+        query_records,
+        dataset.dataset_id,
+        dataset.split_id,
+        (cohort.split, cohort.case_ids),
+        selection,
+        (config.config_id, config.declaration_id),
+        gold_ids,
+        tuple(getattr(budget, f.name) for f in fields(source.Budget)),
+        tuple(getattr(grade_budget, f.name) for f in fields(GradeBudget)),
+        meter,
+        clock,
     )
     state.reserve_work = minimum_work
     state.reserve_payload = minimum_payload

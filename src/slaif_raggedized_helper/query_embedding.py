@@ -129,6 +129,13 @@ class ResidentQueryEncoder:
         # admission, the actual worker identity (real policy digest) the record, and the
         # measured bridge, before the session encode can run.
         record = cpu_execution_contract._validate(session.execution_record)
+        self._identity_matches(session, record, expected)
+
+    def _identity_matches(self, session, record, expected):
+        # The exact observed runtime/worker/bridge identity comparison of
+        # one nominal four-field declaration against the same actual
+        # session, shared by the pre-dispatch encode gate and the narrow
+        # pure multi-tuple check.
         if (session.execution_record != session._record_snapshot
                 or session.execution_fingerprint != session._fingerprint_snapshot
                 or session.execution_fingerprint != fingerprint(
@@ -144,6 +151,44 @@ class ResidentQueryEncoder:
                 or _POLICY_DIGEST != expected[2]
                 or session.execution_fingerprint != 'sha256:' + expected[3]):
             raise ValueError
+
+    def _check_declared_identities(self, expected_tuples, admission):
+        # Narrow fixed private pure multi-tuple identity check: the exact
+        # declared tuple grammar and the exact observed runtime/worker/
+        # bridge identity data of the same actual session, under the
+        # existing encoder ownership lock and the exact genuine
+        # admission's own existing checks from its actual end, released
+        # before any real encoder invocation.  The actual runtime
+        # identity verification may read bounded artifact metadata.  No
+        # alternate callback, clock or transport and no selected
+        # observation run during this check.
+        from . import private_policy_request as policy_request
+
+        if type(expected_tuples) is not tuple or not 1 <= len(expected_tuples) <= 256:
+            raise QueryRefused('query encoder refused') from None
+        if type(admission) is not policy_request.PolicyRequestAdmission:
+            raise QueryRefused('query encoder refused') from None
+        self._acquire()
+        try:
+            if self._state != 'open':
+                raise QueryRefused('query encoder refused')
+            try:
+                def end_check():
+                    if time.monotonic() >= admission._end:
+                        raise ValueError
+                end_check()
+                self._check()
+                session = self._session
+                record = cpu_execution_contract._validate(session.execution_record)
+                for expected in expected_tuples:
+                    end_check()
+                    self._expected_identity(expected)
+                    self._identity_matches(session, record, expected)
+                end_check()
+            except ValueError:
+                raise QueryRefused('query encoder refused') from None
+        finally:
+            self._lock.release()
 
     def _encode_guarded(self, text, expected, *, checked_identity, admission=None):
         # Shared guarded encode under the existing encoder lock. The mode is an

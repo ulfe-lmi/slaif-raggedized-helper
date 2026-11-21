@@ -1487,7 +1487,18 @@ def _run_cohort(
     raise grade_error from None
 
 
-def _current_cohort_initial_pin(
+class _PreparedPinRefused(Exception):
+    """Internal refusal of the shared prepared pin body with its admission stage."""
+
+    __slots__ = ("admitted", "intended")
+
+    def __init__(self, admitted, intended):
+        super().__init__("prepared pin refused")
+        self.admitted = admitted
+        self.intended = intended
+
+
+def _current_cohort_prepared_pin(
     admission,
     pin_owner,
     dataset_bytes,
@@ -1498,57 +1509,38 @@ def _current_cohort_initial_pin(
     budget,
     *,
     deadline_ms,
+    case_id=None,
 ):
-    """Guard the initial full pin read for one declared source cohort.
+    """Shared genuine query-free declaration and guarded first cohort pin body.
 
-    The fixed private initial source-cohort pin entry: only the genuine
-    current ``PolicyRequestAdmission``, the exact live ``PinOwner``
-    (which alone selects the origin stores, root and capture), the
-    bounded canonical dataset bytes, the exact closed ``Cohort``, the
-    declared encoder identifier tuples, the declared Gold ID tuple, the
-    exact ``Config``, the bounded source ``Budget`` and one 1..30000 ms
-    deadline.  No caller grants, restrictions, path/stores, snapshot,
-    Plan, query payload, provider, callback or clock is accepted, and at
-    most one private trusted initial ``PinData`` value is returned.
-
-    The exact owner-selected operation, root and stores are retained
-    before the admission and passed to it.  The genuine source
-    ``_declaration_admission`` admits the canonical dataset and exact
-    selected cohort over the supplied declaration grammar and the
-    verified full principal anchor with no added restriction, under one
-    actual source ``_Deadline`` started once and clipped to the genuine
-    admission's original end before any semantic work - checked again
-    immediately before the authority snapshot work and its bounded
-    completion - and the request end is never reset or extended.  Under
-    one genuine nonblocking borrowed owner guard the pre-dispatch PinData
-    is retained, the active owner is tied to the exact retained
-    operation, root and stores before any protected work, and the saved
-    operation carries the prior end.  After the pure scope admission -
-    every derived per-case scope has readable members and every readable
-    retained member is available for every exact selected case, over one
-    captured sealed membership, the actual canonical row binding from
-    the retained value and one unavailable table with the real reader
-    checks, in the original declaration order, each retained scope
-    admitted once as its typed canonical record and reused by the
-    per-case scan - the same held value and operation are required at
-    the pre-load association, then the actual metadata association and
-    the genuine same-admission selected reread run immediately before
-    the real fixed ``PinOwner._held_revalidation`` body that calls
-    ``_load`` and the full directory.  The same held value and
-    operation are verified after the actual reload, the shared bounded
-    pointer/core/row-map identity checks run with the retained value as
-    prior, then the remaining pure accounting - the detached
-    full-grants verification against the immutable anchor - and the
-    trailing meter charge complete before the final real selected
-    observation, after which only the exact cutoff and the required
-    restoration/release intervene.  The saved operation's end is
-    restored and the guard released on all exits; no nested borrow,
-    extra pin, catalog, producer, grading or report execution occurs.
-    Every ordinary failure is the fixed
-    content-free ``CohortRunnerError`` - an admitted initial refusal
-    retains the PREFLIGHT prefix with the actual intended count and no
-    attempted or refused cases - while a non-Exception BaseException
-    propagates by identity.
+    The factored fixed internal prepared state of the guarded private
+    initial source-cohort pin entry, shared with the one genuine
+    encoder-to-producer selected case entry: the exact owner-selected
+    operation, root and stores retained before the genuine declaration
+    admission, one actual source deadline started once and clipped to
+    the genuine admission's original end before any semantic work, the
+    genuine source declaration admission over the canonical dataset and
+    exact selected cohort, one genuine nonblocking borrowed owner guard
+    with the pre-dispatch PinData retained and tied to the exact
+    retained operation, root and stores, the pure all-case scope
+    admission with the real reader checks, the same held value and
+    operation at the pre-load association, the genuine same-admission
+    selected reread immediately before the real fixed
+    ``PinOwner._held_revalidation`` body that calls ``_load`` and the
+    full directory, the same held value and operation after the actual
+    reload, the shared bounded pointer/core/row-map identity checks
+    with the retained value as prior, the detached full-grants
+    verification and the trailing meter charge before the final real
+    selected observation, and the exact cutoff and required
+    restoration/release.  One actual cohort pin reload and the original
+    saved end throughout; the saved operation's end is restored and the
+    guard released on all exits.  When an exact selected case ID is
+    supplied, the genuine declaration's exact selected case index is
+    resolved from the one genuine declaration before the actual initial
+    reload and carried out as an internal result; the legacy path with
+    no case ID keeps the original body unchanged.  Ordinary refusal
+    raises the internal ``_PreparedPinRefused`` carrying the admission
+    stage; a non-Exception BaseException propagates by identity.
     """
     import time
 
@@ -1577,6 +1569,8 @@ def _current_cohort_initial_pin(
             or type(gold_ids) is not tuple
             or type(deadline_ms) is not int
             or not 1 <= deadline_ms <= 30000
+            or (case_id is not None
+                and (type(case_id) is not str or not 1 <= len(case_id) <= 128))
             or pin_owner.op is None
             or pin_owner.value is None
             or pin_owner.originals is None
@@ -1628,6 +1622,21 @@ def _current_cohort_initial_pin(
         )
         intended = len(selected)
         admitted = True
+        # The exact selected case index of the complete ordered
+        # declaration, resolved from the one genuine declaration before
+        # the actual initial reload and carried out as an internal
+        # result, with no new I/O.
+        position = None
+        if case_id is not None:
+            for index, (case, _original, _effective, _restricted) in enumerate(selected):
+                meter.reserve(1)
+                if meter.compare_strings(case.case_id, case_id) == 0:
+                    position = index
+                    break
+            if position is None:
+                raise ValueError
+            meter.reserve(1)
+            clock.check()
         # One genuine nonblocking borrowed owner guard; the exact
         # original operation, value and their association are retained
         # and verified, never trusted.
@@ -1747,9 +1756,511 @@ def _current_cohort_initial_pin(
                 saved_op.end = prior_end
         finally:
             pin_owner.guard.release()
-        return captured
+        return dataset, selected, selection, meter, clock, captured, position
     except Exception:
+        raise _PreparedPinRefused(admitted, intended) from None
+def _current_cohort_initial_pin(
+    admission,
+    pin_owner,
+    dataset_bytes,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    budget,
+    *,
+    deadline_ms,
+):
+    """Guard the initial full pin read for one declared source cohort.
+
+    The fixed private initial source-cohort pin entry: only the genuine
+    current ``PolicyRequestAdmission``, the exact live ``PinOwner``
+    (which alone selects the origin stores, root and capture), the
+    bounded canonical dataset bytes, the exact closed ``Cohort``, the
+    declared encoder identifier tuples, the declared Gold ID tuple, the
+    exact ``Config``, the bounded source ``Budget`` and one 1..30000 ms
+    deadline.  No caller grants, restrictions, path/stores, snapshot,
+    Plan, query payload, provider, callback or clock is accepted, and at
+    most one private trusted initial ``PinData`` value is returned.
+
+    The exact owner-selected operation, root and stores are retained
+    before the admission and passed to it.  The genuine source
+    ``_declaration_admission`` admits the canonical dataset and exact
+    selected cohort over the supplied declaration grammar and the
+    verified full principal anchor with no added restriction, under one
+    actual source ``_Deadline`` started once and clipped to the genuine
+    admission's original end before any semantic work - checked again
+    immediately before the authority snapshot work and its bounded
+    completion - and the request end is never reset or extended.  Under
+    one genuine nonblocking borrowed owner guard the pre-dispatch PinData
+    is retained, the active owner is tied to the exact retained
+    operation, root and stores before any protected work, and the saved
+    operation carries the prior end.  After the pure scope admission -
+    every derived per-case scope has readable members and every readable
+    retained member is available for every exact selected case, over one
+    captured sealed membership, the actual canonical row binding from
+    the retained value and one unavailable table with the real reader
+    checks, in the original declaration order, each retained scope
+    admitted once as its typed canonical record and reused by the
+    per-case scan - the same held value and operation are required at
+    the pre-load association, then the actual metadata association and
+    the genuine same-admission selected reread run immediately before
+    the real fixed ``PinOwner._held_revalidation`` body that calls
+    ``_load`` and the full directory.  The same held value and
+    operation are verified after the actual reload, the shared bounded
+    pointer/core/row-map identity checks run with the retained value as
+    prior, then the remaining pure accounting - the detached
+    full-grants verification against the immutable anchor - and the
+    trailing meter charge complete before the final real selected
+    observation, after which only the exact cutoff and the required
+    restoration/release intervene.  The saved operation's end is
+    restored and the guard released on all exits; no nested borrow,
+    extra pin, catalog, producer, grading or report execution occurs.
+    Every ordinary failure is the fixed
+    content-free ``CohortRunnerError`` - an admitted initial refusal
+    retains the PREFLIGHT prefix with the actual intended count and no
+    attempted or refused cases - while a non-Exception BaseException
+    propagates by identity.
+    """
+    try:
+        (
+            _dataset,
+            _selected,
+            _selection,
+            _meter,
+            _clock,
+            captured,
+            _position,
+        ) = _current_cohort_prepared_pin(
+            admission,
+            pin_owner,
+            dataset_bytes,
+            cohort,
+            identifiers,
+            gold_ids,
+            config,
+            budget,
+            deadline_ms=deadline_ms,
+        )
+        return captured
+    except _PreparedPinRefused as error:
         progress = None
-        if admitted:
-            progress = FailurePrefix("PREFLIGHT", intended, 0, 0, 0, intended)
+        if error.admitted:
+            progress = FailurePrefix("PREFLIGHT", error.intended, 0, 0,
+                                     0, error.intended)
         raise CohortRunnerError(progress) from None
+
+
+def _current_cohort_encoder_producer(
+    admission,
+    pin_owner,
+    dataset_bytes,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    budget,
+    encoder,
+    case_id,
+):
+    """One genuine encoder-to-producer selected case over the complete ordered cohort.
+
+    The fixed private current-cohort encoder producer entry: only the
+    genuine current ``PolicyRequestAdmission``, the exact live
+    ``PinOwner`` (which alone selects the origin stores, root and
+    capture), the bounded canonical dataset bytes, the exact closed
+    ``Cohort``, the declared encoder identifier tuples, the declared
+    Gold ID tuple, the exact ``Config``, the bounded source ``Budget``,
+    the exact open ``ResidentQueryEncoder`` and one explicitly selected
+    case ID over the complete ordered cohort, with no caller deadline:
+    the one operation clock is the fixed 30000 ms allowance from before
+    any semantic work clipped to the genuine admission's original
+    guaranteed 1..30000 ms extent, and every later call clips that same
+    end.  No raw question, supplied payload or receipt, caller grants,
+    path/stores, snapshot, Plan, provider, callback, clock or deadline
+    is accepted, and the request end is never reset or extended.
+
+    The exact original operation and PinData are retained before the
+    shared genuine query-free declaration and guarded first cohort pin
+    body, which performs its pure all-case scope before actual source
+    I/O, resolves the exact selected case index from the one genuine
+    declaration before the actual initial reload and carries it out as
+    an internal result, and completes one actual cohort pin reload with
+    the original saved end.  This entry consumes the actual owned
+    ordered case and identifier material, the exact held PinData, the
+    carried selected case index and the result of the guarded reload
+    without a duplicate cohort declaration or a second initial reload.
+    Before T1 the complete ordered case declaration and its readable
+    and available scopes are already admitted by the shared body; under
+    one bounded genuine short borrow the exact original operation,
+    PinData, original/derived stores and root are bound to the
+    already-proven capture, the exact prior operation end is saved on
+    the original operation marker itself and that marker is set to the
+    existing source clock end for the real association and all checks,
+    the same held live core is verified and every declared encoder
+    tuple is verified against the held core's exact four immutable
+    query identities, the same original operation, held PinData,
+    active state and stores/root are required after the real
+    association, the marker's exact prior end is restored on all exits
+    and the guard is released independently with the actual clock
+    checked only after the release, and the borrow never spans the
+    guarded resident call, adding no selected reread or physical pin.
+    The genuine resident's narrow fixed
+    private pure multi-tuple check then runs the exact declared tuple
+    grammar and the exact observed runtime/worker/bridge identity
+    checks of the same actual session under its own existing lock and
+    the exact genuine admission's checks from its actual end, released
+    before the real encoder invocation.  The actual encoder attempt is
+    charged only immediately before the exact selected case question is
+    encoded once through the existing real guarded resident operation;
+    the validated exact ``QueryEmbedding`` real one-row payload, hash
+    and query identifiers form the internal ``Query`` in the currently
+    defined bare and prefixed field formats.  Those exact payload bytes
+    and identity are used on one ``raw_hybrid_search.search_pinned_case``
+    call, reported separately from the encoder as its own PRODUCER
+    phase, with the same admission and owner, the original case bytes,
+    the case ID, the existing k and trace configuration and the real
+    O1 through O5, without supplementing O1 with a fictional pre-encode
+    observation, restarting the deadline or running another producer.
+    The returned real result's retained snapshot, exact canonical
+    question and payload identity are verified, and the exact same
+    active operation, held value and store/root identity are required
+    after the real association under one brief genuine bounded
+    association with equivalent custody and restoration - the prior
+    operation end saved and restored on the original operation marker
+    itself and the actual clock checked only after the independent
+    unconditional release - before the private return.  No guard
+    spans a second borrower, the
+    legitimate per-transport child caps can shorten but never extend
+    the request, and the internal HybridResult status fields are
+    preserved.  The entry returns at most the internal owned case
+    evidence - the selected case ID, the internal Query and the
+    HybridResult - which is never a full stage, grade, report or
+    delivery attestation.  Every ordinary failure is the fixed
+    content-free ``CohortRunnerError`` with no scoped result exposed,
+    while a non-Exception BaseException propagates by identity.
+    """
+    import hashlib
+    import json
+
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as policy_request
+    from . import query_embedding as embedding_module
+    from . import raw_hybrid_search
+    from . import raw_snapshot_pin
+    from . import raw_snapshot_selection as snapshot_selection
+
+    admitted = False
+    intended = 0
+    phase = "PREFLIGHT"
+    attempted = 0
+    try:
+        if (
+            type(admission) is not policy_request.PolicyRequestAdmission
+            or type(pin_owner) is not raw_snapshot_pin.PinOwner
+            or type(dataset_bytes) is not bytes
+            or not 1 <= len(dataset_bytes) <= 1048576
+            or not _closed(cohort, Cohort)
+            or not _closed(config, Config)
+            or not _closed(budget, Budget)
+            or type(cohort.case_ids) is not tuple
+            or not 1 <= len(cohort.case_ids) <= 256
+            or type(identifiers) is not tuple
+            or len(identifiers) != len(cohort.case_ids)
+            or type(gold_ids) is not tuple
+            or type(encoder) is not embedding_module.ResidentQueryEncoder
+            or type(case_id) is not str
+            or not 1 <= len(case_id) <= 128
+            or pin_owner.op is None
+            or pin_owner.value is None
+            or pin_owner.originals is None
+            or pin_owner.derived is None
+        ):
+            raise ValueError
+        # The exact original operation and PinData retained before any
+        # shared work; the live core and the immutable query tuple are
+        # verified against them after the guarded reload.
+        original_op = pin_owner.op
+        held_value = pin_owner.value
+        saved_originals = pin_owner.originals
+        saved_derived = pin_owner.derived
+        saved_root = pin_owner.op.path
+        # The shared genuine query-free declaration and guarded first
+        # cohort pin body: its pure all-case scope precedes actual
+        # source I/O, one actual cohort pin reload and the original
+        # saved end, and the one operation clock started before any
+        # semantic work; the actual owned ordered case and identifier
+        # material, the exact held PinData and the result of the
+        # guarded reload are consumed without a duplicate cohort
+        # declaration or a second initial reload; the fixed 30000 ms
+        # allowance from before any semantic work is clipped to the
+        # genuine admission's original extent, and the exact selected
+        # case index is resolved before the actual initial reload.
+        (
+            _dataset,
+            selected,
+            _selection,
+            meter,
+            clock,
+            captured,
+            position,
+        ) = _current_cohort_prepared_pin(
+            admission,
+            pin_owner,
+            dataset_bytes,
+            cohort,
+            identifiers,
+            gold_ids,
+            config,
+            budget,
+            deadline_ms=30000,
+            case_id=case_id,
+        )
+        admitted = True
+        intended = len(selected)
+        meter.reserve(1)
+        clock.check()
+        selected_case = selected[position][0]
+        # Under one bounded genuine short borrow the exact saved
+        # operation, PinData, original/derived stores and root are
+        # bound to the already-proven capture; the exact prior
+        # operation end is saved on the original operation marker
+        # itself, that marker is set to the existing source clock end
+        # for the real association and all checks, restored on all
+        # exits and the guard released independently; the same
+        # original operation, held PinData, active state and
+        # stores/root are required after the real association, and the
+        # actual clock is checked only after the independent
+        # unconditional release; no selected reread or physical pin is
+        # added and the borrow never spans the encoder or producer.
+        if (pin_owner.value is not captured or pin_owner.value is not held_value):
+            raise ValueError
+        meter.reserve(1)
+        clock.check()
+        pin_eligibility._borrowed_owner(pin_owner)
+        try:
+            if (
+                pin_owner.state != "ACTIVE"
+                or type(pin_owner.op) is not snapshot_selection._Operation
+                or pin_owner.op is not original_op
+                or type(pin_owner.value) is not raw_snapshot_pin.PinData
+                or pin_owner.value is not captured
+                or pin_owner.originals is not saved_originals
+                or pin_owner.derived is not saved_derived
+                or pin_owner.op.path != saved_root
+            ):
+                raise ValueError
+            prior_end = original_op.end
+            original_op.end = clock.end
+            try:
+                pin_owner._association()
+                if (
+                    pin_owner.state != "ACTIVE"
+                    or pin_owner.op is not original_op
+                    or pin_owner.value is not captured
+                    or pin_owner.originals is not saved_originals
+                    or pin_owner.derived is not saved_derived
+                    or pin_owner.op.path != saved_root
+                ):
+                    raise ValueError
+                meter.reserve(1)
+                clock.check()
+                core = captured.data.core_bytes
+                if type(core) is not bytes or len(core) > 262144:
+                    raise ValueError
+                meter.reserve(len(core) + 66, 192)
+                clock.check()
+                if hashlib.sha256(core).hexdigest() != captured.pointer.core_sha256:
+                    raise ValueError
+                embedding = json.loads(core.decode("ascii"))["embedding"]
+                core_tuple = (
+                    embedding["space_id"],
+                    embedding["definition_fingerprint"],
+                    embedding["query_policy_fingerprint"],
+                    embedding["query_execution_fingerprint"],
+                )
+                if any(type(value) is not str for value in core_tuple):
+                    raise ValueError
+                meter.reserve(1)
+                clock.check()
+                # Every declared encoder tuple against the held core's
+                # exact four immutable query identities: the
+                # distinction between declaration grammar, scope, real
+                # held core and runtime identity is preserved, with no
+                # fallback.
+                for declared in identifiers:
+                    meter.reserve(1)
+                    if type(declared) is not tuple or len(declared) != 4:
+                        raise ValueError
+                    for left, right in zip(declared, core_tuple, strict=True):
+                        meter.reserve(1)
+                        if meter.compare_strings(left, right) != 0:
+                            raise ValueError
+                    meter.reserve(1)
+                    clock.check()
+            finally:
+                original_op.end = prior_end
+        finally:
+            pin_owner.guard.release()
+        meter.reserve(1)
+        clock.check()
+        # The genuine resident's existing expected identity checks over
+        # the same declared tuples: the narrow fixed private resident
+        # pure multi-tuple check under its own existing ownership lock,
+        # the same actual session, exact observed runtime/worker/bridge
+        # data and the exact genuine admission's checks from its actual
+        # end, released before the real encoder invocation; a tuple or
+        # identity refusal here retains the PREFLIGHT phase.
+        encoder._check_declared_identities(tuple(identifiers), admission)
+        meter.reserve(1)
+        clock.check()
+        # The actual encoder attempt is charged only immediately before
+        # the exact selected case question is encoded once through the
+        # existing real guarded resident operation; each final per-
+        # encode runtime validation and the genuine T1 and T2 stay
+        # inside it.
+        phase = "T1"
+        attempted = 1
+        embedding_result = encoder._encode_expected_identity_admitted(
+            selected_case.question, identifiers[position], admission)
+        if (
+            type(embedding_result) is not embedding_module.QueryEmbedding
+            or type(embedding_result.payload) is not bytes
+            or len(embedding_result.payload) != 4096
+            or type(embedding_result.payload_sha256) is not str
+        ):
+            raise ValueError
+        meter.reserve(len(embedding_result.payload) + 132, 256)
+        clock.check()
+        if (hashlib.sha256(embedding_result.payload).hexdigest()
+                != embedding_result.payload_sha256):
+            raise ValueError
+        # The real one-row payload, hash and query identifiers bound to
+        # the declared tuple in the currently defined bare and prefixed
+        # field formats, with no fallback.
+        declared = identifiers[position]
+        pairs = (
+            (embedding_result.space_id, declared[0]),
+            (embedding_result.definition_fingerprint, declared[1]),
+            (embedding_result.query_policy_id, declared[2]),
+            (embedding_result.execution_fingerprint, "sha256:" + declared[3]),
+        )
+        for left, right in pairs:
+            meter.reserve(1)
+            if meter.compare_strings(left, right) != 0:
+                raise ValueError
+        meter.reserve(1)
+        clock.check()
+        # The internal Query formed from the actual returned bytes and
+        # IDs, preserving the currently defined bare and prefixed field
+        # formats.
+        query = Query(
+            case_id=selected_case.case_id,
+            payload=embedding_result.payload,
+            space_id=embedding_result.space_id,
+            definition_fingerprint=embedding_result.definition_fingerprint,
+            policy_id=embedding_result.query_policy_id,
+            execution_fingerprint=embedding_result.execution_fingerprint[7:],
+        )
+        meter.reserve(1)
+        clock.check()
+        # One producer dispatch: the exact payload bytes and identity on
+        # one search_pinned_case call with the same admission and owner,
+        # the original case bytes, the case ID, the existing k and trace
+        # configuration and the real O1 through O5; no fictional
+        # pre-encode observation supplements O1, no deadline restart, no
+        # second producer and the reported PRODUCER phase separate from
+        # the encoder's own T1 and T2.
+        phase = "PRODUCER"
+        result = raw_hybrid_search.search_pinned_case(
+            admission,
+            pin_owner,
+            dataset_bytes,
+            case_id,
+            query.payload,
+            query_space_id=query.space_id,
+            query_definition_fingerprint=query.definition_fingerprint,
+            query_policy_id=query.policy_id,
+            query_execution_fingerprint=query.execution_fingerprint,
+            dense_k=60,
+            lexical_k=60,
+            partition_cap=60,
+            k=60,
+            deadline_ms=30000,
+            trace=True,
+        )
+        meter.reserve(1)
+        clock.check()
+        if (
+            type(result) is not raw_hybrid_search.HybridResult
+            or result.query_origin != "SUPPLIED_UNVERIFIED"
+            or result.qualification != "NOT_QUALIFIED"
+        ):
+            raise ValueError
+        meter.reserve(1)
+        clock.check()
+        # The returned real result's retained snapshot, exact canonical
+        # question and payload identity, verified before the private
+        # return.
+        if (
+            result.snapshot_id != held_value.data.snapshot_id
+            or result.query_text_sha256 != hashlib.sha256(
+                selected_case.question.encode()).hexdigest()
+            or result.query_payload_sha256 != hashlib.sha256(
+                query.payload).hexdigest()
+        ):
+            raise ValueError
+        # The exact same active operation, held value and store/root
+        # identity, required under one brief genuine bounded
+        # association with equivalent custody and restoration: the
+        # exact prior operation end is saved on the original operation
+        # marker itself, set to the existing source clock end for the
+        # real association, restored on all exits and the guard is
+        # released independently; the same original operation, held
+        # PinData, active state and stores/root are required after the
+        # real association, and the actual clock is checked only after
+        # the independent unconditional release; no selected reread or
+        # physical pin and the guard never spans the encoder or
+        # producer.
+        pin_eligibility._borrowed_owner(pin_owner)
+        try:
+            if (
+                pin_owner.state != "ACTIVE"
+                or pin_owner.op is not original_op
+                or pin_owner.value is not captured
+                or pin_owner.originals is not saved_originals
+                or pin_owner.derived is not saved_derived
+                or pin_owner.op.path != saved_root
+            ):
+                raise ValueError
+            prior_end = original_op.end
+            original_op.end = clock.end
+            try:
+                pin_owner._association()
+                if (
+                    pin_owner.state != "ACTIVE"
+                    or pin_owner.op is not original_op
+                    or pin_owner.value is not captured
+                    or pin_owner.originals is not saved_originals
+                    or pin_owner.derived is not saved_derived
+                    or pin_owner.op.path != saved_root
+                ):
+                    raise ValueError
+            finally:
+                original_op.end = prior_end
+        finally:
+            pin_owner.guard.release()
+        meter.reserve(1)
+        clock.check()
+        return selected_case.case_id, query, result
+    except _PreparedPinRefused as error:
+        admitted = error.admitted
+        intended = error.intended
+    except Exception:
+        pass
+    progress = None
+    if admitted:
+        refused = 1 if phase in ("T1", "PRODUCER") else 0
+        progress = FailurePrefix(phase, intended, attempted, 0, refused,
+                                 intended - attempted)
+    raise CohortRunnerError(progress) from None

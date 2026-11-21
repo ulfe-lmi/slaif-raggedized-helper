@@ -39,10 +39,10 @@ class OwnedSupport:
     denied_grants: object
 
 
-def make_owned_support(tmp_path):
+def make_owned_support(tmp_path, query_identity=None):
     """Return borrowed stores and source-derived IDs; caller must close both stores."""
     originals, derived, root, snapshot_id = source_fixture.make_sources(
-        tmp_path, three=True, paired=False
+        tmp_path, three=True, paired=False, query_identity=query_identity
     )
     try:
         catalog = raw_snapshot_catalog.load_catalog(originals, derived, str(root), snapshot_id)

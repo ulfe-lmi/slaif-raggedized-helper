@@ -4103,6 +4103,37 @@ encoder, report or delivery result is
 claimed here, and the representative
 baseline remains NOT_RUN.
 
+## The 009-ap current cohort encoder-producer
+transfer (same 009 continuation)
+
+Slice 009-ap (AMEND PR 11, round base 9e6997b)
+transfers, by blob identity without candidate
+history, order or report, six reviewed objects:
+the single-case guarded encoder-to-producer
+composition (query_embedding.py,
+source_cohort_runner.py, three hosted witnesses)
+and the pure grade identity assembly
+(evaluation_program.py, donor base byte-exact).
+The private encoded case handoff (query-free
+all-case admission, one physical pin, nominated
+case resolved before the reload, resident-
+verified identity before T1, one same-payload
+guarded retrieval O1-O5) and the shared legacy
+grade bookkeeping (legacy clock, expected
+identity per query, ten bounded metadata fields,
+one pre-allocation reservation, one final plan
+hash) are received.  The encoder fixture is the
+existing guarded transport synthetic case; the
+Gold selector fixture arrived in 009-af; the
+donor's historic 009-am gate is not this round's
+evidence.  Local proof: 310/310 focused units,
+three hosted collect-only, six-file Ruff, fresh
+three-order imports, all exit 0.  Expected
+hosted proof: report-head CI, both Products
+ordered 1,440 + 1,998 units, exactly 997
+integrations.  Baseline NOT_RUN; whole 009
+PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

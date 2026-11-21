@@ -20,6 +20,7 @@
                - Current (2026-11-21): active objective 009, current slice 009-al
                 - Current (2026-11-21): active objective 009, current slice 009-am
                  - Current (2026-11-21): active objective 009, current slice 009-an
+                  - Current (2026-11-21): active objective 009, current slice 009-ap
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -2583,6 +2584,30 @@
   exclusivity or release claims; baseline
   NOT_RUN; whole 009 PARTIAL; no merge;
   DHA NONE.
+  Slice 009-ap (AMEND PR 11 at round base 9e6997b,
+  the accepted 009-ao report-only head) transfers
+  by blob identity, without the candidate history,
+  order or report, six reviewed objects: the
+  single-case guarded encoder-to-producer
+  composition (query_embedding.py,
+  source_cohort_runner.py, three reviewed hosted
+  witnesses) and the pure grade identity assembly
+  (evaluation_program.py, donor base byte-exact at
+  the receiving head) - a private encoded case
+  handoff plus shared legacy grade bookkeeping.
+  The encoder fixture is the existing guarded
+  transport synthetic case; the direct Gold
+  selector fixture was received in 009-af; the
+  encoder donor's historic 009-am gate is not this
+  round's evidence.  Local proof 310/310 focused
+  existing units, three exact hosted collect-only,
+  scoped six-file one-core Ruff and fresh encoder-
+  first/cohort-first/grade-first physical imports,
+  all exit 0; no local native execution. Expected
+  hosted proof: fresh report-head CI, both
+  Products ordered 1,440 + 1,998 units and exactly
+  997 integrations (994 + 3 new). Baseline
+  NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed
