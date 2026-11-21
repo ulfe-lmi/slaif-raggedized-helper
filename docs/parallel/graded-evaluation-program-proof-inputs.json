@@ -1,0 +1,51 @@
+{
+  "DHA": "NONE",
+  "actual": "PASS: one approved actual attempt via lane launcher actual-launcher-v3.py (SHA-256 35ce1c5e25e7d6a97f314f35b17d7c99eb83424c385219874a84f75df53740b5) under its exclusive marker; whole-module collection of exactly one expected node; setup/call/teardown passed; five outer calls in order legacy/graded/invalid/ineligible/closed; direct totals 19/6/6/2/2/4/3 and direct_score_query 0 matching the frozen oracle; no surviving-subset report or scoring after refusal",
+  "base_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+  "baseline": "NOT_RUN",
+  "contract_sha256": "e2789fc84cd2bd10d6077643280915c4e0e8842e3aeba019344a83a8293bafbf",
+  "driver_sha256": "bd323abbdee431dd9a322887587ab2b94b219a5b4117439208be900a3dbed4cc",
+  "fixture": "Data-only cached seeds; genuine isolated tokenizer and source delegates. One factory invocation, zero generator subprocesses, six real captured Session workers closed and reaped; no recorded cleanup failures.",
+  "full_dataset_cases": 5,
+  "gold_bundles": 3,
+  "gold_occurrences": 7,
+  "invalid_later_boolean": "Replace empty h4 judgment with ((b, True),); all other fields unchanged.",
+  "math_oracle_sha256": "cea83b46fa74ec2c31217fd3544ffd2f842e7480bb00142fb42f67460f90c856",
+  "oracle_sha256": "bef92e716494d83b1bf8ff47dcc68875918f8599805535f6c8e5688d19e8b9e6",
+  "original_009": "OPEN",
+  "phase_a": "PASS: one approved check attempt (format with AST equivalence, Ruff, whole-module collection of exactly one node, no test body); evidence preserved; no rerun",
+  "read_budget": {
+    "conservative_bound_bytes": 341392,
+    "fresh_qwen_allowance_bytes": 262144,
+    "historical": "Original semantic read-set and lane-isolation breach retained as FAIL; old repeated-read total UNKNOWN",
+    "post_attempt_allowance_bytes": 131072,
+    "post_attempt_initial_diagnostic_batch_bytes": 5282,
+    "post_attempt_later_total_bytes": "INCOMPLETE_NOT_CERTIFIED until conservatively reconstructed in the lane ledger; covers Root pass review 5656 B, two documentation preimage reads and the checkpoint FIX decision read",
+    "status": "EXCEEDED by 79248 bytes; recorded as EXCEEDED, never PASS"
+  },
+  "readset": "161 named frozen files hashed in lane actual-inputs-v3.json (SHA-256 87e1d35b921203079059dfb21dfec265e560f768e4d5b26e8c4c27badadae1ca); known native leaves and aliases frozen; the named hashes do not establish exhaustive dynamic import, native or linker/OS closure; input preservation for the execution is by post-execution re-verification, not through-commit byte identity of the documentation paths",
+  "resource_measurements": {
+    "child_wall_seconds": 65.777162,
+    "configured_per_process_caps": {
+      "address_space": "2GiB",
+      "core": 0,
+      "cpu_affinity": "CPU0",
+      "cpu_seconds": 120,
+      "fsize": "16MiB",
+      "threads": 1,
+      "wall_seconds": 240
+    },
+    "note": "CPU figures are a before/after-fixture delta (observer) and a separately scoped launcher waited-children total; only RSS values are high-watermarks (non-additive, non-delta, not address-space measurements); configured caps are per-process, not aggregate or whole-tree enforcement; unit correction recorded in lane actual-v3-resource-correction.json",
+    "pytest_self_peak_rss_KiB": 94252,
+    "pytest_self_peak_rss_MiB": 92.04296875,
+    "waited_children_cpu_seconds": 65.039091,
+    "waited_children_peak_rss_KiB": 72036
+  },
+  "result_sha256": "3ce459d76fb01ae819ead0f1d9fe9236164eaabdb4897ac9c212d64cf150b6b4",
+  "root_boolean_clarification_sha256": "2a87d622137a5a19d026a9bae5751e0da086a7d73034db7da4f8c6ef8aa6a057",
+  "selected_cases": [
+    "h1",
+    "h4"
+  ],
+  "status": "ACTUAL_PROOF_PASSED_SINGLE_APPROVED_ATTEMPT_NARROW_SCOPE"
+}

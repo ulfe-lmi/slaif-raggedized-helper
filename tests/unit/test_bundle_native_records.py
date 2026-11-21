@@ -13,6 +13,15 @@ from slaif_raggedized_helper import bundle_native_records as b
         (b'{"x":1,"x":2}', b"", b"{}", 1),
         (b"[" * 20 + b"0" + b"]" * 20, b"", b"{}", 1),
     ],
+    ids=(
+        "invalid-count-bool",
+        "header-oversize",
+        "chunks-oversize",
+        "receipts-oversize",
+        "header-invalid-byte",
+        "header-duplicate-key",
+        "header-deep-nested",
+    ),
 )
 def test_refusal(header, chunks, receipts, count):
     with pytest.raises(b.BundleRecordsError, match="^native bundle records refused$"):

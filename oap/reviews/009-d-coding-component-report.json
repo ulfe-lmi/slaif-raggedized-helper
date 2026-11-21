@@ -1,0 +1,37 @@
+{
+  "lane_id": "PAR-009-COHORT-METRICS-A",
+  "result": "COMPLETE",
+  "scope": "Bounded pure declared cohort metrics component complete; whole original009 remains PARTIAL.",
+  "implementation_head": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+  "report_publication_commit": "SELF",
+  "base": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+  "api": "Private aggregate(cases, *, deadline_ms=10000, max_work=134217728, max_payload=268435456) admits supplied immutable declared geometry and produces exact rational per-case and aggregate prefix/removal summaries with bounded domain-separated private identity. Invalid or exhausted input refuses the whole call; IDs are private linkable data. Source binding UNVERIFIED, input SUPPLIED_DECLARED_GEOMETRY_ONLY, execution NOT_ATTESTED, qualification NOT_QUALIFIED; chunk relevance metrics unavailable.",
+  "witnesses": {
+    "contract_sha256": "a5952e630558e7816b3b6c3958e258feeb6001a7594b62d69f93f3172936765e",
+    "independent_oracle_sha256": "d35d6a1977f22843fb47f178b69056c97680a0c280ef4c7d52927942f7c79011",
+    "order_sha256": "ff16b05c4e56376364653bfd9692559970a026f810686a220cf428121d3144bc",
+    "source_sha256": "743a8949eb906dbf5564003c6501706f977d1b7e1682568bb81d160d683529e4",
+    "unit_sha256": "5a60130f655260674178d2f48b9f8bc87ae12db1f905d00a470fc80e25e78aa8",
+    "normalized_ast_source_sha256": "fff22cb91324a560b019cfd2a1a229fbbd097d4cf3c76db75faf72201dff3e12",
+    "normalized_ast_unit_sha256": "7fc0de2476aed03e9271db4656eaa5d3ff3a01f61b32ddb989e3b569ee4564a4",
+    "format_module_diff_sha256": "b887fd8bfdf3769f1e1b4490aa54e1b4cd375b334db3e93cebfeb209037f05b7",
+    "format_unit_diff_sha256": "2002ad7d5229d6e0737383bb4b671695c021b35c283757fd709807824b117af4"
+  },
+  "verification": {
+    "result": "PASS",
+    "ruff": "One focused format and one focused check passed; bounded pre/post normalized ASTs match. Formatted source and unit hashes above are current.",
+    "pytest": "One entire new unit module: 33 passed, zero failed, on pinned Python 3.14, --assert=plain, builtin cache enabled, plugin autoload disabled; no local 3.12 claim.",
+    "cwd": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-cohort-metrics",
+    "commands": "Pinned Ruff format and check on the new module/unit; pinned Python -m pytest --assert=plain --basetemp=<private>/pytest-base -o cache_dir=<private>/cache/pytest tests/unit/test_declared_cohort_metrics.py; exact child argv and environment in preflight logs.",
+    "limits": "CPU0; Ruff CPU5s/AS512MiB/FSIZE16MiB/wall30s; pytest CPU15s/AS1GiB/FSIZE32MiB/wall90s. Closed PATH and LANG; private HOME/TMPDIR/cache; five numerical thread variables 1. Owned process wait and bounded cleanup. These are not aggregate CPU/RSS or full process-tree guarantees.",
+    "observed_pytest": "1.81s wall, 1.76s user CPU, max RSS 44384 KiB; exit 0, no timeout.",
+    "python_sha256": "52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41",
+    "ruff_sha256": "4ef33997b4bb7c5f141527e90b2da0abe918108362ca1b9825c4d13adce0e347",
+    "helper_sha256": "295b5b6b0b9b6bcb8a5c202fa5fc60512856a725c5774406d19ea194893ef952",
+    "evidence_directory": "/tmp/par009-cohort-metrics-proof-v2-20261113/",
+    "coverage": "Independent declared four-case 140-row witness, all six prefixes and seven transition summaries, unequal denominators and OR/no-Gold, 256 versus 257, impossible DTOs including zero rows, equal cardinality and fusion, valid complementary-fragment fusion, budgets and privacy. Synthetic declared geometry is not source or RRF execution."
+  },
+  "history": "Earlier 19- and 22-test passes were on prior source hashes and did not establish later accounting/admission changes. An earlier ordinary AST parse lacked the required caps and is disclosed, not compliant evidence. Meter gaps and peer semantic counterexamples were corrected before the current bounded 33-test run. All earlier logs, decisions, drafts and checkpoints remain preserved. Root REPORT for exact implementation was consumed before publication.",
+  "limits": "No borrowed source cohort runner, source binding, split/origin report, actual baseline, model, current rights, held-out human evaluation, 20k capacity, hardware, visual, license or ICA qualification is claimed. This component alone does not complete original009 or MVP. Logical accounting and cooperative deadlines are not physical CPU/RSS or external I/O guarantees. No push, PR, merge, deploy or release.",
+  "DHA": "NONE"
+}

@@ -141,6 +141,26 @@ class PinOwner(_Capture):
     def __init_subclass__(cls, **kwargs):
         raise TypeError("PinOwner cannot be subclassed")
 
+    def _held_revalidation(self):
+        """Fixed non-reacquiring held validation body, shared by the legacy
+        ``check`` and the guarded private case-bound revalidation.
+
+        Called only while the caller already holds the owner's guard and
+        has set the operation end to the caller's exact cooperative end;
+        it never reacquires the guard, performs no other custody handling
+        and restores nothing (the guarded caller saves and restores the
+        actual prior ``op.end`` on all exits).  It performs the
+        independent full reload, then the original post-load association
+        and the exact held equality, and yields the same validated held
+        PinData internally.  The nested directory finishes its work under
+        its own bounded clock; this route guards its commencement and
+        refuses late output at the caller's final cutoff.
+        """
+        data = self._load(self.value.data.snapshot_id)
+        self._association()
+        directory._check(data == self.value.data)
+        return self.value
+
     def acquire_selected_data(self, originals, derived, store_root, *, deadline_ms=30000):
         self._enter()
         try:
@@ -184,10 +204,7 @@ class PinOwner(_Capture):
                 directory._check(type(deadline_ms) is int and 1 <= deadline_ms <= 120000)
                 self.op.end = time.monotonic() + deadline_ms / 1000
                 self._association()
-                data = self._load(self.value.data.snapshot_id)
-                self._association()
-                directory._check(data == self.value.data)
-                return self.value
+                return self._held_revalidation()
             except Exception:
                 raise PinError("snapshot lifetime refused") from None
         finally:

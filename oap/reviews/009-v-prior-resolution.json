@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-20T11:20:34.858320+00:00",
+  "identifier": "009-u",
+  "pr": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "report_head": "851a1e29870771a0bc68a276a8cd5329d207b305",
+  "report_sha256": "a3d43e72239a5426442504162e40af5d05e523c81fe55526ffe88111d846c12e",
+  "response_receipt": ".oap-state/response-consumed-009-u.json",
+  "response_receipt_sha256": "afaaa6d72a4e038643a37320b2764daf46c3006560b8798d8d2076b6e2b741cf",
+  "ci_run": 44724323631,
+  "terminal_review": "audit/009-u-check/Root-terminal-review.json",
+  "terminal_review_sha256": "d9884ce372967de653db718c59866583554429f96862146f44bc6d1c68d84d24",
+  "result": "ACCEPT_EXACT_FULL_HOSTED_CI_CONTINUE_WITH_CAPTURE_TRANSFER",
+  "units": 3015,
+  "integration_pass_marks": 951,
+  "all_five_jobs_all_steps_success": true,
+  "causality": "Both legs finished within the old cap. Earlier runtime variance remains unproven.",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE",
+  "next_identifier": "009-v"
+}

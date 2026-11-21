@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "status": "FINAL_ROOT_EXPECTATIONS_NOT_EXECUTION_PERMISSION",
+  "source_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+  "math_oracle_sha256": "cea83b46fa74ec2c31217fd3544ffd2f842e7480bb00142fb42f67460f90c856",
+  "cutoffs": [
+    1,
+    2,
+    20,
+    60
+  ],
+  "selected_cases": [
+    "h1",
+    "h4"
+  ],
+  "full_dataset_cases": 5,
+  "full_gold_occurrences": 7,
+  "full_gold_bundles": 3,
+  "judgments": {
+    "h1": {
+      "a": 3
+    },
+    "h4": {}
+  },
+  "rankings": {
+    "dense": [
+      "c",
+      "a"
+    ],
+    "lexical": [
+      "c"
+    ],
+    "fusion": [
+      "c",
+      "a"
+    ]
+  },
+  "defined_denominators_each_variant": {
+    "total": 2,
+    "defined": 1,
+    "undefined_empty_positive_gold": 1
+  },
+  "calls": {
+    "legacy_success": {
+      "owner_check": 3,
+      "producer": 2,
+      "source_binder": 2,
+      "source_aggregate": 1,
+      "explicit_grade_catalog": 0,
+      "judged_binding": 0,
+      "rank_aggregate": 0,
+      "direct_score_query": 0
+    },
+    "grade_success": {
+      "owner_check": 9,
+      "producer": 2,
+      "source_binder": 2,
+      "source_aggregate": 1,
+      "explicit_grade_catalog": 1,
+      "judged_binding": 2,
+      "rank_aggregate": 3,
+      "direct_score_query": 0
+    },
+    "invalid_later_scalar": "ZERO_DELEGATES_PROGRESS_NONE",
+    "later_ineligible_zero": {
+      "owner_check": 7,
+      "producer": 2,
+      "source_binder": 2,
+      "source_aggregate": 0,
+      "explicit_grade_catalog": 1,
+      "judged_binding": 2,
+      "rank_aggregate": 0,
+      "direct_score_query": 0
+    },
+    "closed_pin": "ZERO_DELEGATES_CATALOG_2_0_0_0_2"
+  },
+  "totals": {
+    "owner_check": 19,
+    "producer": 6,
+    "source_binder": 6,
+    "source_aggregate": 2,
+    "explicit_grade_catalog": 2,
+    "judged_binding": 4,
+    "rank_aggregate": 3,
+    "direct_score_query": 0
+  },
+  "fixture": "ONEownedcached-onlyfixture; factorycalls distinct from actualPopen,zeroactualgenerator/sixrealSessionworkers; capturedboundedwrapperreapsNOTwhole-tree",
+  "contract_sha256": "e2789fc84cd2bd10d6077643280915c4e0e8842e3aeba019344a83a8293bafbf",
+  "DHA": "NONE"
+}

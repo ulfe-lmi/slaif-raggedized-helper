@@ -1,0 +1,181 @@
+{
+  "at": "2026-11-16T17:14:28.149085+00:00",
+  "identifier": "009-f",
+  "base": "9ba33cd7939634f31ebba25fe8c8b638ade51d81",
+  "status": "FINAL_ROOT_INDEX_NOT_ACTIVATION",
+  "entries": [
+    {
+      "path": "tests/integration/test_source_graded_rank_composition.py",
+      "source_SELF": "f4d9dbb2427c88d6d286475e25b378c7fcf57f0d",
+      "git_blob": "4cd02a32194c00685367dea6f8016566b896294a",
+      "sha256": "d3c905a64634ce9c0596d126da57a8cb6fefa860496749140ababb1d20f32639",
+      "bytes": 19630,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "existing graded proof"
+    },
+    {
+      "path": "docs/parallel/source-graded-rank-composition.md",
+      "source_SELF": "f4d9dbb2427c88d6d286475e25b378c7fcf57f0d",
+      "git_blob": "c2d463985143cbbfad38171374a90f558e77dfdb",
+      "sha256": "cb38a15af4bba8e458a57df07c1427a4d6ff657f8f74ec8e973b955f616dce61",
+      "bytes": 3871,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "existing graded proof"
+    },
+    {
+      "path": "docs/parallel/source-graded-rank-proof-inputs.json",
+      "source_SELF": "f4d9dbb2427c88d6d286475e25b378c7fcf57f0d",
+      "git_blob": "fcd924f404ce4940ef28e9963afca15d4885b90e",
+      "sha256": "ecab31713a6484171f9679e8c50c4538829d01660178bb2dfc2dcd3a50a84df2",
+      "bytes": 3850,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "existing graded proof"
+    },
+    {
+      "path": "docs/parallel/source-graded-rank-oracle.json",
+      "source_SELF": "f4d9dbb2427c88d6d286475e25b378c7fcf57f0d",
+      "git_blob": "1aa165d8ad02e2f2826cb0160c6d26dd5bd6d252",
+      "sha256": "cea83b46fa74ec2c31217fd3544ffd2f842e7480bb00142fb42f67460f90c856",
+      "bytes": 2872,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "existing graded proof"
+    },
+    {
+      "path": "docs/parallel/source-graded-rank-proof-contract.md",
+      "source_SELF": "f4d9dbb2427c88d6d286475e25b378c7fcf57f0d",
+      "git_blob": "f353925e876ebf474352bd0f2ef4cba8c99f0411",
+      "sha256": "9dc996687a4180cb26aea4fe54736c77a7117ab2675239ea94c8b93e9c35ef14",
+      "bytes": 9628,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "existing graded proof"
+    },
+    {
+      "path": "docs/parallel/graded-evaluation-program-api.md",
+      "source_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "git_blob": "07a4fc37a76fa5de0e4c6e07b9855bda354cd922",
+      "sha256": "01c659625d6b04d1a65d6c3dd8a1a11ac528ab539793cb14a6d8ac4452b2ed22",
+      "bytes": 7881,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "evaluation core"
+    },
+    {
+      "path": "docs/parallel/graded-evaluation-program-binding.json",
+      "source_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "git_blob": "0083cb11eff55340f1bdc4cd3a593350cb9f1186",
+      "sha256": "54317ebf80a15f99dbf7749f4307cdd2842972f881a641345d8dd5facbf2df38",
+      "bytes": 4141,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "evaluation core"
+    },
+    {
+      "path": "docs/parallel/graded-evaluation-program-contract.md",
+      "source_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "git_blob": "649edf41825683c24e3f746168a319ac04d4e0d8",
+      "sha256": "560ce5e8564926561a469f4ae450e38cb014db8cff2c333b338c518cb32a68ed",
+      "bytes": 18782,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "evaluation core"
+    },
+    {
+      "path": "docs/parallel/source-runner-legacy-identity-oracle.json",
+      "source_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "git_blob": "704ae259e5a391a656ad7bcd4c2113c09d555fbf",
+      "sha256": "d895b2b3a0396814f1bfb3b6487307d58546f144622369180c683584268f9af6",
+      "bytes": 2562,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "evaluation core"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/evaluation_program.py",
+      "source_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "git_blob": "80e85ac2d75a94494967cb99fa2478b489171b58",
+      "sha256": "84aceffc09ec7e53fcf96913ad0cb409616b31223d71915e60fbd750300b9b90",
+      "bytes": 33571,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "evaluation core"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/source_cohort_runner.py",
+      "source_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "git_blob": "da462dd96bbee534f001e2841f8ed1aa03e085a3",
+      "sha256": "d9f1b0e8f748be9c5b32b6e6d45e8228ace43b397517a41e6187638d4c296faf",
+      "bytes": 46404,
+      "mode": "MODIFY_MINIMAL_SOURCE_LOOP",
+      "canonical_preimage_blob": "b69589c375e12d202c7f065d3b14b7a2b5cff010",
+      "kind": "evaluation core"
+    },
+    {
+      "path": "tests/unit/test_evaluation_program.py",
+      "source_SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "git_blob": "d251e96ef0341246d0534bdef0d1105e1d780afa",
+      "sha256": "593a3be609626fbc4288b61717de6972f171cdd9f926c804b092e702e3419b72",
+      "bytes": 20405,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "evaluation core"
+    },
+    {
+      "path": "tests/integration/test_evaluation_program_composition.py",
+      "source_SELF": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+      "git_blob": "063ce8b8d6f3101fae219ec369784235671e1601",
+      "sha256": "bd323abbdee431dd9a322887587ab2b94b219a5b4117439208be900a3dbed4cc",
+      "bytes": 33787,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "genuine evaluation program proof"
+    },
+    {
+      "path": "docs/parallel/graded-evaluation-program-composition.md",
+      "source_SELF": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+      "git_blob": "52e901f716a5f611fba84e965cb3d0ba2f33f403",
+      "sha256": "bab53487f6f5e9cd865858d7e5ff8c8e636f33f3cbca8a35e90b4da435f237b1",
+      "bytes": 8042,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "genuine evaluation program proof"
+    },
+    {
+      "path": "docs/parallel/graded-evaluation-program-proof-inputs.json",
+      "source_SELF": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+      "git_blob": "f0f1dd367cfa9fdea8e01fe9d11346d0a4451697",
+      "sha256": "5fc03ebbc1661d3fa5f28127321df0a4f2bcbd2544a2eb6a8cca6be80b73ae26",
+      "bytes": 3717,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "genuine evaluation program proof"
+    },
+    {
+      "path": "docs/parallel/graded-evaluation-program-proof-oracle.json",
+      "source_SELF": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+      "git_blob": "028aaf784057428c534fba4d798f7883947509af",
+      "sha256": "bef92e716494d83b1bf8ff47dcc68875918f8599805535f6c8e5688d19e8b9e6",
+      "bytes": 2123,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "genuine evaluation program proof"
+    },
+    {
+      "path": "docs/parallel/graded-evaluation-program-proof-contract.md",
+      "source_SELF": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+      "git_blob": "bf619fb279be7c7e7cdf1bce7c796e48c11089a0",
+      "sha256": "e2789fc84cd2bd10d6077643280915c4e0e8842e3aeba019344a83a8293bafbf",
+      "bytes": 9164,
+      "mode": "NEW",
+      "canonical_preimage_blob": null,
+      "kind": "genuine evaluation program proof"
+    }
+  ],
+  "component_count": 17,
+  "total_component_bytes": 230430,
+  "DHA": "NONE"
+}

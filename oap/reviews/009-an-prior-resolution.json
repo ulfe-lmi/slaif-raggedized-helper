@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-21T06:30:36.518521+00:00",
+  "identifier": "009-am",
+  "decision": "ACCEPT_EXACT_SCOPE_CONTINUATION_ONLY",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "accepted_report_head": "0ea0344de0dbd6c18b20073e795e53830923aeff",
+  "implementation": "0d007e3ec374afd310fa1dc30318f6161e698bb8",
+  "report_run": 44870819167,
+  "report_run_attempt": 1,
+  "verification": {
+    "all_required_jobs": 5,
+    "all_required_steps": "PASS",
+    "A": 1440,
+    "B": 1998,
+    "integration_each": 991
+  },
+  "terminal_review": {
+    "path": "audit/009-am-check/Root-terminal-review.json",
+    "bytes": 5308,
+    "sha256": "b9ea064498dc280bfdde14434ce3c60616da0b0257e4c7fd86087ecda4a84add"
+  },
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}

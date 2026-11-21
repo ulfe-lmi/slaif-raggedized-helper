@@ -1,0 +1,169 @@
+{
+  "identifier": "009-n",
+  "base": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+  "files": [
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-n-check/inputs/private_report_publication.py",
+      "bytes": 28170,
+      "sha256": "43207d97f4c195966049cf53bf45c1b47543277dbf95b0bb7068a8a734378e34",
+      "origin": {
+        "commit": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+        "path": "src/slaif_raggedized_helper/private_report_publication.py",
+        "kind": "FULL_GIT_BLOB"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-n-check/inputs/publisher-failure-functions.txt",
+      "bytes": 8253,
+      "sha256": "0b6c6ab40f3f3b7fd14bac1e5cd3dbbc1ff5d507ed2a3f1fc0946e9d609b3b43",
+      "origin": {
+        "commit": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+        "path": "tests/unit/test_private_report_publication.py",
+        "full_bytes": 99893,
+        "full_sha256": "4b1961f3136a00a6dcc1f39bb5720006d990924e17931ac8a7593bd2ffc43d48",
+        "ranges": [
+          [
+            23,
+            32
+          ],
+          [
+            35,
+            42
+          ],
+          [
+            699,
+            735
+          ],
+          [
+            738,
+            744
+          ],
+          [
+            747,
+            757
+          ],
+          [
+            1865,
+            1886
+          ],
+          [
+            1944,
+            2007
+          ],
+          [
+            2614,
+            2637
+          ],
+          [
+            2640,
+            2654
+          ]
+        ],
+        "kind": "EXACT_FUNCTION_EXCERPTS_HEADER_NOT_SOURCE"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-n-check/inputs/specio.py",
+      "bytes": 7260,
+      "sha256": "e5de4610000d12fc974654d4bd448e41d8915ccba09882fbd6fb14e291f05edd",
+      "origin": {
+        "commit": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+        "path": "src/slaif_raggedized_helper/qualification/specio.py",
+        "kind": "FULL_GIT_BLOB"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-n-check/inputs/qualification-deep-test.txt",
+      "bytes": 878,
+      "sha256": "9d32f0dbc06d5b70a05fa84a0970c039d3b831aff3dfb2c4f21f8cbff87ddbca",
+      "origin": {
+        "commit": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+        "path": "tests/unit/test_qualification.py",
+        "full_bytes": 64446,
+        "full_sha256": "1842097a4577a2a88bcab42f46620dd932cba75f650f2ae7362f7effda068afb",
+        "ranges": [
+          [
+            649,
+            660
+          ]
+        ],
+        "kind": "EXACT_FUNCTION_EXCERPTS_HEADER_NOT_SOURCE"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-n-check/inputs/manifest-reader.txt",
+      "bytes": 940,
+      "sha256": "22885cd7313914a3244ef2202c42baee222d89e643950264707417c42135d9f8",
+      "origin": {
+        "commit": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+        "path": "src/slaif_raggedized_helper/source_cli.py",
+        "full_bytes": 3812,
+        "full_sha256": "b2779f1ab0c1fc40c710bc39d1fb8e244b2d51dfbf1c14a544ff9ec5a0c04cf4",
+        "ranges": [
+          [
+            20,
+            40
+          ]
+        ],
+        "kind": "EXACT_FUNCTION_EXCERPTS_HEADER_NOT_SOURCE"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-n-check/inputs/manifest-growth-test.txt",
+      "bytes": 588,
+      "sha256": "0c2965f431082d2dcaed57e168f2b648a93cd581c1e7c7385f35171206211cef",
+      "origin": {
+        "commit": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+        "path": "tests/unit/test_source_cli.py",
+        "full_bytes": 3738,
+        "full_sha256": "fce4f951ceb9fa05cab72572073b278663a40efd3af59dc11b4670bdc2dabb05",
+        "ranges": [
+          [
+            82,
+            94
+          ]
+        ],
+        "kind": "EXACT_FUNCTION_EXCERPTS_HEADER_NOT_SOURCE"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-n-check/inputs/pyproject.toml",
+      "bytes": 2025,
+      "sha256": "a4c6c55eb4f84107600bc1dab6761128c4304cc8dbf39c4a24a8e25e5d2c392f",
+      "origin": {
+        "commit": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+        "path": "pyproject.toml",
+        "kind": "FULL_GIT_BLOB"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-n-check/inputs/RUNTIME-CONSTRAINTS.md",
+      "bytes": 1540,
+      "sha256": "e9742b16396a7156ef6c1a4ee6db02d68099feaf383f6a0d47bba04718a94805",
+      "origin": {
+        "commit": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+        "path": "docs/RUNTIME-CONSTRAINTS.md",
+        "kind": "FULL_GIT_BLOB"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-m-ci-terminal/Root-terminal-review.json",
+      "bytes": 3172,
+      "sha256": "a19fb6b5ccfa73a9c34b0d4f7b6c19288ae9a99b3ed985ca866dbea6e9fca9f3",
+      "origin": {
+        "kind": "ROOT_OBSERVED_REVIEW_RECORD"
+      }
+    },
+    {
+      "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-m-check/Root-published-local-review.json",
+      "bytes": 1118,
+      "sha256": "ee770d3a5bad1e6fc61751fa1e9195f9c97fcf415968c8ccc5acee7a9fe03bf9",
+      "origin": {
+        "kind": "ROOT_OBSERVED_REVIEW_RECORD"
+      }
+    }
+  ],
+  "total_semantic_input_bytes": 53944,
+  "CI_logs": "Full owned logs retained audit/009-m-ci-terminal, do not print/read whole; initially use Root summary and exact provided excerpts. Additional source only narrow named bound within same allowance and recorded justification.",
+  "semantics": "diagnosis only before Root patch decision; imports in authorized test process do not imply semantic sourcebook reads or an every-file OS readset certificate."
+}

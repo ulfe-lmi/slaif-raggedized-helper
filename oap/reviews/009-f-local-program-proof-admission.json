@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-16T16:50:36.490515+00:00",
+  "decision": "ADMIT_LOCAL_PROOF_COMPONENT_NOT_CANONICAL_ACTIVATION_OR_MERGE",
+  "lane": "evaluation-proof",
+  "implementation": "5d79e3d6f497ebabb0c59bb93b9dd8e38e7bfe92",
+  "SELF": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+  "source_base": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+  "report_sha256": "8915f49a7e64d5c444dd515a9657e8981f49a42d17e06096afd937617b8b6824",
+  "report_bytes": 5111,
+  "normal_transport": "REGULAR_FILE_RELOCATION_RECOVERY_NO_FIFO",
+  "verification": "Exact clean branch/head, implementation soleparent45bc, report soleparent5d/report-only diff/SELF/committed bytes/hash; original six-path source scope/order/oracle/contract and bd32driver verified at checkpoint. One actual proof raw records independently reconciled; docs-only correction validated. No new source/test execution after actual or between checkpoint/report.",
+  "evidence": [
+    "audit/009-eval-proof-actual-v3-pass-root-review.json",
+    "audit/009-eval-proof-implementation-review-9f703d0.json",
+    "audit/009-eval-proof-implementation-review-5d79e3d.json"
+  ],
+  "strongest_reason_not_to_advance": "Tiny synthetic data/supplied diagnostic query vectors, preparation read-budget failure, incomplete later semantic total and unproven whole-tree/native/OS closure cannot establish original009 baseline, production authority, runtime/hardware/full-MVP closure.",
+  "why_admit": "Proof directly exercised genuine source/program/math delegates and exact positive/negative oracle, retained source-only output equivalence and scope checks; test bytes unchanged, bounded actual run passed, and docs/report accurately preserve the qualification/accounting limits. Candidate can join the still-inert same009 software wave after remaining dependencies are reviewed.",
+  "remaining": "Private report publisher protocol/implementation/tests; named private plan/evaluate CLI; real CPU/current policy/approved data/right/human baseline;20k/native/OS/hardware/visual/security/license/mergedICA/release. Original009 and full MVP remain OPEN.",
+  "DHA": "NONE"
+}

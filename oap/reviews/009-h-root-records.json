@@ -1,0 +1,21 @@
+{
+  "identifier": "009-h",
+  "base": "857355abbcfc4f5e322377f2bbee1388bafafc56",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-g-resolution.json",
+      "target": "oap/reviews/009-h-prior-resolution.json",
+      "bytes": 2852,
+      "sha256": "818ab8c908fbebd02c9b11bca0e39b3d8fcd562f7f2c07f82f71bae9f0752fe4"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-g-stat-result-value-witness-result.json",
+      "target": "oap/reviews/009-h-stat-result-witness.json",
+      "bytes": 291,
+      "sha256": "8691e44e4f88a1f609e7e3dc9c94a01fbf311db8c6d57916d26471df5a748f4b"
+    }
+  ],
+  "record_count": 2,
+  "total_record_bytes": 3143,
+  "DHA": "NONE"
+}

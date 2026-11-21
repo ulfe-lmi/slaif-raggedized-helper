@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-13T12:15:23.958208+00:00",
+  "decision": "SOURCE_TEST_PROOF_GRAPH_REVIEW_COMPLETE_DOC_TENSE_FIX_REQUIRED_BEFORE_REPORT",
+  "implementation": "e4afb000d04371847c39c6fd87b6b1313e004eef",
+  "base": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+  "scope": "SixexactNEWpaths soleparentbase/clean/orderff16+contracta595+oracled35 unchanged. Source743a/unit5a60 matchactualfinal33PASS/Ruff and normalizedAST reviewedDB459/A442; pre/posthashes/logs/caps/env/metadata42324/actualtimestamps independentlyrechecked. No Source/native/model/realbaseline/hardware/currentrights/ICA qualification.",
+  "evidence": {
+    "private_proof": "/tmp/par009-cohort-metrics-proof-v2-20261113",
+    "tests": "33PASS/0failure, pytest1.49reported; GNU1.81wall1.76user.04sys44384KiBwaitedprocess",
+    "format_AST": "modulefff22cb9/unit7fc0de24 unchangedbefore/afterlocationfree AST; Rootreviewedformatdiff onlystyle",
+    "helper": "295b5b6b andRoot7ASTfakecleanupsequences, noallinterrupt/process-treeclaim",
+    "peer": "Other-authorreview4829/5428/DB459/A442 fullcore/deltas complete, materialbugs corrected; currentownedreportdraftUNPROVENforruntime/committedhead, finalnormalreport/actualimpl review stillpending"
+  },
+  "doc_findings": "Historical paragraph says requiredRuff/pyteststillpending; currentsemantic paragraphcallsitsourceunverified; nextunexecutedunit snapshot paragraphisnowhistorical. These conflict withcurrent33PASS unlessat-timequalified. Preserveactual19/22incompleteproofhistory/staticASTdeviation andcurrent33result, clarifytenseonly.",
+  "strongest_counterargument": "Purecohortmathcannotclose missingborrowedsourcecohortrunner orqualifiedhumanheldoutbaseline; onlylocaldependencyadmission possibleafterfinalgraph/report/peerreconciliation. Docchange needsno repeatedruntime; fullnewheadcanonicalCIwillremainfuturegate.",
+  "DHA": "NONE"
+}

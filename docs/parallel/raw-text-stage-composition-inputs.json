@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-13T07:49:50.248297+00:00",
+  "status": "FINAL_EXACT_SELECTIVE_COPY_INDEX_FOR_NEW_LOCAL_ACTUAL_COMPOSITION",
+  "base": "1999c0d9aca393ae629e2c95c6ca7d5b425f31b5",
+  "donor": "d6c302ff73b73790ed5420ef7c67e2412235f8a7",
+  "entries": [
+    {
+      "path": "tests/integration/test_raw_hybrid_search_composition.py",
+      "source_commit": "d6c302ff73b73790ed5420ef7c67e2412235f8a7",
+      "bytes": 19567,
+      "sha256": "2454e240155e211313f00862cb9b4a686f2e95e26d269e27a7e7e07cc9272620",
+      "mode": "MODIFY_EXISTING",
+      "expected_preimage_sha256": "d4cdcb97059330b9650cd4facb0f1840d8cf5fecd4719992077f4912ed45a193"
+    },
+    {
+      "path": "tests/integration/test_source_bound_support_ci_composition.py",
+      "source_commit": "d6c302ff73b73790ed5420ef7c67e2412235f8a7",
+      "bytes": 10654,
+      "sha256": "ad6d3a1f7a669deb73fd972185dab92ba3938a215c4940363ef48f8b387ad854",
+      "mode": "NEW"
+    },
+    {
+      "path": "tests/integration/test_source_bound_support_ci_cleanup.py",
+      "source_commit": "d6c302ff73b73790ed5420ef7c67e2412235f8a7",
+      "bytes": 5984,
+      "sha256": "af68d4076dea8f0e4572aa734d16ff4d19192a35b0869666484bab1ea4036ab9",
+      "mode": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-support-ci-preparation.md",
+      "source_commit": "d6c302ff73b73790ed5420ef7c67e2412235f8a7",
+      "bytes": 3116,
+      "sha256": "2c35c761cce4caf40b031e06b197342817fe0bee76d7a1727f844e0016d4f554",
+      "mode": "NEW"
+    }
+  ],
+  "total_bytes": 39321,
+  "scope": "Only4exactfiles; sharedhelperpreimageexact verified against fdd4. Do notcopydonorreports/orders/privateproof/caches ormergewholebranch. Correctednewadapteralreadybase; laternewintegrationonly, no productsemanticchanges.",
+  "DHA": "NONE"
+}

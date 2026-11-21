@@ -19,7 +19,7 @@ until their ordered implementation (see TESTING.md T03/T04).
 - Job `OAP tests (Python <version>)` per Python 3.12, 3.13, 3.14 (fail-fast false),
   10-minute per-job timeout.
 - Job `Product tests (Python <version>)` per Python 3.12, 3.14 (fail-fast false),
-  20-minute per-job timeout (objective 002-a).
+  30-minute per-job timeout (objective 002-a).
 
 ## Steps per job
 

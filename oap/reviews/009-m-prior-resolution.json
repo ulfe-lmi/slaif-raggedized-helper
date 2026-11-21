@@ -1,0 +1,28 @@
+{
+  "identifier": "009-l",
+  "pr": 11,
+  "decision": "ACCEPTED_SLICE_CONTINUE_SAME_009_NOT_WHOLE_OBJECTIVE_OR_MERGE",
+  "reviewed_at": "2026-11-17T05:40:20.609282+00:00",
+  "reviewed_head": "494a1908b3f0719c0eb78becdcbcb6c5c3ac0d74",
+  "transcript": "3af18f85273ffc7a61bef081f6694c232e9813ad",
+  "implementation": "d12a696a4dce12441963b457b981a32bdd42eb2e",
+  "report_sha256": "6a58b553ee3c37fc153e549960f39ce6eddc74d73bae00fa610717b9b982a9ae",
+  "normal_at": "2026-11-17T05:15:13.531059+00:00",
+  "review": "Exact4Roottranscript->17implementation->1report-onlysoleparent chain,21postimageblobs/SELF/clean independentlyverified; full4349Breport read; staticRoot15file15call90caseASTinvariant; no fixture/assertion/order/count changes.",
+  "CI": {
+    "run": 44022614755,
+    "run_number": 135,
+    "attempt": 1,
+    "jobs": 5,
+    "all_steps_success": 78,
+    "all_required_status_contexts_success": 5,
+    "product": "2455passed7warnings onboth3.12/3.14; raw300907B, no truncation/refusal,0exit, cleanupPROVEN reported",
+    "integration": "Both commandscompletedSUCCESS/100%,951dotpassmarkers; quietformatteromitscollectionsummary",
+    "scope": "OAP/governance/lint/syntax/integration/console/doctor allsuccess. No skipped/missing/pendingcheck countedgreen. ExistingforkDeprecation/testreaderResourceWarnings recorded, no allOS/physical/hardware claim.",
+    "evidence": "audit/009-l-ci-terminal/Root-terminal-review.json3757Bd2658c468105ecf558fe4c327b419f88d29cdc4d25ab3160dfe6c747ec2a8192; fullproductlogs/jobs/run/remotecontexts+reviews retained"
+  },
+  "strongest_reason_not_to_merge_whole009": "MetadatafixandcurrentCIpass do notcompleteevaluationoperator/currentprincipal/provider/parser+publishercanonicaljoins/realheldoutbaseline orfullarchitecture/hardwarequalification. Earlier20minute/137causesremainunproven.",
+  "deviations": "ThreeunauthorizedRuffcallsauthorattested/notrawlogged; noRootretroauthorization. Rootalso recordedtoo-restrictivemetadata-lint orderdesignlesson; futureordinaryboundedstaticchecks authorizedupfront.",
+  "next_replan": "Same009/PR11 suffix009m exactblobtransfer ofreviewedprivateparser/publisher plusunchanged archivalreports/originindex, after freshpreflight. Candidatepreparationbasese3bf/45bc areNOTancestors ofcanonical494a, so do not merge theirunreviewedpreparationhistory. Code/reportpayloadidentitiesretainedexplicitly; originalreportsSELF resolvesoriginalcommits, notnewarchivalcopy. Alllivecurrentauth/data/model/hardwaregates remainOPEN; no010activation.",
+  "DHA": "NONE"
+}

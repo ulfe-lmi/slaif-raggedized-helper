@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-20T23:35:13.650868+00:00",
+  "identifier": "009-ah",
+  "PR": 11,
+  "base": "1fa6bc87dcb5dbdddc9fd317c1e9b662b5fd7c59",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "prior": {
+    "path": "audit/009-ag-check/Root-terminal-review.json",
+    "bytes": 5101,
+    "sha256": "986ce2c515d9be20350fbf4b61c41a9c3edf1f9696e49b3e1dbe955cf298c833"
+  },
+  "receipt_review": {
+    "path": "audit/009-ag-check/Root-consumed-response-reconciliation.json",
+    "bytes": 1288,
+    "sha256": "308ac9579009d43b097b88f3171fb2ae297c9d9aab67701a50efcb6b92756793"
+  },
+  "run": 44834284664,
+  "attempt": 1,
+  "state": "CLOSED_ROUND_HOSTED_FAILURE_NO_DEVELOPMENT_ACCEPTANCE_ONE_CORRECTIVE_SUFFIX",
+  "units_each": 3438,
+  "integration_each": {
+    "passed": 969,
+    "failed": 1
+  },
+  "exact_failed_test": "test_t1_selected_change_after_renewal_before_text_bytes",
+  "DHA": "NONE"
+}

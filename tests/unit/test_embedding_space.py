@@ -71,6 +71,16 @@ def test_real_verification_and_root_independence(tmp_path, monkeypatch):
         ("query_prefix", "x"),
         ("model_name", "x" * 10000),
     ],
+    ids=(
+        "checkpoint-sha256",
+        "checkpoint-revision",
+        "tokenizer-revision",
+        "pooling",
+        "normalize",
+        "dimensions",
+        "query-prefix",
+        "model-name-oversize",
+    ),
 )
 def test_definition_refused(tmp_path, field, value):
     _, raw, inv, d, t = fixture(tmp_path / "tree")

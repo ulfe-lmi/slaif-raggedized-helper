@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-21T01:28:49.040894+00:00",
+  "identifier": "009-aj",
+  "PR": 11,
+  "base": "0ea63e91cf563ca1751bb373010d56ea8d884745",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "state": "ACCEPT_EXACT_009_AI_BOUNDED_RANKING_HOSTED_PROOF_WHOLE_009_PARTIAL",
+  "hosted_review": {
+    "path": "audit/009-ai-check/Root-terminal-review.json",
+    "bytes": 3280,
+    "sha256": "d6032e96b1b49bb846bb7a2d3f3388afbf07c629379519bfafee97dc56445673"
+  },
+  "accepted_local_pin_candidate": {
+    "path": "audit/009-current-pin-revalidation-local-resolution.json",
+    "bytes": 3365,
+    "sha256": "c657e8dbecff83662b16d4a2ea7fc8685030f9f741d41bc8196600c9bc718302"
+  },
+  "run": 44847591776,
+  "attempt": 1,
+  "ordered_units_each": 3438,
+  "integrations_each": 975,
+  "DHA": "NONE"
+}

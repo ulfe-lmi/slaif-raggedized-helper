@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "identifier": "009-k",
+  "records": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-j-resolution.json",
+      "target": "oap/reviews/009-k-prior-resolution.json",
+      "bytes": 3866,
+      "sha256": "b3437f032249fc76cfd339703a45b9a8321a58d6cac309c62edafd7ad4f8e95c"
+    }
+  ]
+}

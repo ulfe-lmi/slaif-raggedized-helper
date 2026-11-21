@@ -1,0 +1,4555 @@
+# Canonical text evaluation foundations (objective 009, slices 009-a, 009-c, 009-d, 009-e and 009-f)
+
+This document is the nonroutine evaluation reference for the 009
+software waves: the byte-exact transfer of the reviewed structural
+text-evaluation dataset contract, the supplied graded-rank metrics and the
+original-source/span support primitives (slice 009-a), the three
+source-backed stage components — raw text stage support, declared stage
+geometry and source-bound stage loss — with their actual synthetic
+source-backed composition proofs (slice 009-c), and the pure
+declared-cohort metrics aggregation over supplied geometry (slice
+009-d), and the private source cohort runner — the source-running cohort
+pipeline that joins frozen split/subset selection, per-case traced raw
+hybrid producer and source-bound stage binding, and the pure cohort
+aggregation into one joined private split report (slice 009-e), and the
+private callable graded evaluation program — the permanent private
+graded evaluation program over explicit chunk judgments executed on the
+shared source cohort loop (slice 009-f). Together they are the twelve
+private module API families: the nine callable private per-case
+evaluation primitives, the pure cohort-level aggregation, the
+source-running cohort runner and the graded evaluation program. The routine coding
+context remains unchanged; the exact per-component contracts live in the
+byte-exact transferred documents under [docs/parallel/](parallel/)
+(`text-evaluation-dataset-api.md`/`-design.md`/`-oracle.json`,
+`supplied-rank-metrics-api.md`/`-design.md`/`-oracle.json`,
+`text-evaluation-gold-binding-api.md`/`-design.md`/`-oracle.json`/
+`-coverage-followup.md`, `declared-span-support-api.md`/`-design.md`/
+`-oracle.json`, `source-bound-ranking-api.md`/`-design.md`/`-oracle.json`,
+`source-bound-text-support-api.md`/`-design.md`/`-input-pins.json`/
+`-oracle.json`, and the 009-c `raw-text-stage-support-api.md`/
+`-contract.md`/`-composition.md`, `declared-stage-geometry-api.md`/
+`-contract.md`, `source-bound-raw-stage-loss-api.md`/`-contract.md`,
+`source-bound-stage-proof-composition.md`/`-inputs.json`,
+`raw-text-stage-composition-inputs.json`,
+`source-bound-support-ci-preparation.md`, and the 009-d
+`declared-cohort-metrics-api.md`/`-contract.md`/`-oracle.json`, and the
+009-e `source-cohort-runner-api.md`/`-contract.md`/`-binding.json`/
+`-composition.md`/`-proof-inputs.json`/`-tiny-oracle.json`, and the 009-f
+`graded-evaluation-program-contract.md`/`-api.md`/`-binding.json`,
+`graded-evaluation-program-composition.md`/`-proof-inputs.json`/
+`-proof-oracle.json`/`-proof-contract.md`,
+`source-runner-legacy-identity-oracle.json`,
+`source-graded-rank-proof-contract.md`/`-composition.md`/
+`-proof-inputs.json`/`-oracle.json`).
+
+## Provenance of the 009-a slice
+
+Thirty-two files (322,735 bytes: six production modules, six unit suites and
+twenty docs/parallel contract documents) were transferred byte-exact by
+Git-object read from the reviewed local assembly commit SELF `8c351a95`
+(implementations `c91a5c2b` and `70d3b61f`) of the parallel 009
+source-support and evaluation-foundations preparation worktrees, per the
+Root-owned index `oap/reviews/009-a-components.json` (identical to
+`audit/009-a-components-FINAL.json`, SHA-256 `f3f65b1b…a80f`), retained with
+the other seven exact Root records in the 009-a transcript. All 21 current
+008 production blobs plus the six source/derived/ingestion/provenance/
+structured lower modules are byte-identical between actual merged main
+`5a7b41cc` and the donor, so no lower API adaptation, cherry-pick or branch
+ancestry transfer was needed; no other path was modified. The candidate
+carries the local Root reviews
+(`oap/reviews/009-a-foundations-source-review.json`,
+`oap/reviews/009-a-source-support-source-review.json`) and the first-wave
+replan (`oap/reviews/009-a-first-wave-replan.json`).
+
+## Provenance of the 009-c slice
+
+Twenty-two files (395,115 bytes: three production modules — 127,064 B —
+three unit suites — 110,520 B — five integration suites — 78,437 B, one
+of them the exact existing raw-hybrid fixture modification — and eleven
+docs/parallel contract and proof documents — 79,094 B) were transferred byte-exact by Git-object read from the
+reviewed source SELF `e6b229b1` (implementation `748d08b4`) of the
+parallel 009 source-stage-proof worktree, per the Root-owned index
+`oap/reviews/009-c-components.json` (identical to
+`audit/009-c-components-FINAL.json`, SHA-256
+`6fbeb96c23…c5c633af91`). All 21 NEW targets were verified absent at the
+round base `aba42a52` and the one MODIFY target verified against its exact
+preimage SHA-256 before copy; every blob was verified by size and SHA-256
+against immutable Git objects before and after copy. No cherry-pick,
+merge or branch-ancestry transfer; no lower adaptation. The candidate
+carries the local Root records retained in the 009-c transcript
+(`oap/reviews/009-c-source-binder-review.json`,
+`oap/reviews/009-c-stage-proof-review.json`,
+`oap/reviews/009-c-stage-proof-actual-review.json`,
+`oap/reviews/009-c-local-admissions.json`,
+`oap/reviews/009-c-source-base-compatibility.json`,
+`oap/reviews/009-c-peer-driver.json`) and the Root replan
+(`oap/reviews/009-c-replan.json`).
+
+## Provenance of the 009-d slice
+
+Five files (89,811 bytes: one production module — 32,800 B — one unit
+suite — 22,772 B — and three docs/parallel contract/oracle/API
+documents — 34,239 B) were transferred byte-exact by Git-object read from
+the reviewed source SELF `b33da381` (implementation `b15adaf`) of the
+parallel 009 cohort-metrics worktree, per the Root-owned index
+`oap/reviews/009-d-components.json` (identical to
+`audit/009-d-components-FINAL.json`, SHA-256 `665c7118…d656`). All five
+targets were verified NEW (absent at the round base `b87e264d`) and every
+blob was verified by Git blob ID, size and SHA-256 against immutable Git
+objects before and after copy; no cherry-pick, merge or branch-ancestry
+transfer; no lower adaptation. The ten local Root records (including this
+components index) are retained in the 009-d transcript with the exact
+Root index `oap/reviews/009-d-root-records.json` (SHA-256
+`a1d85c6a…a4`): prior resolution, source-base compatibility, the two
+checkpoint implementation reviews, the peer Root review and peer metrics,
+local admission, the coding component report and the transfer replan.
+
+## Provenance of the 009-e slice
+
+Nine files (167,455 bytes: one production module — 43,767 B — one unit
+suite — 31,638 B — one integration suite — 27,711 B — and five
+docs/parallel contract/proof documents — 64,339 B) were transferred
+byte-exact by Git-object read from the two reviewed source SELFs
+`91f31182` (source-cohort-runner lane; report-only SELF over
+implementation `3c92a59d`) and `5ffef4c1` (cohort-proof lane; report-only
+SELF over implementation `60b17137`, whose sole parent is the
+preparation `657fbf57` with parents `e687b862` and `91f31182`), per the
+Root-owned index `oap/reviews/009-e-components.json` (identical to
+`audit/009-e-components-FINAL.json`, SHA-256 `b73448cf…e6`): five runner
+blobs from SELF `91f31182` and four proof blobs from SELF `5ffef4c1`.
+All nine targets were verified NEW (absent at the round base `598d6dc6`)
+and every blob was verified by Git blob ID, size and SHA-256 against
+immutable Git objects before and after copy. The 117 shared production
+files plus pyproject.toml, uv.lock and the actual
+.github/workflows/oap.yml are byte-identical at both source SELFs and the
+canonical base, so no lower adaptation, cherry-pick, merge or
+branch-ancestry transfer was needed (`oap/reviews/009-e-source-base-
+compatibility.json`); the source topology is evidence only, not merged
+history. The ten local Root records (including this components index) are
+retained in the 009-e transcript with the exact Root index
+`oap/reviews/009-e-root-records.json` (SHA-256 `709edd08…0092`): prior
+009-d resolution, source-base compatibility, the public component
+evidence, the peer driver correction, the coding proof report, the two
+local Root admissions (runner and proof), the 009-d documentation
+precision findings and the transfer replan.
+
+## Provenance of the 009-f slice
+
+Seventeen files (230,430 bytes: two production modules — 79,975 B, one
+of them the exact minimal shared-loop replacement of the 009-e
+`source_cohort_runner.py` — three test suites — 73,822 B — and twelve
+docs/parallel contract and proof documents — 76,633 B) were transferred
+byte-exact by Git-object read from the three reviewed source SELFs
+`f4d9dbb2` (existing graded interop proof lane; report-only SELF over
+implementation `1dcf7c3e`), `45bcb729` (graded evaluation core lane;
+report-only SELF over implementation `7df7e79c`, whose sole parent is
+`f4d9dbb2`) and `e3bf5b84c` (genuine graded program proof lane;
+report-only SELF over implementation `5d79e3d6`, whose sole parent is
+`45bcb729`), per the Root-owned index
+`oap/reviews/009-f-components.json` (identical to
+`audit/009-f-components-FINAL.json`, SHA-256 `1ff91482…cd6b`): five
+existing graded proof blobs from SELF `f4d9dbb2`, seven graded
+evaluation core blobs from SELF `45bcb729` and five genuine program
+proof blobs from SELF `e3bf5b84c`. Sixteen NEW targets were verified
+absent at the round base `9ba33cd7` and the one MODIFY target verified
+against its exact indexed preimage blob `b69589c3` before copy; every
+blob was verified by Git blob ID, size and SHA-256 against immutable
+source Git objects before and after copy. The sources are reviewed
+immutable candidates, not ancestry to merge: no cherry-pick, merge or
+branch-ancestry transfer; no lower adaptation — the Root index records
+that of the 122 production/config/workflow comparison paths, 120 shared
+paths are byte-exact and the intentional `evaluation_program` NEW plus
+`source_cohort_runner` modification are the only deltas (Root replan
+`oap/reviews/009-f-replan.json`). The eight local Root records
+(including this components index) are retained in the 009-f transcript
+with the exact Root index `oap/reviews/009-f-root-records.json`
+(SHA-256 `57a170a2…de2c`): prior 009-e resolution, the transfer replan,
+the public component evidence, the three local Root admissions (graded
+proof, core, program proof) and the core peer admission.
+
+## The six private evaluation APIs (slice 009-a)
+
+Three of these are pure (no I/O, no store access): dataset admission,
+supplied rank metrics and declared span geometry. Three are
+source-resource APIs: they borrow the original/derived stores (and, for
+the last, the snapshot catalog) and revalidate observed content at call
+time — gold binding, source-bound ranking and source-bound text support.
+
+### `text_evaluation_dataset.admit(dataset_bytes, *, deadline_ms=5000)`
+
+Admits canonical ASCII JSON bytes as *declarations* under schema
+`slaif-text-evaluation-dataset-v1` (exact key sets, sorted compact
+serialization, int64 integers only; floats, constants, duplicate keys,
+oversize or non-canonical bytes are refused). Bounds: input ≤ 16,777,216 B,
+≤ 200,000 JSON nodes, depth ≤ 16, ≤ 4,000,000 text characters; cases 1–512;
+per case `split ∈ {tuning, held_out}`, `origin ∈ {synthetic,
+human_declared}`, opaque `authorship_ref`/`rights_ref`/`split_review_ref`
+(≤ 512 chars each), question ≤ 8,192 chars / 32,768 B, language grammar,
+nullable product/version, `scope` corpora/versions/labels sorted-unique
+(≤ 128/128/64), `acceptable_facts`/`disallowed_claims` ≤ 64 each, disjoint
+and total ≤ 8,192, `answerability ∈ {answerable, unanswerable, unknown}`,
+modality exactly `text`; requirements ≤ 16 with grade 1–3, alternatives ≤ 8
+holding 1–8 gold spans each; a gold span is
+(`revision_id`, `extraction_id` — both `sha256:` + 64 hex, `block_id`,
+`0 ≤ start < end ≤ 200,000` code-point offsets, declared substring
+`text_sha256`); total gold atoms ≤ 4,096. Each `family_id` and each exact
+question maps to exactly one split (cross-split family or question is
+refused). Returns frozen records plus canonical identities: `dataset_id`
+(sha256 over the canonical bytes) and `split_id` (sha256 over namespace,
+split-policy reference and per-case assignments including question sha256).
+
+The result stays `NOT_QUALIFIED` with `DECLARED_UNVERIFIED` authorship and
+rights and a `STRUCTURAL_ONLY` split: admission verifies structure and
+internal consistency only, never actual source, block, substring, rights,
+semantic leakage, human origin or split review. Unknown answerability is
+not a successful abstention; synthetic held-out cases do not pass human
+evaluation.
+
+### `supplied_rank_metrics` — `score_query` / `aggregate` / `compare_stage`
+
+Pure mathematics over caller-supplied, unverified opaque relevance units.
+`score_query(query_id, gold, ranking, *, cutoffs=(20, 60), deadline_ms=5000)`:
+gold is a sorted-unique tuple of `(ident, grade 0–3)` pairs, ranking a
+tuple of unique IDs, cutoffs 1–16 strictly increasing values ≤ 4,096. Per
+cutoff k it reports `returned_at_k`, `relevant_returned`, graded DCG
+`Σ (2**grade − 1)/log2(rank + 1)` against the ideal arrangement of all
+positive gold up to k, recall (positive hits over all positive gold),
+reciprocal rank and nDCG clamped to [0, 1]. Empty positive gold yields
+`None` fields with the explicit reason `UNDEFINED_EMPTY_POSITIVE_GOLD`; a
+positive-gold query with no hits scores zero. `aggregate(cases, …)` keeps
+every query and count and averages MRR/recall/nDCG over the defined
+queries only. `compare_stage(gold, before, after, …)` describes supplied
+removal identities: it requires `after ⊆ before` (a stage removes, never
+adds), reports removed/gold-removed IDs, recall before/after/loss and the
+retained fraction; a `None` stage is `UNAVAILABLE` with
+`MISSING_STAGE_IDENTITIES` and no loss is inferred.
+
+All results carry `SUPPLIED_UNVERIFIED` origin, `NOT_QUALIFIED`
+qualification, `SUPPLIED_UNIT_ID` relevance unit and formula version
+`supplied-rank-metrics-v1`. Bounds: 16 MiB of UTF-8 ID occurrences,
+65,536 aggregate entries, 2,097,152 work units, 64 MiB serialized
+fingerprint bytes, cooperative deadline 1–30,000 ms; ordinary errors raise
+the content-free `MetricsError`. No I/O occurs. These units do not resolve
+original Unicode-span AND/OR alternatives, duplicate credit, source
+coverage or actual stage traces, and they are not a held-out evaluation.
+
+### `text_evaluation_gold_binding.bind(originals, derived, dataset_bytes, bundle_ids, *, deadline_ms=30000)`
+
+Revalidates the declared gold spans against selected controlled-store
+bundles: the adapter must be `structured_text`, every matching block
+`native` and non-visual, the span within the block text, and the exact
+substring sha256 equal to the declaration. Every gold atom must occur in at
+least one selected bundle and every selected bundle must match at least one
+atom; the whole store is observed twice and the two observations must be
+identical. Positive binding reports `ORIGINALS_REVALIDATED_AT_BIND_TIME`
+and retains every matching bundle ID per atom; empty gold requires no
+bundles and reports `NO_GOLD_SOURCE_VALIDATED` (the stores are not
+validated). All PDF and visual source bindings are refused; the stores are
+borrowed and remain open. Bounds: bundles ≤ 128 sorted hex-64 IDs, atoms ≤
+4,096, span length ≤ 4,194,304 code points, blocks ≤ 4,096, bytes ≤
+100,663,296, matched bytes ≤ 16,777,216, deadline 1–120,000 ms. Markers
+stay `NOT_QUALIFIED` / `DECLARED_UNVERIFIED` / `STRUCTURAL_ONLY`: the record
+is an observation at bind time, not an atomic snapshot and not current
+authorization, withdrawal, rights, source quality or human held-out
+provenance. It consumes no rankings and calculates no metrics.
+
+### `declared_span_support.score_case(dataset_bytes, case_id, ranking, *, cutoffs=(20, 60), deadline_ms=5000)`
+
+Geometry only. It re-admits the canonical dataset and takes a supplied
+ranking of rows `(chunk_id, revision_id, extraction_id, fragments)` where
+the first three are `sha256:` + 64 hex and each fragment is a
+`(block_id, lo, hi)` half-open code-point interval with
+`0 ≤ lo < hi ≤ 200,000` (≤ 256 fragments per chunk, ≤ 65,536 total). At
+each cutoff the returned fragments are merged per
+`(revision, extraction, block)`; a declared gold atom is covered when its
+`[start, end)` is fully contained in a merged interval; atoms within an
+alternative are conjunctive, alternatives disjunctive, and a requirement is
+covered when any alternative is covered. Coverage fractions count ALL
+declared requirements of the case in the denominator; an empty ranking is
+an observed empty input (`None` is refused) and a case without
+requirements reports the `NO_GOLD_REQUIREMENTS` reason.
+
+Outputs stay `SUPPLIED_UNVERIFIED` with `source_binding: UNVERIFIED` and
+`NOT_QUALIFIED` (formula `declared-span-support-v1`). The fingerprint binds
+the supplied ordering and the admitted dataset (including grades), not
+source truth, query, snapshot or authorization; a full-block claim can
+score without being true.
+
+### `source_bound_ranking.bind(originals, derived, store_root, snapshot_id, expected_catalog_id, chunk_ids, *, grants, restrictions=None, deadline_ms=30000)`
+
+Binds an exact ordered tuple of up to 4,096 distinct supplied chunk IDs to
+revalidated originals through the 008 raw-snapshot catalog and row map.
+`store_root` is a canonical absolute snapshot directory; both the snapshot
+ID and the expected catalog ID are required; grants (mandatory) and
+restrictions (optional) are copied before source validation, and any
+selected row denied by those supplied grants refuses the whole call with
+the content-free `SourceBindingError`. Each pass revalidates the selected
+bundles from the borrowed stores (per-pass cumulative limits: 128 bundles,
+4,096 block occurrences, 100,663,296 metadata/member bytes, 65,536 source
+fragments, 16,777,216 copied UTF-8 bytes, 2,097,152 block-ID bytes),
+requires `structured_text`/`complete_text`/`unicode_codepoints` with text
+media type and native non-visual blocks, rechecks every row declaration
+against the catalog rows and recorded chunk/revision/dependency bytes,
+rebinds each chunk scope through the provenance registry (equal to the
+recorded row scope) and applies `reader_allows(scope, grants,
+restrictions)`; each fragment's copied text must equal the block substring
+with the exact digest. The catalog is loaded twice and both passes must be
+identical (determinism; this is not an atomic lease, ABA proof or hard
+deadline).
+
+The result marks `SUPPLIED_RANKING_UNVERIFIED` origin,
+`SUPPLIED_SCOPE_CHECKS_ONLY` authorization, `NOT_ATTESTED` execution and
+`NOT_QUALIFIED` qualification; status is
+`ORIGINALS_REVALIDATED_AT_BIND_TIME`, or `NO_SELECTED_SOURCE_VALIDATED` for
+an empty tuple (which still triggers two complete catalog validations and
+proves no retrieval was empty). Rows carry no source plaintext, rendered
+text, scores or tokens; the result is private linkable data.
+
+### `source_bound_text_support.score_case(originals, derived, store_root, snapshot_id, expected_catalog_id, dataset_bytes, case_id, gold_bundle_ids, chunk_ids, *, grants, restrictions=None, cutoffs=(20, 60), deadline_ms=30000)`
+
+Private operator-only diagnostic that composes the three prerequisites:
+admit the complete dataset, bind gold across the complete dataset (which
+can refuse because of an unrelated case), bind the supplied ranking to its
+source, then apply the declared span geometry, cross-checking identities
+and counts between the stages. The calls share one cooperative deadline
+with nested sub-deadlines; sources are observed sequentially, not under an
+atomic lease. The frozen `TextSupport` result contains the per-cutoff
+coverage over all declared case requirements, case and global gold-atom
+counts, the three stage statuses (case gold
+`ORIGINAL_GOLD_SPANS_REVALIDATED_AT_CALL_TIME` or
+`NO_CASE_GOLD_REQUIREMENTS`, plus the gold and ranking source statuses),
+and the geometry fingerprint. It retains no plaintext, question text, path
+or source fragment.
+
+Markers: `SUPPLIED_RANKING_UNVERIFIED` origin,
+`OWNED_TEXT_BINDING_CALLS_ONLY` source binding, `NOT_CHECKED` gold
+eligibility, `SUPPLIED_RANK_SCOPE_ONLY_GOLD_RIGHTS_UNVERIFIED`
+authorization, `NOT_ATTESTED` execution,
+`SEQUENTIAL_OBSERVATIONS_NOT_ATOMIC` temporal consistency, `NOT_QUALIFIED`
+(formula `source-bound-text-support-v1`). Gold eligibility and current gold
+rights are not checked; supplied ranking, query execution, human quality,
+held-out status and model/hardware qualification are not attested. Do not
+publish result data or use it as a serving route.
+
+## The three source-backed stage APIs (slice 009-c)
+
+These three complete the nine callable private per-case evaluation
+primitives; the tenth family (slice 009-d) is a cohort-level pure
+aggregation over such supplied geometries, and the eleventh (slice
+009-e) is the source-running cohort runner that drives one of these
+source-bound stage binders per case and joins the results into the pure
+aggregation — both described after this section. Two borrow the
+original/derived stores plus an active same-root snapshot pin; one is
+pure geometry over supplied rows and stage relations.
+
+### `raw_text_stage_support.evaluate_case(originals, derived, store_root, pin_owner, dataset_bytes, case_id, gold_bundle_ids, query_payload, *, query_space_id, query_definition_fingerprint, query_policy_id, query_execution_fingerprint, grants, restrictions=None, deadline_ms=120000)`
+
+Private sequential diagnostic over the ACTUAL raw retrieval stack. It
+admits the complete canonical dataset (≤ 16 MiB), the chosen case (ID ≤
+128 chars), up to 128 sorted unique bundle hashes, one 4,096-byte
+normalized little-endian float32 query vector and four declared query
+identifiers; the strict integer deadline is 1–120,000 ms, one cooperative
+clock covering admission, every lower call and final construction
+(admission ≤ 5,000 ms, each support call ≤ 30,000 ms). The case scope is
+the allowlist intersection of the supplied grants with the dataset scope,
+retaining restrictions unchanged; an empty corpus or version
+intersection denies all, and empty labels allow only unlabeled sources —
+supplied declarations, not current rights or Gold eligibility. Per full attempt, under
+the held old pin, it performs one owned hybrid call and three sequential
+owned source-support calls over the actual dense/lexical/fusion results
+(the V3 proof's totals of six each of hybrid/dense/lexical/fusion and 13
+support calls are the per-attempt aggregate across its eight attempts,
+as recorded in the aggregate counter paragraph below). The
+frozen `StageSupport` result carries linkable IDs, counts, cap markers and
+the per-cutoff source-support coverage records; it omits question text,
+the vector, source content, paths, hits, traces and exceptions. Errors
+are content-free `StageSupportError`; coverage is declared original-span
+geometry, not factual support, and MRR/nDCG/Gold candidate-loss are
+unavailable under `UNSPECIFIED_RELEVANCE_UNIT_MAPPING`. Markers: execution
+NOT_ATTESTED, results NOT_QUALIFIED, source binding limited to the owned
+binding calls.
+
+### `declared_stage_geometry.diagnose(dataset_bytes, case_id, rows, stages, *, deadline_ms=10000)`
+
+Pure supplied-stage geometry diagnostic (no store, model or runtime
+access). It re-admits the canonical dataset (≤ 1 MiB here) and takes
+supplied row geometry (≤ 512 rows, ≤ 8,192 fragments, ≤ 65,536 block-ID
+characters, ≤ 512 global Gold occurrences, ≤ 256 cases), EXACTLY ten
+named stage relations (each ≤ 512 indices; the returned-index sets of
+stage positions 3, 7 and 9 are each ≤ 60 rows; ≤ 5,120 stage indices
+total) and a strict
+1–10,000 ms deadline covering admission and all thirteen lower calls
+under one bounded work/serialization ledger (W ≤ 67,108,864 work units,
+B ≤ 134,217,728 bytes of declared logical allowances — not CPU, memory or
+I/O limits). It reports per-stage and ordered @20/@60 completion,
+full-stage requirement/alternative coverage, removal transitions with
+lost alternatives and requirements, and declared required source recall:
+the denominator is ALL mandatory chosen Gold revisions, every atom of a
+revision must be covered, independently of requirement coverage; the
+measure is undefined for no-Gold cases and OR alternatives. Chunk MRR and
+nDCG are UNAVAILABLE because no explicit chunk relevance mapping exists;
+alternative requirement grades cannot supply one, and a separate explicit
+graded-item rank library exists but is not called here. Inputs are caller
+declarations: source binding UNVERIFIED, eligibility NOT_CHECKED,
+execution NOT_ATTESTED, qualification NOT_QUALIFIED; stage relations
+alone do not establish a complete eligible universe, score ordering or
+rights.
+
+### `source_bound_stage_loss.bind_stages(originals, derived, root, pin_owner, dataset_bytes, case_id, gold_bundle_ids, hybrid_result, query_payload, *, query_space_id, query_definition_fingerprint, query_policy_id, query_execution_fingerprint, grants, restrictions=None, deadline_ms=120000)`
+
+Source-bound stage diagnostic. It takes the supplied hybrid result
+(HybridResult) traces, validates the complete eligible and matching
+universes from source through sequentially observed source bindings
+under one 1–120,000 ms cooperative deadline, constructs the ten stage
+relations and independently recomputes the RRF dedup, ranks, scores and
+tie order (pure arithmetic over the supplied modality order — no
+actual encoder, BM25 or dense scoring/search forward is executed; dense
+and lexical score order remains `SUPPLIED_SCORE_ORDER_NOT_REEXECUTED`),
+then passes the geometry to the pure component. The fixed source
+envelope comprises five direct pin checks, one direct catalog load and
+two catalog loads inside ranking (three catalog loads total), one Gold
+binding and one ranking binding — at most 12,288 derived loads and
+4,986,555,627,809 logical read-payload bytes — with owned logical
+work/payload limits 134,217,728 / 268,435,456 (not CPU, memory or
+physical I/O limits). The pure component retains `UNVERIFIED` source
+binding; the observations establish neither current rights nor
+atomicity. Pre-prefix cap loss is reported at the 20/60
+cutoffs from the observed stage rows. A successful binding still proves
+only sequential consistency of the supplied trace with observed source
+metadata — not that the declared model/scorer produced the ranking, that
+policy remains current after the last observation, or any user quality.
+
+## The declared cohort metrics API (slice 009-d)
+
+The tenth callable private module family is a pure COHORT-LEVEL
+aggregation: no stores, dataset parsing, producer, source binder, files,
+network or model calls — it consumes already-borrowed immutable supplied
+geometry only.
+
+### `declared_cohort_metrics.aggregate(cases, *, deadline_ms=10000, max_work=134217728, max_payload=268435456)`
+
+Pure aggregation over a sorted nonempty tuple of 1–256 supplied
+`(case_id, diagnosis)` pairs (case IDs: the existing ASCII 1–128 dataset
+grammar, sorted unique); each `diagnosis` must be the EXACT existing
+`declared_stage_geometry.Diagnosis` type (ten named stages, six @20/@60
+prefixes over dense/lexical/fusion returned, seven removal transitions),
+and the sum of first-full-stage Gold atom occurrences across the selected
+cases stays ≤ 512. Malformed or internally inconsistent DTOs refuse the
+ENTIRE call — no per-case refusal, no clamping, no partial cohort output.
+
+Each of the six prefix summaries (dense/lexical/fusion returned at the 20
+and 60 caps) retains every case's covered/required revision counts or its
+explicit source-undefined reason, and reports:
+
+- source Recall@20/60 as the MACRO mean of per-case covered/required
+  fractions over source-defined cases, including defined zeros — a
+  distinct denominator from pooled (micro) revision recall; only the
+  macro is the reported rate;
+- the complete-evidence rate as the mean of meaningful
+  complete-evidence Booleans over cases with meaningful Gold requirements
+  (including false). The explicit undefined reasons are distinct classes:
+  the no-Gold cases carry `NO_GOLD_REQUIREMENTS` (no declared
+  requirements) or `NO_GOLD_SOURCES` (no Gold atoms, so the required
+  source universe is empty); `AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE` is
+  the OR (multi-alternative) source-universe ambiguity reason, NOT a
+  no-Gold reason — that case has Gold, its complete evidence can be
+  meaningful-complete while source recall stays undefined, and the
+  denominators are explicit. Empty denominators are explicitly undefined
+  (`None` with reason), never a silent zero.
+
+Each of the seven transition summaries — the exact stage edges dense
+0→1, 1→2, 2→3, lexical 4→5, 5→6, 6→7 and fusion 8→9 (the literal
+`_EDGES` tuple (0,1),(1,2),(2,3),(4,5),(5,6),(6,7),(8,9)) — partitions
+loss separately:
+complete-evidence loss (true-before/false-after cases over meaningful
+true-before; `NO_ELIGIBLE_COMPLETED` at zero eligible), source macro loss
+(mean before-minus-after over cases defined at both endpoints;
+`NO_DEFINED_SOURCE` when none), and separate requirement and alternative
+loss records (raw lost/before counts, eligible case counts, pooled
+lost/before and case-macro lost/before; `NO_ELIGIBLE_BEFORE` at zero
+eligible). Gained identities, changing universes or undefined-status
+changes refuse.
+
+All computed rates are normalized EXACT rationals (immutable `Ratio`:
+gcd-1 nonnegative integers, bit length ≤ 8,192) derived from validated
+integer counts — no float participates in report identity. The private
+identity is domain-separated SHA-256 under `slaif-declared-cohort-
+metrics-v1` over closed canonical ASCII (decimal rational strings, sorted
+case order, a pre-final logical accounting checkpoint; final work/payload
+totals are reported outside identity under a 1 MiB emission limit). The
+one cooperative 1–10,000 ms deadline and cumulative logical
+work/payload reservations (≤ 134,217,728 / 268,435,456, reserved before
+each operation) are logical accounting — not CPU, RSS or physical I/O
+guarantees. Ordinary refusal is the content-free `CohortMetricsError`;
+`BaseException` propagates.
+
+Markers: source binding UNVERIFIED, input origin
+SUPPLIED_DECLARED_GEOMETRY_ONLY, execution NOT_ATTESTED, qualification
+NOT_QUALIFIED; chunk MRR/nDCG are UNAVAILABLE under
+NO_EXPLICIT_CHUNK_RELEVANCE_MAPPING — requirement grades never become
+chunk grades, and the separate meaningfulness/mapping gate (original 009
+criterion 3: reviewed typed mapping, independent oracles, source-bound
+evidence) still applies before any chunk metric is treated as meaningful.
+The supplied geometry and the private linkable case/geometry IDs are
+unverified declarations — not source, encoder, rights or held-out
+attestation, and not a 20k, throughput or baseline claim.
+
+Attributed local proof (exact records in
+`oap/reviews/009-d-local-admission.json` and the API doc): ONE approved
+current Ruff format/check pass and 33 complete unit tests PASS under
+Python 3.14 (CPU 15 s, address space 1 GiB, wall 90 s, file size 32 MiB,
+CPU 0, plain assertions, builtin cache enabled) at source SHA-256
+`743a8949…529e4` and unit SHA-256 `5a60130f…e78aa8`; GNU 1.81 s wall /
+1.76 s user / 0.04 s system, 44,384 KiB max RSS is a waited-process
+observation only. The earlier 19- and 22-test passes predate the
+corrected semantics/metering and are not evidence for the current bytes;
+the final API-only amendment did not rerun tests (source and test
+identical); the other-author review is not whole-project ICA or an
+independent test rerun.
+
+## The source cohort runner API (slice 009-e)
+
+The eleventh callable private module family is the SOURCE-RUNNING cohort
+pipeline that closes the harness gap the 009-c coverage audit named: it
+joins frozen split/subset selection, per-case actual producer and
+source-bound stage binding, and the pure cohort aggregation into one
+joined private split report.
+
+### `source_cohort_runner.run_cohort(originals, derived, root, pin_owner, dataset_bytes, cohort, queries, gold_bundle_ids, *, grants, restrictions, config, budget, deadline_ms)`
+
+Private operator-only composition (schema
+`slaif-source-cohort-runner-v1`). It borrows the original/derived stores
+and the snapshot pin and never acquires, closes, replaces or publishes
+them. Admission happens BEFORE any source work: the FULL canonical
+dataset is admitted once (1–1,048,576 B; after admission ≤ 256 cases and
+≤ 512 global Gold occurrences — software admission bounds, not physical
+permission and not an invented pilot reduction), the explicit sorted
+split selection `Cohort(split, case_ids)` (1–256 dataset-grammar IDs,
+each present exactly once in that split; a complete admitted split is
+permitted and reported as `selection_kind FULL_ADMITTED_SPLIT`,
+otherwise `DECLARED_SUBSET`) is frozen, and the queries (exactly one
+4,096-byte float32-1024 vector plus four declared query identifiers per
+selected case) and the complete Gold bundle tuple (≤ 128, adequate to
+the full dataset) are validated as whole tuples — duplicate, missing or
+extra queries refuse before any source I/O, and no case is ever omitted
+or filtered. The original caller grants/restrictions are validated and
+snapshotted; the case scope is the allowlist intersection of the
+original grants with the case corpora/versions/labels (restrictions
+preserved), computed before each producer. Under the held pin it performs
+per case one traced `raw_hybrid_search.search` (dense_k=lexical_k=
+partition_cap=k=60, trace=True) with the per-case EFFECTIVE grants and
+the original restrictions, then exactly one
+`source_bound_stage_loss.bind_stages` with the ORIGINAL grants and
+restrictions (the binder performs its own intersection) over the FULL
+unchanged dataset and ALL Gold bundles, including for no-Gold cases.
+The pin is borrowed and observed (initial and before every case)
+against the captured old-generation pointer, not the current selection,
+so a captured old generation can remain valid after a pointer advance;
+the observations are sequential, not an atomic lease. Every selected
+binder must succeed before exactly one pure
+`declared_cohort_metrics.aggregate` over the sorted `(case_id,
+geometry)` pairs; there is no surviving-subset report. One monotonic
+cooperative 1–1,200,000 ms deadline covers admission, every delegate
+(clipped to 5,000 / 120,000 / 10,000 ms) and final construction; the
+frozen 20-field `Budget` of nonnegative ceilings keeps independent
+cumulative ledgers whose large reservations are logical worst-case
+envelopes, not physical I/O authorization, and whose binder and geometry
+ledgers overlap (never added); the initial dataset parser's internal
+work and copied bytes are `UNMEASURED_BY_RUNNER`.
+
+A success is the exact frozen `CohortReport`: schema/formula IDs,
+dataset/split IDs, config/declaration IDs, chosen split,
+`selection_kind`, full dataset case and Gold occurrence counts, selected
+N, progress `(intended=N, attempted=N, completed=N, refused=0,
+pending=0)`, the captured pointer SHA/generation/snapshot, and one
+private identity payload per case — paired actual-result identities
+(question SHA, payload SHA, original and effective authority SHAs,
+filter/catalog/query IDs, Gold/ranking binding and binder/geometry
+invocation IDs, dataset/case/atom counts and eligible row count) — plus
+one pure aggregate report with its own pure identity. The runner
+identity is a domain-separated SHA-256 under `slaif-source-cohort-
+runner-v1\n` over its own fixed ordered canonical ASCII wrapper that
+embeds the exact pure cohort identity payload once (a distinct wrapper
+encoding, not a reuse of the pure encoder); final logical work/payload
+totals sit outside identity. All IDs and hashes are STABLE PRIVATE
+LINKABLE, not anonymous. No question, source/Gold plaintext, vector,
+path, trace/hit or exception detail is retained. Statuses freeze the
+declaration: STRUCTURAL_ONLY split, authorship/rights
+DECLARED_UNVERIFIED, current rights/policy NOT_CHECKED, producer
+COMPLETED as an observed algorithm call only, encoder/model
+NOT_QUALIFIED, baseline NOT_RUN, source sequential/not atomic; chunk
+MRR/nDCG stay UNAVAILABLE under NO_EXPLICIT_CHUNK_RELEVANCE_MAPPING
+(no inferred chunk grades).
+
+Every ordinary failure after valid admission refuses the WHOLE cohort
+— no partial metrics, no surviving-subset report — raising exactly
+`CohortRunnerError('cohort runner refused') from None` with a read-only
+`progress`: `None` until admission completes, then the exact frozen
+`FailurePrefix(phase, intended, attempted, completed, refused,
+pending)` with fixed phases `PREFLIGHT`, `CASE_PIN`, `PRODUCER`,
+`BINDER`, `AGGREGATE`, `SERIALIZE` and only bounded counters (attempted
+increments immediately before a case's pin check; completed only after
+the binder and identity checks; `completed + refused = attempted`).
+`BaseException` propagates as an interruption; borrowed resources are
+never closed and no traceback or payload is exported.
+
+Attributed source-lane evidence (exact records in
+`oap/reviews/009-e-local-runner-admission.json`,
+`oap/reviews/009-e-peer-driver-correction.json` and the API doc): the
+corrected runner (source SHA-256
+`96e6971435a3a2f639e7ba3d101248c8eb3fb6bc34b35fedbebdd40d673b4f29`) and
+unit (SHA-256 `4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b`)
+passed the focused Ruff check and 54 controlled units (the original 35
+plus 19 scalar-admission variants) in their source lane, both checks
+exit zero with empty stderr and identical pre/post read sets; the
+earlier wrong-origin collection failure and the 35-case evidence are
+retained, not passes of the current bytes. The scalar correction
+requires exact bounded integers for the aggregate case count and the
+binder's dataset/atom-occurrence/chosen-occurrence counts before
+independent comparison; no normal-run metrics error or privacy leak was
+observed. Shared source loop: in slice 009-f this runner's execution
+became the private fixed `_run_cohort` loop shared with the twelfth
+family (the graded evaluation program below); the public `run_cohort`
+entry, its source-only call sequence, failure phases, report bytes,
+identity and final counters are unchanged, and the graded state is
+created and typed exclusively inside `evaluation_program`.
+
+## The graded evaluation program API (slice 009-f)
+
+The twelfth callable private module family is the permanent PRIVATE
+callable graded evaluation program — explicit chunk-judgment evaluation
+over the actual source cohort loop. It is not new metric math, a parser
+stub or a test-side recipe, and it implements no evaluate CLI, no
+filesystem report publisher and no current-policy or CPU-current-policy
+integration; those remain explicit later stages of original 009.
+
+### `evaluation_program.run_evaluation(originals, derived, root, pin_owner, dataset_bytes, cohort, queries, gold_bundle_ids, *, grants, restrictions, config, budget, plan, grade_budget, deadline_ms)`
+
+Borrowed composition (schema `slaif-graded-evaluation-program-v1`); it
+never acquires, closes, replaces or publishes the stores or the pin.
+`cohort`, `queries`, `config` and `budget` reuse the EXACT current
+`source_cohort_runner` types and source-only input contracts (`budget`
+is the unchanged source 20-field Budget). It dispatches only to fixed
+module code through the runner's private fixed shared loop and makes its
+own state from fully validated declarations — no arbitrary callback,
+duck/subclass mode, caller-supplied successful DTO, monkeypatch or
+duplicate producer/binder exists on the path, and internal state is not
+a public admission credential.
+
+`Judgments(case_id, gold)`: `gold` is the exact tuple of sorted
+strictly-increasing unique `(actual_chunk_id, grade)` pairs — chunk IDs
+`sha256:` + 64 lowercase hex, grade exact int 0..3; an empty gold tuple
+is valid and distinct from a missing case. Every judged ID, including
+grade-0 and unretrieved positive IDs, must be source-grounded under the
+case's EFFECTIVE authority; zero grade does not waive authorization, and
+gold-requirement grades, OR/AND structure and source spans never
+determine these judgments.
+
+`Plan(plan_id, dataset_id, split_id, snapshot_id, generation, catalog_id,
+protocol_id, unknown_policy, overlap_policy, cutoffs, judgments)`:
+`unknown_policy` exactly `UNJUDGED_AS_ZERO_DIAGNOSTIC`, `overlap_policy`
+exactly `EXPLICIT_CHUNK_IDS_ONLY` (declared numerical semantics, not
+human approval or semantic relevance); `generation` exact int
+1..2^63−1; `cutoffs` an exact ascending tuple of 1..16 ints in 1..4,096
+that includes 20 and 60; `judgments` holds exactly one `Judgments` per
+selected case in selected sorted case order (no omitted or extra case).
+The scoring unit is the frozen-snapshot chunk ID; the variants are the
+fixed dense/lexical/fusion set — no arbitrary variant or pipeline
+injection.
+
+`GradeBudget(source_directories, source_ingestion_loads,
+source_derived_batch_loads, source_bytes, pin_calls, catalog_calls,
+judgment_binding_calls, metric_aggregate_calls, metric_entries,
+metric_work, local_work, local_payload, report_bytes)` is the
+thirteen-field ADDITIONAL envelope bounded by the Root binding
+(`grade_budget_max`: 1,540 / 853,888 / 919,808 / 719,781,365,958,412 /
+514 / 513 / 256 / 3 / 196,608 / 6,291,456 / 134,217,728 / 268,435,456 /
+12,582,912). It is additional to, and never replaces or widens, the
+source Budget; it is a logical worst-case reservation, never permission
+for physical I/O, native or inference work, and no caller flag changes
+qualification.
+
+Admission is ALL-CASE and happens BEFORE any pin, source or producer
+work: the full source dataset/cohort/query/Gold/authority admission
+first, then the entire plan, every judgment, every cutoff and both
+budgets, the exact dataset/split IDs, the full selection/query joins,
+scalar/ID/ordering/duplicate grammar and the cumulative input/scorer/
+source/local/output reservations — duplicate query identities across
+selected cases are refused before source, and no case is ever omitted
+or filtered. The per-variant scorer reservations (E =
+Σ(g_i+60) ≤ 65,536 entries and W = Σ((g_i+60)·Ck + g_i·max(1,
+bit_length(max(1,g_i)−1))) ≤ 2,097,152 work, each g_i ≤ 4,096) are
+reserved for all THREE variants before any producer. The plan identity
+is a domain-separated SHA-256 under `slaif-graded-evaluation-plan-v1`
+plus one LF over canonical sorted-key ASCII compact JSON (no NaN, ≤ 8 MiB
+encoding) binding all Plan fields and judgments, the current admitted
+dataset/split/cohort/config, the query payload hashes/fingerprints, the
+complete Gold bundle tuple and the original/effective authority hashes —
+private linkable metadata, not attestation; no plaintext question or
+vector appears in the plan identity.
+
+Under the held pin the per-case source path is unchanged: the per-case
+pin observation, one genuine traced `raw_hybrid_search.search` at all
+caps 60 with the per-case EFFECTIVE grants, one genuine
+`source_bound_stage_loss.bind_stages` with the ORIGINAL grants over the
+FULL dataset and ALL Gold bundles, and the current case checks. The
+grade path then adds, per case: one grade-owned owner observation BEFORE
+and AFTER one genuine `source_bound_ranking.bind` of the ENTIRE judged
+ID tuple (including empty) under the effective case
+grants/restrictions and the expected snapshot/catalog, requiring the
+exact returned `BoundRanking`, exact ordered IDs, snapshot/catalog/
+authority and native-source identities (an empty tuple stays
+`NO_SELECTED_SOURCE_VALIDATED`, not proof of source eligibility); it
+then extracts the entire actual ordered variant hit-ID tuples,
+preserving unjudged rank gaps and unretrieved positives. One additional
+genuine `raw_snapshot_catalog.load_catalog` runs in the CATALOG phase
+against the captured snapshot; grade-owned owner observations total
+exactly 2+2N and extra catalogs 1+2N. A case completes only after BOTH
+source and graded grounding/ranking collection succeed.
+
+Only after ALL cases succeed are the source-only pure aggregate, its
+exact source-only report bytes/identity and final counters preserved,
+then exactly THREE genuine `supplied_rank_metrics.aggregate` calls run —
+one per dense/lexical/fusion variant — on all actual
+`(query_id, gold, ranking)` triples sorted by real query ID, with ZERO
+direct `score_query` calls and no double scoring; the three variants are
+separate means, never one mixed denominator, and empty/all-zero positive
+gold remains counted and undefined. Metric markers stay
+`SUPPLIED_UNIT_ID`/`SUPPLIED_UNVERIFIED`/`NOT_QUALIFIED` with separate
+outer source-grounding metadata that describes only the supplied
+effective scope. One LAST grade-owned pin observation and deadline check
+(FINAL_PIN) precede return; no report is emitted on stale, cancel or
+refusal.
+
+`Report(identity_payload, identity, plan_identity, final_work,
+final_payload)` is the exact frozen private data (schema
+`slaif-graded-evaluation-program-v1`). The outer report embeds the
+already-verified exact source-report identity payload once as a raw JSON
+value, preserving its distinct v1 ordered encoding, and is bounded by
+the component formula 65,536 + 2,048N + 1,642,496 +
+3·(N·(1,024+448·Ck) + 4,096+512·Ck) (8,560,640 B at N=256/Ck=16; hard
+report cap 12,582,912 B). It carries plan/dataset/split/selection
+identities and counts, the captured snapshot/generation/catalog, the
+source report identity/payload/final totals, bounded per-case
+case/query/authority/grounding IDs and judgment fingerprints, the three
+metric aggregate summaries and all per-query metric results — no raw
+question, source, vector, path, hit list, grade list, trace or callee
+exception. One cooperative monotonic 1..1,200,000 ms deadline covers
+entry to return, clipped per lower delegate (catalog/owner/producer/
+binder 120,000, judged-ID binding 30,000, dataset 5,000, source
+aggregate 10,000, each metric aggregate 5,000); it is never reset
+between cases or delegates.
+
+Every ordinary failure refuses the WHOLE call — no partial report or
+aggregate — raising exactly `EvaluationError('evaluation program
+refused') from None` with read-only `progress`: `None` until complete
+joint admission, then the exact frozen `FailurePrefix(phase, intended,
+attempted, completed, refused, pending)` over the fixed thirteen phases
+`PREFLIGHT, CATALOG, CASE_PIN, PRODUCER, BINDER, GRADE_PIN, GRADE_BIND,
+GRADE_CASE, SOURCE_AGGREGATE, SOURCE_SERIALIZE, GRADE_AGGREGATE,
+SERIALIZE, FINAL_PIN` (attempted increments before the case pin;
+completed only after source AND graded collection;
+`completed + refused = attempted`). `BaseException` propagates as an
+interruption; borrowed resources are never closed; a returned source
+report held internally on later failure is not returned or published.
+
+Shared source loop: the runner's public `run_cohort` now dispatches to
+the private fixed `_run_cohort` that both entry points share. The
+source-only path is behaviorally unchanged — same signature/argument
+order, source-only imports and delegates, Budget/reservations, call
+sequence, old failure phases, cancellation, exact report bytes,
+identity and final counters — and regresses against the three
+pre-implementation legacy identity goldens captured by Root
+(`source-runner-legacy-identity-oracle.json`: 1-case no-Gold, full 256
+no-Gold and mixed 3-full/2-selected). The graded state is created,
+strictly typed and consumed only inside `evaluation_program`; the
+absent-state path cannot take any graded branch or import
+`evaluation_program`.
+
+Attributed source-lane evidence (exact records in
+`oap/reviews/009-f-local-core-admission.json`,
+`oap/reviews/009-f-local-program-proof-admission.json`,
+`oap/reviews/009-f-local-graded-proof-admission.json` and
+`oap/reviews/009-f-core-peer-admission.json`): the core lane passed
+AST-equivalent format, Ruff and 98 controlled units (the 54 unchanged
+old source-runner units plus 44 new) including the three controlled
+legacy identity goldens and the full-256-case moderate synthetic check —
+controlled delegates and genuine pure metrics, not source/model
+execution. The existing lower graded interop lane passed ONE actual
+two-query synthetic process: two producers, three stage binders, five
+external judged-ID groundings, six direct query scores, three
+aggregates and four real refusals; one generator exit 0 and six captured
+session wrappers deliberately closed/reaped 143. The genuine program
+proof lane passed exactly ONE whole-module v3 test node: the full
+5-case / 7-Gold / 3-bundle source universe with h1/h4 selection, direct
+totals owner 19 / producer 6 / binder 6 / source aggregate 2 /
+pre-catalog 2 / grade binder 4 / rank aggregate 3 / direct score 0,
+exact legacy source-only output equivalence, bool preflight 0, later
+ineligible b:0 grade-bind refusal `2/2/1/1/0`, closed pin
+`2/0/0/0/2`, six real captured wrappers closed/reaped 143 and ZERO
+generators via one cached data-only fixture; observer SELF+waited
+CHILDREN CPU delta 64.584229 s, observer wall 65.29573054192588 s,
+launcher child wall 65.777162 s, launcher waited-child CPU 65.039091 s
+(distinct scopes), pytest SELF peak 94,252 KiB = 92.04296875 MiB and
+waited children max RSS 72,036 KiB — high waters, non-additive and not
+deltas or address space. The initial broad read/lane-isolation FAIL
+(fresh semantic 341,392 B exceeding the 262,144 B allowance by 79,248
+B) is retained as a historical failure, not a pass.
+
+## The 009-g unit origin-guard repair (same 009 continuation)
+
+Slice 009-f's report head `4e2d073a` FAILED hosted CI run
+43921457809: in the full default `tests/unit` session, both product
+legs (Python 3.12 job 133489544939 and 3.14 job 133489545017)
+counted 2,445 PASS / 4 FAIL each; the three OAP jobs succeeded and
+the integration/downstream product steps were SKIPPED, not green.
+The four failures are exactly this suite's four default-collected
+origin entry points (`test_local_program_origins`,
+`test_z_final_module_origins`, `test_zz_last_module_origins` and
+`test_zzz_final_origins_after_all_cases`), each calling the same
+test-local helper. Every per-module local origin predicate passed;
+the failure was the helper's final misplaced global assertion
+summing the file EXTENTS (`st_size`) of all session-loaded
+product/test modules (2,923,383 B) against a 2 MiB ceiling.
+
+Causal distinction (Root records `oap/reviews/009-g-ci-finding.json`
+and `oap/reviews/009-g-scope-decision.json`): that 2 MiB ceiling is
+the dynamic readset limit of the separately frozen focused check
+(`parallel/evaluation-core/check-proposal.json`,
+`readset.dynamic_limit`: "Unit asserts total bytes of loaded product
+and test module origins <=2MiB and assigned checkout origins"),
+authorized once for the focused two-file unit execution whose 98
+controlled units passed — whose post-check bytes are exactly this
+suite's pre-009-g preimage `593a3be6…` plus the unchanged program
+`84aceffc…` and runner `d9f1b0e8…`. It measures summed
+source-file extents of that frozen focused readset — not actual
+dynamic bytes read, RSS, or the aggregate extents of the full
+default session, which intentionally collects unrelated project
+tests. The focused historical result stays immutable: no
+retrospective cap change, no numeric raise, and no "all hosted code
+was read" claim.
+
+The 009-g repair (order `oap/orders/009-g-unit-origin-guard.md`,
+Root D0 scope decision) removes only that misplaced global sum from
+the broad default suite. The strict provenance checks remain global
+and unchanged in meaning: every currently loaded
+`slaif_raggedized_helper` package/module must have a real local
+`__file__` resolving under the assigned `root/src`, and every loaded
+`test_` module under `root/tests/unit`; foreign, missing, non-file
+or resolved-escaping origins still fail at the same four default
+entry points (session start and end). A small test-local verifier
+(test-local; no product API, helper or module added) is regressed
+with bounded synthetic origin metadata. The focused case passes on
+four real local origins. The broader case is a distinct-file
+witness: two different real local unit test files given bounded
+synthetic `st_size` metadata (3 MiB each, through a test-scoped
+`Path.stat` substitution restored by the pytest fixture — no huge
+files, no fake/importable modules, no collection change) so that
+the deduplicated old-style sum over their unique source extents
+(6 MiB) exceeds the old 2 MiB sum while the revised provenance
+check passes; that deduplicated extent sum is exactly the envelope
+the old global assertion wrongly enforced on the full session.
+Foreign package origin, foreign test origin, missing `__file__` /
+non-file origin and resolved path escape all fail with unswallowed
+negative sentinels. No cap raise, no skip/xfail/filter, no
+collection change, no `sys.path`/`sys.modules` manipulation, no fake
+package modules.
+
+The source-only implementation is unchanged (`evaluation_program.py`
+`84aceffc…` and `source_cohort_runner.py` `d9f1b0e8…` byte-exact);
+the source proof evidence above stays tied to those old exact bytes.
+The new controlled regression checks and the current full hosted CI
+at the new head are NEW evidence, not reruns of the source proof.
+Real baseline remains NOT RUN; the current policy/qualified
+encoder/data/rights/CLI/plan/publisher/native-OS/20k/hardware/
+visual/security/license/merged-ICA/MVP/release gates are preserved.
+The orphan bwrap observation recurred on both failed product legs
+before integration; its origin/state/ownership remains UNPROVEN —
+no live state, owner or worker fix is inferred or made here. The
+009-f count is restated per the Root clarification: 17 total
+components = 16 NEW + one MODIFY (the `source_cohort_runner.py`
+shared-loop replacement; actual NEW groups 5+6+5, while the
+per-source total groups are 5+7+5).
+
+## The 009-h stat-fixture constructor correction (same 009 continuation)
+
+Slice 009-g's report head `857355ab` FAILED hosted CI run
+43931502904 (three OAP jobs SUCCESS; two product jobs FAILED; 78
+required steps 64 success / 2 failure / 12 skipped): product 3.12
+job 133524822329 aborted in the full default `tests/unit` session at
+the new broad-session origin-metadata regression's test-local
+`fake_stat` (line 96), where `os.stat_result(*values)` expands the
+ten-field sequence into ten positional arguments and raises
+`TypeError`; pytest error rendering then re-entered the same scoped
+`Path.stat` monkeypatch and produced `INTERNALERROR`, so no complete
+pass/fail summary exists for that leg. Product 3.14 job
+133524822987 printed one `F` and exited 137 before any complete
+traceback or summary; its precise cause remains UNPROVEN and is not
+equated with the confirmed 3.12 constructor defect nor claimed as
+OOM. Integration/downstream steps were SKIPPED, not green (Root
+resolution `oap/reviews/009-h-prior-resolution.json`).
+
+Root's isolated standard-library synthetic value witness
+(`oap/reviews/009-h-stat-result-witness.json`) confirms the expanded
+ten-field form is a `TYPE_ERROR` and the single-sequence form carries
+`st_size` 3,145,728; it is neither a product test nor CI acceptance.
+
+The 009-h correction (order
+`oap/orders/009-h-stat-fixture-constructor.md`) makes exactly one
+unique byte substitution in that fixture, `os.stat_result(*values)`
+to `os.stat_result(values)`: the test moves 24,446 B `085f0cea…`
+to 24,445 B `59f093b4…` with all 50 default-collected nodes
+(44 original + 6 new) and every other byte unchanged. The program
+`84aceffc…` and runner `d9f1b0e8…` remain byte-exact, as do all
+paths outside the three ordered implementation paths.
+
+NEW bounded verification, Root-owned and independent of the coder
+lane: one Root-authorized direct pytest child under the frozen caps
+(CPU 20 s / address space 1 GiB / wall 120 s / core 0 / file 16 MiB /
+affinity 0 / five thread variables 1, private fresh 0700 /tmp) ran
+the two full unit files and passed 104 / 104 (54
+`test_source_cohort_runner.py` + 50 `test_evaluation_program.py`,
+including all six new provenance regressions and the four actual
+origin entry points), no skip/xfail/xpass; all 79 frozen input
+identities rechecked unchanged after the run; waited-children CPU
+7.725588 s user / 0.094994 s system, parent-observed wall 7.952863
+s, waited-children high-water 87,292 KiB (absolute Linux high-water,
+not a delta). Root operational proposal `52f4fe9c…`, result
+`0fb613bb…` and log `beb63602…` (11,326 B) are the
+attribution records; the coder's static-preflight product-check
+launcher in the strategic check lane was NOT RUN (preserved as
+unexecuted reference); the static AST inventory was prepared and
+generated without product imports and supplied the corrected
+56-file input set; Root owned the actual 104-unit process. This
+result is development-unit
+evidence only — not full-suite, CI, source-proof, runtime or
+baseline qualification.
+
+Clarification of the old focused 98-unit proof: it ran the old test
+bytes `593a3be6…` (pre-009-g); the program and runner are the
+same exact bytes across 009-f/g/h, so "same source bytes" applies to
+the source implementation only, never to the changed test, and the
+regression's intent was never a pass. The 009-g report and failure
+records stay immutable. Full complete hosted product/integration
+3.12/3.14 plus all three OAP jobs at the new report head is PENDING
+at publication; real baseline remains NOT RUN; the
+operator/current-policy/qualified-encoder/data/rights/CLI/plan/
+publisher/native-OS/20k/hardware/visual/security/license/merged-ICA/
+MVP/release gates remain open; no merge.
+
+## The 009-i unit-exit diagnostics (same 009 continuation)
+
+Slice 009-h's report head `7117201` FAILED hosted CI run
+43949914814 (terminal): four jobs SUCCESS (the three OAP legs
+plus the product 3.14 job 133589341005, whose full unit and
+integration progress reached 100% with the retained
+multithreaded-fork DeprecationWarning, not a failed gate and
+not a full OS certificate) and one FAILURE: the product 3.12
+job 133589340533 ended its full default `tests/unit` step with
+exit 137 after 90% progress plus 52 dots, with no failed-node
+traceback and no completed summary, and its six downstream
+steps were SKIPPED. 78 required steps: 71 success / 1 failure /
+6 skipped. The precise cause remains UNPROVEN: no OOM, sender,
+culprit-node or constructor-recurrence claim is made (Root
+resolution `oap/reviews/009-i-prior-resolution.json`).
+
+The 009-i change (order
+`oap/orders/009-i-unit-exit-diagnostics.md`) is diagnostic-only
+and preserves the complete suite: the Product test suite step
+alone changes from quiet `uv run pytest tests/unit -q` to
+`/usr/bin/time -v uv run pytest tests/unit -o addopts= -vv`
+gated by an executable `/usr/bin/time` check (the workflow moves
+14,095 B `a26bda03...` to 14,169 B `556fa14d...`; every other
+workflow byte is unchanged). Clearing the quiet `addopts` and
+adding `-vv` change reporting only: no selector, filter, skip,
+xfail or splitting; all default test nodes, the full unit
+order/set, both matrix legs, the 20-minute product job limit and
+every downstream integration/OAP/governance/help/doctor gate
+remain unchanged. GNU `time -v` adds one external parent and
+reports the command's resources/termination; that is an
+observation boundary, not identical process ancestry, not
+measured allocation, not additive/delta high-water, not complete
+live-tree/cgroup accounting and not proof of OOM. A last printed
+node is localization, not proof that it caused the kill. Missing
+`/usr/bin/time` fails loudly; there is no install, shell
+pipeline, background process or status-masking wrapper.
+
+The Root-owned independent 104/104 focused-unit result from the
+009-h round (two full unit files under frozen caps, attributed
+in `oap/reports/009-h-stat-fixture-constructor.md`) remains prior bounded
+development evidence: it does not replace the full suite or
+localize this 3.12 exit. No product fix, capacity or resource
+limit change, workflow weakening or test change accompanies this
+round. The new-head full complete hosted CI is PENDING at
+publication: a rerun with verbose node reporting and
+command-resource output is the next honest evidence, and no
+current or future green certificate, cause claim, real baseline
+or whole-MVP acceptance follows from this report. Real baseline
+remains NOT RUN; the operator/current-policy/qualified-encoder/
+data/rights/CLI/plan/publisher/native-OS/20k/hardware/visual/
+security/license/merged-ICA/MVP/release gates remain open; no
+010, no merge.
+
+## The 009-j bounded unit diagnostics (same 009 continuation)
+
+Slice 009-i's report head `a7ad70b` CANCELLED hosted CI run
+43962945486 (terminal): three jobs SUCCESS (the three OAP legs)
+and both product jobs (3.12 job 133634863960, 3.14 job
+133634863970) CANCELLED by the unchanged 20-minute product job
+limit, with both check-runs annotated "The job has exceeded the
+maximum execution time of 20m0s". The raw terminal API returned
+76 steps - 60 completed SUCCESS, 2 unit steps still labelled
+in_progress, 14 downstream pending - with the usual two
+Complete job steps absent; that inconsistency is preserved and
+never promoted to success. The precise blocked node and
+underlying cause remain UNPROVEN: both connector log retrievals
+returned 404 BlobNotFound and `gh --log` returned 0 bytes (not
+evidence of unit execution or success), and the earlier 009-h
+3.12 exit-137 cause also remains UNPROVEN (Root resolution
+`oap/reviews/009-j-prior-resolution.json`).
+
+The 009-j change (order
+`oap/orders/009-j-bounded-unit-diagnostics.md`) is diagnostic-only
+and preserves the complete suite: the Product test suite step
+alone changes from `/usr/bin/time -v uv run pytest tests/unit -o
+addopts= -vv` to
+`PYTHONUNBUFFERED=1 /usr/bin/time -v /usr/bin/timeout
+--signal=TERM --kill-after=10s 180s uv run pytest tests/unit -o
+addopts= -vv -o faulthandler_timeout=60`, gated by executable
+checks for both `/usr/bin/time` and `/usr/bin/timeout` (the
+workflow moves 14,169 B `556fa14d...` to 14,317 B
+`fc1ba2cd...`; every other workflow byte is unchanged). This
+disclosed 180-second unit-command deadline is LOWERED relative
+to the 20-minute job limit: on expiry `timeout` sends TERM
+(KILL after 10 s if necessary); a timeout or any nonzero exit
+fails the step and never becomes success. Missing tools fail
+loudly; there is no install, shell pipeline, background process,
+status mask, continue-on-error or retry, and no selector,
+filter, skip, xfail or splitting: all default test nodes, the
+full unit order/set, both matrix legs, the 20-minute product
+job limit and every downstream integration/OAP/governance/
+help/doctor gate remain unchanged. The builtin
+`faulthandler_timeout=60` only requests a stack dump during a
+long test - not test cancellation, cause proof or an OS
+containment guarantee; `PYTHONUNBUFFERED=1` reduces lost
+progress output only. External `time`/`timeout` change ancestry
+and resource-observation boundaries only: they establish no
+aggregate/live-tree accounting, descendant adoption/reap,
+escaped-child containment, exact allocation or OOM cause, and a
+printed stack or last node is localization only. A command
+exceeding 180 s may be a legitimate slow case: preserve it and
+replan from evidence instead of raising the cap or filtering
+the suite. The production program `84aceffc...`, runner
+`d9f1...` and unit file `59f093b4...` are unchanged.
+
+The Root-owned independent 104/104 focused-unit result from the
+009-h round (attributed in
+`oap/reports/009-h-stat-fixture-constructor.md`) remains prior
+bounded development evidence: separate evidence, not a full-CI
+substitution and not localization. No product fix, semantic-capacity change, resource-limit
+increase, workflow weakening or test change accompanies this
+round; no coding-side local product execution
+occurred (static Git/hash/text verification only, exact
+three-path diff/hashes through the Root regular-file gate).
+GitHub-hosted new-head full complete CI is PENDING at
+publication and is the first actual invocation of the revised
+command. No current or future green certificate, cause claim,
+real baseline or whole-MVP acceptance follows from this report.
+Real baseline remains NOT RUN; the operator/current-policy/
+qualified-encoder/data/rights/CLI/plan/publisher/native-OS/20k/
+hardware/visual/security/license/merged-ICA/MVP/release gates
+remain open; no 010, no merge.
+
+## The 009-k owned unit-diagnostic supervisor
+
+009-j head `cc51b9a` CI 43978029330 CANCELLED by the 20-minute job
+limit; cause UNPROVEN (hypothesis only; resolution
+`oap/reviews/009-k-prior-resolution.json`).
+
+009-k adds a private stdlib supervisor
+(`oap/bin/ci_unit_diagnostics.py`; no product/operator API, no new
+dependency): the Product test suite step alone becomes
+`PYTHONUNBUFFERED=1 /usr/bin/time -v python3
+oap/bin/ci_unit_diagnostics.py` (workflow `fc1ba2cd...` to
+`29a44dd6...`; other bytes unchanged), running the fixed command
+`uv run pytest tests/unit -o addopts= -vv -o
+faulthandler_timeout=60` as argv (no shell) with PYTHONUNBUFFERED=1,
+stdin DEVNULL, stdout/stderr to an exclusive 0600 log in a private
+0700 RUNNER_TEMP dir (own read fd; raw bytes retained; PRESERVED,
+never deleted; no PIPE/runner output). Parent forwards finite 64 KiB
+reads: 4 MiB cap, 4,096-byte labeled escaped segments (# escaped, CR
+to LF, stateful UTF-8), finite wall/byte backpressure on job stdout
+(refusal records offset, fails honestly); no whole-file read/EOF
+wait. 180 s child deadline; every post-launch exit runs bounded owned
+teardown first: identity-verified group TERM, 10 s grace, bounded
+KILL sweep (labeled, not claimed; no host scan), ONE shared 5 s
+post-KILL budget, then single bounded reap (observed reap reconciles
+the owned Popen returncode; no stdlib re-waitpid after identity
+release); recycled PID/PGID never signalled. Nonzero 124-132 statuses; only complete zero + proven
+teardown returns 0. Limits: no host guarantee for a persistently
+blocking channel, no proof of the old cause, no universal descendant
+containment, no live-tree guarantee. Full unit set/order, both
+matrix legs, 20-minute job limit, all downstream gates unchanged; no
+selector/filter/skip/xfail/split. New default-discovered unittest:
+v1 14-case proposal NEVER_RUN; v4 census (pre-execution): 19
+methods, 13 returned/owned stdlib children + 1 failed Popen
+constructor/exec attempt (test 7; conservatively budgeted 14
+creation attempts; stdlib owns its failed-exec reap; no invented
+PID), 0 grandchildren, max 1 concurrent. V4 static (no V4-era
+execution; the V5 Root-owned check later ran 19/19 green - see the
+evidence below): t11 forward-cap honest-bounded
+contract + deterministic near-cap oracle (the one-check failure: a
+fast child may exit before the cap; the cap is a bound, not a
+target); t13 inspects the real private abort record (truthful
+non-OK, same primary unmasked, no external-signal claim); t18
+post-teardown-only real-child sink refusal (honest 126); t19
+prelaunch sink-unavailable private record with zero Popen attempts;
+final-summary record carries run_status + explicit summary_status
+(126 intended, never falsely OK).
+009-K_CHECK_EVIDENCE (finite, true): Root-owned actual check (not a
+coding-owned run) - Root's stdlib-only check parent ran the complete
+default-discovered module in the owning process: 19/19 PASS (0
+failures/errors/skips); 14 actual constructor attempts = 13
+returned/owned children + 1 failed Popen constructor/exec attempt;
+0 grandchildren; max 1 concurrent; all children reaped inside the
+supervised teardown; no Root rescue; 20/20 post/current hashes
+independently matched. Local Python 3.14.4 stdlib only; wall
+14.745 s; waited-child CPU delta 0.244 s; RSS high-water 79,548 KiB
+(not aggregate). Exact source
+3e15bf1c2e3707de12365ffb6ec73fd24b180c9e7ea023b0817d853c04ab3681
+(48,746 B) and test
+e4f348a12defe4b4996ef553c33c544c297acf17b4f1a0c7cca5363804c6ab65
+(38,303 B); full log 2,948 B sha256
+1ca4be4ec4e367a67a633120ed6f7d17e958a3ddf4e7efa2c9673f2ca87c7279
+(Root-unittest-v5.log, preserved). Amended per-process limits only
+(CPU 20 / AS 512 MiB / FSIZE 32 MiB / NOFILE 256 / CORE 0 / affinity
+0 / alarm 90 s; Root rescue limit 5 s, none used): not an aggregate
+CPU/RAM/OS-blocking/external-SIGKILL/adoption/escaped-descendant
+theorem; no production rlimit added. On refusal forwarded_bytes
+charges queued/attempted display bytes, not guaranteed
+channel-delivered bytes; the private exact raw log stays distinct
+from the escaped bounded display and the summary-phase record. The
+historical V3 17-case attempt (16 PASS / 1 FAIL t11; log
+b60807561943df885b95d60bc46659886a0032cec9e923156080207502cfc8cd
+preserved) stands: the old per-case drain values were never
+observed, the old cause is not called proven, and the new
+deterministic near-cap oracle + honest-bounded real-child contract
+is what now passes (no invented old result). The frozen-V2 source
+peer's K20-K22 findings were differentially resolved by Root's
+current-byte review plus the actual V5 regressions; the peer did not
+review future V5 bytes, and this is not a merged ICA. Hosted CI:
+current head cc51b9a CI 43978029330 CANCELLED (20m0s; cause UNPROVEN,
+output-ownership hypothesis only); a fresh head CI is
+PENDING/NOT_YET_RUN; the full product command, matrix, order,
+downstream gates and job cap are unchanged; no local full-product or
+existing OAP suite run is claimed. The representative baseline stays
+NOT_RUN; plan wire/publisher/current principal/policy/real-CPU
+encoder/held-out data + rights/operator/runtime/hardware/visual/
+security/license/merged-ICA/full-MVP/release gates stay OPEN. The
+current pyproject explicitly excludes oap/bin + tests/oap from the
+product Ruff scope: no new lint task or exclude change, and a fresh
+head normal CI still must pass all product lint/OAP checks and
+matrices. No green certificate, cause claim, baseline or whole-MVP
+acceptance; gates preserved; no 010, no merge.
+
+## The 009-l bounded pytest case IDs (same 009 continuation)
+
+009-k report head `3f8b4eb` hosted CI run 44017736685: all three OAP
+jobs SUCCESS; both Product jobs FAILURE. Each whole-unit run
+collected 2455 cases; the first `test_refusal` case passed, then the
+next verbose node ID serialized a 65,537-byte synthetic header
+(followed by large chunk/receipt parameter IDs) into the test name;
+the supervisor raw log reached 16,843,391 B (> 16 MiB) in 5.62/5.97 s
+and exited OVERSIZE 128 on both legs. This is the current observed
+failure; the earlier cc51b9a 20-minute cancellation (run
+43978029330) and the 009-h 3.12 exit-137 cause remain UNPROVEN and
+unclaimed.
+
+009-l is metadata-only: the exact fifteen named
+`pytest.mark.parametrize` calls gain ONE explicit `ids=` literal
+tuple of short lowercase ASCII case labels (90 total; each 1..48
+chars, unique within its call, descriptive, content-free - no
+payload/credential bytes). Every fixture value/expression, test body,
+function name, argument name, parameter count and order is preserved:
+a static AST differential removing exactly the new `ids` keywords
+yields the exact preimage AST for all fifteen files (preimage
+SHA256 identities match the frozen Root index). No imports, new
+tests, refactors, pytest configuration or selection changes,
+supervisor/workflow or limit changes, filters, skips or xfails.
+
+The effect is display-only: `-vv` node IDs use the bounded labels
+instead of auto-derived serialized scalar payloads, so verbose
+diagnostics no longer embed large fixture bytes in test names. The
+test set is unchanged - CI must still collect the same 2455 current
+unit cases; any mismatch is a stop, not an adjusted expectation.
+Verification to this point: read-only hash/Git/diff/text/AST-shape
+checks, plus three actual Ruff invocations disclosed as an order
+deviation (not retroactive authorization; evidence retained for Root
+reconciliation): (1) the proper `.venv/bin/ruff check` over the
+fifteen changed test files under the repo pyproject config (ruff
+0.17.4, exit 0, "All checks passed!"); (2) a supplemental preimage
+run over /tmp copies under ruff DEFAULT config (no repo pyproject
+context; no evidentiary value claimed); (3) a
+`.venv/bin/ruff check tests/unit/` directory run (repo config, exit
+0). No further ruff/test/collect/setup runs are made or claimed. No
+local product, native, collection or test execution is claimed.
+Fresh head CI is PENDING as the actual whole-unit run; the
+representative baseline stays NOT_RUN; all open
+gates (current principal/policy, qualified real encoder, held-out
+data + rights, operator/CLI, parser/publisher joins, raw 4096-row
+ceiling, hardware/visual/security/license/merged-ICA/full-MVP/
+release) remain open. No green certificate, cause claim, 010 or
+merge; DHA NONE.
+
+## The 009-m private evaluation components (same 009 continuation)
+
+009-l report head `494a1908` fresh hosted CI run 44022614755: all five
+jobs / all 78 steps SUCCESS; both 3.12/3.14 unit legs 2455 passed (7
+warnings; retained fork Deprecation/test-reader ResourceWarnings; no
+warning-free or physical qualification claim). The prior 3f8b4eb run 44017736685 OVERSIZE128 failure is
+preserved (auto parameter IDs/oversized step output);
+only the older 20-minute/exit-137 underlying causes remain UNPROVEN.
+
+009-m transfers the EXACT reviewed private components into canonical
+009 by byte-exact blob copy from source Git objects per the Root index
+(7b4f4ec0, 11,722 B; 16 transfers = 14 implementation + 2 archival).
+The parser (implementation `ceef2888`, report head `82923f0`) brings
+the private 8 MiB closed plan-wire parser, its unit module, and its
+contract/API/order docs; the publisher (implementation `70bf21fc`,
+report head `6196ef2`) brings the private unnamed-stage report
+publication module with its no-replace/durability/cleanup contracts,
+unit module and docs. The two archival original coding reports are
+copied byte-identical under `oap/provenance/009-m/`; their original
+SELF resolves the original report heads, never the later
+archival-copy commit, and the source-graph mapping stays explicit in
+the Root ledger (`oap/reviews/009-m-root-records.json`) and archives.
+Preparation bases `e3bf5b84`/`45bcb729` are not canonical ancestors:
+no candidate-branch merge, cherry-pick or preparation-history import.
+All 16 destinations were absent at `494a1908` and verified byte-exact
+after copy (sha256, size, Git blob OID, regular non-symlink file);
+core `evaluation_program.py`/`source_cohort_runner.py` and
+`pyproject.toml` hashes still match the index.
+
+This is code presence, not capability: the parser admission is a
+private 8 MiB closed wire to real Plan objects, not current
+auth/grades truth; the publisher contracts remain exact with no new
+target/hardware qualification from import; pure policy primitives
+remain separately INERT design work; no evaluate CLI,
+current-principal provider, real data, models, encoder or baseline is
+added or qualified. The inherited scoped evidence (284 parser PASS =
+186 parser + 44 program + 54 runner; 88 publisher PASS) is historical
+on the exact source; the fresh whole CI at the report head is the
+first canonical combined run and must collect the expected 2729 unit
+cases = 2455 current + 186 parser + 88 publisher (expectation only -
+a mismatch is a stop, not a silent adjustment), every new case
+actually run, not skipped. The source workload illustration is 20k
+CHUNKS, not 20k documents, and the raw 4096-row ceiling stays open.
+Existing local real-resource evidence is neither erased as globally
+unproven nor universalized. The one authorized static Ruff check of
+the four new Python files exited 0 ("All checks passed!"); static
+lint only - no local test/import/collection/product execution, mock
+or live. no-auth/no-current-policy/no-real-producer/no-model-
+qualification labels, full baseline NOT_RUN and rights/privacy/
+visual/security/license/hardware/merged-ICA/MVP/release gates
+preserved. Whole 009 PARTIAL; no deployment readiness implied; no
+010, no merge; DHA NONE.
+
+## The 009-n diagnostic-to-publication continuation (same 009 continuation)
+
+Run 44028728886 on the 009-m report head 0b131157 completed FAILURE:
+only the two Product unit steps (3.14 and 3.12) failed, all OAP jobs
+succeeded. The earlier five unit failures are UNTRACED and the native
+exit causes (139 on 3.14, 137 on 3.12) are UNPROVEN; the historical
+009-l evidence (run 44022614755 SUCCESS at 494a1908) is preserved.
+
+Bounded local diagnostics (private audit only, never in Git): with the
+original configuration the comparison observed 40 OS threads and
+nearly exhausted virtual address space, and RuntimeError (can't start
+new thread) at the 8th partially-started publisher thread (p2); only
+setting OPENBLAS_NUM_THREADS=1 in the test subprocess changed
+collection to one OS thread and made the same case pass (p3); the
+publisher module passed 88/88 (p4) and, after the fixture correction,
+89/89 with the fixture owning partially-started threads (abort
+barrier/signal, bounded joins, re-raise of the exact original
+exception). These are local comparison and selected tests, not actual
+CI, and no native pool owner or CI cause is claimed.
+
+Changed semantics across the five paths: (1) specio parse_spec_json
+now runs the package-internal quote-aware parity_io._depth_check
+(existing 64-container envelope) before json.loads, translating only
+its refusal to the fixed SPEC_INVALID/too_deep result, with the native
+RecursionError fallback kept; (2) the _manifest_bytes read loop is
+bounded to the captured initial regular size plus one - the first
+unexpected extra byte or early EOF ends the read and the excess is
+refused immediately, so work is O(captured size), reaching the
+existing global limit only when the captured size is that large;
+(3) the publisher unit fixture owns partially-started threads on
+cleanup failure. Final checks: one Ruff exit 0 on the two refined
+files and one bounded selection (TestSpecInputReader +
+test_source_cli.py) 19 passed, no skips, observer n=19 sel=0 exit=0
+under the earlier reader-checkpoint envelope; the publisher bytes keep
+their accepted 89-case evidence without re-run.
+
+Two new default cases overall (publisher partial-start cleanup; one
+at-limit spec parsing test) make the current full default count
+EXPECTED 2731 = 2729 + 2 - an expectation only, awaiting actual CI
+evidence. No narrower CI selection; local results never substitute for
+the full hosted run. Baseline NOT_RUN; protected
+authority/hardware/right/license/MVP and release gates open; whole 009
+PARTIAL; no merge; DHA NONE.
+
+## The 009-o Product CI thread-budget continuation (same 009 continuation)
+
+Run 44656541114 at the 009-n report head 21341795 completed FAILURE:
+both Product legs (Python 3.12 and 3.14) collected 2731, passed 2730,
+and failed the 16-slot publisher test with RuntimeError (can't start
+new thread) inside the fixture's Thread.start. The cleanup
+regression, the reader cases and the four other previously failing
+publisher cases passed; the three OAP jobs succeeded; mandatory
+downstream steps in the two Product jobs were skipped; the previous
+fatal exits 139/137 did not recur. The OS thread-refusal cause on
+hosted runners is unproven.
+
+The bounded local comparison (private audit only, never in Git) is
+reproduced for CI: under the 2 GiB address-space cap with ordinary
+unit collection, the original publisher case used 40 OS threads and
+1,838,972 KiB VmSize; changing only OPENBLAS_NUM_THREADS to 1
+reduced collection to one OS thread and 241,244 KiB VmSize and made
+the same case pass, and the publisher-only selection with the same
+setting passed all 88 cases. This justifies the narrowly scoped CI
+comparison only; it does not establish the underlying hosted cause.
+
+The Product test suite step (unique, covering both Python matrix
+legs) of `.github/workflows/oap.yml` gains the two-line step env
+`OPENBLAS_NUM_THREADS: '1'`; no other workflow, product, test,
+fixture, job, deadline or limit change. The 16 real concurrent
+publication reservations and all test assertions are preserved; the
+test supervisor bytes are unchanged and its `run_child` call inherits
+the step env through Popen without override.
+
+The actual full Product matrix and all OAP checks/steps at the new
+report head are pending (the strategic gate after publication); a CI
+failure goes to Root for bounded next diagnosis, never auto-retry.
+Baseline NOT_RUN; protected authority/hardware/right/license/MVP and
+release gates open; whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-p publisher concurrency-case isolation (same 009 continuation)
+
+Run 44662270802 at the 009-o report head e9f24bae completed FAILURE:
+both Product legs (Python 3.12 and 3.14) with the observed
+OPENBLAS_NUM_THREADS=1 step env again collected 2731, passed 2730,
+and failed the same 16-slot publisher test with RuntimeError (can't
+start new thread) inside the fixture's Thread.start; the cleanup
+regression and the 96-descriptor bound passed; the three OAP jobs
+succeeded; mandatory downstream steps were skipped. The global step
+env was insufficient on hosted runners; the hosted limiting resource
+remains unproven.
+
+Two scoped changes: (1) the two experiment env lines are removed
+from the Product test suite step, restoring
+`.github/workflows/oap.yml` byte-for-byte to the pre-experiment
+21341795 preimage (SHA256 29a44dd6) including original suite
+selection and downstream steps; (2) the one 16-slot testcase is
+isolated into one fresh `sys.executable -c` process: the exact
+resolved physical test path is the sole argument of a fixed inline
+child program that self-binds CPU 5s, AS 512 MiB, CORE 0 and FSIZE
+16 MiB before any test or product import, runpy-loads the exact
+given test, checks the existing origin assertions, and calls the
+unchanged shared fixture under a real pytest.MonkeyPatch context
+with a genuine-reservation observer - 16 distinct real reservations,
+baseline registry restoration, the refused 17th publication before
+open and real worker termination all stay fixture assertions inside
+the child. The parent bounds the child to 20 seconds and requires
+zero exit plus the one fixed success marker emitted only after those
+assertions; timeout, nonzero exit or missing marker fails. No pytest
+recursion, no preexec_fn; the shared fixture and the two-thread
+partial-startup regression stay byte-identical in pytest, and the
+default collection expectation remains 2731.
+
+Local actual results (private audit only, never in Git): the first
+bounded publisher-module run (existing venv; CPU 60s / AS 2 GiB /
+TERM 120s then KILL 5s; fresh private direct /tmp basetemp;
+canonical src) passed 88/89 - the isolated child failed at real
+Thread.start under its own 512 MiB cap, and that first
+publisher-module failure itself established the traceback and the
+88/89 result. Root's controlled diagnosis ran the same instrumented
+program in separate baseline trials: caps inside-only and exec+inside
+(both failing at the same point; the 520260 KiB VmSize with 11
+threads before the next start and the first 73748 KiB increments
+belong to those separate instrumented baseline trials) and the single
+MALLOC_ARENA_MAX=1 child env (all 16 real reservations passed;
++8212 KiB per sampled start, 168096 KiB with 16 threads before the
+final start; glibc 2.43). The authorized one child-only line (shared
+_child_environment helper and all other subprocesses untouched; all
+four child limits kept) made the one bounded changed-byte re-run
+under the same exact envelope pass 89/89. This proves the named
+local command only; the hosted limiting resource and hosted benefit
+remain unproven until actual CI evidence.
+
+Fresh full Product matrix plus all OAP checks at the new report head
+are pending (the strategic gate after publication); a CI failure
+goes to Root for bounded next diagnosis, never auto-retry. Baseline
+NOT_RUN; protected authority/hardware/right/license/MVP and release
+gates open; whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-q combined CI process-resource comparison (same 009 continuation)
+
+Run 44667676605 at the 009-p report head 3522d263 completed
+FAILURE: Python 3.12 Product collected 2731 with all 24 steps
+succeeded (2731 unit passes; the separate integration step and
+all other required steps succeeded); Python 3.14 collected 2731
+and emitted 2532 pass marks before child exit 137 without a final
+summary - last unfinished forwarded node
+test_controlled_two_partition_full_stages_exceed_return_cap, its
+six subsequent steps skipped; both versions passed the corrected
+16-slot publisher case; the three OAP jobs succeeded. Neither the
+exit status nor that last forwarded node establishes the cause.
+
+The 009-o Product-step OPENBLAS_NUM_THREADS=1 trial alone left the
+publisher thread-start failure on both versions while each job
+completed the other 2730 cases, including the 3.14 last forwarded
+node above, and a separate local controlled probe reduced
+collection from 40 native OS threads to one. The bounded comparison
+therefore keeps the successful 009-p isolated-child allocator
+setting and adds the earlier exact Product-step control for a
+changed comparison; this evidence justifies a bounded resource
+control without attributing the hosted exit to OpenBLAS, and both
+full hosted Product matrices are required again.
+
+The single scoped change restores the exact two-line env stanza
+OPENBLAS_NUM_THREADS='1' under the unique Product test suite step
+(both Python matrix legs) of .github/workflows/oap.yml; the whole
+workflow equals the e9f24bae postimage byte-for-byte (SHA256
+b9195355) with no other workflow, product, test, fixture, job,
+deadline, limit, retry, selection or downstream-step change. The
+unchanged publisher test (SHA256 1b8cb255) and supervisor (SHA256
+3e15bf1c) bytes are preserved; the 16 real concurrent publication
+reservations and all test assertions remain.
+
+The actual full Product matrix (both legs) and all OAP
+checks/steps at the new report head are pending (the strategic gate
+after publication); a CI failure goes to Root for bounded next
+diagnosis with cause evidence, never auto-retry. Baseline NOT_RUN;
+protected authority/hardware/right/license/MVP and release gates
+open; whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-r direct unit launch and bounded cgroup evidence (same 009 continuation)
+
+Run 44672714984 at the 009-q report head 416009c9 completed
+TERMINAL_FAILURE: both Product legs with the confirmed
+OPENBLAS_NUM_THREADS=1 step env collected 2731; both passed the
+named isolated 16-slot publisher case; Python 3.12 forwarded 2532
+pass marks and Python 3.14 forwarded 2505; both direct supervised
+uv processes exited positive 137 with no signal field, no
+supervisor termination reason and no display refusal; the last
+unfinished forwarded nodes differ
+(test_controlled_two_partition_full_stages_exceed_return_cap on
+3.12, test_controlled_flat_denominator_and_rank_21 on 3.14);
+neither leg printed a final pytest summary; both elapsed around
+63 s including existing cleanup; six downstream required steps
+were skipped per leg; the three OAP jobs succeeded. The existing
+supervisor directly owns the uv wrapper; its waitid result
+reports no signal for that direct program, so a numeric 137 does
+not identify who or what terminated pytest, and no causal claim
+about a source test, OOM, scheduler or host process is made.
+Unit and integration remain separate CI steps (the Product test
+suite step runs the supervised unit selection; the integration
+step runs `uv run pytest tests/integration -q` separately).
+
+Scoped changes. (1) main of
+`oap/bin/ci_unit_diagnostics.py` now supervises the repository's
+own installed pytest console directly: the absolute fixed
+executable path `<root>/.venv/bin/pytest` with the unchanged
+trailing suite args (`tests/unit -o addopts= -vv -o
+faulthandler_timeout=60`) and the exact repo cwd; the uv wrapper
+is no longer invoked. A fail-closed prelaunch projection
+(direct_launch_projection) requires the fixed installed console
+(real regular executable file), an interpreter shebang inside the
+same local venv bin, a real local venv (pyvenv.cfg) and a real
+bin directory before any child exists; any absence returns
+EXIT_PREREQUISITE with no fallback. The child environment is the
+inherited environment plus the repo .venv VIRTUAL_ENV and its bin
+as the first PATH entry - the reviewed local launch projection
+(inside already-synced env, local pytest console, local
+VIRTUAL_ENV, local PATH head) reproduced without any new uv
+operation, shell or argv override. run_child receives this
+explicit argv and environment and keeps all resource
+execution/ownership behavior; the exact old child signal/exit
+and nonzero/failure behavior is preserved. (2) NEW stdlib-only
+`oap/bin/ci_unit_resources.py` adds the bounded optional
+own-cgroup observation: one snapshot immediately before launch
+and one after the owned teardown. It reads only /proc/self/cgroup
+and the fixed local event files (memory.events.local,
+pids.events.local) under the trusted fixed mount /sys/fs/cgroup
+for the process's own unified cgroup: exactly one unified row,
+validated canonical path components, an lstat-verified component
+chain (no path scan, no symlink traversal, no caller-selected
+input), and an EOF-driven read under a strict cap-plus-one
+because procfs/cgroupfs pseudofiles report a stat size that does
+not describe the generated text (/proc/self/cgroup reports zero
+while returning data). It reports no paths - only the cgroup
+directory (st_dev, st_ino) identity plus bounded nonnegative
+counter values - and only nonnegative deltas of
+memory.events.local max/oom/oom_kill and pids.events.local max
+when the same identity holds across both snapshots and the
+counters are monotone; missing, malformed, oversize, unstable or
+counter-reset observations report unavailable. The kernel
+documents untracked valid keys in the same event files (low/high,
+oom_group_kill, sock_throttled); they are parsed and ignored
+under the bounded ASCII key/value grammar, and a malformed value
+(including non-ASCII numeric text) refuses the whole file without
+raising. The inherited prelaunch RLIMIT_CPU soft/hard is recorded
+as bounded decimal/unlimited/unavailable. The fixed-length
+fragment is wired only into the supervisor's existing bounded
+final summary; observer availability or a delta never
+determines child status, acceptance, or which member failed.
+
+Tests. The existing stdlib narrow supervisor unittest selection
+gains two bounded synthetic OAP cases: a positive exit 137 and a
+real direct self-issued SIGKILL produce distinct owned wait
+results (exact normal exit 137 with child_signal None, status
+OK, exit 137 preserved, versus the separate child-signal field
+with child_exit None, status CHILD_SIGNALED, exit 131 - never a
+128-addition), and the SIGKILL child's SIGTERM marker handler is
+never written, proving the identity-verified owned group sweep
+signalled no live process outside the child's own self-kill (an
+unowned process is never signalled); plus the exact direct
+projected argv/env (inherited env plus local VIRTUAL_ENV and
+PATH head) and the clean prelaunch refusal for a missing,
+non-executable, external-shebang, shebang-less, non-ASCII-
+shebang, interpreter-less, pyvenv.cfg-less or symlinked-venv
+console. NEW focused `tests/oap/test_ci_unit_resources.py`
+covers the pure bounded parsers and the stable/missing/
+malformed/reset behavior with owned synthetic fixtures only (no
+real cgroup mutation or privilege), including a read-only
+zero-size procfs pseudofile real-read case. The original
+supervisor runtime limits, owned process tests and summary tests
+still pass.
+
+Local evidence (private audit only, never in Git). One bounded
+targeted stdlib run of the two changed test modules (explicit
+module selection; CPU 60 s, AS 1 GiB, wall 120 s then KILL 5 s):
+the first run completed 30 tests with 1 failure and 2 errors
+(actual exit 1) - an actual read/parser boundary in the new
+module: the stat-sized read could not observe the real zero-size
+/proc/self/cgroup pseudofile, and the strict key set rejected
+complete normal kernel event files carrying documented untracked
+keys - fixed in the same authorized correction (EOF-driven
+strict cap-plus-one read keeping the file/identity checks;
+bounded ASCII key/value grammar that ignores untracked valid
+keys and refuses malformed values without throwing), and the one
+changed-byte re-run under the same exact cap passed 31 tests
+(actual exit 0). ruff reports no new findings (one pre-existing
+unused-import F401 in the base test module, outside the product
+lint scope); compileall clean; a read-only real-route smoke on
+the canonical host returned the real own-cgroup identity, all
+four tracked counters and `rlimit_cpu=unlimited:unlimited
+cgroup=mem_max+0:oom+0:oom_kill+0:pids_max+0`. No local full
+product run or CI rerun; the hosted full proof remains the exact
+report head.
+
+The actual full Product matrix (both legs) and all OAP
+checks/steps at the new report head are pending (the strategic
+gate after publication); Root reviews the exact fresh CI and any
+actual resource signals; a CI failure goes to Root for bounded
+next diagnosis with cause evidence, never auto-retry, and no
+unsupported cause claim follows even on matching counters.
+Baseline NOT_RUN; protected authority/hardware/right/license/MVP
+and release gates open; whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-s bounded unit process partition (same 009 continuation)
+
+Run 44688983707 at the 009-r report head dfe301c7 completed
+TERMINAL_FAILURE: Python 3.12 collected 2731, forwarded 2391 pass
+marks and the direct supervised pytest was observed by waitid with
+SIGKILL before the normal group teardown (supervisor exit 131, no
+final pytest summary, last forwarded line a pass with cause
+unproven, wall 63.56 s including cleanup, six downstream required
+steps skipped); Python 3.14 completed all 2731 units, the separate
+integration step and all 24 job steps (8 warnings in 66.90 s;
+supervisor wall 78.58 s including cleanup, longer than the failing
+3.12 instance, so a universal elapsed limit is unsupported); both
+legs showed unlimited inherited RLIMIT_CPU and zero deltas in the
+four fixed local cgroup counters; the three OAP jobs succeeded.
+The evidence supports a CHANGED execution comparison - two bounded
+sequential direct pytest processes covering the exact complete
+default unit collection - and no attribution to a specific test,
+timer or cgroup event, including on a green result.
+
+Scoped changes. (1) main of
+`oap/bin/ci_unit_diagnostics.py` now supervises TWO bounded
+sequential direct invocations of the fixed installed pytest
+console (group A then group B): same exact cwd, unchanged
+inherited environment projection, same trailing suite args after
+the path selectors; only the ordered path selectors differ. The
+two processes run under ONE aggregate monotonic 180 s
+observation/dispatch budget: the first receives the full remaining
+budget and the full display/raw-log byte ceilings; the second
+receives the EXACT remaining aggregate budget (monotonic,
+including the first group's run and owned cleanup) and the
+remaining aggregate ceilings via the existing run_child arguments.
+The remaining time is recomputed immediately before each dispatch
+(after the optional per-child pre-snapshot, which itself spends
+aggregate budget) and the dispatch is vetoed on exhaustion - no
+child ever receives a stale deadline. No new dispatch happens after
+the first nonzero or unproven child, after an exhausted budget, or
+after a final display refusal; an unavailable second dispatch is an
+explicit nonzero 130 with a bounded stderr token, never a
+synthetic second result. The exact first nonzero and the original
+child wait/exit/signal distinctions are preserved; the bounded 10 s
+grace and 5 s post-KILL owned group cleanup run per launched
+child; the per-line and per-operation output safety is retained;
+the per-child own-cgroup/RLIMIT observation stays status-neutral;
+and each bounded per-process summary carries a bounded group label
+(unit_group=A/B) and the actual child deadline. run_child, the
+owned process cleanup, the observer primitives and the
+direct-console admission are unchanged. (2) NEW stdlib-only
+`oap/bin/ci_unit_partition.py` derives the two groups from a
+bounded one-level inventory of the flat tests/unit layout under a
+finite pre-materialization entry ceiling (1024), with exact
+regular path admission of the two default patterns (test_*.py and
+*_test.py): the generated __pycache__ is not a test entry;
+ordinary non-test files and hidden entries are not test entries;
+unsupported nonhidden nested layouts, symlinked scope entries,
+non-regular entries, an entry vanishing under the inventory, the
+absent fixed cut file, or an empty derived group are refused with
+a bounded reason token - never a partial or silently omitted
+membership. Group B begins at
+tests/unit/test_owned_gpu_worker.py; group A is exactly the
+entries ordered before it (name-sorted, the locked pytest
+collection order for a flat directory without __init__.py).
+
+Measured group sizes and collection equality. At the exact base
+the partition is 62 files / 1421 nodes (A, ending
+test_native_tokenizers.py) and 56 files / 1310 nodes (B, 2731
+total). The bounded three-way collect-only batch (full directory,
+then the two actual launch-path groups) under the original caps
+(CPU 60 s, AS 1 GiB, wall 120 s then KILL 5 s per observation)
+with the one-thread Product setting (OPENBLAS_NUM_THREADS=1,
+PYTHONDONTWRITEBYTECODE=1, fresh private /tmp basetemp, no
+cacheprovider, the local locked venv console) observed: all three
+exits 0 (walls 2.27 s / 3.02 s / 2.85 s); the concatenated unique
+ordered A+B node list equals the full ordered 2731-node list
+byte-for-byte, with both groups nonempty and no duplicate,
+omission, extra or failed collection; canonical SHA256 of the full
+list 60da730445d66ef81c1d20cbb367f2dc1203469a28e6309ca86461bd8d764834
+(groups 9bec4a3d52e1b7d23f59921efbe2fd421d7b6e78a0c6188d1168fc2ed4a8c069
+and 5001c6f38cc6eec55abf53936347cb4a223f69e03396cadc4d6d3a9d27a30570),
+byte-equal to Root's full ordered collection from the exact
+dfe301c (audit/009-s-check/Root-base-collect-only/Root-full-ordered-
+collection.json, actual exit 0, 2731 nodes, 118 files). No total
+count was asserted from the prior round without matching: the
+observed 2731/1421/1310 were measured in this round and matched
+against Root's reference. The hosted positive gate on each Product
+leg still requires both pytest success summaries, the observed
+combined complete unit census and every later required step.
+
+Tests. The existing supervisor wait/cleanup and summary tests are
+retained unchanged. New bounded synthetic OAP cases in
+tests/oap/test_ci_unit_diagnostics.py (22-29): the launch
+construction shares the fixed console verbatim and the unchanged
+trailing suite args across both ordered invocations with only the
+ordered path selectors differing; a sequenced two-real-child
+success under one aggregate monotonic budget asserts the EXACT
+remaining budget delivered to B (recovered algebraically from A's
+own deadline/monotonic pair within a 50 ms clock bound), the same
+environment object for both launches, the remaining aggregate
+display/raw-log ceilings carried from A's actual result, the
+per-child resource hook order and the bounded per-process summary
+label; no second dispatch after the first nonzero (exact preserved
+7), after the first child's own SIGKILL (the distinct child-signal
+wait result, 131), on the exhausted aggregate budget (bounded
+synthetic model, explicit 130), or after the final summary display
+refusal (126); the process-free summary group-label format
+(byte-identical body without a label at the same deadline); and the
+stale-deadline correction probe (bounded synthetic model without a
+process) where the pre-snapshot spends the remaining budget and
+the recomputed dispatch is vetoed - the run stub is never called
+and zero children are dispatched. NEW focused
+tests/oap/test_ci_unit_partition.py (12 process-free cases on owned
+synthetic 0700 trees): both-pattern admission, deterministic
+repeat, absolute in-scope paths, disjoint complete membership, and
+refusals with exact bounded reason tokens (empty scope, missing
+cut file, cut file sorting first, nested nonhidden directory,
+symlinked test/non-test entries, symlinked scope, FIFO entry,
+missing/file scope, hidden-and-ordinary non-entries, and the
+finite pre-materialization entry ceiling).
+
+Local evidence (private audit only, never in Git). One bounded
+targeted stdlib run of the two changed test modules (explicit
+module selection; CPU 60 s, AS 1 GiB, wall 120 s then KILL 5 s):
+the first run completed 39 tests with 2 failures (actual exit 1)
+- both assertion outcomes in the new 009-s cases: the sequenced
+success case used the default 10 s teardown grace instead of the
+module's short synthetic bounds, and the process-free label-format
+case compared the labeled summary against the unlabeled body at a
+different deadline - fixed in the same authorized changed-byte
+correction (short synthetic bounds on the process cases; same-
+deadline body-identity comparison), and the one changed-byte
+re-run under the same exact cap passed 41 tests (actual exit 0,
+wall 32.90 s). The three-way collect-only batch above ran under
+the same cap. Setup/deviation disclosure preserved: the first
+full-directory collect-only observation under the caps WITHOUT the
+one-thread setting failed silently (exit 1, no output); two
+out-of-scope diagnostic probes (an AS 1.5 GiB run, segfault exit
+139; AS 2/3 GiB runs and one uncapped /usr/bin/time -v run) were
+stopped on Root's order, preserved, and never used as proof; the
+ordered batch then ran under Root's exact one-thread setting.
+ruff reports no new findings (product lint scope src/tests/unit/
+tests/integration untouched; OAP is governance-owned compact style
+outside product lint); compileall clean; git diff --check exit 0.
+The workflow (SHA256 b9195355), all product and pytest files, the
+package environment and prior logs/reports are unchanged; unit and
+integration remain separate CI steps.
+
+The actual full Product matrix (both legs) and all OAP
+checks/steps at the new report head are pending (the strategic
+gate after publication); Root reviews the exact fresh CI and the
+honest terminal assessment; a required failure remains a failure
+even if one partition or job passed; no attribution of the 3.12
+signal sender even on a green result. Baseline NOT_RUN; protected
+authority/hardware/right/license/MVP and release gates open; whole
+009 PARTIAL; no merge; DHA NONE.
+
+## The 009-t pure policy component transfer (same 009 continuation)
+
+Four reviewed parallel-lane component scopes were transferred
+byte-exact onto the current evaluation PR (round base d731dea7,
+the 009-s report-only head whose run 44711903559 attempt 1 passed
+all five jobs and all steps, both Product legs passing the ordered
+2,731 units - 1,421 group A, 1,310 group B - plus the independent
+full integration; the earlier SIGKILL cause remains unproven):
+
+- supplied-policy (`src/slaif_raggedized_helper/supplied_policy.py`,
+  124 units): closed typed admission of a caller-supplied policy
+  view, exact domain-separated framed identity computed by a
+  bounded stream, and genuine fullscan supplied-credential matching
+  through `hmac.compare_digest`. A successful match is labelled
+  `SUPPLIED_POLICY_MATCH_ONLY` - supplied declaration plus
+  admitted-credential evidence only, not current application
+  authorization, current-policy verification, credential
+  provisioning, deployment or release.
+- supplied-policy-wire (`supplied_policy_wire.py`, 95 units): the
+  canonical wire reader for the supplied-policy declaration.
+- policy-selection-record (`policy_selection.py`, 47 units): the
+  selected-view record.
+- supplied-membership-eligibility
+  (`supplied_policy_eligibility.py`, 18 units): the
+  pinned-membership eligibility primitive.
+
+Provenance: each file was copied byte-exact (mode, size, SHA-256
+and Git blob OID verified against the transfer index) from its
+indexed implementation commit; the four original lane report-only
+SELF commits' archival reports were copied byte-exact with their
+historical SELF markers preserved to `oap/provenance/009-t/`; the
+three inherited dependency blobs (`provenance_records`,
+`raw_snapshot_membership`, `qualification/parity_io`) were
+verified byte-identical at the round base and are reused
+unchanged. No branch history was imported, cherry-picked or
+amended.
+
+Supplied-policy limit: these primitives admit explicit
+caller-supplied policy data for later operator composition. They
+hash only explicitly supplied bytes, perform no I/O, no
+configuration, no model/provider work and no credential
+acquisition. Nothing in this slice is a protected policy service,
+live credential store, current-policy verification, model
+dispatch, or representative held-out qualification.
+
+Actual local 009-t proof (locked .venv, fresh private 0700
+scratch, PYTHONDONTWRITEBYTECODE=1, OPENBLAS_NUM_THREADS=1, each
+invocation bounded by CPU 60 s / AS 1 GiB / wall 120 s KILL 5 s):
+one targeted ruff check over the eight copied Python files clean;
+one bounded pytest invocation of the four new default unit modules
+284 passed (124 typed, 95 wire, 47 selection, 18 eligibility);
+one bounded origin check confirmed every imported product module
+resolves to the canonical repository `src/` with the exact indexed
+blob hashes. Expected (not yet measured) at the new report head:
+group A 1,421, group B 1,594, total 3,015, plus the separate
+integration and all unchanged required jobs/steps.
+
+The actual full Product matrix (both legs) and all OAP
+checks/steps at the new report head are pending (the strategic
+gate after publication); Root reviews the exact fresh CI and the
+honest terminal assessment. Baseline NOT_RUN; protected
+authority/hardware/right/license/MVP and release gates open;
+whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-u product CI job-limit comparison (same 009 continuation)
+
+One changed CI job limit on the same PR 11 (round base e97d29fb,
+the 009-t report-only head): the Product job-level
+`timeout-minutes` integer changes from 20 to 30 in
+`.github/workflows/oap.yml` (the single intended byte change;
+verified preimage b9195355, 14,235 B, to target 54e66869, 14,235
+B). The three OAP jobs keep their 10-minute bounds and all action,
+setup and step bytes remain exact; both matrices, permissions, pins
+and the 180 s unit-process budget are unchanged.
+
+Reason for the bounded comparison: the exact prior round run
+44717676140 attempt 1 ended CANCELLED after the work had already
+succeeded. Both Product unit steps passed all 3,015 units (1,421
+group A and 1,594 group B), including the four added policy modules
+with the expected 47/124/18/95 file counts; Python 3.14 completed
+the separate integration and all 24 steps; all three OAP jobs
+passed. Python 3.12 started at 10:15:30 UTC, completed the unit
+step at 10:17:35, and its integration log reached 90% at 10:32:54
+before cancellation at 10:35:42; check-run 136225094911 explicitly
+reports the maximum execution time of 20m0s, the integration step
+was cancelled and five later steps were skipped. The exact
+integration wall-time variance and the active test at cancellation
+remain unproven. The new 30-minute bound adds bounded headroom
+against exactly that observed platform cancellation after
+successful units; no other CI behavior, test set, partition or
+requirement changes, and the capture transfer and any product
+modification stay for a later exact order.
+
+The effect must be observed on the fresh run at the exact report
+head before the policy capture transfer can advance: both Product
+legs must pass 3,015 actual units (1,421 and 1,594) with the same
+independent integration command and complete successful later
+steps, all original hosted requirements kept, and the three OAP
+checks retained. The fresh full hosted CI at the exact report head
+is PENDING at report authoring; Root owns the fresh CI terminal
+review of the new exact report-head run and the remaining
+uncertainty. A second timeout or partial run cannot close the
+gate; any early end or failure retains actual output and stops for
+review. Baseline NOT_RUN; protected
+authority/hardware/right/license/MVP and release gates open; whole
+009 PARTIAL; no merge; DHA NONE.
+
+The previous 20-minute bound and its observed cancellation remain
+historical facts in the earlier sections of this document.
+
+## The 009-v private policy capture transfer (same 009 continuation)
+
+One byte-exact four-payload transfer on the same PR 11 (round base
+851a1e29, the 009-u report-only head): the reviewed private policy
+selection reread and selected wire-byte capture scope from the exact
+lane implementation 6e8922c6 on base b0bd2821, per
+oap/reviews/009-v-capture-transfer-index.json (SHA-256
+de87eba3...). The adopted prior resolution records the exact
+hosted evidence (run 44724323631 attempt 1: all five jobs and all
+steps passed; both Product legs 3,015 units - 1,421 group A, 1,594
+group B - plus a separate 951-case integration run, both within the
+former 20-minute limit; the 30-minute bound remains current); prior
+wall-time variance remains unproven.
+
+Selected identity and opaque wire bytes: the reader observes the
+current selection from current-policy.json in one explicit trusted
+operator-owned root and captures the selected payload's opaque
+wire bytes (payload filename derived only from the admitted
+SHA-256 digest, no caller entry path) into an immutable
+CapturedPolicyBytes(selection, wire_bytes) record; the payload is
+never decoded, matched or interpreted in this transfer, and no
+semantic identity, principal verification, writer, cache or
+delivery integration is admitted.
+
+Bounded owner: one private offline evaluation invocation
+(ARCH 13.3-13.4/A23/A24 boundary, provenance E). Descriptor
+custody is independent from the publisher: reader-owned fixed
+six-cell slots through the publisher's exact protocol, never its
+publication pool; creator-PID check before lock entrance,
+latched-closed state checked under the guard, no-time-cutoff
+six-cell teardown that closes every definitely owned cell even
+after cooperative expiry, and a final checkpoint refusing any
+success delivered after expiry. No protected policy service,
+live credentials, model dispatch, actual current-auth invocation
+or protected-runtime qualification exists or is implied.
+
+Exact archival provenance: the three payload blobs
+(private_policy_capture.py 14,974 B, test_private_policy_capture.py
+37,256 B, PAR-009-PRIVATE-POLICY-CAPTURE-A.md 5,807 B) were copied
+verbatim from 6e8922c6 and the original lane report-only SELF
+archival report (10,890 B) from ff876ee7 to
+oap/provenance/009-v/PAR-009-PRIVATE-POLICY-CAPTURE-A.json; all
+four were verified mode 100644 / size / SHA-256 / Git blob OID at
+the exact source commits, at the receiving paths before commit and
+again at the implementation head, and the historical SELF markers
+are preserved as the original report identity. The two inherited
+dependency blobs (policy_selection, private_report_publication)
+are byte-identical at the round base and reused unchanged; all
+four destination paths were absent at the round base.
+
+Actual local proof at the implementation head (synthetic ephemeral
+filesystem only; locked .venv; fresh private 0700 scratch;
+OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, private
+basetemp, cacheprovider disabled; each invocation bounded by
+timeout -k 5 120 prlimit --cpu=60 --as=1073741824): one targeted
+ruff check on the two new Python files (exit 0, "All checks
+passed!", one-core affinity accommodation); one bounded pytest
+invocation of tests/unit/test_private_policy_capture.py and
+tests/unit/test_policy_selection.py (exit 0, exactly 118 progress
+dots = 71 new + 47 inherited, no failure markers; the repository
+addopts -q plus the invocation -q suppress the final summary line
+in the preserved raw output); one bounded origin check (all three
+imported product modules resolve to the canonical repository src
+with the exact indexed SHA-256). No failure required a fix, so no
+repacking, edits or retries.
+
+The fresh full hosted CI at the exact report head is PENDING at
+report authoring; Root owns the fresh CI and terminal review.
+Expected until measured: group A 1,421, group B 1,665, total 3,086
+units plus the separate full integration and every subsequent and
+OAP check. No full transfer or qualification acceptance flows from
+publication alone; the representative baseline remains NOT_RUN and
+whole 009 PARTIAL. The real protected runtime and operator
+current-authorization qualification remain open; no merge;
+DHA NONE.
+
+## The 009-w evaluation declarations transfer (same 009 continuation)
+
+One byte-exact three-component transfer on the same PR 11 (round
+base 0f24c91c, the 009-v report-only head): the reviewed
+declaration-side preflight scopes from three exact lane
+implementations, per oap/reviews/009-w-declaration-transfer-index.json
+(SHA-256 34c34d71...). The adopted prior resolution records the
+exact hosted evidence (run 44731327493 attempt 1: all five jobs
+and all steps passed; both Product legs 3,086 units - 1,421 group
+A, 1,665 group B - plus a separate 951-case integration run).
+
+Shared binder declaration-only admission (source_bound_stage_loss.py,
+91,797 B, from cacc5b36 on base 416009c9): the original mixed shape
+gate is now shared by the legacy and declaration entries through one
+mode-controlled preflight. The legacy entry keeps its exact original
+payload type/size check in its original left-to-right position
+between the Gold shape and deadline checks, before any reserve, for
+every payload object, then the vector admission; the declaration
+entry performs the same gate with the payload gate omitted before the
+first metered canonical validation and stops before vector
+reservation, struct unpack, finite/norm checks or any dependency or
+source access, establishing identifier grammar only - not provenance
+or equality with real encoded outputs. Omission is selected by the
+private declaration mode only, never inferred from any payload
+object. Eight new synthetic unit cases cover this slice.
+
+Private query-free cohort declaration envelope (source_cohort_runner.py,
+49,662 B, from ab832488 on the exact accepted binder implementation
+cacc5b36): the closed input envelope, fixed meter/config admission,
+nominal per-case reserve and case-ID bounds, the ordered case-ID
+grammar and the single ordered dataset admission and
+scope/selection tail are now shared private pieces invoked by both
+entries. The legacy entry retains its query comparison and full
+vector binder check at its original point before the dataset, with
+exact meter reserves, clock ticks and first-fault points unchanged;
+the new declaration entry admits the complete declared cohort
+query-free over the accepted query-free binder, differing only at
+the genuinely different case inputs. The declaration envelope is a
+private pre-encode twin of the existing admission: no actual source
+I/O, encoder, dispatch, current-policy authentication or
+protected-runtime use. Twenty-one new synthetic unit cases cover
+this slice.
+
+Private grade declaration envelope (evaluation_program.py, 34,416 B,
+from d052c3c9 on base dfe301c7): the legacy grade flow keeps its
+budget bound at the original first point and serializes that same
+admitted budget at the identity site (old snapshot semantics
+preserved for a budget swapped during identity work); the early
+declaration path checks capacity against the conservative envelope
+and charges only the actual admitted declaration work, with the
+single meter, timing and state mutations unchanged. The grader's
+declaration envelope alone establishes no query identity, actual
+pin/catalog or current policy. Nineteen new synthetic unit cases
+cover this slice.
+
+Exact archival provenance: the nine implementation blobs and the
+three original lane report-only SELF archival reports were copied
+verbatim from the exact lane commits (implementation files at
+cacc5b36/ab832488/d052c3c9; archival reports at their report-only
+commits 63e36735/00940a6d/66f0c98a, each with the implementation as
+sole parent and exactly one changed report path) to the receiving
+paths, with the reports archived at
+oap/provenance/009-w/PAR-009-ENCODER-DECLARATION-PREFLIGHT-A.json,
+oap/provenance/009-w/PAR-009-COHORT-DECLARATION-PREFLIGHT-A.json and
+oap/provenance/009-w/PAR-009-GRADE-DECLARATION-PREFLIGHT-A.json. All
+twelve were verified mode 100644 / size / SHA-256 / Git blob OID at
+the exact source commits, at the receiving paths before commit and
+again at the implementation head, and the historical SELF markers
+are preserved as the original report identity. The three receiving
+product preimages matched their ordered SHA-256 at the round base
+(the cohort preimage byte-identical at the lane base cacc5b36); all
+nine additive destination paths were absent at the round base.
+
+Actual local proof at the implementation head (synthetic ephemeral
+filesystem only; locked .venv Python 3.14.4 / pytest 8.4.2 / ruff
+0.17.4; fresh private 0700 scratch; OPENBLAS_NUM_THREADS=1,
+PYTHONDONTWRITEBYTECODE=1, private basetemp, cacheprovider disabled;
+each invocation bounded by timeout -k 5 120 prlimit --cpu=60
+--as=1073741824): one targeted ruff check on the six changed Python
+files (exit 0, "All checks passed!", one-core affinity
+accommodation); one combined focused pytest invocation of the three
+new unit suites plus the eight exact inherited selectors (exit 0,
+58 = 48 new + 10 inherited parameterized nodes); one bounded
+origin check (every imported product module resolves to the
+canonical repository src with the exact indexed SHA-256).
+
+The fresh full hosted CI at the exact report head is PENDING at
+report authoring; Root owns the fresh CI and terminal review.
+Expected until measured: group A 1,440, group B 1,694, total 3,134
+units plus the unchanged complete integration and every downstream
+step and OAP job. No full transfer or qualification acceptance
+flows from publication alone; the open governed operator, the real
+representative baseline, source rights and model gates remain open;
+the representative baseline remains NOT_RUN and whole 009 PARTIAL;
+no merge; DHA NONE.
+
+## The 009-x protected policy payload install (same 009 continuation)
+
+One private payload install entry on the same PR 11 (round base
+ed48ca58, the 009-w report-only head): the operator-side storage
+prerequisite for future policy selection installs genuinely
+admitted wire bytes at their immutable digest name in an
+operator-owned root, preserving the current selector. The adopted
+prior resolution records the exact hosted evidence (run
+44737907992 attempt 1: all five jobs and all steps passed; both
+Product legs 3,134 units - 1,440 group A, 1,694 group B - plus a
+separate 951-case integration run) and indexes the nine unchanged
+input files at the round base.
+
+The entry (install_policy_payload) takes the exact wire bytes, the
+trusted private directory and one bounded monotonic admission
+deadline (1..30000 ms). Invalid inputs - non-bytes wire, out-of-
+bounds length, invalid directory grammar, invalid deadline, foreign
+pool creator - are rejected before any protected namespace work.
+The entire candidate is admitted by the production
+admit_policy_bytes with the established wire envelope; the sole
+final name is the SHA-256 of the exact bytes (<64 lowercase
+hex>.bin), derived in bounded chunks. The input supplies no
+explicit name, digest, generation, parsed DTO, callback or
+selector.
+
+The visible module no longer duplicates the storage protocol: the
+complete admitted-content transaction - the exact fixed
+process-wide slot pool, the directory-inode writer lock, the
+no-follow namespace traversal, the existing unnamed O_TMPFILE
+stage, the immutable mode, the one no-overwrite link, the byte and
+inode verification, both fsync boundaries, the conservative state
+and the existing retry_cleanup - is performed exactly once in the
+publisher, shared by the report publisher and this entry, with the
+legacy code, ordering and outputs and the original capture helpers
+exact. A new installation and an existing exact final are distinct
+outcomes mapped explicitly from the shared transaction; every
+ordinary initial, deadline or slot failure normalizes to the
+entry's fixed content-free refusal (PayloadInstallError) with the
+truthful installation and cleanup state, the shared publisher's
+error type is wrapped to that same fixed error, and selected
+non-Exception BaseException identity is preserved.
+
+The receipt (PayloadInstallReceipt) reports the installation
+state, the cleanup state, the exact byte length and the wire
+digest. It establishes content storage only: it confers no
+authority to select a policy or use protected data, the existing
+selector's bytes and linked inode remain unchanged, and a
+pre-existing foreign final is never clobbered (byte, mode and
+special-entry conflicts refuse). Sixty-two new synthetic unit cases
+cover the zero-namespace refusals, the early post-decode and
+post-hash deadline cuts, the pool and refusal wrapping, the new and
+raced existing outcome types, the truthful late durable return, the
+counted real I/O operation order and the stable selected-reader
+interop.
+
+Actual local proof at the implementation head (synthetic ephemeral
+filesystem only; locked .venv Python 3.14.4 / pytest 8.4.2 / ruff
+0.17.4; fresh private 0700 scratch; OPENBLAS_NUM_THREADS=1,
+PYTHONDONTWRITEBYTECODE=1, private basetemp, cacheprovider
+disabled; each invocation bounded by timeout -k 5 120 prlimit
+--cpu=60 --as=1073741824): one targeted ruff check on the three
+changed Python files (exit 0); one combined focused pytest
+invocation of the new suite plus the two exact inherited publisher
+and capture suites (exit 0, 222 = 62 new + 160 inherited nodes);
+one bounded origin check (every imported product module resolves to
+the canonical repository src, with the exact prior-resolution
+SHA-256 for every unchanged input).
+
+The fresh full hosted CI at the exact report head is PENDING at
+report authoring; Root owns the fresh CI and terminal review.
+Expected until measured: group A 1,440, group B 1,694 plus the 62
+new unit nodes, the unchanged 951-case integration and every
+downstream step and OAP job. No full transfer or qualification
+acceptance flows from publication alone; the open governed
+operator, the real representative baseline, source rights and model
+gates remain open; the representative baseline remains NOT_RUN and
+whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-y procfs exit observation (same 009 continuation)
+
+Test-only remediation on the same PR 11 (round base 53937d7e, the
+009-x report-only head) for the one failed required check of the
+exact 009-x hosted run 44760385202 attempt 1: the Product Python
+3.14 job (136371029375) unit step failed at the inherited
+test_timeout_kills_owned_descendant with its six downstream steps
+skipped, while the Python 3.12 full leg (3,196 ordered units), all
+62 new payload cases on both Products and all three OAP jobs
+passed. The prior resolution indexes the consumed 009-x report,
+receipt, terminal review and the witness evidence at their exact
+hashes, and the accepted isolated candidates remain outside this
+continuation.
+
+The inherited timeout test proves the parent timeout kills its
+owned descendant by polling /proc/<pid>/stat for a missing path or a
+zombie state. Linux offers a third form: a stat file opened before
+the task disappears can yield ESRCH when read after disappearance
+(Root independently reproduced the kernel sequence in the legacy
+witness: ProcessLookupError/ESRCH on the held record read,
+FileNotFoundError/ENOENT on the absent record open; controlled
+ENOENT injected at the owned stat poll already passed the base test
+while controlled ESRCH and EACCES escaped). The observed CI failure
+was the ESRCH read form at the stat poll, after the actual expected
+parent timeout, on the 3.14 leg.
+
+The correction is confined to the two process-observation cuts in
+that one test. The stat poll accepts FileNotFoundError at open and
+ProcessLookupError at read as the two observations of record
+disappearance. In the existing pidfd-bound cleanup, the new
+FileNotFoundError handling surrounds only the procfs stat read; a
+missing stat record after successful pidfd acquisition is accepted
+as disappearance, and the PID/start-time comparison and the existing
+pidfd signal stay outside that handler, inside the existing fd-close
+span, with the original outer ProcessLookupError behavior exact. The
+actual parent timeout assertion, the two-second observation
+deadline, the zombie check, the probe.UNREAPED assertion, the
+same-handle pidfd_send_signal path, the exact PID/start-time check
+before any conditional signal, the still-live failure path, the
+descriptor close and all 28 module cases are preserved; other I/O
+errors and malformed evidence keep their failure behavior (the
+controlled EACCES witness still escapes). No product source,
+workflow, test inventory, resource or timeout budget, test runner,
+process-signal or PID/start-time binding outside the two cuts
+changed.
+
+Actual local proof at the implementation head (locked .venv Python
+3.14.4 / pytest 8.4.2 / ruff 0.17.4; fresh private 0700 scratch
+under sticky /tmp; OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1,
+private basetemp, cacheprovider disabled; each invocation bounded by
+timeout -k 5 120 prlimit --cpu=60 --as=1073741824): the whole
+inherited test module once (28/28 cases, exit 0); the existing
+strategic witness diagnostic once through the canonical Python from
+the canonical repository with its own private scratch path (actual
+Linux read forms observed; controlled ENOENT and ESRCH at the owned
+stat poll accepted by the changed test, controlled EACCES still
+escaping); one targeted ruff check on the changed test module
+(exit 0). The synthetic injected observations are distinct from the
+actual timeout and kernel evidence in that output. The fresh full
+hosted CI at the exact report head - both Product legs 3.12/3.14,
+each expected A 1,440 and B 1,756 units, the separate 951-case
+integration and the same three OAP jobs, every existing step
+succeeding - is PENDING at report authoring and is a distinct gate
+from the local proof; Root owns the fresh CI and terminal review.
+No full transfer or qualification acceptance flows from
+publication alone; the open governed operator, the real
+representative baseline, source rights and model gates remain open;
+the representative baseline remains NOT_RUN and whole 009 PARTIAL;
+no merge; DHA NONE.
+
+## The 009-z current-view and encoder transfer (same 009 continuation)
+
+Byte-exact transfer of the two independently reviewed isolated
+development lanes into the canonical PR 11 (round base 0b337ec, the
+accepted 009-y report-only head whose required hosted run
+44768398812 attempt 1 passed all five jobs and every step, both
+Products at 3,196 ordered units and the separate 951-case
+integration; the earlier failed 009-x run 44760385202 remains as
+recorded). The frozen Root transfer index (SHA-256
+d6a249fbd1162cbdc831b3961ebc49602fc93fa9db24a0afe513ede56f39124f)
+pins both lane implementations, exact source copies, original
+reports and destination identities; the prior resolution (SHA-256
+9fabdabc8cdfff363ae796f059ab57d60550b536ff8a6fd5782b2ad420b46eb5)
+binds the consumed 009-y report, its receipt and the terminal review.
+Both control files are preserved verbatim under oap/reviews/ and the
+two consumed lane receipts plus the two local Root resolutions were
+verified at their indexed SHA-256s.
+
+Lane 1, current-view-request (PAR-009-CURRENT-VIEW-REQUEST-A,
+implementation 4b798897 on effective base c9332238 with preparation
+tree 01c91d3d and exact parents 6e8922c6 + 89946522), transfers the
+new private entry request_current_view and its error/admission DTOs
+(14,885 B) plus the 45-case unit suite (42,773 B) and the original
+verbatim lane order (5,675 B). The original immutable lane SELF
+report (publication commit 037e238a, 27,304 B, SHA-256
+e5d870507903bd6d18a6225daa349a940a2fc9dadf03c267f0af6fc01437e0f1)
+is preserved at
+oap/provenance/009-z/PAR-009-CURRENT-VIEW-REQUEST-A.json. The entry
+composes, under one trusted operator-owned PolicyCaptureReader, the
+real capture, the pure supplied-policy wire admission and the
+genuine fullscan supplied-credential match with the exact required
+operations ("search", "sources:read"): one absolute
+creator-process deadline is established on entry and only ever
+tightened, every reader call is capped by the current remaining
+request time and the reader cap, a fresh actual read_selection()
+after decode and match must equal the captured selected publication
+before any admission is yielded, and one nonblocking request
+ownership span serializes latch check, budget check, bounded read,
+exact comparison, cutoff, latch and success; changed generation or
+bytes, malformed or absent selection, expiry, foreign creator PID or
+contended span refuse the whole request, and entered observation
+failure latches the admission invalid permanently. The 45 local
+witnesses exercise the real reader, wire decode and match paths
+under synthetic installed policy and synthetic ephemeral roots only:
+they prove request admission and freshness refusal behavior, not
+trusted credential provisioning, actual pin, source, scoring, model
+or publication authority.
+
+Lane 2, encoder-runtime-identity (PAR-009-ENCODER-RUNTIME-IDENTITY-A,
+implementation 7ac6994c on effective base 416009c9), transfers the
+extended query_embedding.py (10,872 B, replacing the 7,907 B
+preimage) plus the extended 51-case unit suite (24,884 B, replacing
+the 8,731 B preimage) and the original verbatim lane order (5,006
+B). The original immutable lane SELF report (publication commit
+84b0a6f3, 13,264 B, SHA-256
+026163cfda20254d7984ca8472b54bd6b03baeba04a8ecc3148e11a47aa8c794)
+is preserved at
+oap/provenance/009-z/PAR-009-ENCODER-RUNTIME-IDENTITY-A.json. The
+addition is one explicit private guarded entry that, under the
+existing encoder lock, validates the expected four-field nominal
+encoder identity (three bare lowercase 64-hex space/policy/execution
+fields plus the sha256-prefixed definition, in existing case order),
+normalizes the existing sha256: execution representation, and
+compares the live admitted session and worker record with the exact
+expected tuple before invoking the existing session encode; an
+invalid expected identity cannot fall through to the unguarded
+entry. Every original unguarded public signature, shared encoding,
+returned payload, receipt and identity validation, failure and
+cleanup behavior is preserved, and the original 17 suite nodes are
+an exact ordered prefix of the transferred 51-node suite (34
+added). The 34 new witnesses run the actual resident wrapper and
+session boundary with synthetic controlled delegates: they prove
+the pre-dispatch runtime-identity gate, not safe actual tokenizer
+and CPU transport, concurrent external session-reference behavior
+or any real model dispatch.
+
+All eight transfer objects were verified at the exact source
+commits and at the receiving tree for mode 100644, size, SHA-256
+and blob OID; every indexed receiving preimage was verified
+byte-exact at the round base, including the unchanged reader
+(private_policy_capture.py), both workers, the
+wire/selection/provenance sources and the 009-x measured bridge
+bytes (private_policy_payload.py, test_private_policy_payload.py),
+with the current publisher's full SHA-256
+(d7c5410280f158cb4cc7c258e06522bb3809aa2c836a79c8b2252b50575ece3e)
+and its exact 22,985-byte original capture prefix (SHA-256
+0e43bb1141d1e122c2f745433716a19a8c99b85d3b431bf0b8499d0f7e29899c)
+unchanged through 009-x and 009-y. Actual local proof at the
+implementation bytes under the ordered CPU60s/AS1GiB/wall120s KILL5
+bounds with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh
+private 0700 scratch and no cacheprovider: one bounded combined
+focus of the five ordered modules
+(test_private_policy_request.py 45, test_query_embedding.py 51,
+test_private_policy_capture.py 71, test_supplied_policy_wire.py 95,
+test_private_policy_payload.py 62) passed 324/324 in 7.77 s (exit
+0), including the exact passing installed-payload interoperability
+suite against the current reader; one four-file Ruff check exited
+0; one bounded import-origin check confirmed both transferred
+product modules resolve to the canonical repository src with the
+exact indexed hashes. Expected at the report head: group A 1,440
+unchanged, group B 1,835 (all 79 new default nodes in B; the 17
+inherited encoder nodes retain their order), 3,275 total units, the
+separate 951-case integration and the same three OAP jobs; the
+fresh full hosted CI at the exact report head is PENDING at report
+authoring and is a distinct gate from the local proof; Root owns
+the fresh CI and terminal review. The exact transferred bytes and
+eligible declarations remain separate from real runtime or
+authority qualification, and the four distinctions stay exact:
+current selection (the fresh reread), the immutable payload (the
+published bytes), contained request freshness (the one absolute
+deadline), and the explicit guarded encoding mode (the identity
+check before dispatch). No full transfer or qualification
+acceptance flows from publication alone; the open governed
+operator, the real representative baseline, source rights and model
+gates remain open; the representative baseline remains NOT_RUN and
+whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-aa joint declaration and current pin transfer (same 009
+continuation)
+
+Byte-exact transfer of the two independently reviewed isolated
+development lanes into the canonical PR 11 (round base ca8e9c8a, the
+accepted 009-z report-only head whose required hosted run
+44775148168 attempt 1 passed all five jobs and every step, both
+Products at 3,275 ordered units (1,440 A plus 1,835 B) and the
+separate 951-case integration each). The frozen Root transfer index
+(SHA-256
+9bd1da70a5cf37a91b90d6c11f4f16dc8c791eb91ab46736c686b2a58ddd35e4)
+pins both lane implementations, exact source copies, original
+reports and destination identities; the prior resolution (SHA-256
+dbc5d5006a6073aa0473218ccdcf56f33a4a2def442b4e5ffbed20fa1d8c3d8b)
+binds the exact accepted 009-z report, its consumed regular receipt
+and the terminal Root gate. Both control files are preserved
+verbatim under oap/reviews/ and the two consumed lane receipts plus
+the two local Root resolutions were verified at their indexed
+SHA-256s.
+
+Lane 1, joint-evaluation-declaration (PAR-009-JOINT-EVALUATION-DECLARATION-A,
+implementation 0a816ab0 on effective base ed48ca58), transfers the
+new private joint declaration preparation entry (7,140 B) plus the
+42-case unit suite (37,427 B) and the original verbatim lane order
+(5,825 B). The original immutable lane SELF report (publication
+commit cfb7ef41, 18,640 B, SHA-256
+e899bae105966be38a769afb2b3f14784493e040bbca7f7d472de06a316121dd)
+is preserved at
+oap/provenance/009-aa/PAR-009-JOINT-EVALUATION-DECLARATION-A.json.
+The entry binds, in one bounded pass, the exact evaluation plan wire
+admission, the genuine source cohort declaration admission and the
+actual grade declaration preparation against the exact same admitted
+dataset and ordered selected values: one existing source deadline
+(an int of 1..1,200,000 ms) is created at entry before the wire
+phase and used through return, the nominal config, source budget and
+grade budget are snapshotted to owned primitive values before
+admission, and a prepared declaration is returned only after every
+declared case and the complete grade scope have passed, retaining
+the exact validated per-case encoder-identifier tuples, the exact
+validated Gold bundle ID tuple and the pre-admission snapshots. No
+pin, privileged source, encoder, producer, scorer, report or
+publication work occurs, and the entry exposes no alternate caller
+clock, callable or pre-admitted plan. The 42 local witnesses
+exercise the genuine wire, cohort and grade admission paths and the
+bounded deadline behavior over synthetic declared datasets only:
+they prove the paired declaration preparation and its refusal
+boundaries, not evaluation execution, retrieval quality, current
+policy or any publication authority.
+
+Lane 2, current-policy-pin-eligibility
+(PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A, implementation 57d463a5
+on the ordered preparation head 9e6283fe with tree 0279879f and
+exact parents 4b798897 + 7f6190ad), transfers the new private
+current-policy partition eligibility entry (19,591 B) plus the
+53-case unit suite (70,832 B) and the original verbatim lane order
+(6,376 B). The original immutable lane SELF report (publication
+commit dc28c0d2, 35,496 B, SHA-256
+ea78972b03d5b8ae5b2fa59bdde8b848ff83e4d8dc1e6cc19a81cfde0cb5788e)
+is preserved at
+oap/provenance/009-aa/PAR-009-CURRENT-POLICY-PIN-ELIGIBILITY-A.json.
+The entry composes the exact admitted current selected-policy
+request (private_policy_request.PolicyRequestAdmission) with the
+already admitted in-memory capture of one exact borrowed
+operator-owned active PinOwner: one absolute cooperative deadline
+bound to this operation honors the shorter remaining current
+request lifetime, the genuine recheck runs before using pin data
+and again after scope computation, and the real
+supplied_policy_eligibility.unavailable_partitions over the exact
+retained current policy and captured membership with the real
+narrowed scope rules decides one fixed, content-free eligible or
+unavailable outcome. The caller supplies no policy bytes, stored
+root, provider, raw credential, arbitrary grants or clock; the
+entry only borrows the already created capture, keeps the owner's
+existing nonblocking guard across the in-memory capture, scope
+computation, final current check and result assembly, and releases
+it on every exit. The retained selected policy is re-admitted in
+memory as one bounded coherent isolated snapshot through the
+genuine closed supplied-policy admission and verified against the
+exact semantic identity bound by the original admission before any
+of its principal or document rules are used, so no exposed mutable
+nominal DTO - detached or nested - can anchor authority; a changed
+or invalid detached authority is refused at the initial and final
+observation cuts. PinOwner.check, namespace revalidation,
+snapshot/source file opens, catalog, pin acquisition, encoding,
+scoring and publication are outside this operation, and the
+observation exposes no partition identity. The 53 local witnesses
+run the real request rechecks, the genuine admission re-derivation
+and the unavailable-partitions rules over the in-memory borrowed
+capture with synthetic controlled delegates only: they prove the
+borrowed-pin eligibility observation under current policy, not
+actual pin or file freshness, durable writer authority, current
+authority invocation, scoring or delivery.
+
+All eight transfer objects were verified at the exact source
+commits and at the receiving tree for mode 100644, size, SHA-256
+and blob OID; all 27 indexed receiving preimages were verified
+byte-exact at the round base, including the actually inherited
+current-view files (private_policy_request.py, 14,885 B;
+test_private_policy_request.py, 42,773 B), the pin ownership
+sources (raw_snapshot_pin.py, 9,471 B, and the raw_snapshot_*
+readers) and the genuine policy admission code (supplied_policy.py,
+16,721 B; policy_selection.py; private_policy_capture.py, 14,974 B;
+supplied_policy_wire.py). Actual local proof at the implementation
+bytes under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds with
+OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+0700 scratch and no cacheprovider: one bounded focus of the nine
+ordered entries (test_private_evaluation_preflight.py 42,
+test_source_cohort_declaration_preflight.py 21,
+test_evaluation_grade_preflight.py 19,
+test_source_cohort_runner.py::test_success_and_private_report 1,
+test_evaluation_program.py::test_two_cases_empty_and_unretrieved_positive
+1, test_private_policy_pin_eligibility.py 53,
+test_supplied_policy_eligibility.py 18, test_private_policy_request.py
+45, test_raw_snapshot_pin.py 8) passed 208/208 in 2.65 s (exit 0);
+one four-file Ruff check on one process-local core exited 0; one
+bounded import-origin check confirmed both transferred product
+modules resolve to the canonical repository src with the exact
+indexed SHA-256s. Expected at the report head: group A 1,440
+unchanged, group B 1,930 (all 95 new default nodes in B), 3,370
+total units each Product, the separate 951-case integration, all
+five required jobs (the two Product legs and the three OAP legs)
+and every existing step; the fresh full hosted CI at the exact
+report head is PENDING at report authoring and is a distinct gate
+from the local proof; Root owns the fresh CI and terminal review.
+The accepted artifacts do not connect evaluation execution to
+either entry, and the existing public entry points are preserved.
+No full transfer or qualification acceptance flows from
+publication alone; the open governed operator, the current durable
+writer, request execution, source rights, model and hardware gates
+remain open; the representative baseline remains NOT_RUN and whole
+009 PARTIAL; no merge; DHA NONE.
+
+## The 009-ab private pinned hybrid dispatch (same 009 continuation)
+
+The first private held-pin route through the one real hybrid search
+(round base ebbce257, the accepted 009-aa report-only head whose
+required hosted run 44781112453 attempt 1 passed all five jobs and every
+step). The exact order (SHA-256
+ff53578831be4665251fb35d0570ab97ad009dc4733a3d4137910f564baff4c5) and
+the two indexed strategic control JSONs (SHA-256
+7233946e4435825b1cdedf87b7ee8c550b69f28cf7fb55c432b82cf203d14e31 and
+325535e330705a7421f069ce689d4a797f0db67e5d1594244119c91e4eaee2b8) are
+committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Source scope: the implementation changes only
+src/slaif_raggedized_helper/raw_hybrid_search.py,
+src/slaif_raggedized_helper/private_policy_pin_eligibility.py, the new
+tests/integration/test_private_pinned_hybrid_composition.py (six default
+hosted nodes) and these two documents; PinOwner, the selection
+operations, all engines, the legacy tests, the unit inventory, the
+configured workflow, the fixtures and the measured bridge sources stay
+byte-exact, and no other product path or output envelope changes.
+
+The new fixed private entry search_pinned takes an exact
+PolicyRequestAdmission, an exact active PinOwner and the existing
+bounded query parameters. It derives the stores, store root, snapshot
+identity and admitted grants only from the actual owners and verified
+selected material: the stores from the owner, the root from the actual
+association's validated root string (the held root file descriptor is
+never used), the snapshot from the verified held PinData and the grants
+from the admission's bound principal with restrictions None, so the
+principal's exact admitted scope is used with no additional caller
+restriction. The caller supplies no root, stores, snapshot ID, grants,
+provider, callable, alternate clock or credential. The public search
+signature, its normal 1..120000 ms deadline and outcomes and every
+original caller path stay exact; this route's deadline is bounded to the
+accepted 1..30000 ms reader range.
+
+Owner and deadline semantics: one real nonblocking owner guard is held
+through the one existing hybrid body; the span never calls
+PinOwner.check or re-enters the borrowed preparation guard, and the
+private operation does not acquire, close or return ownership of the
+input pin. One original absolute operation deadline is clipped to the
+current request lifetime (the request end is never reset or extended)
+and anchors the actual op.end only while held; its original exact value
+is restored in a finally before guard release on success, ordinary
+refusal and interruption.
+
+The four actual checks: O1 runs after pure admission, nonblocking owner
+custody and in-memory capture verification, before captured scope use,
+with no association, catalog or source I/O; the genuine isolated policy
+and captured membership scope rules then refuse an unavailable or
+unusable scope before any catalog I/O; O2 runs inside the shared body
+after verified scope, actual association and all earlier body
+validation, before the first real catalog call; O3 runs after the real
+dense output completes and before any real lexical call, where a
+detected change refuses with zero new lexical and fusion calls (an
+already-started earlier operation cannot be undone); O4 runs after the
+final actual pin association/full revalidation and its post-load
+association, with the final exact authority check and the true remaining
+deadline, before usable return. The final full revalidation compares the
+fresh full load against the exact originally held PinData bound before
+the body, not a newly read alias. Scope drift, expired budget and late
+usable results refuse throughout; a fixed content-free ordinary refusal
+is exposed and a non-Exception interruption is preserved by identity.
+
+Integration scope: the six default nodes use the real hosted
+make_sources fixture (pinned synthetic native tokenizer, genuine source
+catalog, NumPy, BM25 and SciPy engine inputs), the real raw snapshot
+selector compare_and_select_data and the actual
+PinOwner.acquire_selected_data; the exact synthetic policy wire bytes
+are installed through the existing payload installer, a clearly
+attributed test-local atomic selector fixture serves the actual
+capture/decoder/request methods (no writer qualification), the policy
+documents are derived from the real captured membership, and the
+supported request lifetime begins after the expensive fixture setup. The
+nodes attest: the real positive journey (exact authority, semantic
+identities, real legacy-equivalent engine counts - eight catalog calls,
+sixteen full directory validations plus the one distinct final full
+owner validation - and the expired prior acquisition end returning); the
+post-dense selected-generation change with the identical wire payload
+latching the old request before real lexical/fusion, with a fresh
+admission succeeding only through the actual reader/matcher; the real
+principal revocation after admission and before dispatch refusing before
+source/catalog use, and the fresh admission of the revoked synthetic
+credential also refusing; the selected-record change during the real
+final owner validation refusing the usable return with guard and
+original deadline restored; the held-pin refusals (malformed capture,
+busy custody, foreign creator PID, closed ownership, and the genuine
+isolated-policy captured-membership scope refusal over an exact owned
+second fixture) before engine work with zero relevant dispatch and
+stable owner/reader state; and the controlled non-Exception interruption
+at the third real read with exact identity, owned deadline restoration,
+released guard and zero later protected dispatch, plus the actual late-
+deadline cut - a legitimately admitted short-lived request whose real
+deadline is crossed during the operation, after the one genuinely
+delegated policy read, under a bounded real wait on the real monotonic
+clock, refusing with no further protected stage and restored custody.
+
+Local evidence: under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds
+with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+0700 scratch and no cacheprovider - one bounded unit focus of the four
+ordered files (15 + 53 + 45 + 8 = 121 cases, exit 0 in 1.76 s), one
+capped collect-only of the new integration file (six nodes, exit 0), one
+targeted Ruff on the three changed Python paths on one process-local
+core (exit 0) and one capped physical import-origin check (both product
+modules resolve to the canonical repository src, working-tree SHA-256
+7ba08bbd5b32df62c1270a29e30ca3e9e9c3784eedead0b883e4656d35e09309 and
+7dc89e5277032d2f3bb24143e3f878e6a5a85ccc46d514b35c37b418214daf3b). The
+local hosted native test environment is absent and was not installed or
+simulated, so the six real integration outcomes remain hosted-only and
+PENDING at report authoring; expected at the report head: group A 1,440
+and group B 1,930 unchanged (3,370 units each Product) plus the separate
+957-case integration (951 inherited plus six new default nodes), with
+all five required jobs and every existing step at the exact new report
+head.
+
+Open gates: the lexical-to-fusion current-policy check remains an
+explicit open cut for this first synthetic seam (fusion's existing data
+scope checks still run); the evaluator, encoder, real operator,
+source/rights, release and representative evaluation gates stay open;
+the representative baseline remains NOT_RUN and whole 009 PARTIAL; no
+merge; DHA NONE.
+
+## The 009-ac selected installed policy transfer (same 009
+continuation)
+
+Byte-exact transfer of the independently reviewed private
+installed-policy selector and its synthetic regression suite (round
+base 8f1ba9aa, the accepted 009-ab report-only head whose required
+hosted run 44796492067 attempt 1 passed all five jobs and every step,
+each Product at 3,370 ordered units and the separate 957-case
+integration). The exact order (SHA-256
+0a29116b36fb4c72ac76c6d38b6b836035927230327883852c6554e6966b985b) and
+the two indexed strategic control JSONs (SHA-256
+711bf2b8851b81e889e3837c0941c0e06e8479a2e0800c4468f3e8781257e2dc and
+d6448b4fa86a6e1355fbffc20281752c41277895f67b2812f72a0cd1ebb426ba) are
+committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Source scope: the implementation adds only the four transferred
+artifacts -
+src/slaif_raggedized_helper/private_policy_selection.py (26,825 B,
+SHA-256 e929ccc1b4ecc9c7637c6d958022e5c97eae7f9172bbe5012c7bc05b8e3b33c1),
+tests/unit/test_private_policy_selection.py (68 synthetic cases,
+74,745 B, SHA-256
+22c9b9a349acaf3fa30bc568f5d77cf256a5acbee2029d21267cbae885a63f00), the
+original lane order
+oap/parallel/orders/PAR-009-SELECT-INSTALLED-POLICY-A.md (7,982 B,
+SHA-256 69545b67ae9b84a8366822381fef83103d41a5b3d6117740fdc534e7b3ac3862)
+and the original immutable SELF report archived at
+oap/provenance/009-ac/PAR-009-SELECT-INSTALLED-POLICY-A.original.json
+(8,488 B, SHA-256
+6a02bf7846d96543ba940ec1ea388c996659e630c2f17e4f8fc7519ddf9b9f92) - plus
+these two documents. The nine frozen dependency objects (report
+publication, payload installer, capture, policy selection, supplied
+policy and wire, and the three inherited unit suites), the workflow,
+the CI partition, the prior hybrid code and tests and the fixtures stay
+byte-exact; the separate immutable payload installer is preserved
+untouched and no other product path or output envelope changes.
+
+The new fixed private entry select_installed_policy(wire_bytes, *,
+directory, deadline_ms=30000) updates an existing selector using
+already installed admissible bytes under the one shared root writer
+lock. The operating cuts: the production admit_policy_bytes admits the
+entire candidate before any protected namespace work (zero-namespace
+invalid-input refusals open nothing); the canonical digest name is the
+SHA-256 of the exact bytes in bounded chunks; the short-lived registry
+mutex only reserves and retires the shared slot while one held slot
+guard and the root-directory (directory-inode) writer flock cover the
+bounded transaction (the payload installer and the shared _transact are
+never called, so no second directory lock exists) across the no-follow
+walk, the namespace stability check, the exact current record read and
+parse under the lock, the next-generation derivation, the derived
+canonical record
+through the real parser, the held-fd verification of the installed
+digest-named payload against the exact admitted bytes including the
+file flush, the verified root-directory flush before the new selector
+becomes visible, and, after the complete staged-name verify and
+immediately before the one fd-relative os.replace, the final
+pre-replace namespace and prior-selection full stable metadata
+signature rechecks (metadata only, no second read); the actual linked
+new record readback happens after the replace, and again after the
+verified directory flush and the namespace recheck. One reserved
+per-root .current-policy.stage refuses any
+preexisting entry of any identity or type before any namespace change.
+The content-free PolicySelectError separates selection state
+(NOT_PUBLISHED/POSSIBLY_PUBLISHED/DURABLE/CONFLICT) from descriptor
+cleanup (CLEAN/PENDING) and reports the reserved stage as an observed
+state only (ABSENT/PRESENT/UNRESOLVED), with UNRESOLVED wherever the
+reserved name was not observed or the observation was uncertain; a
+failed pre- or post-replace namespace recheck invalidates the verified
+association (the requested path is probed by the real no-follow walk,
+which is what detects the mismatch, while the replacement root's stage
+is neither observed nor mutated), the positively owned staging inode is
+cleaned only under the same held lock with one never-retried
+pre-attempt unlink, and no selector rollback is claimed. There is no
+automatic rollback and no automatic stale-stage recovery: the fixed
+reserved staging path can remain occupied after an
+uncertain attempt or restart, blocking a new selection pending separate
+operator-authorized recovery.
+
+Verification: one bounded four-module focused unit proof under the
+ordered CPU60s/AS1GiB/wall120s KILL5 bounds (test_private_policy_
+selection.py 68 + test_private_policy_payload.py 62 +
+test_private_policy_capture.py 71 +
+test_private_report_publication.py 89 = 290 cases, exit 0), one
+targeted one-core Ruff on the two copied Python files (exit 0) and one
+bounded physical import-origin probe of the six product modules (all
+resolve to the canonical repository src, exit 0). The immutable
+original SELF report is preserved unchanged; Root's raw reconciliation
+identifies its omitted Ruff line and its repeated origins line with two
+inaccurate origin digests from the retained raw command/exit files and
+Root's independent capped proof at the identical tree (290 focus, Ruff
+and origins all exit 0). The historical pre-recovery 267/21 combined
+failure, the transient F841 lint fault and the invalid -B harness
+deviation remain excluded failure evidence at their prior inputs.
+Expected at the exact report head: group A 1,440 and group B 1,998
+(3,438 ordered units per Product, 68 new B cases) plus the separate
+957-case integration, with all five required jobs and every previous
+required step; the fresh hosted CI is PENDING at report authoring with
+Root owning it and the terminal review.
+
+Open gates: caller-facing policy admission, payload installation,
+private retrieval, evaluation and publication behavior, real root
+initialization, protected recovery, source rights, guarded encoding and
+protected delivery, and representative evaluation gates stay open; the
+representative baseline remains NOT_RUN and whole 009 PARTIAL; no
+merge; DHA NONE.
+
+## The 009-ad private pinned pre-fusion cut (same 009 continuation)
+
+The genuine current selected-policy observation at the existing private
+pinned hybrid boundary after lexical and before fusion (round base
+00743eca, the accepted 009-ac report-only head whose required hosted
+run 44803828473 attempt 1 passed all five jobs and every step, each
+Product at 3,438 ordered units and the separate 957-case integration).
+The exact order (SHA-256
+7fd4e557cf5f711f5db4851bed460c5a54a9445a890bda8147c93d929eec8fdc) and
+the two indexed strategic control JSONs (SHA-256
+f96c34ccf65dbb8fc2495b0e6c5c8e6a839d3dd2a2c994004d472b620763878e and
+30bbdcc88205cb72e7db51ce3a7fc54b8edda980e29744f47086afb020a11b00) are
+committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Source scope: the implementation touches only
+src/slaif_raggedized_helper/raw_hybrid_search.py,
+tests/integration/test_private_pinned_hybrid_composition.py and these
+two documents; the engine and fusion APIs, the policy
+request/reader/installer/writer, the pin helpers, the earlier source
+and test files, the workflow, the CI partition and every caller-facing
+signature stay byte-exact, and no relabeling of prior immutable
+evidence happens.
+
+The five ordered cuts: the shared hybrid body now performs a single
+genuine current observation (O4) on the existing private owned path
+after the actual lexical response validation and the optional trace
+links, before the first real fusion call, using the same current
+request, the live borrowed owner guard and the one anchored absolute
+deadline clipped to the request lifetime, with the remaining budget
+checked after it and the existing private refusal on a detected
+change; no second retrieval happens. The earlier three checks (O1
+after pure admission, nonblocking owner custody and in-memory capture
+verification; O2 before the first real catalog call; O3 after real
+dense before any real lexical) and the final check (O5, after the
+final actual pin association/full owned revalidation and its post-load
+association, detached authority and deadline) are preserved, so an
+already-started earlier operation can never be undone and a detected
+change refuses with zero new fusion, catalog or directory calls.
+
+Integration scope: exactly one default hosted node is added to the
+existing native integration file. After the actual lexical succeeds it
+publishes the same synthetic wire under a new generation via the
+existing attributed test-local fixture, then attests four genuine
+selected observations (O1 through O4), one actual dense, one actual
+lexical, five real catalogs and ten complete directory loads before
+refusal, with zero new fusion, zero final owned load, no usable
+result, the old admission latched invalid - a later latched recheck
+refuses with zero further reader calls, without inferring recall of
+prior reads - the original owner deadline restored and the guard
+released. The six inherited nodes and their phase checks are
+preserved; only the stable positive and the actual final-owner-change
+read counts move from four to five (the new observation is the fifth
+read in the positive journey), while the genuine positive eight
+catalogs and seventeen directory loads, including the distinct final
+owner load, and the legacy output equality stay exact.
+
+Local evidence: under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds
+with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+0700 scratch under sticky /tmp, raw logs outside the private pytest
+basetemp and no cacheprovider - one bounded inherited focus of the four
+ordered unit files (15 + 53 + 45 + 8 = 121 cases, exit 0 in 1.76 s),
+one capped collect-only of the seven hosted nodes (exit 0), one
+targeted Ruff on the two changed Python paths on one local core (exit
+0) and one bounded physical product import-origin probe (the changed
+module resolves to the canonical repository src, exit 0). The actual
+native fixture is hosted-only; no native proof execution, substitute,
+install or other setup ran locally, so the seven real integration
+outcomes remain hosted-only and PENDING at report authoring; expected
+at the exact report head: ordered hosted Product units unchanged at
+3,438 each (A 1,440 and B 1,998) with the separate 958 default
+integrations each, both Products, all three OAP jobs and every prior
+required step passing, with Root owning the hosted review.
+
+Open gates: evaluation/source/grade/delivery, rights, the governed
+live operator, the encoder and the representative baseline stay open;
+the representative baseline remains NOT_RUN and whole 009 PARTIAL; no
+merge; DHA NONE.
+
+## The 009-ae private case-bound hybrid (same 009 continuation)
+
+The bounded private case-bound entry in the same held-pin hybrid
+operation (round base df480130, the accepted 009-ad report-only head
+whose required hosted run 44810977091 attempt 1 passed all five jobs
+and every step, each Product at 3,438 ordered units and the separate
+958-case integration). The exact order (SHA-256
+425f57f1ce19d7e2cd304f0597a8725f128a00c83b80fe4e6228a41aeee78c7e) and
+the two indexed strategic control JSONs (SHA-256
+5df8e00528c88216cf2776ba9e815d654cb897a03ec43be4c77b3112fe1e7b08 and
+21dcfab02a302b5c4bbfea8e7f3f9563399aa80e9005b6e44157dbc7168ed9e9) are
+committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Source scope: the implementation touches only
+src/slaif_raggedized_helper/raw_hybrid_search.py, the new
+tests/integration/test_private_case_bound_hybrid_composition.py and
+these two documents; the existing product/public search, the exact
+full-principal pinned entry, all lower engines and existing callers,
+the pin and policy libraries, the publisher, evaluator, native
+encoder, existing tests/workflow and resource setup stay byte-exact,
+and no relabeling of prior immutable evidence happens.
+
+Exact case-scope authority: the new fixed private entry
+`search_pinned_case` binds the exact current PolicyRequestAdmission,
+the exact active PinOwner, bounded canonical dataset bytes and one
+exact case ID, taking no caller text, grants, restrictions, stores,
+root, snapshot, credential, callback or clock. The dataset is admitted
+under the genuine canonical parser through the same clipped absolute
+budget. The full principal immutable policy-derived value stays bound
+to the detached current authority comparisons (the O1 and final O5
+checks), while the narrower effective case value is derived from that
+exact full anchor and the admitted case declaration through the
+genuine existing case-scope intersection, with no additional
+restriction; the effective value serves the actual eligibility and the
+engines, including the authority hash bound to the result, and the
+result keeps the exact case authority. The case question is the exact
+admitted case question. A missing or invalid case refuses without
+widening; if an unavailable partition is outside the actual effective
+readable scope it does not block the unaffected scope, while
+unavailability inside the readable scope refuses before the first
+catalog. No claims about prior trusted internal snapshot integrity
+reads or additional rights are made.
+
+Reuse and interruption: the same private preparation, one real
+nonblocking owner guard, live association, one shared hybrid body and
+the five genuine current observations (O1 after pure admission,
+case-scope derivation, nonblocking owner custody and in-memory capture
+verification; O2 after verified scope and actual association before
+the first real catalog call; O3 after real dense; O4 after real
+lexical; O5 after the final actual pin association/full revalidation
+and its post-load association, with the final exact authority check
+against the full anchor and the true remaining deadline) are reused,
+with the fixed ordinary refusal, the exact original interruption
+identity, owner restoration and no post-deadline usable result
+preserved, and no duplicate engine loop.
+
+Actual witnesses (two new default hosted nodes, hosted-only): the
+cases use the real `make_owned_support` and `dataset_and_bundles`
+fixtures over the real raw selected pin and the existing reviewed
+synthetic wire/selector fixtures, with counters starting after real
+setup, selection and pin. The actual positive witness (h1) genuinely
+narrows to (one, v1, no secret): the real policy withholds the
+corpus-two b partition, which is outside the effective readable scope
+and does not block it, so only a/c contribute; the effective
+authority and the exact real case question match the genuine legacy
+body explicitly run with those effective grants (five real
+observations and the real positive engine/owner proof counted, legacy
+counted separately). The actual negative witness (h2) under the same
+admitted synthetic policy reads (one, two, v1, secret): the withheld b
+is now inside the readable scope and the dispatch refuses with the
+actual policy admission and case declaration before any new catalog,
+directory, dense, lexical or fusion call; the same node attests the
+absent and invalid case refusals (before custody and any observation),
+the restored owner guard/deadline and the fixed content-free ordinary
+refusal, with no fixture rejection as passing evidence. The existing
+seven private integration nodes and 958 total prior integrations stay
+exact.
+
+Local evidence: under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds
+with OPENBLAS_NUM_THREADS=1, PYTHONDONTWRITEBYTECODE=1, fresh private
+0700 scratch under sticky /tmp, raw logs outside the private pytest
+basetemp and no cacheprovider - one bounded inherited focus of the four
+ordered unit files (15 + 53 + 45 + 8 = 121 cases, exit 0 in 1.75 s),
+one capped collect-only of the two new hosted nodes (exit 0), one
+targeted Ruff on the two changed Python paths on one local core (exit
+0) and one bounded physical product import-origin probe (ORIGINS_OK,
+exit 0). The actual native fixture is hosted-only; no native proof
+execution, substitute, install or other setup ran locally, so the two
+real integration outcomes remain hosted-only and PENDING at report
+authoring; expected at the exact report head: ordered hosted Product
+units unchanged at 3,438 each (A 1,440 and B 1,998) with the separate
+960 default integrations each (958 prior + 2 new), both Products, all
+three OAP jobs and every prior required step passing, with Root
+owning the hosted review.
+
+Open gates: the guarded model, actual operator assembly,
+Gold/rank/grade/delivery, real source rights and representative
+evaluation stay open; the representative baseline remains NOT_RUN and
+whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-af Gold dispatch transfer and case input (same 009
+continuation)
+
+Two precise boundaries on the same 009 continuation (round base
+de62aeb, the accepted 009-ae report-only head whose required hosted
+run 44822395486 attempt 1 passed all five jobs and every step, each
+Product at 3,438 ordered units and the separate 960-case
+integration). The exact order (SHA-256
+6dbc22b0c5b13fac7e7b8693b75bb0c7d2d50ad944ed7d6871) and the two
+indexed strategic control JSONs (SHA-256
+87e37bce939161788d57b49b3479b25c29949c9fb8e9bc361a96e9078314bd38 and
+3e2837ba48bc21ce43045431903abe5446872a9ec73c3896046b8ea995cb10e9)
+are committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/.
+
+Gold dispatch transfer: the two exact tree objects of the
+independently reviewed standalone private Gold candidate
+51ffb8ce2b521a229a5b518869ab90b8e8132a8b (sole child of
+00743eca3c351d57e45ec81004f52e519ebec00a) are transferred by blob
+identity only — src/slaif_raggedized_helper/text_evaluation_gold_binding.py
+(20,215 B, SHA-256
+e712c9d579585c43b5790d83367d04415de5fe166fef39398b445f26be488494,
+blob 85cdcaded451501a900e552be6a5257eaef9949d) and the new
+tests/integration/test_current_gold_dispatch_composition.py (28,197
+B, SHA-256
+934537cf536e8934da1b80c1e38795b585ce626574ed8e9eaf57531955540083,
+blob 2bcfc506a91d0b60b2e61e6433aaaa8e3f25276f); the candidate's
+committed history is not cherry-picked and its parallel branch and
+report stay immutable. The transferred boundary is the start of the
+private guarded Gold bundle dispatch: one closed private entry
+`bind_pinned` binding the exact admitted PolicyRequestAdmission and
+exact active PinOwner to the single existing Gold body; stores from
+the actual owner only; effective case grants from the exact admitted
+principal intersected with the genuine case declaration under a
+bounded meter and the span deadline check; one real nonblocking owner
+guard held across the pure pre-dispatch gate, the shared body and the
+pin tie, with op.end anchored under the guard and its exact prior
+value restored on every exit; the whole-dataset atoms and only the
+actual declared bundle IDs gated under the genuine effective case
+authority, with unknown, ambiguous, unreadable, unavailable or
+uncovered declared entries refusing before any protected bundle
+load; and the genuine selected reread immediately before each actual
+bundle load in both observation passes, keeping the post-load pin
+identity, legacy compatibility and exception custody. The five
+default hosted nodes witness the real per-load counts of
+six/three/one bundle, derived and verified original calls across the
+positive, declared-only and change nodes, the distinct a/c-only
+dataset with the undeclared unavailable b still pinned, the
+existing-but-unpinned unknown bundle, changes after one and three
+real loads, restored custody and the actual late read; they are
+hosted-only, so their real outcomes are PENDING fresh exact
+report-head CI.
+
+Case input gate: `search_pinned_case` now validates the exact
+dataset bytes type at the nominal case-bound hybrid entry before
+calling the shared method or interpreting the internal sentinel. A
+None dataset or any non-bytes dataset receives the existing fixed
+content-free refusal before owner custody, before O1, before any
+live namespace association and before any protected dispatch; the
+legacy public signatures and call shape, the five valid-case
+observation positions and the effective-authority-versus-full-anchor
+binding are unchanged. The one existing negative hosted node carries
+the added None subcase and the non-bytes probe over its genuine
+fixture and counters: the fixed refusal at zero engine/catalog work,
+no new observation, no custody, and stable owner and reader state.
+
+Verification and open evidence: actual local proof under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds — one capped inherited focus of
+142 units (21 + 15 + 53 + 45 + 8), one capped collect-only of the
+five Gold and two case-bound hosted nodes, one targeted four-file
+one-core Ruff and one bounded physical product import-origin probe —
+all exit 0. Local collection alone does not prove the hosted
+outcomes: the fresh receiving CI at the exact report-only head
+requires all five required jobs and every required step, both
+Products passing the unchanged ordered A 1,440 and B 1,998 plus a
+separate full 965 integration, with Root independently reviewing the
+exact report-head logs and receiving scope. Real source rights,
+encoder transport, subsequent ranking, grading, publisher,
+authenticated delivery, governed full evaluation and the
+representative baseline stay explicitly open; baseline NOT_RUN;
+whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-ag guarded encoder transport transfer (same 009
+continuation)
+
+The five byte-exact objects of the independently reviewed guarded
+encoder candidate 3aec8ee1852bd94554196dfa3f96437c3e748a34 (sole
+child of 00743eca3c351d57e45ec81004f52e519ebec00a; report-only SELF
+51909d2e6cc6ac19b90cac266ead29d0aa5a60c1, report bytes SHA-256
+6e3bc428ddc37545acda00b57b097dea0f06bd28453276440eb4d71ca0a5e45a)
+are transferred by blob identity only, without cherry-picking the
+candidate's committed history; the exact order (SHA-256
+d2948644cade3d7f851a4cdfe2e966e72deb05482e44462732df34f262eea4e6)
+and the two indexed strategic control JSONs (SHA-256
+7fc858b9e35b2200b952138b8cae35a89e9612e55b5a4241445d72571e120c4e
+and b88262da9f2331d6c3c183e5a4876dbb601b7c617fa0e0a1cba3a6efe6b95bd8)
+were committed transcript-first byte-exact under oap/orders/ and
+oap/reviews/ (round base 36f61c2, the accepted 009-af report-only
+head whose required hosted run 44828910327 attempt 1 passed all
+five jobs and every step, each Product at 3,438 ordered units and
+the separate 965-case integration).
+
+Transferred objects: query_embedding.py (13,713 B, SHA-256
+91246e7ef7036bd285a5433ad36e58074e836436a453303555902217f76081b9,
+blob 7b900ca0c1c0372d16f3424597a9cada0d688fb2),
+isolated_cpu_embedding.py (24,284 B, SHA-256
+b2295535cc8ab3d1f7644fe42efa6a00210e9372eebc9710323c5f3575bc458a,
+blob 9a3b01a8fc1f8f6f8b1d11cecc9bf576d4746bfe),
+embedding_tokenizer.py (16,498 B, SHA-256
+946ebf22caba55c7d10e517a273a9e3c258c1a4a185dc647d1ae30f1371ee934,
+blob 370d538af21f3dc3edaa627710c50dd64f4c146d),
+cpu_embedding_worker.py (28,621 B, SHA-256
+b47888851b5ffd6852478b23d3fbb12ff17611776231e3669c78b6613b303fbe,
+blob 082f52dbbe6b4b6f2f28f1968ef1428390cb6211) and the new
+tests/integration/test_guarded_encoder_transport_composition.py
+(39,582 B, SHA-256
+8d795b198dfb35f984f1e7b09b8fd862730d5347be5c58ebdbb9eef8073b61be,
+blob fb4f33fbbb2fe859fc1963c89886213c7b4cfb45).
+
+Behavior: the closed private resident single-query entry
+(_encode_expected_identity_admitted) binds one query to the exact
+existing expected identity tuple and one real exact
+PolicyRequestAdmission under the actual existing encoder and
+session; the one bounded operation end is the sum of the two
+existing per-child budgets clipped to the admission's original
+absolute end and is carried through the isolated session, the
+native tokenizer child and the CPU worker child to both final
+result validations, where a result that became late is refused
+against that same actual end, never reset or extended. The
+tokenizer cut (T1) makes one genuine selected observation, clamped
+to the accepted 1..30000 ms reader range and rechecked after, after
+the actual native renewal and genuine write readiness and before
+the first real text bytes; the worker cut (T2) makes the genuine
+receipt validation and actual CPU write readiness precede the first
+real forward payload, with resumed partial writes re-checking
+remaining only and no second selected observation. Both public
+legacy entries keep the original unguarded delegation shape, and
+the legacy signatures/handshake, measured identity and layered
+cleanup are preserved. In the hosted suite both children are real:
+the native tokenizer child runs the real embedding_tokenizer_worker
+protocol under the configured trusted backend and the CPU sandbox
+child runs the genuine cpu_embedding_worker_main entry with the
+independent host-declared code handshake re-verification; the model
+framework is the trusted synthetic delegate (never real neural
+loading), so this is bounded synthetic software evidence with the
+actual protected pipe commencement.
+
+Hosted witnesses (five default hosted nodes, hosted-only): positive
+planned/actual measured equality with the same-runtime legacy
+result, the renewed T1 and receipt-bound T2 negatives with no
+forbidden real kernel bytes, the old expected binding mismatch
+before protected exposure, and the actual late observation and
+interruption custody. The old expectations are clearly labeled
+test-side reconstructions from the exact eight worker and four
+bridge code preimages at the accepted base, separated from prior
+accepted runtime evidence; the actual new host/child measured code
+identity changes while the intended definition/device/dtype
+identity remains the same.
+
+Verification and open evidence: actual local proof under the
+ordered CPU60s/AS1GiB/wall120s KILL5 bounds - one capped inherited
+focus of 201 units (51 + 40 + 65 + 45, with the three
+fixture-dependent worker nodes deselected locally and still
+required in hosted group A), one capped collect-only of the five
+new hosted nodes, one scoped five-file one-core Ruff and one
+bounded physical product import-origin probe - all exit 0. Local
+collection alone does not prove the hosted outcomes: the fresh
+receiving CI at the exact report-only head requires all five
+required jobs and every required step, both Products passing the
+unchanged ordered A 1,440 and B 1,998 plus exactly 970 separate
+integrations (965 prior + 5 new hosted), with Root independently
+reviewing the exact report-head logs and receiving scope. Later
+current delivery, authenticated operator assembly, source rights,
+real hardware and the representative baseline remain open;
+baseline NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-ah tokenizer renewal output baseline (same 009
+continuation)
+
+Slice 009-ah (AMEND PR 11 at round base 1fa6bc8, the accepted
+009-ag report-only head) corrects the guarded tokenizer T1 renewal
+witness after the exact prior failure: required hosted run
+44834284664 attempt 1 at that head passed the three OAP jobs and
+both ordered unit inventories (1,440 + 1,998 each) and failed both
+Product integrations at exactly one node,
+test_t1_selected_change_after_renewal_before_text_bytes, with
+assert 19 == 0, the later required steps skipped. The real
+tokenizer child emits its startup ready frame and the real
+constructor consumes it with TokenIDSession._read, which increments
+_output on all actual reads, before any query; the earlier witness
+therefore asserted a zero total at the refused T1 after the real
+startup frame had already been counted.
+
+The correction is confined to that one node: at the real _renew
+return the renewed tokenizer's actual startup output counter is
+captured in the existing renewed child/pipe record as
+tokenizer_startup_output; the witness asserts the captured value is
+positive and the later refused T1 output equals that same snapshot.
+The exact untouched assertions are preserved: the real renewed
+child and pipe identity (new pid, old child reaped, retained live
+fd and pipe), the selected observation, the expected booked
+counters (_calls 1, _input the exact 60-byte framed hello), zero
+kernel writes to either tokenizer or CPU stdin, zero receipt and
+forward, the admission latch (invalid, no recheck on further
+rotation) and fresh re-admission on the new generation, and the
+real closure/custody (encoder refused, session closed,
+tokenizer/worker/stage None); the independent CPU worker
+startup_output assertions stay as before. No hardcoded expected
+startup byte count, counter reset, reduced observations, test
+skip, loosened predicate or unchanged CI retry; the method name
+and all five hosted collection nodes are unchanged.
+
+Local proof under the ordered CPU60s/AS1GiB/wall120s KILL5 bounds:
+one capped collect-only of the five unchanged hosted nodes and one
+scoped one-core Ruff on the changed test file, both exit 0; no
+local native result, no setup or install. The fresh receiving CI at
+the exact report-only head requires all five required jobs and
+every required step, both Products passing the unchanged ordered
+A 1,440 and B 1,998 plus exactly 970 passing integrations (969
+prior + 1 corrected), with Root independently reviewing the
+exact report-head logs and receiving scope. Later current
+delivery, authenticated operator assembly, source rights, real
+hardware and the representative baseline remain open; baseline
+NOT_RUN; whole 009 PARTIAL; no merge; DHA NONE.
+
+## The 009-ai current ranking dispatch transfer (same 009
+continuation)
+
+Slice 009-ai (AMEND PR 11 at round base 78ffe74, the
+accepted 009-ah report-only head whose exact required
+hosted run 44840111535 attempt 1 passed all five jobs and
+steps with ordered 1,440 + 1,998 units and 970 integrations
+in each Product) transfers the exact reviewed private
+case-bound ranking dispatch by blob identity: the two
+reviewed objects (source_bound_ranking.py and
+test_current_ranking_dispatch_composition.py) are
+byte-exact, and the candidate's commit history, its order
+and its report are not copied into the receiving branch.
+
+The one fixed private bind_pinned case entry accepts only
+the exact PolicyRequestAdmission, the exact active
+PinOwner, bounded canonical dataset bytes, the exact case
+ID, the bounded expected catalog ID, the ordered unique
+requested chunk IDs and one cooperative 1..30,000 ms
+deadline; the caller supplies no scope token, grants,
+path, snapshot, supplied Catalog, provider, callback or
+clock.  Stores and snapshot come only from the actual
+owner, and the full principal anchor stays separate from
+the narrower effective case value derived through the
+genuine case declaration.  One real nonreentrant owner
+guard is held across the pure pre-dispatch gate, the
+shared ranking body and the pin tie, with one end clipped
+to the request lifetime and the owner operation end
+restored on every exit.  The complete ordered selected
+batch is bound through the actual pure row and membership
+binds against the exact held core, row map and membership
+before any new catalog or bundle load, so unknown,
+malformed, unreadable or unavailable selected entries
+refuse the full batch at zero new source I/O while an
+unselected unavailable bundle never refuses by itself.
+One genuine selected observation precedes each retained
+actual catalog dispatch and each actual selected bundle
+load in both observation passes under the one clipped
+absolute end, with the remaining time checked after every
+genuine reread and after the nested dispatches; the
+observed bundle revision, extraction, metadata and
+admitted scope are compared to the exact held pin in both
+passes, and the final authority comparison stays the pure
+detached full-anchor check.  Legacy interfaces, legacy
+identities, the fixed content-free refusal and the
+non-Exception interruption identity are preserved.  The
+nested catalog integrity still reaches unrequested pinned
+sources; it supplies no per-original current-policy
+authorization and no delivery attestation.
+
+The five new default hosted nodes witness the stable h2
+legacy equality; the retained unavailable unrequested b
+with selected a/c; the zero-new-source-I/O precheck
+refusals; the real change after the last pass-one direct
+load denying catalog two; and the real change after
+catalog one denying its first direct load with the bounded
+subcases.  Per catalog, the two directory validations
+plus the explicit loops give 2*M+B+2*G+4*P ingestion
+loads using the actual fixture, with membership and both
+dense/lexical group trees in each directory.
+
+Local proof on the receiving bytes under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds, in a fresh mode-0700
+scratch directly under sticky /dev/shm (the local /tmp
+had exhausted its inode limit): one inherited 121-node
+unit focus (15 + 53 + 45 + 8), one bounded collect-only
+of the five new hosted nodes, one scoped two-file
+one-core Ruff and the physical import-origin probe, all
+exit 0; no setup, install, local native execution or
+unchanged repeat.  The fresh exact report-head hosted CI
+is PENDING at authoring: all five jobs and every required
+step, both Products at ordered 1,440 + 1,998 units and
+exactly 975 separate integration passes (970 prior + 5
+new).  No baseline measurement or qualification claim is
+made; the remaining stage, cohort, grade, publication and
+delivery gates, the source rights and the representative
+baseline stay open; whole 009 PARTIAL, baseline NOT_RUN,
+no merge, DHA NONE.
+
+## The 009-aj current pin revalidation transfer (same 009
+continuation)
+
+Slice 009-aj (AMEND PR 11 at round base 0ea63e9, the
+accepted 009-ai report-only head whose exact required
+hosted run 44847591776 attempt 1 passed all five jobs and
+steps with ordered 1,440 + 1,998 units and 975 integrations
+in each Product) transfers the exact reviewed private
+case-bound current pin revalidation by blob identity: the
+three reviewed objects (raw_snapshot_pin.py,
+private_policy_pin_eligibility.py and
+test_current_pin_revalidation_composition.py) are
+byte-exact, and the candidate's commit history, its order
+and its report are not copied into the receiving branch.
+
+The one new fixed private entry revalidate_current_pin_case
+in the existing private_policy_pin_eligibility module (the
+pinned public __all__ surface unchanged) accepts only the
+exact PolicyRequestAdmission, the exact borrowed active
+PinOwner, the bounded canonical dataset bytes (1..16,777,216
+bytes), one exact case ID (1..128 characters) and one
+cooperative 1..30,000 ms deadline; the caller supplies no
+authority, path or stores, snapshot, clock, generic hook or
+provider.  The bounded canonical bytes are admitted through
+the genuine canonical case declaration under the remaining
+budget, the verified immutable full grants copy — the
+detached nominal authority value bound through the existing
+bounded DTO admission to the selected policy's admitted
+principal anchor and refused unless it equals that anchor —
+is intersected with the one exact case scope through the
+existing bounded authority admission with no added
+restriction, and never a second unverified read of the
+exposed nominal DTO is performed.  The genuine held capture
+and the pure scope/availability gate under the case-bound
+effective grants complete before any full directory or
+source read: an unavailable effective scope or an
+unadmitted case refuses with zero new directory or source
+work.  Only then does the guarded variant run the extracted
+fixed non-reacquiring held validation body (PinOwner.
+_held_revalidation, shared byte-exact with the unchanged
+legacy PinOwner.check, whose signature, exception behavior,
+independent full reload and exact association/equality
+semantics are preserved) under one borrowed nonreentrant
+owner guard and the actual clipped cooperative end, with
+the actual prior op.end saved and restored on all exits:
+the existing metadata association, the genuine recheck
+immediately before the real _load that starts the full
+directory validation, the original post-load association
+and exact held equality, the genuine final selection
+observation, the pure detached full-grants comparison and
+the final exact time cutoff before yielding the same
+validated held PinData; a non-Exception interruption
+propagates by identity and every ordinary failure is the
+fixed content-free refusal.
+
+The actual current selected-policy checks run at the
+genuine observation cuts under the one clipped end, while
+the trusted full directory integrity may still read pinned
+sources outside the effective case scope — the withheld
+member b revision is asserted among the actually verified
+original reads in the distinct h1 acceptance — and a real
+selected-generation denial after the initial association
+prevents all new directory and source reads.
+
+The four new default hosted nodes reuse the actual 009-af
+gold-dispatch fixture (the 009-ai slice transferred the
+ranking dispatch) and its attributed synthetic current
+policy with fresh admissions after the expensive setup:
+the stable h2 result matches the separately counted legacy
+check with one real full directory and two selected
+observations; the pure h2 refusal for the genuinely
+unavailable b happens before any protected work, while the
+distinct h1 acceptance after the case narrows to unaffected
+scope still has its trusted full directory rebuild read the
+withheld b revision through the delegated read_verified
+recording; the real first selection denial after the
+metadata association proves zero full directory starts and
+zero source reads; and the real selected denial after one
+completed reload returns no usable guarded pin with the
+actual final observation denial.  The closed, busy-owner
+and exhausted-deadline subcases each deliberately assert
+the ordinary content-free PolicyPinEligibilityError
+refusal, and the single separately scoped non-Exception
+interruption subcase alone asserts the exact marker
+instance by object identity, in each case with genuine
+pre-load observation and zero physical directory starts or
+source reads.  The measured full-directory work
+shape (M membership ingestions plus 2P per-partition dense
+and lexical source groups) is derived purely from the held
+pin data the fixture already captured before the current
+admission begins its request lifetime.
+
+Local proof on the receiving bytes under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds, in a fresh mode-0700
+scratch directly under sticky /dev/shm with the canonical
+venv: one inherited 106-node unit focus (8 + 53 + 45), one
+bounded collect-only of the four new hosted nodes, one
+scoped three-file one-core Ruff and the physical
+import-origin probe, all exit 0; no setup, install, local
+native execution or unchanged repeat.  The fresh exact
+report-head hosted CI is PENDING at authoring: all five
+jobs and every required step, both Products at ordered
+1,440 + 1,998 units and exactly 979 separate integration
+passes (975 prior + 4 new).  No baseline measurement or
+qualification claim is made; the remaining stage, cohort,
+grade, publication, delivery, source rights and baseline
+qualification gates stay open without exclusivity or
+release claims; whole 009 PARTIAL, baseline NOT_RUN, no
+merge, DHA NONE.
+
+## The 009-ak current stage catalog transfer (same 009
+continuation)
+
+Slice 009-ak (AMEND PR 11 at round base 57f916b, the
+accepted 009-aj report-only head whose exact required
+hosted run 44852105955 attempt 1 passed all five jobs and
+steps with ordered 1,440 + 1,998 units and 979 integrations
+in each Product) transfers the exact reviewed guarded
+direct stage catalog by blob identity: the two reviewed
+objects (source_bound_stage_loss.py and
+test_current_stage_catalog_composition.py) are
+byte-exact, and the candidate's commit history, its order
+and its report are not copied into the receiving branch.
+
+The existing direct stage catalog dispatch is extracted
+into the single shared private body _stage_catalog_dispatch
+(reserve/check, one real raw_snapshot_catalog.load_catalog
+with the bounded remaining time into the existing loader,
+check) and is used by the legacy _bind_stages with its
+call arguments, reservations, effective deadline, later
+validation order, observable identities, output and
+exception behavior preserved.  The new private trusted
+stage-input seam bind_stage_catalog accepts only the exact
+admitted current selected-policy request
+(PolicyRequestAdmission), the exact active operator-owned
+PinOwner, the canonical dataset bytes (1..16,777,216
+bytes), one exact case ID (1..128 characters) and one
+cooperative 1..30,000 ms deadline; the caller supplies no
+alternative provider, supplied catalog, token, caller
+scope or grants, path or stores, snapshot, clock, generic
+hook or callback.  One actual monotonic end is captured
+before any semantic work and clipped to the current
+request lifetime; it is the same absolute end across all
+work and is never reset or extended.  The one canonical
+dataset/case/selected-atom admission
+(_admit_stage_dataset) is shared with the supplied stage
+path with the exact legacy meter call order, the same
+exact stage case declaration runs, and the effective scope
+is derived only from the verified immutable full principal
+anchor (the isolated selected-policy snapshot, the
+admitted principal grants, the bound grants, the final
+detached full-anchor comparison) through the same
+_admit_authority intersection with no added restriction.
+
+Under one real nonreentrant borrowed owner guard, with the
+exact prior owner operation end saved and restored on
+every exit, the guarded route performs the real
+held-capture verification and retains the verified held
+value and its bounded row-map bytes before any dispatch;
+the pure effective-scope membership availability
+(availability of every requested partition inside the
+readable scope and at least one readable usable entry)
+completes before any directory, catalog or source read, so
+an unadmitted case, no readable usable effective scope and
+an unavailable effective partition each refuse with zero
+new work; the real metadata association then runs, and one
+genuine live same-admission selection observation is the
+last eligibility step immediately before the actual direct
+catalog call.  The returned object must be the exact
+nominal catalog type with the exact snapshot/core/map
+field shapes before any of its fields is read or sized;
+the real post-load metadata association and the exact
+pre-dispatch held-value identity are checked, the catalog
+snapshot, core and row map tie to the same pre-dispatch
+held pin, the exact nominal catalog identity holds, one
+more genuine current selection observation precedes the
+detached full principal anchor check and the exact final
+cutoff, and only the trusted intermediate catalog is
+returned.  Ordinary failures are one fixed input-free
+StageBindingError; a non-Exception interruption object
+propagates by identity with the owner custody restored.
+
+The bounded private direct catalog is commencement only:
+the nested trusted directory keeps its own bounded
+validation and may still read pinned sources outside the
+effective case scope - the withheld member b revision is
+genuinely read by original revision during the trusted
+catalog validation in the distinct narrower h1 acceptance
+- while the request selection scope and the successful
+measured window are kept separate.  Whole stage
+orchestration, alternate caller authority, operator
+surfaces, cohort and grade authority, actual publication
+and delivery remain open.
+
+The three new default hosted nodes reuse the actual
+009-ai ranking-dispatch scenario fixture - the
+slice's immediate fixture, built on the inherited
+support and source cohort fixtures (that scenario's
+Gold fixture is the 009-af transfer) - and its
+attributed synthetic selected policy with fresh
+admissions after the expensive setup, counting real
+catalog, directory, bundle, derived, original-store
+verified read, owner-load and reader calls at the
+intended boundaries: the measured full-directory
+work shape is M plus 2P ingestions per full directory and
+2*M+B+2*G+4*P per complete catalog, with one verified
+original per real structured-text ingestion.
+test_stage_catalog_h2_identity_and_restricted_h1
+witnesses the stable synthetic h2 catalog
+identity/equality against the separate real legacy catalog
+with one guarded catalog, two genuine selected
+observations and the exact pin/custody retained; the pure
+unknown-case and unavailable h2 refusals happen with zero
+new catalog, directory or source work; and the distinct
+narrower h1 acceptance under the same restricted policy
+has its real trusted catalog reach the retained withheld b
+by original revision.  test_stage_catalog_change_after_
+association_denies_before_catalog witnesses a real
+completed prior PinOwner.check from the same owner in its
+own measured phase (one directory load, M+2P actual
+bundle and original ingests and M+6P derived loads, no
+catalog or selected-read work), followed by a fresh
+independent request establishment: the actual selected
+generation advanced immediately after the guarded route's
+real association, before the catalog call, witnesses the
+real selected denial/latch at the actual next stage
+catalog start with zero new catalog, directory, bundle or
+store work in the denied window and exactly one actual
+selected reread, and the latched recheck refuses with
+zero further reader calls.  test_stage_catalog_change_
+after_catalog_and_interruption witnesses the real
+selection advanced after the real full catalog returns,
+denying a usable catalog output after one genuine
+complete catalog and two live observations with
+association and prior custody preserved (a subsequent
+owner check still succeeds on the same held value), plus
+the bounded interruption subcase on the same node
+asserting the exact non-Exception marker object by
+identity through the cleanup with custody restored and no
+admission latch.
+
+Local proof on the receiving bytes under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds, in a fresh mode-0700
+scratch directly under sticky /dev/shm with the canonical
+venv: one inherited 62-node unit focus (51 stage + 3
+catalog + 8 raw pin), one bounded collect-only of the
+three new hosted nodes, one scoped two-file one-core
+Ruff with one Rayon thread and the physical canonical
+import-origin probe in fresh stage-first and
+eligibility-first processes, all exit 0; no setup,
+install, local native execution or unchanged repeat.  The
+fresh exact report-head hosted CI is PENDING at
+authoring: all five jobs and every required step, both
+Products at ordered 1,440 + 1,998 units and exactly 982
+separate integration passes (979 prior + 3 new).  No
+baseline measurement or qualification claim is made; the
+remaining stage, cohort, grade, publication, delivery,
+source rights and baseline qualification gates stay open
+without exclusivity or release claims; whole 009 PARTIAL,
+baseline NOT_RUN, no merge, DHA NONE.
+
+## The 009-al current grade catalog transfer (same 009
+continuation)
+
+Slice 009-al (AMEND PR 11 at round base 390ed94, the
+accepted 009-ak report-only head whose exact required
+hosted run 44860721647 attempt 1 passed all five jobs
+and steps with ordered 1,440 + 1,998 units and 982
+integrations in each Product) transfers the exact
+reviewed guarded grade-owned direct catalog by blob
+identity: the four reviewed objects
+(evaluation_program.py, private_evaluation_preflight.py,
+source_bound_ranking.py and
+test_current_grade_catalog_composition.py) are
+byte-exact, and the candidate's commit history, its
+order and its report are not copied into the
+receiving branch.
+
+The existing grade catalog cut is extracted into the
+shared private _direct_catalog: the held pointer
+must bind the exact declared snapshot and generation
+before the one actual catalog load under the
+remaining loader bound, and the exact nominal
+catalog must bind the declared snapshot and catalog
+identities.  It returns the internal verified
+catalog identity only and never returns rows or a
+report.  The legacy _catalog calls it and keeps its
+phase, the source pin observation, the remaining
+grade-owned observation reservations and all later
+producer work unchanged.  The preflight body is
+extracted into _prepare_declaration_body, which runs
+the exact nominal config, source budget and grade
+budget checks and snapshotting, the genuine wire
+admission, the genuine source cohort declaration
+admission and the actual grade preparation under one
+already-owned caller clock and returns the prepared
+result plus the internal grade state; the legacy
+_prepare_declaration constructs its own fixed clock
+and delegates, keeping its after-assembly clock
+check and fixed PreparationError semantics.  The
+rank gate is factored into _bound_indexes (the
+bounded chunk/revision indexes with duplicate
+refusal) and _admit_selected_chunks (the pure rank
+kernel over one ordered selected chunk batch: each
+selected chunk is bound to its held row, entry and
+scope declarations under the effective case scope
+before any new source I/O, unknown, malformed,
+unreadable or genuinely unavailable selected entries
+refuse the whole batch, while an unselected
+unavailable bundle never refuses by itself); the
+legacy _gate output is preserved.
+
+The new fixed private current commencement
+_commence_grade_catalog accepts only the genuine
+current selected-policy request
+(PolicyRequestAdmission), the exact live operator-
+owned PinOwner, the canonical plan wire and dataset
+bytes (1..16,777,216 bytes), the exact ordered
+cohort and declaration identifiers, the declared
+Gold IDs, the config and the bounded source and
+grade budgets, and one cooperative 1..30,000 ms
+deadline; the caller supplies no grants or
+restrictions, pre-admitted Plan or declaration, path
+or stores, catalog, callback, clock, provider or raw
+credential.  The complete selected-policy snapshot
+and the verified principal grant are frozen through
+the existing private pin primitives before any
+owner custody, with the detached full anchor
+preserved separately for the final admission
+agreement.  One actual monotonic end is captured
+before any semantic work and clipped in place to the
+original current request lifetime; it is the same
+absolute end across the joint preparation, the
+checks and meter, the real borrowed owner end, the
+genuine selected observations and the catalog, and
+is never reset, resampled or extended.  Under one
+genuine borrowed nonreentrant guard, with the exact
+saved owner operation's prior end restored on every
+exit and the guard release unconditional, the entry
+verifies the held capture against the real manifest
+and immutable pin and retains the verified
+pre-dispatch pin data and bounded row-map bytes,
+runs the real metadata association, runs the shared
+joint declaration preparation, and then runs the
+new pure case authority: one genuine held
+row-map/membership admission against the real
+manifest and immutable pin, one availability table
+and the bounded indexes with the rank gate's exact
+scope and linkage checks complete before any
+catalog, directory or bundle read inside the grade
+entry; each case's effective grants come from the
+exact prepared selection with no added
+restrictions; every readable held entry of each
+case is scanned against the one availability
+table; an unavailable partition inside a readable
+case scope, no readable membership at all, or an
+unknown, unreadable or unavailable selected entry
+anywhere refuses the whole plan before any new
+read; and an empty judgment over a fully available
+readable case scope authorizes zero selected
+judgment reads while retaining the broad trusted
+catalog operation.  The plan snapshot/generation
+concordance then holds, the genuine same-admission
+selected policy is the last gate before the one
+actual direct owned catalog, and after the catalog
+the exact same pre-dispatch pin data and associated
+operation, the same held owner and metadata
+association, the exact nominal catalog and the
+genuine final same-admission observation are
+re-verified, the detached full grant and time are
+rechecked, and at most the internal verified
+catalog identity is returned, never rows or a grade
+Report.  An admitted refusal preserves the intended
+count with attempted=0, completed=0, refused=0 and
+pending=intended under the fixed content-free
+EvaluationError, whose caught handler has left
+before the raise so the error carries no caught
+context; a non-Exception interruption propagates by
+identity with prior custody preserved.  Whole
+source cohort, full grade and stage composition,
+report provenance/publication and current delivery
+remain open.
+
+The three new default hosted nodes reuse the actual
+009-ai ranking-dispatch scenario fixture - the
+slice's immediate fixture, built on the inherited
+support and source cohort fixtures - with its
+attributed synthetic selected policy and fresh
+admissions after the expensive setup, counting real
+catalog, directory, bundle, derived, original-store
+verified read, owner-load, owner-association and
+reader calls at the intended boundaries; the
+per-catalog count formulas are derived from the
+exact source (each catalog load performs two
+load_directory trees, each revalidating the whole
+declared membership and rebuilding every dense and
+lexical partition once per distinct (partition,
+bundle, batch) triple through one real load_group,
+plus one ingestion load per unique row-map bundle
+and one per unique (bundle, batch) group; every
+load_group performs one ingestion load plus two
+additional derived loads; every ingestion load
+performs one derived load and one verified original
+read).  test_grade_catalog_stable_plan_empty_
+judgment_completes witnesses the stable ordered
+multi-case plan including the empty judgment at one
+completed catalog with two real directory
+validations, two genuine selected observations,
+zero new pin reload and no producer, scoring or
+report work, with the real joint preparation, the
+shared direct dispatch and both metadata
+associations observed under the fresh admission's
+clipped end and the actual saved owner operation
+end under the guard equal to it; the empty
+judgment authorizes zero selected judgment reads
+and does not erase the catalog, which still reaches
+every retained bundle.  test_early_pure_refusals_
+zero_new_reads witnesses the unknown well-formed
+chunk, the real unreadable selected scope, the
+genuinely unavailable selected partition, the mixed
+readable-but-withheld case refusing even with an
+empty judgment and another readable membership
+remaining, the no-usable-membership scope and the
+unaffected narrower empty judgment completing the
+catalog at the shared direct cut - all before any
+new catalog, directory or bundle read, each with
+the fixed content-free error and intact custody.
+test_selection_change_denies_catalog_and_post_
+catalog_observation witnesses the real selected
+generation denial on the same raw pin and pointer
+with the identical wire payload and retained raw
+pin bytes: at the last gate before the actual
+direct catalog with zero new catalog starts and
+exactly one actual selected reread, latching the
+admission, and after one genuine complete catalog
+with two real directory validations, denying a
+usable catalog output with the latched recheck
+refusing zero further reads.
+
+Local proof on the receiving bytes under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds, in a fresh
+mode-0700 scratch directly under sticky /dev/shm
+with the canonical venv: one inherited 107-node
+unit focus (50 grade + 15 ranking + 42 joint
+preflight), one bounded collect-only of the three
+new hosted nodes, one scoped four-file one-core
+Ruff with one Rayon thread and the physical
+canonical import-origin probe in fresh grade-first
+and eligibility-first processes, all exit 0; no
+setup, install, local native execution or unchanged
+repeat.  The fresh exact report-head hosted CI is
+PENDING at authoring: all five jobs and every
+required step, both Products at ordered 1,440 +
+1,998 units and exactly 985 separate integration
+passes (982 prior + 3 new).  No baseline
+measurement or qualification claim is made; the
+remaining source cohort, full grade, stage
+composition, publication, delivery, source rights
+and baseline qualification gates stay open without
+exclusivity or release claims; whole 009 PARTIAL,
+baseline NOT_RUN, no merge, DHA NONE.
+
+## The 009-am current stage cohort transfer (same
+009 continuation)
+
+Slice 009-am (AMEND PR 11 at round base 256d1b9,
+the accepted 009-al report-only head whose exact
+required hosted run 44867051253 attempt 1 passed
+all five jobs and steps with ordered 1,440 +
+1,998 units and 985 integrations in each
+Product) transfers the exact reviewed guarded
+stage-owned dispatch and the initial
+source-cohort pin, each with its three hosted
+synthetic witnesses, by blob identity: the four
+reviewed objects (source_bound_stage_loss.py,
+source_cohort_runner.py,
+test_current_stage_owned_dispatch_composition.py
+and
+test_current_cohort_initial_pin_composition.py)
+are byte-exact, and the candidates' commit
+histories, orders and reports are not copied
+into the receiving branch.  The legacy
+_run_cohort, _declaration_admission and
+_case_checks remain exact before and after
+transfer, and the stage file's used
+_preflight_declaration, _admit_authority and
+_Meter are exact across the donor, receiving
+and combined versions.
+
+The stage keeps the single shared stage
+algorithm.  The new fixed private case-bound
+entry bind_stage_owned_dispatch accepts only
+the exact admitted current selected-policy
+request (PolicyRequestAdmission), the exact
+live operator-owned pin owner, the bounded
+canonical dataset bytes (1..16,777,216), the
+one exact case ID (1..128), the existing typed
+supplied hybrid result, the query payload with
+its exact four declared identity fields and
+the bounded declared Gold bundle ID tuple; the
+owner alone chooses its stores, root, capture
+and snapshot, and the genuine current admitted
+principal and the exact case derive the
+original/effective scope through the same
+_admit_authority case-scope intersection with
+no restriction and no caller grants, never a
+second unverified read of the exposed nominal
+DTO.  The entry captures the exact start and
+checks the actual admitted end before and
+after that bounded pure admission work, then
+passes the same start to the shared stage
+algorithm, which constructs the one exact real
+stage clock from the accepted 30,000 ms
+maximum clipped to the actual original
+admitted request end before any semantic work
+and never reset or extended.  The fixed
+private current-mode switch routes the single
+existing _bind_stages algorithm to the fixed
+protected current dispatches only: the five
+actual pin checks are the reviewed
+revalidate_current_pin_case sharing the stage
+nominal, identity and metering checks with
+the legacy pin helper; the direct catalog is
+the exact reviewed bind_stage_catalog once;
+the complete declared atom batch dispatches
+the genuine text_evaluation_gold_binding.
+bind_pinned under the effective case, keeping
+the complete Gold scope; and the exact
+eligible chunk tuple and catalog identity
+dispatch source_bound_ranking.bind_pinned,
+with the independent full grant anchor
+retained.  Every other declaration, trace,
+bounds, geometry, metering, identity and
+output check, order and reservation is
+preserved from the existing stage algorithm;
+there is no generic hook, provider or second
+algorithm, and each delegate owns its one
+nonreentrant borrow, starting after admission
+and clipping its 30,000 ms operation
+allowance to the same recorded admission end,
+so one exact common operation end spans every
+full directory and the exact prior owner end
+is preserved on every exit of each actual
+borrowed span.  The exact live PinData
+identity is anchored from the first guarded
+reload through all phases, and the actual
+final stage result cutoff assembles the
+actual _Diagnosis first, then one genuine
+selected observation under a suitable short
+exclusive acquisition of the same owner
+immediately before the usable return: it
+captures and validates the exact operation
+object under the guard, uses that retained
+object to save its prior end and set it to the
+actual stage end before the real association,
+confirms the association still uses the same
+owner operation and the captured PinData,
+rechecks the detached full principal anchor
+and the deadline, and restores the exact
+prior operation end and releases the guard
+from an unconditional inner finally even if
+the restore fails.  It returns only the
+private stage diagnosis with the supplied
+HybridResult's existing qualification and
+origin; every ordinary failure is one fixed
+content-free StageBindingError, and a
+non-Exception interruption propagates by
+identity with custody preserved.
+
+The cohort keeps one actual initial full
+directory reload and the shared legacy
+post-reload pointer/core/row-map/identity
+work: the bounded identity checks are
+extracted byte-order-exact into
+_pin_capture_identity, runnable by both the
+legacy _pin_observation and the new entry
+with the retained pre-dispatch value passed
+as prior.  The new fixed private
+_current_cohort_initial_pin entry accepts
+only the genuine current PolicyRequestAdmission,
+the exact live PinOwner which alone selects
+the origin stores, root and capture, bounded
+canonical dataset bytes, the exact closed
+Cohort (case_ids validated as an exact tuple
+within the envelope 1..256 bounds before the
+identifier length comparison), the declared
+encoder identifier tuples, the declared Gold
+ID tuple, the exact Config, the bounded
+source Budget and one 1..30,000 ms deadline,
+with no caller grants, restrictions, path or
+stores, snapshot, Plan, query payload,
+provider, callback or clock.  The exact
+owner-selected operation, root and stores are
+retained before the admission and passed to
+the genuine source _declaration_admission
+over the canonical dataset and exact
+selected cohort with the verified full
+principal anchor and no added restriction,
+under one actual source _Deadline started
+once and clipped to the admission original
+end before any semantic work; the clipped
+deadline is checked immediately before the
+authority snapshot work and its bounded
+completion is validated.  Under one genuine
+nonblocking borrowed owner guard, the
+active owner is tied to the exact retained
+operation, root and stores before any
+protected work and the pre-dispatch PinData
+is retained; the actual canonical row
+binding from the retained value and one
+unavailable table with the real reader
+checks complete the pure query-free per-case
+readable-availability admission for every
+ordered effective case before any new full
+directory or source read, each retained
+scope admitted once as its typed canonical
+record and reused by the per-case scan.  The
+same held value and operation are required
+at the pre-load association, then the actual
+metadata association and one genuine
+same-admission selected reread immediately
+before the real fixed PinOwner.
+_held_revalidation body (one borrow and one
+physical reload, no second full pin and no
+nested custody); the shared identity checks
+with the retained value as prior complete
+before the final genuine selected
+observation, the remaining pure accounting
+(the detached full-grants verification
+against the immutable anchor) and the
+trailing meter charge complete before it,
+after which only the exact cutoff and the
+required restoration/release intervene on
+all exits: the saved operation's actual
+prior end is restored and the guard is
+released unconditionally on refusal or
+interruption.  The original PREFLIGHT
+progress, the saved end and the guard
+restoration are retained, a non-Exception
+interruption propagates by identity, and an
+admitted initial refusal preserves the
+intended count under the fixed content-free
+CohortRunnerError; no required grade
+catalog or case dispatch occurs in that
+operation, and the trusted nested broader
+full-directory rebuild may still reach
+retained sources outside the effective case
+scope while the early pure-admission and
+final-cutoff boundaries stay distinct.
+
+The six new default hosted nodes keep
+completed versus attempted physical work,
+logical meters and fixture/baseline scopes
+distinct.  The stage nodes reuse the 009-ai
+ranking fixture over the inherited support
+and source cohort fixtures, with its
+attributed synthetic selected policy and
+fresh admissions after the unguarded
+comparison setup, counting pin, catalog,
+directory, bundle, derived, original-store
+verified read and owner-load calls at the
+intended boundaries.
+test_owned_h2_matches_legacy_stage
+reproduces the legacy diagnosis with eleven
+actual full directories (five independent
+pin revalidations, the one direct stage
+catalog's two load_directory trees and the
+two retained ranking catalogs' two trees
+each), three completed catalogs, the
+measured selected reads (two per
+revalidation, two for the direct catalog,
+one before each Gold bundle load in both
+passes, one before each ranking catalog
+dispatch and selected bundle load in both
+passes, and one at the actual final stage
+result cutoff) and the exact common
+operation end under the guard, with the
+exact prior owner end preserved across all
+eight borrowed spans and restored after the
+fifteenth association.
+test_owned_change_after_catalog_denies_next_
+pin witnesses the real current generation
+change after the actual direct catalog
+completes and between real stage guards
+denying the next physical pin start before
+any directory or source load, freezing the
+same raw pointer/owner with positive prior
+physical work (one completed revalidation
+and one complete catalog with their real
+reads), the actual current denial latched
+with no extra reads, zero later guarded
+stages and no diagnosis, the same held pin
+and the restored guard/end.
+test_owned_final_cutoff_denies_assembled_
+result witnesses the actually completed
+final pin revalidation and the real
+selected generation change armed
+immediately before the real read at the
+exact one-based final reader index proving
+the final cutoff refusing the assembled
+result with that same pin, exact owner end
+and guard restore, actual read/latch at
+that exact final reader, no extra full
+source load and directory completion
+counted only after the real delegate
+returns successfully; its bounded
+interruption subcase asserts the exact
+marker object by identity through the short
+exclusive acquisition at the route's
+fifteenth and final association with the
+real owner custody preserved and no usable
+diagnosis.  The cohort nodes directly reuse
+the 009-af Gold dispatch fixture, with the
+measured M+2*P bundle/original and M+6*P
+derived full-directory shape derived purely
+from the held pin data before the current
+admission.
+test_initial_cohort_h1_h4_matches_legacy_
+observation witnesses the stable ordered
+h1/h4 under the real withheld b case scope
+matching the separately measured legacy
+_pin_observation with one real full
+directory (delegated raw directory start /
+successful completion 1/1), two genuine
+selected observations, the exact retained
+raw value, the one clipped cooperative end
+observed at both the actual association and
+the loader and equal to the fresh
+admission's own end, the actual installed
+withdrawal for b (the installed selected
+policy retains b's document but withdraws
+b's exact revision pair, so b's partition
+is genuinely unavailable under the retained
+membership) and both exact narrowed case
+scopes excluding b, with the baseline and
+fixture counters kept separate from the
+entry and legacy spans and the trusted
+rebuild reaching the retained b revision.
+test_initial_cohort_h2_denies_unavailable_
+scope_before_protected_work witnesses the
+later broad h2 with readable unavailable b
+failing the exact ordered cohort before
+any new pin, directory, ingestion, original
+or selected check, with zero directory
+starts/completions, incomplete attempts
+zero, the admission not latched, and the
+guard and prior end retained.
+test_initial_cohort_generation_change_
+refuses_without_usable_pin witnesses the
+real selected-generation change under the
+same raw pointer and owner refusing before
+the reload with one genuine selected
+denial and zero new directory or source
+reads, and a post-reload actual
+selection-change subcase under a separate
+fresh admission (whose own initial
+selected read is excluded from the counted
+span) in the same node so one complete
+reload produces no usable pin, one
+delegated raw directory start successfully
+completing, the exact same pre-dispatch
+held value and raw pointer across both
+genuine selected generation mutations,
+each subcase resetting monkeypatch between
+the subcases before its next fresh
+admission and fresh witness so the
+inherited Gold witness never nests old
+count wrappers, plus a bounded exact
+interruption witness with zero directory
+starts/completions.
+
+Local proof on the receiving bytes under the
+ordered CPU60s/AS1GiB/wall120s KILL5 bounds,
+in a fresh mode-0700 scratch directly under
+sticky /dev/shm with the canonical venv and
+canonical physical src: one inherited 202-
+node unit focus (51 stage + 8 raw pin + 15
+ranking + 21 Gold + 54 cohort + 53 current
+eligibility), one bounded collect-only of
+the six new hosted nodes, one scoped
+four-file one-core Ruff with one Rayon
+thread and the physical canonical import-
+origin probe in fresh stage-first and
+cohort-first processes, all exit 0; no
+setup, install, local native execution or
+unchanged repeat.  The fresh exact
+report-head hosted CI is PENDING at
+authoring: all five jobs and every
+required step, both Products at ordered
+1,440 + 1,998 units and exactly 991
+separate integration passes (985 prior + 6
+new), no missing or skipped evidence.  No
+baseline measurement or qualification
+claim is made; full cohort execution,
+encoder/producer and grading wiring,
+report provenance/publication, delivery,
+runtime qualification and real held-out
+evaluation stay open without exclusivity or
+release claims; whole 009 PARTIAL, baseline
+NOT_RUN, no merge, DHA NONE.
+
+## The 009-an current grade judgment transfer (same
+009 continuation)
+
+Slice 009-an (AMEND PR 11 at round base 0ea0344,
+the accepted 009-am report-only head whose exact
+required hosted run 44870819167 attempt 1 passed
+all five jobs and steps with ordered 1,440 +
+1,998 units and 991 integrations in each
+Product) transfers the exact reviewed guarded
+grade-owned judgment dispatch with its three
+hosted synthetic witnesses by blob identity:
+the two reviewed objects (evaluation_program.py
+and
+test_current_grade_judgment_dispatch_
+composition.py) are byte-exact, and the
+candidate's commit history, order and report
+are not copied into the receiving branch.
+The legacy grade behavior, dependency and CI
+configuration are preserved.
+
+The grade keeps the single shared
+grading-owned GRADE_PIN -> GRADE_BIND ->
+GRADE_PIN source block, now the fixed
+private _grade_judgment_dispatch.  The
+legacy route keeps its two actual full pins
+(source_cohort_runner._pin_observation
+against the exact prior capture) and its
+actual ranking body (source_bound_ranking.
+bind under the case's effective grants and
+restrictions) exactly as before, including
+the exact declared judgment IDs and order,
+the grade meter and the phase transitions.
+The one fixed private current route
+replaces each of the two actual full pins
+with the existing private_policy_pin_
+eligibility.revalidate_current_pin_case and
+the actual ranking body with the existing
+source_bound_ranking.bind_pinned, passing
+the full fixed 30,000 ms operation
+allowance to every genuine guarded
+delegate, which starts later and clips it
+to the exact original admission end.  The
+exact capture, the binder output gate, the
+empty-judgment behavior and the remaining
+grade-case metric sequence are preserved;
+no alternate binder, callback or stage
+algorithm is introduced, and the shared
+gate verifies the delegated result's exact
+snapshot, catalog, authority, rows,
+fragment count and fixed status
+categories.  The fixed current route
+passes the already verified pre-dispatch
+retained PinData as the shared captured
+argument and requires both genuine guarded
+revalidations to yield exactly that
+retained value, verified by identity, the
+first check before the actual grade
+ranking dispatch.
+
+The new fixed private _commence_grade_
+judgment_dispatch entry accepts only the
+genuine current selected-policy request
+(PolicyRequestAdmission), the exact live
+operator-owned pin (PinOwner), the
+canonical plan wire and dataset bytes
+(1..16,777,216), the exact ordered cohort
+and declaration identifiers, the declared
+Gold IDs, the config and the bounded
+source and grade budgets and one exact
+selected case ID (1..128): no grants or
+restrictions, pre-admitted Plan or
+declaration, path or store, catalog,
+callback, clock, deadline, provider or raw
+credential.  The stores, snapshot and
+catalog come from the actual owner through
+the genuine ordered joint declaration
+preparation, and the fixed private 30,000
+ms operation allowance is selected before
+any semantic work.  The one exact
+monotonic end it establishes clipped once
+to the original current request lifetime
+is the shared absolute extent for the
+joint preparation, the checks and meter
+and the delegated pin revalidations and
+rank binding; every sequential delegate
+starts later and clips to that same
+original end.  Under one genuine borrowed
+nonreentrant guard the exact held capture
+is verified before any use, the verified
+pre-dispatch pin data and bounded row-map
+bytes are retained, the genuine metadata
+association and the joint preparation
+complete, the same pure case authority
+verifies every ordered admitted case's
+full readable held membership and every
+ordered judgment before any new protected
+read, and the plan snapshot/generation
+concordance and the expected effective-
+scope authority through the stage
+_canonical_hash complete before the
+span's exact prior operation end is
+restored and the guard is released
+unconditionally.  The delegated shared
+dispatch then runs under the one clipped
+end.  The final short guard re-verifies
+the same active operation and the same
+retained PinData, the genuine held capture
+and metadata association and the detached
+full anchor, with the same actual
+operation and PinData confirmed again
+after the genuine association, before the
+final same-admission reread/cutoff; the
+exact prior end is restored on the
+retained operation under the guard and
+the guard is released unconditionally, and
+the final deadline check runs after
+custody restores.  The return is at most
+the internal bounded verified judgment
+binding with its existing source,
+authorization and qualification
+categories: never a grade Report or a
+delivery result.  An admitted pure refusal
+preserves the intended count under the
+actual PREFLIGHT phase; delegated
+failures preserve GRADE_PIN or GRADE_BIND;
+an ordinary error uses the fixed content-
+free EvaluationError; a non-Exception
+interruption propagates by identity with
+prior custody preserved.
+
+The three hosted witnesses are built on
+the 009-al grade catalog support over the
+underlying genuine 009-ai ranking
+scenario, on the inherited support and
+source cohort fixtures, with the actual
+raw snapshot selector and the real
+PinOwner.acquire_selected_data building
+the pinned data and the attributed
+same-wire generation change using the
+test-local atomic selector fixture
+(re-derived from the 009-z current-view
+lane fixture through the 009-ai ranking-
+dispatch test).  test_judgment_dispatch_
+stable_nonempty_and_empty_judgments
+completes the stable nonempty and the
+unaffected empty spans at one catalog
+identity each across two catalog loads
+with six actual directory
+validations (two independently guarded
+pins plus four actual directories in two
+catalogs), the recorded metering, the
+exact original operation end and the true
+selection counts.  test_judgment_dispatch_
+pure_refusals_zero_new_reads proves the
+pure unreadable, unavailable and unknown
+judgments refuse before any new full
+read.  test_judgment_dispatch_same_pin_
+generation_changes witnesses the advances
+of the genuine selection after a completed
+actual first grade pin or actual rank
+binding denying later starts while
+preserving the same raw pin and fixed
+custody.
+
+The two reconciled 009-am dependencies
+keep the receiver versions: 33 of the 35
+frozen donor dependencies match the
+receiving head, and the used stage
+_canonical_hash, _Meter, _admit_
+authority and _preflight_declaration and
+the cohort _Meter, _Deadline,
+_declaration_admission, _case_checks,
+_run_cohort, Budget and CohortReport are
+byte-exact by top-level definition digest
+across the donor base and the receiver,
+with the legacy _pin_observation still
+performing the same actual pin and
+delegating its unchanged pointer/core/
+row-map validation tail.  The receiving
+local proof is the 168/168 inherited unit
+focus (grade 50, ranking 15, current
+eligibility 53, raw pin 8, joint
+preflight 42), the 3-node collect-only,
+the scoped two-file one-core Ruff with
+one Rayon thread and the ORIGINS_OK
+physical import probe in fresh
+grade-first and eligibility-first
+processes, all exit 0 under CPU60s/AS1GiB/
+wall120s KILL5 in fresh 0700 /dev/shm
+scratch, with no local native result.
+The hosted outcomes are PENDING the fresh
+exact report-head CI at the ordered 1,440
++ 1,998 units and exactly 994 passing
+integrations per Product (991 prior + 3
+new); no hosted outcome, whole grade,
+encoder, report or delivery result is
+claimed here, and the representative
+baseline remains NOT_RUN.
+
+## The 009-ap current cohort encoder-producer
+transfer (same 009 continuation)
+
+Slice 009-ap (AMEND PR 11, round base 9e6997b)
+transfers, by blob identity without candidate
+history, order or report, six reviewed objects:
+the single-case guarded encoder-to-producer
+composition (query_embedding.py,
+source_cohort_runner.py, three hosted witnesses)
+and the pure grade identity assembly
+(evaluation_program.py, donor base byte-exact).
+The private encoded case handoff (query-free
+all-case admission, one physical pin, nominated
+case resolved before the reload, resident-
+verified identity before T1, one same-payload
+guarded retrieval O1-O5) and the shared legacy
+grade bookkeeping (legacy clock, expected
+identity per query, ten bounded metadata fields,
+one pre-allocation reservation, one final plan
+hash) are received.  The encoder fixture is the
+existing guarded transport synthetic case; the
+Gold selector fixture arrived in 009-af; the
+donor's historic 009-am gate is not this round's
+evidence.  Local proof: 310/310 focused units,
+three hosted collect-only, six-file Ruff, fresh
+three-order imports, all exit 0.  Expected
+hosted proof: report-head CI, both Products
+ordered 1,440 + 1,998 units, exactly 997
+integrations.  Baseline NOT_RUN; whole 009
+PARTIAL; no merge; DHA NONE.
+
+## The 009-aq current cohort stage-loop transfer
+(same 009 continuation)
+
+Slice 009-aq (AMEND PR 11, round base 8d0729f)
+transfers, without candidate history, order or
+report, source_cohort_runner.py and its three
+hosted witnesses
+test_current_cohort_stage_loop_composition.py.
+One shared production iteration and result path
+serves both the legacy supplied and genuine
+current entries, the mode difference only the
+fixed case dispatch. Current reserves the extra
+owned-producer full-directory envelope per
+selected case over the legacy one before any
+semantic work, overflow refusing at admission,
+no cap raised, then the query-free full-cohort
+check, one initial pin, and per ordered case the
+CASE_PIN revalidation, real encode, same-payload
+pinned hybrid and stage-owned dispatch. Shared
+aggregate and serialization run once, current
+facts in the ledger, legacy bytes exact without
+them. Local proof: 319/319 focused units,
+four-file hosted collect-only, scoped two-file
+Ruff, fresh physical imports, all exit 0; no
+local native run. Expected hosted proof:
+report-head CI, both Products ordered 1,440 +
+1,998 units, exactly 1,000 integrations (997 + 3
+new). Baseline NOT_RUN; whole 009 PARTIAL; no
+merge; DHA NONE.
+
+## The 009-as current full graded cohort transfer
+(same 009 continuation)
+
+Slice 009-as (AMEND PR 11, round base 895e846)
+transfers, without candidate history, order or
+report, the reviewed current full graded
+cohort: the three evolved product files
+source_cohort_runner.py, evaluation_program.py
+and private_evaluation_preflight.py plus the
+new three-node hosted witness
+test_current_graded_cohort_composition.py.
+The one private current graded entry makes
+one query-free joint declaration and one
+guarded initial source pin, then runs the
+genuine guarded direct grade catalog and the
+distinct grade-owned post-catalog full pin;
+all share the exact original current
+admission, operation, raw capture, stores,
+root, grant, anchor and clipped monotonic
+end, with the current and legacy work
+limits retaining their existing bounds. The
+one shared production iteration runs the
+real current CASE_PIN, guarded T1/T2,
+same-payload hybrid and source-stage
+binding, then the grading-owned pin, exact
+declared ranking and pin for each case, the
+per-case actual query identity, bounded
+ordered metadata, case recording, grade
+aggregation and canonical plan identity
+shared with the existing mathematics and
+report bytes where applicable, while the
+logical budgets and delegated physical
+observations stay distinct. Only the
+genuine guarded FINAL_PIN success, which
+revalidates the original capture and
+performs a genuine selected reread after
+the actual full load with the saved
+deadline restored and the guard released
+on every exit, yields the private
+immutable owner-bound exact report and
+corresponding plan identity under the
+original deadline; a denial yields a
+content-free truthful terminal prefix,
+interruption identity preserved and the
+public legacy report/storage ABI
+unchanged. The repaired canonical stage
+fixture and all other receiving preimages
+are preserved byte-exact. The three new
+hosted witnesses are synthetic: the stable
+h1/h4 two-bundle a/c projection with b
+still physically in the same raw pin and
+genuinely withheld, the original h1/h2
+case denying before physical work, and a
+real same-wire selected generation
+published after the actual final full pin
+and before its genuine selected reread,
+yielding FINAL_PIN / 2 / 2 / 2 / 0 / 0 and
+zero usable minted result; the 75
+directory starts and 21 full pins are
+expected hosted counts, not local
+observations, and the CPU60s/AS1GiB/
+wall120s/KILL5 bounds plus the collect-
+only node checks are configured resource
+and collection evidence only, not held-
+out quality or encoder qualification.
+Local proof: 361/361 focused existing
+units, exact new hosted collect-only,
+scoped five-file one-core Ruff and two
+fresh physical import orders, all exit 0;
+no local native run. Expected hosted
+proof: report-head CI, both Products
+ordered 1,440 + 1,998 units, exactly
+1,003 integrations (1,000 + 3 new).
+Baseline NOT_RUN; whole 009 PARTIAL; no
+merge; DHA NONE.
+
+## The 009-av guarded graded report publication
+(same 009 continuation)
+
+Slice 009-av (AMEND PR 11, round base b0bed82)
+transfers, without candidate history, order or
+report, the reviewed guarded graded report
+publication: private_report_publication.py with
+the one fixed private entry _publish_current,
+the new three-node hosted witness
+test_current_graded_report_publication_
+composition.py and the existing policy-selection
+unit fixture with exactly one updated publisher
+digest literal. The single current publication
+entry requires the authentic immutable owner-
+bound grade result minted by the successful
+genuine grade final cut, verifies the exact
+admitted bytes and digest, the retained plan,
+the original active operation, stores and
+capture, the copied grants and the original end,
+and uses the one shared storage transaction
+exactly once; the public legacy publisher and
+the shared policy payload and selection writers
+retain their separate admission and behavior.
+At the real unnamed staging boundary, after the
+staging fd is owned and before the first report
+write, and again after genuine prelink metadata
+validation and before any state transition or
+link attempt, the entry runs the short live
+association and a genuine same-admission
+selected reread with no new full raw pin,
+restores the exact saved end on the original
+operation and releases the owner guard
+independently, retaining the verified existing
+bytes, one no-replace installation, truthful
+durability/cleanup and interruption identity.
+An independent cut after the actual successful
+transaction cleanup checks the same custody and
+original deadline before releasing the narrow
+content-free receipt for PUBLISHED and EXISTING;
+an ordinary denial after actual durability
+preserves DURABLE/CLEAN and suppresses the
+receipt, and errors expose the fixed
+vocabulary with no payload, path, identity or
+underlying namespace exception context. The
+three hosted witnesses are synthetic
+compositions over the real successful h1/h4
+grade producer with b still physically in the
+raw pin and genuinely withheld: the stable node
+verifies the exact bytes on PUBLISHED and
+EXISTING, a genuine selected generation
+replacement between successful cleanup and
+release, real selected generation changes at
+P1 and P2, zero attempted report writes and
+links at P1, completed staging but zero links
+at P2, real report-slot cleanup and retirement
+at both, and P1/P2 retaining NOT_PUBLISHED/
+CLEAN; report I/O is attributed by live
+fd/inode and destination so nested genuine
+selected-policy writer I/O cannot count as
+report work. Local proof: 388/388 focused
+existing units, the exact three hosted nodes
+collected only, scoped two-file one-core
+Ruff, two fresh physical import orders and the
+separate pure fixture-teardown proof, all
+exit 0; no local native run. Expected hosted
+proof, pending at report creation: report-
+head CI at both Products with ordered 1,440 +
+1,998 units and exactly 1,006 integrations
+(1,003 + 3 new). Baseline NOT_RUN; whole 009
+PARTIAL; no merge; DHA NONE.
+
+## Input contracts and bounds
+
+Every deadline is cooperative (checked between steps; it cannot preempt a
+running operation) and is an int in 1–30,000 ms except gold binding, raw
+text stage support and source-bound stage loss (1–120,000 ms), and
+declared stage geometry plus the 009-d declared cohort metrics
+(1–10,000 ms), and the 009-e source cohort runner and the 009-f
+graded evaluation program (1–1,200,000 ms, the program clipped per
+lower delegate as above). All
+refusals are content-free; `BaseException` subclasses propagate. The
+pre-009-d family fingerprints are domain-separated sha256 over canonical
+sorted-key ASCII JSON of the exact supplied inputs, per component
+contract. The 009-d pure cohort identity is different: it serializes its
+closed 13-element payload tuple in DECLARED dataclass field insertion
+order (not lexicographically sorted object keys) as actual ASCII ending
+LF under its `slaif-declared-cohort-metrics-v1\n` domain prefix,
+preserving the source-specific canonicalization ordering and the
+pre-final/final accounting split. The 009-e runner wrapper encoding is
+yet another fixed canonical schema that embeds that exact pure identity
+payload rather than reusing the pure encoder. Ordinary dataclass
+constructors are not admission APIs and results are forgeable DTOs, not
+later admission credentials.
+
+## Split discipline
+
+The declared split is `{tuning, held_out}`; `family_id` and exact question
+text each map to exactly one split at admission. The dataset exposes
+`tuning_count`, `held_out_count`, `synthetic_count`,
+`human_declared_count` and `held_out_human_declared_count`; split review is
+an opaque reference (`STRUCTURAL_ONLY`), so admission never reviews the
+split. Held-out cases must stay untouched by tuning; synthetic cases may
+supplement but a synthetic held-out split is not a human held-out. Dataset
+bytes, questions and gold are private operator data and stay out of Git
+(A32).
+
+## Privacy
+
+Results are private, linkable and not anonymized: fingerprints are
+linkable and dictionary-attackable, `asdict`/equality/hashing can expose
+data, and `repr` hides record values. No result contains source plaintext
+or paths; errors never echo input content. Callers must protect the data
+and never publish it.
+
+## Metadata versus source versus geometry
+
+Three distinct layers, each with its own status fields:
+
+- Declared metadata — authorship/rights/split references, origin, scope:
+  `DECLARED_UNVERIFIED`; admission cannot verify them.
+- Revalidated source — gold spans rechecked against the stores at bind
+  time: `ORIGINALS_REVALIDATED_AT_BIND_TIME` (or
+  `NO_GOLD_SOURCE_VALIDATED`); an observation, not atomic, not current.
+- Geometry — declared span containment and supplied stage-set loss:
+  `SUPPLIED_UNVERIFIED` / `UNVERIFIED`; no source truth.
+
+Conflating the layers is a category error; missing or unrelated
+gold/source failure is a refusal, never an empty or qualified success, and
+no private operator here is an authenticated or current-policy claim.
+
+## The actual source-backed stage seam (slice 009-c)
+
+The integration suites — collected by the unchanged ordinary CI's
+explicit `tests/integration` command; the global pytest default
+`testpaths` remains `tests/unit` — compose the actual synthetic raw
+retrieval with the new components on owned three-revision fixtures (no
+model forward, no encoder; supplied synthetic queries and normalized
+vectors only):
+
+- `test_raw_text_stage_support_composition.py` — the Root-approved V3
+  actual proof joined one actual hybrid retrieval to three actual
+  source-bound support calls under one retained selection pin across
+  eight ordered attempts (positive; empty intersection; chosen no-Gold
+  case with unrelated Gold retained; corrupt unrelated Gold; temporarily
+  withdrawn original; restored positive; expiry after the actual hybrid
+  returned; closed-pin refusal). It passed all eight attempts on the
+  executed bytes; recorded counters were one generator, six Session
+  initializations and closes, 546 Session counts, 73 catalog loads,
+  2,568 bundle loads, six each of hybrid/dense/lexical/fusion and 13
+  support calls, final pin state CLOSED. GNU time for its waited process:
+  64.31 s wall / 62.36 s user / 0.50 s system, 92,240 KiB max RSS —
+  waited-process observations, not aggregate tree bounds or encoder
+  performance.
+- `test_source_bound_stage_loss_composition.py` — one actual hybrid
+  producer plus source-bound stage diagnosis; the selected case requires
+  source spans from `a` and `c`, an unrelated case retains a `c` beta
+  atom, and the reciprocal-rank-fusion oracle expects `2/61` and `1/62`.
+  The separately approved v2 actual attempt completed all eight ordered
+  cases — two positive bindings and six expected refusals (coherent
+  eligible and lexical omissions, a fused-score alteration, owned-blob
+  withdrawal after Gold returned, controlled expiration after Rank
+  returned, closed pin) — asserting the intended pre-Gold/pre-Rank/
+  pre-pure boundaries and restoring the blob in `finally`. Observed: one
+  producer, two successful and six refused binder calls, two pure
+  diagnoses, 26 lower scoring calls; six captured native session wrappers
+  reaped, six session closes, both store closes and the pin close
+  complete, no close overages. GNU time for its waited process: 24.18 s
+  elapsed / 23.20 s user / 0.25 s system, 92,832 KiB max RSS. The earlier
+  v1 attempt failed before selection when the existing directory guard
+  rejected writable ancestors of the proposed scratch path; Root
+  attributed the path-preflight omission to its approval and separately
+  authorized v2 with a fresh private scratch path under a permitted
+  sticky ancestor — both the failure and the pass are preserved
+  privately; no shared permissions or product guards changed. The
+  executed test (SHA-256
+  `6fee2aa7767c4449b01f2fb0d9ac4a988cff1dd3e8bfd44b832bac3915859a38`)
+  and the final bytes (SHA-256
+  `02c19ff566a426ea5e513d022d52f47f63040b0d0d958cdc9a9c2879f1b760c6`)
+  differ only in a reviewed module docstring and the removal of a stale
+  comment (header/comment-only change); no rerun is invented.
+- `test_source_bound_support_ci_composition.py` /
+  `test_source_bound_support_ci_cleanup.py` — the portable
+  source-bound support fixture journey (support 1/2 at both cutoffs for
+  one row, 2/2 for both; whole-dataset three occurrences / three distinct
+  atoms; empty ranking zero support with a nonzero denominator; denied
+  source, absent case, absent Gold bundle and wrong unrelated Gold hash
+  refusals) and its controlled failure/cleanup negatives.
+
+The stage-loss proof checks ten full stages (`dense.eligible/ranked/
+selected/returned`, `lexical.eligible/ranked/selected/returned`,
+`fusion.input`, `fusion.returned`), seven supplied transitions and the
+20/60 prefixes without inventing chunk relevance grades. The caller
+retains a real pin across a pointer-generation advance of the same
+snapshot (captured old generation and pointer SHA-256 asserted), so the
+proof covers the captured old generation only: it does not prove a
+distinct snapshot transition, ABA prevention or current policy. Full
+eligible/matching source validation is revalidated at call time on every
+pass (Gold bundles and selected ranking rows against the borrowed stores;
+sequential, not atomic). Controlled unit runs attributed to their exact
+sources: 51 controlled source-binder unit cases (source-bound stage
+loss; Ruff7 passed on the same Python bytes) and 45 geometry unit cases
+(declared stage geometry; final Ruff passed); earlier partial runs and
+their corrections are preserved in the transcript records.
+
+## Source-running cohort harness and synthetic proof (coverage 2624 closed as software)
+
+The nine callable private per-case primitives and the actual per-case
+source-backed seam above are components, not a harness. The independent
+COMPLETE software-coverage audit (SHA-256 `262440e2…54f139`, Root
+adjudicated and retained as
+`oap/reviews/009-c-software-coverage-adjudication.json`) was accurate at
+009-c time: the callable source-running cohort pipeline, the joined
+private split report and the actual cohort composition proof were
+ABSENT. Slice 009-e implements exactly that missing software:
+`source_cohort_runner.run_cohort` (the eleventh module family above)
+joins frozen split/subset selection, per-case actual producer and
+source-bound stage binding, and one pure cohort aggregation only after
+all cases succeed, emitting the joined private split report with
+total/defined/undefined/refused denominators and private report
+provenance over actual source Recall@20/60/full multi-source and
+stage-loss aggregation. The gap is therefore closed as software; what
+it does NOT establish is unchanged:
+
+- The actual cohort composition proof is ONE bounded synthetic run: an
+  owned fixture with three synthetic source revisions, a canonical
+  dataset of five cases (four selected structural held-out cases —
+  one-source, three-source AND, alternative-source OR and no-Gold —
+  plus an unrelated tuning case with Gold), six selected / seven full
+  Gold occurrences and all three bundles retained for EVERY binder.
+  Four sequential outer attempts: the successful cohort (five pin
+  checks, four producer, four binder, one aggregate); a
+  missing-query admission refusal with progress `None` and zero
+  delegated calls; a valid changed-space query refused in the third
+  producer after two completed cases (four pin, three producer, two
+  binder, no aggregate; prefix `PRODUCER` 4/3/2/1/1); and a
+  closed-pin preflight refusal with zero delegated calls (prefix
+  `PREFLIGHT` 4/0/0/0/4). Direct observed totals across attempts:
+  seven producer, six binder, one aggregate; no surviving-subset
+  aggregate was made. The fixture's one generator process was observed
+  to exit zero; six captured session wrapper processes were
+  deliberately closed and reaped with return code 143 — not six zero
+  exits and not a whole-descendant-tree containment proof.
+- The synthetic declared `held_out` is a structural declaration, not
+  representative human held-out discipline or rights attestation; the
+  real raw baseline remains NOT RUN (missing approved human held-out
+  data, corpus rights, current principal-policy authority and a
+  qualified encoder).
+- Source-linked chunk grades are absent: the existing generic MRR/nDCG
+  oracle is valid over supplied units and is not grounds to infer
+  requirement-to-chunk grades (no chunk MRR/nDCG without an explicit
+  relevance mapping).
+
+Retained failures are not deleted: the first inventory exhausted its cap
+on a deduplication defect and the first collection attempt failed its
+origin/output guard; both evidences are preserved privately, and the
+separately corrected bounded checks passed (corrected inventory
+reviewed; collection-only correction passed with exactly one node, no
+skips, deselections or test execution; the prior formatter passed with
+identical syntax and constants and Ruff check passed). Root
+independently ran a separate controlled cleanup witness once against the
+frozen cleanup definitions (ten cases PASS, including hostile exception
+behavior and interruption identity); the coding author did not rerun it,
+and an other-author review is not a second actual run or full ICA.
+
+Actual resource accounting for the synthetic proof: limits CPU 120 s,
+address space 2 GiB, per-file FSIZE 16 MiB, CORE 0, CPU affinity 0,
+wall 240 s; observed pytest 59.29 s, launcher 62.39849 s, SELF
+2.707422 s plus waited CHILDREN 58.910207 s CPU; sampled scratch peak
+286,066 bytes / 74 entries. Per-file FSIZE, sampled log/storage
+thresholds, waited CPU/RSS and captured process handles are
+observations — not aggregate hard CPU/RSS/storage or full-descendant
+guarantees. Logical source reservations, direct observations, callee
+reports and the overlapping binder/geometry ledgers are different
+quantities; the dataset parser's internal work remains unmeasured by the
+runner. Named external files were statically inventoried and dynamically
+observed standard-library identities hashed after the run; those
+observations do not establish full native runtime, linker, operating
+system, network, license or provenance closure. Public component
+evidence retains exact hashes and attribution without raw private input
+(`oap/reviews/009-e-component-evidence.json`).
+
+Original objective 009 remains OPEN/PARTIAL: the 009-f continuation,
+like 009-a through 009-e, is static transfer plus documentation in the
+canonical lane (no local source run); the private publisher, the named
+plan/evaluate CLI, current-policy verification and the representative
+baseline remain unfinished, and no merge, next numeric objective or
+whole-MVP claim follows from it.
+
+## Unit oracles versus real held-out and actual queries
+
+The twelve unit suites (six 009-a, three 009-c, one 009-d, one 009-e
+and one 009-f) exercise the copied synthetic fixtures and the
+`docs/parallel/*-oracle.json` vectors (the 009-d suite: 33 tests against
+the frozen cohort oracle and genuine lower geometry; the 009-e suite:
+54 controlled cases — the original 35 plus 19 scalar-admission
+variants — against the exact corrected runner DTOs, with binder
+refusals preceding aggregation and pure-report refusals following one
+real controlled aggregate; the 009-f suite: 44 new graded program
+units over plan/judgment/grade-budget admission, failure prefixes and
+no-subset refusal, running in the source lane alongside the 54
+unchanged old source-runner units): they prove the mathematics, the admission
+boundaries and the negative paths, not retrieval quality; the 009-c
+integration suites are the synthetic source-backed composition proofs
+described above, the 009-e integration suite is the one actual
+synthetic composition proof described in the harness section, and the
+009-f integration suites are the one actual two-query synthetic lower
+graded interop proof and the one actual whole-module genuine graded
+program proof v3 described above — likewise not a baseline. The
+real raw baseline additionally requires human-approved representative
+held-out questions, corpus rights, current principal/policy authorization
+and a qualified real encoder; those gates are missing, so the baseline is
+NOT RUN — see [docs/benchmarks/raw-baseline.md](benchmarks/raw-baseline.md)
+for the declared methodology.

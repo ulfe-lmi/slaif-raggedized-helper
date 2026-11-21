@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-16T17:14:28.149085+00:00",
+  "scope": "Attributable software evidence projection, no new execution or baseline qualification",
+  "sources": [
+    {
+      "SELF": "f4d9dbb2427c88d6d286475e25b378c7fcf57f0d",
+      "implementation": "1dcf7c3ed571835b5fb4c5eb5ba01de849b552ff",
+      "report_sha256": "f0f63ac93f320c57896393d06d0889152e735fe7cc58c0004a0695679f657d1b",
+      "evidence": "One actual two-query synthetic lower graded interop proof; producer2/binder3/external grounding5/directscore6/aggregate3; four real refusals. One generator exit0 and six captured session wrappers reaped143. Not the new evaluation_program proof."
+    },
+    {
+      "SELF": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+      "implementation": "7df7e79c003831130643e15c809db8b989c8913c",
+      "report_sha256": "42b1b88bf381cf3249d4605ec2f6a0e376a4622394b7e491ec433d28e55f8e15",
+      "evidence": "98 controlled units (54 existing+44new), three controlled legacy identity goldens and full256 moderate synthetic case check; real source/model/hardware not implied."
+    },
+    {
+      "SELF": "e3bf5b84c04f5dbd2256a37a5a30be491b8f06a6",
+      "implementation": "5d79e3d6f497ebabb0c59bb93b9dd8e38e7bfe92",
+      "report_sha256": "8915f49a7e64d5c444dd515a9657e8981f49a42d17e06096afd937617b8b6824",
+      "driver_sha256": "bd323abbdee431dd9a322887587ab2b94b219a5b4117439208be900a3dbed4cc",
+      "evidence": "One actual whole-module one-node synthetic genuine program proof v3 passed. Cached data-only fixture1, generators0, selected h1/h4 over full5case/7Gold/3bundle universe. Direct totals owner19/producer6/binder6/sourceaggregate2/precatalog2/gradebinder4/rankaggregate3/directscore0. Legacy source-only output exact equivalence. Boolean preflight0; later ineligible b:0 gradebind refusal; closed pin0; no surviving subset. Six real captured session wrappers deliberate close/reap143; whole-tree/native/OS closure UNPROVEN.",
+      "resources": {
+        "observer_SELF_plus_waited_CHILDREN_CPU_delta_seconds": 64.584229,
+        "observer_wall_seconds": 65.29573054192588,
+        "launcher_child_wall_seconds": 65.777162,
+        "launcher_waited_child_CPU_seconds": 65.039091,
+        "pytest_SELF_peak_RSS_KiB": 94252,
+        "pytest_SELF_peak_RSS_MiB": 92.04296875,
+        "waited_children_maxRSS_KiB": 72036,
+        "meaning": "Distinct clocks/scopes; peaks nonadditive and not deltas or AS. Configured CPU120/AS2GiB/wall240/FSIZE16MiB/CORE0/CPU0 are perprocess, not aggregate guarantees."
+      },
+      "limits": "Initial broad read/lane isolation failure retained; fresh semantic341392B exceeds262144 by79248. Later semantic totals incomplete/not certified; first5282B diagnostic not a through-commit total. V1/v2 launchers not actual runs; Root controlled mock corrections not source execution. Actual161-input identity verified after run before later two-doc correction/operational edits, not certified through final report."
+    }
+  ],
+  "baseline": "NOT_RUN. Synthetic held_out declarations and supplied diagnostic vectors are not approved human baseline/current policy/qualified encoder/quality/hardware/20k/ICA/MVP evidence.",
+  "DHA": "NONE"
+}

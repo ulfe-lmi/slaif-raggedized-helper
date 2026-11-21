@@ -1,0 +1,81 @@
+{
+  "lane_id": "PAR-009-ENCODER-RUNTIME-IDENTITY-A",
+  "result": "COMPLETE",
+  "implementation_head": "7ac6994cbdbefb9b2afc4b82b56227544d340935",
+  "report_publication_commit": "SELF",
+  "api": "ResidentQueryEncoder._encode_expected_identity(text, expected) \u2014 closed private resident query path for one nominal four-field encoder identity. Under the existing encoder lock it validates the exact nominal type and bounded grammar (bare lowercase 64-hex space, sha256:-prefixed definition, bare 64-hex policy, bare 64-hex execution, existing downstream declaration order), then gates the live admitted session before the existing session encode: the current execution record and fingerprint must equal the session's frozen admission snapshots and bind to each other, the live worker identity must equal the record worker including the recomputed actual policy digest, the measured four-file bridge must equal the record bridge, and the normalized sha256: execution representation must equal the expected execution. Shared private guarded encode with encode_query under the existing lock; guarded mode is an internal keyword-only flag chosen by the entry points, never by a value in the untrusted expected tuple, so None or any invalid declaration refuses without falling through to the unguarded entry. Public encode_query signature, checks, return shape, failure and cleanup precedence are unchanged.",
+  "evidence": "Original test module preserved as an exact byte prefix: the 17 inherited tests and all fixtures are unchanged; 34 cases added, 51 supported. Real resident path: the actual ResidentQueryEncoder.__enter__ drives the actual IsolatedCPUEmbeddingSession.__enter__ (real private staging of the owned synthetic make_tree artifacts, real embedding_space.admit, real _worker_identity, real schema-2 record built by cpu_execution_contract._record and frozen into _record_snapshot/_fingerprint_snapshot at admission); only the lower delegated boundary is substituted, with owned controlled synthetic classes standing in for embedding_tokenizer.TokenIDSession and cpu.CPUEmbeddingWorker \u2014 no model, no native child, no network. Positive witness: a stable admitted runtime identity reaches the existing session encode exactly once, captured call order ['gate','session-encode','native','forward','gate','gate'], returning the ordinary checked QueryEmbedding whose space, definition, query policy and normalized execution equal the live admitted metadata, with record bridge/worker binding asserted against the measured bridge and real worker identity. Pre-dispatch negatives, each with a counted direct session-encode wrapper showing zero session-encode, native and CPU forward calls and exactly the counted cleanup close pair, sticky refused state and retained owner: four wrong well-formed same-shape expected tuples (one per field), four live worker identity field changes, coherent drift of live worker code plus public record plus recomputed fingerprint with a matching expected tuple, and a changed live worker policy object while the earlier policy_fingerprint is preserved. Post-permitted-encode mismatches are kept distinct: a tampered batch after a full real encode (one counted encode plus native and forward, then the close pair) and a receipt fault inside the session encode (one counted encode plus native, no forward, close pair), both with correct resource owner retention. Legacy semantics through the private entry: seven content-free bad-text refusals (non-sticky, zero dispatch, owner stays usable), busy and fork refusal, KeyboardInterrupt preserved with lock released through the gate, valid result shape, and the real bounded ownership paths from the unchanged original tests (actual pending owner, uncooperative cleanup, interrupt priority). Source origins: physical isolated worktree at exact base 416009c94a6759c9a42e9c19dab688c0f54d9650; the ordered order bytes (c301906a...) are committed unchanged; all six measured bridge and worker source files are byte-identical to the ordered source-inputs preserved hashes. The single ordered bounded raw proof used the pre-existing canonical main-repo .venv binaries directly, the exact physical worktree on PYTHONPATH, a fresh mode-0700 scratch directly under sticky /tmp, OPENBLAS_NUM_THREADS=1, prlimit --as=1073741824 --cpu=60, timeout -k 5 120, one focused pytest of the module and one targeted one-core Ruff: 51 passed (0.50 s) and All checks passed. Independent Root evidence at this exact head (Root-exact-review-7ac6994c, sha256s enumerated below) reconfirmed the byte-prefix original, unchanged bridge/worker sources, entry-owned synthetic delegates, entry-selected guarded mode and 51 focused passes under independent canonical caps.",
+  "commands": [
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity && OPENBLAS_NUM_THREADS=1 PYTHONPATH=/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity/src TMPDIR=/tmp/encoder-runtime-identity.3wkU7n timeout -k 5 120 prlimit --as=1073741824 --cpu=60 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/pytest --basetemp=/tmp/encoder-runtime-identity.3wkU7n/pytest tests/unit/test_query_embedding.py",
+      "exit": 0,
+      "result": "51 passed in 0.50s \u2014 the single ordered bounded raw proof at the exact final head"
+    },
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity && OPENBLAS_NUM_THREADS=1 PYTHONPATH=/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity/src timeout -k 5 120 prlimit --as=1073741824 --cpu=60 taskset -c 0 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/ruff check src/slaif_raggedized_helper/query_embedding.py tests/unit/test_query_embedding.py",
+      "exit": 0,
+      "result": "All checks passed! \u2014 one targeted one-core Ruff at the exact final head"
+    }
+  ],
+  "excluded_or_excess_runs": [
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity && uv run --locked --offline python -c \"import pytest, sys; print('pytest', pytest.__version__, sys.version)\" && uv run --locked --offline ruff --version",
+      "exit": 0,
+      "result": "Setup deviation at 12:08 UTC: created a separate worktree .venv with 21 cached packages. Not proof. That environment was left in place as ordered; all evidence runs used the pre-existing canonical main-repo .venv."
+    },
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity && OPENBLAS_NUM_THREADS=1 timeout 120 uv run --locked --offline pytest tests/unit/test_query_embedding.py -q",
+      "exit": 0,
+      "result": "Pre-change baseline at 12:09 UTC: 17 passed. Lacked the required CPU/AS caps and used the worktree venv. Setup deviation; not proof."
+    },
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity && OPENBLAS_NUM_THREADS=1 PYTHONPATH=$PWD/src TMPDIR=$(mktemp -d /tmp/eri-dev.XXXXXX) /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/pytest tests/unit/test_query_embedding.py",
+      "exit": 0,
+      "result": "Uncapped development-iteration runs on the evolving candidate (observed: 46 passed/1 failed, 47 passed, 47 passed, 49 passed, 50 passed/1 failed, 51 passed; one intermediate run exited 1 before its test fix). Includes unchanged postcommit repetitions of the module. Development verification only; not proof."
+    },
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity && OPENBLAS_NUM_THREADS=1 PYTHONPATH=/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity/src TMPDIR=/tmp/encoder-runtime-identity.txfMja timeout 125 prlimit --as=1073741824 --cpu=60 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/pytest --basetemp=/tmp/encoder-runtime-identity.txfMja/pytest tests/unit/test_query_embedding.py   (plus the matching taskset-free ruff pair)",
+      "exit": 0,
+      "result": "Bounded-format run on superseded candidate 603fac7ba7dbff8126508e9f981a9f390251e967: 47 passed in 0.38s, All checks passed. Superseded by the first FIX (frozen-state drift reached the delegates). Not the ordered proof."
+    },
+    {
+      "command": "cd /home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity && OPENBLAS_NUM_THREADS=1 PYTHONPATH=/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-encoder-runtime-identity/src TMPDIR=/tmp/encoder-runtime-identity.lquX6C timeout -k 5 120 prlimit --as=1073741824 --cpu=60 /home/janezp/codex-work/slaif-raggedized-helper/.venv/bin/pytest --basetemp=/tmp/encoder-runtime-identity.lquX6C/pytest tests/unit/test_query_embedding.py   (plus the matching taskset -c 0 ruff pair)",
+      "exit": 0,
+      "result": "Bounded-format run on superseded candidate 61e9dd1ff337752dc5bb10b652d3af39baf48894: 49 passed in 0.47s, All checks passed. Superseded by the second FIX (None selected the unguarded route). Not the ordered proof."
+    },
+    {
+      "command": "Root independent bounded probes: parallel/encoder-runtime-identity/Root-exact-review-603fac7b, Root-exact-review-61e9dd1f, Root-exact-review-7ac6994c (see root_review_evidence)",
+      "exit": 0,
+      "result": "Independent strategic review evidence, not a coding proof run."
+    }
+  ],
+  "witness_sha256": {
+    "src/slaif_raggedized_helper/query_embedding.py": "6a8277afa130fc3e8da02a454f5eabb2ba7eb36d36147e63bd4301bbf6e8e1d2",
+    "tests/unit/test_query_embedding.py": "3488f8ceb127241c9ad5da555733fe45467983e35ab0a6e75e5d4e300ec78cf0",
+    "oap/parallel/orders/PAR-009-ENCODER-RUNTIME-IDENTITY-A.md": "c301906a1da6f2d1925b12a85fd449a86820c5dd171d1d569645543ad2fbeb66",
+    "src/slaif_raggedized_helper/isolated_cpu_embedding.py": "bae33448cf4d629b6b351031618bb959d0e2baf2b5a5a11977499ad21b1edbc8",
+    "src/slaif_raggedized_helper/cpu_execution_contract.py": "e2e01b1c189036ad7eee036e90625b4aa14c4a33bfdb52d97c8c7d4cd4744c7f",
+    "src/slaif_raggedized_helper/embedding_tokenizer.py": "1c1d0a3ebf6bb3d587cd89aa3dc2270ea6ec745823c990964f715ce8a5bf5094",
+    "src/slaif_raggedized_helper/embedding_vectors.py": "c69906f3cb4a1239241990d31eb2688fb14712525c5046e93ff07331724b3a67",
+    "src/slaif_raggedized_helper/embedding_tokenizer_worker.py": "ce0c2fc12dac3a1fe5053afa85688a0f8a8837b34d0936256ba736dc177a35a3",
+    "src/slaif_raggedized_helper/cpu_embedding_worker.py": "6c9703ca5eea837b588b55c63dde88a6ac5e35c4db3ea192f61e27c27b1127ae"
+  },
+  "root_review_evidence": {
+    "implementation": "7ac6994cbdbefb9b2afc4b82b56227544d340935",
+    "decision": "REPORT (consumed by the owned implementation-cycle helper)",
+    "artifacts": {
+      "Root-exact-review-7ac6994c/stdout": "d4cf36447e11a617b84ca57efd46287cccd535514ad15f6240216cf77a8286bf",
+      "Root-exact-review-7ac6994c/stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Root-exact-review-7ac6994c/exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "Root-exact-review-7ac6994c/command": "e0ad8512b68eb88d2cb919bda0a981e52a03d3064c6604cc656704d870e73186",
+      "Root-exact-review-7ac6994c/origins.json": "aeabe1f1bb1d581a7643021a573484ae5ecec0986e2a92d9803350d5cd543d2a"
+    },
+    "focused_passes": 51,
+    "original_cases": 17,
+    "added_cases": 34,
+    "verified_unchanged_measured_bridge_and_worker": true
+  },
+  "limits": "Owned synthetic controlled delegates only at the lower delegated boundary; no live model, no real native or CPU transport, no hardware, no network, no keys. No authorization/ACL/rights/license/MVP or baseline claim. The pre-dispatch same-path comparison happens before session.encode under the resident wrapper lock; it does not authorize or control separate session references, native renewal, or the later actual tokenizer/CPU dispatch (remaining gates per the order). Local isolated worktree candidate only: no GitHub, no push, no PR, no CI certification, no integration, no merge. Prior checkpoint rounds 603fac7 and 61e9dd1 were corrected by the owned review loop; their artifacts are preserved in the lane directory. Raw outputs retained in /tmp/encoder-runtime-identity.3wkU7n (pytest.log, ruff.log) and the lane Root-exact-review directories.",
+  "strongest_counterargument": "The checked identity gate is a same-path pre-dispatch comparison under the resident wrapper lock on a synthetic admission; it neither authorizes nor controls arbitrary separately held session references, native renewal or the later actual tokenizer/CPU transport, and the bounded local synthetic execution does not establish real BGE model compatibility, real transport, parity, authorization, license or hardware qualification.",
+  "DHA Decision": "NONE"
+}

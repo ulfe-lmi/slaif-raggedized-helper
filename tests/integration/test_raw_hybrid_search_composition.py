@@ -12,7 +12,32 @@ from test_raw_snapshot_directory_composition import materialize, restore_owned_d
 from test_raw_snapshot_files_composition import complete
 from test_raw_snapshot_rows import enc
 
-def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=False):
+def close_owned_stores(derived, originals, failure=None):
+    """Attempt both closes; preserve a body failure and expose cleanup failures."""
+    first = None
+    failed = False
+    for store in (derived, originals):
+        if store is None:
+            continue
+        try:
+            store.close()
+        except BaseException as exc:
+            failed = True
+            if first is None:
+                first = exc
+    if failed:
+        target = failure if failure is not None else first
+        try:
+            BaseException.add_note(target, "Store close failed; cleanup may be incomplete.")
+        except BaseException:
+            pass
+        if failure is None:
+            raise first
+
+
+
+def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=False,
+                 query_identity=None):
     from dataclasses import asdict
     from slaif_raggedized_helper import derived_store, embedding_batch_store as bs
     from slaif_raggedized_helper import embedding_vectors, ingestion_store
@@ -21,6 +46,22 @@ def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=Fals
     from test_retrieval_representation_composition import make_bundle
     from slaif_raggedized_helper.source_admission import OriginalStore, parse_manifest
     from test_raw_snapshot_source_rows_composition import wire
+
+    if query_identity is not None:
+        import re
+
+        # The bounded opt-in single fixture query identity tuple at
+        # actual creation, under the exact declared tuple grammar.
+        if (
+            type(query_identity) is not tuple
+            or len(query_identity) != 4
+            or any(type(value) is not str for value in query_identity)
+            or re.fullmatch(r'[0-9a-f]{64}', query_identity[0]) is None
+            or re.fullmatch(r'sha256:[0-9a-f]{64}', query_identity[1]) is None
+            or re.fullmatch(r'[0-9a-f]{64}', query_identity[2]) is None
+            or re.fullmatch(r'[0-9a-f]{64}', query_identity[3]) is None
+        ):
+            raise ValueError
 
     paths, runtime, make = make_native(tmp_path)
     defs = (make(paths[0], 'bge_body'), make(paths[0], 'bge_representation'),
@@ -48,15 +89,23 @@ def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=Fals
                               sha256=hashlib.sha256(third_raw).hexdigest()))
     sources = parse_manifest(json.dumps(dict(schema_version=1, sources=manifests)).encode())
     originals = OriginalStore(tmp_path / 'store')
-    revisions = [originals.admit(source_root, source) for source in sources.sources]
-    derived = derived_store.Store(tmp_path / 'store')
+    derived = None
     try:
+        revisions = [originals.admit(source_root, source) for source in sources.sources]
+        derived = derived_store.Store(tmp_path / 'store')
         policy_hash = schema.fingerprint(dict(kind='embedding-representation-policy-v1',
             policy=asdict(rr.Policy()), batch_policy=asdict(rr.BatchPolicy())))[7:]
         deps = dict(space_id='a' * 64, inventory_id='b' * 64, definition_fingerprint='c' * 64,
                     execution_fingerprint='d' * 64, tokenizer_sha256=defs[1].sha256,
                     representation_policy_fingerprint=policy_hash,
                     normalization_policy_id=embedding_vectors.POLICY_ID)
+        if query_identity is not None:
+            # The exact open resident's space and definition bound to
+            # the real synthetic corpus batches and rows; the existing
+            # corpus vectors stay synthetic with their independently
+            # declared corpus execution provenance.
+            deps['space_id'] = query_identity[0]
+            deps['definition_fingerprint'] = query_identity[1][7:]
         rows, bundles, expected = [], [], {}
         chunk_policy = None
         for i, revision in enumerate(revisions):
@@ -102,6 +151,12 @@ def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=Fals
         if empty:
             mapping['rows'] = []
         core, payloads = complete(originals, derived, mapping, tuple(bundles))
+        if query_identity is not None:
+            # The resident's query policy and execution assigned to the
+            # core before materializing the immutable core, never
+            # rewritten after the snapshot ID or selection.
+            core['embedding']['query_policy_fingerprint'] = query_identity[2]
+            core['embedding']['query_execution_fingerprint'] = query_identity[3]
         root, _, ident = materialize(tmp_path, enc(core), payloads)
         if paired:
             permitted = [r for r in rows if expected[r['chunk_id']][0]['corpus'] == 'one']
@@ -110,14 +165,16 @@ def make_sources(tmp_path, *, version='v1', empty=False, three=True, paired=Fals
             subset = dict(mapping, rows=[one])
             subset_core, subset_payloads = complete(
                 originals, derived, subset, (one['bundle_container_id'],))
+            if query_identity is not None:
+                subset_core['embedding']['query_policy_fingerprint'] = query_identity[2]
+                subset_core['embedding']['query_execution_fingerprint'] = query_identity[3]
             subset_dir = tmp_path / 'subset'
             subset_dir.mkdir(mode=0o700)
             subset_root, _, subset_id = materialize(subset_dir, enc(subset_core), subset_payloads)
             return originals, derived, root, ident, subset_root, subset_id
         return originals, derived, root, ident
-    except BaseException:
-        derived.close()
-        originals.close()
+    except BaseException as failure:
+        close_owned_stores(derived, originals, failure)
         raise
 
 

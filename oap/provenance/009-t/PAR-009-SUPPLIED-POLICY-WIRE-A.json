@@ -1,0 +1,92 @@
+{
+  "lane_id": "PAR-009-SUPPLIED-POLICY-WIRE-A",
+  "result": "COMPLETE",
+  "implementation_head": "899465220ac2108388845d6926209448f41fdadb",
+  "report_publication_commit": "SELF",
+  "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-supplied-policy-wire",
+  "branch": "oap/parallel-009-supplied-policy-wire",
+  "base": "191139254f327dd9d987f60db4102f2916e55611",
+  "implementation_head_sha_note": "Implementation head SHA: 899465220ac2108388845d6926209448f41fdadb (sole parent 191139254f327dd9d987f60db4102f2916e55611)",
+  "control": "EXACT_OK_CONSUMED 2026-11-20T02:14:49Z (NEW lane wait-control, once; never reread or replayed)",
+  "review_path": [
+    {
+      "checkpoint": "f5fcf7a9e1059fdbea96329718bc8b91dc342b00",
+      "decision": "FIX",
+      "note": "narrow test-boundary findings only; product decoder/contract/order bytes preserved exact; preserved by checkpoint ref; run-3 follow-up Root-fix-followup-run3.json (SAME_FIX_NARROW_TEST_ORACLE_CORRECTION)"
+    },
+    {
+      "checkpoint": "899465220ac2108388845d6926209448f41fdadb",
+      "decision": "REPORT",
+      "root_review": "Root-review-89946522.json (REQUEST_LOCAL_REPORT_ONLY; byte-identical decoder d18a9399 / contract b737e5e3 / order 6e552cad; all four logs verified by hash; count witnesses confirmed)"
+    }
+  ],
+  "changes": [
+    "New additive private module supplied_policy_wire: admit_policy_bytes(data) -> SuppliedPolicy and PolicyWireError(ValueError); exact bytes 42..67108864; type/length before field work; bounds-first monotone framing; both schema U32s exactly 1; pre-traversal count caps; verifier frame exactly 32 before body; per-string 1MiB + field byte maxima (128/12/1024/71/64) before strict UTF-8; per-occurrence actual M; actual C = M + H (H = 42+4S+24P+4D) with the sufficient 66021078 threshold NOT imposed; exact EOF; real PrincipalSpec/DocumentRule reconstruction; each Grants record through real public 4-key controlled-mapping admit_record; real typed admit_policy authoritative for all domain checks, Grants snapshots and framed hash; no second input hash",
+    "Error ABI: one fixed input-free PolicyWireError raised after handlers (__cause__/__context__ None); non-Exception BaseException propagates by identity; no logs, no partial outputs, no I/O, no currentness checks, no credential provisioning; decoder never replaces the typed API",
+    "FIX round corrections (test-only, production bytes preserved): principal-count 257 witnessed at a 43-byte input refused before the first framed text (test-local non-Exception sentinel seam); cumulative pair boundary made genuine: fixed-width sorted doc-0NNNN IDs, admitted 1024-doc x 64-pair view (65536 pairs) with delivered rules/counts and golden identity, 65537th pair (doc-01024) refused before traversal with a test-local observer delegating to the genuine framed read (132099 recorded reads: 2 principal frames 128-cap/12-cap + 1025 doc IDs + 2x65536 pair strings; no 65537th pair frame)",
+    "Byte-exact strategic contract (b737e5e3) and lane order (6e552cad) committed"
+  ],
+  "files": {
+    "src/slaif_raggedized_helper/supplied_policy_wire.py": "d18a93996baa36ea88b538f439994e9d658eb1fe4de32fb6daac15068ec4805a",
+    "tests/unit/test_supplied_policy_wire.py": "00ce55eabe893386ad48449231964d7ea12cb34fb22336705c859c5952c3eb59",
+    "docs/parallel/supplied-policy-wire-v1.md": "b737e5e33ff2ce753ea8a9c3e68eba2a250b8f56d2004e57c1b52c5478aa3158",
+    "docs/parallel/supplied-policy-wire-api.md": "ea69974298d287495a0c0aed65af2f457fa06a73b18dc24e52cc9f73aeec255b",
+    "oap/parallel/orders/PAR-009-SUPPLIED-POLICY-WIRE-A.md": "6e552cadd73700b3dac2e524f4dda286f08a14efca4b4a96cd177f3d9ece6243"
+  },
+  "checks": [
+    {"cmd": "ruff format (initial focused cycle, 2 files reformatted) + ruff check (two new Python files)", "exit": 0},
+    {"cmd": "ruff format --check + ruff check (FIX round 1)", "exit": 0},
+    {"cmd": "ruff format --check + ruff check (FIX round 2)", "exit": 0},
+    {"cmd": "pytest run 1: timeout --kill-after=5s 180s /usr/bin/time -v prlimit --cpu=120 --as=1073741824 (two-module selection, PYTHONPATH=own src)", "exit": 1, "passed": 217, "failed": 1, "log": "pytest-run-1.log", "log_sha256": "b20f5fef158781c0ec9323935d991bb2fd6edc1d2abe6af4f286dd11ac4f3dd1", "user_cpu_s": 8.05, "wall_s": 8.76, "max_rss_kib": 403292, "cause": "test-fixture bug (raw pair builder str/bytes); preserved immutable"},
+    {"cmd": "pytest run 2 (checkpoint f5fcf7a bytes)", "exit": 0, "passed": 218, "failed": 0, "skipped": 0, "case_count": 218, "log": "pytest-run-2.log", "log_sha256": "0f6cf385ee696aaedd6f6e39d0bf757a63cbec6d601634d09966069f7cfe9bb0", "user_cpu_s": 8.19, "wall_s": 8.87, "max_rss_kib": 419516},
+    {"cmd": "pytest run 3 (first correction bytes)", "exit": 1, "passed": 218, "failed": 1, "log": "pytest-run-3.log", "log_sha256": "f8c74f32beb27c1332ad7cbde5338c33bd79696b0996a0c8e9e991d585f75242", "user_cpu_s": 9.03, "wall_s": 9.88, "max_rss_kib": 450316, "cause": "oracle omitted the two real principal reads (observed 132099); failure preserved immutable"},
+    {"cmd": "pytest run 4 (final bytes): same bounded two-module command", "exit": 0, "passed": 219, "failed": 0, "skipped": 0, "case_count": 219, "wire_case_count": 95, "typed_case_count": 124, "log": "pytest-run-4.log", "log_sha256": "bafad5837ec9e97985061a1bd12f5d8feaf139fbc31a1eafbbc8a4f6a4ee58ed", "user_cpu_s": 8.92, "wall_s": 9.73, "max_rss_kib": 450248}
+  ],
+  "attempts": {
+    "ruff_cycles": 3,
+    "pytest_processes": 4,
+    "note": "one process per actual byte change; no retry of unchanged failed bytes; no skipped/pending; runs 1 and 3 failures preserved honestly"
+  },
+  "caps": {
+    "wire_bytes": "42..67108864 inclusive",
+    "M_bytes": 67108864,
+    "C_bytes": 67108864,
+    "per_string_utf8_bytes": 1048576,
+    "field_byte_maxima": {"principal_id": 128, "operation": 12, "document_id": 1024, "revision_id": 71, "scope_digest": 64},
+    "principals": 256,
+    "documents": 20000,
+    "operations": 3,
+    "grants_values_per_vector": 128,
+    "admitted_pairs_per_document": 64,
+    "admitted_pairs_total": 65536
+  },
+  "witnesses": [
+    "exact 42-byte empty policy literal; independent golden identity + one-byte value-change; two independent test-side framings agree; Unicode/control/empty shapes",
+    "actual 20000-declaration M/H/C = 2840039/320074/3160113; zero-principal 2840000/320042/3160042; transport wire length == canonical C",
+    "above-sufficient material admitted M 66492352 > 66021078 with C 66936298 <= cap; canonical-cap crossing refused C 67341290 > cap while M 66897344 <= cap",
+    "principal count 257 at a 43-byte input refused before the first framed text (test-local sentinel seam); document 20001 / operations 0+4 / Grants vector 129 / pair 65 refusals",
+    "cumulative pair boundary: genuine admitted 1024-doc x 64-pair view (65536 pairs; delivered rules/counts + golden identity); 65537th pair refused before traversal; observer recorded 132099 genuine framed reads (2 principal frames 128-cap/12-cap + 1025 doc IDs 1024-cap + 2x65536 pair strings 71/64-cap), no 65537th pair frame",
+    "size/remaining/EOF: type gate, 41B and 64MiB/64MiB+1 boundaries, 18 truncation cuts, trailing 1/4/17 bytes, field byte caps with 128B/1024B boundaries admitted, verifier frames 31/33/32-truncated, six strict invalid-UTF-8 sequences, both schema locations, three prefix mutations",
+    "structurally valid typed refusals incl real-API-valid unsorted Grants (genuine admit_record accepts; typed and wire refuse); real fullscan matching (SUPPLIED_POLICY_MATCH_ONLY) and real reader_allows/Restrictions intersections on the returned real Grants; fixed input-free error hygiene (__cause__/__context__ None) and BaseException sentinel identity at Grants-admission and typed-factory seams"
+  ],
+  "origins": "test-startup (import-time, fail-closed) asserted supplied_policy_wire, supplied_policy and provenance_records resolve under the worktree src derived from the physical test-file location; passed at final bytes",
+  "preserved": [
+    "checkpoint refs f5fcf7a9/89946522",
+    "evidence.json (corrected round), evidence-f5fcf7a.json (round 1)",
+    "pytest-run-1.log, pytest-run-2.log, pytest-run-3.log, pytest-run-4.log (all immutable)"
+  ],
+  "semantic_ledger_kb_approx": {
+    "cumulative_read_and_output": 281,
+    "allowance": 320,
+    "note": "honest estimates; hash-only byte I/O (cp/sha256sum/wc/git) kept separate"
+  },
+  "limitations": [
+    "candidate-local pure-unit evidence only (219 cases; observed CPU/RSS, not a heap/RSS theorem); does not certify canonical combined CI",
+    "decoder output ends at the real typed admitted object; no current protected authority, selection, issuance, delivery, eligibility, dispatch, integration, merge, full baseline, release or deployment; real baseline NOT_RUN; gates OPEN",
+    "20000-declaration and 67MB witnesses are finite pure-unit evidence, never source/snapshot capacity; a hash is content identity and alone authenticates no policy",
+    "later mandatory protected-reader/operator composition remains open; canonical objective 009 and PR #11 remain owned by the original coding/control path"
+  ],
+  "no_merge": true,
+  "no_remote_publication": true,
+  "DHA": "NONE"
+}

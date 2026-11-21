@@ -1,0 +1,15 @@
+{
+  "identifier": "009-j",
+  "base": "a7ad70b5e96995122afeae937ce8dd49d569131b",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-i-resolution.json",
+      "target": "oap/reviews/009-j-prior-resolution.json",
+      "bytes": 3293,
+      "sha256": "f79d684f5825b834ae4b66909b86d1ca29096b8548942aad7ae87756f7b720a6"
+    }
+  ],
+  "record_count": 1,
+  "total_record_bytes": 3293,
+  "DHA": "NONE"
+}

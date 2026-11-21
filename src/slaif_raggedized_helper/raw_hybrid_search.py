@@ -8,8 +8,14 @@ import re
 import time
 import unicodedata
 
-from . import derived_store, raw_dense_search as dense, raw_lexical_search as lexical
+from . import derived_store, private_policy_pin_eligibility as pin_eligibility
+from . import raw_dense_search as dense, raw_lexical_search as lexical
 from . import raw_rank_fusion as fusion, raw_snapshot_catalog as catalog
+from . import provenance_records
+from . import source_bound_stage_loss as stage_loss
+from . import text_evaluation_dataset as evaluation_dataset
+from .private_policy_request import PolicyRequestAdmission
+from .raw_snapshot_pin import PinOwner
 from .source_admission import OriginalStore
 
 
@@ -184,9 +190,10 @@ def search(originals, derived, store_root, snapshot_id, text, query_payload, *, 
 
 
 def _search(originals, derived, root, snapshot, text, payload, space, definition, policy,
-            execution, grants, restrictions, dense_k, lexical_k, cap, k, deadline_ms, trace):
+            execution, grants, restrictions, dense_k, lexical_k, cap, k, deadline_ms, trace,
+            *, owner=None, admission=None, end=None, held=None):
     _check(type(deadline_ms) is int and 1 <= deadline_ms <= 120000)
-    end = time.monotonic() + deadline_ms / 1000
+    end = time.monotonic() + deadline_ms / 1000 if end is None else end
 
     def remaining():
         ms = math.floor((end - time.monotonic()) * 1000)
@@ -221,6 +228,12 @@ def _search(originals, derived, root, snapshot, text, payload, space, definition
     query = np.frombuffer(payload, dtype='<f4')
     _check(bool(np.isfinite(query).all()) and abs(float(np.linalg.norm(query)) - 1) <= 1e-4)
     text_sha, payload_sha = _sha(text_bytes), _sha(payload)
+    if owner is not None:
+        # O2: the second genuine current observation, after verified
+        # scope and actual association, after all earlier shared-body
+        # validation and before the first real catalog call.
+        pin_eligibility._genuine_recheck(admission, end)
+        remaining()
     source = catalog.load_catalog(originals, derived, root, snapshot, deadline_ms=remaining())
     remaining()
     _check(type(source) is catalog.Catalog and source.snapshot_id == snapshot)
@@ -242,6 +255,14 @@ def _search(originals, derived, root, snapshot, text, payload, space, definition
            (dr.snapshot_id, dr.catalog_id, dr.query_payload_sha256, dr.query_origin,
             dr.qualification) == (snapshot, source.catalog_id, payload_sha,
                                   'SUPPLIED_UNVERIFIED', 'NOT_QUALIFIED'))
+    if owner is not None:
+        # O3: the third genuine current observation, after the real
+        # dense output completes and before any real lexical call; a
+        # detected change refuses here with zero new lexical and
+        # fusion calls - an already-started earlier operation cannot
+        # be undone.
+        pin_eligibility._genuine_recheck(admission, end)
+        remaining()
     lr = lexical.search(originals, derived, root, snapshot, text, grants=grants,
                         restrictions=restrictions, k=lexical_k, partition_cap=cap,
                         deadline_ms=remaining(), trace=trace)
@@ -264,6 +285,14 @@ def _search(originals, derived, root, snapshot, text, payload, space, definition
                     lexical_k, cap, remaining)
     else:
         _check(dr.trace is None and lr.trace is None)
+    if owner is not None:
+        # O4: the fourth genuine current observation, after the real
+        # lexical response validation and optional trace links and
+        # before the first real fusion call; a detected change refuses
+        # here with zero new fusion, catalog or directory calls - an
+        # already-started earlier operation cannot be undone.
+        pin_eligibility._genuine_recheck(admission, end)
+        remaining()
     fr = fusion.fuse(originals, derived, root, snapshot, query_id,
                      dense=_ranking('dense', snapshot, source.catalog_id, query_id, dr.hits),
                      lexical=_ranking('lexical', snapshot, source.catalog_id, query_id, lr.hits),
@@ -277,7 +306,277 @@ def _search(originals, derived, root, snapshot, text, payload, space, definition
     fresh = catalog.load_catalog(originals, derived, root, snapshot, deadline_ms=remaining())
     remaining()
     _check(fresh == source and fresh.catalog_id == source.catalog_id)
+    if owner is not None:
+        # Final owned validation under the single held guard: the
+        # actual owner sequence with the association before and after
+        # the one distinct last full reload, compared with the exact
+        # originally held PinData bound before the body, not a newly
+        # read alias.
+        owner._association()
+        loaded = owner._load(snapshot)
+        owner._association()
+        _check(loaded == held.data)
+        remaining()
     result = HybridResult(snapshot, source.catalog_id, query_id, text_sha, payload_sha,
                           authority_sha, 'SUPPLIED_UNVERIFIED', 'NOT_QUALIFIED', dr, lr, fr)
     remaining()
     return result
+
+
+def search_pinned(admission, owner, text, query_payload, *, query_space_id,
+                  query_definition_fingerprint, query_policy_id,
+                  query_execution_fingerprint, dense_k=60, lexical_k=60,
+                  partition_cap=60, k=60, deadline_ms=30000, trace=False):
+    """One fixed private held-pin route through the real hybrid search.
+
+    Binds the exact admitted current selected-policy request
+    (``private_policy_request.PolicyRequestAdmission``) and the exact
+    active operator-owned pin (``raw_snapshot_pin.PinOwner``) to the
+    existing hybrid engines: the stores, store root, snapshot identity
+    and admitted grants come only from the actual owner and verified
+    selected material; the principal's exact admitted scope is used
+    with no additional caller restriction.  The caller supplies no
+    root, stores, snapshot ID, grants, provider, callable, alternate
+    clock or credential.  One real nonblocking owner guard is held
+    through the one existing hybrid body; the span never calls
+    ``PinOwner.check`` or re-enters the borrowed preparation guard,
+    and the private operation does not acquire, close or return
+    ownership of the input pin.  One original absolute operation
+    deadline, bounded to the accepted 1..30000 ms reader range, is
+    clipped to the current request lifetime and anchors
+    the owner operation's ``op.end`` only while held, restoring its
+    original exact value in a finally before guard release on
+    success, ordinary refusal and interruption.  Five genuine current
+    observations run at the precisely named cuts: O1 after pure
+    admission and nonblocking owner custody, with no association,
+    catalog or source I/O; O2 after verified scope and actual
+    association, before the first real catalog call in the shared
+    body; O3 after real dense output completes, before any real
+    lexical call, where a detected change refuses with zero new
+    lexical and fusion calls; O4 after real lexical output completes
+    and is validated, with its optional trace links, before the first
+    real fusion call, where a detected change refuses with zero new
+    fusion, catalog or directory calls; O5 after the final actual
+    pin association/full revalidation and its post-load association,
+    with the final exact authority check and the true remaining
+    deadline, before usable return.  Scope drift, expired budget and
+    late usable results refuse throughout.  The public :func:`search`
+    signature, normal deadline and outcomes and every original caller
+    path stay exact; this route exposes one fixed content-free
+    ordinary refusal and preserves a non-Exception interruption
+    object by identity.
+    """
+    try:
+        _check(type(trace) is bool)
+        return _search_pinned(admission, owner, text, query_payload, query_space_id,
+                              query_definition_fingerprint, query_policy_id,
+                              query_execution_fingerprint, dense_k, lexical_k,
+                              partition_cap, k, deadline_ms, trace)
+    except Exception:
+        raise HybridSearchError('hybrid search refused') from None
+
+
+def _case_bound_scope(full_grants, case_scope, end):
+    # The genuine existing case-scope intersection: the narrower
+    # effective case value derived from the exact full principal
+    # anchor and the admitted case declaration, with no additional
+    # restriction; bounded meter work under the clipped deadline.
+    def check():
+        pin_eligibility._still_within(end)
+
+    meter = stage_loss._Meter()
+    meter.check = check
+    try:
+        _, effective, restricted = stage_loss._admit_authority(
+            full_grants, None, case_scope, meter, check)
+    except Exception:
+        raise pin_eligibility._Refused() from None
+    if restricted is not None or type(effective) is not provenance_records.Grants:
+        raise pin_eligibility._Refused()
+    return effective
+
+
+def _search_pinned(admission, owner, text, payload, space, definition, policy,
+                   execution, dense_k, lexical_k, cap, k, deadline_ms, trace,
+                   *, case_bytes=None, case_id=None):
+    # Fixed private entry: exact admission and exact owner only; the
+    # new public case entry selects the fixed internal case path,
+    # which admits the bounded canonical dataset and derives the case
+    # question and effective grants before guard custody.
+    if type(admission) is not PolicyRequestAdmission or type(owner) is not PinOwner:
+        raise pin_eligibility._Refused()
+    if not pin_eligibility._deadline_accepted(deadline_ms):
+        raise pin_eligibility._Refused()
+    case_bound = case_bytes is not None
+    if case_bound:
+        if type(case_bytes) is not bytes or not 1 <= len(case_bytes) <= 16777216:
+            raise pin_eligibility._Refused()
+        if type(case_id) is not str or not 1 <= len(case_id) <= 128:
+            raise pin_eligibility._Refused()
+    # One bounded 1..30000 ms operation deadline clipped to the current
+    # request lifetime; the request end is never reset or extended.
+    end = min(time.monotonic() + deadline_ms / 1000.0, admission._end)
+    pin_eligibility._still_within(end)
+    # Pure admission: the isolated selected-policy snapshot and the
+    # admitted principal's exact full bound grants (verified scope),
+    # before any owner custody or I/O.
+    policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+    pin_eligibility._still_within(end)
+    anchor = pin_eligibility._bounded_admission(
+        pin_eligibility._admitted_principal_grants(
+            policy_snapshot, admission.principal_id))
+    full_grants = pin_eligibility._bound_grants(admission, anchor)
+    pin_eligibility._still_within(end)
+    if case_bound:
+        # Fixed internal case path: the bounded canonical dataset is
+        # admitted under the genuine parser through the same clipped
+        # absolute budget; the exact admitted case question and the
+        # narrower effective case value come only from the admitted
+        # dataset and the genuine existing case-scope intersection
+        # over the exact full anchor, with no additional restriction,
+        # before guard custody; a missing or invalid case refuses
+        # without widening, and the full anchor stays carried for the
+        # final detached authority comparison.
+        remaining_ms = int((end - time.monotonic()) * 1000)
+        if remaining_ms < 1:
+            raise pin_eligibility._Refused()
+        try:
+            dataset = evaluation_dataset.admit(
+                case_bytes, deadline_ms=min(remaining_ms, 30000))
+        except Exception:
+            raise pin_eligibility._Refused() from None
+        pin_eligibility._still_within(end)
+        case = next((c for c in dataset.cases if c.case_id == case_id), None)
+        if case is None:
+            raise pin_eligibility._Refused()
+        pin_eligibility._still_within(end)
+        text = case.question
+        grants = _case_bound_scope(full_grants, case.scope, end)
+        pin_eligibility._still_within(end)
+    else:
+        # Legacy path: the principal's exact admitted scope, unchanged.
+        grants = full_grants
+    # One real nonblocking owner guard, held through the entire span.
+    pin_eligibility._borrowed_owner(owner)
+    original_end = None
+    try:
+        if owner.op is None or owner.state != 'ACTIVE':
+            raise pin_eligibility._Refused()
+        original_end = owner.op.end
+        owner.op.end = end
+        # In-memory held capture verification only, no I/O; the
+        # captured membership is the only scope material this span
+        # evaluates.
+        _, _, membership, _ = pin_eligibility._held_capture(owner)
+        # The originally held PinData bound before the body; the final
+        # full revalidation compares against it, not a newly read alias.
+        held = owner.value
+        pin_eligibility._still_within(end)
+        # O1: the first genuine current observation, after pure
+        # admission, nonblocking owner custody and in-memory capture
+        # verification, before captured scope use, with no
+        # association, catalog or source I/O.
+        pin_eligibility._genuine_recheck(admission, end)
+        pin_eligibility._still_within(end)
+        # The genuine isolated policy and captured membership scope
+        # rules: an unavailable or unusable scope refuses before any
+        # catalog or source I/O.
+        if pin_eligibility._scope_refused(policy_snapshot, membership, grants, None):
+            raise pin_eligibility._Refused()
+        pin_eligibility._still_within(end)
+        # Live namespace and pin association before the shared body;
+        # the root is the actual association's validated root string,
+        # not the held root file descriptor.
+        owner._association()
+        pin_eligibility._still_within(end)
+        result = _search(owner.originals, owner.derived, owner.op.path,
+                         held.data.snapshot_id, text, payload, space, definition,
+                         policy, execution, grants, None, dense_k, lexical_k, cap, k,
+                         deadline_ms, trace, owner=owner, admission=admission, end=end,
+                         held=held)
+        # O5: after the final actual pin association/full revalidation
+        # and its post-load association, with the final exact authority
+        # check and the true remaining deadline, before usable return.
+        pin_eligibility._genuine_recheck(admission, end)
+        if pin_eligibility._bound_grants(admission, full_grants) != full_grants:
+            raise pin_eligibility._Refused()
+        pin_eligibility._still_within(end)
+        return result
+    finally:
+        if original_end is not None:
+            owner.op.end = original_end
+        owner.guard.release()
+
+
+def search_pinned_case(admission, owner, dataset_bytes, case_id, query_payload, *,
+                       query_space_id, query_definition_fingerprint, query_policy_id,
+                       query_execution_fingerprint, dense_k=60, lexical_k=60,
+                       partition_cap=60, k=60, deadline_ms=30000, trace=False):
+    """One fixed private case-bound held-pin route through the real hybrid search.
+
+    Selects the fixed internal case path of the one shared
+    :func:`search_pinned` body: the exact admitted current
+    selected-policy request (``private_policy_request.
+    PolicyRequestAdmission``), the exact active operator-owned pin
+    (``raw_snapshot_pin.PinOwner``), bounded canonical
+    text-evaluation dataset bytes and one exact case ID.  The case
+    question and the narrowed effective scope come only from the
+    genuinely admitted dataset and its case declaration; the caller
+    supplies no text, grants, restrictions, stores, root, snapshot
+    ID, provider, callable, alternate clock or credential.  The
+    dataset input is validated as exact canonical dataset bytes at
+    the entry: a None dataset or any other non-bytes value receives
+    this entry's fixed content-free refusal before the shared body,
+    before owner custody, before the first genuine observation,
+    before any live namespace association and before any protected
+    dispatch.  The
+    dataset is admitted through the genuine canonical parser under
+    the same clipped absolute budget, and the narrower effective
+    case value is derived through the genuine existing case-scope
+    intersection from the exact full principal anchor with no
+    additional restriction, before guard custody.  The full
+    principal immutable policy-derived value is carried separately
+    for the detached current authority comparisons, while the
+    effective value serves the actual eligibility and the engines,
+    including the authority hash bound to the result.  A missing or
+    invalid case, or an unavailable partition inside the actual
+    effective readable scope, refuses before the first catalog; an
+    unavailable partition outside that scope does not block the
+    unaffected scope, and the scope is never widened.  The same
+    private preparation, one real nonblocking owner guard held
+    through the one existing hybrid body, live association and
+    ownership span, and the five genuine current observations at the
+    precisely named cuts O1 through O5 are reused unchanged; the
+    span never calls ``PinOwner.check`` or re-enters the borrowed
+    preparation guard, and the private operation does not acquire,
+    close or return ownership of the input pin.  One original
+    absolute operation deadline, bounded to the accepted 1..30000 ms
+    reader range, is clipped to the current request lifetime and
+    anchors the owner operation's ``op.end`` only while held,
+    restoring its original exact value in a finally before guard
+    release on success, ordinary refusal and interruption.  Scope
+    drift, expired budget and late usable results refuse throughout;
+    no second retrieval or duplicate engine loop happens.  The
+    public :func:`search` and :func:`search_pinned` signatures,
+    normal deadlines, the legacy call shape and every original
+    caller path stay exact; this route exposes one fixed content-free
+    ordinary refusal and preserves a non-Exception interruption
+    object by identity.
+    """
+    try:
+        _check(type(trace) is bool)
+        # Exact nominal case input: the bounded canonical dataset
+        # must already be exact dataset bytes.  A None dataset (the
+        # legacy sentinel of the shared body) or any other non-bytes
+        # value is refused here, before the shared body can interpret
+        # the sentinel, before owner custody, before the first
+        # genuine observation and before any live namespace
+        # association or protected dispatch.
+        _check(type(dataset_bytes) is bytes)
+        return _search_pinned(admission, owner, None, query_payload, query_space_id,
+                              query_definition_fingerprint, query_policy_id,
+                              query_execution_fingerprint, dense_k, lexical_k,
+                              partition_cap, k, deadline_ms, trace,
+                              case_bytes=dataset_bytes, case_id=case_id)
+    except Exception:
+        raise HybridSearchError('hybrid search refused') from None

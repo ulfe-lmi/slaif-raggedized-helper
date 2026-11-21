@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-20T20:01:20.887848+00:00",
+  "state": "EXACT_009_AC_WRITER_TRANSFER_ACCEPTED_WHOLE_009_PARTIAL",
+  "next": "009-ad",
+  "base": "00743eca3c351d57e45ec81004f52e519ebec00a",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "pr": {
+    "number": 11,
+    "url": "https://github.com/ulfe-lmi/slaif-raggedized-helper/pull/11",
+    "state": "OPEN",
+    "isDraft": false,
+    "baseRefName": "main",
+    "baseRefOid": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+    "headRefName": "oap/009-evaluation-baseline",
+    "headRefOid": "00743eca3c351d57e45ec81004f52e519ebec00a",
+    "mergeable": "MERGEABLE",
+    "mergeStateStatus": "CLEAN",
+    "reviewDecision": null,
+    "autoMergeRequest": null,
+    "reviewThreads": {
+      "totalCount": 0,
+      "nodes": []
+    }
+  },
+  "response_consumed": {
+    "path": ".oap-state/response-consumed-009-ac.json",
+    "bytes": 347,
+    "sha256": "06dc5c7cfb2a13cd2bae4b3d1948192a183a987b0cebccc3182fb27701ba0c92"
+  },
+  "terminal": {
+    "path": "audit/009-ac-check/Root-terminal-review.json",
+    "bytes": 4618,
+    "sha256": "d46cf4e6378dbf4a7bc86eca366a1e41ea7e91e934d85b9905cc0b8aca0bbb38"
+  },
+  "run": 44803828473,
+  "attempt": 1,
+  "unit_each": 3438,
+  "integration_each": 957,
+  "baseline": "NOT_RUN"
+}

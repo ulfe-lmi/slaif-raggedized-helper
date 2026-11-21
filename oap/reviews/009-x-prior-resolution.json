@@ -1,0 +1,68 @@
+{
+  "at": "2026-11-20T13:07:04.317040+00:00",
+  "purpose": "Exact prior and product boundary for 009-x private immutable policy payload installation",
+  "base": "ed48ca58934b21003ba57d057be1a9921d666e1c",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "pr": 11,
+  "branch": "oap/009-evaluation-baseline",
+  "prior_009w": {
+    "report": "oap/reports/009-w-evaluation-declarations-transfer.md",
+    "report_sha256": "40346291ab0d8f9faa3184fb2a732c785c917b689b24e57ffce252b9691bcc10",
+    "implementation": "fceb577e80b2e836a1a5d0d884fa6ba244e965f4",
+    "receipt": ".oap-state/response-consumed-009-w.json",
+    "receipt_sha256": "95d36818e2e1b69e9329bb2bdd808c0e63681f2d0d5ab6fc40525821b0f254a2",
+    "terminal_review": "audit/009-w-check/Root-terminal-review.json",
+    "terminal_review_sha256": "16bb1da7354be855eddafe84f6db687aa8ef49f1ec1d1d608c59fe896804628e",
+    "run": 44737907992,
+    "attempt": 1,
+    "each_product": {
+      "A": 1440,
+      "B": 1694,
+      "units": 3134,
+      "integration": 951
+    },
+    "all_five_jobs_all_steps_succeeded": true
+  },
+  "inputs": {
+    "src/slaif_raggedized_helper/private_report_publication.py": {
+      "bytes": 28170,
+      "sha256": "43207d97f4c195966049cf53bf45c1b47543277dbf95b0bb7068a8a734378e34"
+    },
+    "src/slaif_raggedized_helper/policy_selection.py": {
+      "bytes": 2526,
+      "sha256": "eda878a12af9f141b6f9cd48ccec5601932201f9b36baa31fa17fe28659bde87"
+    },
+    "src/slaif_raggedized_helper/private_policy_capture.py": {
+      "bytes": 14974,
+      "sha256": "4d0c3b8002c6c4fabe3c3be3a08d851375249ad2fb807260f56e5fa9e3e7f0fc"
+    },
+    "src/slaif_raggedized_helper/supplied_policy_wire.py": {
+      "bytes": 10556,
+      "sha256": "d18a93996baa36ea88b538f439994e9d658eb1fe4de32fb6daac15068ec4805a"
+    },
+    "src/slaif_raggedized_helper/supplied_policy.py": {
+      "bytes": 16721,
+      "sha256": "7e59a94b98ee9b58af53bd4f350b992dbb0b91c547fd428b31b43b7009927195"
+    },
+    "tests/unit/test_private_report_publication.py": {
+      "bytes": 106921,
+      "sha256": "1b8cb255ba2b31fe1cb2c197fd6c72d5123dee9c400108d1d2a2b7812e9ad55d"
+    },
+    "tests/unit/test_private_policy_capture.py": {
+      "bytes": 37256,
+      "sha256": "bb1fccfeddf28c8ecba464fa4f392e6b830f2fc07291a44a65978b19b670f7b9"
+    },
+    "tests/unit/test_supplied_policy_wire.py": {
+      "bytes": 37200,
+      "sha256": "00ce55eabe893386ad48449231964d7ea12cb34fb22336705c859c5952c3eb59"
+    },
+    ".github/workflows/oap.yml": {
+      "bytes": 14235,
+      "sha256": "54e66869d9a2a02e95202ed3eaecba199a2494ca6f6c5742554e722cf14367c6"
+    }
+  },
+  "indexed_bytes": 268559,
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}

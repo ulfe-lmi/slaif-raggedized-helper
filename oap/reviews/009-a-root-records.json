@@ -1,0 +1,59 @@
+{
+  "at": "2026-11-13T08:12:31.415903+00:00",
+  "identifier": "009-a",
+  "status": "FINAL_ROOT_UNCHANGED_TRANSCRIPT_RECORD_INDEX",
+  "base": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-resolution.json",
+      "target": "oap/reviews/008-resolution.json",
+      "bytes": 1050,
+      "sha256": "340d67dce421024367e7c22ebf4da2fe234f9dd75ce226650da3c0010e9bd36e"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-g-development-acceptance-2944.json",
+      "target": "oap/reviews/009-a-prior-development-review.json",
+      "bytes": 4995,
+      "sha256": "bfa31f132da0b6f9fb4dd84199c9ed4432254d4117f336268bd740d93950cfbe"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-pr10-merge-verification.json",
+      "target": "oap/reviews/009-a-prior-merge-verification.json",
+      "bytes": 990,
+      "sha256": "6709f14ab63034bfd2102c49912d1b38e0742d077162c3a1e47d0df4c3ab7fbd"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/008-g-resolution-timing-event.json",
+      "target": "oap/reviews/009-a-prior-timing.json",
+      "bytes": 670,
+      "sha256": "c60eb3c93eafee5e9d3acf29d5d79b16cc403e04bb6ed4b46e507975d40652cf"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-foundations-preparation-root-review-70d3.json",
+      "target": "oap/reviews/009-a-foundations-source-review.json",
+      "bytes": 1322,
+      "sha256": "bdda624877e7cd6ed1c7d64ba8758e1635fbd385acaa6a0d9d33d41d7a0c39be"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-source-support-preparation-root-review-c91a.json",
+      "target": "oap/reviews/009-a-source-support-source-review.json",
+      "bytes": 1367,
+      "sha256": "3c21fa7afd2fb0ff4e0c8d13a00b6639802bc8faa86aa7fc95b884afc05bd213"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-a-first-wave-replan.json",
+      "target": "oap/reviews/009-a-first-wave-replan.json",
+      "bytes": 2045,
+      "sha256": "0a35e166723a91c8c02bcdd5a1fdff16d0eafa0ceedd38a2fc6390908ad35758"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-a-components-FINAL.json",
+      "target": "oap/reviews/009-a-components.json",
+      "bytes": 13971,
+      "sha256": "f3f65b1bb04b532461b9f3132a229985db39e35a76d4da0e2d0e13f1b047a80f"
+    }
+  ],
+  "total_record_bytes": 26410,
+  "record_count": 8,
+  "DHA": "NONE"
+}

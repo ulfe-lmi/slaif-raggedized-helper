@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-13T12:19:50.412400+00:00",
+  "decision": "ADMIT_OTHER_AUTHOR_METRICS_REVIEW_AT_EXACT_B15A",
+  "draft_sha256": "6c8b7192037e41feb72da10a644cc9ab53221e0602676df8fbb5ec23ac277677",
+  "implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+  "scope": "Other-author32 reviewednew33pureaggregation, immutablelowerbasee6 (alsoauthoredoldbinder/oracle, disclosed), fullhandoracle/source/unit/harness/privacy/admission/accounting andcorrectedDB459/A442 plusformatted743a/5a60/b15adoc-onlycurrentproof. NotwholeprojectICA orindependenttestrerun.",
+  "Root_independent_review": [
+    "audit/009-cohort-metrics-checkpoint-review-e4afb.json",
+    "audit/009-cohort-metrics-checkpoint-review-b15a.json",
+    "audit/009-cohort-private-helper-fake-cleanup-review-295b.json"
+  ],
+  "findings_resolution": "First108e prematurepartialrejected; full2aeb materialzero/fullprefix/equalset/count/fusion issues Rootindependentlyverifiedandcorrectedbeforesubsequentverification. Rootretractedpeerlistunreservedclaimbecausethreelistsalreadyprereserved; mappedinnewcode. UnitA442 addscoherentcausalimpossibleDTOs andvalidcomplementaryfragmentfusion. Original19/22 sourceproofs notcurrent; current33PASS+Ruff actual743a/5a60 ASTunchangedfromreviewedDB459/A442. Final6c8breportcorrectlyseparatesoldAPIb8d5/current8d16,currentcode743a/unit5a60/exactb15a.",
+  "strongest_counterargument": "Suppliedgeometry/privatecaseIDs remainunattestedandlinkable; sourceorchestration/splitreport/currentrights/qualifiedencoder/humanheldout/20k/hardware/visual/license/fullMVP notestablished. Boundedpuredependencyreviewdoesnotcloseoriginal009 orgrantcanonicalmerge. Exactcandidate/reportnormalpublication andlatercanonicalnewheadCI remaingates.",
+  "next": "Finalizeexactauthoredpeerreportthenoriginalnormalresponseonce. RootmayREPORTatb15a; finalcodingSELF/reportonly/normalreconciliationbeforelocaladmission/nextsource-runneractivation.",
+  "DHA": "NONE"
+}

@@ -46,7 +46,9 @@ def test_invalid_input_closes_session(tmp_path):
     b'{"nonce":"wrong","role":"bge_body","artifact":0,"count":1,'
     b'"digest":"wrong","version":"0.21.4"}',
     b'{"extra":1}', b'x' * 4097,
-])
+],
+                          ids=("invalid-byte", "empty-object", "duplicate-nonce", "nan-literal",
+                               "wrong-fields", "extra-field", "oversize"))
 def test_malformed_response_closes_worker(tmp_path, monkeypatch, response):
     paths, runtime, definition = make_native(tmp_path)
     session = Session((definition(paths[0]),), runtime)

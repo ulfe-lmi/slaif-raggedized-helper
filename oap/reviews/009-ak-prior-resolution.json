@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-21T02:50:16.871867+00:00",
+  "identifier": "009-ak",
+  "PR": 11,
+  "base": "57f916bdc8d61390ddcea4d975d7f5f22dea24da",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "state": "ACCEPT_EXACT_009_AJ_BOUNDED_PIN_HOSTED_PROOF_WHOLE_009_PARTIAL",
+  "hosted_review": {
+    "path": "audit/009-aj-check/Root-terminal-review.json",
+    "bytes": 4083,
+    "sha256": "b39d92eaf00268ae8352839fd8204f553ee759de705cd5f879ab48dc74507d7d"
+  },
+  "accepted_local_stage_candidate": {
+    "path": "audit/009-current-stage-catalog-local-resolution.json",
+    "bytes": 4453,
+    "sha256": "ac1d722dbba1899b24e99462f45a76564880fe41f58d7a38be84a7a933e5796d"
+  },
+  "run": 44852105955,
+  "attempt": 1,
+  "ordered_units_each": 3438,
+  "integrations_each": 979,
+  "DHA": "NONE"
+}

@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-13T16:46:53.446284+00:00",
+  "normal": {
+    "lane": "audit-evaluation-core",
+    "lane_id": "AUDIT-009-EVAL-CORE-A",
+    "result": "COMPLETE",
+    "target_commit": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+    "report_sha256": "07df69526cec458266508ab5431c00f0841b8572bc59b87592abe3b7735f0ccd",
+    "verified_at": "2026-11-13T16:42:30.459347+00:00",
+    "scope": "READ-ONLY LOCAL PEER REVIEW; not strategic acceptance or full-project ICA."
+  },
+  "bytes": 5685,
+  "decision": "BOUNDED_ACTUAL_CORE_PEER_REVIEW_RECONCILED_NO_MUSTFIX",
+  "review": "audit/009-eval-core-peer-draft-root-review-07df.json",
+  "scope": "Immutable45bc/core7df only. Rootindependentstatic/code+98unit/goldenreview andother-contextstaticreview converge, notactualsourcecomposition/ICA/whole009acceptance.",
+  "history": "Namespacewakefailure preserved; exactdeadcurrentregularreader/freeexclusive restored once, FINALIZE consumed/authornotice/oneoriginalnormal. Goalstalledforrecoverywasoperationalnotdeliberatequit.",
+  "next": "Proofsame45bc staticrecoverysameID; original009MVP andruntimeorphangatesremain. Newprivatepublicationdesignread-onlyhelpsnextmissingoperatorsoftware, no productpatch/runauthority.",
+  "DHA": "NONE"
+}

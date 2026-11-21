@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-16T18:01:58.493998+00:00",
+  "identifier": "009-g",
+  "failed_head": "4e2d073ac297933501abea6d61bc3fa5437e8397",
+  "run": 43921457809,
+  "jobs": {
+    "312": 133489544939,
+    "314": 133489545017
+  },
+  "finding": "Fullunitdefaultsessionloads2923383B of product/testsourcefileextents; focused2MiBassertion in test_local_program_origins andthreewrappers failsfourtimes perleg. Allpreceding localoriginchecks pass.2445PASS/4FAILeach;integration/downstreamrequiredstepsskipped;3OAPjobssuccess.",
+  "meaning": "No passingnewhead or integrationcertificate; no productalgorithm/rights/policy/hardwarecausalclaim.",
+  "evidence": "Rootretaineddecodedjoblogs/privatecausalreview. Hashes/counters retainedthere; no rawinput/hostPIDmap publishedhere.",
+  "orphan": "Bothproductjobsreportonebwraporphanpostjob despiteintegrationSKIPPED. Origin/birth/live-v-zombie/state/ownership UNPROVEN; futureobservationneednotrequireintegration. No signal/workerfix authorized.",
+  "DHA": "NONE"
+}

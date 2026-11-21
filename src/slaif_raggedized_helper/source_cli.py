@@ -24,8 +24,13 @@ def _manifest_bytes(path: str) -> bytes:
         if not stat.S_ISREG(before.st_mode) or before.st_size > MAX_MANIFEST:
             raise ValueError
         data = bytearray()
-        while len(data) <= MAX_MANIFEST:
-            part = os.read(fd, min(65536, MAX_MANIFEST + 1 - len(data)))
+        # Bounded to the captured initial regular size plus one: the
+        # first unexpected extra byte or early EOF ends the read and
+        # the excess is refused immediately below; work is
+        # O(captured size), reaching the existing global limit when
+        # the captured size is that large.
+        while len(data) <= before.st_size:
+            part = os.read(fd, min(65536, before.st_size + 1 - len(data)))
             if not part:
                 break
             data.extend(part)

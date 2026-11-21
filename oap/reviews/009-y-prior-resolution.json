@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-20T15:32:54.362063+00:00",
+  "purpose": "009-y test-only remediation for the observed inherited procfs exit race",
+  "base": "53937d7eac0805905a0b6c5ca6e973ea989f8032",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "pr": 11,
+  "branch": "oap/009-evaluation-baseline",
+  "prior_009x": {
+    "state": "REQUIRED_HOSTED_CHECK_FAILED",
+    "report": "oap/reports/009-x-protected-policy-payload-install.md",
+    "receipt": {
+      "path": ".oap-state/response-consumed-009-x.json",
+      "bytes": 346,
+      "sha256": "b7b0868fe8a5fb5c1bb59f427eeac8d7ce056c9b1a35a1ca5babc47b75ce965e"
+    },
+    "terminal": {
+      "path": "audit/009-x-check/Root-terminal-review.json",
+      "bytes": 4840,
+      "sha256": "5130c9ad75bbbf90e182393020600680faaf59847092386021cf1b5ddb8bd2b6"
+    },
+    "run": 44760385202,
+    "attempt": 1,
+    "failed_job": 136371029375,
+    "failed_node": "tests/unit/test_real_cpu_toy_probe.py::test_timeout_kills_owned_descendant"
+  },
+  "witness": [
+    {
+      "path": "audit/009-x-check/proc-exit-race-witness.py",
+      "bytes": 2431,
+      "sha256": "8373d6d414bdd22e94d18c5207ed4caa9fe5dd6094683a5488c90eecf14bb8b3"
+    },
+    {
+      "path": "audit/009-x-check/Root-proc-exit-legacy-witness/stdout",
+      "bytes": 353,
+      "sha256": "8e7451e15ee3ab85afa955c3b792adc22fc2bb721c1a9b25cb450b8654a4f61d"
+    }
+  ],
+  "canonical_inputs": {
+    "tests/unit/test_real_cpu_toy_probe.py": {
+      "bytes": 23122,
+      "sha256": "fb8c9d266d7d1613631546d2a1fc2c1b11f44df0da0af219ee0d73dad037cfda"
+    },
+    ".github/workflows/oap.yml": {
+      "bytes": 14235,
+      "sha256": "54e66869d9a2a02e95202ed3eaecba199a2494ca6f6c5742554e722cf14367c6"
+    },
+    "STATUS.md": {
+      "bytes": 148964,
+      "sha256": "74e95b90ee37ca2d16580d42d3cb615effacde8d598642058fd7af0bc07958ce"
+    },
+    "docs/evaluation.md": {
+      "bytes": 136700,
+      "sha256": "3c1f527ebd7814dfd0010dbefc580eee9aef25b497c5e92e5899cc4926f5fe28"
+    },
+    "oap/reports/009-x-protected-policy-payload-install.md": {
+      "bytes": 13245,
+      "sha256": "53170b77ae7da69a5ac9d0d45dca9071d0bd8095874dc96bd08f1afb2256cee1"
+    }
+  },
+  "expected_each_product": {
+    "A": 1440,
+    "B": 1756,
+    "units": 3196,
+    "integration": 951
+  },
+  "expected_focused_module": 28,
+  "baseline": "NOT_RUN",
+  "whole_009": "PARTIAL",
+  "DHA": "NONE"
+}

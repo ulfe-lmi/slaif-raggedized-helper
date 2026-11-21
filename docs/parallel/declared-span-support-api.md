@@ -1,0 +1,7 @@
+# Declared span support
+
+`score_case(dataset_bytes, case_id, ranking, *, cutoffs=(20, 60), deadline_ms=5000)` re-admits the canonical dataset and calculates geometric coverage of supplied fragments. See the copied design for exact input, resource and result contracts. Empty ranking is an observed empty input; `None` is refused. All outputs are unverified declarations: callers must not treat them as source binding, authorization, retrieval quality or qualification. Ordinary dataclass constructors are not admission APIs.
+
+The fingerprint binds supplied ordering and the admitted dataset, including grades, but not source truth, code, query, snapshot or authorization. A future evaluator must bind gold and returned fragments to the same fresh authorized source catalog. A full-block claim can score without being true.
+
+The input-byte limit is dominated for publicly successful inputs by the tighter work limit: Uin is part of U and C is at least one. A negative that exceeds both limits does not isolate which one would refuse it. The separate 64 MiB serialized limit is a conservative guard: Uin is at most 8,388,608 under work admission, JSON escaping costs at most six ASCII bytes per UTF-8 byte, and conservative syntax overhead is 24F + 32N + 4096. With F ≤ 65,536 and N ≤ 4,096, this totals at most 52,039,680 bytes, below 67,108,864. The test of this guard is a labelled private fixture, not a reachable public boundary claim. Work units are a surrogate, not a hard CPU or hash-collision guarantee.

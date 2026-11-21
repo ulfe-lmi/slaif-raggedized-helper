@@ -90,7 +90,9 @@ def test_bad_input_closes(tmp_path, text):
 
 
 @pytest.mark.parametrize('response', [b'{}', b'\xff', b'{"a":NaN}', b'{"a":1,"a":2}',
-                                      b'x' * 16385, b'{}\nextra'])
+                                      b'x' * 16385, b'{}\nextra'],
+                          ids=("empty-object", "invalid-byte", "nan-literal", "duplicate-key",
+                               "oversize", "trailing-data"))
 def test_malformed_response(tmp_path, monkeypatch, response):
     d, runtime = make_native(tmp_path)
     session = e.TokenIDSession(d, runtime)

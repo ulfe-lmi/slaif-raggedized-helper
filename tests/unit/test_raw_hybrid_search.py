@@ -21,7 +21,11 @@ def arguments():
     ('query_payload', b'x'), ('query_space_id', 'bad'), ('dense_k', True),
     ('lexical_k', 0), ('partition_cap', 61), ('k', False), ('deadline_ms', 0),
     ('grants', None),
-])
+],
+                      ids=("store-root-traversal", "snapshot-id", "text-oversize",
+                           "query-payload-bytes", "query-space-id", "dense-k-bool",
+                           "lexical-k-zero", "partition-cap", "k-bool", "deadline-ms-zero",
+                           "grants-none"))
 def test_invalid_before_source_or_engines(monkeypatch, field, value):
     calls = []
     for obj, name in ((hybrid.catalog, 'load_catalog'), (hybrid.dense, 'search'),

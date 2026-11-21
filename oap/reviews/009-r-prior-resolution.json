@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-20T04:28:17.954107+00:00",
+  "identifier": "009-q",
+  "head": "416009c94a6759c9a42e9c19dab688c0f54d9650",
+  "implementation": "dc91afbf0681e2a45410f294859f034609bb7cad",
+  "receipt": {
+    "identifier": "009-q",
+    "pr": 11,
+    "implementation": "dc91afbf0681e2a45410f294859f034609bb7cad",
+    "report_commit": "416009c94a6759c9a42e9c19dab688c0f54d9650",
+    "report_sha256": "969b2c89983bc89384edbeec31fbed62a0373b8821e4dabbc01b71882c4251af",
+    "verified_at": "2026-11-20T04:27:23.711994+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "source_review": "audit/009-q-check/Root-local-implementation-review.json",
+  "source_review_sha256": "8ad7845bf378c7aa285bd1ae245950d7512ae6d4b724956e4bb5afcd7254a95e",
+  "terminal_review": "audit/009-q-ci-terminal/Root-terminal-review.json",
+  "terminal_review_sha256": "dccf70a08213a18519321b4f05cb8da6239b08866be2412e12ef07416c8003e8",
+  "local_launch_projection": "audit/009-q-ci-terminal/Root-console-launch-projection.json",
+  "local_launch_projection_sha256": "7a633f58e8f8caa9441ed8eb86bc64069c8a492338d48881ee1f05340b486076",
+  "decision": "NOT_ACCEPTED_REQUIRED_PRODUCT_CI_FAILURE_CONTINUE_SAME009_WITH_BOUNDED_DIAGNOSTIC_LAUNCH",
+  "strongest_reason_not_to_merge": "Both full units terminated with supervised uv positive exit 137 and six later required checks were skipped in each job. Both separately corrected publisher cases passed. Distinct final printed case positions and absence of raw pytest wait status make attribution unjustified.",
+  "documentation_precision": "009-p measurement attribution corrected. The 009-q report and documentation parenthetical is imprecise: Python 3.12 passed 2731 unit tests, and its separate integration step plus all other required steps succeeded.",
+  "explicit_replan": "009-r supervises the already-synced exact .venv pytest console directly, replacing the uv wrapper only in main, and adds optional bounded own cgroup/CPU evidence. Existing tests, selection, env and time/cleanup/output policies remain. Requires full hosted proof. Pure policy candidates continue on independently frozen branches.",
+  "DHA": "NONE"
+}

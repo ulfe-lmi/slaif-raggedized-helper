@@ -72,7 +72,9 @@ def test_invalid_fields(change):
 
 @pytest.mark.parametrize('raw', [bytearray(b'{}'), b'\xff', b'{}' + b' ' * 65535,
     b'{"x":1,"x":2}', b'[' * 18 + b'0' + b']' * 18,
-    b'[' + b'0,' * 10001 + b'0]', b'NaN'])
+    b'[' + b'0,' * 10001 + b'0]', b'NaN'],
+    ids=("bytearray-type", "invalid-byte", "trailing-spaces-oversize", "duplicate-key",
+         "deep-nested", "long-array", "nan-literal"))
 def test_invalid_raw(raw):
     with pytest.raises(p.ProfileError):
         p.parse_profile(raw)

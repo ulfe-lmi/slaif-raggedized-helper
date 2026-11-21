@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-21T03:42:56.116102+00:00",
+  "identifier": "009-al",
+  "PR": 11,
+  "base": "390ed945376b4d65a0fc8309a9e043c228f6aad2",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "state": "ACCEPT_EXACT_009_AK_DIRECT_STAGE_CATALOG_HOSTED_WHOLE_009_PARTIAL",
+  "hosted_review": {
+    "path": "audit/009-ak-check/Root-terminal-review.json",
+    "bytes": 4096,
+    "sha256": "2f46493085b123577588f9c83728d15893ab5d1fe316862e6805dd7fa38e6787"
+  },
+  "accepted_local_grade_candidate": {
+    "path": "audit/009-current-grade-catalog-local-resolution.json",
+    "bytes": 5806,
+    "sha256": "9aac94e42c7539bd25462f871da214a63778b3a059c201769b6cc7decdc27cf0"
+  },
+  "run": 44860721647,
+  "attempt": 1,
+  "ordered_units_each": 3438,
+  "integrations_each": 982,
+  "DHA": "NONE"
+}

@@ -5,10 +5,13 @@ import hashlib
 import math
 import os
 from pathlib import Path
+import re
 import struct
 import threading
+import time
 
-from . import cpu_execution_contract, embedding_vectors, isolated_cpu_embedding, native_tokenizers
+from . import (cpu_embedding_worker as cpu, cpu_execution_contract, embedding_vectors,
+               isolated_cpu_embedding, native_tokenizers)
 from .schema import EmbeddingExecution, fingerprint
 
 _POLICY = (b'{"max_characters":8192,"max_utf8_bytes":32768,"normalization":'
@@ -108,6 +111,92 @@ class ResidentQueryEncoder:
             self._lock.release()
 
     def encode_query(self, text):
+        return self._encode_guarded(text, None, checked_identity=False)
+
+    def _expected_identity(self, expected):
+        # Nominal four-field declaration: bare space, sha256: definition, bare
+        # policy, bare execution, in the existing downstream declaration order.
+        if (type(expected) is not tuple or len(expected) != 4
+                or any(type(field) is not str for field in expected)
+                or re.fullmatch(r'[0-9a-f]{64}', expected[0]) is None
+                or re.fullmatch(r'sha256:[0-9a-f]{64}', expected[1]) is None
+                or re.fullmatch(r'[0-9a-f]{64}', expected[2]) is None
+                or re.fullmatch(r'[0-9a-f]{64}', expected[3]) is None):
+            raise ValueError
+
+    def _admitted_identity(self, session, expected):
+        # Pre-dispatch gate: the current record and fingerprint must equal the frozen
+        # admission, the actual worker identity (real policy digest) the record, and the
+        # measured bridge, before the session encode can run.
+        record = cpu_execution_contract._validate(session.execution_record)
+        self._identity_matches(session, record, expected)
+
+    def _identity_matches(self, session, record, expected):
+        # The exact observed runtime/worker/bridge identity comparison of
+        # one nominal four-field declaration against the same actual
+        # session, shared by the pre-dispatch encode gate and the narrow
+        # pure multi-tuple check.
+        if (session.execution_record != session._record_snapshot
+                or session.execution_fingerprint != session._fingerprint_snapshot
+                or session.execution_fingerprint != fingerprint(
+                    {'kind': 'isolated-cpu-embedding-execution-v2', **record})
+                or record['space'] != session.space.space_id
+                or record['definition'] != session.definition.fingerprint()
+                or record['definition'] != session.space.definition_fingerprint
+                or session._worker_identity() != record['worker']
+                or cpu._policy_identity(session._worker.policy) != record['worker']['policy']
+                or cpu_execution_contract._bridge() != record['bridge']
+                or record['space'] != expected[0]
+                or record['definition'] != expected[1]
+                or _POLICY_DIGEST != expected[2]
+                or session.execution_fingerprint != 'sha256:' + expected[3]):
+            raise ValueError
+
+    def _check_declared_identities(self, expected_tuples, admission):
+        # Narrow fixed private pure multi-tuple identity check: the exact
+        # declared tuple grammar and the exact observed runtime/worker/
+        # bridge identity data of the same actual session, under the
+        # existing encoder ownership lock and the exact genuine
+        # admission's own existing checks from its actual end, released
+        # before any real encoder invocation.  The actual runtime
+        # identity verification may read bounded artifact metadata.  No
+        # alternate callback, clock or transport and no selected
+        # observation run during this check.
+        from . import private_policy_request as policy_request
+
+        if type(expected_tuples) is not tuple or not 1 <= len(expected_tuples) <= 256:
+            raise QueryRefused('query encoder refused') from None
+        if type(admission) is not policy_request.PolicyRequestAdmission:
+            raise QueryRefused('query encoder refused') from None
+        self._acquire()
+        try:
+            if self._state != 'open':
+                raise QueryRefused('query encoder refused')
+            try:
+                def end_check():
+                    if time.monotonic() >= admission._end:
+                        raise ValueError
+                end_check()
+                self._check()
+                session = self._session
+                record = cpu_execution_contract._validate(session.execution_record)
+                for expected in expected_tuples:
+                    end_check()
+                    self._expected_identity(expected)
+                    self._identity_matches(session, record, expected)
+                end_check()
+            except ValueError:
+                raise QueryRefused('query encoder refused') from None
+        finally:
+            self._lock.release()
+
+    def _encode_guarded(self, text, expected, *, checked_identity, admission=None):
+        # Shared guarded encode under the existing encoder lock. The mode is an
+        # internal keyword-only flag chosen by the entry, never by a value in the
+        # caller-supplied expected declaration.  An admission, when threaded by
+        # the admitted resident entry, is one real exact
+        # PolicyRequestAdmission; the legacy entries pass none and keep the
+        # original unguarded delegation shape.
         self._acquire()
         try:
             if self._state != 'open':
@@ -116,10 +205,32 @@ class ResidentQueryEncoder:
                 _query(text)
             except (ValueError, UnicodeError):
                 raise QueryRefused('query encoder refused') from None
+            if checked_identity:
+                try:
+                    self._expected_identity(expected)
+                except ValueError:
+                    raise QueryRefused('query encoder refused') from None
             s = self._session
             try:
                 self._check()
-                batch = s.encode([text])
+                if checked_identity:
+                    self._admitted_identity(s, expected)
+                if admission is None:
+                    batch = s.encode([text])
+                else:
+                    # One bounded private operation end: the sum of the two
+                    # existing per-child budgets (native request and CPU
+                    # forward) from now, clipped to the admission's one
+                    # absolute end, which is never reset or extended.
+                    op_end = min(
+                        time.monotonic()
+                        + s._policy.forward_seconds
+                        + s._tokenizer._policy.request_seconds,
+                        # Private field of the exact admission; read directly,
+                        # as the codebase does elsewhere.
+                        admission._end,
+                    )
+                    batch = s._encode_guarded([text], admission, op_end)
                 self._check()
                 if type(batch) is not isolated_cpu_embedding.EncodedBatch:
                     raise ValueError
@@ -152,6 +263,13 @@ class ResidentQueryEncoder:
                             {'kind': 'isolated-cpu-embedding-execution-v2', **record})
                         or s._worker_identity() != record['worker']):
                     raise ValueError
+                if admission is not None:
+                    # Final bounded-operation end at the resident final
+                    # validation return, AFTER all actual receipt/identity
+                    # checks (which can themselves finish after the true end):
+                    # a result that became late is refused against that same
+                    # actual end, never reset or extended.
+                    self._require_within_op_end(op_end)
                 return QueryEmbedding(v.payload, v.sha256, batch.space_id,
                                       batch.definition_fingerprint,
                                       batch.intended_execution_fingerprint,
@@ -166,6 +284,34 @@ class ResidentQueryEncoder:
                 self._failed(error)
         finally:
             self._lock.release()
+
+    def _encode_expected_identity(self, text, expected):
+        # Closed private resident query path; the identity gate precedes the session encode.
+        return self._encode_guarded(text, expected, checked_identity=True)
+
+    def _encode_expected_identity_admitted(self, text, expected, admission):
+        # Fixed private resident entry: one single query bound to the exact
+        # existing expected identity tuple and one real exact
+        # PolicyRequestAdmission under its one bounded absolute end.  The
+        # exact admission is required, never None or a stand-in; the shared
+        # guarded encode keeps the existing shape, runtime and expected
+        # identity gates before the session encode, reuses the existing
+        # encoder/session ownership and genuine internal mechanisms, and no
+        # recursion or parallel encode occurs.
+        from . import private_policy_request as ppr
+
+        if type(admission) is not ppr.PolicyRequestAdmission:
+            raise QueryRefused('query encoder refused') from None
+        return self._encode_guarded(text, expected, checked_identity=True,
+                                    admission=admission)
+
+    def _require_within_op_end(self, op_end):
+        # Final bounded-operation end check at the resident final validation
+        # return: a result that became late during resident receipt/identity
+        # verification is refused against that same actual end, which is
+        # never reset or extended.
+        if time.monotonic() >= op_end:
+            raise ValueError
 
     def close(self):
         self._acquire()

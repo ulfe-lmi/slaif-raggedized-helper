@@ -348,7 +348,8 @@ def test_borrowed_pin_change_refuses_before_search(context):
     assert checks == [3] and not any(x[0] == "search" for x in c.calls)
 
 
-@pytest.mark.parametrize("text", ["", "   ", "x" * 8193, "\ud800", 1])
+@pytest.mark.parametrize("text", ["", "   ", "x" * 8193, "\ud800", 1],
+                         ids=("empty", "whitespace", "oversize", "lone-surrogate", "int"))
 def test_bad_question_before_policy(context, text):
     args = list(context.args)
     args[5] = text
