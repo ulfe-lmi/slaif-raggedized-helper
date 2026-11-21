@@ -3298,12 +3298,15 @@ surfaces, cohort and grade authority, actual publication
 and delivery remain open.
 
 The three new default hosted nodes reuse the actual
-009-ai ranking-dispatch scenario fixture (whose Gold
-fixture 009-af transferred) and its attributed synthetic
-selected policy with fresh admissions after the expensive
-setup, counting real catalog, directory, bundle, derived,
-original-store verified read, owner-load and reader calls
-at the intended boundaries: the measured full-directory
+009-ai ranking-dispatch scenario fixture - the
+slice's immediate fixture, built on the inherited
+support and source cohort fixtures (that scenario's
+Gold fixture is the 009-af transfer) - and its
+attributed synthetic selected policy with fresh
+admissions after the expensive setup, counting real
+catalog, directory, bundle, derived, original-store
+verified read, owner-load and reader calls at the
+intended boundaries: the measured full-directory
 work shape is M plus 2P ingestions per full directory and
 2*M+B+2*G+4*P per complete catalog, with one verified
 original per real structured-text ingestion.
@@ -3359,6 +3362,207 @@ baseline measurement or qualification claim is made; the
 remaining stage, cohort, grade, publication, delivery,
 source rights and baseline qualification gates stay open
 without exclusivity or release claims; whole 009 PARTIAL,
+baseline NOT_RUN, no merge, DHA NONE.
+
+## The 009-al current grade catalog transfer (same 009
+continuation)
+
+Slice 009-al (AMEND PR 11 at round base 390ed94, the
+accepted 009-ak report-only head whose exact required
+hosted run 44860721647 attempt 1 passed all five jobs
+and steps with ordered 1,440 + 1,998 units and 982
+integrations in each Product) transfers the exact
+reviewed guarded grade-owned direct catalog by blob
+identity: the four reviewed objects
+(evaluation_program.py, private_evaluation_preflight.py,
+source_bound_ranking.py and
+test_current_grade_catalog_composition.py) are
+byte-exact, and the candidate's commit history, its
+order and its report are not copied into the
+receiving branch.
+
+The existing grade catalog cut is extracted into the
+shared private _direct_catalog: the held pointer
+must bind the exact declared snapshot and generation
+before the one actual catalog load under the
+remaining loader bound, and the exact nominal
+catalog must bind the declared snapshot and catalog
+identities.  It returns the internal verified
+catalog identity only and never returns rows or a
+report.  The legacy _catalog calls it and keeps its
+phase, the source pin observation, the remaining
+grade-owned observation reservations and all later
+producer work unchanged.  The preflight body is
+extracted into _prepare_declaration_body, which runs
+the exact nominal config, source budget and grade
+budget checks and snapshotting, the genuine wire
+admission, the genuine source cohort declaration
+admission and the actual grade preparation under one
+already-owned caller clock and returns the prepared
+result plus the internal grade state; the legacy
+_prepare_declaration constructs its own fixed clock
+and delegates, keeping its after-assembly clock
+check and fixed PreparationError semantics.  The
+rank gate is factored into _bound_indexes (the
+bounded chunk/revision indexes with duplicate
+refusal) and _admit_selected_chunks (the pure rank
+kernel over one ordered selected chunk batch: each
+selected chunk is bound to its held row, entry and
+scope declarations under the effective case scope
+before any new source I/O, unknown, malformed,
+unreadable or genuinely unavailable selected entries
+refuse the whole batch, while an unselected
+unavailable bundle never refuses by itself); the
+legacy _gate output is preserved.
+
+The new fixed private current commencement
+_commence_grade_catalog accepts only the genuine
+current selected-policy request
+(PolicyRequestAdmission), the exact live operator-
+owned PinOwner, the canonical plan wire and dataset
+bytes (1..16,777,216 bytes), the exact ordered
+cohort and declaration identifiers, the declared
+Gold IDs, the config and the bounded source and
+grade budgets, and one cooperative 1..30,000 ms
+deadline; the caller supplies no grants or
+restrictions, pre-admitted Plan or declaration, path
+or stores, catalog, callback, clock, provider or raw
+credential.  The complete selected-policy snapshot
+and the verified principal grant are frozen through
+the existing private pin primitives before any
+owner custody, with the detached full anchor
+preserved separately for the final admission
+agreement.  One actual monotonic end is captured
+before any semantic work and clipped in place to the
+original current request lifetime; it is the same
+absolute end across the joint preparation, the
+checks and meter, the real borrowed owner end, the
+genuine selected observations and the catalog, and
+is never reset, resampled or extended.  Under one
+genuine borrowed nonreentrant guard, with the exact
+saved owner operation's prior end restored on every
+exit and the guard release unconditional, the entry
+verifies the held capture against the real manifest
+and immutable pin and retains the verified
+pre-dispatch pin data and bounded row-map bytes,
+runs the real metadata association, runs the shared
+joint declaration preparation, and then runs the
+new pure case authority: one genuine held
+row-map/membership admission against the real
+manifest and immutable pin, one availability table
+and the bounded indexes with the rank gate's exact
+scope and linkage checks complete before any
+catalog, directory or bundle read inside the grade
+entry; each case's effective grants come from the
+exact prepared selection with no added
+restrictions; every readable held entry of each
+case is scanned against the one availability
+table; an unavailable partition inside a readable
+case scope, no readable membership at all, or an
+unknown, unreadable or unavailable selected entry
+anywhere refuses the whole plan before any new
+read; and an empty judgment over a fully available
+readable case scope authorizes zero selected
+judgment reads while retaining the broad trusted
+catalog operation.  The plan snapshot/generation
+concordance then holds, the genuine same-admission
+selected policy is the last gate before the one
+actual direct owned catalog, and after the catalog
+the exact same pre-dispatch pin data and associated
+operation, the same held owner and metadata
+association, the exact nominal catalog and the
+genuine final same-admission observation are
+re-verified, the detached full grant and time are
+rechecked, and at most the internal verified
+catalog identity is returned, never rows or a grade
+Report.  An admitted refusal preserves the intended
+count with attempted=0, completed=0, refused=0 and
+pending=intended under the fixed content-free
+EvaluationError, whose caught handler has left
+before the raise so the error carries no caught
+context; a non-Exception interruption propagates by
+identity with prior custody preserved.  Whole
+source cohort, full grade and stage composition,
+report provenance/publication and current delivery
+remain open.
+
+The three new default hosted nodes reuse the actual
+009-ai ranking-dispatch scenario fixture - the
+slice's immediate fixture, built on the inherited
+support and source cohort fixtures - with its
+attributed synthetic selected policy and fresh
+admissions after the expensive setup, counting real
+catalog, directory, bundle, derived, original-store
+verified read, owner-load, owner-association and
+reader calls at the intended boundaries; the
+per-catalog count formulas are derived from the
+exact source (each catalog load performs two
+load_directory trees, each revalidating the whole
+declared membership and rebuilding every dense and
+lexical partition once per distinct (partition,
+bundle, batch) triple through one real load_group,
+plus one ingestion load per unique row-map bundle
+and one per unique (bundle, batch) group; every
+load_group performs one ingestion load plus two
+additional derived loads; every ingestion load
+performs one derived load and one verified original
+read).  test_grade_catalog_stable_plan_empty_
+judgment_completes witnesses the stable ordered
+multi-case plan including the empty judgment at one
+completed catalog with two real directory
+validations, two genuine selected observations,
+zero new pin reload and no producer, scoring or
+report work, with the real joint preparation, the
+shared direct dispatch and both metadata
+associations observed under the fresh admission's
+clipped end and the actual saved owner operation
+end under the guard equal to it; the empty
+judgment authorizes zero selected judgment reads
+and does not erase the catalog, which still reaches
+every retained bundle.  test_early_pure_refusals_
+zero_new_reads witnesses the unknown well-formed
+chunk, the real unreadable selected scope, the
+genuinely unavailable selected partition, the mixed
+readable-but-withheld case refusing even with an
+empty judgment and another readable membership
+remaining, the no-usable-membership scope and the
+unaffected narrower empty judgment completing the
+catalog at the shared direct cut - all before any
+new catalog, directory or bundle read, each with
+the fixed content-free error and intact custody.
+test_selection_change_denies_catalog_and_post_
+catalog_observation witnesses the real selected
+generation denial on the same raw pin and pointer
+with the identical wire payload and retained raw
+pin bytes: at the last gate before the actual
+direct catalog with zero new catalog starts and
+exactly one actual selected reread, latching the
+admission, and after one genuine complete catalog
+with two real directory validations, denying a
+usable catalog output with the latched recheck
+refusing zero further reads.
+
+Local proof on the receiving bytes under the ordered
+CPU60s/AS1GiB/wall120s KILL5 bounds, in a fresh
+mode-0700 scratch directly under sticky /dev/shm
+with the canonical venv: one inherited 107-node
+unit focus (50 grade + 15 ranking + 42 joint
+preflight), one bounded collect-only of the three
+new hosted nodes, one scoped four-file one-core
+Ruff with one Rayon thread and the physical
+canonical import-origin probe in fresh grade-first
+and eligibility-first processes, all exit 0; no
+setup, install, local native execution or unchanged
+repeat.  The fresh exact report-head hosted CI is
+PENDING at authoring: all five jobs and every
+required step, both Products at ordered 1,440 +
+1,998 units and exactly 985 separate integration
+passes (982 prior + 3 new).  No baseline
+measurement or qualification claim is made; the
+remaining source cohort, full grade, stage
+composition, publication, delivery, source rights
+and baseline qualification gates stay open without
+exclusivity or release claims; whole 009 PARTIAL,
 baseline NOT_RUN, no merge, DHA NONE.
 
 ## Input contracts and bounds

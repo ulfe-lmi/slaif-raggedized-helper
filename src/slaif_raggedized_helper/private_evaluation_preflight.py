@@ -118,28 +118,8 @@ def _prepare_declaration(
     result = None
     try:
         clock = source._Deadline(time.monotonic(), deadline_ms)
-        if type(identifiers) is not tuple:
-            raise ValueError
-        if not source._closed(config, source.Config):
-            raise ValueError
-        config_snapshot = (config.config_id, config.declaration_id)
-        config_record = source.Config(*config_snapshot)
-        if not source._closed(source_budget, source.Budget):
-            raise ValueError
-        source_budget_snapshot = tuple(
-            getattr(source_budget, field.name) for field in fields(source.Budget)
-        )
-        source_budget_record = source.Budget(*source_budget_snapshot)
-        if not source._closed(grade_budget, program.GradeBudget):
-            raise ValueError
-        grade_budget_snapshot = tuple(
-            getattr(grade_budget, field.name) for field in fields(program.GradeBudget)
-        )
-        grade_budget_record = program.GradeBudget(*grade_budget_snapshot)
-        clock.check()
-        plan = wire.admit(plan_wire)
-        clock.check()
-        dataset, selected, selection, source_meter = source._declaration_admission(
+        result, _state = _prepare_declaration_body(
+            plan_wire,
             originals,
             derived,
             root,
@@ -150,32 +130,10 @@ def _prepare_declaration(
             gold_ids,
             grants,
             restrictions,
-            config_record,
-            source_budget_record,
+            config,
+            source_budget,
+            grade_budget,
             clock,
-        )
-        clock.check()
-        state = program._State(plan, grade_budget_record)
-        entries, minimum_work, minimum_payload = program._prepare_plan(
-            state, dataset, selected, clock
-        )
-        result = PreparedDeclaration(
-            plan,
-            dataset,
-            selected,
-            identifiers,
-            gold_ids,
-            config_snapshot,
-            source_budget_snapshot,
-            grade_budget_snapshot,
-            selection,
-            source_meter.work,
-            source_meter.payload,
-            state.meter.work,
-            state.meter.payload,
-            entries,
-            minimum_work,
-            minimum_payload,
         )
         # The fixed clock is checked after the prepared result is assembled:
         # a late usable output is refused before it can leave the entry.
@@ -188,3 +146,92 @@ def _prepare_declaration(
         # suppression explicit.
         raise PreparationError() from None
     return result
+
+
+def _prepare_declaration_body(
+    plan_wire,
+    originals,
+    derived,
+    root,
+    owner,
+    data,
+    cohort,
+    identifiers,
+    gold_ids,
+    grants,
+    restrictions,
+    config,
+    source_budget,
+    grade_budget,
+    clock,
+):
+    """The existing private preparation body under one already-owned clock.
+
+    The exact nominal config, source budget and grade budget are checked
+    and snapshotted to owned primitive values before their admission, the
+    genuine wire admission, the genuine source cohort declaration
+    admission and the actual grade preparation run on those owned nominal
+    records, all under the one caller-owned ``source._Deadline``.  No
+    clock is constructed here; the returned internal grade state carries
+    the bounded grade meter for the grade computation.
+    """
+    if type(identifiers) is not tuple:
+        raise ValueError
+    if not source._closed(config, source.Config):
+        raise ValueError
+    config_snapshot = (config.config_id, config.declaration_id)
+    config_record = source.Config(*config_snapshot)
+    if not source._closed(source_budget, source.Budget):
+        raise ValueError
+    source_budget_snapshot = tuple(
+        getattr(source_budget, field.name) for field in fields(source.Budget)
+    )
+    source_budget_record = source.Budget(*source_budget_snapshot)
+    if not source._closed(grade_budget, program.GradeBudget):
+        raise ValueError
+    grade_budget_snapshot = tuple(
+        getattr(grade_budget, field.name) for field in fields(program.GradeBudget)
+    )
+    grade_budget_record = program.GradeBudget(*grade_budget_snapshot)
+    clock.check()
+    plan = wire.admit(plan_wire)
+    clock.check()
+    dataset, selected, selection, source_meter = source._declaration_admission(
+        originals,
+        derived,
+        root,
+        owner,
+        data,
+        cohort,
+        identifiers,
+        gold_ids,
+        grants,
+        restrictions,
+        config_record,
+        source_budget_record,
+        clock,
+    )
+    clock.check()
+    state = program._State(plan, grade_budget_record)
+    entries, minimum_work, minimum_payload = program._prepare_plan(
+        state, dataset, selected, clock
+    )
+    result = PreparedDeclaration(
+        plan,
+        dataset,
+        selected,
+        identifiers,
+        gold_ids,
+        config_snapshot,
+        source_budget_snapshot,
+        grade_budget_snapshot,
+        selection,
+        source_meter.work,
+        source_meter.payload,
+        state.meter.work,
+        state.meter.payload,
+        entries,
+        minimum_work,
+        minimum_payload,
+    )
+    return result, state

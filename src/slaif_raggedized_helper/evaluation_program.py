@@ -387,11 +387,17 @@ def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, con
         raise ValueError
 
 
-def _catalog(state, originals, derived, root, owner, captured, clock):
-    from . import raw_snapshot_catalog, source_cohort_runner as source
+def _direct_catalog(plan, meter, originals, derived, root, captured, clock):
+    """The shared plan/pin/catalog concordance and one actual direct dispatch.
 
-    state.phase = "CATALOG"
-    plan, meter = state.plan, state.meter
+    The held pointer must bind the exact declared snapshot and generation
+    before the one actual catalog load under the remaining loader bound,
+    and the exact nominal catalog must bind the declared snapshot and
+    catalog identities.  Returns the internal verified catalog identity
+    only; it never returns rows or a report.
+    """
+    from . import raw_snapshot_catalog
+
     if (
         captured.pointer.snapshot_id != plan.snapshot_id
         or captured.pointer.generation != plan.generation
@@ -410,7 +416,17 @@ def _catalog(state, originals, derived, root, owner, captured, clock):
         or catalog.catalog_id != plan.catalog_id
     ):
         raise ValueError
+    catalog_id = catalog.catalog_id
     del catalog
+    return catalog_id
+
+
+def _catalog(state, originals, derived, root, owner, captured, clock):
+    from . import source_cohort_runner as source
+
+    state.phase = "CATALOG"
+    plan, meter = state.plan, state.meter
+    _direct_catalog(plan, meter, originals, derived, root, captured, clock)
     source._pin_observation(owner, originals, derived, root, captured, meter, clock)
     # The captured row map is known only after the first source pin. Reserve all
     # remaining grade-owned observations before the first producer invocation.
@@ -979,3 +995,303 @@ def run_evaluation(
         _grade=state,
         _started=started,
     )
+
+
+def _pure_case_authority(plan, selected, core, row_map_bytes, membership_bytes,
+                         policy_snapshot, meter, clock):
+    """Pure authority over every ordered admitted case and selected judgment.
+
+    One genuine held row-map/membership admission against the real
+    manifest and immutable pin, one availability table and the bounded
+    indexes with the rank gate's exact scope and linkage checks complete
+    before any catalog, directory or bundle read inside the grade entry.
+    Each case's effective grants come from the exact prepared selection
+    with no added restrictions.  Every readable held entry of each case
+    is scanned against the one availability table: an unavailable
+    partition inside a readable case scope, no readable membership at
+    all, or an unknown, unreadable or unavailable selected entry
+    anywhere refuses the whole plan before any new read; an empty
+    judgment over a fully available readable case scope authorizes zero
+    selected judgment reads and retains the broad trusted catalog
+    operation.  The work is charged to the bounded grade meter.
+    """
+    from . import provenance_records as records
+    from . import raw_snapshot_membership, raw_snapshot_rows
+    from . import source_bound_ranking as ranking
+    from . import supplied_policy_eligibility as eligibility
+
+    meter.reserve(
+        len(core) + len(row_map_bytes) + len(membership_bytes) + 2,
+        len(row_map_bytes) + len(membership_bytes),
+    )
+    mapping = raw_snapshot_rows.bind(core, row_map_bytes)
+    clock.check()
+    bound = raw_snapshot_membership.bind(core, row_map_bytes, membership_bytes)
+    clock.check()
+    unavailable = set(eligibility.unavailable_partitions(policy_snapshot, bound))
+    meter.reserve(len(bound.entries) + 1)
+
+    def check():
+        clock.check()
+
+    by_chunk, by_revision = ranking._bound_indexes(mapping, bound, meter, check)
+    meter.reserve(len(mapping.rows) + len(bound.entries) + 1)
+    for judgment, (_case, _original, effective, _restricted) in zip(
+        plan.judgments, selected, strict=True
+    ):
+        clock.check()
+        meter.reserve(len(bound.entries) + 1)
+        readable = False
+        for entry in bound.entries:
+            meter.reserve(1)
+            scope = records.admit_record("Scope", entry.scope_bytes)
+            if not records.reader_allows(scope, effective):
+                continue
+            readable = True
+            if entry.partition_id in unavailable:
+                # An unavailable partition inside the readable case
+                # scope refuses the whole plan even when another
+                # readable membership remains and even when the
+                # judgment is empty or otherwise valid.
+                raise ValueError
+        if not readable:
+            raise ValueError
+        meter.reserve(len(judgment.gold) + 1, 128 * len(judgment.gold))
+        ranking._admit_selected_chunks(
+            tuple(pair[0] for pair in judgment.gold),
+            by_chunk,
+            by_revision,
+            unavailable,
+            effective,
+            meter,
+            check,
+        )
+
+
+def _commence_grade_catalog(
+    admission,
+    owner,
+    plan_wire,
+    dataset_bytes,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    source_budget,
+    grade_budget,
+    *,
+    deadline_ms,
+):
+    """Fixed private current commencement of the grade-owned direct catalog.
+
+    Binds the genuine current selected-policy request
+    (``private_policy_request.PolicyRequestAdmission``) and the exact
+    live operator-owned pin (``raw_snapshot_pin.PinOwner``) to one
+    actual direct owned catalog through the genuine ordered joint
+    declaration preparation and the shared direct cut.  The caller
+    supplies only the canonical plan wire and dataset bytes, the exact
+    ordered cohort and declaration identifiers, the declared Gold IDs,
+    the config and the bounded source and grade budgets, and one
+    1..30000 ms deadline: no grants or restrictions, pre-admitted Plan
+    or declaration, path or store, catalog, callback, clock, provider
+    or raw credential.  The root and store handles come from the
+    active owner under its real guard, the complete selected-policy
+    snapshot and verified principal grant are frozen through the
+    existing private pin primitives and used for all case
+    intersections with the detached final admission agreement
+    preserved separately, and the one actual clipped
+    ``source._Deadline`` started once near the entry with its exact
+    end clipped in place to the original current request lifetime
+    governs the joint preparation, the checks and meter, the real
+    borrowed owner end, the genuine selected observations and the
+    catalog as the one overall cutoff.  Under one genuine borrowed
+    nonreentrant guard, the exact saved owner operation's prior end is
+    restored on every exit, including the refusal when the owner
+    operation differs, and the guard release is unconditional; the held
+    capture, the real namespace/pin metadata association and the plan
+    snapshot/generation are verified, the complete ordered admitted
+    cases and selected judgments pass the pure authority before any
+    catalog, directory or bundle read, and the genuine same-admission
+    selected policy is the last gate before the one actual direct
+    owned catalog.  After the catalog, the exact same pre-dispatch pin
+    data and associated operation, the exact nominal catalog, the same
+    held owner and metadata association and the genuine final
+    same-admission observation are verified, and the detached full
+    grant and time are rechecked before any usable return, and at most
+    the internal verified catalog identity is returned: never rows or
+    a grade Report.  An admitted CATALOG refusal preserves the
+    intended count with attempted=0, completed=0, refused=0 and
+    pending=intended; a genuine selection mismatch latches the actual
+    admission; ordinary errors use the fixed
+    :class:`EvaluationError`; a non-Exception interruption
+    propagates by identity with prior custody preserved.
+    """
+    import time
+
+    from . import derived_store
+    from . import private_evaluation_preflight as preflight
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as request
+    from . import raw_snapshot_pin
+    from . import source_cohort_runner as source
+    from .source_admission import OriginalStore
+
+    admitted = False
+    intended = 0
+    original_end = None
+    retained_op = None
+    progress = None
+    try:
+        if (
+            type(admission) is not request.PolicyRequestAdmission
+            or type(owner) is not raw_snapshot_pin.PinOwner
+            or type(plan_wire) is not bytes
+            or type(dataset_bytes) is not bytes
+            or not 1 <= len(dataset_bytes) <= 16777216
+            or not pin_eligibility._deadline_accepted(deadline_ms)
+        ):
+            raise ValueError
+        # The one exact monotonic end clipped to the original current
+        # request lifetime; never reset, resampled or extended.
+        started = time.monotonic()
+        end = min(started + deadline_ms / 1000, admission._end)
+        pin_eligibility._still_within(end)
+        # Frozen complete selected-policy snapshot and verified
+        # principal grant before any owner custody; the detached full
+        # anchor is preserved separately for the final admission
+        # agreement.
+        policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+        pin_eligibility._still_within(end)
+        anchor = pin_eligibility._bounded_admission(
+            pin_eligibility._admitted_principal_grants(
+                policy_snapshot, admission.principal_id
+            )
+        )
+        grants = pin_eligibility._bound_grants(admission, anchor)
+        pin_eligibility._still_within(end)
+        # The one actual source deadline, started once near the entry
+        # with its exact end clipped in place to the end above; it
+        # governs the joint preparation, the checks and meter, the real
+        # borrowed owner end, the genuine selected observations and the
+        # remaining I/O.
+        clock = source._Deadline(started, deadline_ms)
+        clock.end = end
+        clock.check()
+        # One genuine borrowed nonreentrant guard, held through the
+        # entire span.
+        pin_eligibility._borrowed_owner(owner)
+        try:
+            if owner.op is None or owner.state != "ACTIVE":
+                raise ValueError
+            if (
+                type(owner.originals) is not OriginalStore
+                or type(owner.derived) is not derived_store.Store
+            ):
+                raise ValueError
+            originals, derived, root = (
+                owner.originals,
+                owner.derived,
+                owner.op.path,
+            )
+            # The exact associated operation captured before its end
+            # is assigned; cleanup restores this exact object's prior
+            # end on every exit.
+            retained_op = owner.op
+            original_end = retained_op.end
+            retained_op.end = end
+            clock.check()
+            # The exact held capture against the real manifest and
+            # immutable pin, verified before any use; the verified
+            # pre-dispatch pin data and bounded row-map bytes are
+            # retained under the guard.
+            pointer, core, _membership, membership_bytes = pin_eligibility._held_capture(
+                owner
+            )
+            clock.check()
+            retained = owner.value
+            row_map_bytes = retained.data.row_map.map_bytes
+            clock.check()
+            # Live namespace and genuine metadata-only association
+            # under the held guard.
+            owner._association()
+            clock.check()
+            prepared, state = preflight._prepare_declaration_body(
+                plan_wire,
+                originals,
+                derived,
+                root,
+                owner,
+                dataset_bytes,
+                cohort,
+                identifiers,
+                gold_ids,
+                grants,
+                None,
+                config,
+                source_budget,
+                grade_budget,
+                clock,
+            )
+            clock.check()
+            admitted = True
+            intended = len(prepared.selected)
+            meter = state.meter
+            plan = prepared.plan
+            _pure_case_authority(
+                plan,
+                prepared.selected,
+                core,
+                row_map_bytes,
+                membership_bytes,
+                policy_snapshot,
+                meter,
+                clock,
+            )
+            clock.check()
+            # The plan snapshot/generation concordance before the
+            # final gate.
+            if (
+                pointer.snapshot_id != plan.snapshot_id
+                or pointer.generation != plan.generation
+            ):
+                raise ValueError
+            # The genuine same-admission selected policy as the last
+            # gate before the actual direct owned catalog.
+            pin_eligibility._genuine_recheck(admission, end)
+            clock.check()
+            catalog_id = _direct_catalog(
+                plan, meter, originals, derived, root, retained, clock
+            )
+            clock.check()
+            # The exact same pre-dispatch pin data and associated
+            # operation after the real dispatch, re-verified with the
+            # same held owner and metadata association, then the
+            # genuine final same-admission observation.
+            if owner.value is not retained or owner.op is not retained_op:
+                raise ValueError
+            pin_eligibility._held_capture(owner)
+            owner._association()
+            clock.check()
+            pin_eligibility._genuine_recheck(admission, end)
+            clock.check()
+            # Recheck the detached full grant and time before any
+            # usable return.
+            if pin_eligibility._bound_grants(admission, anchor) != grants:
+                raise ValueError
+            pin_eligibility._still_within(end)
+            return catalog_id
+        finally:
+            # Restore the exact saved operation's prior end on every
+            # exit, even when the owner operation differs; the guard
+            # release is unconditional.
+            try:
+                if retained_op is not None:
+                    retained_op.end = original_end
+            finally:
+                owner.guard.release()
+    except Exception:
+        if admitted:
+            progress = FailurePrefix("CATALOG", intended, 0, 0, 0, intended)
+        # The caught ordinary handler has now left; raising below is
+        # outside it, so the fixed error carries no caught context.
+    raise EvaluationError(progress)

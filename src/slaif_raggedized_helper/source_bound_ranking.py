@@ -576,6 +576,14 @@ def _gate(core, row_map_bytes, membership_bytes, policy_snapshot, grants,
         supplied_policy_eligibility.unavailable_partitions(policy_snapshot, bound)
     )
     check()
+    by_chunk, by_revision = _bound_indexes(mapping, bound, meter, check)
+    return effective, _admit_selected_chunks(
+        chunk_ids, by_chunk, by_revision, unavailable, effective, meter, check
+    )
+
+
+def _bound_indexes(mapping, bound, meter, check):
+    """The bounded chunk/revision indexes with duplicate refusal."""
     by_chunk = {}
     for row in mapping.rows:
         meter.reserve(1)
@@ -588,6 +596,19 @@ def _gate(core, row_map_bytes, membership_bytes, policy_snapshot, grants,
         if entry.revision_id in by_revision:
             raise ValueError
         by_revision[entry.revision_id] = entry
+    return by_chunk, by_revision
+
+
+def _admit_selected_chunks(chunk_ids, by_chunk, by_revision, unavailable,
+                           effective, meter, check):
+    """The pure rank kernel over one ordered selected chunk batch.
+
+    Each selected chunk is bound to its held row, entry and scope
+    declarations under the effective case scope before any new source
+    I/O: unknown, malformed, unreadable or genuinely unavailable
+    selected entries refuse the whole batch, while an unselected
+    unavailable bundle never refuses by itself.
+    """
     pinned = {}
     for ident in chunk_ids:
         check()
@@ -627,7 +648,7 @@ def _gate(core, row_map_bytes, membership_bytes, policy_snapshot, grants,
             scope,
         )
         check()
-    return effective, pinned
+    return pinned
 
 
 def _bind_pinned(admission, owner, dataset_bytes, case_id, expected_catalog_id,
