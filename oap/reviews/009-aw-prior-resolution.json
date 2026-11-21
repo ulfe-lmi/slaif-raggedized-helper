@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-21T16:59:57.777334+00:00",
+  "identifier": "009-av",
+  "PR": 11,
+  "report_head": "13563000b2e44f01f455ca880744017c0e6433da",
+  "report_sha256": "f9e92f868316a20d3fa023003efcee239575e7b37fe5b801bb02aabae6f37608",
+  "decision": "REJECT_EXACT_HOSTED_GATE_MEMBERSHIP_FIXTURE",
+  "head_run": 44923276160,
+  "attempt": 1,
+  "terminal_review": {
+    "path": "audit/009-av-check/Root-terminal-review.json",
+    "bytes": 4997,
+    "sha256": "1a8f5ab40c5ee9263c245f394fb07bda2d217651ce0dd15dcff9e74feb4137c9"
+  },
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}
