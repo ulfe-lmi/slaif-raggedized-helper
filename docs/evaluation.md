@@ -4164,6 +4164,82 @@ report-head CI, both Products ordered 1,440 +
 new). Baseline NOT_RUN; whole 009 PARTIAL; no
 merge; DHA NONE.
 
+## The 009-as current full graded cohort transfer
+(same 009 continuation)
+
+Slice 009-as (AMEND PR 11, round base 895e846)
+transfers, without candidate history, order or
+report, the reviewed current full graded
+cohort: the three evolved product files
+source_cohort_runner.py, evaluation_program.py
+and private_evaluation_preflight.py plus the
+new three-node hosted witness
+test_current_graded_cohort_composition.py.
+The one private current graded entry makes
+one query-free joint declaration and one
+guarded initial source pin, then runs the
+genuine guarded direct grade catalog and the
+distinct grade-owned post-catalog full pin;
+all share the exact original current
+admission, operation, raw capture, stores,
+root, grant, anchor and clipped monotonic
+end, with the current and legacy work
+limits retaining their existing bounds. The
+one shared production iteration runs the
+real current CASE_PIN, guarded T1/T2,
+same-payload hybrid and source-stage
+binding, then the grading-owned pin, exact
+declared ranking and pin for each case, the
+per-case actual query identity, bounded
+ordered metadata, case recording, grade
+aggregation and canonical plan identity
+shared with the existing mathematics and
+report bytes where applicable, while the
+logical budgets and delegated physical
+observations stay distinct. Only the
+genuine guarded FINAL_PIN success, which
+revalidates the original capture and
+performs a genuine selected reread after
+the actual full load with the saved
+deadline restored and the guard released
+on every exit, yields the private
+immutable owner-bound exact report and
+corresponding plan identity under the
+original deadline; a denial yields a
+content-free truthful terminal prefix,
+interruption identity preserved and the
+public legacy report/storage ABI
+unchanged. The repaired canonical stage
+fixture and all other receiving preimages
+are preserved byte-exact. The three new
+hosted witnesses are synthetic: the stable
+h1/h4 two-bundle a/c projection with b
+still physically in the same raw pin and
+genuinely withheld, the original h1/h2
+case denying before physical work, and a
+real same-wire selected generation
+published after the actual final full pin
+and before its genuine selected reread,
+yielding FINAL_PIN / 2 / 2 / 2 / 0 / 0 and
+zero usable minted result; the 75
+directory starts and 21 full pins are
+expected hosted counts, not local
+observations, and the CPU60s/AS1GiB/
+wall120s/KILL5 bounds plus the collect-
+only node checks are configured resource
+and collection evidence only, not held-
+out quality or encoder qualification.
+Local proof: 361/361 focused existing
+units, exact new hosted collect-only,
+scoped five-file one-core Ruff and two
+fresh physical import orders, all exit 0;
+no local native run. Expected hosted
+proof: report-head CI, both Products
+ordered 1,440 + 1,998 units, exactly
+1,003 integrations (1,000 + 3 new).
+Baseline NOT_RUN; whole 009 PARTIAL; no
+merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

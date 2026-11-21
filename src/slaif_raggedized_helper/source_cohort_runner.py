@@ -1398,6 +1398,7 @@ def _production_iteration(
     saved_derived=None,
     saved_root=None,
     identifiers=None,
+    grade_state=None,
 ):
     """One fixed private shared production iteration, reached by both entries.
 
@@ -1407,7 +1408,9 @@ def _production_iteration(
     dispatch - the legacy guarded pin, producer and binder against the
     optionally existing supplied grade step, or the genuine current
     CASE_PIN revalidation, the factored encode and same-payload pinned
-    hybrid subspan and the actual stage-owned dispatch.  One actual
+    hybrid subspan, the shared single-query expected identity and the
+    actual stage-owned dispatch, with the optionally existing current
+    grade case body.  One actual
     Query is consumed at a time in the iteration, and the phase,
     attempted and completed counters are owned through the shared
     ``iter_state`` mapping.
@@ -1418,6 +1421,7 @@ def _production_iteration(
 
         entries = zip(queries, selected, strict=True)
     else:
+        from . import evaluation_program as graded
         from . import private_policy_pin_eligibility as pin_eligibility
         from . import source_bound_stage_loss as stage_loss
 
@@ -1511,6 +1515,20 @@ def _production_iteration(
             iter_state["state"] = None
             meter.reserve(1)
             clock.check()
+            # The shared single-query expected identity from the
+            # actual encoder output, retained only as bounded ordered
+            # metadata, before the case is accepted and staged.
+            if grade_state is not None:
+                graded._current_case_identity(
+                    grade_state,
+                    grade_state.plan,
+                    query,
+                    (case, original, effective, restricted),
+                    grade_state.meter,
+                    clock,
+                )
+                grade_state.meter.reserve(1)
+                clock.check()
             iter_state["phase"] = "STAGE"
             diagnosis = stage_loss.bind_stage_owned_dispatch(
                 admission,
@@ -1555,6 +1573,22 @@ def _production_iteration(
                 item,
                 clock,
             )
+            iter_state["phase"] = "GRADE_CASE"
+        if current is not None and grade_state is not None:
+            iter_state["phase"] = "GRADE_PIN"
+            graded._current_case(
+                grade_state,
+                admission,
+                pin_owner,
+                dataset_bytes,
+                case,
+                result,
+                item,
+                clock,
+                captured,
+            )
+            grade_state.meter.reserve(1)
+            clock.check()
             iter_state["phase"] = "GRADE_CASE"
         _case_record(binder_totals, metadata, pairs, item, diagnosis, meter, case.case_id)
         iter_state["completed"] += 1
@@ -1786,6 +1820,7 @@ def _current_cohort_prepared_pin(
     *,
     deadline_ms,
     case_id=None,
+    joint=None,
 ):
     """Shared genuine query-free declaration and guarded first cohort pin body.
 
@@ -1821,6 +1856,21 @@ def _current_cohort_prepared_pin(
     unchanged.  Ordinary refusal
     raises the internal ``_PreparedPinRefused`` carrying the admission
     stage; a non-Exception BaseException propagates by identity.
+    An optional joint declaration state (exactly one canonical plan
+    wire bytes and one closed grade budget) is admitted by the same
+    one shared body through the one fixed private owned paired
+    declaration core: the genuine wire admission, the genuine source
+    declaration admission and the genuine grade preparation (plan
+    admission and conservative envelope) on that exact plan and the
+    declared grade budget all run exactly once on the already-owned
+    nominal records, the bounded late-query metadata is reserved
+    once, and the actual shared current-safe envelope check runs
+    against the original grade limits before any source use; the pure
+    case authority over every ordered admitted case and selected
+    judgment plus the plan/pin snapshot and generation concordance
+    then complete under the guard before the guarded reload, so the
+    joint caller never prepares a second declaration; the legacy
+    callers without a joint keep the original body unchanged.
     """
     import time
 
@@ -1851,12 +1901,22 @@ def _current_cohort_prepared_pin(
             or not 1 <= deadline_ms <= 30000
             or (case_id is not None
                 and (type(case_id) is not str or not 1 <= len(case_id) <= 128))
+            or (joint is not None and (
+                type(joint) is not dict
+                or set(joint) != {"plan_wire", "grade_budget"}
+                or type(joint["plan_wire"]) is not bytes
+                or not 1 <= len(joint["plan_wire"]) <= 8388608))
             or pin_owner.op is None
             or pin_owner.value is None
             or pin_owner.originals is None
             or pin_owner.derived is None
         ):
             raise ValueError
+        if joint is not None:
+            from . import evaluation_program as graded
+
+            if not graded._closed(joint["grade_budget"], graded.GradeBudget):
+                raise ValueError
         # The exact owner-selected operation, root and stores retained
         # for the genuine declaration admission; the active owner is
         # tied to them under the guard before any protected work.
@@ -1882,24 +1942,78 @@ def _current_cohort_prepared_pin(
         )
         grants = pin_eligibility._bound_grants(admission, anchor_snapshot)
         clock.check()
-        # The genuine source declaration admission over the canonical
-        # dataset and exact selected cohort, supplied declaration grammar
-        # and verified full principal anchor, with no added restriction.
-        dataset, selected, selection, meter = _declaration_admission(
-            saved_originals,
-            saved_derived,
-            saved_root,
-            pin_owner,
-            dataset_bytes,
-            cohort,
-            identifiers,
-            gold_ids,
-            grants,
-            None,
-            config,
-            budget,
-            clock,
-        )
+        # The one fixed private owned paired declaration core: the
+        # genuine wire admission, the genuine source declaration
+        # admission over the canonical dataset and exact selected cohort
+        # with the supplied declaration grammar and verified full
+        # principal anchor and no added restriction, and the genuine
+        # grade preparation on the exact joint plan and declared grade
+        # budget, all exactly once on the already-owned nominal records;
+        # the legacy path without a joint keeps its original direct
+        # declaration admission unchanged.
+        if joint is not None:
+            from . import evaluation_program as graded
+            from . import private_evaluation_preflight as preflight
+
+            (
+                joint["plan"],
+                dataset,
+                selected,
+                selection,
+                meter,
+                joint["state"],
+                joint["entries"],
+                joint["minimum_work"],
+                joint["minimum_payload"],
+            ) = preflight._paired_declaration_core(
+                joint["plan_wire"],
+                saved_originals,
+                saved_derived,
+                saved_root,
+                pin_owner,
+                dataset_bytes,
+                cohort,
+                identifiers,
+                gold_ids,
+                grants,
+                None,
+                config,
+                budget,
+                joint["grade_budget"],
+                clock,
+            )
+            # The ordered per-case expected-identity list starts empty
+            # for the current shared iteration to fill as each actual
+            # encoder returns, and the bounded late-query metadata is
+            # reserved once; the single current-grade full remaining
+            # check runs later under the prepared-pin guard, after the
+            # pure authority debits the same grade meter and the plan
+            # concordance completes, immediately before the first real
+            # reload.
+            joint["state"].expected = []
+            joint["state"].reserve_work = joint["minimum_work"]
+            joint["state"].reserve_payload = joint["minimum_payload"]
+            graded._reserve_plan_identity(
+                len(selected), joint["entries"], joint["state"].meter
+            )
+            meter.reserve(1)
+            clock.check()
+        else:
+            dataset, selected, selection, meter = _declaration_admission(
+                saved_originals,
+                saved_derived,
+                saved_root,
+                pin_owner,
+                dataset_bytes,
+                cohort,
+                identifiers,
+                gold_ids,
+                grants,
+                None,
+                config,
+                budget,
+                clock,
+            )
         intended = len(selected)
         admitted = True
         # The exact selected case index of the complete ordered
@@ -1987,6 +2101,53 @@ def _current_cohort_prepared_pin(
                     raise ValueError
                 meter.reserve(1)
                 clock.check()
+            # The complete joint pure admission: the pure case
+            # authority over every ordered admitted case and selected
+            # judgment, and the plan/pin snapshot and generation
+            # concordance, both before the guarded reload starts any
+            # new physical source work.
+            if joint is not None:
+                graded._pure_case_authority(
+                    joint["plan"],
+                    selected,
+                    core,
+                    row_map.map_bytes,
+                    _membership_bytes,
+                    policy_snapshot,
+                    joint["state"].meter,
+                    clock,
+                )
+                meter.reserve(1)
+                clock.check()
+                if (
+                    _pointer.snapshot_id != joint["plan"].snapshot_id
+                    or _pointer.generation != joint["plan"].generation
+                ):
+                    raise ValueError
+                meter.reserve(1)
+                clock.check()
+                # The single current-grade full remaining check, under
+                # the prepared-pin guard on the verified retained
+                # original capture, after the pure authority debits and
+                # the plan concordance, immediately before the first
+                # real reload: the conservative plan minimums plus the
+                # actual remaining bounded grade-owned pin observation
+                # work this route owes - the post-catalog pin, the two
+                # per-case grade revalidations and the final pin, each
+                # sized from the retained capture under the original
+                # fixed constants - compared against the original grade
+                # limits without reserving or debiting it, subsuming
+                # the pure plan minimum comparison; the small known
+                # remaining direct catalog and guarded post-catalog and
+                # final bookkeeping charges are already carried by the
+                # conservative plan minimums, and the verified physical
+                # delegates own their own internal metering.
+                graded._grade_remaining_envelope(
+                    joint["state"],
+                    joint["state"].meter,
+                    saved_value,
+                    2 * len(joint["plan"].judgments) + 2,
+                )
             # The guarded variant: the actual clipped cooperative end
             # on the saved operation, with its actual prior end restored
             # on all exits.
@@ -2963,3 +3124,510 @@ def _current_cohort_stage_loop(
             refused, intended - iter_state["attempted"],
         )
     raise CohortRunnerError(progress) from None
+
+
+def _current_graded_cohort(
+    admission,
+    pin_owner,
+    dataset_bytes,
+    plan_wire,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    budget,
+    grade_budget,
+    encoder,
+):
+    """Genuine guarded ordered shared source cohort and grade execution.
+
+    The one fixed private current graded execution entry: only the
+    genuine current ``PolicyRequestAdmission``, the exact live
+    ``PinOwner`` (which alone selects the origin stores, root and
+    capture), the bounded canonical dataset bytes, the bounded
+    canonical plan wire, the exact closed ``Cohort``, the declared
+    encoder identifier tuples, the declared Gold ID tuple, the exact
+    ``Config``, the bounded source ``Budget``, the bounded
+    ``GradeBudget`` and the exact open ``ResidentQueryEncoder``, with
+    no caller text/vector/grants/stores/root/clock/deadline, provider,
+    callback or generic hook.  The one operation clock is the fixed
+    30000 ms allowance from before any semantic work clipped to the
+    genuine admission's original guaranteed 1..30000 ms extent, and
+    every later call clips that same end, which is never reset or
+    extended.
+
+    Before the protected start the extra actual owned-producer full
+    directory per selected case and its conservative
+    ingestion/batch/payload work are reserved against the exact
+    current bounds on top of the legacy envelope admitted by the
+    shared declaration; a budget that cannot carry both refuses the
+    new cases here with zero new physical work, and no legacy cap is
+    silently raised.  The exact nominal config, source budget and
+    grade budget are checked and snapshotted to owned primitive
+    records before their admission, exactly as the existing private
+    paired preflight does.  The exact original operation and PinData
+    are retained, then the one shared genuine query-free declaration
+    and guarded first cohort pin body completes, with the joint
+    declaration state through the one fixed private owned paired
+    declaration core: the genuine wire admission, the genuine source
+    declaration admission and the genuine grade preparation (plan
+    admission and conservative envelope) on that exact plan and the
+    declared grade budget all run exactly once on the already-owned
+    nominal records, the bounded late-query metadata is reserved
+    once; the complete pure all-case authority and plan/pin snapshot
+    and generation concordance then complete under the guard, and the
+    single current-grade full remaining check runs on the verified
+    retained original capture immediately before the first real
+    reload: the conservative plan minimums plus the remaining bounded
+    grade-owned pin observation work this route owes - the
+    post-catalog pin, the two per-case grade revalidations and the
+    final pin, each sized from the retained capture under the original
+    fixed constants - compared against the original grade limits, the
+    small known remaining bookkeeping charges already carried by the
+    conservative plan minimums.  The complete runtime tuple check
+    follows the initial source pin and precedes the catalog: every
+    declared encoder tuple is checked against the held core's exact
+    immutable query identities before the first protected encoder
+    exposure.  The actual initial source pin therefore completes
+    before the one guarded genuine current direct grade catalog - the
+    exact original custody compared under the exact borrow before the
+    clipped end is attached, the exact held capture verified against
+    the real manifest and immutable pin and the live genuine
+    metadata-only association under the exact borrow and clipped end
+    before the genuine selected pre-I/O observation - and its distinct
+    guarded grade-owned physical post-catalog pin with its same exact
+    deadline checked after the restore and release.  For each ordered
+    case, the per-case checks against the immutable core precede that
+    case's protected encoder exposure.
+
+    Each ordered case then runs the real guarded source CASE_PIN
+    revalidation over the exact current case and retained original
+    value, the factored actual encode and same-payload pinned hybrid
+    subspan - the genuine T1 and T2 encoder uses and the real O1
+    through O5 - the shared single-query expected identity derived
+    from the actual encoder output and retained only as bounded
+    ordered metadata, the actual ``bind_stage_owned_dispatch`` over
+    the same case with its actual same-payload query and HybridResult,
+    and the shared grading-owned GRADE_PIN / GRADE_BIND / GRADE_PIN
+    dispatch of the exact ordered declared judgment with its two
+    genuine guarded pin revalidations and delegated pinned rank
+    binding, all through the one fixed private shared production
+    iteration actually reached by the legacy entry as well.  The
+    shared source aggregate and serialization each run once over the
+    same completed cases with the actual current facts recorded in
+    the result ledger, and the one canonical graded plan identity
+    serializes the complete ordered query records once after the last
+    actual record but before the final grade report.
+
+    The entry completes with the shared grade aggregate and
+    serialization and a distinct full guarded grade FINAL_PIN: under
+    one genuine borrowed nonreentrant guard over the exact
+    associated operation, the exact original custody is verified
+    before the actual full reload, the genuine selected authority is
+    checked before the load, the exact retained PinData and unchanged
+    raw pin and operation are verified through the real reload, the
+    detached full grant and anchor are compared by the genuine
+    guarded final cut, the genuine final selected reread runs under
+    the one clipped end, the exact original custody is verified
+    again after that final reread, the exact saved end is restored on
+    the same operation and the guard released independently.  The
+    final phase and the clipped deadline are kept through the bounded
+    private result assembly, and the exact end is checked before the
+    owning result is made usable.  The private frozen slotted
+    owner-bound owning grade result exists only after that final
+    reread and custody re-verification, binding the serializer's
+    exact digest-addressed payload and the exact plan identity
+    encoded into its top-level header component without a second
+    report-wide copy, digest or substring scan after the final
+    cutoff, so a policy selection change after the shared result
+    work is observed by the final reread before any result is minted;
+    the public legacy Report and the legacy storage behavior stay
+    unchanged.
+
+    Every ordinary failure is the fixed content-free
+    ``EvaluationError`` carrying the truthful terminal prefix with no
+    partial report, an admitted initial refusal keeps the intended
+    count with attempted and completed zero, a per-case refusal sets
+    refused one, and a non-Exception BaseException propagates by
+    identity with prior custody preserved.
+    """
+    from dataclasses import fields
+
+    from . import evaluation_program as graded
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as policy_request
+    from . import query_embedding as embedding_module
+    from . import raw_snapshot_pin
+    from . import raw_snapshot_selection as snapshot_selection
+
+    admitted = False
+    intended = 0
+    phase = "PREFLIGHT"
+    iter_state = {
+        "phase": "PREFLIGHT",
+        "attempted": 0,
+        "completed": 0,
+        "state": None,
+        "loop_complete": False,
+    }
+    grade_state = None
+    try:
+        if (
+            type(admission) is not policy_request.PolicyRequestAdmission
+            or type(pin_owner) is not raw_snapshot_pin.PinOwner
+            or type(dataset_bytes) is not bytes
+            or not 1 <= len(dataset_bytes) <= 1048576
+            or type(plan_wire) is not bytes
+            or not 1 <= len(plan_wire) <= 8388608
+            or not _closed(cohort, Cohort)
+            or not _closed(config, Config)
+            or not _closed(budget, Budget)
+            or not graded._closed(grade_budget, graded.GradeBudget)
+            or type(cohort.case_ids) is not tuple
+            or not 1 <= len(cohort.case_ids) <= 256
+            or type(identifiers) is not tuple
+            or len(identifiers) != len(cohort.case_ids)
+            or type(gold_ids) is not tuple
+            or type(encoder) is not embedding_module.ResidentQueryEncoder
+            or pin_owner.op is None
+            or pin_owner.value is None
+            or pin_owner.originals is None
+            or pin_owner.derived is None
+        ):
+            raise ValueError
+        # The zero-work current-mode reservation, before any shared pin
+        # work: the legacy envelope is admitted by the shared
+        # declaration, and the extra owned-producer full directory per
+        # selected case must fit alongside it under the exact current
+        # bounds; a budget that cannot carry both refuses the new
+        # cases here with no new physical work and no raised legacy
+        # cap.
+        count = len(cohort.case_ids)
+        values = tuple(getattr(budget, item.name) for item in fields(Budget))
+        legacy = _source_reservation(count)
+        extra = _current_owned_extra_reservation(count)
+        if any(
+            available < legacy_need + extra_need
+            for available, legacy_need, extra_need in zip(values[:4], legacy, extra)
+        ):
+            raise ValueError
+        # The exact nominal records snapshotted to owned primitive
+        # values before their admission, as the existing private
+        # paired preflight does.
+        config_snapshot = (config.config_id, config.declaration_id)
+        config_record = Config(*config_snapshot)
+        source_budget_snapshot = tuple(
+            getattr(budget, item.name) for item in fields(Budget)
+        )
+        source_budget_record = Budget(*source_budget_snapshot)
+        grade_budget_snapshot = tuple(
+            getattr(grade_budget, item.name) for item in fields(graded.GradeBudget)
+        )
+        grade_budget_record = graded.GradeBudget(*grade_budget_snapshot)
+        # The exact original operation and PinData retained before any
+        # shared work; the live core and the immutable query tuple are
+        # verified against them after the guarded reload.
+        original_op = pin_owner.op
+        held_value = pin_owner.value
+        saved_originals = pin_owner.originals
+        saved_derived = pin_owner.derived
+        saved_root = pin_owner.op.path
+        # The shared genuine query-free declaration and guarded first
+        # cohort pin body with the joint declaration state: the exact
+        # plan wire and the declared grade budget admitted through the
+        # one shared body, the complete pure all-case authority and
+        # plan/pin concordance before the one actual guarded initial
+        # pin, and the one operation clock started before any
+        # semantic work and clipped to the genuine admission's
+        # original extent.
+        joint = {
+            "plan_wire": plan_wire,
+            "grade_budget": grade_budget_record,
+        }
+        (
+            dataset,
+            selected,
+            selection,
+            meter,
+            clock,
+            captured,
+            _position,
+            anchor,
+            original_grants,
+        ) = _current_cohort_prepared_pin(
+            admission,
+            pin_owner,
+            dataset_bytes,
+            cohort,
+            identifiers,
+            gold_ids,
+            config_record,
+            source_budget_record,
+            deadline_ms=30000,
+            joint=joint,
+        )
+        admitted = True
+        intended = len(selected)
+        grade_state = joint["state"]
+        meter.reserve(1)
+        clock.check()
+        # Every declared encoder tuple against the held core's exact
+        # four immutable query identities before the first protected
+        # encoder exposure.
+        encoder._check_declared_identities(tuple(identifiers), admission)
+        meter.reserve(1)
+        clock.check()
+        # The one actual direct grade catalog after the actual initial
+        # source pin: the exact original custody compared under one
+        # genuine borrowed nonreentrant guard before the exact clipped
+        # end is attached, with its exact prior end restored on every
+        # exit, the exact held capture verified against the real
+        # manifest and immutable pin and the live genuine
+        # metadata-only association under the exact borrow and clipped
+        # end, then the one guarded genuine current direct catalog
+        # body - the genuine selected observation immediately before
+        # the actual catalog load, the real dispatch, and the
+        # re-verified pin and operation with the genuine final
+        # same-admission observation - the held pointer binding the
+        # exact declared snapshot and generation through the exact
+        # nominal catalog.
+        phase = "CATALOG"
+        pin_eligibility._borrowed_owner(pin_owner)
+        try:
+            # The exact original custody under the guard before the
+            # exact clipped end is attached: the current operation,
+            # held data, stores and root verified to be the exact
+            # original operation and stores held for this invocation,
+            # and the prepared-pin captured value required to be the
+            # exact raw held value saved at the outer entry.
+            if (
+                pin_owner.state != "ACTIVE"
+                or pin_owner.op is not original_op
+                or pin_owner.value is not captured
+                or captured is not held_value
+                or pin_owner.originals is not saved_originals
+                or pin_owner.derived is not saved_derived
+                or pin_owner.op.path != saved_root
+            ):
+                raise ValueError
+            prior_end = original_op.end
+            original_op.end = clock.end
+            try:
+                # The live original metadata association before the
+                # genuine selected pre-I/O observation: the exact held
+                # capture verified against the real manifest and
+                # immutable pin, and the genuine metadata-only
+                # association, under the exact borrow and clipped
+                # end; no added full pin or selected observation.
+                pin_eligibility._held_capture(pin_owner)
+                clock.check()
+                pin_owner._association()
+                clock.check()
+                graded._direct_catalog_guarded_body(
+                    admission,
+                    pin_owner,
+                    original_op,
+                    captured,
+                    grade_state.plan,
+                    grade_state.meter,
+                    saved_originals,
+                    saved_derived,
+                    saved_root,
+                    anchor,
+                    original_grants,
+                    clock.end,
+                    clock,
+                )
+            finally:
+                original_op.end = prior_end
+        finally:
+            pin_owner.guard.release()
+        pin_eligibility._still_within(clock.end)
+        clock.check()
+        # The distinct guarded grade-owned physical post-catalog pin:
+        # one genuine borrowed nonreentrant guard over the exact
+        # associated operation with its exact prior end restored on
+        # every exit, the genuine selected observation and the real
+        # full held revalidation, the unchanged raw pin and operation
+        # verified, the detached full grant and anchor compared, the
+        # genuine final same-admission observation, and its same exact
+        # deadline checked after the restore and release.
+        phase = "POST_CATALOG_PIN"
+        pin_eligibility._borrowed_owner(pin_owner)
+        try:
+            if (
+                pin_owner.state != "ACTIVE"
+                or type(pin_owner.op) is not snapshot_selection._Operation
+                or pin_owner.op is not original_op
+                or type(pin_owner.value) is not raw_snapshot_pin.PinData
+                or pin_owner.value is not captured
+                or pin_owner.originals is not saved_originals
+                or pin_owner.derived is not saved_derived
+                or pin_owner.op.path != saved_root
+            ):
+                raise ValueError
+            grade_state.meter.reserve(1)
+            clock.check()
+            prior_end = original_op.end
+            original_op.end = clock.end
+            try:
+                pin_owner._association()
+                grade_state.meter.reserve(1)
+                clock.check()
+                pin_eligibility._genuine_recheck(admission, clock.end)
+                value = pin_owner._held_revalidation()
+                grade_state.meter.reserve(1)
+                clock.check()
+                if (
+                    pin_owner.op is not original_op
+                    or value is not captured
+                    or pin_owner.value is not captured
+                ):
+                    raise ValueError
+                _pin_capture_identity(
+                    pin_owner, value, captured, grade_state.meter, clock
+                )
+                grade_state.meter.reserve(1)
+                clock.check()
+                if pin_eligibility._bound_grants(admission, anchor) != original_grants:
+                    raise ValueError
+                grade_state.meter.reserve(1)
+                clock.check()
+                pin_eligibility._genuine_recheck(admission, clock.end)
+                clock.check()
+            finally:
+                original_op.end = prior_end
+        finally:
+            pin_owner.guard.release()
+        # The same exact deadline of the distinct post-catalog borrow
+        # checked before advancing.
+        pin_eligibility._still_within(clock.end)
+        clock.check()
+        # The actual current facts recorded in the shared source
+        # result path: the separately admitted extra reservation; the
+        # direct pin observations and the completed delegate pin
+        # loads are derived from the completed count.
+        current_facts = {"extra": extra}
+        metadata = []
+        pairs = []
+        binder_totals = [0, 0]
+        _production_iteration(
+            selected,
+            meter=meter,
+            clock=clock,
+            pin_owner=pin_owner,
+            captured=captured,
+            dataset=dataset,
+            metadata=metadata,
+            pairs=pairs,
+            binder_totals=binder_totals,
+            iter_state=iter_state,
+            current=True,
+            admission=admission,
+            encoder=encoder,
+            dataset_bytes=dataset_bytes,
+            original_op=original_op,
+            held_value=held_value,
+            saved_originals=saved_originals,
+            saved_derived=saved_derived,
+            saved_root=saved_root,
+            identifiers=identifiers,
+            gold_bundle_ids=gold_ids,
+            grade_state=grade_state,
+        )
+        # The shared source result path over the same completed cases,
+        # with the actual current facts recorded in the result ledger.
+        phase = "AGGREGATE"
+        pairs, aggregate = _source_aggregate(pairs, budget, meter, clock)
+        phase = "SERIALIZE"
+        # The bounded grade final cut is the distinct full guarded
+        # grade FINAL_PIN charged under the grade meter, so no source
+        # CUT work is debited here in the graded path.
+        report = _source_serialize(
+            dataset,
+            cohort,
+            selection,
+            config,
+            budget,
+            captured,
+            metadata,
+            aggregate,
+            pairs,
+            binder_totals,
+            meter,
+            clock,
+            current_facts=current_facts,
+        )
+        # The one canonical graded plan identity, serialized once
+        # after the last actual record and before the final grade
+        # report, over the complete ordered query metadata.
+        phase = "PLAN_IDENTITY"
+        grade_state.plan_identity = graded._plan_identity(
+            grade_state.plan,
+            tuple(grade_state.query_records),
+            dataset.dataset_id,
+            dataset.split_id,
+            (cohort.split, cohort.case_ids),
+            selection,
+            config_snapshot,
+            gold_ids,
+            source_budget_snapshot,
+            grade_budget_snapshot,
+            grade_state.meter,
+            clock,
+        )
+        # The shared grade aggregate and serialization and the
+        # distinct full guarded grade FINAL_PIN; the private owning
+        # result exists only after the final genuine selected reread.
+        phase = "FINAL_PIN"
+        return graded._finish_current(
+            grade_state,
+            report,
+            dataset,
+            cohort,
+            selection,
+            config_record,
+            captured,
+            admission,
+            pin_owner,
+            anchor,
+            original_grants,
+            clock.end,
+            clock,
+            original_op,
+            saved_originals,
+            saved_derived,
+            saved_root,
+        )
+    except _PreparedPinRefused as error:
+        admitted = error.admitted
+        intended = error.intended
+        inner = iter_state["state"]
+        if inner is not None:
+            phase = inner["phase"]
+    except Exception:
+        if not iter_state["loop_complete"] and iter_state["attempted"]:
+            phase = iter_state["phase"]
+        inner = iter_state["state"]
+        if inner is not None:
+            phase = inner["phase"]
+        # The shared grade state refines the terminal phase to the
+        # actual GRADE_PIN / GRADE_BIND / GRADE_CASE or FINAL_PIN
+        # source phase of the caught failure.
+        if grade_state is not None and grade_state.phase is not None:
+            phase = grade_state.phase
+    progress = None
+    if admitted:
+        refused = 1 if phase in (
+            "CASE_PIN", "T1", "PRODUCER", "STAGE",
+            "GRADE_PIN", "GRADE_BIND", "GRADE_CASE",
+        ) else 0
+        progress = graded.FailurePrefix(
+            phase,
+            intended,
+            iter_state["attempted"],
+            iter_state["completed"],
+            refused,
+            intended - iter_state["attempted"],
+        )
+    raise graded.EvaluationError(progress) from None

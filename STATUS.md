@@ -22,6 +22,7 @@
                  - Current (2026-11-21): active objective 009, current slice 009-an
                   - Current (2026-11-21): active objective 009, current slice 009-ap
                    - Current (2026-11-21): active objective 009, current slice 009-aq
+                    - Current (2026-11-21): active objective 009, current slice 009-as
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -2637,6 +2638,50 @@
   1,000 integrations (997 + 3 new). Baseline
   NOT_RUN; whole 009 PARTIAL; no merge; DHA
   NONE.
+
+  Slice 009-as (AMEND PR 11 at round base
+  895e846) transfers, without candidate
+  history, order or report, the reviewed
+  current full graded cohort: the three
+  evolved product files
+  source_cohort_runner.py,
+  evaluation_program.py and
+  private_evaluation_preflight.py plus the
+  new three-node hosted witness
+  test_current_graded_cohort_composition.py.
+  One private current graded entry makes
+  one query-free joint declaration and
+  one guarded initial source pin, then
+  runs the genuine guarded direct grade
+  catalog and the distinct grade-owned
+  post-catalog full pin under one shared
+  original admission, operation, raw
+  capture, stores, root, grant, anchor
+  and clipped monotonic end; the one
+  shared production iteration keeps the
+  real current CASE_PIN, guarded T1/T2,
+  same-payload hybrid and source-stage
+  binding, then the grading-owned pin,
+  exact declared ranking and pin per
+  case; only the genuine guarded
+  FINAL_PIN success mints the private
+  owner-bound exact report and
+  corresponding plan identity under the
+  original deadline, a denial yielding a
+  content-free truthful terminal prefix,
+  with the public legacy report/storage
+  ABI and the repaired canonical stage
+  fixture preserved byte-exact. Local
+  proof 361/361 focused existing units,
+  exact new hosted collect-only, scoped
+  five-file one-core Ruff and two fresh
+  physical import orders, all exit 0; no
+  local native execution. Expected
+  hosted proof: report-head CI, both
+  Products ordered 1,440 + 1,998 units,
+  exactly 1,003 integrations (1,000 + 3
+  new). Baseline NOT_RUN; whole 009
+  PARTIAL; no merge; DHA NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed

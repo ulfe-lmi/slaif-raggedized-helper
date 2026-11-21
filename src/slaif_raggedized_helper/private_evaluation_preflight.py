@@ -148,7 +148,7 @@ def _prepare_declaration(
     return result
 
 
-def _prepare_declaration_body(
+def _paired_declaration_core(
     plan_wire,
     originals,
     derived,
@@ -160,40 +160,23 @@ def _prepare_declaration_body(
     gold_ids,
     grants,
     restrictions,
-    config,
-    source_budget,
-    grade_budget,
+    config_record,
+    source_budget_record,
+    grade_budget_record,
     clock,
 ):
-    """The existing private preparation body under one already-owned clock.
+    """The one fixed private owned paired declaration core.
 
-    The exact nominal config, source budget and grade budget are checked
-    and snapshotted to owned primitive values before their admission, the
-    genuine wire admission, the genuine source cohort declaration
-    admission and the actual grade preparation run on those owned nominal
-    records, all under the one caller-owned ``source._Deadline``.  No
-    clock is constructed here; the returned internal grade state carries
-    the bounded grade meter for the grade computation.
+    The exact wire admission, the genuine source cohort declaration
+    admission and the actual grade preparation run exactly once on the
+    exact already-owned nominal records, all under the one caller-owned
+    ``source._Deadline``: no clock is constructed and no nominal
+    snapshot is taken here; the caller owns the nominal records before
+    the call and adopts the resulting source meter and grade state with
+    its conservative envelope.  The paired preflight projection and the
+    fixed current graded prepared pin both run this one core, so a joint
+    caller never prepares a second declaration.
     """
-    if type(identifiers) is not tuple:
-        raise ValueError
-    if not source._closed(config, source.Config):
-        raise ValueError
-    config_snapshot = (config.config_id, config.declaration_id)
-    config_record = source.Config(*config_snapshot)
-    if not source._closed(source_budget, source.Budget):
-        raise ValueError
-    source_budget_snapshot = tuple(
-        getattr(source_budget, field.name) for field in fields(source.Budget)
-    )
-    source_budget_record = source.Budget(*source_budget_snapshot)
-    if not source._closed(grade_budget, program.GradeBudget):
-        raise ValueError
-    grade_budget_snapshot = tuple(
-        getattr(grade_budget, field.name) for field in fields(program.GradeBudget)
-    )
-    grade_budget_record = program.GradeBudget(*grade_budget_snapshot)
-    clock.check()
     plan = wire.admit(plan_wire)
     clock.check()
     dataset, selected, selection, source_meter = source._declaration_admission(
@@ -215,6 +198,93 @@ def _prepare_declaration_body(
     state = program._State(plan, grade_budget_record)
     entries, minimum_work, minimum_payload = program._prepare_plan(
         state, dataset, selected, clock
+    )
+    return (
+        plan,
+        dataset,
+        selected,
+        selection,
+        source_meter,
+        state,
+        entries,
+        minimum_work,
+        minimum_payload,
+    )
+
+
+def _prepare_declaration_body(
+    plan_wire,
+    originals,
+    derived,
+    root,
+    owner,
+    data,
+    cohort,
+    identifiers,
+    gold_ids,
+    grants,
+    restrictions,
+    config,
+    source_budget,
+    grade_budget,
+    clock,
+):
+    """The existing private preparation body under one already-owned clock.
+
+    The exact nominal config, source budget and grade budget are checked
+    and snapshotted to owned primitive values before their admission, and
+    the one fixed private owned paired declaration core runs the genuine
+    wire admission, the genuine source cohort declaration admission and
+    the actual grade preparation on those owned nominal records, all
+    under the one caller-owned ``source._Deadline``.  No clock is
+    constructed here; the returned internal grade state carries the
+    bounded grade meter for the grade computation.
+    """
+    if type(identifiers) is not tuple:
+        raise ValueError
+    if not source._closed(config, source.Config):
+        raise ValueError
+    config_snapshot = (config.config_id, config.declaration_id)
+    config_record = source.Config(*config_snapshot)
+    if not source._closed(source_budget, source.Budget):
+        raise ValueError
+    source_budget_snapshot = tuple(
+        getattr(source_budget, field.name) for field in fields(source.Budget)
+    )
+    source_budget_record = source.Budget(*source_budget_snapshot)
+    if not source._closed(grade_budget, program.GradeBudget):
+        raise ValueError
+    grade_budget_snapshot = tuple(
+        getattr(grade_budget, field.name) for field in fields(program.GradeBudget)
+    )
+    grade_budget_record = program.GradeBudget(*grade_budget_snapshot)
+    clock.check()
+    (
+        plan,
+        dataset,
+        selected,
+        selection,
+        source_meter,
+        state,
+        entries,
+        minimum_work,
+        minimum_payload,
+    ) = _paired_declaration_core(
+        plan_wire,
+        originals,
+        derived,
+        root,
+        owner,
+        data,
+        cohort,
+        identifiers,
+        gold_ids,
+        grants,
+        restrictions,
+        config_record,
+        source_budget_record,
+        grade_budget_record,
+        clock,
     )
     result = PreparedDeclaration(
         plan,
