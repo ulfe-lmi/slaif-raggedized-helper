@@ -384,7 +384,7 @@ def test_module_origins_inside_assigned_worktree():
 
 _FROZEN_OBJECTS = {
     "src/slaif_raggedized_helper/private_report_publication.py": (
-        "d7c5410280f158cb4cc7c258e06522bb3809aa2c836a79c8b2252b50575ece3e"
+        "7a70eaa65d99b2b43c018e6d0d4381299ca1da2bd1cc21ce702e302450170df4"
     ),
     "src/slaif_raggedized_helper/private_policy_payload.py": (
         "48bf5ec415e049f265c6e90a68caa08283495bf3c07dbace90495f57e041193d"

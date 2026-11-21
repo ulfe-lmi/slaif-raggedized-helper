@@ -4240,6 +4240,77 @@ ordered 1,440 + 1,998 units, exactly
 Baseline NOT_RUN; whole 009 PARTIAL; no
 merge; DHA NONE.
 
+## The 009-av guarded graded report publication
+(same 009 continuation)
+
+Slice 009-av (AMEND PR 11, round base b0bed82)
+transfers, without candidate history, order or
+report, the reviewed guarded graded report
+publication: private_report_publication.py with
+the one fixed private entry _publish_current,
+the new three-node hosted witness
+test_current_graded_report_publication_
+composition.py and the existing policy-selection
+unit fixture with exactly one updated publisher
+digest literal. The single current publication
+entry requires the authentic immutable owner-
+bound grade result minted by the successful
+genuine grade final cut, verifies the exact
+admitted bytes and digest, the retained plan,
+the original active operation, stores and
+capture, the copied grants and the original end,
+and uses the one shared storage transaction
+exactly once; the public legacy publisher and
+the shared policy payload and selection writers
+retain their separate admission and behavior.
+At the real unnamed staging boundary, after the
+staging fd is owned and before the first report
+write, and again after genuine prelink metadata
+validation and before any state transition or
+link attempt, the entry runs the short live
+association and a genuine same-admission
+selected reread with no new full raw pin,
+restores the exact saved end on the original
+operation and releases the owner guard
+independently, retaining the verified existing
+bytes, one no-replace installation, truthful
+durability/cleanup and interruption identity.
+An independent cut after the actual successful
+transaction cleanup checks the same custody and
+original deadline before releasing the narrow
+content-free receipt for PUBLISHED and EXISTING;
+an ordinary denial after actual durability
+preserves DURABLE/CLEAN and suppresses the
+receipt, and errors expose the fixed
+vocabulary with no payload, path, identity or
+underlying namespace exception context. The
+three hosted witnesses are synthetic
+compositions over the real successful h1/h4
+grade producer with b still physically in the
+raw pin and genuinely withheld: the stable node
+verifies the exact bytes on PUBLISHED and
+EXISTING, a genuine selected generation
+replacement between successful cleanup and
+release, real selected generation changes at
+P1 and P2, zero attempted report writes and
+links at P1, completed staging but zero links
+at P2, real report-slot cleanup and retirement
+at both, and P1/P2 retaining NOT_PUBLISHED/
+CLEAN; report I/O is attributed by live
+fd/inode and destination so nested genuine
+selected-policy writer I/O cannot count as
+report work. Local proof: 388/388 focused
+existing units, the exact three hosted nodes
+collected only, scoped two-file one-core
+Ruff, two fresh physical import orders and the
+separate pure fixture-teardown proof, all
+exit 0; no local native run. Expected hosted
+proof, pending at report creation: report-
+head CI at both Products with ordered 1,440 +
+1,998 units and exactly 1,006 integrations
+(1,003 + 3 new). Baseline NOT_RUN; whole 009
+PARTIAL; no merge; DHA NONE.
+
 ## Input contracts and bounds
 
 Every deadline is cooperative (checked between steps; it cannot preempt a

@@ -23,6 +23,7 @@
                   - Current (2026-11-21): active objective 009, current slice 009-ap
                    - Current (2026-11-21): active objective 009, current slice 009-aq
                     - Current (2026-11-21): active objective 009, current slice 009-as
+                     - Current (2026-11-21): active objective 009, current slice 009-av
   (AMEND existing PR 11, branch oap/009-evaluation-baseline,
   transcript-first). Objective 008 software is MERGED to main as PR #10
   (server-guarded expected-head merge 5a7b41cc, parents 1a8fddf8 +
@@ -2682,6 +2683,97 @@
   exactly 1,003 integrations (1,000 + 3
   new). Baseline NOT_RUN; whole 009
   PARTIAL; no merge; DHA NONE.
+
+  Slice 009-av (AMEND PR 11 at round
+  base b0bed82) transfers, without
+  candidate history, order or report,
+  the reviewed guarded graded report
+  publication:
+  private_report_publication.py with
+  the one fixed private entry
+  _publish_current reusing the
+  complete shared admitted-content
+  report transaction exactly once
+  (the exact _OwningGradeReport or
+  None carried as the private
+  _current_report keyword through the
+  single shared
+  _transact/_store/_stage), the new
+  three-node hosted witness
+  test_current_graded_report_
+  publication_composition.py and the
+  existing policy-selection unit
+  fixture with exactly one updated
+  publisher digest literal. The entry
+  admits only the authentic immutable
+  owner-bound grade result, verifies
+  the exact admitted bytes and
+  digest, the retained plan, the
+  original active operation, stores
+  and capture, the copied grants and
+  the original end, and uses the one
+  shared storage transaction; at the
+  real unnamed staging boundary it
+  runs the short live association and
+  genuine same-admission selected
+  reread once after the staging fd is
+  owned and before the first report
+  write and again after genuine
+  prelink metadata validation and
+  before any state transition or link
+  attempt, with no new full raw pin,
+  the exact saved end restored on the
+  original operation and the owner
+  guard released independently; an
+  independent cut after the actual
+  successful transaction cleanup
+  checks the same custody and
+  original deadline before releasing
+  the content-free receipt for
+  PUBLISHED and EXISTING, an ordinary
+  denial after actual durability
+  preserves DURABLE/CLEAN and
+  suppresses the receipt, and errors
+  expose only the fixed vocabulary
+  with no payload, path, identity or
+  namespace exception context; the
+  public legacy publisher and the
+  shared policy payload and selection
+  writers retain their separate
+  admission and behavior. The three
+  hosted witnesses are synthetic: the
+  stable node over the real
+  successful h1/h4 grade production
+  with b still in the raw pin and
+  genuinely withheld (exact bytes on
+  PUBLISHED and EXISTING, genuine
+  selected generation replacement
+  between successful cleanup and
+  release, real selected generation
+  changes at P1 and P2, zero
+  attempted report writes and links
+  at P1, completed staging but zero
+  links at P2, real report-slot
+  cleanup and retirement at both, P1
+  and P2 retaining
+  NOT_PUBLISHED/CLEAN), with report
+  I/O attributed by live fd/inode and
+  destination so nested policy writer
+  I/O cannot count as report work.
+  Local proof 388/388 focused
+  existing units, exact three-node
+  hosted collect-only, scoped two-
+  file one-core Ruff, two fresh
+  physical import orders and the
+  separate pure fixture-teardown
+  proof, all exit 0; no local native
+  execution. Expected hosted proof,
+  pending: report-head CI, both
+  Products ordered 1,440 + 1,998
+  units, exactly 1,006 integrations
+  (1,003 + 3 new). Baseline NOT_RUN;
+  whole 009 PARTIAL; no merge; DHA
+  NONE.
 
 - Historical 007 record (active objective at the time: 007,
   then-current slice 007-r; the 007-a reviewed

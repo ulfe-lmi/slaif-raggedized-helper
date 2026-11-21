@@ -32,7 +32,9 @@ import threading
 import time
 import unicodedata
 
-from .evaluation_program import Report
+from .evaluation_program import _OwningGradeReport, Report
+from .raw_snapshot_pin import PinData, PinOwner
+from .raw_snapshot_selection import _Operation
 from .source_cohort_runner import CohortReport
 
 
@@ -106,33 +108,11 @@ def _check_deadline(end):
         _refuse()
 
 
-def _admit(report, directory, end):
-    if type(report) is CohortReport:
-        expected, cap = _SOURCE_FIELDS, 1642496
-        domain, prefix = b"slaif-source-cohort-runner-v1\n", "source-"
-    elif type(report) is Report:
-        expected, cap = _GRADED_FIELDS, 12582912
-        domain, prefix = b"slaif-graded-evaluation-program-v1\n", "graded-"
-    else:
-        _refuse()
-    if len(vars(report)) != len(expected) or frozenset(vars(report)) != expected:
-        _refuse()
-    data = report.identity_payload
-    if type(data) is not bytes or not 1 <= len(data) <= cap:
-        _refuse()
-    if type(report.identity) is not str or _HASH.fullmatch(report.identity) is None:
-        _refuse()
-    if type(report) is Report and (
-        type(report.plan_identity) is not str or _HASH.fullmatch(report.plan_identity) is None
-    ):
-        _refuse()
-    if (
-        type(report.final_work) is not int
-        or not 0 <= report.final_work <= 134217728
-        or type(report.final_payload) is not int
-        or not 0 <= report.final_payload <= 268435456
-    ):
-        _refuse()
+def _bounded_parts(directory):
+    # The existing bounded directory admission shared by the two
+    # entries: the exact legacy path ownership bounds - absolute,
+    # bounded UTF-8, one to sixty-four parts, no empty, dot or
+    # dot-dot parts, per-part byte bound and no control characters.
     if (
         type(directory) is not str
         or len(directory) > 4096
@@ -160,6 +140,14 @@ def _admit(report, directory, end):
         invalid_encoding = True
     if invalid_encoding:
         _refuse()
+    return parts
+
+
+def _digest_identity(domain, data, identity, end):
+    # The existing bounded chunked payload digest shared by the two
+    # entries: the domain-prefixed SHA-256 of the exact payload bytes
+    # verified against the report identity under the original absolute
+    # deadline, one chunk at a time.
     digest = hashlib.sha256()
     digest.update(domain)
     view = memoryview(data)
@@ -167,9 +155,116 @@ def _admit(report, directory, end):
         _check_deadline(end)
         digest.update(view[offset : offset + _CHUNK])
     _check_deadline(end)
-    if "sha256:" + digest.hexdigest() != report.identity:
+    if "sha256:" + digest.hexdigest() != identity:
         _refuse()
+    return view
+
+
+def _admit(report, directory, end):
+    if type(report) is CohortReport:
+        expected, cap = _SOURCE_FIELDS, 1642496
+        domain, prefix = b"slaif-source-cohort-runner-v1\n", "source-"
+    elif type(report) is Report:
+        expected, cap = _GRADED_FIELDS, 12582912
+        domain, prefix = b"slaif-graded-evaluation-program-v1\n", "graded-"
+    else:
+        _refuse()
+    if len(vars(report)) != len(expected) or frozenset(vars(report)) != expected:
+        _refuse()
+    data = report.identity_payload
+    if type(data) is not bytes or not 1 <= len(data) <= cap:
+        _refuse()
+    if type(report.identity) is not str or _HASH.fullmatch(report.identity) is None:
+        _refuse()
+    if type(report) is Report and (
+        type(report.plan_identity) is not str or _HASH.fullmatch(report.plan_identity) is None
+    ):
+        _refuse()
+    if (
+        type(report.final_work) is not int
+        or not 0 <= report.final_work <= 134217728
+        or type(report.final_payload) is not int
+        or not 0 <= report.final_payload <= 268435456
+    ):
+        _refuse()
+    parts = _bounded_parts(directory)
+    view = _digest_identity(domain, data, report.identity, end)
     return parts, prefix + report.identity[7:] + ".json", view
+
+
+def _admit_current(report, directory, end):
+    # The fixed private current admission: only the immutable
+    # owner-bound owning result minted by the successful genuine grade
+    # final cut, verified against its retained live custody, its exact
+    # bound fields, the exact captured raw snapshot and generation,
+    # the same order-owned admission with its captured selected
+    # publication bytes and admitted operations, and the existing path
+    # and directory ownership bounds.  The ordinary legacy Report is
+    # refused at this entry, keeping its separate storage behavior,
+    # type checks and bytes intact; no caller scope, clock, alternate
+    # report, callback or provider is accepted.
+    if type(report) is not _OwningGradeReport:
+        _refuse()
+    from . import private_policy_request as request
+
+    data = report.identity_payload
+    if type(data) is not bytes or not 1 <= len(data) <= 12582912:
+        _refuse()
+    if (
+        type(report.identity) is not str
+        or _HASH.fullmatch(report.identity) is None
+    ):
+        _refuse()
+    if (
+        type(report.plan_identity) is not str
+        or _HASH.fullmatch(report.plan_identity) is None
+    ):
+        _refuse()
+    if (
+        type(report.final_work) is not int
+        or not 0 <= report.final_work <= 134217728
+        or type(report.final_payload) is not int
+        or not 0 <= report.final_payload <= 268435456
+    ):
+        _refuse()
+    owner = report.owner
+    if type(owner) is not PinOwner or owner.state != "ACTIVE":
+        _refuse()
+    admission = report.admission
+    if type(admission) is not request.PolicyRequestAdmission or admission._invalid:
+        _refuse()
+    if type(report.original_op) is not _Operation:
+        _refuse()
+    if owner.op is not report.original_op:
+        _refuse()
+    if owner.originals is not report.originals:
+        _refuse()
+    if owner.derived is not report.derived:
+        _refuse()
+    if owner.op.path != report.root:
+        _refuse()
+    if owner.value is not report.capture:
+        _refuse()
+    if type(report.capture) is not PinData:
+        _refuse()
+    if type(report.snapshot_id) is not str or type(report.generation) is not int:
+        _refuse()
+    if report.snapshot_id != report.capture.pointer.snapshot_id:
+        _refuse()
+    if report.generation != report.capture.pointer.generation:
+        _refuse()
+    if type(report.root) is not str:
+        _refuse()
+    if type(report.end) is not float or not report.end > 0:
+        _refuse()
+    if admission._expected_selection_bytes is not report.selected_bytes:
+        _refuse()
+    if admission.operations is not report.operations:
+        _refuse()
+    parts = _bounded_parts(directory)
+    view = _digest_identity(
+        b"slaif-graded-evaluation-program-v1\n", data, report.identity, end)
+    return parts, "graded-" + report.identity[7:] + ".json", view
 
 
 # Each slot preallocates six closed builtin state/number cells before any
@@ -616,7 +711,7 @@ def retry_cleanup(*, deadline_ms=30000):
     return CleanupReceipt(attempted, remaining, status)
 
 
-def _stage(slot, data, end):
+def _stage(slot, data, end, *, _current_report=None):
     # Unnamed staging: no directory entry, no random name, no fallback path.
     _tick(end)
     if getattr(os, "O_TMPFILE", None) is None:
@@ -641,6 +736,15 @@ def _stage(slot, data, end):
         raise _Failure()
     slot.stage = fd
     slot.stage_identity = (st.st_dev, st.st_ino)
+    if _current_report is not None:
+        # The genuine pre-write current-report cut: the actual unnamed
+        # staging fd now exists and the genuine initial staging
+        # fd/type/mode/link/device checks succeeded, strictly before
+        # the first actual report payload write.  The fixed private
+        # mode carries only the exact owning result - no callable hook.
+        if type(_current_report) is not _OwningGradeReport:
+            raise _Failure()
+        _current_cut(_current_report, end)
     offset = 0
     while offset < len(data):
         _tick(end)
@@ -678,7 +782,7 @@ def _stage_ok(slot, size):
     )
 
 
-def _store(slot, name, data, parts, end):
+def _store(slot, name, data, parts, end, *, _current_report=None):
     # Generic admitted-content storage shared by the trusted entries:
     # the unnamed stage, the normative prelink recheck, the single
     # no-replace link, the full held-fd verification and both fsync
@@ -686,11 +790,18 @@ def _store(slot, name, data, parts, end):
     # any caller: a collision and every unresolved post-attempt state
     # are handled by the caller's conservative state and verification
     # rules, never by rollback.
-    _stage(slot, data, end)
+    _stage(slot, data, end, _current_report=_current_report)
     _namespace(slot, parts, end)
     _tick(end)
     if not _stage_ok(slot, len(data)):
         raise _Failure()
+    if _current_report is not None:
+        # The genuine post-prelink current-report cut: after the genuine
+        # prelink metadata verification, strictly before the state
+        # transition and the first possible link.
+        if type(_current_report) is not _OwningGradeReport:
+            raise _Failure()
+        _current_cut(_current_report, end)
     _tick(end)
     slot.state = Publication.POSSIBLY_PUBLISHED
     try:
@@ -734,7 +845,7 @@ def _store(slot, name, data, parts, end):
     return Outcome.PUBLISHED
 
 
-def _transact(parts, name, data, end, *, error, note):
+def _transact(parts, name, data, end, *, error, note, _current_report=None):
     # The complete shared admitted-content transaction, performed once
     # for every trusted entry after its own admission: pool
     # reservation, no-follow namespace walk, directory-inode writer
@@ -748,6 +859,10 @@ def _transact(parts, name, data, end, *, error, note):
     # descriptors.  Non-Exception interruptions preserve identity and
     # never enter the fixed refusal.  Returns the shared ``Outcome``
     # only after the complete storage and verification sequence.
+    # ``_current_report`` is the fixed private current-report mode:
+    # the exact owning result or None - when set, the shared storage
+    # core performs the concrete current custody cuts at the two
+    # actual storage points; no callable hook is accepted.
     slot = _reserve()
     outcome = None
     failure = None
@@ -763,7 +878,8 @@ def _transact(parts, name, data, end, *, error, note):
             slot.state = Publication.DURABLE
             outcome = Outcome.EXISTING
         else:
-            outcome = _store(slot, name, data, parts, end)
+            outcome = _store(
+                slot, name, data, parts, end, _current_report=_current_report)
         _tick(end)
     except BaseException as exc:
         failure = exc
@@ -846,4 +962,116 @@ def publish(report, *, directory, deadline_ms=30000):
         error=_publication_error,
         note="private report publication cleanup pending",
     )
+    return Receipt(outcome, Publication.DURABLE, Cleanup.CLEAN)
+
+
+def _current_cut(report, end):
+    # One short live guarded cut under its own nonblocking owner
+    # borrow: the retained exact live custody re-verified under the
+    # borrow - the live original operation object, the original owner
+    # and its stores/root, the exact retained capture plus its
+    # snapshot and generation, the exact admission selected bytes and
+    # admitted operations, and the bounded detached grants against the
+    # original anchor - the short live same-owner association
+    # (metadata observations only - no full raw load for this
+    # continuous captured owner, and no reusable generic hook) with
+    # the original clipped absolute end attached only on the checked
+    # original operation for the duration of the association and the
+    # genuine same-admission selected reread under the original end,
+    # the exact saved end of the checked original operation restored
+    # on that same object, the guard released independently and the
+    # original absolute cutoff checked before the protected effect or
+    # the safe release.  No extra full pin and no relative deadline
+    # reset.
+    from . import private_policy_pin_eligibility as pin_eligibility
+
+    owner = report.owner
+    admission = report.admission
+    original_op = report.original_op
+    pin_eligibility._borrowed_owner(owner)
+    try:
+        if (
+            type(original_op) is not _Operation
+            or owner.state != "ACTIVE"
+            or owner.op is not original_op
+            or owner.originals is not report.originals
+            or owner.derived is not report.derived
+            or owner.op.path != report.root
+            or owner.value is not report.capture
+            or type(report.capture) is not PinData
+            or type(report.snapshot_id) is not str
+            or type(report.generation) is not int
+            or report.snapshot_id != report.capture.pointer.snapshot_id
+            or report.generation != report.capture.pointer.generation
+            or admission._expected_selection_bytes is not report.selected_bytes
+            or admission.operations is not report.operations
+        ):
+            raise _Failure()
+        if pin_eligibility._bound_grants(admission, report.anchor) != report.grants:
+            raise _Failure()
+        prior_end = original_op.end
+        original_op.end = end
+        try:
+            owner._association()
+            pin_eligibility._genuine_recheck(admission, end)
+        finally:
+            original_op.end = prior_end
+    finally:
+        owner.guard.release()
+    _tick(end)
+
+
+def _publish_current(report, *, directory):
+    # The fixed private current entry: the exact owning result with its
+    # original clipped absolute end as the deadline, the complete
+    # shared admitted-content transaction in its fixed private
+    # current-report mode with its two genuine short live guarded cuts
+    # - one before the first actual report payload write and one after
+    # the genuine prelink metadata verification, preceding the state
+    # transition and the first possible link - and the separate short
+    # release cut only after the genuine storage transaction's owned
+    # cleanup finishes, performed for both PUBLISHED and EXISTING.
+    # Only the actual successful release cut and the original absolute
+    # cutoff checked before it release the narrow content-free
+    # receipt; an ordinary refusal after durability is normalized
+    # outside the caught handler, retains the observed DURABLE/CLEAN
+    # storage and cleanup truth, and suppresses both the result and the
+    # safe receipt with one fixed content-free error, no data-bearing
+    # context, no raw identity, path, authority or report content,
+    # while a non-Exception interruption keeps its original identity.
+    # The exact saved end is restored on the checked original operation
+    # and every cut releases the owner guard independently on every
+    # exit.
+    if type(report) is not _OwningGradeReport:
+        _refuse()
+    end = report.end
+    parts, final, data = _admit_current(report, directory, end)
+    outcome = _transact(
+        parts,
+        final,
+        data,
+        end,
+        error=_publication_error,
+        note="private current report publication cleanup pending",
+        _current_report=report,
+    )
+    denied = False
+    interrupt = None
+    try:
+        _current_cut(report, end)
+        # The original absolute cutoff is checked again before the safe
+        # receipt is released.
+        _tick(end)
+    except BaseException as exc:
+        # The ordinary after-cleanup denial is normalized outside the
+        # caught handler, so the fixed refusal carries no data-bearing
+        # context from the underlying namespace/authority error.
+        if isinstance(exc, Exception):
+            denied = True
+        else:
+            interrupt = exc
+    if interrupt is not None:
+        raise interrupt
+    if denied:
+        raise _publication_error(Publication.DURABLE, Cleanup.CLEAN)
     return Receipt(outcome, Publication.DURABLE, Cleanup.CLEAN)
