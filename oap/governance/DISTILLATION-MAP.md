@@ -58,6 +58,7 @@ both original requirement groups and concrete implementation contracts V2-01–V
 | Strategic S06 | C04/C06 evidence and immutable report duties; coding never merges |
 | Strategic S08 | C07/communication recovery without replay, competing readers or human-quit resurrection |
 | Strategic S09 | C04/C07 honest scope/readiness; independent milestone assessment remains outside coding acceptance authority |
+| Strategic S11 | Coding evidence phrasing law preserves bounded negative tests, exact observations and the credential lifecycle vocabulary. |
 | SECURITY S01–S06 | Always-loaded security boundaries plus compact product enforcement points |
 | TESTING T01–T06 | Always-loaded synthetic/live distinction, negative behavior, exact evidence rules, and the controlled loopback HTTP/SSE real-route test boundary |
 

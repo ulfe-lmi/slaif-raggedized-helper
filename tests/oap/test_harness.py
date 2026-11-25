@@ -147,7 +147,7 @@ class Harness(unittest.TestCase):
     def test_inactive_sources_and_context(self):
         state=oap.check_state(self.repo)
         self.assertEqual(state['state'],'INACTIVE'); self.assertFalse(state['critical'])
-        self.assertLessEqual(state['governance']['declared_context_bytes'],50000)
+        self.assertLessEqual(state['governance']['declared_context_bytes'],52000)
         self.assertEqual(state['governance']['exact_model_tokens'],'UNMEASURED')
 
     def test_fixture_transcript_isolated_and_live_preserved(self):

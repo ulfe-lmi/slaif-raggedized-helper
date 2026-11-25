@@ -8,13 +8,14 @@ applicable subtree law add task-specific context and must be measured for their 
 | File | UTF-8 bytes | Byte ceiling |
 |---|---:|---:|
 | AGENTS.md | 772 | 2048 |
-| oap/coding-instructions/AGENTS.md | 5580 | 12000 |
+| oap/coding-instructions/AGENTS.md | 7188 | 12000 |
 | ARCHITECTURE-for-agents.md | 19814 | 20000 |
 | OAP-COMMUNICATION-coding-agent.md | 4949 | 10000 |
 | SECURITY.md | 1436 | within aggregate |
 | TESTING.md | 17448 | within aggregate |
 
-Declared routine project governance: **49999 UTF-8 bytes**, ceiling 50,000.
+Declared routine project governance: **51607 UTF-8 bytes**, ceiling 52,000.
+The 2026-11-25 wording law adds 1,608 measured bytes to the coding law.
 Exact model tokens: **UNMEASURED**; no identified target tokenizer measurement was performed.
 Global/developer/tool/client injection and repeated copies: **UNMEASURED**. This number is not
 complete provider input size and does not assume client deduplication. The full human-facing

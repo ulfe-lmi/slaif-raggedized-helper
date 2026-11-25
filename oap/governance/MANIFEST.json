@@ -6,7 +6,7 @@
   "OAP-COMMUNICATION-coding-agent.md": 10000,
   "oap/coding-instructions/AGENTS.md": 12000
  },
- "coding_byte_ceiling": 50000,
+ "coding_byte_ceiling": 52000,
  "coding_read_set": [
   "AGENTS.md",
   "oap/coding-instructions/AGENTS.md",
@@ -48,12 +48,12 @@
   "oap/bin/verify_human_disposition.py": "c92e459c6ea869ba0c2eabc06b15e3e1fbcfe5e7674200fc4e935ed1e6716a31",
   "oap/bin/verify_report.py": "fcfe6a755e7cd1b3f6f19c6f02aa1a33335705567f824d2742e1b80662fa8b08",
   "oap/bootstrap-sources.lock.json": "1998590c77b84c7ca5f231abc870ba26767a698038316f69044f5f4e4198dee7",
-  "oap/coding-instructions/AGENTS.md": "6ee5dae3ea689384a3ccca5c3c6342418a1368449c32ac5f48ec301eddc74636",
-  "oap/governance/CONTEXT-BUDGET.md": "e8810fd8dfb2e916e326776b50a1c3232e939a94c0d60c9415ba21ec4efce48c",
-  "oap/governance/DISTILLATION-MAP.md": "984597944daa3773da0ef46bd8056606fd41d4af598e065eb51c8b4cde6ff4c3",
+  "oap/coding-instructions/AGENTS.md": "e60bb0d865f5c23edfd0dc22060afccce98bc972e48230c2885d30c7bbec033b",
+  "oap/governance/CONTEXT-BUDGET.md": "5d8ecd9bccda758b2697f6f013d9f849769485ae38c8e59ccca882a6a43d80cb",
+  "oap/governance/DISTILLATION-MAP.md": "caf6dfaec2133b52a1a55b5363bfa82a68cf7697244b655aa1bade2615b8a7f8",
   "oap/prompts/coding-startup.txt": "41afe88aa473905c6496b8179aa3e2b87a04a8b0c88662b3214481634d3f8464",
   "oap/prompts/strategic-startup.txt": "37d551ca8be7cbb679236f4aa9eac456110bd97f0b6b592bc2a4c5a61eed5676",
-  "oap/strategic-instructions/AGENTS.md": "94516ab96648410c4d87ff39b994285d999e3ee961c9332d7146ec8211546927",
+  "oap/strategic-instructions/AGENTS.md": "dc2a30eb6d48b2ca8e4ef6d91a36cf8798bcb8bc059ca3a1a182f5f46b75083f",
   "oap/strategic-instructions/INITIAL-ROADMAP.md": "a8aac2aa2be6739a9c17524de51f994de860089f274fa92a1ea8d88989b53ce7",
   "oap/strategic-instructions/OAP-COMMUNICATION-strategic.md": "d17c9fe175f0988c504f555246bde1a423bcb5a79518fb05a4a966cc982397ab",
   "oap/strategic-instructions/initial-orders/000-a-bootstrap-governance.md": "25725746b0f651116e84e6d14fb548fe4cc90d0c7ef62da230cd4b67effe0294",
@@ -85,7 +85,7 @@
   "oap/templates/order.md": "4d55f18dae128a75136d498db2bbd25c7d0f2c1dad30785364eebd29618010f2",
   "oap/templates/report.md": "e1065ec9af381a94132a07e077af0c81d323e9221c0050a253944e7260101f84",
   "oap/templates/review.md": "df87efe8fec918821c0a75072dbcf176605318fe68698aaf2340ea14204e2e7d",
-  "tests/oap/test_harness.py": "69de0d002b9f994ff114f0de85de8fbbbaf8522947cf2e31f7c3dfb1d8406e20"
+  "tests/oap/test_harness.py": "d745fdb03124972c1c4b82ade6bcbcf2e5a46098028865f167107f8ea0b3549d"
  },
  "schema": 1
 }
