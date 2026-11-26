@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-16T18:01:58.493998+00:00",
+  "identifier": "009-g",
+  "decision": "D0_RETAIN_GLOBAL_ORIGIN_INVARIANT_DECOUPLE_FOCUSED_SOURCEEXTENT_PROXY",
+  "evidence": "parallel/evaluation-core/check-proposal.json readset.dynamic_limit applies<=2MiB to focused98unitexecution; its historicalresult remainsimmutable. CurrentfullCI defaultsessionextent includesunrelatedlegitimate collectedtests; statfileextents are neitheractualsourcebytesread norRSS.",
+  "choice": "Keepallglobalproject/test__file__localresolvedoriginchecks andfourdefaultoriginentrynodes; remove/relocateonlymisplacedglobalsum proxy fromdefaultbroadsuite, withmeaningfulcontrolledfocused/broad/foreign/missing/escape regressions. Do notraise2MiB orfilter/skip tests. Futurefocusedruntime/readsetproposalsstillcarrytheir ownfinitecaps; no retrospectivewaiver.",
+  "scope": "Onlytests/unit/test_evaluation_program.py, docs/evaluation.md, STATUS.md. Existingprogram/runner/source/genuineproofs/otheroldtests/deps/workflow/law/modelsettings untouched. Staticlocalverification+newheadfullhostedCI; no localproductexecution.",
+  "preimage_sha256": "593a3be609626fbc4288b61717de6972f171cdd9f926c804b092e702e3419b72",
+  "counterargument": "Removinganassertioncouldhideoriginorresourceviolations;actualoriginchecks remainstrictandgainnegativeregressions. BroadCIsourceextentwasnotoriginalfocusedruntimecap, andotherfiniteexecutionconstraintsremain. Newalljobssteps requiredbeforeacceptance.",
+  "DHA": "NONE"
+}

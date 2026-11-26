@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-13T13:57:00.933025+00:00",
+  "decision": "ADMIT_CORRECTED_RUNNER_LOCAL_PREREQUISITE_FOR_PROOF_PREPARATION_ONLY",
+  "normal": {
+    "lane": "cohort-runner-b",
+    "lane_id": "PAR-009-COHORT-RUNNER-B",
+    "result": "COMPLETE",
+    "implementation": "3c92a59d9240826522a7152fc96d4973ec8b94c7",
+    "report_commit": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+    "report_sha256": "5c04d5fe09ecfa903763cbf7c7b6fb7fcef3fe6cefba1630f821ce27c38ee750",
+    "paths": [
+      "docs/parallel/source-cohort-runner-api.md",
+      "oap/parallel/orders/PAR-009-COHORT-RUNNER-B.md",
+      "src/slaif_raggedized_helper/source_cohort_runner.py",
+      "tests/unit/test_source_cohort_runner.py"
+    ],
+    "verified_at": "2026-11-13T13:56:32.005011+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "report_bytes": 2880,
+  "Root_review": "audit/009-cohort-runner-b-checkpoint-root-review-3c92.json plus-preverification/unit-proof reviews; Rootreadfullcurrentimmutable report and4pathimpldiff/API.",
+  "report_review": "Literalimplementation/base/SELF/API1f0/source96e6/unit4d01/helperca43/readsetcc57/decision5e27 agree with actualreviewedfiles. Ruff/full54/current377prepost/log/caps/firstcollection and no actualsource claims accurate. Immutablereport-only soleparent3c92, cleanbranch, priorreports preserved. Root operational CLIupdate/restoration/profile/namespace/wake records retained separately, nofutureCI claim.",
+  "finding_resolution": "Narrowa76F1exactscalar admission FIXED_AND_CONTROLLED_TESTED at3c92/91f. No claim normal lower had producedmalformedcounts, no actualsourcequalification. Root independently reviewednew8guards+19causaltests; priorlower/prototype peerauthorship disclosed, this is not fullICA.",
+  "strongest_counterargument": "Currentlocaltests only; actualsourcecohort feasibility/frozennewdriver/runtime/assets/cleanup/Rootbudget and canonicalCI not yet demonstrated. Admission allows exactprerequisitemerge for unfinishedproof only, notdevelopmentmerge/009/MVP/rights/hardware/license/ICA qualification.",
+  "next": "Rootproofaddendum+quiescentpreservation/exactclean--no-ff mergeof91f/pendingreaderrefresh thenscopedPhaseAchecks andseparateactualdecision. No nextnumericobjective.",
+  "DHA": "NONE"
+}

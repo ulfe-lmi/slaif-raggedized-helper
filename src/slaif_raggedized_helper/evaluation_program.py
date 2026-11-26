@@ -1,0 +1,2295 @@
+"""Private, bounded evaluation of declared chunk judgments.
+
+This module is under construction and does not expose a product interface.
+"""
+
+from dataclasses import dataclass, fields
+import re
+
+
+@dataclass(frozen=True, repr=False)
+class Judgments:
+    case_id: str
+    gold: tuple
+
+
+@dataclass(frozen=True, repr=False)
+class Plan:
+    plan_id: str
+    dataset_id: str
+    split_id: str
+    snapshot_id: str
+    generation: int
+    catalog_id: str
+    protocol_id: str
+    unknown_policy: str
+    overlap_policy: str
+    cutoffs: tuple
+    judgments: tuple
+
+
+@dataclass(frozen=True, repr=False)
+class GradeBudget:
+    source_directories: int
+    source_ingestion_loads: int
+    source_derived_batch_loads: int
+    source_bytes: int
+    pin_calls: int
+    catalog_calls: int
+    judgment_binding_calls: int
+    metric_aggregate_calls: int
+    metric_entries: int
+    metric_work: int
+    local_work: int
+    local_payload: int
+    report_bytes: int
+
+
+@dataclass(frozen=True, repr=False)
+class Report:
+    identity_payload: bytes
+    identity: str
+    plan_identity: str
+    final_work: int
+    final_payload: int
+
+
+@dataclass(frozen=True, repr=False, slots=True, init=False)
+class _OwningGradeReport:
+    """The private immutable owner-bound owning result of the fixed
+    current finish.
+
+    Frozen slotted private record in the existing house pattern: the
+    ordinary construction is refused, and ordinary mutation or deletion
+    of a bound field on an existing result is refused through normal
+    Python use; no defense against deliberate Python introspection is
+    claimed.  Exists only after the distinct full guarded grade
+    FINAL_PIN and its final genuine selected reread: it binds the exact
+    admission with its captured selected publication bytes and admitted
+    operations, the detached original grants, anchor and pin operation,
+    the absolute clipped deadline, the exact original operation, stores
+    and root, the retained capture, the immutable snapshot and
+    generation, and the exact grade report with its serializer-encoded
+    top-level plan identity correspondence.  The public legacy
+    :class:`Report` and the legacy storage behavior stay unchanged; this
+    result is minted only by the private factory at the successful
+    current cut.
+    """
+
+    identity_payload: bytes
+    identity: str
+    plan_identity: str
+    final_work: int
+    final_payload: int
+    owner: object
+    admission: object
+    selected_bytes: bytes
+    operations: tuple
+    grants: object
+    anchor: object
+    original_op: object
+    originals: object
+    derived: object
+    root: str
+    capture: object
+    end: float
+    snapshot_id: str
+    generation: int
+
+    def __init__(self, *_args, **_kwargs):
+        raise ValueError("the owning result is minted only by the current finish")
+
+    def __repr__(self) -> str:
+        return "_OwningGradeReport(<redacted>)"
+
+
+def _mint_owning_grade_report(
+    state,
+    payload,
+    identity,
+    plan_identity,
+    owner,
+    admission,
+    anchor,
+    grants,
+    original_op,
+    originals,
+    derived,
+    root,
+    capture,
+    end,
+):
+    """Mint the one private immutable owner-bound owning result.
+
+    Runs only at the successful fixed current cut after the distinct
+    full guarded grade FINAL_PIN and its final genuine selected
+    reread: it verifies the exact live owner custody against the exact
+    original operation, stores, root and retained capture, the exact
+    plan identity the shared serializer encoded into the top-level
+    header component, and the bound absolute deadline, and then
+    constructs the one frozen slotted owner-bound result through the
+    only private construction path.  The detached original grants were
+    already compared by the genuine guarded final cut, and the
+    serializer's exact digest-addressed payload is bound without a
+    second report-wide copy, digest or substring scan after the final
+    cutoff; no work is charged or observed here.  A denial never
+    reaches this mint, so no usable result exists on any refusal.
+    """
+    from . import private_policy_request as request
+    from . import raw_snapshot_pin
+    from . import raw_snapshot_selection as snapshot_selection
+
+    if (
+        type(payload) is not bytes
+        or type(identity) is not str
+        or type(plan_identity) is not str
+        or type(state.plan_identity) is not str
+        or plan_identity != state.plan_identity
+        or type(owner) is not raw_snapshot_pin.PinOwner
+        or owner.state != "ACTIVE"
+        or type(admission) is not request.PolicyRequestAdmission
+        or admission._invalid
+        or type(original_op) is not snapshot_selection._Operation
+        or owner.op is not original_op
+        or owner.originals is not originals
+        or owner.derived is not derived
+        or owner.op.path != root
+        or owner.value is not capture
+        or type(capture) is not raw_snapshot_pin.PinData
+        or type(end) is not float
+        or not end > 0
+    ):
+        raise ValueError
+    snapshot_id = capture.pointer.snapshot_id
+    generation = capture.pointer.generation
+    if type(snapshot_id) is not str or type(generation) is not int:
+        raise ValueError
+    report = object.__new__(_OwningGradeReport)
+    object.__setattr__(report, "identity_payload", payload)
+    object.__setattr__(report, "identity", identity)
+    object.__setattr__(report, "plan_identity", plan_identity)
+    object.__setattr__(report, "final_work", state.meter.work)
+    object.__setattr__(report, "final_payload", state.meter.payload)
+    object.__setattr__(report, "owner", owner)
+    object.__setattr__(report, "admission", admission)
+    object.__setattr__(report, "selected_bytes", admission._expected_selection_bytes)
+    object.__setattr__(report, "operations", admission.operations)
+    object.__setattr__(report, "grants", grants)
+    object.__setattr__(report, "anchor", anchor)
+    object.__setattr__(report, "original_op", original_op)
+    object.__setattr__(report, "originals", originals)
+    object.__setattr__(report, "derived", derived)
+    object.__setattr__(report, "root", root)
+    object.__setattr__(report, "capture", capture)
+    object.__setattr__(report, "end", end)
+    object.__setattr__(report, "snapshot_id", snapshot_id)
+    object.__setattr__(report, "generation", generation)
+    return report
+
+
+@dataclass(frozen=True, repr=False)
+class FailurePrefix:
+    phase: str
+    intended: int
+    attempted: int
+    completed: int
+    refused: int
+    pending: int
+
+
+class EvaluationError(ValueError):
+    """Content-free refusal of the entire evaluation."""
+
+    __slots__ = ("_progress",)
+
+    def __init__(self, progress):
+        super().__init__("evaluation program refused")
+        self._progress = progress
+
+    @property
+    def progress(self):
+        return self._progress
+
+
+_MAX_BUDGET = (
+    1540,
+    853888,
+    919808,
+    719781365958412,
+    514,
+    513,
+    256,
+    3,
+    196608,
+    6291456,
+    134217728,
+    268435456,
+    12582912,
+)
+_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z", re.ASCII)
+_HASH = re.compile(r"sha256:[0-9a-f]{64}\Z", re.ASCII)
+_BARE_HASH = re.compile(r"[0-9a-f]{64}\Z", re.ASCII)
+
+
+def _closed(value, cls):
+    if type(value) is not cls or type(value.__dict__) is not dict:
+        return False
+    names = tuple(field.name for field in fields(cls))
+    return len(value.__dict__) == len(names) and all(name in value.__dict__ for name in names)
+
+
+def _plan_admission(plan, grade_budget, dataset, selected, meter, clock):
+    """Validate complete graded declarations and reserve lower logical envelopes.
+
+    This is only one part of joint admission; it does not authorize execution.
+    """
+    meter.reserve(4096, 4096)
+    if not _closed(plan, Plan) or not _closed(grade_budget, GradeBudget):
+        raise ValueError
+    values = tuple(getattr(grade_budget, field.name) for field in fields(GradeBudget))
+    if any(
+        type(v) is not int or not 0 <= v <= cap for v, cap in zip(values, _MAX_BUDGET, strict=True)
+    ):
+        raise ValueError
+    for value in (plan.plan_id, plan.protocol_id):
+        meter.reserve(129)
+        if type(value) is not str or _ID.fullmatch(value) is None:
+            raise ValueError
+    for value in (plan.dataset_id, plan.split_id, plan.snapshot_id, plan.catalog_id):
+        meter.reserve(72)
+        if type(value) is not str or _HASH.fullmatch(value) is None:
+            raise ValueError
+    if (
+        plan.dataset_id != dataset.dataset_id
+        or plan.split_id != dataset.split_id
+        or type(plan.generation) is not int
+        or not 1 <= plan.generation < 2**63
+        or type(plan.unknown_policy) is not str
+        or plan.unknown_policy != "UNJUDGED_AS_ZERO_DIAGNOSTIC"
+        or type(plan.overlap_policy) is not str
+        or plan.overlap_policy != "EXPLICIT_CHUNK_IDS_ONLY"
+    ):
+        raise ValueError
+    cutoffs = plan.cutoffs
+    if type(cutoffs) is not tuple or not 1 <= len(cutoffs) <= 16:
+        raise ValueError
+    previous = 0
+    for cutoff in cutoffs:
+        meter.reserve(1)
+        if type(cutoff) is not int or not previous < cutoff <= 4096:
+            raise ValueError
+        previous = cutoff
+    if 20 not in cutoffs or 60 not in cutoffs:
+        raise ValueError
+    n = len(selected)
+    if type(plan.judgments) is not tuple or len(plan.judgments) != n:
+        raise ValueError
+    entries = work = 0
+    for judgment, (case, _, _, _) in zip(plan.judgments, selected, strict=True):
+        clock.check()
+        meter.reserve(512, 128)
+        if (
+            not _closed(judgment, Judgments)
+            or type(judgment.case_id) is not str
+            or judgment.case_id != case.case_id
+            or type(judgment.gold) is not tuple
+            or len(judgment.gold) > 4096
+        ):
+            raise ValueError
+        previous = None
+        for pair in judgment.gold:
+            clock.check()
+            meter.reserve(256, 128)
+            if type(pair) is not tuple or len(pair) != 2:
+                raise ValueError
+            ident, grade = pair
+            if (
+                type(ident) is not str
+                or _HASH.fullmatch(ident) is None
+                or (previous is not None and ident <= previous)
+                or type(grade) is not int
+                or not 0 <= grade <= 3
+            ):
+                raise ValueError
+            previous = ident
+        g = len(judgment.gold)
+        entries += g + 60
+        work += (g + 60) * len(cutoffs) + g * max(1, (max(1, g) - 1).bit_length())
+    if entries > 65536 or work > 2097152:
+        raise ValueError
+    d, t, u = 6 * n + 4, 3328 * n + 1920, 3584 * n + 2304
+    size = d * 100925699 + (t + u) * 404750404 + t * 2016386
+    report_bound = (
+        65536
+        + 2048 * n
+        + 1642496
+        + 3 * (n * (1024 + 448 * len(cutoffs)) + 4096 + 512 * len(cutoffs))
+    )
+    required = (d, t, u, size, 2 + 2 * n, 1 + 2 * n, n, 3, 3 * entries, 3 * work)
+    if any(have < need for have, need in zip(values, required)):
+        raise ValueError
+    if grade_budget.report_bytes < report_bound:
+        raise ValueError
+    return entries, work, report_bound
+
+
+def _expected_query_identity(plan, query, selected, meter, clock):
+    """The exact single-case producer identity under the bounded meter.
+
+    The actual canonical question/payload digests, the original/effective
+    authority hashes, the raw-hybrid-query identity domain with its exact
+    keys and the fixed producer caps; the shared per-case path does real
+    normally imported hashing with the same bounded meter charges and
+    clock order as the ordered caller it was cut from.
+    """
+    import hashlib
+
+    from . import source_bound_stage_loss as binder
+
+    case, original, effective, restricted = selected
+    clock.check()
+    meter.reserve(len(case.question) + 1, 4 * len(case.question))
+    question = case.question.encode("utf-8")
+    meter.reserve(len(question) + len(query.payload) + 132, 384)
+    question_hash = hashlib.sha256(question).hexdigest()
+    payload_hash = hashlib.sha256(query.payload).hexdigest()
+    hashes = []
+    for authority in (original, effective):
+        meter.reserve(2048, 2048)
+        collections = (
+            authority.corpora,
+            authority.versions,
+            authority.labels,
+            () if restricted is None or restricted.corpora is None else restricted.corpora,
+            () if restricted is None or restricted.versions is None else restricted.versions,
+        )
+        item_count = sum(len(group) for group in collections)
+        meter.reserve(item_count + 1)
+        chars = sum(len(value) for group in collections for value in group)
+        meter.reserve(chars + item_count + 1, 4096 + 16 * chars + 128 * item_count)
+        wire = [
+            authority.model_dump(mode="json"),
+            None if restricted is None else restricted.model_dump(mode="json"),
+        ]
+        hashes.append(
+            binder._canonical_hash(
+                wire, b"", meter, clock.check, ensure_ascii=False, limit=262144
+            )
+        )
+    original_hash, effective_hash = hashes
+    query_id = binder._canonical_hash(
+        {
+            "kind": "raw-hybrid-query/v1",
+            "snapshot_id": plan.snapshot_id,
+            "catalog_id": plan.catalog_id,
+            "query_text_sha256": question_hash,
+            "query_payload_sha256": payload_hash,
+            "query_space_id": query.space_id,
+            "query_definition_fingerprint": query.definition_fingerprint,
+            "query_policy_id": query.policy_id,
+            "query_execution_fingerprint": query.execution_fingerprint,
+            "authority_sha256": effective_hash,
+            "dense_k": 60,
+            "lexical_k": 60,
+            "partition_cap": 60,
+            "k": 60,
+        },
+        b"",
+        meter,
+        clock.check,
+        ensure_ascii=False,
+    )
+    meter.reserve(256, 512)
+    return query_id, question_hash, payload_hash, original_hash, effective_hash
+
+
+def _expected_queries(plan, selected, queries, meter, clock):
+    """Derive producer identities before any source or pin observation."""
+    identities = []
+    seen = set()
+    for query, entry in zip(queries, selected, strict=True):
+        identity = _expected_query_identity(plan, query, entry, meter, clock)
+        if identity[0] in seen:
+            raise ValueError
+        seen.add(identity[0])
+        identities.append(identity)
+    return tuple(identities)
+
+
+def _current_case_identity(state, plan, query, entry, meter, clock):
+    """The shared single-query expected-identity derivation, one actual payload.
+
+    The per-query body of the ordered legacy derivation, run once after
+    each actual encoder returns and before the case is accepted: the
+    exact canonical question/payload digests, the original/effective
+    authority hashes and the raw-hybrid-query identity under the shared
+    grade meter, with ordered uniqueness against the retained seen set.
+    Only the fixed-size ordered identity and hash fields and the
+    bounded plan record are retained - never the payload or any vector;
+    the actual payload is consumed in this iteration only.
+    """
+    identity = _expected_query_identity(plan, query, entry, meter, clock)
+    if identity[0] in state.expected_seen:
+        raise ValueError
+    state.expected_seen.add(identity[0])
+    state.expected.append(identity)
+    state.query_records.append(_plan_query_record(query, identity))
+    return identity
+
+
+class _State:
+    __slots__ = (
+        "plan",
+        "budget",
+        "meter",
+        "plan_identity",
+        "expected",
+        "cases",
+        "phase",
+        "reserve_work",
+        "reserve_payload",
+        "expected_seen",
+        "query_records",
+    )
+
+    def __init__(self, plan, budget):
+        self.plan = plan
+        self.budget = budget
+        self.meter = None
+        self.plan_identity = None
+        self.expected = ()
+        self.cases = []
+        self.phase = None
+        self.reserve_work = self.reserve_payload = 0
+        self.expected_seen = set()
+        self.query_records = []
+
+
+def _prepare_plan(state, dataset, selected, clock):
+    """Query-independent graded plan admission and conservative envelope.
+
+    Establishes the grade meter, admits the complete declared plan through the
+    shared admission (which charges the actual declaration work), and checks
+    the remaining capacity against the conservative envelope without reserving
+    or debiting it. It returns only the preparation values consumed by the
+    legacy remainder; it does not authorize execution.
+    """
+    from . import source_cohort_runner as source
+
+    grade_budget = state.budget
+    if not _closed(grade_budget, GradeBudget):
+        raise ValueError
+    for value, cap in zip(
+        (getattr(grade_budget, f.name) for f in fields(GradeBudget)), _MAX_BUDGET, strict=True
+    ):
+        if type(value) is not int or not 0 <= value <= cap:
+            raise ValueError
+    meter = source._Meter(grade_budget.local_work, grade_budget.local_payload, clock.check)
+    state.meter = meter
+    entries, _, report_bound = _plan_admission(
+        state.plan, grade_budget, dataset, selected, meter, clock
+    )
+    # Check the remaining capacity against the conservative preflight metadata
+    # and report envelope before any source use. The comparison reserves and
+    # debits nothing; actual operations are charged separately as they occur.
+    n = len(selected)
+    grades = entries - 60 * n
+    minimum_work = 4000000 + 220000 * n + 8000 * grades + 16 * report_bound
+    minimum_payload = 12000000 + 220000 * n + 12000 * grades + 16 * report_bound
+    if (
+        minimum_work > grade_budget.local_work - meter.work
+        or minimum_payload > grade_budget.local_payload - meter.payload
+    ):
+        raise ValueError
+    return entries, minimum_work, minimum_payload
+
+
+def _plan_query_record(query, expected):
+    """The one ordered query's bounded plan metadata record.
+
+    The exact ten metadata fields for one actual query and its computed
+    identities; it retains no raw vector, text, query object, authority
+    object or source reference.
+    """
+    return {
+        "case_id": query.case_id,
+        "query_id": expected[0],
+        "question_sha256": expected[1],
+        "payload_sha256": expected[2],
+        "original_authority_sha256": expected[3],
+        "effective_authority_sha256": expected[4],
+        "space_id": query.space_id,
+        "definition_fingerprint": query.definition_fingerprint,
+        "policy_id": query.policy_id,
+        "execution_fingerprint": query.execution_fingerprint,
+    }
+
+
+def _reserve_plan_identity(count, entries, meter):
+    """The existing pure plan-identity metadata reservation.
+
+    The one bounded reservation for the ordered per-case metadata
+    records and the plan identity, reusable once before physical work by
+    a future fixed caller; the legacy _prepare calls it at its original
+    position after the expected identities and the plan identity hash
+    never charges it again.
+    """
+    meter.reserve(4096 + 256 * count + 128 * entries, 4096 + 512 * count + 256 * entries)
+
+
+def _plan_identity(plan, query_records, dataset_id, split_id, cohort, selection,
+                   config, gold_ids, source_budget, grade_budget, meter, clock):
+    """Assemble and hash the graded plan identity from prepared values.
+
+    Consumes the ordered per-case metadata records plus the already
+    prepared declaration values; the pure metadata reservation is not
+    charged here - the caller has already run _reserve_plan_identity -
+    and the existing declaration arithmetic and forecast envelope values
+    are not recomputed; the 8MiB canonical sizing, the legacy meter
+    charges and the output are unchanged.
+    """
+    from . import source_bound_stage_loss as binder
+
+    identity = {
+        "schema": "slaif-graded-evaluation-plan-v1",
+        "plan": {
+            field.name: getattr(plan, field.name)
+            for field in fields(Plan)
+            if field.name != "judgments"
+        },
+        "judgments": tuple((item.case_id, item.gold) for item in plan.judgments),
+        "dataset_id": dataset_id,
+        "split_id": split_id,
+        "cohort": cohort,
+        "selection": selection,
+        "config": config,
+        "queries": query_records,
+        "gold_bundle_ids": gold_ids,
+        "source_budget": source_budget,
+        "grade_budget": grade_budget,
+    }
+    return "sha256:" + binder._canonical_hash(
+        identity, b"slaif-graded-evaluation-plan-v1\n", meter, clock.check, limit=8388608
+    )
+
+
+def _prepare(state, dataset, selected, selection, cohort, queries, gold_ids, config, budget, clock):
+    from . import source_cohort_runner as source
+
+    grade_budget = state.budget
+    entries, minimum_work, minimum_payload = _prepare_plan(state, dataset, selected, clock)
+    meter = state.meter
+    state.expected = _expected_queries(state.plan, selected, queries, meter, clock)
+    _reserve_plan_identity(len(selected), entries, meter)
+    query_records = tuple(
+        _plan_query_record(query, expected)
+        for query, expected in zip(queries, state.expected, strict=True)
+    )
+    state.plan_identity = _plan_identity(
+        state.plan,
+        query_records,
+        dataset.dataset_id,
+        dataset.split_id,
+        (cohort.split, cohort.case_ids),
+        selection,
+        (config.config_id, config.declaration_id),
+        gold_ids,
+        tuple(getattr(budget, f.name) for f in fields(source.Budget)),
+        tuple(getattr(grade_budget, f.name) for f in fields(GradeBudget)),
+        meter,
+        clock,
+    )
+    state.reserve_work = minimum_work
+    state.reserve_payload = minimum_payload
+    if (
+        meter.work + minimum_work > meter.work_limit
+        or meter.payload + minimum_payload > meter.payload_limit
+    ):
+        raise ValueError
+
+
+def _direct_catalog(plan, meter, originals, derived, root, captured, clock):
+    """The shared plan/pin/catalog concordance and one actual direct dispatch.
+
+    The held pointer must bind the exact declared snapshot and generation
+    before the one actual catalog load under the remaining loader bound,
+    and the exact nominal catalog must bind the declared snapshot and
+    catalog identities.  Returns the internal verified catalog identity
+    only; it never returns rows or a report.
+    """
+    from . import raw_snapshot_catalog
+
+    if (
+        captured.pointer.snapshot_id != plan.snapshot_id
+        or captured.pointer.generation != plan.generation
+    ):
+        raise ValueError
+    meter.reserve(1)
+    catalog = raw_snapshot_catalog.load_catalog(
+        originals, derived, root, plan.snapshot_id, deadline_ms=clock.remaining(120000)
+    )
+    clock.check()
+    if (
+        type(catalog) is not raw_snapshot_catalog.Catalog
+        or type(catalog.snapshot_id) is not str
+        or catalog.snapshot_id != plan.snapshot_id
+        or type(catalog.catalog_id) is not str
+        or catalog.catalog_id != plan.catalog_id
+    ):
+        raise ValueError
+    catalog_id = catalog.catalog_id
+    del catalog
+    return catalog_id
+
+
+def _direct_catalog_guarded_body(
+    admission,
+    owner,
+    retained_op,
+    retained,
+    plan,
+    meter,
+    originals,
+    derived,
+    root,
+    anchor,
+    grants,
+    end,
+    clock,
+):
+    """The one guarded genuine current direct catalog body.
+
+    The exact proven guarded catalog core of the narrow current catalog
+    entry, shared with the fixed current graded entry that reaches it
+    with its already admitted joint state: the caller holds the exact
+    associated operation's guard with its exact end attached; the
+    genuine same-admission selected observation runs immediately before
+    the actual direct owned catalog, and the exact same pre-dispatch pin
+    data and associated operation are re-verified after the real
+    dispatch through the real held capture and metadata association,
+    the genuine final same-admission observation, and the detached
+    full-grant comparison before any usable return.
+    """
+    from . import private_policy_pin_eligibility as pin_eligibility
+
+    pin_eligibility._genuine_recheck(admission, end)
+    clock.check()
+    catalog_id = _direct_catalog(plan, meter, originals, derived, root, retained, clock)
+    clock.check()
+    if owner.value is not retained or owner.op is not retained_op:
+        raise ValueError
+    pin_eligibility._held_capture(owner)
+    owner._association()
+    clock.check()
+    pin_eligibility._genuine_recheck(admission, end)
+    clock.check()
+    if pin_eligibility._bound_grants(admission, anchor) != grants:
+        raise ValueError
+    return catalog_id
+
+
+def _grade_remaining_envelope(state, meter, captured, remaining_pins):
+    """The actual remaining bounded grade-owned pin observation envelope.
+
+    Sizes each remaining grade-owned full pin observation from the
+    retained capture - pointer, core and row-map bytes under the
+    original fixed constants - and refuses, reserving and debiting
+    nothing, when the current meter usage plus the conservative plan
+    minimums plus every remaining bounded grade pin observation cannot
+    fit under the original grade limits.  Locally metered delegate
+    work is charged separately where it occurs, so it is never debited
+    here twice.
+    """
+    from . import raw_snapshot_pin
+
+    if type(captured) is not raw_snapshot_pin.PinData:
+        raise ValueError
+    pointer_size = len(captured.pointer.pointer_bytes)
+    core_size = len(captured.data.core_bytes)
+    row_map = captured.data.row_map
+    map_size, rows = len(row_map.map_bytes), len(row_map.rows)
+    pin_work = pointer_size + core_size + 2 * map_size + 2 * rows + 1095
+    pin_payload = pointer_size + map_size + 192
+    if (
+        meter.work + state.reserve_work + pin_work * remaining_pins > meter.work_limit
+        or meter.payload + state.reserve_payload + pin_payload * remaining_pins
+        > meter.payload_limit
+    ):
+        raise ValueError
+
+
+def _catalog(state, originals, derived, root, owner, captured, clock):
+    from . import source_cohort_runner as source
+
+    state.phase = "CATALOG"
+    plan, meter = state.plan, state.meter
+    _direct_catalog(plan, meter, originals, derived, root, captured, clock)
+    source._pin_observation(owner, originals, derived, root, captured, meter, clock)
+    # The captured row map is known only after the first source pin.
+    # Reserve all remaining grade-owned observations before the first
+    # producer invocation.
+    _grade_remaining_envelope(
+        state, meter, captured, 2 * len(state.plan.judgments) + 1
+    )
+    state.phase = None
+
+
+def _grade_judgment_dispatch(
+    state,
+    judgment,
+    clock,
+    *,
+    admission=None,
+    owner,
+    dataset_bytes=None,
+    case_id=None,
+    originals=None,
+    derived=None,
+    root=None,
+    captured=None,
+    effective=None,
+    restricted=None,
+    expected_authority,
+):
+    """The shared grading-owned GRADE_PIN -> GRADE_BIND -> GRADE_PIN dispatch.
+
+    Both the legacy grade route and the one fixed private current route
+    run the exact same declared judgment IDs and order, the same grade
+    meter and the same phase transitions through this one dispatch.
+    The legacy route keeps its two actual full pins (
+    ``source_cohort_runner._pin_observation`` against the exact prior
+    capture) and its actual ranking body (
+    ``source_bound_ranking.bind`` under the case's effective grants and
+    restrictions); the fixed current route replaces each of the two
+    actual full pins with the existing
+    ``private_policy_pin_eligibility.revalidate_current_pin_case`` and
+    the actual ranking body with the existing
+    ``source_bound_ranking.bind_pinned``, passing the full fixed
+    30,000 ms operation allowance to every genuine guarded delegate,
+    which starts later and clips it to the exact original admission
+    end.  The exact capture, the binder output gate, the empty-judgment
+    behavior and the remaining grade-case metric sequence are
+    preserved; no alternate binder, callback or stage algorithm is
+    introduced, and the shared gate verifies the delegated result's
+    exact snapshot, catalog, authority, rows, fragment count and fixed
+    status categories.  The fixed current route passes the already
+    verified pre-dispatch retained PinData as the shared captured
+    argument and requires both genuine guarded revalidations to yield
+    exactly that retained captured value, verified by identity, the
+    first check before the actual grade ranking dispatch.
+    """
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import source_bound_ranking as binding
+    from . import source_cohort_runner as source
+
+    meter, plan = state.meter, state.plan
+    current = admission is not None
+    if current:
+        if (
+            type(dataset_bytes) is not bytes
+            or type(case_id) is not str
+            or not 1 <= len(case_id) <= 128
+            or originals is not None
+            or derived is not None
+            or root is not None
+            or effective is not None
+            or restricted is not None
+        ):
+            raise ValueError
+    elif (
+        dataset_bytes is not None
+        or case_id is not None
+        or originals is None
+        or derived is None
+        or root is None
+        or captured is None
+        or effective is None
+    ):
+        raise ValueError
+    state.phase = "GRADE_PIN"
+    if current:
+        pin_data = pin_eligibility.revalidate_current_pin_case(
+            admission,
+            owner,
+            dataset_bytes,
+            case_id,
+            deadline_ms=30000,
+        )
+        # The exact retained captured PinData through the first
+        # genuine guarded revalidation, before the actual grade
+        # ranking dispatch.
+        if pin_data is not captured:
+            raise ValueError
+    else:
+        source._pin_observation(owner, originals, derived, root, captured, meter, clock)
+    meter.reserve(len(judgment.gold) + 1, 128 * len(judgment.gold))
+    ids = tuple(pair[0] for pair in judgment.gold)
+    state.phase = "GRADE_BIND"
+    if current:
+        bound = binding.bind_pinned(
+            admission,
+            owner,
+            dataset_bytes,
+            case_id,
+            plan.catalog_id,
+            ids,
+            deadline_ms=30000,
+        )
+    else:
+        bound = binding.bind(
+            originals,
+            derived,
+            root,
+            plan.snapshot_id,
+            plan.catalog_id,
+            ids,
+            grants=effective,
+            restrictions=restricted,
+            deadline_ms=clock.remaining(30000),
+        )
+    clock.check()
+    state.phase = "GRADE_PIN"
+    if current:
+        second = pin_eligibility.revalidate_current_pin_case(
+            admission,
+            owner,
+            dataset_bytes,
+            case_id,
+            deadline_ms=30000,
+        )
+        # The exact same retained captured PinData through the second
+        # genuine guarded revalidation.
+        if second is not captured:
+            raise ValueError
+    else:
+        source._pin_observation(owner, originals, derived, root, captured, meter, clock)
+    state.phase = "GRADE_CASE"
+    if (
+        type(bound) is not binding.BoundRanking
+        or bound.snapshot_id != plan.snapshot_id
+        or bound.catalog_id != plan.catalog_id
+        or bound.authority_sha256 != expected_authority
+        or type(bound.rows) is not tuple
+        or type(bound.row_count) is not int
+        or bound.row_count != len(ids)
+        or len(bound.rows) != len(ids)
+        or type(bound.fragment_count) is not int
+        or not 0 <= bound.fragment_count <= 65536
+        or bound.source_binding_status
+        != ("ORIGINALS_REVALIDATED_AT_BIND_TIME" if ids else "NO_SELECTED_SOURCE_VALIDATED")
+        or bound.input_origin != "SUPPLIED_RANKING_UNVERIFIED"
+        or bound.authorization_status != "SUPPLIED_SCOPE_CHECKS_ONLY"
+        or bound.execution_status != "NOT_ATTESTED"
+        or bound.qualification != "NOT_QUALIFIED"
+        or type(bound.binding_id) is not str
+        or _HASH.fullmatch(bound.binding_id) is None
+    ):
+        raise ValueError
+    count = 0
+    for row, ident in zip(bound.rows, ids, strict=True):
+        meter.reserve(1024, 256)
+        if (
+            type(row) is not binding.BoundRow
+            or row.chunk_id != ident
+            or type(row.ordinal) is not int
+            or not 0 <= row.ordinal <= 4095
+            or type(row.fragments) is not tuple
+            or not row.fragments
+        ):
+            raise ValueError
+        for value in (row.partition_id, row.chunk_id, row.revision_id, row.extraction_id):
+            if type(value) is not str or _HASH.fullmatch(value) is None:
+                raise ValueError
+        for value in (
+            row.representation_id,
+            row.bundle_container_id,
+            row.batch_container_id,
+            row.scope_sha256,
+        ):
+            if type(value) is not str or _BARE_HASH.fullmatch(value) is None:
+                raise ValueError
+        # The genuine binder validates native fragments and their identities.
+        # Count its bounded tuples here without retaining or copying them.
+        count += len(row.fragments)
+        if count > 65536:
+            raise ValueError
+    if count != bound.fragment_count:
+        raise ValueError
+    return bound
+
+
+_GRADE_DISPATCH_CHOICES = (
+    frozenset(
+        {"owner", "originals", "derived", "root", "captured", "effective", "restricted"}
+    ),
+    frozenset({"admission", "owner", "dataset_bytes", "case_id", "captured"}),
+)
+
+
+def _grade_case_body(state, case, result, item, clock, captured, dispatch):
+    """The one actual shared grade case body under the shared grade meter.
+
+    The exact supplied-mode case sequence shared by the supplied case
+    body and the fixed current case body: the per-case reserve, the
+    ordered expected identity, the declared judgment, the bounded
+    concordance gate, the one shared grading-owned dispatch through the
+    exact fixed dispatch choice (the supplied stores and case-grants
+    route or the genuine current admission route), the rankings
+    extraction, the judgment fingerprint, the bounded case record and
+    the phase reset.  The retained expected authority is fixed by this
+    body from the ordered expected identity; the legacy call order,
+    phase markers and exact result bytes are unchanged.
+    """
+    from . import raw_dense_search, raw_lexical_search, raw_rank_fusion
+    from . import source_bound_stage_loss as binder
+
+    if set(dispatch) not in _GRADE_DISPATCH_CHOICES:
+        raise ValueError
+    meter, plan = state.meter, state.plan
+    meter.reserve(2048, 2048)
+    index = len(state.cases)
+    expected = state.expected[index]
+    judgment = plan.judgments[index]
+    if (
+        result.catalog_id != plan.catalog_id
+        or result.query_id != expected[0]
+        or tuple(item[1:5]) != tuple(expected[1:5])
+    ):
+        raise ValueError
+    dispatch = dict(dispatch)
+    dispatch["expected_authority"] = expected[4]
+    bound = _grade_judgment_dispatch(state, judgment, clock, **dispatch)
+    rankings = []
+    for actual, cls in (
+        (result.dense, raw_dense_search.Hit),
+        (result.lexical, raw_lexical_search.Hit),
+        (result.fusion, raw_rank_fusion.Hit),
+    ):
+        if type(actual.hits) is not tuple or len(actual.hits) > 60:
+            raise ValueError
+        meter.reserve(256 * len(actual.hits) + 1, 128 * len(actual.hits))
+        ranked = []
+        seen = set()
+        for rank, hit in enumerate(actual.hits, 1):
+            if (
+                type(hit) is not cls
+                or type(hit.chunk_id) is not str
+                or _HASH.fullmatch(hit.chunk_id) is None
+                or hit.chunk_id in seen
+                or type(hit.rank) is not int
+                or hit.rank != rank
+            ):
+                raise ValueError
+            seen.add(hit.chunk_id)
+            ranked.append(hit.chunk_id)
+        rankings.append(tuple(ranked))
+    fingerprint = "sha256:" + binder._canonical_hash(
+        judgment.gold, b"slaif-graded-judgments-v1\n", meter, clock.check, limit=1048576
+    )
+    meter.reserve(1024, 2048)
+    state.cases.append(
+        (
+            case.case_id,
+            expected[0],
+            expected[3],
+            expected[4],
+            bound.binding_id,
+            bound.row_count,
+            bound.fragment_count,
+            bound.source_binding_status,
+            fingerprint,
+            judgment.gold,
+            tuple(rankings),
+        )
+    )
+    state.phase = None
+
+
+
+def _case(
+    state,
+    originals,
+    derived,
+    root,
+    owner,
+    captured,
+    case,
+    effective,
+    restricted,
+    result,
+    item,
+    clock,
+):
+    _grade_case_body(
+        state,
+        case,
+        result,
+        item,
+        clock,
+        captured,
+        {
+            "owner": owner,
+            "originals": originals,
+            "derived": derived,
+            "root": root,
+            "captured": captured,
+            "effective": effective,
+            "restricted": restricted,
+        },
+    )
+
+
+def _current_case(
+    state,
+    admission,
+    owner,
+    dataset_bytes,
+    case,
+    result,
+    item,
+    clock,
+    captured,
+):
+    """The shared current-mode grade case body against the real result.
+
+    The current twin of the supplied-mode case body: the exact shared
+    single-query expected identity derived from the actual encoder
+    output is already retained in the state before this body runs, and
+    the declared judgment runs the one actual shared grade case body
+    with the genuine current dispatch choice - the two genuine guarded
+    pin revalidations and the delegated pinned rank binding - under the
+    shared grade meter with the supplied-mode sequence, phase markers
+    and exact result bytes unchanged.
+    """
+    _grade_case_body(
+        state,
+        case,
+        result,
+        item,
+        clock,
+        captured,
+        {
+            "admission": admission,
+            "owner": owner,
+            "dataset_bytes": dataset_bytes,
+            "case_id": case.case_id,
+            "captured": captured,
+        },
+    )
+
+
+def _validate_metrics(result, triples, cutoffs, meter, clock):
+    import math
+
+    from . import supplied_rank_metrics as metrics
+
+    def metric_record(value, cls):
+        if type(value) is not cls or type(value.__dict__) is not dict:
+            return False
+        spec = fields(cls)
+        allowed = {field.name for field in spec}
+        required = {field.name for field in spec if field.init}
+        return required <= value.__dict__.keys() <= allowed
+
+    def ratio(value):
+        return type(value) is float and math.isfinite(value) and 0 <= value <= 1
+
+    def marker(obj):
+        return all(
+            type(value) is str and value == expected
+            for value, expected in (
+                (obj.input_origin, "SUPPLIED_UNVERIFIED"),
+                (obj.qualification, "NOT_QUALIFIED"),
+                (obj.relevance_unit, "SUPPLIED_UNIT_ID"),
+                (obj.formula_version, "supplied-rank-metrics-v1"),
+            )
+        )
+
+    meter.reserve(4096, 4096)
+    n = len(triples)
+    if (
+        not metric_record(result, metrics.AggregateResult)
+        or not marker(result)
+        or type(result.query_results) is not tuple
+        or len(result.query_results) != n
+        or type(result.at_k) is not tuple
+        or len(result.at_k) != len(cutoffs)
+        or type(result.total_queries) is not int
+        or result.total_queries != n
+    ):
+        raise ValueError
+    meter.reserve(256 * n + 1, 256 * n)
+    expected_hash = _metric_hash(
+        {"cases": triples, "cutoffs": cutoffs},
+        b"slaif-supplied-rank-aggregate-v1\n",
+        len(triples),
+        sum(len(gold) + len(ranking) for _, gold, ranking in triples),
+        len(cutoffs),
+        meter,
+        clock,
+    )
+    if type(result.input_fingerprint) is not str or result.input_fingerprint != expected_hash:
+        raise ValueError
+    defined = 0
+    for item, (qid, gold, ranking) in zip(result.query_results, triples, strict=True):
+        clock.check()
+        meter.reserve(512 + len(gold) + len(ranking), 512)
+        positive = sum(grade > 0 for _, grade in gold)
+        defined += bool(positive)
+        if (
+            not metric_record(item, metrics.QueryResult)
+            or not marker(item)
+            or type(item.query_id) is not str
+            or item.query_id != qid
+            or type(item.positive_gold_count) is not int
+            or item.positive_gold_count != positive
+            or type(item.ranking_count) is not int
+            or item.ranking_count != len(ranking)
+            or type(item.at_k) is not tuple
+            or len(item.at_k) != len(cutoffs)
+        ):
+            raise ValueError
+        expected_query = _metric_hash(
+            {"query_id": qid, "gold": gold, "ranking": ranking, "cutoffs": cutoffs},
+            b"slaif-supplied-rank-query-v1\n",
+            1,
+            len(gold) + len(ranking),
+            len(cutoffs),
+            meter,
+            clock,
+        )
+        if type(item.input_fingerprint) is not str or item.input_fingerprint != expected_query:
+            raise ValueError
+        for value, cutoff in zip(item.at_k, cutoffs, strict=True):
+            meter.reserve(128, 128)
+            if (
+                not metric_record(value, metrics.AtK)
+                or type(value.k) is not int
+                or value.k != cutoff
+                or type(value.returned_at_k) is not int
+                or value.returned_at_k != min(cutoff, len(ranking))
+                or type(value.relevant_returned) is not int
+                or not 0 <= value.relevant_returned <= min(positive, value.returned_at_k)
+                or type(value.dcg) is not float
+                or not math.isfinite(value.dcg)
+                or not 0 <= value.dcg <= 28672
+                or type(value.idcg) is not float
+                or not math.isfinite(value.idcg)
+                or not 0 <= value.idcg <= 28672
+            ):
+                raise ValueError
+            if positive:
+                if (
+                    not all(ratio(x) for x in (value.recall, value.reciprocal_rank, value.ndcg))
+                    or value.undefined_reason is not None
+                    or value.idcg <= 0
+                ):
+                    raise ValueError
+            elif (
+                value.recall is not None
+                or value.reciprocal_rank is not None
+                or value.ndcg is not None
+                or value.dcg != 0
+                or value.idcg != 0
+                or value.relevant_returned != 0
+                or value.undefined_reason != "UNDEFINED_EMPTY_POSITIVE_GOLD"
+            ):
+                raise ValueError
+    if (
+        type(result.defined_queries) is not int
+        or result.defined_queries != defined
+        or type(result.undefined_empty_gold_queries) is not int
+        or result.undefined_empty_gold_queries != n - defined
+    ):
+        raise ValueError
+    for value, cutoff in zip(result.at_k, cutoffs, strict=True):
+        meter.reserve(128, 128)
+        if (
+            not metric_record(value, metrics.AggregateAtK)
+            or type(value.k) is not int
+            or value.k != cutoff
+            or type(value.defined_queries) is not int
+            or value.defined_queries != defined
+            or type(value.undefined_empty_gold_queries) is not int
+            or value.undefined_empty_gold_queries != n - defined
+            or type(value.total_queries) is not int
+            or value.total_queries != n
+        ):
+            raise ValueError
+        vals = (value.mean_recall, value.mrr, value.mean_ndcg)
+        if (defined and not all(ratio(v) for v in vals)) or (not defined and vals != (None,) * 3):
+            raise ValueError
+
+
+def _metric_hash(value, domain, cases, entries, cutoff_count, meter, clock):
+    """Hash a bounded metric input after charging its entire JSON allocation."""
+    import hashlib
+    import json
+
+    bound = 512 + 128 * cases + 96 * entries + 8 * cutoff_count
+    meter.reserve(4 * bound, 4 * bound)
+    clock.check()
+    payload = json.dumps(
+        value, sort_keys=True, ensure_ascii=True, separators=(",", ":"), allow_nan=False
+    ).encode("ascii")
+    if len(payload) > bound:
+        raise ValueError
+    clock.check()
+    digest = hashlib.sha256(domain)
+    digest.update(payload)
+    clock.check()
+    return "sha256:" + digest.hexdigest()
+
+
+def _encoded(value, limit, meter, clock):
+    import json
+
+    meter.reserve(4 * limit + 1, 4 * limit + 1)
+    clock.check()
+    result = json.dumps(
+        value, sort_keys=True, ensure_ascii=True, separators=(",", ":"), allow_nan=False
+    ).encode("ascii")
+    clock.check()
+    if len(result) > limit:
+        raise ValueError
+    meter.reserve(len(result) + 1, len(result))
+    return result
+
+
+def _finish_payload(
+    state,
+    source_report,
+    dataset,
+    cohort,
+    selection,
+    config,
+    captured,
+    meter,
+    clock,
+    current_policy="NOT_CHECKED",
+):
+    """The shared grade aggregate/serialize payload and digest.
+
+    The exact supplied-mode sequence - the three metric variants under
+    the GRADE_AGGREGATE phase, the source report checks and the bounded
+    case, header and variant encoding under SERIALIZE, the joined
+    payload and its digest - run once for both the supplied finish and
+    the fixed current finish, which owns its distinct guarded final pin
+    after it; the meter charge order is unchanged.  The header current
+    policy marker stays NOT_CHECKED for the supplied finish and is the
+    truly checked current marker only for the fixed current finish;
+    every other status marker is unchanged.  The owned result carries
+    the exact plan identity encoded into the top-level header component
+    alongside the exact digest-addressed payload.
+    """
+    import hashlib
+    from dataclasses import asdict
+
+    from . import source_cohort_runner as source, supplied_rank_metrics as metrics
+
+    plan = state.plan
+    meter.reserve(4096, 4096)
+    n, c = len(state.cases), len(plan.cutoffs)
+    if n != len(plan.judgments) or type(source_report) is not source.CohortReport:
+        raise ValueError
+    variants = []
+    for index, name in enumerate(("dense", "lexical", "fusion")):
+        state.phase = "GRADE_AGGREGATE"
+        meter.reserve(1024 * n + 1, 512 * n)
+        triples = tuple(
+            sorted(
+                ((item[1], item[9], item[10][index]) for item in state.cases),
+                key=lambda item: item[0],
+            )
+        )
+        result = metrics.aggregate(triples, cutoffs=plan.cutoffs, deadline_ms=clock.remaining(5000))
+        clock.check()
+        _validate_metrics(result, triples, plan.cutoffs, meter, clock)
+        limit = 4096 + 512 * c + n * (1024 + 448 * c)
+        state.phase = "SERIALIZE"
+        meter.reserve(4 * limit, 4 * limit)
+        variants.append((name, _encoded(asdict(result), limit, meter, clock)))
+    state.phase = "SERIALIZE"
+    if (
+        type(source_report.identity_payload) is not bytes
+        or len(source_report.identity_payload) > 1642496
+        or type(source_report.identity) is not str
+        or _HASH.fullmatch(source_report.identity) is None
+        or type(source_report.final_work) is not int
+        or source_report.final_work < 0
+        or type(source_report.final_payload) is not int
+        or source_report.final_payload < 0
+    ):
+        raise ValueError
+    meter.reserve(
+        len(source_report.identity_payload) + 64, len(source_report.identity_payload) + 64
+    )
+    if (
+        source_report.identity
+        != "sha256:"
+        + hashlib.sha256(
+            b"slaif-source-cohort-runner-v1\n" + source_report.identity_payload
+        ).hexdigest()
+    ):
+        raise ValueError
+    case_records = []
+    for item in state.cases:
+        meter.reserve(512, 2048)
+        case_records.append(
+            _encoded(
+                dict(
+                    zip(
+                        (
+                            "case_id",
+                            "query_id",
+                            "original_authority_sha256",
+                            "effective_authority_sha256",
+                            "binding_id",
+                            "row_count",
+                            "fragment_count",
+                            "source_binding_status",
+                            "judgment_fingerprint",
+                        ),
+                        item[:9],
+                        strict=True,
+                    )
+                ),
+                2048,
+                meter,
+                clock,
+            )
+        )
+    meter.reserve(65536, 65536)
+    header = {
+        "schema": "slaif-graded-evaluation-program-v1",
+        "plan_id": plan.plan_id,
+        "plan_identity": state.plan_identity,
+        "protocol_id": plan.protocol_id,
+        "unknown_policy": plan.unknown_policy,
+        "overlap_policy": plan.overlap_policy,
+        "unit": "FROZEN_SNAPSHOT_CHUNK_ID",
+        "dataset_id": dataset.dataset_id,
+        "split_id": dataset.split_id,
+        "split": cohort.split,
+        "selection": selection,
+        "dataset_case_count": dataset.case_count,
+        "selected_case_count": n,
+        "snapshot_id": captured.pointer.snapshot_id,
+        "generation": captured.pointer.generation,
+        "catalog_id": plan.catalog_id,
+        "config_id": config.config_id,
+        "source_identity": source_report.identity,
+        "source_final_work": source_report.final_work,
+        "source_final_payload": source_report.final_payload,
+        "grade_budget": {f.name: getattr(state.budget, f.name) for f in fields(GradeBudget)},
+        "statuses": {
+            "baseline": "NOT_RUN",
+            "authorship": "DECLARED_UNVERIFIED",
+            "rights": "DECLARED_UNVERIFIED",
+            "current_policy": current_policy,
+            "encoder": "NOT_QUALIFIED",
+            "model": "NOT_QUALIFIED",
+            "scale": "NOT_QUALIFIED",
+            "quality": "NOT_QUALIFIED",
+            "visual": "NOT_QUALIFIED",
+            "mvp": "NOT_QUALIFIED",
+        },
+    }
+    # Encode independent bounded components, then join sorted outer keys with the
+    # original source payload as an exact JSON value, once.
+    components = {key: _encoded(value, 65536, meter, clock) for key, value in header.items()}
+    meter.reserve(2048 * n + 2, 2048 * n + 2)
+    components["cases"] = b"[" + b",".join(case_records) + b"]"
+    meter.reserve(
+        sum(len(value) + 64 for _, value in variants) + 2,
+        sum(len(value) + 64 for _, value in variants) + 2,
+    )
+    components["variants"] = (
+        b"{"
+        + b",".join(
+            _encoded(name, 32, meter, clock) + b":" + value for name, value in sorted(variants)
+        )
+        + b"}"
+    )
+    components["source_payload"] = source_report.identity_payload
+    size = sum(len(key) + len(value) + 4 for key, value in components.items()) + 2
+    if size > state.budget.report_bytes or size > 12582912:
+        raise ValueError
+    meter.reserve(4 * size + 1, 4 * size + 1)
+    parts = [
+        _encoded(key, 128, meter, clock) + b":" + components[key] for key in sorted(components)
+    ]
+    payload = b"{" + b",".join(parts) + b"}"
+    if len(payload) > state.budget.report_bytes:
+        raise ValueError
+    clock.check()
+    meter.reserve(len(payload) + 64, len(payload) + 64)
+    digest = hashlib.sha256(b"slaif-graded-evaluation-program-v1\n")
+    digest.update(payload)
+    identity = "sha256:" + digest.hexdigest()
+    return payload, identity, state.plan_identity
+
+
+def _finish(
+    state,
+    source_report,
+    dataset,
+    cohort,
+    selection,
+    config,
+    captured,
+    owner,
+    originals,
+    derived,
+    root,
+    clock,
+):
+    from . import source_cohort_runner as source
+
+    meter = state.meter
+    payload, identity, _encoded_plan_identity = _finish_payload(
+        state, source_report, dataset, cohort, selection, config, captured, meter, clock
+    )
+    state.phase = "FINAL_PIN"
+    source._pin_observation(owner, originals, derived, root, captured, meter, clock)
+    clock.check()
+    return Report(payload, identity, state.plan_identity, meter.work, meter.payload)
+
+
+def _finish_current(
+    state,
+    source_report,
+    dataset,
+    cohort,
+    selection,
+    config,
+    captured,
+    admission,
+    owner,
+    anchor,
+    grants,
+    end,
+    clock,
+    original_op,
+    originals,
+    derived,
+    root,
+):
+    """The fixed current finish: the shared payload, then the guarded pin.
+
+    The shared grade aggregate and serialization produce the bounded
+    payload, its digest and the exact plan identity encoded into the
+    top-level header component first, with the truly checked current
+    policy marker; the private owning result is constructed only after
+    the distinct full guarded grade FINAL_PIN - one genuine borrowed
+    nonreentrant guard over the exact associated operation with its
+    exact prior end saved and restored on every exit, the exact
+    original custody verified before the actual full reload, the
+    genuine selected authority checked before the load, the exact
+    retained PinData and the unchanged raw pin and operation verified
+    through the real reload, the detached full grant and anchor
+    compared by the genuine guarded final cut, the genuine final
+    selected reread under the one clipped end, and the exact original
+    custody verified again after that final reread - so no usable
+    result exists before the final reread, and a policy selection
+    change after the shared result work is observed before any result
+    is minted.  The final phase and the clipped deadline are kept
+    through the bounded private result assembly, which binds the
+    serializer's exact digest-addressed payload and encoded plan
+    identity without a second report-wide copy, digest or substring
+    scan after the final cutoff, and the exact end is checked before
+    the owning result is made usable.  The public legacy Report and
+    the legacy storage behavior stay unchanged.
+    """
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import source_cohort_runner as source
+
+    meter = state.meter
+    payload, identity, plan_identity = _finish_payload(
+        state,
+        source_report,
+        dataset,
+        cohort,
+        selection,
+        config,
+        captured,
+        meter,
+        clock,
+        current_policy="CHECKED",
+    )
+    state.phase = "FINAL_PIN"
+    if (
+        owner.state != "ACTIVE"
+        or owner.op is not original_op
+        or owner.originals is not originals
+        or owner.derived is not derived
+        or owner.op.path != root
+        or owner.value is not captured
+    ):
+        raise ValueError
+    pin_eligibility._borrowed_owner(owner)
+    try:
+        prior_end = original_op.end
+        original_op.end = end
+        try:
+            owner._association()
+            meter.reserve(1)
+            clock.check()
+            # The genuine selected authority before the actual load.
+            pin_eligibility._genuine_recheck(admission, end)
+            value = owner._held_revalidation()
+            meter.reserve(1)
+            clock.check()
+            if (
+                owner.op is not original_op
+                or value is not captured
+                or owner.value is not captured
+            ):
+                raise ValueError
+            source._pin_capture_identity(owner, value, captured, meter, clock)
+            meter.reserve(1)
+            clock.check()
+            if pin_eligibility._bound_grants(admission, anchor) != grants:
+                raise ValueError
+            meter.reserve(1)
+            clock.check()
+            # The final genuine selected reread under the one clipped
+            # end: the actual selected-writer fault cut.
+            pin_eligibility._genuine_recheck(admission, end)
+            clock.check()
+            # The exact original custody verified after the actual full
+            # FINAL_PIN and the final same-admission selected reread,
+            # before any usable result exists.
+            if (
+                owner.op is not original_op
+                or owner.originals is not originals
+                or owner.derived is not derived
+                or owner.op.path != root
+                or owner.value is not captured
+            ):
+                raise ValueError
+        finally:
+            original_op.end = prior_end
+    finally:
+        owner.guard.release()
+    # The final phase and the clipped deadline are kept through the
+    # bounded private result assembly; the exact end is checked before
+    # the owning result is made usable.
+    result = _mint_owning_grade_report(
+        state,
+        payload,
+        identity,
+        plan_identity,
+        owner,
+        admission,
+        anchor,
+        grants,
+        original_op,
+        originals,
+        derived,
+        root,
+        captured,
+        end,
+    )
+    state.phase = None
+    pin_eligibility._still_within(end)
+    clock.check()
+    return result
+
+
+def _failure(state, admitted, phase, intended, attempted, completed):
+    active = state.phase or phase
+    progress = None
+    if admitted:
+        per_case = active in (
+            "CASE_PIN",
+            "PRODUCER",
+            "BINDER",
+            "GRADE_PIN",
+            "GRADE_BIND",
+            "GRADE_CASE",
+        )
+        progress = FailurePrefix(
+            active, intended, attempted, completed, 1 if per_case else 0, intended - attempted
+        )
+    return EvaluationError(progress)
+
+
+def run_evaluation(
+    originals,
+    derived,
+    root,
+    pin_owner,
+    dataset_bytes,
+    cohort,
+    queries,
+    gold_bundle_ids,
+    *,
+    grants,
+    restrictions,
+    config,
+    budget,
+    plan,
+    grade_budget,
+    deadline_ms,
+):
+    """Evaluate every selected case or refuse without returning a partial report."""
+    import time
+
+    started = time.monotonic()
+    from . import source_cohort_runner as source
+
+    state = _State(plan, grade_budget)
+    return source._run_cohort(
+        originals,
+        derived,
+        root,
+        pin_owner,
+        dataset_bytes,
+        cohort,
+        queries,
+        gold_bundle_ids,
+        grants=grants,
+        restrictions=restrictions,
+        config=config,
+        budget=budget,
+        deadline_ms=deadline_ms,
+        _grade=state,
+        _started=started,
+    )
+
+
+def _pure_case_authority(plan, selected, core, row_map_bytes, membership_bytes,
+                         policy_snapshot, meter, clock):
+    """Pure authority over every ordered admitted case and selected judgment.
+
+    One genuine held row-map/membership admission against the real
+    manifest and immutable pin, one availability table and the bounded
+    indexes with the rank gate's exact scope and linkage checks complete
+    before any catalog, directory or bundle read inside the grade entry.
+    Each case's effective grants come from the exact prepared selection
+    with no added restrictions.  Every readable held entry of each case
+    is scanned against the one availability table: an unavailable
+    partition inside a readable case scope, no readable membership at
+    all, or an unknown, unreadable or unavailable selected entry
+    anywhere refuses the whole plan before any new read; an empty
+    judgment over a fully available readable case scope authorizes zero
+    selected judgment reads and retains the broad trusted catalog
+    operation.  The work is charged to the bounded grade meter.
+    """
+    from . import provenance_records as records
+    from . import raw_snapshot_membership, raw_snapshot_rows
+    from . import source_bound_ranking as ranking
+    from . import supplied_policy_eligibility as eligibility
+
+    meter.reserve(
+        len(core) + len(row_map_bytes) + len(membership_bytes) + 2,
+        len(row_map_bytes) + len(membership_bytes),
+    )
+    mapping = raw_snapshot_rows.bind(core, row_map_bytes)
+    clock.check()
+    bound = raw_snapshot_membership.bind(core, row_map_bytes, membership_bytes)
+    clock.check()
+    unavailable = set(eligibility.unavailable_partitions(policy_snapshot, bound))
+    meter.reserve(len(bound.entries) + 1)
+
+    def check():
+        clock.check()
+
+    by_chunk, by_revision = ranking._bound_indexes(mapping, bound, meter, check)
+    meter.reserve(len(mapping.rows) + len(bound.entries) + 1)
+    for judgment, (_case, _original, effective, _restricted) in zip(
+        plan.judgments, selected, strict=True
+    ):
+        clock.check()
+        meter.reserve(len(bound.entries) + 1)
+        readable = False
+        for entry in bound.entries:
+            meter.reserve(1)
+            scope = records.admit_record("Scope", entry.scope_bytes)
+            if not records.reader_allows(scope, effective):
+                continue
+            readable = True
+            if entry.partition_id in unavailable:
+                # An unavailable partition inside the readable case
+                # scope refuses the whole plan even when another
+                # readable membership remains and even when the
+                # judgment is empty or otherwise valid.
+                raise ValueError
+        if not readable:
+            raise ValueError
+        meter.reserve(len(judgment.gold) + 1, 128 * len(judgment.gold))
+        ranking._admit_selected_chunks(
+            tuple(pair[0] for pair in judgment.gold),
+            by_chunk,
+            by_revision,
+            unavailable,
+            effective,
+            meter,
+            check,
+        )
+
+
+def _commence_grade_catalog(
+    admission,
+    owner,
+    plan_wire,
+    dataset_bytes,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    source_budget,
+    grade_budget,
+    *,
+    deadline_ms,
+):
+    """Fixed private current commencement of the grade-owned direct catalog.
+
+    Binds the genuine current selected-policy request
+    (``private_policy_request.PolicyRequestAdmission``) and the exact
+    live operator-owned pin (``raw_snapshot_pin.PinOwner``) to one
+    actual direct owned catalog through the genuine ordered joint
+    declaration preparation and the shared direct cut.  The caller
+    supplies only the canonical plan wire and dataset bytes, the exact
+    ordered cohort and declaration identifiers, the declared Gold IDs,
+    the config and the bounded source and grade budgets, and one
+    1..30000 ms deadline: no grants or restrictions, pre-admitted Plan
+    or declaration, path or store, catalog, callback, clock, provider
+    or raw credential.  The root and store handles come from the
+    active owner under its real guard, the complete selected-policy
+    snapshot and verified principal grant are frozen through the
+    existing private pin primitives and used for all case
+    intersections with the detached final admission agreement
+    preserved separately, and the one actual clipped
+    ``source._Deadline`` started once near the entry with its exact
+    end clipped in place to the original current request lifetime
+    governs the joint preparation, the checks and meter, the real
+    borrowed owner end, the genuine selected observations and the
+    catalog as the one overall cutoff.  Under one genuine borrowed
+    nonreentrant guard, the exact saved owner operation's prior end is
+    restored on every exit, including the refusal when the owner
+    operation differs, and the guard release is unconditional; the held
+    capture, the real namespace/pin metadata association and the plan
+    snapshot/generation are verified, the complete ordered admitted
+    cases and selected judgments pass the pure authority before any
+    catalog, directory or bundle read, and the genuine same-admission
+    selected policy is the last gate before the one actual direct
+    owned catalog.  After the catalog, the exact same pre-dispatch pin
+    data and associated operation, the exact nominal catalog, the same
+    held owner and metadata association and the genuine final
+    same-admission observation are verified, and the detached full
+    grant and time are rechecked before any usable return, and at most
+    the internal verified catalog identity is returned: never rows or
+    a grade Report.  An admitted CATALOG refusal preserves the
+    intended count with attempted=0, completed=0, refused=0 and
+    pending=intended; a genuine selection mismatch latches the actual
+    admission; ordinary errors use the fixed
+    :class:`EvaluationError`; a non-Exception interruption
+    propagates by identity with prior custody preserved.
+    """
+    import time
+
+    from . import derived_store
+    from . import private_evaluation_preflight as preflight
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as request
+    from . import raw_snapshot_pin
+    from . import source_cohort_runner as source
+    from .source_admission import OriginalStore
+
+    admitted = False
+    intended = 0
+    original_end = None
+    retained_op = None
+    progress = None
+    try:
+        if (
+            type(admission) is not request.PolicyRequestAdmission
+            or type(owner) is not raw_snapshot_pin.PinOwner
+            or type(plan_wire) is not bytes
+            or type(dataset_bytes) is not bytes
+            or not 1 <= len(dataset_bytes) <= 16777216
+            or not pin_eligibility._deadline_accepted(deadline_ms)
+        ):
+            raise ValueError
+        # The one exact monotonic end clipped to the original current
+        # request lifetime; never reset, resampled or extended.
+        started = time.monotonic()
+        end = min(started + deadline_ms / 1000, admission._end)
+        pin_eligibility._still_within(end)
+        # Frozen complete selected-policy snapshot and verified
+        # principal grant before any owner custody; the detached full
+        # anchor is preserved separately for the final admission
+        # agreement.
+        policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+        pin_eligibility._still_within(end)
+        anchor = pin_eligibility._bounded_admission(
+            pin_eligibility._admitted_principal_grants(
+                policy_snapshot, admission.principal_id
+            )
+        )
+        grants = pin_eligibility._bound_grants(admission, anchor)
+        pin_eligibility._still_within(end)
+        # The one actual source deadline, started once near the entry
+        # with its exact end clipped in place to the end above; it
+        # governs the joint preparation, the checks and meter, the real
+        # borrowed owner end, the genuine selected observations and the
+        # remaining I/O.
+        clock = source._Deadline(started, deadline_ms)
+        clock.end = end
+        clock.check()
+        # One genuine borrowed nonreentrant guard, held through the
+        # entire span.
+        pin_eligibility._borrowed_owner(owner)
+        try:
+            if owner.op is None or owner.state != "ACTIVE":
+                raise ValueError
+            if (
+                type(owner.originals) is not OriginalStore
+                or type(owner.derived) is not derived_store.Store
+            ):
+                raise ValueError
+            originals, derived, root = (
+                owner.originals,
+                owner.derived,
+                owner.op.path,
+            )
+            # The exact associated operation captured before its end
+            # is assigned; cleanup restores this exact object's prior
+            # end on every exit.
+            retained_op = owner.op
+            original_end = retained_op.end
+            retained_op.end = end
+            clock.check()
+            # The exact held capture against the real manifest and
+            # immutable pin, verified before any use; the verified
+            # pre-dispatch pin data and bounded row-map bytes are
+            # retained under the guard.
+            pointer, core, _membership, membership_bytes = pin_eligibility._held_capture(
+                owner
+            )
+            clock.check()
+            retained = owner.value
+            row_map_bytes = retained.data.row_map.map_bytes
+            clock.check()
+            # Live namespace and genuine metadata-only association
+            # under the held guard.
+            owner._association()
+            clock.check()
+            prepared, state = preflight._prepare_declaration_body(
+                plan_wire,
+                originals,
+                derived,
+                root,
+                owner,
+                dataset_bytes,
+                cohort,
+                identifiers,
+                gold_ids,
+                grants,
+                None,
+                config,
+                source_budget,
+                grade_budget,
+                clock,
+            )
+            clock.check()
+            admitted = True
+            intended = len(prepared.selected)
+            meter = state.meter
+            plan = prepared.plan
+            _pure_case_authority(
+                plan,
+                prepared.selected,
+                core,
+                row_map_bytes,
+                membership_bytes,
+                policy_snapshot,
+                meter,
+                clock,
+            )
+            clock.check()
+            # The plan snapshot/generation concordance before the
+            # final gate.
+            if (
+                pointer.snapshot_id != plan.snapshot_id
+                or pointer.generation != plan.generation
+            ):
+                raise ValueError
+            # The one guarded genuine current direct catalog body: the
+            # genuine same-admission selected policy as the last gate
+            # before the actual direct owned catalog, the real
+            # dispatch, the exact same pre-dispatch pin data and
+            # associated operation re-verified with the same held owner
+            # and metadata association, the genuine final same-admission
+            # observation and the detached full-grant comparison before
+            # any usable return.
+            catalog_id = _direct_catalog_guarded_body(
+                admission,
+                owner,
+                retained_op,
+                retained,
+                plan,
+                meter,
+                originals,
+                derived,
+                root,
+                anchor,
+                grants,
+                end,
+                clock,
+            )
+            # Recheck the detached full grant and time before any
+            # usable return.
+            pin_eligibility._still_within(end)
+            return catalog_id
+        finally:
+            # Restore the exact saved operation's prior end on every
+            # exit, even when the owner operation differs; the guard
+            # release is unconditional.
+            try:
+                if retained_op is not None:
+                    retained_op.end = original_end
+            finally:
+                owner.guard.release()
+    except Exception:
+        if admitted:
+            progress = FailurePrefix("CATALOG", intended, 0, 0, 0, intended)
+        # The caught ordinary handler has now left; raising below is
+        # outside it, so the fixed error carries no caught context.
+    raise EvaluationError(progress)
+
+
+def _commence_grade_judgment_dispatch(
+    admission,
+    owner,
+    plan_wire,
+    dataset_bytes,
+    cohort,
+    identifiers,
+    gold_ids,
+    config,
+    source_budget,
+    grade_budget,
+    case_id,
+):
+    """Fixed private current commencement of the grade-owned judgment dispatch.
+
+    Binds the genuine current selected-policy request
+    (``private_policy_request.PolicyRequestAdmission``) and the exact
+    live operator-owned pin (``raw_snapshot_pin.PinOwner``) to the one
+    shared grading-owned dispatch of the exact selected case's declared
+    judgment: the stores, snapshot and catalog come from the actual
+    owner through the genuine ordered joint declaration preparation,
+    and the sequential delegates - the existing
+    ``private_policy_pin_eligibility.revalidate_current_pin_case`` for
+    each of the two actual full pins and the existing
+    ``source_bound_ranking.bind_pinned`` for the actual ranking body -
+    each acquire and release their own short owner guard, receiving
+    the full fixed 30,000 ms operation allowance and clipping it to
+    the exact original admission end.  The caller supplies only the
+    canonical plan wire and dataset bytes, the exact ordered cohort
+    and declaration identifiers, the declared Gold IDs, the config and
+    the bounded source and grade budgets and one exact selected case
+    ID: no grants or restrictions, pre-admitted Plan or declaration,
+    path or store, catalog, callback, clock, deadline, provider or raw
+    credential.  The fixed private 30,000 ms operation allowance is
+    selected before any semantic work, and the one exact monotonic end
+    it establishes clipped once to the original current request
+    lifetime is the shared absolute extent for the joint preparation,
+    the checks and meter and the delegated pin revalidations and rank
+    binding; every sequential delegate starts later and clips to that
+    same original end.  Each short borrow - the preparation span and
+    the final identity span, and every delegated pin and rank inside -
+    saves and sets the span end and restores the exact prior end under
+    its own guard and releases unconditionally, so the first borrow
+    leaves no assigned end after its guard release and no outer
+    restore runs after custody relinquishes.  Under the final short
+    guard the same operation, the same retained PinData, the genuine
+    held capture and metadata association and the detached full anchor
+    are verified, with the same actual operation and PinData confirmed
+    again after the genuine association, before the final same-
+    admission reread/cutoff, and the final deadline check runs after
+    custody restores.  The return
+    is at most the internal bounded verified judgment binding with its
+    existing source, authorization and qualification categories:
+    never a grade Report or a delivery result.  An admitted pure
+    refusal preserves the intended count under the actual PREFLIGHT
+    phase; delegated failures preserve GRADE_PIN or GRADE_BIND; an
+    ordinary error uses the fixed :class:`EvaluationError`; a
+    non-Exception interruption propagates by identity with prior
+    custody preserved.
+    """
+    import time
+
+    from . import derived_store
+    from . import private_evaluation_preflight as preflight
+    from . import private_policy_pin_eligibility as pin_eligibility
+    from . import private_policy_request as request
+    from . import raw_snapshot_pin
+    from . import source_bound_stage_loss as binder
+    from . import source_cohort_runner as source
+    from .source_admission import OriginalStore
+
+    admitted = False
+    state = None
+    intended = 1
+    attempted = 0
+    retained_op = None
+    retained = None
+    progress = None
+    try:
+        # The fixed private 30,000 ms operation allowance, selected
+        # before any semantic work.
+        allowance_ms = 30000
+        if (
+            type(admission) is not request.PolicyRequestAdmission
+            or type(owner) is not raw_snapshot_pin.PinOwner
+            or type(plan_wire) is not bytes
+            or type(dataset_bytes) is not bytes
+            or not 1 <= len(dataset_bytes) <= 16777216
+            or type(case_id) is not str
+            or not 1 <= len(case_id) <= 128
+            or not pin_eligibility._deadline_accepted(allowance_ms)
+        ):
+            raise ValueError
+        # The one exact monotonic end clipped to the original current
+        # request lifetime; never reset, resampled or extended.
+        started = time.monotonic()
+        end = min(started + allowance_ms / 1000, admission._end)
+        pin_eligibility._still_within(end)
+        # Frozen complete selected-policy snapshot and verified
+        # principal grant before any owner custody; the detached full
+        # anchor is preserved separately for the final admission
+        # agreement.
+        policy_snapshot = pin_eligibility._isolated_policy_snapshot(admission)
+        pin_eligibility._still_within(end)
+        anchor = pin_eligibility._bounded_admission(
+            pin_eligibility._admitted_principal_grants(
+                policy_snapshot, admission.principal_id
+            )
+        )
+        grants = pin_eligibility._bound_grants(admission, anchor)
+        pin_eligibility._still_within(end)
+        # The one actual source deadline, started once near the entry
+        # with its exact end clipped in place to the end above; it
+        # governs the joint preparation, the checks and meter and the
+        # delegated pin revalidations and rank binding as the one
+        # overall cutoff.
+        clock = source._Deadline(started, allowance_ms)
+        clock.end = end
+        clock.check()
+        # One genuine borrowed nonreentrant guard for the held capture,
+        # the association and the joint preparation; the sequential
+        # delegates acquire and release their own short guards.  This
+        # borrow saves and sets the span end and restores the exact
+        # prior end under its own guard before the unconditional
+        # release, leaving no assigned end after guard release.
+        pin_eligibility._borrowed_owner(owner)
+        try:
+            if owner.op is None or owner.state != "ACTIVE":
+                raise ValueError
+            if (
+                type(owner.originals) is not OriginalStore
+                or type(owner.derived) is not derived_store.Store
+            ):
+                raise ValueError
+            originals, derived, root = (
+                owner.originals,
+                owner.derived,
+                owner.op.path,
+            )
+            # The exact associated operation captured before its end
+            # is assigned; the span restores this exact object's prior
+            # end on every exit under its own guard.
+            retained_op = owner.op
+            span_end = retained_op.end
+            retained_op.end = end
+            try:
+                clock.check()
+                # The exact held capture against the real manifest and
+                # immutable pin, verified before any use; the verified
+                # pre-dispatch pin data and bounded row-map bytes are
+                # retained under the guard.
+                pointer, core, _membership, membership_bytes = (
+                    pin_eligibility._held_capture(owner)
+                )
+                clock.check()
+                retained = owner.value
+                row_map_bytes = retained.data.row_map.map_bytes
+                clock.check()
+                # Live namespace and genuine metadata-only association
+                # under the held guard.
+                owner._association()
+                clock.check()
+                prepared, state = preflight._prepare_declaration_body(
+                    plan_wire,
+                    originals,
+                    derived,
+                    root,
+                    owner,
+                    dataset_bytes,
+                    cohort,
+                    identifiers,
+                    gold_ids,
+                    grants,
+                    None,
+                    config,
+                    source_budget,
+                    grade_budget,
+                    clock,
+                )
+                clock.check()
+                admitted = True
+                meter = state.meter
+                plan = prepared.plan
+                # The declared plan judgments and the ordered prepared
+                # selection align case by case before any use.
+                for declared, selected_entry in zip(
+                    plan.judgments, prepared.selected, strict=True
+                ):
+                    if declared.case_id != selected_entry[0].case_id:
+                        raise ValueError
+                # The same pure case authority over every ordered
+                # admitted case and selected judgment before any new
+                # protected read.
+                _pure_case_authority(
+                    plan,
+                    prepared.selected,
+                    core,
+                    row_map_bytes,
+                    membership_bytes,
+                    policy_snapshot,
+                    meter,
+                    clock,
+                )
+                clock.check()
+                # The plan snapshot/generation concordance before the
+                # dispatch.
+                if (
+                    pointer.snapshot_id != plan.snapshot_id
+                    or pointer.generation != plan.generation
+                ):
+                    raise ValueError
+                # The one exact selected case: a declared plan judgment
+                # and an ordered prepared selection at the same
+                # position.
+                index = None
+                for position, declared in enumerate(plan.judgments):
+                    if declared.case_id == case_id:
+                        if index is not None:
+                            raise ValueError
+                        index = position
+                if index is None:
+                    raise ValueError
+                judgment = plan.judgments[index]
+                case, _original, effective, _restricted = prepared.selected[index]
+                if case.case_id != case_id:
+                    raise ValueError
+                # The expected effective-scope authority for the shared
+                # binder output gate: the exact admitted effective case
+                # grants with no restriction, canonically hashed the
+                # same way the delegated pinned rank binding computes
+                # its own.
+                meter.reserve(2048, 2048)
+                expected_authority = binder._canonical_hash(
+                    [effective.model_dump(mode="json"), None],
+                    b"",
+                    meter,
+                    clock.check,
+                    ensure_ascii=False,
+                    limit=262144,
+                )
+            finally:
+                retained_op.end = span_end
+        finally:
+            # The sequential delegates require the released owner
+            # guard; the release is unconditional.
+            owner.guard.release()
+        # The shared grading-owned dispatch: the two delegated full pin
+        # revalidations and the delegated pinned rank binding of the
+        # exact declared judgment IDs and order under the one clipped
+        # end, with the shared binder output gate.
+        attempted = 1
+        bound = _grade_judgment_dispatch(
+            state,
+            judgment,
+            clock,
+            admission=admission,
+            owner=owner,
+            dataset_bytes=dataset_bytes,
+            case_id=case_id,
+            captured=retained,
+            expected_authority=expected_authority,
+        )
+        clock.check()
+        # The exact same active operation and the same retained
+        # PinData through the delegated span, re-verified under one
+        # final short guard; the genuine held capture and metadata
+        # association and the detached full anchor are verified before
+        # the final same-admission reread/cutoff, the same actual
+        # operation and PinData are confirmed again after the genuine
+        # association, the exact prior end is restored on the retained
+        # operation under the guard and the final deadline check runs
+        # after custody restores.
+        pin_eligibility._borrowed_owner(owner)
+        try:
+            if (
+                owner.state != "ACTIVE"
+                or owner.op is not retained_op
+                or owner.value is not retained
+            ):
+                raise ValueError
+            pin_eligibility._held_capture(owner)
+            clock.check()
+            # The final short borrow saves and sets the span end on
+            # the retained operation itself and restores the exact
+            # prior end on every exit under its own guard.
+            prior_end = retained_op.end
+            retained_op.end = end
+            try:
+                # The genuine actual metadata association under the
+                # held guard.
+                owner._association()
+                clock.check()
+                # The same actual operation and PinData confirmed
+                # after the genuine association, before the final
+                # selected observation.
+                if (
+                    owner.op is not retained_op
+                    or owner.value is not retained
+                ):
+                    raise ValueError
+                # The detached full anchor before the final same-
+                # admission reread/cutoff.
+                if pin_eligibility._bound_grants(admission, anchor) != grants:
+                    raise ValueError
+                pin_eligibility._genuine_recheck(admission, end)
+            finally:
+                retained_op.end = prior_end
+        finally:
+            owner.guard.release()
+        # The final deadline check after custody restores.
+        pin_eligibility._still_within(end)
+        clock.check()
+        state.phase = None
+        return bound
+    except Exception:
+        if admitted:
+            # The actual PREFLIGHT phase for a pure refusal once
+            # admitted; delegated failures preserve the real
+            # GRADE_PIN or GRADE_BIND source phase.
+            active = "PREFLIGHT" if state.phase is None else state.phase
+            per_case = active in ("GRADE_PIN", "GRADE_BIND", "GRADE_CASE")
+            progress = FailurePrefix(
+                active,
+                intended,
+                attempted,
+                0,
+                1 if per_case and attempted else 0,
+                intended - attempted,
+            )
+        # The caught ordinary handler has now left; raising below is
+        # outside it, so the fixed error carries no caught context.
+    raise EvaluationError(progress)

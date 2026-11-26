@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-13T08:55:19.605676+00:00",
+  "head": "21a3cbd12b8164ec21ba3b6a0b78104d0663c8e1",
+  "implementation": "aa4cbfa34ae4c4eba417975635c36180e64e3b63",
+  "normal": ".oap-state/response-consumed-009-a.json",
+  "PR": 11,
+  "run": 43395492425,
+  "job": 131785319836,
+  "state": "REQUIRED_PRODUCT312_UNIT_FAILED_WHOLE009_NOT_ACCEPTED",
+  "failure": "tests/unit/test_text_evaluation_dataset.py::test_oracle_and_frozen_private_records expectsTypeError from dataclasses.replace(result,qualification=QUALIFIED); actualPython3.12.16 raisesValueError init=False. Guardworks, expectation notportable.",
+  "preserved_log": "audit/009-a-product312-failure-21a3.log",
+  "log_bytes": 57949,
+  "log_sha256": "a1fef7d21c29a6ba834cf106d45501247eb8cae16cc7eb6dbd65e822409866ad",
+  "other_checks": "3OAPsuccess;Product314unitSUCCESS/integrationinprogress atinitialobservation, notgreen/accepted. Product312laterintegrationandstepsSKIPPED.",
+  "decision": "Same009-b narrowtestportabilityfix oncurrentPR11, notlargertransfer. Old009-b fifteen-file DRAFT remainsinert/deferredtentative009-c; nohistoricalrewrite.",
+  "fix_boundary": "Only exactpytest.raises clause broadened to(TypeError,ValueError), no productchange/fallback/skip/removedassertion/capraise/deps/workflow/runtime. Dataclassreplacement muststillrefuse.",
+  "required": "Focusedexistingmodule+changedfilelint boundedonce; fullUNCHANGEDnewreporthead5jobsALLsteps beforeacceptance. Preservecurrentfailedrun andallreports; nooldrunretry.",
+  "DHA": "NONE"
+}

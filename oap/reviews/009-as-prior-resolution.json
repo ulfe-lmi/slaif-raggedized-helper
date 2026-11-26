@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-21T12:15:03.580872+00:00",
+  "identifier": "009-ar",
+  "decision": "ACCEPT_EXACT_SCOPE_CONTINUATION_ONLY",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "accepted_report_head": "895e8467c48838a62c04d22c131ae86e5bb6c705",
+  "implementation": "1a22705471754590f4d0e1a13f5ff526291d7da6",
+  "report_run": 44896836955,
+  "report_run_attempt": 2,
+  "terminal_review": {
+    "path": "audit/009-ar-check/Root-terminal-review.json",
+    "bytes": 6116,
+    "sha256": "785e160d70bbdd281344f8a75b7419dd5339246c9aa55aaf2fd870853160f81e"
+  },
+  "verification": {
+    "all_five_required_jobs": "SUCCESS",
+    "every_required_step": "SUCCESS",
+    "ordered_units": [
+      1440,
+      1998
+    ],
+    "units_per_product": 3438,
+    "integrations_per_product": 1000
+  },
+  "scope": "Exact 009-ar corrected synthetic source-stage proof only. The repaired canonical stage fixture stays byte-exact.",
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}

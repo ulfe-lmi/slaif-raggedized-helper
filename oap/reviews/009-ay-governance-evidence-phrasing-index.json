@@ -1,0 +1,69 @@
+{
+  "at": "2026-11-25T01:31:14.636802+00:00",
+  "identifier": "009-ay",
+  "base": "17b33ae4074b3478797011d39ceb94e28b4c4cf4",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "reason": "Apply and publish the human-supplied evidence phrasing law with a coherent measured and verified governance bundle.",
+  "prior_resolution": {
+    "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/workorders/009-ay-prior-resolution.json",
+    "bytes": 1990,
+    "sha256": "2ad1621a826c54bea383000a82fb1e2e50d40d243feaba7fe6fa7084efb321e4"
+  },
+  "governance_files": {
+    "oap/coding-instructions/AGENTS.md": {
+      "before_sha256": "6ee5dae3ea689384a3ccca5c3c6342418a1368449c32ac5f48ec301eddc74636",
+      "mode": "100644",
+      "blob": "b35ed37d41af2d531bbcb8fb04aecda3747b5bf0",
+      "bytes": 7188,
+      "sha256": "e60bb0d865f5c23edfd0dc22060afccce98bc972e48230c2885d30c7bbec033b"
+    },
+    "oap/strategic-instructions/AGENTS.md": {
+      "before_sha256": "94516ab96648410c4d87ff39b994285d999e3ee961c9332d7146ec8211546927",
+      "mode": "100644",
+      "blob": "38fac3eee411e62dfd57bf4b88c8de36e0739f84",
+      "bytes": 10466,
+      "sha256": "dc2a30eb6d48b2ca8e4ef6d91a36cf8798bcb8bc059ca3a1a182f5f46b75083f"
+    },
+    "oap/governance/CONTEXT-BUDGET.md": {
+      "before_sha256": "e8810fd8dfb2e916e326776b50a1c3232e939a94c0d60c9415ba21ec4efce48c",
+      "mode": "100644",
+      "blob": "2f9c237524a19e896cda1ee5161686c5f9a28f93",
+      "bytes": 1360,
+      "sha256": "5d8ecd9bccda758b2697f6f013d9f849769485ae38c8e59ccca882a6a43d80cb"
+    },
+    "oap/governance/DISTILLATION-MAP.md": {
+      "before_sha256": "984597944daa3773da0ef46bd8056606fd41d4af598e065eb51c8b4cde6ff4c3",
+      "mode": "100644",
+      "blob": "065b629a34e829f3cb6ce73e35acf05583997611",
+      "bytes": 11738,
+      "sha256": "caf6dfaec2133b52a1a55b5363bfa82a68cf7697244b655aa1bade2615b8a7f8"
+    },
+    "oap/governance/MANIFEST.json": {
+      "before_sha256": "24cec23235e3defc5f55bab4690298191d5a233d35dd9bf20b0afb4b3925f922",
+      "mode": "100644",
+      "blob": "9da3c49557aa8cedfe35a715b9d3550b4485a282",
+      "bytes": 8683,
+      "sha256": "193effdb8e37b1e673ae7ac2c1ae21fec1d36454a012bd61b56fdd98fc3bce4a"
+    },
+    "tests/oap/test_harness.py": {
+      "before_sha256": "69de0d002b9f994ff114f0de85de8fbbbaf8522947cf2e31f7c3dfb1d8406e20",
+      "mode": "100644",
+      "blob": "1f3af324d4ee3daddd15156d39f140a14c485cf6",
+      "bytes": 32492,
+      "sha256": "d745fdb03124972c1c4b82ade6bcbcf2e5a46098028865f167107f8ea0b3549d"
+    }
+  },
+  "coding_read_bytes": 51607,
+  "coding_byte_ceiling": 52000,
+  "hosted_each_product": {
+    "ordered_units": [
+      1440,
+      1998
+    ],
+    "integrations": 1008
+  },
+  "baseline": "NOT_RUN",
+  "whole_009": "PARTIAL",
+  "DHA": "NONE"
+}

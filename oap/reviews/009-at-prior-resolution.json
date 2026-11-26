@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-21T13:12:38.455688+00:00",
+  "identifier": "009-as",
+  "PR": 11,
+  "report_head": "915c516c3ad83ab8657b1cc67a98f8ca94d32dc5",
+  "report_sha256": "ce83fc56a78e36c435b7280fda68b16e76914e84e08bd754e19a36c796dbfeb8",
+  "decision": "REJECT_EXACT_HOSTED_GATE_TEST_REPAIR",
+  "head_run": 44905965875,
+  "attempt": 1,
+  "terminal_review": {
+    "path": "audit/009-as-check/Root-terminal-review.json",
+    "bytes": 3501,
+    "sha256": "cbc767fb51f4589f778b4044936a9be02b6f1274575f387baa0a4e73a4ef2b49"
+  },
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}

@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-20T22:04:08.264668+00:00",
+  "identifier": "009-af",
+  "PR": 11,
+  "base": "de62aebdf11e1983845a6a38464cc0cc645991e9",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "prior": {
+    "path": "audit/009-ae-check/Root-terminal-review.json",
+    "bytes": 4492,
+    "sha256": "07179bcecad4a0883ae782d4121e0db009261587fe370b0acd8e2fedb89e6e55"
+  },
+  "run": 44822395486,
+  "attempt": 1,
+  "state": "ACCEPT_EXACT_SYNTHETIC_009_AE_VALID_CASE_BOUND_PATH_WHOLE_009_PARTIAL",
+  "units_each": 3438,
+  "integration_each": 960,
+  "precise_follow_up": "Add the exact Gold candidate source and five integration tests by blob identity, and close the 009-ae None dataset nominal-input sentinel before shared custody/current-read. No real baseline or integration credit before fresh exact report-head CI.",
+  "DHA": "NONE",
+  "baseline": "NOT_RUN"
+}

@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-21T07:23:01.607770+00:00",
+  "identifier": "009-an",
+  "decision": "REMEDIATION_REQUIRED_NO_ACCEPTANCE",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "failed_report_head": "dc09ae4f90ffab086aadf24ca39de9b9f2b29384",
+  "implementation": "9dababa45f0a9d0716b0ab5da925fb2f62fce529",
+  "report_run": 44877969312,
+  "report_run_attempt": 1,
+  "terminal_review": {
+    "path": "audit/009-an-check/Root-terminal-review.json",
+    "bytes": 3725,
+    "sha256": "75a25a1c29f873f9590456532316bf0d0fd24921b5d15b1bb4c8042b5ec21aa8"
+  },
+  "remediation": "Test-only mismatch between malformed pre-admission declaration and admitted progress expectation. Continue same numeric objective as 009-ao.",
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}

@@ -1,0 +1,58 @@
+{
+  "lane_id": "PAR-009-REPORT-PUBLICATION-A",
+  "result": "COMPLETE",
+  "implementation_head": "70bf21fca97b1bf4533d1913866031e08ff4eb0b",
+  "report_publication_commit": "SELF",
+  "base": "45bcb729025e2015e306bc883bdbf008a05f31ec",
+  "branch": "oap/parallel-009-private-report-publication",
+  "api": "Private immutable report publication: O_TMPFILE unnamed staging under a 16-slot x 6-cell (96 counted) descriptor-token registry, one no-replace procfs-magic-link publish, truthful NOT_PUBLISHED/CONFLICT/POSSIBLY_PUBLISHED/DURABLE states, bounded caught-cleanup cancellation priority with content-free errors, and public retry_cleanup with conservative real-registry retirement accounting; contract, API and order docs included.",
+  "provenance": "Root orders/addenda 42da3447/4530edd8/4b73882f/192634b9 and docs 0f8fcaa6/83dc0ada/bcf05f8f; Root static gates with v1-v4 change rounds; independent frozen publisher peer 30af094e normal (source-only bound, AST-equal preformat 80b01ad0/24fde212); Root checkpoint review audit/009-publisher-implementation-checkpoint-review-70bf21fc.json.",
+  "commands_and_results": [
+    {
+      "command": "Root-owned Ruff format, V1 script, one exact invocation",
+      "result": "REFUSED pre-write (exit 1, AssertionError line 44): script LOG path collided with a preserved prior-round artifact; zero source writes, no retry; refusal record preserved; Root confirmed operator error and reissued V2"
+    },
+    {
+      "command": "Root-owned Ruff format, V2 script, one exact invocation",
+      "result": "PASS exit0; exact AST-equal postimages 43207d97/4b1961f3; all 26 pinned inputs unchanged; attempt/log/result artifacts preserved"
+    },
+    {
+      "command": "Root-owned Ruff check (lint) on the formatted bytes",
+      "result": "PASS, 'All checks passed!', 31 identities, per-process bounds only"
+    },
+    {
+      "command": "Root-owned complete unit run, fresh 88-case suite on 43207d97/4b1961f3/bcf05f8f",
+      "result": "PASS 88 in 1.87s; 114/114 post/current hashes independently matched; no skip/xfail/selector; wall 2.63s, waited child CPU 2.17s, RSS highwater 59336KiB, direct pid 17102 exclusive session reaped; per-process limits only, no aggregate certificate"
+    },
+    {
+      "command": "Root-owned earlier 86-case run (pre-cleanup-v3 bytes)",
+      "result": "PASS 86 in 1.83s, 98 hashes, 9876B log; preserved separately as evidence for the old bytes only, not proof of the current bytes"
+    }
+  ],
+  "witness_sha256": {
+    "source": "43207d97f4c195966049cf53bf45c1b47543277dbf95b0bb7068a8a734378e34",
+    "unit": "4b1961f3136a00a6dcc1f39bb5720006d990924e17931ac8a7593bd2ffc43d48",
+    "api": "bcf05f8fd15a239960ed4316c32dda33fc2896be2c2cfc5d0a48f05a1a20f5f7",
+    "contract": "0f8fcaa63c937b3c607f7b266f327515c162b8ddfed1ed6babda220dfad3deba",
+    "unnamed_v2": "83dc0ada8070f53eeba4263d22e1e158e71e4b667619c8ea49486a7925fa9c98",
+    "order": "42da344766970fb0659936ce67c63353335288ab22cfa8fda5ac4365fa7bc0f4",
+    "unnamed_addendum": "4530edd8628219ebaf0dbdc620d425183b9d57f216e4ada8137ded5b8d0fde70",
+    "tracking_addendum": "4b73882ffe69f6453aa421acd87482f331611e546837375c8d3de1cee3d90bbb",
+    "publication_addendum": "192634b92f55f1c113953312da341629cb9b688e3b912c2c54cd82c247e529a4",
+    "first86_source": "ced70ae74b3863e1526aa7659266c50806c15b0465fb708b2a9c9361de76f301",
+    "first86_unit": "7a033e13c2193115fdf0fdd94711e4413c051da0a4b68162dc0db9c20bc90990",
+    "first86_log": "653a7d9e65dfdbc3cc456a00cfd1ae1bb2f771e9b5b30e147ef4e42529aad53d",
+    "new88_log": "06fe38e7fa10980bc440d445008926d119ef9170bc822759e7d8e5c55a48e2cd",
+    "lint_log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "format_v2_attempt": "eb21eec1a81031de4e402615b9d2388a7e4ab0b62d64c5f6bb4dc24bd4a3dfcf",
+    "format_v2_log": "96a977f329ec3c59092d40e041a019b49dcf03ca04055e177aa0ccb8c27234df",
+    "format_v2_result": "67d570837987e0e28cb969abecbbe13171af1b1528861e7402d3ca75f98650e9",
+    "format_v1_refusal": "76d4991be2a274b08242c6ab43e3f79245ef0788b1c44663888d1a31f92bf71e",
+    "checkpoint_decision": "b0fdecdc4f2e30f0787370242912f918582c7869568248414eeb907b27e2d238",
+    "checkpoint_audit": "40b87eccc6f6ea6bc9c64a4405b10e1d3718a8731d09b01cbccfe1c0e38f20b0",
+    "product_check_review": "712d8a6fc50a79f1be52eb6972edd5713e03f1198cd3371ecb88b79adf791c7b"
+  },
+  "historical_failures": "All earlier CHANGES_REQUIRED rounds, failed/refused attempts, the pre-Ruff V1 formatter refusal and the V1 publication-format LOG-collision revocation preserved in the lane; first86 and new88 evidence kept separate; read-budget figures are author estimates with disclosed uncertainty, no Root certification, no reset/refund/retroactive approval.",
+  "limits": "Controlled synthetic fixtures only: no real producer, current principal, rights, power-loss, OS-signal, hardware, full-MVP or current-CI qualification; Linux/procfs bounded caught-cleanup constraints; no destructive namespace operations by design; Root alone holds later integration/merge authority.",
+  "roles": "Source author role unchanged; all format/lint/unit/check/peer/checkpoint executions were Root-owned, not CODING's own execution."
+}

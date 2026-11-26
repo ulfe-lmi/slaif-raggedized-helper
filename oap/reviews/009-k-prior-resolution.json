@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-16T23:49:13.244424+00:00",
+  "identifier": "009-j",
+  "numeric_objective": "009 remains OPEN",
+  "decision": "CANCELLED_NOT_ACCEPTED_CONTINUE_SAME_OBJECTIVE",
+  "report_self": "cc51b9a9a3eb478b3812bb3295459172bc5882b7",
+  "implementation_head": "a0575b260b7055f7ea61460b3f4a2e78ce38b894",
+  "transcript_head": "10a2e037fcb733646ad1c334343ceb1412e85ebc",
+  "report": {
+    "bytes": 5986,
+    "sha256": "f964a57af6a531822d0143b4f63071bee561b31a9dff000b6edf9fb2a34ab274",
+    "normal_at": "2026-11-16T23:18:04.368659+00:00",
+    "review": "audit/009-j-report-root-review-cc51b9a.json plus report-size-correction.json: final5986 withinsoft6000; observed6180 draft not final"
+  },
+  "remote": "PR11 unique objective branch oap/009-evaluation-baseline; OPEN nondraft unmerged, headcc51/main5a7, zero reviews and zero reviewthreads refreshed through connector atterminal. Canonical treeclean and exact3commit ancestry independently reconfirmed.",
+  "run": {
+    "id": 43978029330,
+    "run_number": 133,
+    "run_attempt": 1,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "updated_at": "2026-11-16T23:42:50Z"
+  },
+  "jobs": [
+    {
+      "id": 133686949905,
+      "name": "Product tests (Python 3.12)",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "completed_at": "2026-11-16T23:42:49Z"
+    },
+    {
+      "id": 133686950318,
+      "name": "OAP tests (Python 3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-11-16T23:18:21Z"
+    },
+    {
+      "id": 133686950400,
+      "name": "OAP tests (Python 3.14)",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-11-16T23:18:20Z"
+    },
+    {
+      "id": 133686950403,
+      "name": "Product tests (Python 3.14)",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "completed_at": "2026-11-16T23:42:49Z"
+    },
+    {
+      "id": 133686950475,
+      "name": "OAP tests (Python 3.12)",
+      "status": "completed",
+      "conclusion": "success",
+      "completed_at": "2026-11-16T23:18:11Z"
+    }
+  ],
+  "steps": {
+    "count": 76,
+    "states": [
+      {
+        "status": "completed",
+        "conclusion": "success",
+        "count": 60
+      },
+      {
+        "status": "in_progress",
+        "conclusion": null,
+        "count": 2
+      },
+      {
+        "status": "pending",
+        "conclusion": null,
+        "count": 14
+      }
+    ],
+    "inconsistency": "Both terminal cancelled jobs retain unitstep16 in_progress and seven downstream steps pending; two usual Completejob steps absent. Preserve, not green."
+  },
+  "annotations": "Both product check runs explicitly state exceeded maximum executiontime20m0s. Notice also mentions ubuntu-latest migration; no attribution of failure to OS image or memory.",
+  "logs": "Both connector product logs404BlobNotFound. One gh312 --log fallbackexit0 with0stdout/0stderr. No usable lastnode/stack/resource/timedcommand status available; does not establish execution success, timeout effectiveness, absence of test failure, OOM or escaped child cause.",
+  "strongest_reason_not_to_merge": "Both required product matrices cancelled and downstream required gates never completed successfully. Three successful OAP jobs and historical Root104 do not substitute.",
+  "next_decision": "Prepare same009 continuation improving runner-output/lifetime diagnostics from concrete failed evidence. Investigate inherited-output ownership as hypothesis only; no speculative productfix/filter/capraise/oldrunretry. Separatepublisher/planparser audits retain scoped authority.",
+  "evidence_directory": "audit/009-j-ci-terminal/",
+  "observation": ".oap-state/ci-terminal-observed-009-j.json was only an observer; independently reconciled GitHub metadata/annotations/log failure/head/reviews here.",
+  "merge": "NONE",
+  "DHA": "NONE"
+}

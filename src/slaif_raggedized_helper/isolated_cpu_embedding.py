@@ -500,6 +500,24 @@ class IsolatedCPUEmbeddingSession:
             raise ValueError
 
     def encode(self, texts):
+        # Public legacy entry: the original unguarded delegation shape.
+        return self._encode_body(texts, None, None)
+
+    def _encode_guarded(self, texts, admission, op_end):
+        # Explicit private guarded entry for the one-row admitted operation.
+        # The exact real admission is required, never None or a stand-in, and
+        # the operation is one row.
+        from . import private_policy_request as ppr
+
+        if (type(admission) is not ppr.PolicyRequestAdmission
+                or type(op_end) is not float or not math.isfinite(op_end)
+                or op_end <= 0
+                or type(texts) is not list or len(texts) != 1):
+            raise SessionRefused() from None
+        op_end = min(op_end, admission._end)
+        return self._encode_body(texts, admission, op_end)
+
+    def _encode_body(self, texts, admission, op_end):
         self._acquire()
         try:
             if self._state != "open":
@@ -514,13 +532,26 @@ class IsolatedCPUEmbeddingSession:
                     raise ValueError
                 sizes = self._preflight(texts)
                 texts = tuple(texts)
+                if admission is not None and len(texts) != 1:
+                    # The isolated guarded operation is one row.
+                    raise ValueError
                 self._renew(sizes)
                 if _native_values(self._tokenizer._policy) != self._native_policy_snapshot:
                     raise ValueError
-                receipts = tuple(self._tokenizer.encode(text) for text in texts)
+                if admission is None:
+                    receipts = tuple(self._tokenizer.encode(text) for text in texts)
+                else:
+                    receipts = tuple(
+                        self._tokenizer._encode_guarded(text, admission, op_end)
+                        for text in texts
+                    )
                 for receipt, text in zip(receipts, texts, strict=True):
                     self._receipt(receipt, text)
-                rows = self._worker.forward_cls([receipt.ids for receipt in receipts])
+                if admission is None:
+                    rows = self._worker.forward_cls([receipt.ids for receipt in receipts])
+                else:
+                    rows = self._worker._forward_guarded(
+                        [receipt.ids for receipt in receipts], admission, op_end)
                 vectors = embedding_vectors.normalize_rows(rows)
                 if (
                     len(vectors.rows) != len(texts)
@@ -562,6 +593,12 @@ class IsolatedCPUEmbeddingSession:
                     != json.loads(self._record_snapshot)["bridge"]
                 ):
                     raise ValueError
+                if admission is not None:
+                    # Final bounded-operation end at the isolated result
+                    # return: a result that became late during receipt
+                    # normalization/identity is refused against that same
+                    # actual end, never reset or extended.
+                    self._require_within_op_end(op_end)
                 return EncodedBatch(
                     vectors,
                     receipts,
@@ -575,6 +612,14 @@ class IsolatedCPUEmbeddingSession:
                 self._fail(error)
         finally:
             self._lock.release()
+
+    def _require_within_op_end(self, op_end):
+        # Final bounded-operation end check at the isolated result return: a
+        # result that became late during receipt normalization/identity is
+        # refused against that same actual end, which is never reset or
+        # extended.
+        if time.monotonic() >= op_end:
+            raise ValueError
 
     def embed(self, texts):
         return [list(row) for row in self.encode(texts).vectors.rows]

@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-13T14:41:08.438343+00:00",
+  "status": "FINAL_STATIC_ONLY",
+  "base": "598d6dc6d8dd97f711859c1277a08e8bfb606956",
+  "sources": [
+    {
+      "SELF": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+      "shared_production_files": 117,
+      "shared_production_differences": [],
+      "pyproject_uvlock_actual_oap_workflow": "IDENTICAL"
+    },
+    {
+      "SELF": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+      "shared_production_files": 117,
+      "shared_production_differences": [],
+      "pyproject_uvlock_actual_oap_workflow": "IDENTICAL"
+    }
+  ],
+  "canonical_dataset_unit_sha256": "b00aa74f4097002b03cd441a97fd920ed706c7cbaf16ecba80640d9fb93026ac",
+  "new_paths_verified_absent": 9,
+  "private_proof_preparation": "657fbf571751d5b6232e543b2fbd94fba7f7516a parents[e687b86264f970b7e4ea93cc6393b34a92cc1232,91f31182dae31a01d0f0dbf35b272c18ed08a2c8], implementation60b171379a826d97920378a59109d31869970387, reportonlySELF5ffef4c1f42fc8c01591218bfcbe115318094918",
+  "DHA": "NONE"
+}

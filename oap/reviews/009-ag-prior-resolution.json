@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-20T22:49:59.984245+00:00",
+  "identifier": "009-ag",
+  "PR": 11,
+  "base": "36f61c216748528915f372c0f87f16689f60916d",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "prior": {
+    "path": "audit/009-af-check/Root-terminal-review.json",
+    "bytes": 4482,
+    "sha256": "c80ba5d199b11d823638a6802c713ab7c493de7cbf922de4f752dcb6069cad52"
+  },
+  "run": 44828910327,
+  "attempt": 1,
+  "state": "ACCEPT_EXACT_CONTROLLED_009_AF_GOLD_BUNDLE_START_AND_HYBRID_INPUT_GATE_WHOLE_009_PARTIAL",
+  "units_each": 3438,
+  "integration_each": 965,
+  "follow_up": "Exact guarded encoder T1/T2 component transfer and receiving proof. Whole 009 partial, baseline NOT_RUN.",
+  "DHA": "NONE"
+}

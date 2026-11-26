@@ -15,11 +15,16 @@ enforces, in order, BEFORE any fingerprinting or dispatch:
 3. encoding: STRICT UTF-8. Invalid Unicode is refused before
    fingerprinting/dispatch — never replaced or truncated into a new
    workload;
-4. JSON: the expected decoder/type/depth/integer failures are normalized
-   to FIXED typed refusal evidence. No raw traceback, no input or
-   private-path echo, and no process-global decoder-limit change (the
-   interpreter's integer-digit and recursion limits are left untouched;
-   the failures they raise are caught and converted to typed refusals).
+4. JSON: a quote-aware APPLICATION depth guard — the package-internal
+   ``parity_io._depth_check`` reusing the existing 64-container
+   envelope — runs BEFORE the decoder, and only that depth refusal is
+   the fixed ``too_deep`` result (the native ``RecursionError``
+   fallback is retained). The expected decoder/type/integer failures
+   are normalized to FIXED typed refusal evidence. No raw traceback, no
+   input or private-path echo, and no process-global decoder-limit
+   change (the interpreter's integer-digit and recursion limits are
+   left untouched; the failures they raise are caught and converted to
+   typed refusals).
 
 The CLI maps a refusal to its exit-code distinction: ``SPEC_MISSING``
 (absent/unreadable) and ``SPEC_INVALID`` (fixed reason) are both
@@ -33,6 +38,8 @@ import os
 import stat
 from dataclasses import dataclass
 from typing import Any
+
+from . import parity_io
 
 MAX_SPEC_FILE_BYTES = 65_536
 _CHUNK_BYTES = 4_096
@@ -68,7 +75,8 @@ _REASONS = {
         "spec JSON integer exceeds the decoder's fixed digit bound"
     ),
     REASON_TOO_DEEP: (
-        "spec JSON nesting exceeds the interpreter's recursion bound"
+        "spec JSON nesting exceeds the fixed 64-container application "
+        "guard, or the interpreter's recursion bound"
     ),
 }
 
@@ -143,17 +151,30 @@ def decode_spec_text(raw: bytes) -> tuple[str | None, SpecFileRefusal | None]:
 def parse_spec_json(text: str) -> tuple[Any | None, SpecFileRefusal | None]:
     """JSON decode with FIXED typed handling of the expected failures.
 
+    - nesting beyond the fixed 64-container application guard (the
+      quote-aware package-internal ``parity_io._depth_check``) is
+      refused BEFORE the decoder runs: ``too_deep``;
     - malformed JSON: ``not_json`` with the decoder line number;
     - an integer literal beyond the interpreter's fixed digit bound
       raises a plain ``ValueError`` from the decoder: ``integer_too_large``
       (the process-global limit is intentionally NOT raised to work
       around the failure);
-    - nesting beyond the interpreter's recursion bound raises
-      ``RecursionError``: ``too_deep``;
+    - nesting that nonetheless reaches the interpreter's recursion bound
+      raises ``RecursionError``: the same fixed ``too_deep`` refusal
+      (native fallback retained);
     - a syntactically valid but wrong-type document (e.g. a top-level
       array) is a SPEC contract failure, handled by the caller's
       ``TrialSpec`` validation, not here.
     """
+    try:
+        parity_io._depth_check(text)
+    except parity_io.Refusal:
+        # Only the application depth guard's own refusal is translated
+        # here; every input within the 64-container envelope reaches
+        # the decoder below with all prior behavior unchanged.
+        return None, SpecFileRefusal(
+            SPEC_ERROR_INVALID, REASON_TOO_DEEP,
+            _REASONS[REASON_TOO_DEEP])
     try:
         return json.loads(text), None
     except json.JSONDecodeError as exc:

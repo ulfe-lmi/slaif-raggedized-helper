@@ -1,0 +1,175 @@
+{
+  "status": "ROOT_FINAL_FROZEN_INPUT_IDENTITIES_NO_STANDALONE_ACTIVATION",
+  "base": "3f8b4eb08c4213b2ea11561e722263c40fa75c1e",
+  "scope": "Only explicit bounded ids= keyword in exact fifteen parametrize calls. Lambda/dict/DTO nested-literal false-positive findings excluded after actual source review. No fixture/body/expression/order/count changes.",
+  "files": [
+    {
+      "path": "tests/unit/test_bundle_native_records.py",
+      "function": "test_refusal",
+      "full_bytes": 2061,
+      "sha256": "9265f4033caca5159b527afdd76fb6ff1fe31a343030213066f38ea7be21e7ac",
+      "decorator_lines": [
+        5,
+        17
+      ]
+    },
+    {
+      "path": "tests/unit/test_bundle_pdf_records.py",
+      "function": "test_bad_json_tree",
+      "full_bytes": 3862,
+      "sha256": "84a2fe319b2a1b674f8ae3b66496468bbb0e16db0870ae30ec8c06c090f4bbca",
+      "decorator_lines": [
+        32,
+        43
+      ]
+    },
+    {
+      "path": "tests/unit/test_cpu_embedding_session.py",
+      "function": "test_late_invalid_preflight_no_worker_or_forward",
+      "full_bytes": 8668,
+      "sha256": "bad8d8d5a22afb13849a91b65cd51a8c335f5d00145fde00debbcf015b2ca549",
+      "decorator_lines": [
+        62,
+        63
+      ]
+    },
+    {
+      "path": "tests/unit/test_derived_store.py",
+      "function": "test_json_complexity_and_unicode_limits",
+      "full_bytes": 23983,
+      "sha256": "209dc75c7ea18c12bc36c297b72e2c76826de55ab7fee778a6df9a166309d0be",
+      "decorator_lines": [
+        339,
+        348
+      ]
+    },
+    {
+      "path": "tests/unit/test_embedding_batch_store.py",
+      "function": "test_bad_syntax_before_io",
+      "full_bytes": 4063,
+      "sha256": "8efee30c265604db3bf8b62f1262a512db28b5992cc5541050aa647c19c75cc9",
+      "decorator_lines": [
+        72,
+        74
+      ]
+    },
+    {
+      "path": "tests/unit/test_embedding_space.py",
+      "function": "test_definition_refused",
+      "full_bytes": 6048,
+      "sha256": "4910c5b8b50491a1750d3d9fddb1bfcfe14e45c2ac009535348ed41e11c8165d",
+      "decorator_lines": [
+        62,
+        75
+      ]
+    },
+    {
+      "path": "tests/unit/test_embedding_tokenizer.py",
+      "function": "test_malformed_response",
+      "full_bytes": 19579,
+      "sha256": "ca6dadb7a7bf5c83edac7dc4cb04754bcb6e411915f5fdd20e6537679647b517",
+      "decorator_lines": [
+        92,
+        94
+      ]
+    },
+    {
+      "path": "tests/unit/test_gpu_device_lease.py",
+      "function": "test_preflight_without_io",
+      "full_bytes": 7584,
+      "sha256": "1e29e3b54392dd038cecce705f0d6d359e83e2b63816eb25b0a0411222a52b99",
+      "decorator_lines": [
+        29,
+        34
+      ]
+    },
+    {
+      "path": "tests/unit/test_ingestion_profile.py",
+      "function": "test_invalid_raw",
+      "full_bytes": 5775,
+      "sha256": "d14cd674fd7f19da4f7027a2746821f99d57c44ef6a75aa0512a6db807b932aa",
+      "decorator_lines": [
+        73,
+        76
+      ]
+    },
+    {
+      "path": "tests/unit/test_owned_gpu_worker.py",
+      "function": "test_control_rejects_missing_duplicate_and_oversize",
+      "full_bytes": 17947,
+      "sha256": "d96fac12b41960e91935443ffa203dc4696384af0127bf87e7c893b8f528297b",
+      "decorator_lines": [
+        98,
+        101
+      ]
+    },
+    {
+      "path": "tests/unit/test_query_embedding.py",
+      "function": "test_raw_refusal_before_dispatch",
+      "full_bytes": 8592,
+      "sha256": "c9805376ac4573655cb88f37efe64ef6df81e9b0e079e26e70140da1dc2eb77a",
+      "decorator_lines": [
+        29,
+        30
+      ]
+    },
+    {
+      "path": "tests/unit/test_raw_hybrid_search.py",
+      "function": "test_invalid_before_source_or_engines",
+      "full_bytes": 3000,
+      "sha256": "48010b7445c130c2e10361f229aff3ff5fc4f528999e3edb1a48ec9f10a78cd9",
+      "decorator_lines": [
+        19,
+        25
+      ]
+    },
+    {
+      "path": "tests/unit/test_raw_snapshot_query.py",
+      "function": "test_bad_question_before_policy",
+      "full_bytes": 13832,
+      "sha256": "cd7c959d7b067756dce7c8a04b09f8111e261d32821d65509e65936c045f3e08",
+      "decorator_lines": [
+        351,
+        352
+      ]
+    },
+    {
+      "path": "tests/unit/test_source_bound_stage_loss.py",
+      "function": "test_payload_preflight_refuses_before_source",
+      "full_bytes": 63336,
+      "sha256": "b6b10890ef8697e47d5b493a5fecbf914144f5124dcc0945f0c43f26e7d0e41a",
+      "decorator_lines": [
+        1584,
+        1585
+      ]
+    },
+    {
+      "path": "tests/unit/test_tokenizer_session.py",
+      "function": "test_malformed_response_closes_worker",
+      "full_bytes": 5702,
+      "sha256": "92120f50b5c7ee0449c09cdaa21e8a7b08637d91565dbc39db553022846f07be",
+      "decorator_lines": [
+        44,
+        50
+      ]
+    }
+  ],
+  "decorator_projection": {
+    "path": "/home/janezp/codex-supervision/slaif-raggedized-helper/workorders/009-l-decorators.txt",
+    "bytes": 5862,
+    "sha256": "9beb567c03fdf8107b995a3ab3cd25e0ec09acde3827facc8db3905ed0e3f33e"
+  },
+  "at": "2026-11-17T04:43:34.277201+00:00",
+  "prior_resolution": {
+    "strategic_path": "/home/janezp/codex-supervision/slaif-raggedized-helper/workorders/009-l-prior-resolution.json",
+    "coding_path": "oap/reviews/009-l-prior-resolution.json",
+    "sha256": "2bb5b961a4feaf5f33ba5e6eb460be3bb7c6dc7a3b05bbd3505a53e07523eab7"
+  },
+  "canonical_root_record_path": "oap/reviews/009-l-root-records.json",
+  "CI_evidence": {
+    "review": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-k-ci-terminal/Root-terminal-review.json",
+    "sha256": "d0ebdf48dd3ad5c8f7d85858f4682ca80091ae46cfd6c0fa48ebbd7c97420b8d"
+  },
+  "quiescence": "Designatedpane30 actualcompletedpublication/awaitingRoot at04:42, originalresponse normal04:40:35 andwrapperexited; freshcurrentheadPR/clean/active/sourcegov/reviews0threads0/noautomerge reconciled.",
+  "budget_history": "Prior009kpublication24KiB window author-estimated58500B (+/-20%) used, overrun~33900B; actualmutationswithinoriginalsequence butreadlimitnotmet. Preserved audit/009-k-check/remaining-subset-v6.json, no reset/refund/certificate. New96KiB isprospectivecurrentboundedtaskonly; no broadhelper/historyrediscovery."
+}

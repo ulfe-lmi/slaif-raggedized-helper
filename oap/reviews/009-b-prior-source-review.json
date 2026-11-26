@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-13T08:47:34.870549+00:00",
+  "head": "21a3cbd12b8164ec21ba3b6a0b78104d0663c8e1",
+  "implementation": "aa4cbfa34ae4c4eba417975635c36180e64e3b63",
+  "transcript": "3c6a67a3314ddbe41359b7c47895ddbcc229cf3e",
+  "base": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "report_bytes": 5238,
+  "report_sha256": "8c47e53f8227509589e9be704bc384376f7b8ae834e792ea15ab0b30e88fa133",
+  "decision": "SOURCE_REPORT_TRANSCRIPT_REVIEWED_CI_PENDING_NOT_WHOLE009_ACCEPTANCE",
+  "identities": "32exact322735B/currentdonor copies;12PythonASTs;8exact26410BRootrecords+2628Bindex/order/active=11transcript;35implementation/47roundpaths;cleanone-parenttopology/report-onlySELF. Strictremoteverify_report separatelyPASS.",
+  "code_review_basis": [
+    "audit/009-foundations-preparation-root-review-70d3.json",
+    "audit/009-source-support-preparation-root-review-c91a.json",
+    "parallel/source-support-preparation/review.json",
+    "audit/009-a-first-wave-replan.json"
+  ],
+  "docs": "Rootreadnew255LF evaluation/94LF baseline/currentSTATUSdiff. Original6APIs-pure/searchmodule/datasetloaded/laterobjectiveprecision corrected beforeimmutableSELF; ac56previousimplementation superseded byaa4 through ownunpublishedamend notreportrewrite. Historical008at-timeentries preserved; currentstate updated.",
+  "safety": "Only6reviewedprivate production APIs +6unit20docs/3currentdocs; no serving/CLI/model/currentrights/realdata/dep/lock/workflow/config/law/profile changes. Synthetic units are not human baseline. No sourceboundstage-loss or original009criterion3 closure. DHA NONE.",
+  "strongest_reason_against_acceptance": "Byteexactfoundation transfer plus docs is not actualraw/sourcecomposition or meaningful heldout baseline; currentCI stillpending. Same009subsequentwaves and namedrealgates required.",
+  "CI": {
+    "run": 43395492425,
+    "watch_session": 25481,
+    "initial": "3OAPsuccess/2Productinprogress",
+    "all_required_steps": "PENDING"
+  },
+  "DHA": "NONE"
+}

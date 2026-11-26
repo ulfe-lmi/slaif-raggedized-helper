@@ -1,0 +1,58 @@
+{
+  "at": "2026-11-16T17:14:44.241915+00:00",
+  "identifier": "009-f",
+  "base": "9ba33cd7939634f31ebba25fe8c8b638ade51d81",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-f-components-FINAL.json",
+      "target": "oap/reviews/009-f-components.json",
+      "bytes": 7355,
+      "sha256": "1ff91482e22fa0a7ac931da2f65c469c463fa572ebc9b8dad27022456b95cd6b"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-e-resolution.json",
+      "target": "oap/reviews/009-f-prior-resolution.json",
+      "bytes": 3081,
+      "sha256": "90de4b97356322d7ff3bfa0935ba9438b640830a1f3fc71e0c761316060b0d3c"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-f-transfer-replan-FINAL.json",
+      "target": "oap/reviews/009-f-replan.json",
+      "bytes": 2001,
+      "sha256": "3513c1bd8edb419deee5892ad4544a8f3916c5720db335ce2c1d765ce8a41d26"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-f-public-component-evidence-FINAL.json",
+      "target": "oap/reviews/009-f-component-evidence.json",
+      "bytes": 3163,
+      "sha256": "70189808224a12b8e5163468cc903ced5facb83067be6e13575646c0fbf9372f"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-graded-proof-normal-root-review-f4d9.json",
+      "target": "oap/reviews/009-f-local-graded-proof-admission.json",
+      "bytes": 1953,
+      "sha256": "4b14608e5ddaaae0466915d59cdea4b3edd8a3ca421885dd3542a8d7c806df7f"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-eval-core-normal-root-review-45bc.json",
+      "target": "oap/reviews/009-f-local-core-admission.json",
+      "bytes": 1961,
+      "sha256": "f5a90f2b9a322fb740d0b59b66a685853f6bd164a12c7c40960903a054593325"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-eval-proof-normal-root-review-e3bf5b8.json",
+      "target": "oap/reviews/009-f-local-program-proof-admission.json",
+      "bytes": 2092,
+      "sha256": "4b9b4acc9f89b6f1e8c6d95b234f13d04b069f0b34b531e9e0449b2ecf481684"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-eval-core-peer-normal-root-review-07df.json",
+      "target": "oap/reviews/009-f-core-peer-admission.json",
+      "bytes": 1225,
+      "sha256": "53d0bb702461d545e6cd41221d27b3eded401b10652bcdb72d21e5293ed2f399"
+    }
+  ],
+  "record_count": 8,
+  "total_record_bytes": 22831,
+  "DHA": "NONE"
+}

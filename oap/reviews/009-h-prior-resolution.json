@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-16T18:51:17.828309+00:00",
+  "identifier": "009-g",
+  "decision": "FAILED_CURRENT_CI_REVIEW_FINISHED_CONTINUATION_REQUIRED_NOT_ACCEPTANCE",
+  "pr": 11,
+  "head": "857355abbcfc4f5e322377f2bbee1388bafafc56",
+  "implementation": "9b3622ce6ae7dc278292da2fc88a396e95a14e43",
+  "transcript": "a60a04d7e3ca1f9075f2d4a6966467845adae0b5",
+  "report_bytes": 8180,
+  "report_sha256": "aefda76ced8adec5da6b57c5575388a0e16887f7ce041266b7cd700227fb27d0",
+  "normal_verified_at": "2026-11-16T18:49:39.126355+00:00",
+  "remote": "Connector verified unique open non-draft PR11/head857355ab/main5a7b41cc; zero reviews/threads; no merge",
+  "source_review": "Exact parent graph; six transcript paths and Root bytes/index; three allowed implementation paths and complete diff; report-only SELF verified. Product program/runner unchanged. All reports/checkpoint preserved.",
+  "CI": {
+    "run": 43931502904,
+    "result": "FAILURE",
+    "jobs_success": 3,
+    "jobs_failure": 2,
+    "required_steps": 78,
+    "steps_success": 64,
+    "steps_failure": 2,
+    "steps_skipped": 12,
+    "python312": {
+      "job": 133524822329,
+      "finding": "fake_stat line96 expands os.stat_result(*values) as10arguments; TypeError, then pytest INTERNALERROR formatting under scoped Path.stat monkeypatch",
+      "unit_summary": "No complete pass/fail summary; session aborted"
+    },
+    "python314": {
+      "job": 133524822987,
+      "finding": "Progress shows one F; process exit137 before complete traceback/summary",
+      "cause": "UNPROVEN; do not equate with confirmed3.12 TypeError or claim OOM without evidence"
+    },
+    "integration": "SKIPPED_NOT_RUN",
+    "logs": "audit/009-g-ci-{133524822329,133524822987}-43931502904.log; connector decoded text with retained line endings not original zip bytes"
+  },
+  "Root_value_witness": "audit/009-g-stat-result-value-witness-result.json: isolated stdlib synthetic value only, expanded ten fields TYPE_ERROR; single sequence st_size3145728. Not product/CI acceptance.",
+  "report_clarifications": [
+    "Regression intent is not successful runtime evidence: implementation constructor is wrong.",
+    "Old98focused units used old test bytes593a3be6; program/runner same but009g test changed. Phrase same bytes applies source implementation only.",
+    "Author reported semantic read bound is not Root-certified dynamic or transitive read closure."
+  ],
+  "strongest_reason_not_to_merge": "Two required product jobs failed,12requiredstepsskipped, new fixture defect; objective009 and all separate qualification gates remain open.",
+  "next": "009-h same objective/PR: exact one-character fixture constructor correction plus current docs, frozen bounded focused-check proposal/Root decision before invocation, then new-head complete CI. No source feature/workflow/dep change or old-run retry.",
+  "DHA": "NONE"
+}

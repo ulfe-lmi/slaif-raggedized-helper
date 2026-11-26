@@ -1,6 +1,7 @@
 """Private snapshot lifetime coordination, without authorization or deletion."""
 
 import fcntl
+import math
 import os
 import re
 import threading
@@ -22,11 +23,18 @@ class PinData:
     data: object
 
 
-def _admit(originals, derived, root, deadline_ms, snapshot_id=None):
+def _admit(originals, derived, root, deadline_ms, snapshot_id=None, end=None):
     directory._check(type(originals) is OriginalStore and type(derived) is derived_store.Store)
     publication._path_check(root)
     directory._check(len(root[1:].split("/")) <= 64)
-    directory._check(type(deadline_ms) is int and 1 <= deadline_ms <= 120000)
+    directory._check(
+        (deadline_ms is None and end is not None)
+        or (deadline_ms is not None and end is None)
+    )
+    if deadline_ms is None:
+        directory._check(type(end) is float)
+    else:
+        directory._check(type(deadline_ms) is int and 1 <= deadline_ms <= 120000)
     if snapshot_id is not None:
         directory._check(
             type(snapshot_id) is str and re.fullmatch(r"sha256:[0-9a-f]{64}", snapshot_id)
@@ -141,6 +149,74 @@ class PinOwner(_Capture):
     def __init_subclass__(cls, **kwargs):
         raise TypeError("PinOwner cannot be subclassed")
 
+    def _held_revalidation(self):
+        """Fixed non-reacquiring held validation body, shared by the legacy
+        ``check`` and the guarded private case-bound revalidation.
+
+        Called only while the caller already holds the owner's guard and
+        has set the operation end to the caller's exact cooperative end;
+        it never reacquires the guard, performs no other custody handling
+        and restores nothing (the guarded caller saves and restores the
+        actual prior ``op.end`` on all exits).  It performs the
+        independent full reload, then the original post-load association
+        and the exact held equality, and yields the same validated held
+        PinData internally.  The nested directory finishes its work under
+        its own bounded clock; this route guards its commencement and
+        refuses late output at the caller's final cutoff.
+        """
+        data = self._load(self.value.data.snapshot_id)
+        self._association()
+        directory._check(data == self.value.data)
+        return self.value
+
+    def _selected_acquisition(self, op, originals, derived, expected=None):
+        """One actual selected acquisition body shared by the legacy
+        relative route and the fixed expected route: after the original
+        guard and creator/type checks already ran in the start, the
+        real shared snapshots-parent selection lock, the pointer
+        admission, the real initial full load, the exact target lock,
+        the association, the second full equality, the final repeated
+        pointer equality and the existing lock handoff.  The expected
+        route passes its exact requested snapshot ID and generation,
+        compared immediately after the actual pointer read under that
+        same selection lock and before any load or target open, so an
+        absent or changed selection is refused content-free there and
+        a previously read pointer or a caller-facing post-load
+        comparison cannot serve as this guard.  The nested directory
+        loaders finish their own work under their existing independent
+        cooperative bound; late output is refused at the operation's
+        fixed end by the deadline checks around each protected step,
+        not by claiming an in-flight OS/native call is interrupted.
+        """
+        directory._check(op.open(False))
+        pointer = op.pointer()
+        directory._check(pointer is not None)
+        if expected is not None:
+            expected_id, expected_generation = expected
+            directory._check(
+                pointer.snapshot_id == expected_id
+                and pointer.generation == expected_generation
+            )
+        data = op.load(originals, derived, pointer).data
+        self.target = op.owner.open(
+            pointer.snapshot_id[7:], directory._DIR, parent=op.parent
+        )
+        directory._private(os.fstat(self.target), 0o500, True)
+        _target_lock(op, self.target, False)
+        self.value = PinData(pointer, data)
+        self._association()
+        directory._check(self._load(pointer.snapshot_id) == data)
+        self._association()
+        directory._check(op.pointer() == pointer)
+        independent = op.owner.open("snapshots", directory._DIR, parent=op.root)
+        directory._check(selection._identity(independent) == selection._identity(op.parent))
+        locked = op.parent
+        op.parent = independent
+        op.owner.close(locked)
+        self._association()
+        self.state = "ACTIVE"
+        return self.value
+
     def acquire_selected_data(self, originals, derived, store_root, *, deadline_ms=30000):
         self._enter()
         try:
@@ -148,29 +224,84 @@ class PinOwner(_Capture):
                 raise PinError("snapshot lifetime refused")
             try:
                 self._start(originals, derived, store_root, deadline_ms)
+                return self._selected_acquisition(self.op, originals, derived)
+            except BaseException as exc:
+                self._failure(exc)
+        finally:
+            self.guard.release()
+
+    def _start_expected(self, originals, derived, root, snapshot_id, generation, end):
+        directory._check(self.state == "NEW")
+        self.state = "ACQUIRING"
+        started = time.monotonic()
+        # The expected route requires the mandatory exact canonical
+        # snapshot ID: the optional legacy sentinel is refused here,
+        # before any namespace resource, and _admit's existing
+        # canonical regex performs the exact type and shape check.
+        directory._check(snapshot_id is not None)
+        _admit(originals, derived, root, None, snapshot_id, end)
+        directory._check(
+            type(generation) is int and 1 <= generation <= selection._MAX_GENERATION
+        )
+        # Bounded by the existing 120-second acquisition ceiling, and
+        # an already elapsed end is refused before any namespace
+        # resource.
+        remaining = end - started
+        directory._check(0 < remaining <= 120.0)
+        self.originals, self.derived = originals, derived
+        self.op = selection._Operation(root, math.ceil(remaining * 1000))
+        # The working operation is fixed to the original absolute end,
+        # not a re-derived relative one, before any namespace work.
+        self.op.end = end
+        # The operation's construction guard is not the capture's method guard.
+        self.op.guard.release()
+
+    def _acquire_expected_selected_data(
+        self,
+        originals,
+        derived,
+        store_root,
+        expected_snapshot_id,
+        expected_generation,
+        *,
+        end,
+    ):
+        """Fixed private expected-ID-and-generation acquisition for the
+        named evaluation over already opened, approved stores.  Takes
+        the current exact store types and root and one already
+        established absolute monotonic end bounded by the existing
+        120-second acquisition ceiling, refuses malformed or elapsed
+        declarations before opening namespace resources, and fixes the
+        working operation to that original end before namespace work.
+        Reuses the one actual acquisition body, where the requested ID
+        and generation are compared immediately after the actual
+        pointer read under the same selection lock and before any
+        load or target open; on success the exact owned PinData and
+        operation are retained with the unchanged original absolute
+        end, one original timeout is preserved at each actual
+        protected start/check, late output is refused at the caller's
+        cutoff, and the existing independent finite cleanup, truthful
+        pending ownership and non-Exception interruption propagation
+        apply.  No authorization, alternate loader, callback, clock or
+        new public API is added.
+        """
+        self._enter()
+        try:
+            if self.state != "NEW":
+                raise PinError("snapshot lifetime refused")
+            try:
+                self._start_expected(
+                    originals, derived, store_root, expected_snapshot_id,
+                    expected_generation, end)
                 op = self.op
-                directory._check(op.open(False))
-                pointer = op.pointer()
-                directory._check(pointer is not None)
-                data = op.load(originals, derived, pointer).data
-                self.target = op.owner.open(
-                    pointer.snapshot_id[7:], directory._DIR, parent=op.parent
-                )
-                directory._private(os.fstat(self.target), 0o500, True)
-                _target_lock(op, self.target, False)
-                self.value = PinData(pointer, data)
-                self._association()
-                directory._check(self._load(pointer.snapshot_id) == data)
-                self._association()
-                directory._check(op.pointer() == pointer)
-                independent = op.owner.open("snapshots", directory._DIR, parent=op.root)
-                directory._check(selection._identity(independent) == selection._identity(op.parent))
-                locked = op.parent
-                op.parent = independent
-                op.owner.close(locked)
-                self._association()
-                self.state = "ACTIVE"
-                return self.value
+                # The existing open may open namespace descriptors
+                # before its own first deadline check, so the expected
+                # route checks the fixed original end immediately
+                # before it.
+                op.deadline()
+                return self._selected_acquisition(
+                    op, originals, derived,
+                    (expected_snapshot_id, expected_generation))
             except BaseException as exc:
                 self._failure(exc)
         finally:
@@ -184,10 +315,7 @@ class PinOwner(_Capture):
                 directory._check(type(deadline_ms) is int and 1 <= deadline_ms <= 120000)
                 self.op.end = time.monotonic() + deadline_ms / 1000
                 self._association()
-                data = self._load(self.value.data.snapshot_id)
-                self._association()
-                directory._check(data == self.value.data)
-                return self.value
+                return self._held_revalidation()
             except Exception:
                 raise PinError("snapshot lifetime refused") from None
         finally:

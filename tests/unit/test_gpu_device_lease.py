@@ -30,7 +30,9 @@ def test_key_and_real_owner(tmp_path):
     ('/' + 'a' * 1_000_000, HOST, DEVICE), ('/tmp/../bad', HOST, DEVICE),
     ('relative', HOST, DEVICE), ('/tmp', True, DEVICE), ('/tmp', HOST, 'bad'),
     ('/tmp\x00bad', HOST, DEVICE),
-])
+],
+                         ids=("oversize-root", "traversal-root", "relative-root",
+                              "bad-host", "bad-device", "nul-root"))
 def test_preflight_without_io(monkeypatch, root, host, device):
     calls = []
     def forbidden(*args):

@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-21T05:02:23.010203+00:00",
+  "identifier": "009-al",
+  "decision": "ACCEPT_EXACT_SCOPE_CONTINUATION_ONLY",
+  "PR": 11,
+  "accepted_report_head": "256d1b9b91160a5846563370ec6c2cd333d280c3",
+  "implementation": "cede7ed4c3004f3bbd4aad8a970e10800510787f",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "report_run": 44867051253,
+  "report_run_attempt": 1,
+  "verification": {
+    "all_required_jobs": 5,
+    "all_required_steps": "PASS",
+    "A": 1440,
+    "B": 1998,
+    "integration_each": 985
+  },
+  "terminal_review": {
+    "path": "audit/009-al-check/Root-terminal-review.json",
+    "bytes": 5211,
+    "sha256": "48d8dda446ead89960fac60697aae72abe4bc947846cc7f0d9dd04aa3ad639fe"
+  },
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}

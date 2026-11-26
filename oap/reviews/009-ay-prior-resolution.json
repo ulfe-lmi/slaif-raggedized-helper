@@ -1,0 +1,57 @@
+{
+  "at": "2026-11-25T01:29:07.912942+00:00",
+  "identifier": "009-ax",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "head": "17b33ae4074b3478797011d39ceb94e28b4c4cf4",
+  "run": 44932837127,
+  "attempt": 1,
+  "report": {
+    "commit": "17b33ae4074b3478797011d39ceb94e28b4c4cf4",
+    "path": "oap/reports/009-ax-evaluate-expected-pin.md",
+    "mode": "100644",
+    "blob": "a9d5e4571ce6c217793dceac0e81be04bbd2bc7c",
+    "bytes": 17580,
+    "sha256": "190b0c88e1fde12e14557c0e47cf660f7fb4090281d55c57a9504b7314776bb7"
+  },
+  "decision": "ACCEPT_EXACT_SCOPE_CONTINUATION_ONLY",
+  "scope": "Private fixed expected raw pin transfer. Both native selected-lock and cutoff witnesses passed within each configured Product suite.",
+  "strongest_reason_to_hold_merge": "The named command, end-to-end evaluation and representative baseline remain open.",
+  "evidence": [
+    {
+      "path": "audit/009-ax-check/Root-consumed-response-reconciliation.json",
+      "bytes": 3830,
+      "sha256": "27974dad46e4b7d274a239170aa6a6b3881fcf2add31bad22a4a0bdd9c327b38"
+    },
+    {
+      "path": "audit/009-ax-check/Root-terminal-run-api.json",
+      "bytes": 16202,
+      "sha256": "bb2a0790799d6d190c816902b3a328a8bb529790438f757b6039451abad3b96f"
+    },
+    {
+      "path": "audit/009-ax-check/Root-terminal-jobs-api.json",
+      "bytes": 18018,
+      "sha256": "973a8dd6cfbc14e90b2a1a05d736f87c45e015778f93a6d4d2664a0efa2bc188"
+    },
+    {
+      "path": "audit/009-ax-check/Root-terminal-required-jobs.json",
+      "bytes": 1237,
+      "sha256": "b300393a7bd23a24b25bb2cc96a10ea41163b51b62916addd257e0d04f6f98b4"
+    },
+    {
+      "path": "audit/009-ax-check/Root-terminal-unit-inventory.json",
+      "bytes": 3359,
+      "sha256": "0c3d37ae62e8d7f4467d4b3ba66bde1d7b7c6828857bf594da3872d007272258"
+    }
+  ],
+  "per_product": {
+    "ordered_units": [
+      1440,
+      1998
+    ],
+    "integrations": 1008
+  },
+  "DHA": "NONE",
+  "baseline": "NOT_RUN",
+  "whole_009": "PARTIAL"
+}

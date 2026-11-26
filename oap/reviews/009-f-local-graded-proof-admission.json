@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-13T15:38:41.809099+00:00",
+  "decision": "LOCAL_GRADED_INTEROP_PROOF_ADMITTED_FOR_LATER_SELECTIVE_TRANSFER",
+  "normal": {
+    "lane": "source-graded-proof",
+    "lane_id": "PAR-009-GRADED-PROOF-A",
+    "result": "COMPLETE",
+    "implementation": "1dcf7c3ed571835b5fb4c5eb5ba01de849b552ff",
+    "report_commit": "f4d9dbb2427c88d6d286475e25b378c7fcf57f0d",
+    "report_sha256": "f0f63ac93f320c57896393d06d0889152e735fe7cc58c0004a0695679f657d1b",
+    "paths": [
+      "docs/parallel/source-graded-rank-composition.md",
+      "docs/parallel/source-graded-rank-oracle.json",
+      "docs/parallel/source-graded-rank-proof-contract.md",
+      "docs/parallel/source-graded-rank-proof-inputs.json",
+      "oap/parallel/orders/PAR-009-GRADED-PROOF-A.md",
+      "tests/integration/test_source_graded_rank_composition.py"
+    ],
+    "verified_at": "2026-11-13T15:37:42.691097+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "report_bytes": 3147,
+  "review": "Read full immutable report; SELF resolves actual reportonlycommit f4d9 soleparent1dcf, exactone reportpath/cleanbranch; reviewed sixpathimpl/testd3c9 and frozenoracle/contract/order. All namedreportRootreviews/identities agree with preserved independent actual evidence. No claimintegration/currentCI or objective/MVP acceptance.",
+  "strongest_reason_not_merge": "Permanentgradedprogram/evaluateCLI and representativebaseline remainabsent; this one2queryfixture is finite softwarecomposition. Currentcanonical009e notyetreported/published,newheadCI pending; newdoc20fieldfix required.",
+  "next": "Keep current009e active and resolve normal/currentremoteCI/reviews first; prepare inert same009 transfer of only5proofcomponents exclinstalledorder, with20fielddocsfix and honest qualification; no signal before replan/reconcile. Rootgradedcorecontract stillinertpendingequationreview.",
+  "DHA": "NONE"
+}

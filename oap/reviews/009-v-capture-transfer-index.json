@@ -1,0 +1,85 @@
+{
+  "at": "2026-11-20T11:20:34.858320+00:00",
+  "status": "EXACT_FINAL_ORDER_INPUT",
+  "base": "851a1e29870771a0bc68a276a8cd5329d207b305",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "pr": 11,
+  "read_source_index": "drafts/009-private-policy-capture-transfer-index-CANDIDATE.json",
+  "read_source_index_sha256": "87de47e9f8a594d0ca6f234b6a68ea6dce9333d9325079edf511dd6efed1849b",
+  "local_receipt": "parallel/private-policy-capture/response-consumed.json",
+  "local_receipt_sha256": "c0926e750b270bec983ccd71c2b9254569047645651eb61b626c6828fc5c11ae",
+  "exact_capture": {
+    "at": "2026-11-20T07:04:15.968879+00:00",
+    "status": "INERT_WAIT_CANONICAL_FULL_CI_AND_SELECTION_PREREQUISITE",
+    "lane": "private-policy-capture",
+    "implementation": "6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a",
+    "effective_base": "b0bd2821872e2ee82c98a85d9df509e616c8c642",
+    "resolution": "audit/009-private-policy-capture-local-resolution.json",
+    "resolution_sha256": "0b34f4e60f556fb09a0c189baad3867f0e7a4e496bf389cf884bc915f9e1a9c4",
+    "implementation_files": [
+      {
+        "commit": "6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a",
+        "path": "oap/parallel/orders/PAR-009-PRIVATE-POLICY-CAPTURE-A.md",
+        "mode": "100644",
+        "blob": "6810043ff0e565bb5cbcc7b6787c40b7bab8336e",
+        "bytes": 5807,
+        "sha256": "f53de63dce3a4dfbd1e0dc0b8962c832fc9cd46502c38016edadf58c7be0b720"
+      },
+      {
+        "commit": "6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a",
+        "path": "src/slaif_raggedized_helper/private_policy_capture.py",
+        "mode": "100644",
+        "blob": "68941f04e136fe340979713729a759c5b3389379",
+        "bytes": 14974,
+        "sha256": "4d0c3b8002c6c4fabe3c3be3a08d851375249ad2fb807260f56e5fa9e3e7f0fc"
+      },
+      {
+        "commit": "6e8922c6a35de57ed19a70ed3a5aca59e4b7a68a",
+        "path": "tests/unit/test_private_policy_capture.py",
+        "mode": "100644",
+        "blob": "3c7e2b5be17debf89c6c4bf82c86e259e36326cd",
+        "bytes": 37256,
+        "sha256": "bb1fccfeddf28c8ecba464fa4f392e6b830f2fc07291a44a65978b19b670f7b9"
+      }
+    ],
+    "archival_report": {
+      "commit": "ff876ee785051872df1552b4d9f8f0d68f9c4d99",
+      "path": "oap/parallel/reports/PAR-009-PRIVATE-POLICY-CAPTURE-A.json",
+      "mode": "100644",
+      "blob": "4150d6e95620da83208c479e63210b071c7056f8",
+      "bytes": 10890,
+      "sha256": "02cfe227eba7c7ea705a7c7545ebf66c117c74fb7c8d3387f6545b4164321689"
+    },
+    "archive_destination_pending_authorized_suffix_under": "oap/provenance/<approved-suffix>/",
+    "depends_on": [
+      {
+        "path": "src/slaif_raggedized_helper/policy_selection.py",
+        "source_commit": "b0bd2821872e2ee82c98a85d9df509e616c8c642",
+        "sha256": "eda878a12af9f141b6f9cd48ccec5601932201f9b36baa31fa17fe28659bde87"
+      },
+      {
+        "path": "src/slaif_raggedized_helper/private_report_publication.py",
+        "canonical_anchor": "dfe301c7c5796dc6de2bf8309f885dfc3b1cd2af",
+        "sha256": "43207d97f4c195966049cf53bf45c1b47543277dbf95b0bb7068a8a734378e34"
+      }
+    ],
+    "expected_added_default_cases": 71,
+    "boundary": "Original SELF resolves to the original local report commit. Preserve exact bytes. No canonical authority work or actual protected use."
+  },
+  "archive_destination": "oap/provenance/009-v/PAR-009-PRIVATE-POLICY-CAPTURE-A.json",
+  "expected_focus": 118,
+  "expected_default_addition": 71,
+  "expected_hosted": {
+    "A": 1421,
+    "B": 1665,
+    "total": 3086
+  },
+  "DHA": "NONE",
+  "reconcile_from": "drafts/009-u-frozen-capture-transfer-projection-CANDIDATE.json",
+  "reconcile_from_sha256": "3b37984feb8291f49e86cb4592400ffaa555cea5a47db6849f5ea1b93b7fb971",
+  "expected_active": "009-u",
+  "identifier": "009-v",
+  "terminal_review": "audit/009-u-check/Root-terminal-review.json",
+  "terminal_review_sha256": "d9884ce372967de653db718c59866583554429f96862146f44bc6d1c68d84d24",
+  "projection_sha256": "75eba262e9e3eaabd70e0a714c7a217af91f893adcfdb36d7e0c480848701893"
+}

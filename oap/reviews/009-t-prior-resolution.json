@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-20T09:57:11.942842+00:00",
+  "identifier": "009-s",
+  "pr": 11,
+  "base_main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "accepted_report_head": "d731dea7f5aad7f55b96386c869795ddba913fe9",
+  "report_sha256": "f8a74acc79dca5bdd482fce81f1f247ea07304cfaeb941567ed3c885f985fa72",
+  "response_consumed": ".oap-state/response-consumed-009-s.json",
+  "response_consumed_sha256": "e3d9d74e7b21daf06021ca4262c3c7bc8949a6a7dd129c0dc27920312c8dd622",
+  "disposition": "ACCEPT_EXACT_CI_COMPARISON_CONTINUE_SAME_OBJECTIVE",
+  "ci_run": 44711903559,
+  "full_unit_passes_each": {
+    "3.12": 2731,
+    "3.14": 2731
+  },
+  "all_five_jobs_all_steps_success": true,
+  "review": "audit/009-s-check/Root-terminal-review.json",
+  "review_sha256": "d8a362ce58f53bc2febbcfff6c636e712295599db73b1bd2da8fcf7703d1af9f",
+  "remaining": "Prior signal source unproven. Policy/current authority and qualification evidence remain open. 009 stays PARTIAL. DHA NONE.",
+  "next_identifier": "009-t"
+}

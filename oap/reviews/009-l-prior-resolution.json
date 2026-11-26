@@ -1,0 +1,38 @@
+{
+  "identifier": "009-k",
+  "pr": 11,
+  "decision": "CONTINUE_NOT_ACCEPTED",
+  "reviewed_at": "2026-11-17T04:42:33.488712+00:00",
+  "reviewed_head": "3f8b4eb08c4213b2ea11561e722263c40fa75c1e",
+  "implementation": "21c3fa6644b0243c076bc062756c2cc2c7e625bf",
+  "report_sha256": "ad156b09a430d312cafccd69961445e450dbc0951c013788319d8da812e4d9ec",
+  "normal_verified_at": "2026-11-17T04:40:35.316565+00:00",
+  "remote": "FreshGitHubpluginuniquePR11OPENnonDraft/head3f8b/branch009baseline/base main5a7; PRbodyfinalscope+newfailure+immutabletimingprecisioncorrect. GraphQLcurrenthead reviews0/threads0/noautomerge, allpagescomplete.",
+  "independent_review": "Exactfiveapprovedpostimageblobs atimplementation/report; soleparentsreport->implementation->transcript and report-onlyonepath/clean verified. Full5891Breport read; Rootstatic19PASS/full2948Blog and source/test/doc identity bound; reportprecision separatelyrecorded in audit/009-k-published-head-static-review-3f8b4eb0.json. Originalsolewrapper consumedresponse once04:40:35Z thenexited, no replay.",
+  "current_CI": {
+    "run": 44017736685,
+    "run_number": 134,
+    "conclusion": "failure",
+    "jobs": "2productFAIL/3OAPSUCCESS",
+    "steps": {
+      "success": 64,
+      "failure": 2,
+      "skipped": 12,
+      "total": 78
+    },
+    "failure": "Bothwholeunitruns2455collected; verboseparameterIDs serializelargefixturebytes, raw16843391B crosses16MiB threshold, supervisorOVERSIZE128 after5.62/5.97s; no completewholeunit summary. Downstreamskippednotgreen.",
+    "full_evidence": "audit/009-k-ci-terminal/Root-terminal-review.json, jobs.json, bothfullproductlogs(+one disclosedtransportLF), final-pr-review-state.json"
+  },
+  "strongest_reason_not_to_merge": "Currentrequiredfullproduct/downstreamgatesfailed/skipped; largehelperlocal19PASS doesnotqualify fullproduct/3.12/livehardware. Earlier20minute/137causesremainunproven. No development acceptance/merge.",
+  "D0_replan": "Same009/PR11continuation009l mayaddexplicitboundedliteralmetadataIDs to15directlarge-scalarparametrizecalls. ASTequivalencestrippingonlynewids preservesallfixturevalues/expressions/bodies/assertions/count/order. No suitefilter/supervisorlimits/resource/setup/dependency/productchange. Newactivationonlyafterquiescence/currentpreflight/finalorder.",
+  "open_gates": [
+    "freshcurrentrequiredCI",
+    "parserpeer/canonicaljoin",
+    "publishercanonicaljoin",
+    "genuinecurrentprincipal/currentpolicy/dispatch+delivery",
+    "qualifiedrealCPUencoder/heldoutdata+rights/realbaselineNOT_RUN",
+    "raw4096rowceiling",
+    "hardware/visual/security/license/fullmergedICA/release"
+  ],
+  "DHA": "NONE"
+}

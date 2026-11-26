@@ -1,0 +1,5 @@
+# Structured-text gold binding
+
+`bind(originals, derived, dataset_bytes, bundle_ids, *, deadline_ms=30000)` admits the exact dataset bytes and checks selected controlled-store bundles twice. Positive bindings require native structured-text re-extraction and retain every matching bundle ID. All PDF and visual source bindings are refused. Empty gold requires no bundles and reports `NO_GOLD_SOURCE_VALIDATED`; it does not validate the stores. Stores are borrowed and remain open. Errors are content-free, and metadata and identifiers remain private, linkable data.
+
+This records observations at binding time, not an atomic snapshot or current authorization, withdrawal, rights, source quality, or human held-out provenance. It does not consume rankings or calculate retrieval metrics. PDF source proof, visual evaluation, model and hardware qualification, license review, current policy, canonical CI, full independent audit and MVP acceptance remain separate gates. The deadline is cooperative and cannot preempt an inherited load already running; it is not a hard allocation or runtime guarantee. See the adjacent design for exact limits and canonical identity.

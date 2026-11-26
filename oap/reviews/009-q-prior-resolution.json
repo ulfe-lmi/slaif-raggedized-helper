@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-20T03:43:13.574124+00:00",
+  "identifier": "009-p",
+  "head": "3522d263991e35b25b65f2621a289a05ad4231be",
+  "implementation": "4ef4dbb9f441219736c03f9291d80509f98fd4c3",
+  "receipt": {
+    "identifier": "009-p",
+    "pr": 11,
+    "implementation": "4ef4dbb9f441219736c03f9291d80509f98fd4c3",
+    "report_commit": "3522d263991e35b25b65f2621a289a05ad4231be",
+    "report_sha256": "5269f57aa8927dd020c5a7e60241bf9e8694b83924335e2e88f821d8ef3a3fe7",
+    "verified_at": "2026-11-20T03:27:24.176078+00:00",
+    "ci": "NOT CERTIFIED BY THIS CHECK"
+  },
+  "source_review": "audit/009-p-check/Root-published-review.json",
+  "terminal_review": "audit/009-p-ci-terminal/Root-terminal-review.json",
+  "terminal_review_sha256": "35c86e4791b38d27d558bb2e5dfbd0215630e6761a41530fdd563248ed5db371",
+  "decision": "ACCEPT_ISOLATED_PUBLISHER_CASE_EVIDENCE_REQUIRED_3_14_CI_RED_CONTINUE_SAME009",
+  "strongest_reason_not_to_merge": "Python 3.14 Product unit process exited 137 without an ordinary summary and six later checks were skipped. Code 137 is not a demonstrated OOM or an attributable test defect. Python 3.12 and 3.14 both passed the corrected 16-slot case.",
+  "explicit_replan": "One bounded same-PR 009-q comparison preserves the isolated allocator control and applies the locally measured OPENBLAS_NUM_THREADS=1 at the Product test suite step. Observed 009-o coverage and the local 40-to-1 native thread comparison justify testing the combination, without predicting causal success. Pure policy candidates remain detached until canonical CI green.",
+  "DHA": "NONE"
+}

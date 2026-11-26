@@ -1,0 +1,54 @@
+{
+  "at": "2026-11-13T11:01:54.274208+00:00",
+  "status": "ROOT_RECONCILED_LOCAL_COMPONENT_ADMISSIONS_FOR_EXACT_SELECTIVE_TRANSFER",
+  "entries": [
+    {
+      "local_record": "parallel/stage-join/review.json",
+      "sha256": "545365d700e74d49412e25940fbdf03222f547a6fc0eba8085d9819b44beccdf",
+      "decision": "LOCAL_STATIC_JOIN_ADMITTED_ONLY",
+      "SELF": "4f4b5e89491ffb2962798074bc842c4901af6335",
+      "implementation": "c7f4edd2044e66dbe9dda719025ce75f09a0965c",
+      "Root_review": "audit/009-stage-join-root-review-c7f4.json",
+      "limits": "Four reviewed exactsourcecopies/twoAST/7paths. JoinedruntimeUNRUN, no sourcebinderimplementation/whole009/ICA/MVP or canonical merge authority."
+    },
+    {
+      "local_record": "parallel/declared-stage-geometry/local-admission.json",
+      "sha256": "fec79d8cb5cf7da00143c01759fc9042bb5e0bb39b8dcd28e581fb661d7d52ff",
+      "decision": "ADMIT_BOUNDED_LOCAL_COMPONENT_FOR_SELECTIVE_CANONICAL009_TRANSFER_ONLY",
+      "SELF": "561eedaf712f992e649e1c139ca91995105cde51",
+      "implementation": "03a646f4243871c7071edc5e8ae6aeb02a58117f",
+      "Root_review": "audit/009-declared-stage-geometry-root-review-03a6.json",
+      "limits": "Actualbridge synthetic8case localproof or puregeometry45case tests only as attributed. Full canonical CI/currentfinalsource review required after transfer. Not full009/sourcebinder/rights/modelquality/ICA/MVP acceptance. No wholebranch merge."
+    },
+    {
+      "local_record": "parallel/raw-text-stage-composition/local-admission.json",
+      "sha256": "c9cc3bd1b4e0e40dbfc171203067cc685766e283a5aab1b150c41ce956cdc0ed",
+      "decision": "ADMIT_BOUNDED_LOCAL_COMPONENT_FOR_SELECTIVE_CANONICAL009_TRANSFER_ONLY",
+      "SELF": "12e3f246101655b44e57a83b6015be07a9266596",
+      "implementation": "c25440b5652002f8aaf9a17837771ee402b24788",
+      "Root_review": "audit/009-raw-composition-root-review-c254.json",
+      "limits": "Actualbridge synthetic8case localproof or puregeometry45case tests only as attributed. Full canonical CI/currentfinalsource review required after transfer. Not full009/sourcebinder/rights/modelquality/ICA/MVP acceptance. No wholebranch merge."
+    },
+    {
+      "local_record": "parallel/source-bound-stage-loss/local-admission.json",
+      "sha256": "c90973b0230a1ad3a1e5839d824997c529a53012cc2b2964f7078faf60ed38c7",
+      "decision": "ADMIT_LOCAL_BOUNDED_CONTROLLED_COMPONENT_AS_NEXT_PROOF_DEPENDENCY_ONLY",
+      "SELF": "09f76f3bd6398d13914a07452fb87aa1d3290bb9",
+      "implementation": "9055232bac7f4c6245ca51815a31fb5ecb721141",
+      "Root_review": "audit/009-source-binder-checkpoint-review-9055.json",
+      "limits": "Canonical integration still gated on separately scoped portable actual source proof/defaultCI test/current source review and required canonical CI. No actualsource/rights/heldout/model/hardware/scale/visual/license/ICA/MVP accepted. No merge/push/PR or deployment."
+    },
+    {
+      "local_record": "parallel/source-stage-proof/local-admission.json",
+      "sha256": "63951eabb68ea2197e64ecce4cdd9ca61fb0e3707161be8ad797e240ce761923",
+      "decision": "ADMIT_LOCAL_BOUNDED_SYNTHETIC_PROOF_FOR_SELECTIVE_CANONICAL_TRANSFER_ONLY",
+      "SELF": "e6b229b1eaea9cfb2be76a84a0d621b983644127",
+      "implementation": "748d08b4da84a7b603d922b7c2fddececa40573f",
+      "Root_review": "audit/009-source-stage-proof-checkpoint-review-748d.json",
+      "limits": "Not whole009/heldout/realbaseline/rights/model/20k/hardware/visual/license/ICA/MVP. Canonical final index/order/source/currentreporthead/fullrequiredCI remain gates."
+    }
+  ],
+  "source_index": "audit/009-c-components-FINAL.json",
+  "authority": "These bounded local source/test/proof admissions do not establish original009 wholeharness/livebaseline or release; newcanonicalhead/requiredCI/Rootreview remain mandatory.",
+  "DHA": "NONE"
+}

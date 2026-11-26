@@ -1,0 +1,60 @@
+{
+  "purpose": "ROOT_PREIMPLEMENTATION_SYNTHETIC_CANONICAL_BYTE_HASH_VECTORS_NOT_SOURCE_TRUTH",
+  "zero_dataset_ascii": "{\"cases\":[{\"acceptable_facts\":[],\"answerability\":\"unanswerable\",\"authorship_ref\":\"synthetic-fixture\",\"case_id\":\"case1\",\"disallowed_claims\":[\"Synthetic unsupported claim.\"],\"family_id\":\"family1\",\"language\":\"sl\",\"modality\":\"text\",\"origin\":\"synthetic\",\"product\":\"example\",\"question\":\"Kako ohraniti --no-cache \\u017d\\ud83d\\ude00 e\\u0301?\",\"requirements\":[],\"rights_ref\":\"synthetic-no-real-data\",\"scope\":{\"corpora\":[\"demo\"],\"labels\":[\"test\"],\"versions\":[\"v1.2\"]},\"split\":\"tuning\",\"split_review_ref\":\"structural-test-only\",\"version\":\"v1.2\"},{\"acceptable_facts\":[],\"answerability\":\"unanswerable\",\"authorship_ref\":\"synthetic-fixture\",\"case_id\":\"case2\",\"disallowed_claims\":[\"Synthetic unsupported claim.\"],\"family_id\":\"family2\",\"language\":\"en\",\"modality\":\"text\",\"origin\":\"synthetic\",\"product\":\"example\",\"question\":\"What does --dry-run preserve in v1.2?\",\"requirements\":[],\"rights_ref\":\"synthetic-no-real-data\",\"scope\":{\"corpora\":[\"demo\"],\"labels\":[\"test\"],\"versions\":[\"v1.2\"]},\"split\":\"held_out\",\"split_review_ref\":\"structural-test-only\",\"version\":\"v1.2\"}],\"kind\":\"slaif-text-evaluation-dataset-v1\",\"namespace\":\"synthetic-oracle-v1\",\"schema\":1,\"split_policy_ref\":\"fixture-split-before-tuning\"}",
+  "vectors": [
+    {
+      "name": "zero-real-parser-input",
+      "object": {
+        "dataset_id": "sha256:f4478f8626ded3df333b1423ca0e8842519969f4f4b206c779ccacece072c1af",
+        "split_id": "sha256:aba08fea8e7ea05e93ba9dfdf470441ad649c9547ffc3ac86a89aedf50c96ed5",
+        "dataset_sha256": "2b89e86974753a4ba6c561db910f7939ea3cfc3d6e59f8358fae869232892df0",
+        "observations": [],
+        "bindings": [],
+        "case_count": 2,
+        "gold_atom_occurrences": 0,
+        "distinct_atom_count": 0,
+        "source_binding_status": "NO_GOLD_SOURCE_VALIDATED"
+      },
+      "canonical_ascii": "{\"bindings\":[],\"case_count\":2,\"dataset_id\":\"sha256:f4478f8626ded3df333b1423ca0e8842519969f4f4b206c779ccacece072c1af\",\"dataset_sha256\":\"2b89e86974753a4ba6c561db910f7939ea3cfc3d6e59f8358fae869232892df0\",\"distinct_atom_count\":0,\"gold_atom_occurrences\":0,\"observations\":[],\"source_binding_status\":\"NO_GOLD_SOURCE_VALIDATED\",\"split_id\":\"sha256:aba08fea8e7ea05e93ba9dfdf470441ad649c9547ffc3ac86a89aedf50c96ed5\"}",
+      "binding_id": "sha256:8924bc9b11ab229c5f308530b34cde0aff3062f6fdf533843123ffcee6275b1b"
+    },
+    {
+      "name": "unicode-encoding-only-declared-positive",
+      "object": {
+        "dataset_id": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "split_id": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "dataset_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "observations": [
+          {
+            "bundle_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "metadata_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+            "revision_id": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+            "extraction_id": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+            "block_count": 1,
+            "member_bytes": 123
+          }
+        ],
+        "bindings": [
+          {
+            "revision_id": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+            "extraction_id": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+            "block_id": "\u017d\ud83d\ude00e\u0301",
+            "start": 1,
+            "end": 2,
+            "text_sha256": "f0443a342c5ef54783a111b51ba56c938e474c32324d90c3a60c9c8e3a37e2d9",
+            "bundle_ids": [
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        ],
+        "case_count": 1,
+        "gold_atom_occurrences": 1,
+        "distinct_atom_count": 1,
+        "source_binding_status": "ORIGINALS_REVALIDATED_AT_BIND_TIME"
+      },
+      "canonical_ascii": "{\"bindings\":[{\"block_id\":\"\\u017d\\ud83d\\ude00e\\u0301\",\"bundle_ids\":[\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"],\"end\":2,\"extraction_id\":\"sha256:6666666666666666666666666666666666666666666666666666666666666666\",\"revision_id\":\"sha256:5555555555555555555555555555555555555555555555555555555555555555\",\"start\":1,\"text_sha256\":\"f0443a342c5ef54783a111b51ba56c938e474c32324d90c3a60c9c8e3a37e2d9\"}],\"case_count\":1,\"dataset_id\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"dataset_sha256\":\"3333333333333333333333333333333333333333333333333333333333333333\",\"distinct_atom_count\":1,\"gold_atom_occurrences\":1,\"observations\":[{\"block_count\":1,\"bundle_id\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"extraction_id\":\"sha256:6666666666666666666666666666666666666666666666666666666666666666\",\"member_bytes\":123,\"metadata_sha256\":\"4444444444444444444444444444444444444444444444444444444444444444\",\"revision_id\":\"sha256:5555555555555555555555555555555555555555555555555555555555555555\"}],\"source_binding_status\":\"ORIGINALS_REVALIDATED_AT_BIND_TIME\",\"split_id\":\"sha256:2222222222222222222222222222222222222222222222222222222222222222\"}",
+      "binding_id": "sha256:57b3649903e39abe77ce003fa6d494e0a2f6a94cdb85fbd671245d0ef9ce3468"
+    }
+  ],
+  "limits": "Positive object is synthetic declared canonical-hash vector, no real source/bundle was validated. Never use it as proof of bind success. Actual source proof requires genuine structured OriginalStore+bundle and literal codepoint/hash oracle. Zero vector may run actualparser/no-source path."
+}

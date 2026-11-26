@@ -1,0 +1,95 @@
+{
+  "at": "2026-11-21T07:23:01.607770+00:00",
+  "identifier": "009-ao",
+  "PR": 11,
+  "branch": "oap/009-evaluation-baseline",
+  "base": "dc09ae4f90ffab086aadf24ca39de9b9f2b29384",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "failed_gate": {
+    "path": "audit/009-an-check/Root-terminal-review.json",
+    "bytes": 3725,
+    "sha256": "75a25a1c29f873f9590456532316bf0d0fd24921b5d15b1bb4c8042b5ec21aa8"
+  },
+  "prior_resolution": {
+    "path": "workorders/009-ao-prior-resolution.json",
+    "bytes": 796,
+    "sha256": "852a91f22bbb1872c4713dd9bfd59f72e99efc0575ab9e824207c889e1ed60f0"
+  },
+  "receiver_existing_objects": {
+    "ARCHITECTURE.md": {
+      "bytes": 128390,
+      "sha256": "4b41905396a3838269fd6cf372614cd23cb2c3b6a37be09f29ed752803c0983a"
+    },
+    "oap/governance/MANIFEST.json": {
+      "bytes": 8683,
+      "sha256": "24cec23235e3defc5f55bab4690298191d5a233d35dd9bf20b0afb4b3925f922"
+    },
+    "oap/active": {
+      "bytes": 7,
+      "sha256": "6d45940350e98e5d2fc8b63a6ac34213d23b1134cf2ed7816677706787e4d6da"
+    },
+    ".github/workflows/oap.yml": {
+      "bytes": 14235,
+      "sha256": "54e66869d9a2a02e95202ed3eaecba199a2494ca6f6c5742554e722cf14367c6"
+    },
+    "pyproject.toml": {
+      "bytes": 2025,
+      "sha256": "a4c6c55eb4f84107600bc1dab6761128c4304cc8dbf39c4a24a8e25e5d2c392f"
+    },
+    "src/slaif_raggedized_helper/evaluation_program.py": {
+      "bytes": 67029,
+      "sha256": "cbbad5e07e3ef58123b119efdb7ac74fe5da6839f6aba2e7bf12c85be621adf7"
+    },
+    "src/slaif_raggedized_helper/private_evaluation_preflight.py": {
+      "bytes": 8131,
+      "sha256": "86c173cc7ab7253161c91d44034ecc94430bef9324aa6b0a790bd58bf079754c"
+    },
+    "src/slaif_raggedized_helper/source_cohort_runner.py": {
+      "bytes": 63299,
+      "sha256": "bd97dbd4f152cac6e3ab10129e98f1ebd1c32948eb1a6b054e6f5a2c75c4965e"
+    },
+    "tests/integration/test_current_grade_judgment_dispatch_composition.py": {
+      "bytes": 39127,
+      "sha256": "507c539701bf1dffc08fe428c1f0ee0c2d33d494a23e745f791a1febb72e8bc3"
+    },
+    "tests/integration/test_current_grade_catalog_composition.py": {
+      "bytes": 36997,
+      "sha256": "5854682ae755547a6548c4cc5a0e4ea46a64f57eefbeee56cfe8b8154fa05cd1"
+    },
+    "tests/integration/test_current_ranking_dispatch_composition.py": {
+      "bytes": 33958,
+      "sha256": "8764690ca30fde5cee48fe0155f99292e7ebb1831a252ddf829df9dd227ef059"
+    },
+    "tests/unit/test_evaluation_program.py": {
+      "bytes": 24445,
+      "sha256": "59f093b45a471e04ac21ad555643c6899cac3d972c47e1aea4756904525b39b0"
+    },
+    "tests/unit/test_private_evaluation_preflight.py": {
+      "bytes": 37427,
+      "sha256": "ae90709f1813ac4bdfb0e79152fe0fd3544eee1468c93acdd38c3ce7905bedb8"
+    }
+  },
+  "repair": {
+    "path": "tests/integration/test_current_grade_judgment_dispatch_composition.py",
+    "before": "        # (g) A declared plan judgment with no ordered prepared\n        # selection at the same position is a malformed plan for this\n        # operation and refuses before any new read.\n        refused(\n            (\"h1\",),\n            ((\"h1\", ((chunks[\"a\"], 3),)), (\"h2\", ((chunks[\"a\"], 1),))),\n            \"h1\",\n            plan_level,\n        )\n",
+    "after": "        # (g) An extra judgment fails joint preparation before admission.\n        # Refusal has no progress prefix and performs no new reads.\n        refused(\n            (\"h1\",),\n            ((\"h1\", ((chunks[\"a\"], 3),)), (\"h2\", ((chunks[\"a\"], 1),))),\n            \"h1\",\n            None,\n        )\n",
+    "expected": {
+      "bytes": 39076,
+      "sha256": "8aca72099afff0e7c4712e9a9d4d88d9098b6c90a924c43c83439079352c7bf1"
+    }
+  },
+  "local_focused": {
+    "tests/unit/test_evaluation_program.py": 50,
+    "tests/unit/test_private_evaluation_preflight.py": 42
+  },
+  "local_total": 92,
+  "expected_each_product": {
+    "unit_order": [
+      1440,
+      1998
+    ],
+    "total_units": 3438,
+    "integration": 994
+  },
+  "DHA": "NONE"
+}

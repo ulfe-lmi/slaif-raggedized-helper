@@ -149,7 +149,7 @@ def test_timeout_kills_owned_descendant(tmp_path):
         while time.monotonic() < deadline:
             try:
                 state = Path(f'/proc/{pid}/stat').read_text().rsplit(')', 1)[1].split()[0]
-            except FileNotFoundError:
+            except (FileNotFoundError, ProcessLookupError):
                 break
             if state == 'Z':
                 break
@@ -163,9 +163,13 @@ def test_timeout_kills_owned_descendant(tmp_path):
             try:
                 fd = os.pidfd_open(int(pid))
                 try:
-                    stat = Path(f'/proc/{pid}/stat').read_text().rsplit(')', 1)[1].split()
-                    if stat[19] == start and stat[0] != 'Z':
-                        signal.pidfd_send_signal(fd, signal.SIGKILL)
+                    try:
+                        stat = Path(f'/proc/{pid}/stat').read_text().rsplit(')', 1)[1].split()
+                    except FileNotFoundError:
+                        pass
+                    else:
+                        if stat[19] == start and stat[0] != 'Z':
+                            signal.pidfd_send_signal(fd, signal.SIGKILL)
                 finally:
                     os.close(fd)
             except ProcessLookupError:

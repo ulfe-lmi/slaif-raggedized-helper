@@ -1,0 +1,255 @@
+{
+  "at": "2026-11-20T09:57:11.942842+00:00",
+  "status": "EXACT_FINAL_ORDER_INPUT",
+  "expected_active": "009-s",
+  "pr": 11,
+  "base": "d731dea7f5aad7f55b96386c869795ddba913fe9",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "source_index": "drafts/009-pure-policy-component-transfer-index-v2-CANDIDATE.json",
+  "source_index_sha256": "de78e55faae0b38af59367fb5d136d8ec7953644d00de8b3d6394fe886c7517b",
+  "components": [
+    {
+      "lane": "supplied-policy",
+      "base": "494a1908b3f0719c0eb78becdcbcb6c5c3ac0d74",
+      "implementation": "191139254f327dd9d987f60db4102f2916e55611",
+      "report_self": "5b9ddd9362dedb108e7c4656f8314f3f8d7f5116",
+      "receipt": "parallel/supplied-policy/response-consumed.json",
+      "receipt_sha256": "07ad8c07038bb4dd674599842545c58e2d67a134447a3a90472422139e69955e",
+      "implementation_files": [
+        {
+          "commit": "191139254f327dd9d987f60db4102f2916e55611",
+          "path": "docs/parallel/supplied-policy-primitives-api.md",
+          "mode": "100644",
+          "blob": "4cbfba4a82d7de656afcb09486f3bab12d94eda8",
+          "bytes": 15839,
+          "sha256": "79cd1adf2ddae40d8bf15317949bef7b5cc4baa5d939d5c144b5c9fc69d7f341"
+        },
+        {
+          "commit": "191139254f327dd9d987f60db4102f2916e55611",
+          "path": "docs/parallel/supplied-policy-primitives-v1.md",
+          "mode": "100644",
+          "blob": "f987ad9fa8e1beebbf6bb971390ccd3f80c6916f",
+          "bytes": 14229,
+          "sha256": "9bcfe68dd5a80c2d07f19e9a0a2f97a73da4521de5c9bd9fc71d87c4ed247af7"
+        },
+        {
+          "commit": "191139254f327dd9d987f60db4102f2916e55611",
+          "path": "oap/parallel/orders/PAR-009-SUPPLIED-POLICY-A.md",
+          "mode": "100644",
+          "blob": "4a7daac105713bb3cbcfbb4576c89ff7280d8a9d",
+          "bytes": 11192,
+          "sha256": "1171f096b82ec4fb0dedd67e9ece84893da43fadaaa584bb289f514108d1d2ac"
+        },
+        {
+          "commit": "191139254f327dd9d987f60db4102f2916e55611",
+          "path": "src/slaif_raggedized_helper/supplied_policy.py",
+          "mode": "100644",
+          "blob": "f003704389a90e021cd40eef3a723194e2585b77",
+          "bytes": 16721,
+          "sha256": "7e59a94b98ee9b58af53bd4f350b992dbb0b91c547fd428b31b43b7009927195"
+        },
+        {
+          "commit": "191139254f327dd9d987f60db4102f2916e55611",
+          "path": "tests/unit/test_supplied_policy.py",
+          "mode": "100644",
+          "blob": "d0579c5a3864fb75495f8c7d7022fbcd714976be",
+          "bytes": 39813,
+          "sha256": "fcda195ab96170524d5e7472055e994a3b23c3c7128d125dd4f456de69630f01"
+        }
+      ],
+      "archival_report": {
+        "commit": "5b9ddd9362dedb108e7c4656f8314f3f8d7f5116",
+        "path": "oap/parallel/reports/PAR-009-SUPPLIED-POLICY-A.json",
+        "mode": "100644",
+        "blob": "24f2ddc88112d09eb85003af80d995e87d957fa9",
+        "bytes": 5588,
+        "sha256": "654969c0c38afdc1f158cfaab6b530b88a39eeb4804240e7e2d869c7325bad20",
+        "destination": "oap/provenance/009-t/PAR-009-SUPPLIED-POLICY-A.json"
+      }
+    },
+    {
+      "lane": "supplied-policy-wire",
+      "base": "191139254f327dd9d987f60db4102f2916e55611",
+      "implementation": "899465220ac2108388845d6926209448f41fdadb",
+      "report_self": "587c5b4c17f77c51714afca07c641835a6c16d9d",
+      "receipt": "parallel/supplied-policy-wire/response-consumed.json",
+      "receipt_sha256": "5be6db530677ed7b309170692cdf00c27d9c8b123f0fa31deb606951158e163c",
+      "implementation_files": [
+        {
+          "commit": "899465220ac2108388845d6926209448f41fdadb",
+          "path": "docs/parallel/supplied-policy-wire-api.md",
+          "mode": "100644",
+          "blob": "e849591ef561d5b5c65c4e497cba082edd8e6ca5",
+          "bytes": 13165,
+          "sha256": "ea69974298d287495a0c0aed65af2f457fa06a73b18dc24e52cc9f73aeec255b"
+        },
+        {
+          "commit": "899465220ac2108388845d6926209448f41fdadb",
+          "path": "docs/parallel/supplied-policy-wire-v1.md",
+          "mode": "100644",
+          "blob": "7a1b980e77da52d2e583e391957edd89c40ae431",
+          "bytes": 4374,
+          "sha256": "b737e5e33ff2ce753ea8a9c3e68eba2a250b8f56d2004e57c1b52c5478aa3158"
+        },
+        {
+          "commit": "899465220ac2108388845d6926209448f41fdadb",
+          "path": "oap/parallel/orders/PAR-009-SUPPLIED-POLICY-WIRE-A.md",
+          "mode": "100644",
+          "blob": "e2fce41638d28a0915168760c245352c821250f0",
+          "bytes": 4903,
+          "sha256": "6e552cadd73700b3dac2e524f4dda286f08a14efca4b4a96cd177f3d9ece6243"
+        },
+        {
+          "commit": "899465220ac2108388845d6926209448f41fdadb",
+          "path": "src/slaif_raggedized_helper/supplied_policy_wire.py",
+          "mode": "100644",
+          "blob": "ad380f5a824af348a58e23e7fb634ae9ba914a6f",
+          "bytes": 10556,
+          "sha256": "d18a93996baa36ea88b538f439994e9d658eb1fe4de32fb6daac15068ec4805a"
+        },
+        {
+          "commit": "899465220ac2108388845d6926209448f41fdadb",
+          "path": "tests/unit/test_supplied_policy_wire.py",
+          "mode": "100644",
+          "blob": "d51ca3cf44caa71b4ae3de41d0928cd56b757f52",
+          "bytes": 37200,
+          "sha256": "00ce55eabe893386ad48449231964d7ea12cb34fb22336705c859c5952c3eb59"
+        }
+      ],
+      "archival_report": {
+        "commit": "587c5b4c17f77c51714afca07c641835a6c16d9d",
+        "path": "oap/parallel/reports/PAR-009-SUPPLIED-POLICY-WIRE-A.json",
+        "mode": "100644",
+        "blob": "e45759eadb27fc6d277e2f1c23d157467ce88ce8",
+        "bytes": 9266,
+        "sha256": "3a196e25506d5b0b3f85c78fe1f6aa2c7d513ec9b608b3a3eca54198ef6043a4",
+        "destination": "oap/provenance/009-t/PAR-009-SUPPLIED-POLICY-WIRE-A.json"
+      }
+    },
+    {
+      "lane": "policy-selection-record",
+      "base": "e9f24bae9ce47c1ceb3f51e9eff10e91574c7242",
+      "implementation": "b0bd2821872e2ee82c98a85d9df509e616c8c642",
+      "report_self": "92488d730874d49a7700255c9be8cb5df2278c27",
+      "receipt": "parallel/policy-selection-record/response-consumed.json",
+      "receipt_sha256": "7d80b946754f22c89ef77546c7af517dcb4298ef0d0861bcf43c53ed654e7103",
+      "implementation_files": [
+        {
+          "commit": "b0bd2821872e2ee82c98a85d9df509e616c8c642",
+          "path": "oap/parallel/orders/PAR-009-POLICY-SELECTION-RECORD-A.md",
+          "mode": "100644",
+          "blob": "51342410350b2fd3de22b59ba12d5f2a7b39fab6",
+          "bytes": 4921,
+          "sha256": "66f55f5bbd79214f11c7a2e2cd2d8df8ebbfdfdd91cca4b91bf0bd5c7d7946c8"
+        },
+        {
+          "commit": "b0bd2821872e2ee82c98a85d9df509e616c8c642",
+          "path": "src/slaif_raggedized_helper/policy_selection.py",
+          "mode": "100644",
+          "blob": "d47ae4187089b30f885eccfc56259aa566062453",
+          "bytes": 2526,
+          "sha256": "eda878a12af9f141b6f9cd48ccec5601932201f9b36baa31fa17fe28659bde87"
+        },
+        {
+          "commit": "b0bd2821872e2ee82c98a85d9df509e616c8c642",
+          "path": "tests/unit/test_policy_selection.py",
+          "mode": "100644",
+          "blob": "4b229c984bf8410b966e28bf968db32e22cbec6d",
+          "bytes": 10745,
+          "sha256": "2b7921c03afd228a003d1c2555f4de6e9765552da085a33c865d7a28db44c41d"
+        }
+      ],
+      "archival_report": {
+        "commit": "92488d730874d49a7700255c9be8cb5df2278c27",
+        "path": "oap/parallel/reports/PAR-009-POLICY-SELECTION-RECORD-A.json",
+        "mode": "100644",
+        "blob": "06ff75e4a7fe1f621a6c0783ad1582fa81110058",
+        "bytes": 7345,
+        "sha256": "339a8c0e151b24f612fdeaab55c46a586972110a467d9a727accd9bf31f7db2e",
+        "destination": "oap/provenance/009-t/PAR-009-POLICY-SELECTION-RECORD-A.json"
+      }
+    },
+    {
+      "lane": "supplied-membership-eligibility",
+      "base": "191139254f327dd9d987f60db4102f2916e55611",
+      "implementation": "7f6190adf3d8092f2381505b45185db78db901d0",
+      "report_self": "7d8696572622a396f1ce87bf3002e58a0b3e50ca",
+      "receipt": "parallel/supplied-membership-eligibility/response-consumed.json",
+      "receipt_sha256": "98755b6e61908687808650e991369860784c881efe2dd3bacfb66e96b7916bfe",
+      "implementation_files": [
+        {
+          "commit": "7f6190adf3d8092f2381505b45185db78db901d0",
+          "path": "oap/parallel/orders/PAR-009-SUPPLIED-MEMBERSHIP-ELIGIBILITY-A.md",
+          "mode": "100644",
+          "blob": "23a8e2ccb1c9f7af4c9d109f3d9878dc5b1cb813",
+          "bytes": 4951,
+          "sha256": "bc5d7d6db95af2c388755d7f222868e62be7abdf439ed34fd778593a872a5d9b"
+        },
+        {
+          "commit": "7f6190adf3d8092f2381505b45185db78db901d0",
+          "path": "src/slaif_raggedized_helper/supplied_policy_eligibility.py",
+          "mode": "100644",
+          "blob": "338825e2146cbe100c88ffceb2cd9ef779a17968",
+          "bytes": 8642,
+          "sha256": "b9e82599158341ceef1be510a55b7eb41ffaa05684e5b5e1fb174bd4166c9eb9"
+        },
+        {
+          "commit": "7f6190adf3d8092f2381505b45185db78db901d0",
+          "path": "tests/unit/test_supplied_policy_eligibility.py",
+          "mode": "100644",
+          "blob": "e0cb6d227c1ea06b757759bff1632266627c776e",
+          "bytes": 19732,
+          "sha256": "f908df900a01165f246b895bfa63ec1f586b1565e71c44d033c5af174b360d21"
+        }
+      ],
+      "archival_report": {
+        "commit": "7d8696572622a396f1ce87bf3002e58a0b3e50ca",
+        "path": "oap/parallel/reports/PAR-009-SUPPLIED-MEMBERSHIP-ELIGIBILITY-A.json",
+        "mode": "100644",
+        "blob": "ad497b2c60a91167bfd52c66fc20c503362ba1f1",
+        "bytes": 9331,
+        "sha256": "fcfddbbb3049ac3956a46c5a5c8ec822ac81e76cf6fde978099a5c2af2242b7c",
+        "destination": "oap/provenance/009-t/PAR-009-SUPPLIED-MEMBERSHIP-ELIGIBILITY-A.json"
+      }
+    }
+  ],
+  "inherited_dependencies": [
+    {
+      "commit": "3522d263991e35b25b65f2621a289a05ad4231be",
+      "path": "src/slaif_raggedized_helper/provenance_records.py",
+      "mode": "100644",
+      "blob": "7601167d7fa078b48067cf45866f515c4393dc65",
+      "bytes": 19936,
+      "sha256": "88d3edfcfbfd7cb44a7d2a3fbd84d6fd01525a11e5c07a4416a6a316a57178a9"
+    },
+    {
+      "commit": "416009c94a6759c9a42e9c19dab688c0f54d9650",
+      "path": "src/slaif_raggedized_helper/raw_snapshot_membership.py",
+      "mode": "100644",
+      "blob": "b0511079cc32255b279e7368360e4903efed4aba",
+      "bytes": 13491,
+      "sha256": "506b8c727c89b99990c4270a4a06e549438b90a3efc7efc7618276265eeed2a7",
+      "same_candidate_blob": true
+    },
+    {
+      "commit": "416009c94a6759c9a42e9c19dab688c0f54d9650",
+      "path": "src/slaif_raggedized_helper/qualification/parity_io.py",
+      "mode": "100644",
+      "blob": "52be22308598ad3ed9e65c1b5a7577ba1d77b32e",
+      "bytes": 8902,
+      "sha256": "4dcb77c7ad38ae58b1211aa701b97650eb10a0ac1d6e275104157c41b6d98bf3",
+      "same_candidate_blob": true
+    }
+  ],
+  "implementation_file_count": 16,
+  "archival_report_count": 4,
+  "expected_new_default_cases": 284,
+  "expected_group_a": 1421,
+  "expected_group_b": 1594,
+  "expected_total": 3015,
+  "DHA": "NONE",
+  "identifier": "009-t",
+  "terminal_review": "audit/009-s-check/Root-terminal-review.json",
+  "terminal_review_sha256": "d8a362ce58f53bc2febbcfff6c636e712295599db73b1bd2da8fcf7703d1af9f",
+  "projection_sha256": "0da31ae4652bd0676ad159ad4fb5e45b59183041c0d42fcd6f218490638d62aa"
+}

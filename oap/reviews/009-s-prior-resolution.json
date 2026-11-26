@@ -1,0 +1,15 @@
+{
+  "identifier": "009-r",
+  "pr": 11,
+  "branch": "oap/009-evaluation-baseline",
+  "report_head": "dfe301c7c5796dc6de2bf8309f885dfc3b1cd2af",
+  "report_sha256": "f9438463c6c542c3d59f1c5fbb59224d1da9f18cecfc938445b29c01baf24a68",
+  "implementation": "dff27d4bf0c54796c4f1450f9c0320b44a083664",
+  "decision": "NOT_ACCEPTED_REQUIRED_PRODUCT_CI_FAILURE_CONTINUE_SAME_009",
+  "terminal_review": "audit/009-r-check/Root-terminal-review.json",
+  "terminal_review_sha256": "3d3b5e0ddd1883dbad32de53dc80ada31519baef49f2e23ffabc0541d9e3b994",
+  "strongest_reason_not_to_merge": "Actual direct 3.12 process was killed and six later steps skipped. Full same-head CI gate failed.",
+  "next_objective": "009-s",
+  "scope": "Within same 009, compare two fresh supervised pytest processes covering the exact full original ordered unit collection under one aggregate dispatch observation budget. Preserve no-fallback failure, environment, workflow, test bodies and teardown. Need bounded collect-only exact equivalence and hosted both legs before future activation. No unchanged rerun.",
+  "DHA": "NONE"
+}

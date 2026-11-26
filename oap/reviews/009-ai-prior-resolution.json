@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-21T00:38:03.947351+00:00",
+  "identifier": "009-ai",
+  "PR": 11,
+  "base": "78ffe7473c8ab517c339c96c038c3f0e9c041d8c",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "state": "ACCEPT_EXACT_009AG_ENCODER_TRANSFER_AS_009AH_CORRECTED_BOUNDED_HOSTED_PROOF_WHOLE_009_PARTIAL",
+  "hosted_review": {
+    "path": "audit/009-ah-check/Root-terminal-review.json",
+    "bytes": 3568,
+    "sha256": "554e7ddadccfc33f60daa186e2400be4c93a92c79d69710353b0b50cf5d58b7b"
+  },
+  "accepted_local_rank_candidate": {
+    "path": "audit/009-current-ranking-dispatch-local-resolution.json",
+    "bytes": 6583,
+    "sha256": "a72bef58425d746e8c432efac88045513d1aaa34ea3a9e8fef6657245ff03004"
+  },
+  "run": 44840111535,
+  "attempt": 1,
+  "ordered_units_each": 3438,
+  "integrations_each": 970,
+  "DHA": "NONE"
+}

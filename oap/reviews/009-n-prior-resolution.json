@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-17T06:19:34.445793+00:00",
+  "identifier": "009-m",
+  "head": "0b1311576eb5f66025ab422f74d7b07d1629784c",
+  "implementation": "1169f3a5dce301e0b7ba089eee4914a8812f9fe3",
+  "source_graph_review": "audit/009-m-check/Root-published-local-review.json",
+  "normal_verified_at": "2026-11-17T06:06:47.658709+00:00",
+  "report_sha256": "90e47783494595fa5e64dc7a2dedf3fd72c51d1ba8003f65c8101c1d0878f516",
+  "decision": "NOT_ACCEPTED_CURRENT_REQUIRED_CI_FAILURE_CONTINUE_SAME009_WITH_BOUNDED_DIAGNOSIS",
+  "terminal_review": "audit/009-m-ci-terminal/Root-terminal-review.json",
+  "terminal_review_sha256": "a19fb6b5ccfa73a9c34b0d4f7b6c19288ae9a99b3ed985ca866dbea6e9fca9f3",
+  "CI": "run44028728886 at exacthead0b131157; product314/312 failed,3OAPsuccess,78steps64success2failure12skipped; bothcollected2729. Known ordinarypublisher failures pluslater139/137; no outputcapfailure; actualunderlyingcausesunproven.",
+  "strongest_reason_not_to_merge": "Required jobs failed and downstream gates skipped. Original immutable coding report remains its publication-time pending snapshot, not updated by Root. No retry or silent cap/skip relaxation.",
+  "explicit_replan": "Same numeric009/PR11 continuation009n first diagnoses failure interactions under fixed finite local checks, stopping for Root cause/patch decision. No qualification acceptance or next-objective jump. Existing pane32 pure supplied-policy implementation and pane33 read-only wire design can continue on frozen accepted009l source/provenance/FinalRootcontract: they do not depend on publisher tests or genuine current authority, and cannot claim combined CI green. All affected integration/CI/real baseline/MVP gates remain open.",
+  "DHA": "NONE"
+}

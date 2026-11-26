@@ -1,0 +1,308 @@
+{
+  "at": "2026-11-13T08:12:31.415903+00:00",
+  "status": "FINAL_ROOT_EXACT_SOURCE_INDEX_FIRST_CANONICAL009_SOFTWARE_WAVE",
+  "source_SELF": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+  "source_preparation": {
+    "lane": "source-support-preparation",
+    "lane_id": "PAR-009-SOURCE-SUPPORT-PREP-A",
+    "result": "PARTIAL",
+    "implementation": "c91a5c2b942aee00f3833186e393b174b731be5b",
+    "report_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+    "report_sha256": "15e70443333328af1dd6450ea5522298f69fcfbcd5f3385110f4b91a44dc9662",
+    "paths": [
+      "docs/parallel/declared-span-support-api.md",
+      "docs/parallel/declared-span-support-design.md",
+      "docs/parallel/declared-span-support-oracle.json",
+      "docs/parallel/source-bound-ranking-api.md",
+      "docs/parallel/source-bound-ranking-design.md",
+      "docs/parallel/source-bound-ranking-oracle.json",
+      "docs/parallel/source-bound-text-support-api.md",
+      "docs/parallel/source-bound-text-support-design.md",
+      "docs/parallel/source-bound-text-support-input-pins.json",
+      "docs/parallel/source-bound-text-support-oracle.json",
+      "docs/parallel/source-support-preparation-inputs.json",
+      "docs/parallel/source-support-preparation.md",
+      "docs/parallel/text-evaluation-gold-binding-api.md",
+      "docs/parallel/text-evaluation-gold-binding-coverage-followup.md",
+      "docs/parallel/text-evaluation-gold-binding-design.md",
+      "docs/parallel/text-evaluation-gold-binding-oracle.json",
+      "oap/parallel/orders/PAR-009-SOURCE-SUPPORT-PREP-A.md",
+      "src/slaif_raggedized_helper/declared_span_support.py",
+      "src/slaif_raggedized_helper/source_bound_ranking.py",
+      "src/slaif_raggedized_helper/source_bound_text_support.py",
+      "src/slaif_raggedized_helper/text_evaluation_gold_binding.py",
+      "tests/unit/test_declared_span_support.py",
+      "tests/unit/test_source_bound_ranking.py",
+      "tests/unit/test_source_bound_text_support.py",
+      "tests/unit/test_text_evaluation_gold_binding.py"
+    ],
+    "verified_at": "2026-11-13T06:49:10.882298+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "foundations_preparation": {
+    "lane": "evaluation-foundations-preparation",
+    "lane_id": "PAR-009-EVAL-FOUNDATION-PREP-A",
+    "result": "PARTIAL",
+    "implementation": "70d3b61f5c1fa997286ce880cdccbaeda9b58810",
+    "report_commit": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+    "report_sha256": "4dd04df5508f4254be1de4bac272098e08b3bbd4593366a909814acd3a9159e6",
+    "paths": [
+      "docs/parallel/evaluation-foundations-preparation.md",
+      "docs/parallel/evaluation-foundations-source-index.json",
+      "docs/parallel/supplied-rank-metrics-api.md",
+      "docs/parallel/supplied-rank-metrics-design.md",
+      "docs/parallel/supplied-rank-metrics-oracle.json",
+      "docs/parallel/text-evaluation-dataset-api.md",
+      "docs/parallel/text-evaluation-dataset-design.md",
+      "docs/parallel/text-evaluation-dataset-oracle.json",
+      "oap/parallel/orders/PAR-009-EVAL-FOUNDATION-PREP-A.md",
+      "src/slaif_raggedized_helper/supplied_rank_metrics.py",
+      "src/slaif_raggedized_helper/text_evaluation_dataset.py",
+      "tests/unit/test_supplied_rank_metrics.py",
+      "tests/unit/test_text_evaluation_dataset.py"
+    ],
+    "verified_at": "2026-11-13T06:00:06.131601+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "entries": [
+    {
+      "path": "docs/parallel/text-evaluation-dataset-api.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 1544,
+      "sha256": "3492e63e294d163dbc1fe19076296e2e5556431aacf969299be7887a3bd0ac09",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/text-evaluation-dataset-design.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 13524,
+      "sha256": "947e02b87ca74c4e6bb6cbca8ba35f3cb758fe8852c12ae8c2bbcf087471cfa5",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/text-evaluation-dataset-oracle.json",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 2683,
+      "sha256": "70f6a73d48ffc0650acb44b4d1d3bf6b9688bafa37183dbc9ac2a1d5f8405ab0",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/text_evaluation_dataset.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 11687,
+      "sha256": "923d34d26d6f040108f72ccb95726f91af213355dc68a2e3ca5dd17eeae4d17b",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_text_evaluation_dataset.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 7070,
+      "sha256": "901707fffd38b0953e43ad054bb78fccca7736e273264d365879499599e89822",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/supplied-rank-metrics-api.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 2357,
+      "sha256": "e84e1344ec2236b072eea8cb448b50d17e9e46b029807df6ebd6cb8183d67b1f",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/supplied-rank-metrics-design.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 14343,
+      "sha256": "2cd43720d346837c997dd833230e390fa0ebfeb01df934df5201e6fe7f29f5e1",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/supplied-rank-metrics-oracle.json",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 4632,
+      "sha256": "e4864c0c3533a69579b986d881d8a522f9c5f548f030f52e43b0ae6af87dd6af",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/supplied_rank_metrics.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 11169,
+      "sha256": "508e9e7ff0e71a5ea321d0f25b3e88f5c80b61ebe4df90e16e9c7b9ca3d4dcb6",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_supplied_rank_metrics.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "upstream_preparation_SELF": "cde1baeb2ae16dbe7837634c2357569cb62190ad",
+      "bytes": 5815,
+      "sha256": "e781a2913b126233313bcf3a7b1f9c97debf46b5e3f304eb48b0af680eb37f8f",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/text_evaluation_gold_binding.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 7949,
+      "sha256": "1ea0d173df72e25d858f16c1d938e6d14a1e8adfa871505bac40f3ecc5d1e156",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/declared_span_support.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 8016,
+      "sha256": "0fdcc3f44174ce4f761b4d364a72304fd98c7da33fb4d91c73576b6cc1fd6aa7",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/source_bound_ranking.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 14280,
+      "sha256": "66871234a20109aac4984ff101c353267c95f405f4aa7fe4cb6cd6a84015ab88",
+      "disposition": "NEW"
+    },
+    {
+      "path": "src/slaif_raggedized_helper/source_bound_text_support.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 11465,
+      "sha256": "bff0a5b550f4cd5a23e27bd1fd7082c6dcb33de2b6860b09144bec9005348170",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_text_evaluation_gold_binding.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 9193,
+      "sha256": "105b9727fc9bec3e14d9a49a5c0389241f8b87d6c20022c51f3f27f456346935",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_declared_span_support.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 12674,
+      "sha256": "c29cb45755c9b75e9d5b54a58089b5b1533a80991d9c0df14a543974e2d39b8c",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_source_bound_ranking.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 10026,
+      "sha256": "2994b200f9917b50096ddc780d30bd4b8f29647f70a1b4fbf99e9c61c33c1ba6",
+      "disposition": "NEW"
+    },
+    {
+      "path": "tests/unit/test_source_bound_text_support.py",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 17896,
+      "sha256": "3cef16fb38d47c244586a17d03721f7d8c1e74d9885bb12a9c5a5676b289d1e2",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/text-evaluation-gold-binding-api.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 1164,
+      "sha256": "7c513f12f14d3fe0d133ff38a51b3e2fe8e28c4a39c5651e7b80eda8156c959f",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/text-evaluation-gold-binding-design.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 14193,
+      "sha256": "0786e41daa8896865f1cf8fe03f2824b2e683b05892702dfe352614d0f1a8e0a",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/text-evaluation-gold-binding-oracle.json",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 5966,
+      "sha256": "3ab037bce4e1b045389e67b0d580c2ba8addf1a4d27cead30983d3fce96504a2",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/text-evaluation-gold-binding-coverage-followup.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 853,
+      "sha256": "dd1bcff17ac7bfe55dff6decf3c0faa73d79af223b6c67e47a921d042c3078c7",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/declared-span-support-api.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 1515,
+      "sha256": "d874104494c0ba1eb482e06133c9625b712b8698d7f3ba4ddac26778b40dc780",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/declared-span-support-design.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 13973,
+      "sha256": "795ac12a25e82b27231f4d3cafcb78b94b269107b710b5501f5377a1753245d0",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/declared-span-support-oracle.json",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 27641,
+      "sha256": "a75097ee21ddc666a5cb8c9096d7dcbfd20cac5a737b3e2840cc48d34358342f",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-ranking-api.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 2438,
+      "sha256": "17a5a8af037a52ab804470b9c67de5b0c26faa77d7f8610089d5debe36becbd2",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-ranking-design.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 16060,
+      "sha256": "080e868d81b3a8cc0240df2c7d4617ebf91bac7de3267fea1dd7017b9cf0e479",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-ranking-oracle.json",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 25435,
+      "sha256": "1cee88416477ad29c466cc494e1ddbb5d955b28350cae508461c28b92b2f8cd3",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-text-support-api.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 6661,
+      "sha256": "39335e6d57bcc0ef6057e6477e3ef33ccd5183459d5f38e8b5a5360972556e52",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-text-support-design.md",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 15694,
+      "sha256": "1e30173b3cf4b288d27e7d3471e12797caedd47cf77c13b7be7aec915b2a5183",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-text-support-input-pins.json",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 1063,
+      "sha256": "60b3d4c21ae45b1dfdb360d4588ffa2515285906c69b8148c1273fd2e7a75ea1",
+      "disposition": "NEW"
+    },
+    {
+      "path": "docs/parallel/source-bound-text-support-oracle.json",
+      "source_commit": "8c351a95f0985b5544d62d83869592f0659e9ecf",
+      "bytes": 23756,
+      "sha256": "3280d1300607b24b35e867ae12fa8e3571f2983330355cf094ee41ef3d4bba78",
+      "disposition": "NEW"
+    }
+  ],
+  "total_bytes": 322735,
+  "scope": "Canonical009firstsoftwarewavepossible32exact6production/6unit/20API/design/oracledocs, no obsoleteprivateenvintegration/nativePDFoptionalmodule/sourcecache/order/report/wholebranchtransfer. Full009 remainspartial: actualportablefixture/adapter/stage-loss/newsourceRecallmeaningfulnesspolicy/currentrights/humanheldoutquality gates stayopen. Do notactivate before008protectedmergeresolution.",
+  "DHA": "NONE",
+  "base_main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "lower_compatibility": "All21current008productionblobs plus6source/derived/ingestion/provenance/structuredlower modules byteidentical betweenactualmergedmain5a7b anddonor8c35. No lowerAPIadaptation authorized."
+}

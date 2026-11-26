@@ -1,0 +1,50 @@
+{
+  "identifier": "009-ab",
+  "at": "2026-11-20T17:41:37.540982+00:00",
+  "base": "ebbce25705c41c1db9e8f2ec1c4d3a0b833d476f",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "pr": 11,
+  "predecessor": {
+    "identifier": "009-aa",
+    "report": {
+      "commit": "ebbce25705c41c1db9e8f2ec1c4d3a0b833d476f",
+      "path": "oap/reports/009-aa-joint-and-current-pin-transfer.md",
+      "mode": "100644",
+      "blob": "988fedac64e3679a6aeb9b968426d8f6cf269d5a",
+      "bytes": 15161,
+      "sha256": "f3b8079037e9dbf77caebc37e30ffc3163f451e698bbeb5289762f33cb691b82"
+    },
+    "receipt": {
+      "path": ".oap-state/response-consumed-009-aa.json",
+      "bytes": 347,
+      "sha256": "3d1d8ce809b4801b4a7a8aad7550aaf6a0f9a22114130ae6ac1ecec7e1a5cd88"
+    },
+    "run": 44781112453,
+    "attempt": 1,
+    "terminal_review": {
+      "path": "audit/009-aa-check/Root-terminal-review.json",
+      "bytes": 11450,
+      "sha256": "c5a758741720ff5997bba580c296a828d24f296ac6f30c9bcd8113adebe997d2"
+    },
+    "each_product": {
+      "A": 1440,
+      "B": 1930,
+      "units": 3370,
+      "integration": 951
+    },
+    "state": "ACCEPTED_EXACT_JOINT_AND_CURRENT_PIN_TRANSFER"
+  },
+  "peer_resolution": {
+    "path": "audit/009-pinned-hybrid-authority-seam-peer-resolution.json",
+    "bytes": 6128,
+    "sha256": "2b86fceb07136682b79f643cc3298f233ac0b611287401f81326eec2bf63479a"
+  },
+  "source_inputs": {
+    "path": "workorders/009-ab-pinned-hybrid-source-inputs.json",
+    "bytes": 8060,
+    "sha256": "7233946e4435825b1cdedf87b7ee8c550b69f28cf7fb55c432b82cf203d14e31"
+  },
+  "whole_009": "PARTIAL",
+  "baseline": "NOT_RUN",
+  "DHA": "NONE"
+}

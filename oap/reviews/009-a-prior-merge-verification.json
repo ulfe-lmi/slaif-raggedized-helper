@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-13T08:07:44.679962+00:00",
+  "PR": 10,
+  "state": "MERGED_VERIFIED_DEFAULTMAIN",
+  "merge_commit": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "accepted_report_head": "2944716817a8c8346ab9196aa3a04a265955d936",
+  "previous_main": "1a8fddf8c1448ad9e76b6b8194984877c4c21a95",
+  "merge_parents": [
+    "1a8fddf8c1448ad9e76b6b8194984877c4c21a95",
+    "2944716817a8c8346ab9196aa3a04a265955d936"
+  ],
+  "tree": "39039e30a75b961a69329312679adfa2f606ba43",
+  "head_tree_equal": true,
+  "merged_at": "2026-11-13T08:07:41Z",
+  "merge_method": "merge",
+  "controls": "Serverexpectedheadsha/no bypass/admin/automerge; no sourcecheckout/reset/switch/rebase/forcepush; defaultmainverifiedactual andmergeparents/treeexact; no release/tag/deploy.",
+  "development_acceptance": "audit/008-g-development-acceptance-2944.json",
+  "next_scope": "009boundedsoftwareevaluationallowedafterorderpublication/reconciliation; fullMVP/actualqualification/mergedICA remainopen.",
+  "DHA": "NONE"
+}

@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-13T13:23:03.774885+00:00",
+  "identifier": "009-d",
+  "decision": "BOUNDED_TRANSFER_REVIEW_FINISHED_CONTINUATION_REQUIRED_NOT_MERGE_ACCEPTANCE",
+  "pr": 11,
+  "head": "598d6dc6d8dd97f711859c1277a08e8bfb606956",
+  "implementation": "157fb909e54cff43e2f8e2c60d55065470ed436d",
+  "transcript": "a7ee2b26708d96029c5fd541df9b214efd8e8338",
+  "sourceSELF": "b33da3811d82d651ad711bf5878f4f7159b5fcad",
+  "report_sha256": "64221c4fcee5bfbea824863b19993c9945c8b3a53078ebe04baf1c5623d55802",
+  "normal_verified_at": "2026-11-13T13:01:59.907166+00:00",
+  "CI": {
+    "run": 43429772054,
+    "all_jobs": 5,
+    "all_steps": 78,
+    "conclusion": "SUCCESS",
+    "completed_at": "2026-11-13T13:16:53Z",
+    "product314_completed_at": "2026-11-13T13:16:52Z",
+    "product312_completed_at": "2026-11-13T13:15:19Z",
+    "product_dot_passmarkers_each_leg": 3299,
+    "OAP_tests_each_product_leg": 41,
+    "skip_or_nonpass_markers": "NONE in extracted test-progress markers",
+    "retained_logs": {
+      "314": {
+        "path": "audit/009-d-ci-product-314-598d.log",
+        "sha256": "8be6a891070813b45236d4ed751608b75e23a1da86c17c4a43cbccab4357f980"
+      },
+      "312": {
+        "path": "audit/009-d-ci-product-312-598d.log",
+        "sha256": "4f64a0f00aac529b8dbc6166639eb08b2a4df01538500cb33283f8788df81ed9"
+      }
+    },
+    "required_checks": "Every5job/78step success independently inspected, runhead598d and currentremotePR11/head/main/reviews verified in audit/009-d-final-{pr,threads,reviews,jobs,run}-598d.json; no skipped/missing/pending/cancelled check accepted."
+  },
+  "source_scope": "5exactNEWblobs89811B plus3docs;13transcript/8impl/1report22roundpaths; existingcode/tests/config/deps/workflow/law unchanged and portableunitb00a preserved. Rootfullsourcefromadmittedb33, docdiff/currentreport/graph/hash/Rootrecords independentlyreviewed; strictremoteverifierpassed13:03:24.",
+  "open_doc_gate": "audit/009-d-doc-precision-findings-157f.json: correct lexical4-7 indices, noGold vs ORambiguity reasons, pureidentityfieldinsertionorder vs sortedkeys. Preserveimmutable598d/report; coding fixes nextsame009FINALcontinuation beforeANYdevelopmentmerge.",
+  "original009": "OPEN. Purecohortmath canonical; missingcanonical source-cohort runner/private splitreport/actualcohortproof. Local820d/e687 runner35controlledunits admittedONLYproofpreparation, other-authorcode/oracleaudit underway and actualproofbudget separate. RealbaselineNOTRUN; humanheldout/rights/currentpolicy/qualifiedencoder/20k/hardware/visual/licenses/mergedICA/fullMVP remain gates.",
+  "strongest_reason_not_to_merge": "CurrentgreenCI and exacttransfer donotimplement fullsourcecohort/qualifiedbaseline, and3currentdocprecisiondefects remain. Thus no mergeacceptance/nextnumericobjective.",
+  "next": "Same009 explicitreplan: complete local source runner other-authorreview and actualproof, thenreviewedselectivecanonicalwave with3doccorrections/fullnewheadCI. Safeinertproofpreparation parallel only. No release/tag/deploy/serviceauthority.",
+  "DHA": "NONE"
+}

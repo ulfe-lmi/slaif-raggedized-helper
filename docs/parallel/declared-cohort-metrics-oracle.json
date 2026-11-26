@@ -1,0 +1,507 @@
+{
+  "status": "REFINED_DECLARED_HAND_ORACLE_NOT_EXECUTED",
+  "dataset": "Shared 140 distinct chunk identities, six distinct Gold revisions plus two filler revisions, 8 groups at most under one-bundle-per-revision declaration. Full four-case data retained. See derivation-v2.md; prior oracle retained.",
+  "cases": {
+    "A": {
+      "required_revisions": 1,
+      "requirements": 1,
+      "atoms": [
+        "x010"
+      ]
+    },
+    "B": {
+      "required_revisions": 3,
+      "requirements": 3,
+      "atoms": [
+        "x005",
+        "x030",
+        "x090"
+      ]
+    },
+    "C": {
+      "required_revisions": null,
+      "source_reason": "AMBIGUOUS_ALTERNATIVE_SOURCE_UNIVERSE",
+      "requirements": 1,
+      "alternatives": [
+        "x015",
+        "x135"
+      ]
+    },
+    "D": {
+      "required_revisions": null,
+      "source_reason": "NO_GOLD_SOURCES",
+      "requirements": 0,
+      "completion_reason": "NO_GOLD_REQUIREMENTS"
+    }
+  },
+  "stages": {
+    "dense.eligible": "x001..x140",
+    "dense.ranked": "x001..x140",
+    "dense.selected": "x001..x060,x071..x130",
+    "dense.returned": "x001..x060",
+    "lexical.eligible": "x001..x140",
+    "lexical.ranked": "x001..x140",
+    "lexical.selected": "x001..x060,x071..x130",
+    "lexical.returned": "x001..x030,x071..x100",
+    "fusion.input": "x001..x060,x071..x100",
+    "fusion.returned": "x001..x060"
+  },
+  "full_stage_classes": {
+    "eligible_ranked": {
+      "A": [
+        "1/1",
+        true,
+        [
+          "a0"
+        ]
+      ],
+      "B": [
+        "3/3",
+        true,
+        [
+          "b10",
+          "b20",
+          "b30"
+        ]
+      ],
+      "C": [
+        null,
+        true,
+        [
+          "c0",
+          "c1"
+        ]
+      ],
+      "D": [
+        null,
+        null,
+        []
+      ]
+    },
+    "selected": {
+      "A": [
+        "1/1",
+        true,
+        [
+          "a0"
+        ]
+      ],
+      "B": [
+        "3/3",
+        true,
+        [
+          "b10",
+          "b20",
+          "b30"
+        ]
+      ],
+      "C": [
+        null,
+        true,
+        [
+          "c0"
+        ]
+      ],
+      "D": [
+        null,
+        null,
+        []
+      ]
+    },
+    "dense_returned_fusion_returned": {
+      "A": [
+        "1/1",
+        true,
+        [
+          "a0"
+        ]
+      ],
+      "B": [
+        "2/3",
+        false,
+        [
+          "b10",
+          "b20"
+        ]
+      ],
+      "C": [
+        null,
+        true,
+        [
+          "c0"
+        ]
+      ],
+      "D": [
+        null,
+        null,
+        []
+      ]
+    },
+    "lexical_returned_fusion_input": {
+      "A": [
+        "1/1",
+        true,
+        [
+          "a0"
+        ]
+      ],
+      "B": [
+        "3/3",
+        true,
+        [
+          "b10",
+          "b20",
+          "b30"
+        ]
+      ],
+      "C": [
+        null,
+        true,
+        [
+          "c0"
+        ]
+      ],
+      "D": [
+        null,
+        null,
+        []
+      ]
+    }
+  },
+  "prefixes": {
+    "20_all": {
+      "A": [
+        "1/1",
+        true
+      ],
+      "B": [
+        "1/3",
+        false
+      ],
+      "C": [
+        null,
+        true
+      ],
+      "D": [
+        null,
+        null
+      ],
+      "source_macro": "2/3",
+      "completion_macro": "2/3",
+      "source_micro": "1/2"
+    },
+    "60_dense_fusion": {
+      "A": [
+        "1/1",
+        true
+      ],
+      "B": [
+        "2/3",
+        false
+      ],
+      "C": [
+        null,
+        true
+      ],
+      "D": [
+        null,
+        null
+      ],
+      "source_macro": "5/6",
+      "completion_macro": "2/3",
+      "source_micro": "3/4"
+    },
+    "60_lexical": {
+      "A": [
+        "1/1",
+        true
+      ],
+      "B": [
+        "3/3",
+        true
+      ],
+      "C": [
+        null,
+        true
+      ],
+      "D": [
+        null,
+        null
+      ],
+      "source_macro": "1",
+      "completion_macro": "1",
+      "source_micro": "1"
+    }
+  },
+  "counts": {
+    "total": 4,
+    "attempted": 4,
+    "completed": 4,
+    "refused": 0,
+    "source_defined": 2,
+    "source_undefined": 2,
+    "completion_defined": 3,
+    "completion_undefined": 1
+  },
+  "transition_losses": [
+    {
+      "transition": "dense.eligible->dense.ranked",
+      "lost": {}
+    },
+    {
+      "transition": "dense.ranked->dense.selected",
+      "lost": {
+        "C": {
+          "requirements": [],
+          "alternatives": [
+            [
+              "c",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "transition": "dense.selected->dense.returned",
+      "lost": {
+        "B": {
+          "requirements": [
+            "b3"
+          ],
+          "alternatives": [
+            [
+              "b3",
+              0
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "transition": "lexical.eligible->lexical.ranked",
+      "lost": {}
+    },
+    {
+      "transition": "lexical.ranked->lexical.selected",
+      "lost": {
+        "C": {
+          "requirements": [],
+          "alternatives": [
+            [
+              "c",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "transition": "lexical.selected->lexical.returned",
+      "lost": {}
+    },
+    {
+      "transition": "fusion.input->fusion.returned",
+      "lost": {
+        "B": {
+          "requirements": [
+            "b3"
+          ],
+          "alternatives": [
+            [
+              "b3",
+              0
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "transition_note": "Unlisted cases have no lost requirements or alternatives; every gained set is empty. Declared total requirement/alternative denominators A 1/1 B 3/3 C 1/2 D 0/0. See derivation for raw numerators and attribution.",
+  "refusal": {
+    "case": "E",
+    "scope": "A,B,C,D,E",
+    "attempt_order": "A,B,C,D,E",
+    "total": 5,
+    "attempted": 5,
+    "completed": 4,
+    "refused": 1,
+    "completed_prefix": 4,
+    "completed_source_defined": 2,
+    "completed_source_undefined": 2,
+    "completed_completion_defined": 3,
+    "completed_completion_undefined": 1,
+    "root_proposed_all_aggregates": "UNAVAILABLE_REFUSED",
+    "alternative": "Success-only values equal prefixes above, explicitly refused=1, not a full cohort baseline."
+  },
+  "graded_metrics": "UNAVAILABLE_NO_EXPLICIT_CHUNK_RELEVANCE_MAPPING",
+  "qualification": "DECLARED_SYNTHETIC_NOT_QUALIFIED",
+  "stage_relation_caveat": "selected expressions are unordered sets; global rankings separately declared; no actual producer, RRF or score consistency asserted",
+  "transition_cohort_root_d0": [
+    {
+      "transition": "dense.eligible->dense.ranked",
+      "complete": "0/3",
+      "source_macro_loss": "0",
+      "requirements": {
+        "lost_before": "0/5",
+        "pooled": "0",
+        "case_macro": "0"
+      },
+      "alternatives": {
+        "lost_before": "0/6",
+        "pooled": "0",
+        "case_macro": "0"
+      }
+    },
+    {
+      "transition": "dense.ranked->dense.selected",
+      "complete": "0/3",
+      "source_macro_loss": "0",
+      "requirements": {
+        "lost_before": "0/5",
+        "pooled": "0",
+        "case_macro": "0"
+      },
+      "alternatives": {
+        "lost_before": "1/6",
+        "pooled": "1/6",
+        "case_macro": "1/6"
+      }
+    },
+    {
+      "transition": "dense.selected->dense.returned",
+      "complete": "1/3",
+      "source_macro_loss": "1/6",
+      "requirements": {
+        "lost_before": "1/5",
+        "pooled": "1/5",
+        "case_macro": "1/9"
+      },
+      "alternatives": {
+        "lost_before": "1/5",
+        "pooled": "1/5",
+        "case_macro": "1/9"
+      }
+    },
+    {
+      "transition": "lexical.eligible->lexical.ranked",
+      "complete": "0/3",
+      "source_macro_loss": "0",
+      "requirements": {
+        "lost_before": "0/5",
+        "pooled": "0",
+        "case_macro": "0"
+      },
+      "alternatives": {
+        "lost_before": "0/6",
+        "pooled": "0",
+        "case_macro": "0"
+      }
+    },
+    {
+      "transition": "lexical.ranked->lexical.selected",
+      "complete": "0/3",
+      "source_macro_loss": "0",
+      "requirements": {
+        "lost_before": "0/5",
+        "pooled": "0",
+        "case_macro": "0"
+      },
+      "alternatives": {
+        "lost_before": "1/6",
+        "pooled": "1/6",
+        "case_macro": "1/6"
+      }
+    },
+    {
+      "transition": "lexical.selected->lexical.returned",
+      "complete": "0/3",
+      "source_macro_loss": "0",
+      "requirements": {
+        "lost_before": "0/5",
+        "pooled": "0",
+        "case_macro": "0"
+      },
+      "alternatives": {
+        "lost_before": "0/5",
+        "pooled": "0",
+        "case_macro": "0"
+      }
+    },
+    {
+      "transition": "fusion.input->fusion.returned",
+      "complete": "1/3",
+      "source_macro_loss": "1/6",
+      "requirements": {
+        "lost_before": "1/5",
+        "pooled": "1/5",
+        "case_macro": "1/9"
+      },
+      "alternatives": {
+        "lost_before": "1/5",
+        "pooled": "1/5",
+        "case_macro": "1/9"
+      }
+    }
+  ],
+  "transition_common_counts": {
+    "intended": 4,
+    "attempted": 4,
+    "completed": 4,
+    "refused": 0,
+    "completion_defined": 3,
+    "completion_undefined": 1,
+    "source_both_defined": 2,
+    "source_undefined": 2,
+    "requirement_case_defined": 3,
+    "requirement_case_undefined": 1,
+    "alternative_case_defined": 3,
+    "alternative_case_undefined": 1
+  },
+  "earlier_refusal": {
+    "case": "E",
+    "order": [
+      "A",
+      "B",
+      "E",
+      "C",
+      "D"
+    ],
+    "total": 5,
+    "attempted": 3,
+    "completed": 2,
+    "refused": 1,
+    "pending_unattempted": 2,
+    "completed_prefix": 2,
+    "attempted_prefix": 3,
+    "completed_source_defined": 2,
+    "completed_source_undefined": 0,
+    "completed_completion_defined": 2,
+    "completed_completion_undefined": 0,
+    "all_aggregates": "UNAVAILABLE_REFUSED",
+    "success_only_diagnostic": {
+      "at20_source": "2/3",
+      "at20_completion": "1/2",
+      "at60_dense_fusion_source": "5/6",
+      "at60_dense_fusion_completion": "1/2",
+      "at60_lexical_source": "1",
+      "at60_lexical_completion": "1"
+    }
+  },
+  "zero_eligible_D_only": {
+    "counts": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "completion": "0/0 UNAVAILABLE_NO_ELIGIBLE_COMPLETED",
+    "source": "0/0 UNAVAILABLE_NO_DEFINED_SOURCE",
+    "requirements": "0/0 UNAVAILABLE_NO_ELIGIBLE_BEFORE",
+    "alternatives": "0/0 UNAVAILABLE_NO_ELIGIBLE_BEFORE",
+    "metric_defined_undefined": [
+      0,
+      1
+    ]
+  }
+}

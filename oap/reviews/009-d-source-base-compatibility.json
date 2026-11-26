@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-13T12:30:44.571191+00:00",
+  "status": "FINAL_STATIC_COMPATIBILITY_NO_RUNTIME_QUALIFICATION",
+  "canonical_base": "b87e264d5b138a7be5e89c3e8820a21697cc0aab",
+  "source_implementation": "b15adafe0a99e557644d1b8fdb06f5089d72a359",
+  "common_production_files": 116,
+  "all_common_production_and_pyproject_lock_workflow": "EXACT_GIT_BLOB_MATCH",
+  "source_only_production": [
+    "src/slaif_raggedized_helper/declared_cohort_metrics.py"
+  ],
+  "canonical_only_production": [],
+  "canonical_portable_dataset_unit_sha256": "b00aa74f4097002b03cd441a97fd920ed706c7cbaf16ecba80640d9fb93026ac",
+  "scope": "Five exact NEW blobs only; no wholebranch/cherry-pick/ancestry transfer. Immutable local report normal and Root admission complete. Full new canonical head CI required.",
+  "source_SELF": "b33da3811d82d651ad711bf5878f4f7159b5fcad"
+}

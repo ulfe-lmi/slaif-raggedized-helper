@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-13T12:30:44.571191+00:00",
+  "identifier": "009-d",
+  "base": "b87e264d5b138a7be5e89c3e8820a21697cc0aab",
+  "entries": [
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-d-components-FINAL.json",
+      "target": "oap/reviews/009-d-components.json",
+      "bytes": 2418,
+      "sha256": "665c71182af5aa3008edf3c54df8619c9ad127fa763a0dc08fed38936891d656"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-c-resolution.json",
+      "target": "oap/reviews/009-d-prior-resolution.json",
+      "bytes": 3226,
+      "sha256": "c7ed853c5b7a194437065ba50e50a88ac048dc0a65c55778741097913755839a"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-d-source-base-compatibility-FINAL.json",
+      "target": "oap/reviews/009-d-source-base-compatibility.json",
+      "bytes": 849,
+      "sha256": "aa2924ba8c20c4498cbd95a3f518e0cc8f5b3455f1e1b715bfd1c3262a90e650"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-cohort-metrics-checkpoint-review-e4afb.json",
+      "target": "oap/reviews/009-d-implementation-review-e4afb.json",
+      "bytes": 1858,
+      "sha256": "5d16f4b70a8f0df1f38fff99206369070dddbb2cc1a887d2b900b8e76b64ee82"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-cohort-metrics-checkpoint-review-b15a.json",
+      "target": "oap/reviews/009-d-implementation-review-b15a.json",
+      "bytes": 2216,
+      "sha256": "bd165502dce8944ffe8beaed6939d4a15a7db19d53b7c8f9ba65ff84b843d505"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-cohort-metrics-peer-root-review-6c8b.json",
+      "target": "oap/reviews/009-d-peer-root-review.json",
+      "bytes": 1940,
+      "sha256": "824a15d573f0d5e8e922a0d80217f94730a077746dbedc481a49a5f5a97bd139"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/parallel/audit-cohort-metrics/report.json",
+      "target": "oap/reviews/009-d-peer-metrics.json",
+      "bytes": 2637,
+      "sha256": "6c8b7192037e41feb72da10a644cc9ab53221e0602676df8fbb5ec23ac277677"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-cohort-metrics-normal-root-review-b33d.json",
+      "target": "oap/reviews/009-d-local-admission.json",
+      "bytes": 3426,
+      "sha256": "a706360bd8ed3e63caec1ff218bdd66cac4405d1e40b6acea1e2a0ca28a72711"
+    },
+    {
+      "source": "/home/janezp/codex-work/slaif-raggedized-helper-parallel-cohort-metrics/oap/parallel/reports/PAR-009-COHORT-METRICS-A.json",
+      "target": "oap/reviews/009-d-coding-component-report.json",
+      "bytes": 4458,
+      "sha256": "67a8335923c1c3968540fb3d5dbb032bd168053086e0fc9e0c6c0fac53edbc48"
+    },
+    {
+      "source": "/home/janezp/codex-supervision/slaif-raggedized-helper/audit/009-d-transfer-and-source-runner-replan-FINAL.json",
+      "target": "oap/reviews/009-d-replan.json",
+      "bytes": 1802,
+      "sha256": "df35e5e76473e79a9a23796af2e07fa734353ca740b2e2512bc4265bf4807dab"
+    }
+  ],
+  "total_record_bytes": 24830,
+  "record_count": 10,
+  "DHA": "NONE"
+}

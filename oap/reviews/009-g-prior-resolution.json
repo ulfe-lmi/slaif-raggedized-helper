@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-16T18:01:58.493998+00:00",
+  "identifier": "009-f",
+  "decision": "FAILED_CURRENT_CI_REVIEW_FINISHED_CONTINUATION_REQUIRED_NOT_ACCEPTANCE",
+  "pr": 11,
+  "head": "4e2d073ac297933501abea6d61bc3fa5437e8397",
+  "implementation": "926bba696e0eda3677166671fd1fd56acfe725aa",
+  "transcript": "756ab32e2ead372547dddd96adb4d04872999704",
+  "report_sha256": "96fcfaf3ef51d41a2cdb9264d63e96afe46b39d08fba6e846dc0545e258dc3e8",
+  "normal_verified_at": "2026-11-16T17:59:31.385986+00:00",
+  "source_review": "Exact32paths/17componentblobs/20pathimplementation/11pathtranscript/reportonlySELF independentlyverified; code/docsource reviews retained.",
+  "CI": {
+    "run": 43921457809,
+    "result": "FAILURE",
+    "OAP_jobs_success": 3,
+    "product_jobs_failed": 2,
+    "unit_pass_each_leg": 2445,
+    "unit_fail_each_leg": 4,
+    "integration": "SKIPPED_NOT_RUN",
+    "cause": "Fouroriginhelpernodes fail sameglobal session sourceextent2923383>focused2MiB. Local origin predicatesbeforecap pass; no algorithm defect fromthisfailure.",
+    "record": "audit/009-f-ci-failure-causal-review-43921457809.json"
+  },
+  "accounting": "Immutablecodingreport~205KB estimate corrected authorregularledger~238916B; partial/generatedamountsestimated. Rootdoesnotcertifyexactsemanticreadclosure. No reportrewrite.",
+  "minor_report_clarification": "17totalcomponents=16NEW+oneMODIFY. Reportparenthetical5+7+5 refersTOTAL; actualNEW5+6+5. Index/diff authoritative andcorrect.",
+  "handoff_recovery": "CoderchatOKwasnotwire. Originalsenderreceiptsabsentandliveoriginalwrapperverifiedwaiting; Rootsentexactoriginalhelperdirectiononce. Actualnormal17:59:31.385986Z nowverified, noFIFOread/replay/duplicateconsumer.",
+  "strongest_reason_not_to_merge": "Bothproductjobsfailed andintegrationrequiredstepsskipped; realoperator/currentpolicy/qualifiedencoder/data/rights/baseline/publisher/plan/nativeOS/20k/hardware/visual/security/license/mergedICA/MVP/release remainopen.",
+  "next": "Same009g boundedtest-origin contextrepair/newheadwholeCI. No numericadvance/merge/oldrunretry.",
+  "DHA": "NONE"
+}

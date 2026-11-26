@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-13T12:14:18.907377+00:00",
+  "identifier": "009-c",
+  "decision": "BOUNDED_EXACT_SOURCE_TRANSFER_CONTINUATION_RESOLVED_REQUIRED_CHECKS_SUCCESS",
+  "head": "b87e264d5b138a7be5e89c3e8820a21697cc0aab",
+  "implementation": "4727a202cad8a66264a594bd0600822915148800",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "CI": {
+    "run": 43420512522,
+    "jobs": 5,
+    "steps": 78,
+    "all_required_status": "SUCCESS",
+    "completed_at": "2026-11-13T12:11:16Z",
+    "evidence": "audit/009-c-ci-all-jobs-b87e.json",
+    "job_timing": "audit/009-c-ci-job-timing-b87e.json",
+    "product_logs": [
+      {
+        "path": "audit/009-c-ci-product-314-b87e.log",
+        "bytes": 77659,
+        "sha256": "e6c78493d428dd8a34cd79b750efdf9885761da3c8d1f191cb85ba1bb14d8648"
+      },
+      {
+        "path": "audit/009-c-ci-product-312-b87e.log",
+        "bytes": 77786,
+        "sha256": "3cb678f6db37740cab81573b85f41243264c271b3253384915805435a83eed94"
+      }
+    ],
+    "log_review": "Root inspected actualproduct3.12/3.14decodedlogs: lockedsetup/lint/syntax/unit/integration/OAP/doctor completed. Productpytestoutput ineachleg has3266periodpassmarkers acrossunit+integration withno nonpass/skip/xfail markers; OAP41testsOK. No producttestcount froma realbaseline orsourcequality claimed."
+  },
+  "source": "audit/009-c-source-report-review-b87e.json",
+  "static_source": "audit/009-c-preSELF-static-review-4727.json",
+  "normal": ".oap-state/response-consumed-009-c.json",
+  "reviews": [
+    "audit/009-c-pr-final-b87e.json",
+    "audit/009-c-threads-final-b87e.json",
+    "audit/009-c-reviews-final-b87e.json"
+  ],
+  "observations": "StandardGitHubrunner3.12postjobcleanupterminatedorphanbwrappid3178. Attributionunproven; alljob/stepchecksSUCCESS, butthisisnotproofeveryCIchildwasreapedbyproduct. Prioractualsource-stagev2 sixcapturedworkersreaped evidence isseparate. No globalprocess-tree/resourcecontainment claimed. Thisdoesnotchange ordinary software-onlyscope orauthorizeprotectedruntime.",
+  "deviations": "RootauthorizedONEpreSELFunpublished3docprecisionamendd39c->4727 preservingoldobject; no implementationpush/forcepush/acceptedSELF rewrite. 009c localverificationstaticonly, source22Gitblob395115B/doc/source/testidentities exact. Priorhistoricalfailure/limitedlocalproof/rootpreflightmistake preserved. No newlocalproduct/runtime runinvented.",
+  "strongest_counterargument": "Thecallablecohort/sourceaggregation/private splitreport remainmissingcanonicalsoftware, realheldout/rights/currentpolicy/qualifiedencoder gatesopen and runnercleanupobservationnotfullcontainmentproof. Fullnewheadmatrixpluspriorindependentexactsourceproof justifyonlyboundedtransfercontinuation. Explicit same009replan keeps remainingwork required, no PRmerge/original009MVPacceptance.",
+  "next": "Original009PARTIAL/PR11OPENunmerged. Reviewpurecohortmetrics currente4afb implementation/exact33PASS/source/unpublishedhead/otherauthorstaticdelta thenREPORT/normal; separatelyfinalizeborrowedsource-runnerorderatthatimmutablebase, laterexactfiniteactualproof. Nextsame009suffixmayactivateonlyafterdependencyadmission/currentstate reconciliation. No newnumericobjective/release/deploy.",
+  "DHA": "NONE"
+}

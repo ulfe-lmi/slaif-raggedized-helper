@@ -1,0 +1,217 @@
+{
+  "at": "2026-11-20T19:16:10.595338+00:00",
+  "identifier": "009-ac",
+  "base": "8f1ba9aa38f38cffc3d8a9adc66ea1a7bbfa1459",
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "PR": 11,
+  "candidate": {
+    "base": "0b337eca746eea97b1e56e71f5a8a06176565a59",
+    "implementation": "319ac7db7c2e854d5663016a63022bd626aaa243",
+    "self_report": {
+      "commit": "54848699469d74e1e5187a13c399113c787144cb",
+      "path": "oap/parallel/reports/PAR-009-SELECT-INSTALLED-POLICY-A.json",
+      "bytes": 8488,
+      "sha256": "6a02bf7846d96543ba940ec1ea388c996659e630c2f17e4f8fc7519ddf9b9f92",
+      "self": "verified sole report-only child of implementation"
+    },
+    "local_resolution": {
+      "path": "audit/009-select-installed-policy-local-resolution.json",
+      "bytes": 10030,
+      "sha256": "8822091c998b5d96b329ddf64d146483b40bda89cf90eac247f692d614ce9c11"
+    },
+    "parallel_response_consumed": {
+      "path": "parallel/select-installed-policy/response-consumed.json",
+      "bytes": 689,
+      "sha256": "fcbe90ce107f6abbd070b2fb5408d5ac93a43efbd85bf3eae2884c70b68becad"
+    },
+    "root_report_verdict": {
+      "path": "parallel/select-installed-policy/Root-verdict-319ac7db7c2e854d5663016a63022bd626aaa243.json",
+      "bytes": 1770,
+      "sha256": "ecfd1a4cea3e827f6347717e931430e98e9d2ea620805a9fb5dff17e7f1fdd42"
+    }
+  },
+  "objects": [
+    {
+      "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-select-installed-policy",
+      "commit": "319ac7db7c2e854d5663016a63022bd626aaa243",
+      "path": "oap/parallel/orders/PAR-009-SELECT-INSTALLED-POLICY-A.md",
+      "destination": "oap/parallel/orders/PAR-009-SELECT-INSTALLED-POLICY-A.md",
+      "mode": "100644",
+      "oid": "88221f588230a9130e161be0ec8349c12f59ec22",
+      "bytes": 7982,
+      "sha256": "69545b67ae9b84a8366822381fef83103d41a5b3d6117740fdc534e7b3ac3862"
+    },
+    {
+      "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-select-installed-policy",
+      "commit": "319ac7db7c2e854d5663016a63022bd626aaa243",
+      "path": "src/slaif_raggedized_helper/private_policy_selection.py",
+      "destination": "src/slaif_raggedized_helper/private_policy_selection.py",
+      "mode": "100644",
+      "oid": "ef4df65e860b2b18e1f03b2e5b95bd5f82ce9006",
+      "bytes": 26825,
+      "sha256": "e929ccc1b4ecc9c7637c6d958022e5c97eae7f9172bbe5012c7bc05b8e3b33c1"
+    },
+    {
+      "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-select-installed-policy",
+      "commit": "319ac7db7c2e854d5663016a63022bd626aaa243",
+      "path": "tests/unit/test_private_policy_selection.py",
+      "destination": "tests/unit/test_private_policy_selection.py",
+      "mode": "100644",
+      "oid": "6c936309995d7e07fc41192a9d5b2cba8ec2fcc1",
+      "bytes": 74745,
+      "sha256": "22c9b9a349acaf3fa30bc568f5d77cf256a5acbee2029d21267cbae885a63f00"
+    },
+    {
+      "worktree": "/home/janezp/codex-supervision/slaif-raggedized-helper/worktrees/slaif-raggedized-helper-parallel-select-installed-policy",
+      "commit": "54848699469d74e1e5187a13c399113c787144cb",
+      "path": "oap/parallel/reports/PAR-009-SELECT-INSTALLED-POLICY-A.json",
+      "destination": "oap/provenance/009-ac/PAR-009-SELECT-INSTALLED-POLICY-A.original.json",
+      "mode": "100644",
+      "oid": "ec51b70089a6e5641f5c2922153a960b81b7a865",
+      "bytes": 8488,
+      "sha256": "6a02bf7846d96543ba940ec1ea388c996659e630c2f17e4f8fc7519ddf9b9f92"
+    }
+  ],
+  "receiver_existing_objects": {
+    "src/slaif_raggedized_helper/private_report_publication.py": {
+      "mode": "100644",
+      "oid": "3c54cb52d83271918634c630d0dcf0f630fdf887",
+      "bytes": 29405,
+      "sha256": "d7c5410280f158cb4cc7c258e06522bb3809aa2c836a79c8b2252b50575ece3e"
+    },
+    "src/slaif_raggedized_helper/private_policy_payload.py": {
+      "mode": "100644",
+      "oid": "a96af29c897cf98f785e85f8c51d56fd18e7c491",
+      "bytes": 7421,
+      "sha256": "48bf5ec415e049f265c6e90a68caa08283495bf3c07dbace90495f57e041193d"
+    },
+    "src/slaif_raggedized_helper/private_policy_capture.py": {
+      "mode": "100644",
+      "oid": "68941f04e136fe340979713729a759c5b3389379",
+      "bytes": 14974,
+      "sha256": "4d0c3b8002c6c4fabe3c3be3a08d851375249ad2fb807260f56e5fa9e3e7f0fc"
+    },
+    "src/slaif_raggedized_helper/policy_selection.py": {
+      "mode": "100644",
+      "oid": "d47ae4187089b30f885eccfc56259aa566062453",
+      "bytes": 2526,
+      "sha256": "eda878a12af9f141b6f9cd48ccec5601932201f9b36baa31fa17fe28659bde87"
+    },
+    "src/slaif_raggedized_helper/supplied_policy.py": {
+      "mode": "100644",
+      "oid": "f003704389a90e021cd40eef3a723194e2585b77",
+      "bytes": 16721,
+      "sha256": "7e59a94b98ee9b58af53bd4f350b992dbb0b91c547fd428b31b43b7009927195"
+    },
+    "src/slaif_raggedized_helper/supplied_policy_wire.py": {
+      "mode": "100644",
+      "oid": "ad380f5a824af348a58e23e7fb634ae9ba914a6f",
+      "bytes": 10556,
+      "sha256": "d18a93996baa36ea88b538f439994e9d658eb1fe4de32fb6daac15068ec4805a"
+    },
+    "tests/unit/test_private_report_publication.py": {
+      "mode": "100644",
+      "oid": "351aa1c631c72a0aa1702252e06bcb74c98338e5",
+      "bytes": 106921,
+      "sha256": "1b8cb255ba2b31fe1cb2c197fd6c72d5123dee9c400108d1d2a2b7812e9ad55d"
+    },
+    "tests/unit/test_private_policy_payload.py": {
+      "mode": "100644",
+      "oid": "95b38420f15e97455b52a6113553249ca69a0221",
+      "bytes": 50707,
+      "sha256": "ac56eed16c5505b7f8c3afd2a7728fc6312367fd2713be1a7a4f77eeb831d814"
+    },
+    "tests/unit/test_private_policy_capture.py": {
+      "mode": "100644",
+      "oid": "3c7e2b5be17debf89c6c4bf82c86e259e36326cd",
+      "bytes": 37256,
+      "sha256": "bb1fccfeddf28c8ecba464fa4f392e6b830f2fc07291a44a65978b19b670f7b9"
+    },
+    "oap/bin/ci_unit_partition.py": {
+      "mode": "100644",
+      "oid": "e180cfa535f6a061bf05f9a68b3a2f640b1653a2",
+      "bytes": 6368,
+      "sha256": "e1030e106035583ea3b1e712714f9d99bfb2d5434223abf04cad63a07c307e7b"
+    },
+    "oap/bin/ci_unit_diagnostics.py": {
+      "mode": "100644",
+      "oid": "51f13962b63c7b4c215ac6f81af07b49a15d3855",
+      "bytes": 66103,
+      "sha256": "1b5ab7c13f77766501b1ecfc0264b798577b8f583c1300a232597c3df7a8db7b"
+    },
+    ".github/workflows/oap.yml": {
+      "mode": "100644",
+      "oid": "58eee45c59bab5a002ea36831850b02c59106b28",
+      "bytes": 14235,
+      "sha256": "54e66869d9a2a02e95202ed3eaecba199a2494ca6f6c5742554e722cf14367c6"
+    },
+    "uv.lock": {
+      "mode": "100644",
+      "oid": "6be6828ca02fdd44c5a677796e9f79d53d8e0965",
+      "bytes": 89617,
+      "sha256": "5048b68104b0374492b9e8f5d097adae22c7d5615fa92849557b33411e6b4685"
+    },
+    "STATUS.md": {
+      "mode": "100644",
+      "oid": "ceb4e2cd01d80ffe6c5d29caf53fb196ec27a5ca",
+      "bytes": 167654,
+      "sha256": "53d0a144ef76b0181e9c3a073bf67a432c641450f1c45a6b91137b153079e9bf"
+    },
+    "docs/evaluation.md": {
+      "mode": "100644",
+      "oid": "51ef4aab7feb58bf774d98b4b20d09ab9043cc1a",
+      "bytes": 162913,
+      "sha256": "1d5e59717b2cb637337b515677b7f566041ba2286cf6af49466d42ce7997b0bc"
+    },
+    "tests/integration/test_private_pinned_hybrid_composition.py": {
+      "mode": "100644",
+      "oid": "4950daeda2405efd11abf209b92c1e7beff6b092",
+      "bytes": 24670,
+      "sha256": "90d205bbef215470e09d292ccff3472aa65529e5262550aaa47a10084cc31311"
+    },
+    "src/slaif_raggedized_helper/raw_hybrid_search.py": {
+      "mode": "100644",
+      "oid": "74cbc76b6f9727248eaf0e399866571ab4b7cbfc",
+      "bytes": 22827,
+      "sha256": "7ba08bbd5b32df62c1270a29e30ca3e9e9c3784eedead0b883e4656d35e09309"
+    },
+    "src/slaif_raggedized_helper/private_policy_pin_eligibility.py": {
+      "mode": "100644",
+      "oid": "eb4a51d997ef1d9fca6d52c3f31cd84a67bb7360",
+      "bytes": 20581,
+      "sha256": "7dc89e5277032d2f3bb24143e3f878e6a5a85ccc46d514b35c37b418214daf3b"
+    }
+  },
+  "absent_owned_destinations": [
+    "oap/parallel/orders/PAR-009-SELECT-INSTALLED-POLICY-A.md",
+    "src/slaif_raggedized_helper/private_policy_selection.py",
+    "tests/unit/test_private_policy_selection.py",
+    "oap/provenance/009-ac/PAR-009-SELECT-INSTALLED-POLICY-A.original.json"
+  ],
+  "receiving_exact_units": {
+    "A": 1440,
+    "B": 1998,
+    "total": 3438,
+    "same_inventory_files": [
+      {
+        "path": "audit/009-select-installed-policy-preview-inventory/added-B.nodes",
+        "bytes": 10575,
+        "sha256": "7de598f16e07d9bab623ab7a8ce575aac693897e057a4a9d69638198825555ae"
+      },
+      {
+        "path": "audit/009-select-installed-policy-preview-inventory/expected-A.nodes",
+        "bytes": 167816,
+        "sha256": "14fe8402e9c6eb1154b76d642a19b9bddd7a915e4fec2103942bd6eb66d0b8fb"
+      },
+      {
+        "path": "audit/009-select-installed-policy-preview-inventory/expected-B.nodes",
+        "bytes": 195424,
+        "sha256": "eabef92c22bcfa81a5d7cd48d3ba2112af10f3e53386725d3a4559712323c5b8"
+      }
+    ]
+  },
+  "receiving_exact_integration": 957,
+  "local_focused": 290,
+  "read_depth": "Exact receiving and source hash verification, local Root resolution, the four inherited test modules plus new leaf module as scoped by one proof, product notes and only needed operational metadata. No whole books, full local suite, live data or runtime setup.",
+  "DHA": "NONE"
+}

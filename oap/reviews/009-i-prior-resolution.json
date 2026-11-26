@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-16T20:46:41.370366+00:00",
+  "identifier": "009-h",
+  "decision": "FAILED_CURRENT_CI_REVIEW_FINISHED_DIAGNOSTIC_CONTINUATION_REQUIRED_NOT_ACCEPTANCE",
+  "pr": 11,
+  "head": "71172016968615365a59cf0341c699e105d38012",
+  "implementation": "d8a43fb69466f6bbee1f1737c0dc08505eca1b96",
+  "transcript": "b1aafae98c615d679966c56638d43a988162e4c2",
+  "report_bytes": 8031,
+  "report_sha256": "bb9da046f8581f666fa7f0f91a2857a27ff8ec33828bd2bfeef5e88a0ade397f",
+  "normal_verified_at": "2026-11-16T20:42:59.547803+00:00",
+  "remote": "Plugin verified unique open non-draft PR11 at this exact head/base main5a7b41cc512cf883b5b2cb92d87554b4d24e685b; zero reviews/threads; unmerged. Clean local source/report head same.",
+  "source_review": "Exact five-path transcript, three-path implementation and report-only SELF; nine total round paths. One-character fixture correction59f093b4, all50program nodes retained; production program84aceffc/runnerd9f1 unchanged; all historical reports/checkpoints preserved. Full final8031B report independently read.",
+  "Root_focused_check": "One Root-owned bounded direct child:104PASS (54runner+50program), all79frozen inputs pre/post match at check time. Attributed development evidence only, not fullCI/baseline/runtime qualification; no duplicate local invocation.",
+  "CI": {
+    "run": 43949914814,
+    "result": "FAILURE",
+    "terminal_observed_at": "2026-11-16T20:44:52.509239+00:00",
+    "jobs_success": 4,
+    "jobs_failure": 1,
+    "required_steps": 78,
+    "steps": {
+      "success": 71,
+      "failure": 1,
+      "skipped": 6
+    },
+    "python312": {
+      "job": 133589340533,
+      "finding": "Product unit step exit137 after progress through90% and52additional dots; no F/E printed in that tail, no traceback or complete summary. Six downstream steps skipped.",
+      "cause": "UNPROVEN; not a confirmedOOM, signal sender, node, constructor recurrence or source algorithm defect."
+    },
+    "python314": {
+      "job": 133589341005,
+      "finding": "Entire jobSUCCESS, every required stepSUCCESS. Fullunit and integration progress reach100%; integration warning about existingmultithreaded fork at test_isolated_cpu_embedding_composition.py:143. Not a new failure or proof of complete OS/process qualification."
+    },
+    "oap": "Allthree3.12/3.13/3.14 jobsSUCCESS",
+    "logs": "Full connector-decoded product logs retained audit/009-h-ci-{133589340533,133589341005}-43949914814.log; relevant full unit/integration sections inspected. Not original ZIPbytehash claims."
+  },
+  "accounting": "Coding semantic read ledger remains author estimate, not Root-certified hard bound; ASTreadset lowerbound and external/native/OSclosure limits preserved.",
+  "strongest_reason_not_to_merge": "One required product job failed andsixrequiredstepsskipped. Whole009 and genuine principal/currentpolicy/qualifiedencoder/data/rights/baseline/runtime/hardware/visual/security/license/mergedICA/fullMVP gates remainOPEN.",
+  "next": "Same009/PR11 continuation009-i: diagnostic-only one unit workflow run-block edit for verbose node logging/externaltime plus two current docs. Preserve fullsuite/matrices/allgates, no resourcecapraise/filter/speculativeproductpatch/oldrunretry; inspect new evidence before remediation.",
+  "DHA": "NONE"
+}

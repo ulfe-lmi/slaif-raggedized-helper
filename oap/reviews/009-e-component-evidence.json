@@ -1,0 +1,220 @@
+{
+  "at": "2026-11-13T14:41:08.438343+00:00",
+  "status": "ROOT_AUTHORED_PUBLIC_SYNTHETIC_EVIDENCE_PROJECTION",
+  "meaning": "Projection of independently inspected exact private evidence, not an edited coding report or independent rerun. Private operational paths/PIDs/raw source/query/vector/trace/hit data omitted. Exact immutable coding report separately indexed.",
+  "source_runner": {
+    "SELF": "91f31182dae31a01d0f0dbf35b272c18ed08a2c8",
+    "implementation": "3c92a59d9240826522a7152fc96d4973ec8b94c7",
+    "source_sha256": "96e6971435a3a2f639e7ba3d101248c8eb3fb6bc34b35fedbebdd40d673b4f29",
+    "unit_sha256": "4d01ca5c9d717e900364f0aed8a97eff07e9a742cbfab051826b50438934d87b",
+    "unit_tests": 54,
+    "result": "PASS with Ruff; original35 plus19 malformed-scalar regression variants. Exactint/bounds before count equality; aggregate not called on malformed binder observations; pure malformed counter refused in serialization phase.",
+    "unit_stdout_sha256": "9cac9575ff4d4af30afe9be81b8b14f92408f73df2eb646e256a432cb19b1bc3",
+    "accounting": "Controlled unit evidence; no actualsource rerun in that verification."
+  },
+  "proof_normal": {
+    "lane": "cohort-proof",
+    "lane_id": "PAR-009-COHORT-PROOF-A",
+    "result": "COMPLETE",
+    "implementation": "60b171379a826d97920378a59109d31869970387",
+    "report_commit": "5ffef4c1f42fc8c01591218bfcbe115318094918",
+    "report_sha256": "f91e1150f672b923a8f6858081761c1099a09fc30ab2dabe4ef1a42915073b72",
+    "paths": [
+      "docs/parallel/source-cohort-runner-composition.md",
+      "docs/parallel/source-cohort-runner-proof-inputs.json",
+      "docs/parallel/source-cohort-runner-tiny-oracle.json",
+      "oap/parallel/orders/PAR-009-COHORT-PROOF-A-addendum-1.md",
+      "oap/parallel/orders/PAR-009-COHORT-PROOF-A.md",
+      "tests/integration/test_source_cohort_runner_composition.py"
+    ],
+    "verified_at": "2026-11-13T14:39:26.465498+00:00",
+    "scope": "LOCAL CANDIDATE ONLY. No GitHub publication, CI certification, integration or strategic acceptance."
+  },
+  "actual": {
+    "tested_driver_sha256": "065b2cb4c2e67c35f4a76987cfeb991d65fd6e039f50de8dcd852cbe08794124",
+    "oracle_sha256": "e291137da708b36c2f9af4097bb4f884cc98d2a9ef9dbb0ca4b7f7e91f36ff6d",
+    "assertions": "Exact tested065b driver previously fully reviewed/ASTequivalent8408 compares complete Root6prefix/7transition API summaries, private identities, full5case7Gold/all3bundle pass-through/effective-original authority/pairedresult identity and generation pin. One passed test means every retained plain assertion completed. Expected math independently authored before execution; no expected values derived from result.",
+    "summary": {
+      "bad_origins": [],
+      "deselected": [],
+      "failed": [],
+      "nodes": [
+        "tests/integration/test_source_cohort_runner_composition.py::test_source_cohort_runner_composition"
+      ],
+      "pytest_status": 0,
+      "reports": [
+        {
+          "nodeid": "tests/integration/test_source_cohort_runner_composition.py::test_source_cohort_runner_composition",
+          "outcome": "passed",
+          "phase": "setup",
+          "wasxfail": false
+        },
+        {
+          "nodeid": "tests/integration/test_source_cohort_runner_composition.py::test_source_cohort_runner_composition",
+          "outcome": "passed",
+          "phase": "call",
+          "wasxfail": false
+        },
+        {
+          "nodeid": "tests/integration/test_source_cohort_runner_composition.py::test_source_cohort_runner_composition",
+          "outcome": "passed",
+          "phase": "teardown",
+          "wasxfail": false
+        }
+      ],
+      "skipped": []
+    },
+    "lifecycle": {
+      "bytes": 2425,
+      "counts": [
+        [
+          5,
+          4,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          4,
+          3,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "generator_count": 1,
+      "outer": [
+        {
+          "attempt": 1,
+          "state": "completed"
+        },
+        {
+          "attempt": 2,
+          "state": "refused"
+        },
+        {
+          "attempt": 3,
+          "progress": {
+            "attempted": 3,
+            "completed": 2,
+            "intended": 4,
+            "pending": 1,
+            "phase": "PRODUCER",
+            "refused": 1
+          },
+          "state": "refused"
+        },
+        {
+          "attempt": 4,
+          "progress": {
+            "attempted": 0,
+            "completed": 0,
+            "intended": 4,
+            "pending": 4,
+            "phase": "PREFLIGHT",
+            "refused": 0
+          },
+          "state": "refused"
+        }
+      ],
+      "sha256": "7a4e75528e9c2ba2b78c185898958ac5a42ddf90a52eff5a7c883adbe31e1558",
+      "worker_count": 6
+    },
+    "worker_outcomes": "Six captured timeout wrapper processes return143 with close_returned true and poll_failed absent/null; termination is normal deliberate session close, not six successful worker exit0 claims. Generator return0. No cleanupfailures/overages/timeouts. Not whole descendant-tree proof.",
+    "resource_observations": {
+      "pytest_seconds": 59.29,
+      "launcher_wall_seconds": 62.39849252300337,
+      "outer_wall_seconds": 62.64017086662352,
+      "SELF_CPU_delta_seconds": 2.7074219999999998,
+      "waited_CHILDREN_CPU_delta_seconds": 58.910207,
+      "SELF_plus_waited_CHILDREN_CPU_delta_seconds": 61.617629,
+      "SELF_maxrss_KiB": 22092,
+      "waited_CHILDREN_maxrss_KiB": 93052,
+      "sampled_scratch_max_bytes": 286066,
+      "sampled_scratch_max_entries": 74,
+      "dynamic_postrun_stdlib_files": 11,
+      "dynamic_postrun_stdlib_bytes": 261726
+    },
+    "artifact_hashes": {
+      "before.json": {
+        "bytes": 6828,
+        "sha256": "75d54a8ecbd23a425897c92cd427ce1746cfe9cc840c8f41a9753053a65f0dc6"
+      },
+      "after.json": {
+        "bytes": 3789,
+        "sha256": "71117ea0a96b0136a7cfc8e49cf006ff0d3c7e5d19c1a8025dab2b0a2cc3990b"
+      },
+      "stdout": {
+        "bytes": 99,
+        "sha256": "6b1756838dea40a2d28842b4af0a8c3d5e2fd03506dcc34c84cde495cf82c7c6"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "guard.json": {
+        "bytes": 127,
+        "sha256": "71e728482e0174dfe6cc97669b7a6e10b29ed2d818a445f92c99f0d0b425ad0e"
+      },
+      "summary.json": {
+        "bytes": 726,
+        "sha256": "5442d4ea2d6fd593335fcea225f50ddd40f01e8818559e511e4f27d60ddc4872"
+      },
+      "origins.json": {
+        "bytes": 75421,
+        "sha256": "b810338a6fb71669894d5c87d1b6a59beb5b9838d4f825704895de07b7bb700c"
+      },
+      "ambient-stdlib.json": {
+        "bytes": 1968,
+        "sha256": "821e0b476d42bc70bfc137c5029294bbb9a3370d36b82c94ea8b0ea1a8f691f6"
+      }
+    },
+    "physical_caps": {
+      "affinity": [
+        0
+      ],
+      "core_bytes": 0,
+      "fsize_bytes_per_file": 16777216,
+      "outer_as_bytes": 2147483648,
+      "outer_cpu_seconds": 180,
+      "outer_wall_seconds": 360,
+      "pytest_as_bytes": 2147483648,
+      "pytest_cpu_seconds": 120,
+      "pytest_wall_seconds": 240,
+      "sampling_interval_seconds": 0.25,
+      "scratch_sample_threshold_bytes": 268435456,
+      "scratch_sample_threshold_entries": 4096,
+      "stdout_stderr_sample_threshold_each": 2097152
+    },
+    "helper_sha256": "247a596eafacb93ff1daae3762d36194c4a1905235c2266339c3884a731ca973",
+    "approval_sha256": "508494a6368126744f89d2ca5046310fb5cc461da80fb99d526175d4ad639594",
+    "request_sha256": "e07484406e53ca6ff585362c23bfeba4058ed5756aadb76576d797bbcd6e1005"
+  },
+  "history": "FirstlocalASTinventoryfailed cap due dedup; firstcollectionfailed sitecustomize and inheritedquietformat guard. Both retained. CorrectedcollectionONLYpassed one expectednode/no skips/deselection/body; firstformat ASTequivalent8408to065b and Ruffpassed, no repeat. Earlier driverpeer found unsafecleanupnotes/truthiness and unnecessary fulltrace retention; correctedactualfinally/scalarpass-through reviewed by otherauthor before one actualrun.",
+  "cleanup_witness": "Root independent once10cases PASS using exact extracted actualdefinitions, genuine try/raise/finally identity checks against independently authored expectedclose sequences; no codingauthor rerun. Controlled fake close/store/log operations only; not actualsource or own-work ICA.",
+  "independence": "Otherauthor new33driver/adaptation review, priorlower/prototype/F1fixauthorship disclosed by32. Root independently reviewed actualcode/oracle/metadata and retained evidence, no second actualrun. Not whole milestone ICA.",
+  "private_root_record_sha256": {
+    "audit/009-cohort-runner-b-unit-proof-root-review.json": "71fa67f1768fc4dcb6de9e2bd3ea4bc2d1464cd82ca2dd5838c6fb643e009a24",
+    "audit/009-cohort-runner-b-normal-root-review-91f3.json": "a9e2450e003602d8e80fbc30a65c8e24ff578b9fb875b7a7368eee0cc642e0ce",
+    "audit/009-cohort-proof-peer-normal-root-review-e6e8.json": "60505e55f4289aaab47abb4c32b0932c58a99be83c7b9a54b9cd0a78080f8121",
+    "audit/009-cohort-proof-peer-b-normal-root-review-30d4.json": "289ff7e45d8a7903c7447a5846b04f206832633e615f2bc2a2825c308f8fd45a",
+    "audit/009-cohort-proof-phase-a-final-root-review-065b.json": "a9da0b728e463d46f679d94e5522d82163ea5490690889ac5f78cebb96729c74",
+    "audit/009-cohort-proof-actual-budget-root-review-247a.json": "a308d578ef8e992bf96ff994e3813cc89cae8243c099552be5018833f27e88ee",
+    "audit/009-cohort-proof-actual-pass-root-review-065b.json": "05974556ac2ce58f37d7a79021014d048dd14f4b3070e9579723f62c8989148e",
+    "audit/009-cohort-proof-checkpoint-root-review-60b1.json": "0de5ada65efac10cae9ff3ad429e52766cb12024362b0488bf8645c05a02d806",
+    "audit/009-cohort-proof-normal-root-review-5ffe.json": "5f22c013a52d716a7a5dfcdc9c5a433efea6564c6b8ce4b680dc28079ddc996c"
+  },
+  "qualification_limits": "Perprocess caps/monitored storage/log thresholds and waited usage not aggregatehardCPU/RSS/storage or whole-descendant containment. Ambient11stdlib identities post-run notprefrozen; OS/linker/nativestdlib/networkclosure unresolved. Synthetic declared held_out not representative humanheldout/rights/currentpolicy/encoder/hardware/20k/visual/license/ICA/MVP/release qualification. Original009OPEN and realbaselineNOTRUN.",
+  "strongest_counterargument": "Tiny synthetic onehot fixture and measured software calls do not establish domain quality or full application behavior. They do prove this exact bounded source-running cohort composition and refusal paths against predeclared arithmetic and genuine local delegates, sufficient to proceed to docs/checkpoint and later canonical CI review only.",
+  "DHA": "NONE"
+}
