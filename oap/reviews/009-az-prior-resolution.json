@@ -1,0 +1,49 @@
+{
+  "at": "2026-11-26T19:27:27.522358+00:00",
+  "identifier": "009-ay",
+  "PR": 11,
+  "main": "5a7b41cc512cf883b5b2cb92d87554b4d24e685b",
+  "head": "d3243019f284b00f83e814972866180454ef0dcc",
+  "run": 45529630089,
+  "attempt": 1,
+  "decision": "ACCEPT_EXACT_SCOPE_CONTINUATION_ONLY",
+  "per_product": {
+    "ordered_units": [
+      1440,
+      1998
+    ],
+    "integrations": 1008
+  },
+  "scope": "The published governance bundle passed every required job and step. The newer human law correction had arrived locally by reconciliation and will be carried in the next scoped transcript.",
+  "strongest_reason_to_hold_merge": "The current evaluation program and its representative baseline are incomplete.",
+  "evidence": [
+    {
+      "path": "audit/009-ay-check/Root-consumed-response-reconciliation.json",
+      "bytes": 2293,
+      "sha256": "39dd05e1df6626e9999f5fb77232df54fc9001615f32ee73bdbb379e7d5df894"
+    },
+    {
+      "path": "audit/009-ay-check/Root-terminal-run-api.json",
+      "bytes": 15484,
+      "sha256": "5c5c0d55b862486180cf513f8af3fe1d23d71f302f27ee23a3523907545d731e"
+    },
+    {
+      "path": "audit/009-ay-check/Root-terminal-jobs-api.json",
+      "bytes": 18018,
+      "sha256": "36b930768ab772c5f303b4e96a6801036e80e8dca31b2e8686f61123c735471b"
+    },
+    {
+      "path": "audit/009-ay-check/Root-terminal-required-jobs.json",
+      "bytes": 1237,
+      "sha256": "b3de12d95c09ebd909751e4b1ec3abc71f326d82eb0cee1a0e28c23d78209dd8"
+    },
+    {
+      "path": "audit/009-ay-check/Root-terminal-unit-inventory.json",
+      "bytes": 3359,
+      "sha256": "0329507fb7e43a03b457ec7477aa325b1e04863b6a98e8effb5652952716a420"
+    }
+  ],
+  "baseline": "NOT_RUN",
+  "whole_009": "PARTIAL",
+  "DHA": "NONE"
+}
